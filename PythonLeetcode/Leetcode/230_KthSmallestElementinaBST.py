@@ -1,8 +1,3 @@
-import os
-
-
-
-
 # leetcode 230. Kth Smallest Element in a BST
 # Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
 
@@ -56,7 +51,7 @@ class kthSmallest:
         
         return val_k
 
-    def doit1(self, root, k):
+    def doit2(self, root, k):
         """
         :type root: TreeNode
         :type k: int
