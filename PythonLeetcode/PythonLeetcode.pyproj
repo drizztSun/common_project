@@ -127,6 +127,12 @@
     <Compile Include="LeetCodeE\453_MinimumMovestoEqualArrayElements.py" />
     <Compile Include="LeetCodeE\455_AssignCookies.py" />
     <Compile Include="LeetCodeE\456_132Pattern.py" />
+    <Compile Include="LeetCodeE\467_UniqueSubstringsInWraparoundString.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\475_Heaters.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\496_NextGreaterElementI.py">
       <SubType>Code</SubType>
     </Compile>

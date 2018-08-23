@@ -1,6 +1,3 @@
-
-
-
 # 466. Count The Repetitions
 
 # Define S = [s,n] as the string S which consists of n connected strings s.
@@ -28,6 +25,7 @@
 
 
 class GetMaxRepetitions:
+
     def doit(self, s1, n1, s2, n2):
         """
         :type s1: str
@@ -51,10 +49,12 @@ class GetMaxRepetitions:
                         s2_index = 0
 
             if s2_index in start:
+                
                 prev_s1_round, prev_s2_round = start[s2_index]
+                
                 circle_s1_round, circle_s2_round = s1_round - prev_s1_round, s2_round - prev_s2_round
                 
-                res = (n1 - s1_round) / circle_s1_round * circle_s2_round
+                res = (n1 - prev_s1_round) / circle_s1_round * circle_s2_round
 
                 left_s1_round = (n1 - s1_round) % circle_s1_round + prev_s1_round
         
@@ -62,17 +62,17 @@ class GetMaxRepetitions:
                     if val[0] == left_s1_round:
                         res += val[1]
                         break
+
                 return res / n2
+
             else:
                 start[s2_index] = (s1_round, s2_round)
 
         return s2_round / n2
 
+
 if __name__=="__main__":
-    
-    obj = GetMaxRepetitions()
 
-    res = obj.doit("acb", 4, "ab", 2)
-
+    res = GetMaxRepetitions().doit1("acb", 4, "ab", 2)
 
     pass
