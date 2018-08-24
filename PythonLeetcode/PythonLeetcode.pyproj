@@ -12,6 +12,7 @@
     <OutputPath>.</OutputPath>
     <Name>PythonLeetcode</Name>
     <RootNamespace>PythonLeetcode</RootNamespace>
+    <InterpreterId>Global|PythonCore|3.6</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -131,6 +132,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\475_Heaters.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\479_LargestPalindromeProduct.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\486_PredicttheWinner.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\491_IncreasingSubsequences.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\494_TargetSum.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\496_NextGreaterElementI.py">
@@ -535,6 +548,9 @@
     <Folder Include="LintCode\" />
     <Folder Include="LintCode\backpack\" />
     <Folder Include="test\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.6" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
