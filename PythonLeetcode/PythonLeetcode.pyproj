@@ -128,13 +128,15 @@
     <Compile Include="LeetCodeE\453_MinimumMovestoEqualArrayElements.py" />
     <Compile Include="LeetCodeE\455_AssignCookies.py" />
     <Compile Include="LeetCodeE\456_132Pattern.py" />
-    <Compile Include="LeetCodeE\457_CircularArrayLoop.py">
+    <Compile Include="LeetCodeE\457_CircularArrayLoop.py" />
+    <Compile Include="LeetCodeE\459_RepeatedSubstringPattern.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\461_HammingDistance.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="LeetCodeE\462_MinimumMovesEqualArrayElementsII.py">
+    <Compile Include="LeetCodeE\462_MinimumMovesEqualArrayElementsII.py" />
+    <Compile Include="LeetCodeE\464_CanIWin.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\467_UniqueSubstringsInWraparoundString.py">
@@ -578,6 +580,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.6" />
+    <InterpreterReference Include="Global|PythonCore|3.7-32" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
