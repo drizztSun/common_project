@@ -51,7 +51,10 @@ class minMoves(object):
 
         # Looks familiar? If you do it by decreasing 1 each time, this equation should be easy to understand!
         # Some of you may have this question: how can I be sure that after adding 1 to (n-1) elements in the array,
-        # the minimum value is the previous min plus one. Is it possible that the minimum value stays the same after this? The answer is no, it’s not possible. As long as all elements are not same, adding 1 to (n-1) elements meaning only one element in the array is not getting a candy. And I’m sure you will choose not to give the candy to the oldest one. So, yes, every time you do that add operation, the min value adds 1.        
+        # the minimum value is the previous min plus one. Is it possible that the minimum value stays the same after this? The answer is no, 
+        # it's not possible. As long as all elements are not same, adding 1 to (n-1) elements meaning only one element in the array is not getting a candy. 
+        # And Iï¿½m sure you will choose not to give the candy to the oldest one. So, yes, every time you do that add operation, the min value adds 1.
+                
         if not nums and len(nums) < 2:
             return 0
 
