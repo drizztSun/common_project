@@ -140,10 +140,31 @@
     <Compile Include="LeetCodeE\467_UniqueSubstringsInWraparoundString.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\468_ValidateIPAddress.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\470_ImplementRand10UsingRand7.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\473_MatchstickstoSquare.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\474_OnesandZeroes.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\475_Heaters.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\476_NumberComplement.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\479_LargestPalindromeProduct.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\481_MagicalString.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\485_MaxConsecutiveOnes.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\486_PredicttheWinner.py">
@@ -155,7 +176,19 @@
     <Compile Include="LeetCodeE\494_TargetSum.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\495_TeemoAttacking.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\496_NextGreaterElementI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\497_RandomPointInNon-overlappingRectangles.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\498_DiagonalTraverse.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\500_KeyboardRow.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\501_FindModeBinarySearchTree.py">
