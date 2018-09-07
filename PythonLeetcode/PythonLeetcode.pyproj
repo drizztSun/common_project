@@ -278,6 +278,15 @@
     <Compile Include="LeetCodeE\598_RangeAdditionII.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\605_CanPlaceFlowers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\606_ConstructStringfromBinaryTree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\609_FindDuplicateFileInSystem.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\611_ValidTriangleNumber.py" />
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
     <Compile Include="LeetCodeE\697_DegreeofanArray.py" />
