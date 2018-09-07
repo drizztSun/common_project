@@ -128,12 +128,14 @@
     <Compile Include="LeetCodeE\453_MinimumMovestoEqualArrayElements.py" />
     <Compile Include="LeetCodeE\455_AssignCookies.py" />
     <Compile Include="LeetCodeE\456_132Pattern.py" />
+    <Compile Include="LeetCodeE\457_CircularArrayLoop.py" />
     <Compile Include="LeetCodeE\459_RepeatedSubstringPattern.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\461_HammingDistance.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\462_MinimumMovesEqualArrayElementsII.py" />
     <Compile Include="LeetCodeE\464_CanIWin.py">
       <SubType>Code</SubType>
     </Compile>
@@ -155,7 +157,11 @@
     <Compile Include="LeetCodeE\475_Heaters.py">
       <SubType>Code</SubType>
     </Compile>
+
     <Compile Include="LeetCodeE\476_NumberComplement.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\478_GenerateRandomPointInCircle.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\479_LargestPalindromeProduct.py">
@@ -284,7 +290,19 @@
     <Compile Include="LeetCodeE\563_BinaryTreeTilt.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\565_ArrayNesting.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\566_ReshapetheMatrix.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\567_PermutationInString.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\575_DistributeCandies.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\576_OutofBoundaryPaths.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\592_FractionAdditionandSubtraction.py" />
@@ -306,6 +324,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\752_OpenLock.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\826_MostProfitAssigningWork.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\96_UniqueBinarySearchTree.py">

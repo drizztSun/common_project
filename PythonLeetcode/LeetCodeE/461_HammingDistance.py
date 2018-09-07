@@ -20,8 +20,6 @@
 
 # The above arrows point to positions where the corresponding bits are different.
 
-
-
 class HammingDistance:
     def doit(self, x, y):
         """
@@ -29,6 +27,33 @@ class HammingDistance:
         :type y: int
         :rtype: int
         """
+        distance = 0        
+        while x + y != 0:
+
+            if x & 1 != y & 1:
+                distance += 1
+
+            x >>= 1
+            y >>= 1
+
+        return distance
+
+    
+    def doit1(self, x, y):
+
+        a = bin(x)[2:].zfill(32)
+        b = bin(y)[2:].zfill(32)
+
+        return sum([1 if a[i] != b[i] else 0 for i in range(32)])
+
+        # n=0
+        # i=0
+        # a=bin(x)[2:].zfill(32)
+        # b=bin(y)[2:].zfill(32)
+        # for i in range(32):
+        #    if a[i]!=b[i]:
+        #        n+=1      
+        # return n
         ans = 0
         while x + y != 0:
             if x % 2 != y % 2:
@@ -39,7 +64,7 @@ class HammingDistance:
         return ans
 
 
-    def doit1(self, x, y):
+    def doit2(self, x, y):
         r = x ^ y;
         result = 0
     
@@ -53,4 +78,4 @@ class HammingDistance:
 if __name__ == "__main__":
 
     res = HammingDistance().doit(1, 4)
-        
+
