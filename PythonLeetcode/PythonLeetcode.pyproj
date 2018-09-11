@@ -339,6 +339,9 @@
     <Compile Include="LeetCodeE\623_AddOneRowtoTree.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\628_MaximumProductofThreeNumbers.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
     <Compile Include="LeetCodeE\697_DegreeofanArray.py" />
     <Compile Include="LeetCodeE\698_PartitiontoKEqualSumSubsets.py" />
