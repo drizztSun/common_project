@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>849acb53-e106-4d2a-8bfd-491e9ec7f059</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>LeetCodeE\542_01Matrix.py</StartupFile>
+    <StartupFile>LeetCodeE\640_SolveTheEquation.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -340,6 +340,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\628_MaximumProductofThreeNumbers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\633_SumOfSquareNumbers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\637_AverageOfLevelsInBinaryTree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\638_ShoppingOffers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\640_SolveTheEquation.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
