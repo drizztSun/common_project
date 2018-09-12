@@ -345,6 +345,9 @@
     <Compile Include="LeetCodeE\633_SumOfSquareNumbers.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\636_ExclusiveTimeOfFunctions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\637_AverageOfLevelsInBinaryTree.py">
       <SubType>Code</SubType>
     </Compile>
@@ -352,6 +355,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\640_SolveTheEquation.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\641_DesignCircularDeque.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\643_MaximumAverageSubarrayI.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\645_SetMismatch.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\646_MaximumLengthOfPairChain.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\647_PalindromicSubstrings.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
