@@ -372,6 +372,9 @@
     <Compile Include="LeetCodeE\647_PalindromicSubstrings.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\648_ReplaceWords.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
     <Compile Include="LeetCodeE\697_DegreeofanArray.py" />
     <Compile Include="LeetCodeE\698_PartitiontoKEqualSumSubsets.py" />
