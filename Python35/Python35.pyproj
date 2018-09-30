@@ -22,9 +22,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="564_FindtheClosestPalindrome.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Collections\counter.py">
       <SubType>Code</SubType>
     </Compile>
