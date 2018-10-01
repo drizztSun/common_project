@@ -56,6 +56,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Python35.py" />
+    <Compile Include="PythonSyntax\classproperties.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PythonSyntax\tryexcept.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonSyntax\WithStatement.py">
       <SubType>Code</SubType>
     </Compile>
