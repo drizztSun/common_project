@@ -40,6 +40,9 @@
     <Compile Include="FunctionalProgramming.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="functions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="np\MatplotLib\Test_Plot.py">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +56,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Python35.py" />
+    <Compile Include="PythonSyntax\WithStatement.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="standard lib\BriefTouroftheStandardLibrary.py">
       <SubType>Code</SubType>
     </Compile>
@@ -66,6 +72,7 @@
   <ItemGroup>
     <Folder Include="Collections\" />
     <Folder Include="Concurrent Execution\" />
+    <Folder Include="PythonSyntax\" />
     <Folder Include="np\" />
     <Folder Include="np\MatplotLib\" />
     <Folder Include="standard lib\" />
