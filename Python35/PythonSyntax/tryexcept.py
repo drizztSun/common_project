@@ -1,4 +1,9 @@
+"""
+Test
 
+try - exception - else - finaly
+
+"""
 try :
     import os
 except ImportError:
@@ -13,6 +18,37 @@ class C(B):
 
 class D(C):
     pass
+
+
+# user-defined exception
+class Error(Exception):
+    pass
+
+class InputError(Error):
+    
+    def __init__(self, expression, message):
+        self.expression = expression
+        self.message = message
+
+class TransitionError(Error):
+    
+    def __init__(self, previous, next, message):
+        self.previus = previous
+        self.next = next
+        self.message = message
+
+
+def divide(x, y):
+    # 'else' will be call if not exception happened
+    # 'finally' will be call both 'else' and 'except'
+    try:
+        r = x / y       
+    except ZeroDivisionError as err:
+        print("Exception: zero division error {0}".format(err))
+    else:
+        print("Exception No: result is {0} ".format(r))
+    finally:
+        print("finally: finally called in divide after except and else")
 
 
 def main():
@@ -56,17 +92,26 @@ def main():
 
 
     # how to use exception err
-    try:
-        raise Exception('spam', 'egg')
-    except Exception as err:
-        print("---- exception ------")
-        print(type(err))
-        print(err.args)
-        print(err)
+    try: 
+        try:
+            raise Exception('spam', 'egg')
+        except Exception as err:
+            print("---- exception ------")
+            print(type(err))
+            print(err.args)
+            print(err)
 
-        x, y = err.args
-        print("x = {0}, y = {1}".format(x, y))
+            x, y = err.args
+            print("x = {0}, y = {1}".format(x, y))
+
+            # raise exception again
+            raise
+    except:
+        print("Exception: catch the embeded exception")
         
+    # divide
+    divide(1, 0)
+    divide(3, 2)   
             
         
 

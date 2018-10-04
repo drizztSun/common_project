@@ -59,10 +59,19 @@
     <Compile Include="PythonSyntax\classproperties.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PythonSyntax\decorator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PythonSyntax\metaclass.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonSyntax\tryexcept.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PythonSyntax\WithStatement.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PythonSyntax\yield_generator.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="standard lib\BriefTouroftheStandardLibrary.py">
