@@ -134,9 +134,11 @@ def main():
     # What is 'metadata', '__class__'
     age = 35
     print(age.__class__) # int
+    print(id(age))
 
     name = 'bbb'
     print(name.__class__) # str
+    print(id(name))
 
     def foo():
         pass
@@ -149,6 +151,7 @@ def main():
     print(Bar.__class__) # type
 
     b = Bar()
+    print(id(b))
     print(b.__class__) # __main__.bar
 
     #

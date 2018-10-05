@@ -62,6 +62,9 @@
     <Compile Include="PythonSyntax\decorator.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PythonSyntax\functions_type.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonSyntax\metaclass.py">
       <SubType>Code</SubType>
     </Compile>
