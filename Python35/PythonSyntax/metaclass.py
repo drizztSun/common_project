@@ -44,6 +44,20 @@ class Foo_meta(object):
 
     bar = 'bip'
 
+
+"""
+    Enum 
+"""
+# define ENUM
+from enum import Enum
+Animal = Enum('Animal', 'ant bee cat dog')
+
+# it is equal to 
+class Animal(Enum):
+    ant = 1
+    bee = 2
+    cat = 3
+    dog = 4
     
 
         

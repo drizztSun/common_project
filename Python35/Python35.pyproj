@@ -65,6 +65,9 @@
     <Compile Include="PythonSyntax\metaclass.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PythonSyntax\test_map.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonSyntax\tryexcept.py">
       <SubType>Code</SubType>
     </Compile>
@@ -81,6 +84,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="standard lib\syscmd_getopt.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standard lib\test_os.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
