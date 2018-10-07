@@ -86,10 +86,19 @@
     <Compile Include="standard lib\BriefTouroftheStandardLibraryII.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="standard lib\files.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="standard lib\syscmd_getopt.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="standard lib\test_os.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standard lib\threads.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standard lib\threads2.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

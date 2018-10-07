@@ -142,7 +142,7 @@ def PerformanceMeasurement():
 
     Timer('a,b = b,a', 'a=1; b=2').timeit()
 
-    # In contrast to timeit’s fine level of granularity, the profile and pstats modules provide tools for identifying time critical sections in larger blocks of code.
+    # In contrast to timeitï¿½s fine level of granularity, the profile and pstats modules provide tools for identifying time critical sections in larger blocks of code.
 
     import profile
     import pstats
@@ -180,7 +180,7 @@ unittest.main()
     
 #10.12. Batteries Included
 
-# Python has a “batteries included” philosophy. This is best seen through the sophisticated and robust capabilities of its larger packages. For example:
+# Python has a ï¿½batteries includedï¿½ philosophy. This is best seen through the sophisticated and robust capabilities of its larger packages. For example:
 
 # The xmlrpc.client and xmlrpc.server modules make implementing remote procedure calls into an almost trivial task. Despite the modules names, no direct knowledge or handling of XML is needed.
 
