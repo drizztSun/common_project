@@ -60,6 +60,27 @@ class Animal(Enum):
     dog = 4
     
 
+"""
+    @staticmethod and @classmethod
+
+    def A(self, ...)  self is object itself.
+    def cls_A(cls, ...) cls is class itself.
+
+"""
+class A(object):
+    
+    
+    def foo(self, x):
+        print("executing foo (%s, %s)" % (self, x))
+
+    @classmethod
+    def class_foo(cls, x):
+        print("executing class_foo (%s, %s)" % (cls, x))
+
+    @staticmethod
+    def static_foo(x):
+        print("executing static_foo %s" %x)
+
         
 def main():
 
