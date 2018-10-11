@@ -68,6 +68,9 @@
     <Compile Include="PythonSyntax\metaclass.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PythonSyntax\test_list.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PythonSyntax\test_map.py">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +102,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="standard lib\threads2.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standard lib\times.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
