@@ -104,6 +104,18 @@
     <Compile Include="standard lib\threads2.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="standard lib\thread_conditions.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standard lib\thread_event.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standard lib\thread_semaphore.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="standard lib\thread_timer.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="standard lib\times.py">
       <SubType>Code</SubType>
     </Compile>

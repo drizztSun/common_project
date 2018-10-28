@@ -7,7 +7,7 @@ def proc(*arg):
 
     id = threading.get_ident()
     count = 0
-    content, lock = arg        
+    content, lock = arg
 
     while count < 5:
         
@@ -20,8 +20,24 @@ def proc(*arg):
         count += 1
     
 
+def proc1(*arg):
+
+    content = arg
+
+    tls_data = threading.local()
+    tls_data.x = 1
+    tls_data.id = threading.get_ident()
+    count = 0
+
+    while count < 5:
+        
+        print("id: %d tid: %d" % (tls_data.id, threading.get_ident()))        
+    
+        count += 1
+
 def main():
-    lock = threading.Lock()
+    # reenter-lock 
+    lock = threading.RLock()
 
     for i in range(5):
         threading.Thread(target= proc, name= "Thread id = " + str(i), args=("content ", lock), daemon= False).start()
@@ -29,6 +45,18 @@ def main():
 
     print("current alive thread {0}".format(threading.active_count()))
     print("thread id %d" % (threading.get_ident()))
+
+    lock.acquire()
+
+    thread_objs = threading.enumerate()
+    for c in thread_objs:
+        print("thread id: %d name: %s daemon: %s alive: %s" % (c.ident, c.name, c.daemon, c.is_alive()))
+
+    lock.release()
+
+    # local-data
+    for i in range(2):
+        threading.Thread(target= proc1, name= "Thread id = " + str(i), daemon= False).start()
 
     pass
 
