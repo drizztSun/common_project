@@ -348,6 +348,7 @@ func UseMap() {
 
 }
 
+// functions value
 func compute(fn func(float64, float64) float64) float64 {
 	return fn(3, 4)
 }
@@ -362,6 +363,81 @@ func UseFunctionValues() {
 	fmt.Println(compute(math.Pow))
 
 }
+
+// function closure
+func adder() {
+	sum := 0
+	return func(a int) {
+		sum += a
+		return sum
+	}
+}
+
+func caller2Adder() {
+
+	pos, neg := adder(), adder()
+	for i:= 0; i < 10; i++ {
+		fmt.Println(pos(i), neg(-2 * i))
+	}
+}
+
+func fibonacci() {
+	last1, last2 := 0, 1
+
+	return func() int {
+		res := last1 + last2
+		last1 = last2
+		last2 = res
+		return res
+	}
+}
+
+func callfibonacci() {
+
+	fino := fibonacci()
+	for i := 0; i < 10; i++ {
+		fmt.Printf(fino(), ",")
+	}
+	fmt.Printf("\n")
+}
+
+
+//* Interfaces
+// An interface type is defined as a set of method signatures.
+// A value of interface type can hold any value that implements those methods
+
+// Interfaces are implemented implicitly
+// A type implements an interface by implementing its methods. There is no explicit declaration of intent, no "implements" keyword.
+// Implicit interfaces decouple the definition of an interface from its implementation, which could then appear in any package without prearrangement..
+type Abser interface {
+	Abs() float64
+}
+
+func (v *Vertex) Abs() float64 {
+	return math.Sqrt(v.X * v.X+ v.Y * v.Y)
+}
+
+func (f MyFloat) Abs() float64 {
+	if f < 0 {
+		return float64(-f)
+	}
+	return math.Sqrt(f * f)
+}
+
+func callInterface() {
+	var a Abser
+	f := MyFloat(1)
+	v := Vertex{1, 2}
+
+	a = f	// MyFloat implement the Abser
+	a = &v	// *Vertex implement the Abser
+
+	a = v // v is Vertex and *Vertex, not implement the Abs()
+
+	fmt.Println(a.Abs())
+}
+
+
 
 func main() {
 	fmt.Printf("Hello World! \n")
@@ -504,4 +580,8 @@ func main() {
 	}
 	fmt.Println(" Done !")
 
+
+	caller2Adder()
+
+	callfibonacci()
 }
