@@ -70,13 +70,16 @@ func fibonacci(n int, c chan int) {
 func fibonacci_select(c, quit chan int) {
 	x, y := 0, 1
 
-	select {
-	case c <- x:
-		x, y = y, x+y
-	case <-q:
-		fmt.Println("quite")
-		return
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-q:
+			fmt.Println("quite")
+			return
+		}
 	}
+
 }
 
 // *** sync.Mutex
