@@ -1,0 +1,6 @@
+﻿  module.cpp
+     Creating library D:\Project\git\common_project\Release\PyCExt.lib and object D:\Project\git\common_project\Release\PyCExt.exp
+module.obj : error LNK2001: unresolved external symbol __imp__PyFloat_AsDouble
+module.obj : error LNK2001: unresolved external symbol __imp__PyFloat_FromDouble
+module.obj : error LNK2001: unresolved external symbol __imp__PyModule_Create2
+D:\Project\git\common_project\Release\PyCExt.pyd : fatal error LNK1120: 3 unresolved externals
