@@ -136,9 +136,8 @@ class NetworkDelayTime:
         dfs(K, 0)
         ans = max(dist)
         return ans if ans < float('inf') else -1
-
 		
-	def doit4(self, times, N, K):
+    def doit4(self, times, N, K):
 	
 	    graph = collections.defaultdict(list)
         for u, v, w in times:

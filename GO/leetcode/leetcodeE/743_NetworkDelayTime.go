@@ -13,7 +13,7 @@ func networkDelayTime(times [][]int, N, K int) int {
 		if _, ok := dict[u-1]; ok {
 			dict[u-1] = append(dict[u-1], [2]int{v - 1, w})
 		} else {
-			dict[u-1] = [][2]int{{v, w}}
+			dict[u-1] = [][2]int{{v-1, w}}
 		}
 	}
 
@@ -33,7 +33,7 @@ func networkDelayTime(times [][]int, N, K int) int {
 		minv := math.MaxInt32
 
 		for i, v := range uv {
-			if !done[i] && v < minv {
+			if !done[i] && v <= minv {
 				minv = v
 				u = i
 			}
@@ -41,8 +41,8 @@ func networkDelayTime(times [][]int, N, K int) int {
 
 		if elem, ok := dict[u]; ok {
 			for _, w := range elem {
-				if w[1]+minv < uv[i] {
-					uv[i] = w[1] + minv
+				if w[1]+minv < uv[w[0]] {
+					uv[w[0]] = w[1] + minv
 				}
 			}
 		}
@@ -52,7 +52,7 @@ func networkDelayTime(times [][]int, N, K int) int {
 
 	ans := 0
 	for _, v := range uv {
-		if v == math.MaxUint32 {
+		if v == math.MaxInt32 {
 			return -1
 		} else if v > ans {
 			ans = v
