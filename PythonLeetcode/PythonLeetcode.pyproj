@@ -12,7 +12,8 @@
     <OutputPath>.</OutputPath>
     <Name>PythonLeetcode</Name>
     <RootNamespace>PythonLeetcode</RootNamespace>
-    <InterpreterId>Global|PythonCore|3.6</InterpreterId>
+    <InterpreterId>
+    </InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -378,6 +379,9 @@
     <Compile Include="LeetCodeE\649_Dota2Senate.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\654_MaximumBinaryTree.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
     <Compile Include="LeetCodeE\697_DegreeofanArray.py" />
     <Compile Include="LeetCodeE\698_PartitiontoKEqualSumSubsets.py" />
@@ -676,10 +680,6 @@
     <Folder Include="LintCode\" />
     <Folder Include="LintCode\backpack\" />
     <Folder Include="test\" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterpreterReference Include="Global|PythonCore|3.6" />
-    <InterpreterReference Include="Global|PythonCore|3.7-32" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
