@@ -1,4 +1,4 @@
-package leetcode
+package leetcodeE
 
 /*
 654. Maximum Binary Tree

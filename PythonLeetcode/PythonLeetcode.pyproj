@@ -385,6 +385,12 @@
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
     <Compile Include="LeetCodeE\697_DegreeofanArray.py" />
     <Compile Include="LeetCodeE\698_PartitiontoKEqualSumSubsets.py" />
+    <Compile Include="LeetCodeE\701_InsertintoBinarySearchTree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\717_1-bit_and_2-bit Characters.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\720_LongestWordInDictionary.py" />
     <Compile Include="LeetCodeE\729_MyCalendarI.py">
       <SubType>Code</SubType>
@@ -455,7 +461,7 @@
     <Compile Include="Leetcode\368_LargestDivisibleSubset.py" />
     <Compile Include="Leetcode\373_FindKPairswithSmallestSums.py" />
     <Compile Include="Leetcode\378_KthSmallestElementinSortedMatrix.py" />
-    <Compile Include="Leetcode\37_ Sudoku Solver.py" />
+    <Compile Include="Leetcode\37_Sudoku Solver.py" />
     <Compile Include="Leetcode\381_InsertDeleteGetRandomDuplicatesallowed.py" />
     <Compile Include="Leetcode\391_PerfectRectangle.py" />
     <Compile Include="Leetcode\403_FrogJump.py" />
