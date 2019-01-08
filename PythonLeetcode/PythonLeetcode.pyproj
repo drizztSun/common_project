@@ -382,10 +382,19 @@
     <Compile Include="LeetCodeE\654_MaximumBinaryTree.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\661_ImageSmoother.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\665_NondecreasingArray.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
     <Compile Include="LeetCodeE\697_DegreeofanArray.py" />
     <Compile Include="LeetCodeE\698_PartitiontoKEqualSumSubsets.py" />
     <Compile Include="LeetCodeE\701_InsertintoBinarySearchTree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\704_BinarySearch.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\717_1-bit_and_2-bit Characters.py">
