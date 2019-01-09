@@ -54,8 +54,12 @@ class SkylineProblem {
 
 public:
 
+	vector<pair<int, int>> doit(vector<vector<int>>& input) {
 
+		vector<pair<int, int>> res;
 
+		return res;
+	}
 };
 
 void Test_218_skylineProblem() {
