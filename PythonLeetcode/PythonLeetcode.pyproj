@@ -388,6 +388,9 @@
     <Compile Include="LeetCodeE\665_NondecreasingArray.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\684_RedundantConnection.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\687_LongestUnivaluePath.py" />
     <Compile Include="LeetCodeE\697_DegreeofanArray.py" />
     <Compile Include="LeetCodeE\698_PartitiontoKEqualSumSubsets.py" />
