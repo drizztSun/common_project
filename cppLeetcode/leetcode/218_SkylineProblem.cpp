@@ -58,6 +58,20 @@ public:
 
 		vector<pair<int, int>> res;
 
+		priority_queue<pair<int, int>> buff;
+
+		for (auto rect : input) {
+
+			if (buff.empty() || rect[0] < buff.top().second) {
+
+
+			}
+			else {
+
+
+			}
+		}
+
 		return res;
 	}
 };
