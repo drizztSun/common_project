@@ -382,6 +382,9 @@
     <Compile Include="LeetCodeE\654_MaximumBinaryTree.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\655_PrintBinaryTree.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\661_ImageSmoother.py">
       <SubType>Code</SubType>
     </Compile>
