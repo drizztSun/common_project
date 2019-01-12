@@ -1,4 +1,4 @@
-package SplitArray805
+package leetcodeE
 // Basic Ideas: BFS pruning
 // Observation:
 //  avg(A) == avg(B) == avg(C)
