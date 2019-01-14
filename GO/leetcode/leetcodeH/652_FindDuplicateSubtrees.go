@@ -32,6 +32,12 @@ import (
 	"strconv"
 )
 
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
 type data struct {
 	val  int
 	node *TreeNode

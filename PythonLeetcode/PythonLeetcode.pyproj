@@ -566,6 +566,9 @@
     <Compile Include="Leetcode\719_FindKthSmallestPairDistance.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\721_AccountsMerge.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\726_NumberofAtoms.py">
       <SubType>Code</SubType>
     </Compile>
