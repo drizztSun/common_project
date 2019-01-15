@@ -403,6 +403,9 @@
     <Compile Include="LeetCodeE\704_BinarySearch.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\707_DesignLinkedList.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\717_1-bit_and_2-bit Characters.py">
       <SubType>Code</SubType>
     </Compile>
@@ -566,6 +569,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\699_FallingSquares.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Leetcode\706_DesignHashMap.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\715_RangeModule.py" />
