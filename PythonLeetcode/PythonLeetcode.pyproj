@@ -416,6 +416,9 @@
     <Compile Include="LeetCodeE\752_OpenLock.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\812_LargestTriangleArea.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\826_MostProfitAssigningWork.py">
       <SubType>Code</SubType>
     </Compile>
@@ -533,6 +536,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\639_WordAbbreviation.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Leetcode\659_SplitArrayintoConsecutiveSubsequences.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\65_ValidNumber.py" />
