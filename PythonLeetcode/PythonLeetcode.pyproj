@@ -574,11 +574,20 @@
     <Compile Include="Leetcode\706_DesignHashMap.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\712_MinimumASCIIDeleteSumforTwoStrings.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Leetcode\713_SubarrayProductLessThanK.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\715_RangeModule.py" />
     <Compile Include="Leetcode\719_FindKthSmallestPairDistance.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\721_AccountsMerge.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Leetcode\722_RemoveComments.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\726_NumberofAtoms.py">
