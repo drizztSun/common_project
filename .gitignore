@@ -8,5 +8,6 @@
 .vscode/
 ./DEBUG
 ./RELEASE
+*/.idea
 DEBUG
 RELEASE
