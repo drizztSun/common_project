@@ -4,14 +4,27 @@ public class Main {
 
     public static void main(String[] args) {
 
-        TestLinkedList.TestLinkedList();
+        System.out.println("Hello World!");
 
         TestArrayList.TestArrayList();
+
+        TestLinkedList.TestLinkedList();
+
+        TestHashSet.TestHashSet();
+
+        TestLinkedHashSet.TestLinkedHashSet();
 
         TestHashMap.TestHashMap();
 
         TestLinkedHashMap.TestLinkedHashMap();
 
-        System.out.println("Hello World!");
+        TestHashTable.TestHashTable();
+
+        TestQueue.TestQueue();
+
+        TestPriorityQueue.TestPriorityQueue();
+
+        TestTreeSet.TestTreeSet();
+
     }
 }

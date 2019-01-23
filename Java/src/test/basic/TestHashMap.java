@@ -9,7 +9,7 @@ public class TestHashMap {
 
     public static void TestHashMap() {
 
-        HashMap<Integer, String> hmap = new HashMap<Interger, String>();
+        HashMap<Integer, String> hmap = new HashMap<Integer, String>();
 
         hmap.put(12, "Tom");
         hmap.put(13, "Peter");
@@ -38,7 +38,7 @@ public class TestHashMap {
         Iterator it2 = set2.iterator();
 
         while (it2.hasNext()) {
-            Map.entry entry = it2.next();
+            Map.Entry entry = (Map.Entry) it2.next();
             System.out.println("Key is " + entry.getKey() + " &Value is " + entry.getValue());
         }
     }

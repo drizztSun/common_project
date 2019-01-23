@@ -37,7 +37,7 @@ public class TestPriorityQueue {
         while (queue.size() != 0)
         {
             // remove the header
-            System.out.println(queue.pool());
+            System.out.println(queue.poll());
         }
 
         if (queue.contains("Tyrion Lannister"))
