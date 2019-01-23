@@ -22,7 +22,7 @@ public class TestLinkedList {
         alink.addFirst("Item0");
         alink.addLast("Item7");
 
-        System.out.println("Linked list content : " + alist);
+        System.out.println("Linked list content : " + alink);
 
         Object firstVar = alink.get(0);
         System.out.println("First element " + firstVar);
@@ -48,7 +48,7 @@ public class TestLinkedList {
         System.out.println("Linked list content ： " + alink);
 
         //
-        LinkedList<String> copy = alink.copy();
+        LinkedList<String> copy = (LinkedList<String> ) alink.clone();
         System.out.println("Linked list content of copy ： " + copy);
 
         // location

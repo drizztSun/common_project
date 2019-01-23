@@ -36,7 +36,7 @@ public class TestArrayList {
 
         System.out.println("Index of 2 val is : " + alist.get(2));
 
-        System.out.println("alist contains Tim2 : " + alist.contains("Tim2"))
+        System.out.println("alist contains Tim2 : " + alist.contains("Tim2"));
 
         // iterate elements
         for (String element : alist) {
