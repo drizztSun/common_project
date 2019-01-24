@@ -24,6 +24,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="algorithem\Binary_Index_Tree.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\11_ContainerWithMostWater.py">
       <SubType>Code</SubType>
     </Compile>
@@ -724,6 +727,7 @@
     <Folder Include="Leetcode\" />
     <Folder Include="LintCode\" />
     <Folder Include="LintCode\backpack\" />
+    <Folder Include="algorithem\" />
     <Folder Include="test\" />
   </ItemGroup>
   <PropertyGroup>

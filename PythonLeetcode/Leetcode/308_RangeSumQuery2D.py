@@ -141,6 +141,17 @@ class NumArray2D(object):
 
 if __name__=="__main__":
 
+
+    obj = NumArrayBiTree([1, 3, 5])
+    
+    res = obj.sumRange(0, 2)
+
+    obj.update(1, 2)
+
+    res = obj.sumRange(0, 2)
+
+
+
     matrix = [
             [3, 0, 1, 4, 2],
             [5, 6, 3, 2, 1],
