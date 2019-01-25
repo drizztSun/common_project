@@ -55,12 +55,18 @@ class RangeSumMutableArray:
                 self.__e[i] += c 
                 i += (-i) & i
 
+
     def __build(self):
+        # This is totally wrong, 
         self.__e = self.__nums
         for i in range(1, len(self.__nums)):
+            if i % 2 == 1:
+                continue
+
             k = i
             while i > 0:
                 i -= (-i) & i
+                # different e[i] of e[k]'s child maybe include multiple times same element nums[j]
                 self.__e[k] += self.__e[i]
                 
 
@@ -89,14 +95,13 @@ class RangeSumMutableArray:
 
 if __name__ == "__main__":
     
-    o = RangeSumMutableArray([1, 3, 5])
+    o = RangeSumMutableArray([1, 3, 5, 1])
     
-    o._RangeSumMutableArray__build()
-    res = o.sumRange(0, 2)
+    #o._RangeSumMutableArray__build()
 
+    res = o.sumRange(0, 3) # 10
     o.update(1, 2)
-
-    res = o.sumRange(0, 2)
+    res = o.sumRange(0, 3) # 9
 
 
     obj = RangeSumMutableArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
