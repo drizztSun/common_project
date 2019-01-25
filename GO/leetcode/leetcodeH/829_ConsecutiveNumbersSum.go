@@ -1,8 +1,6 @@
 package leetcodeH
 
-import (
-	"fmt"
-)
+import "math"
 
 /*
 # 829. Consecutive Numbers Sum
@@ -28,28 +26,28 @@ import (
 
 
 
-# N = x + (x+1) +(x+2) + (x+3)+ ... + y 
-# => N = (x+y) * (y-x+1) / 2 
-# => 2 * N = (x+y) * (y-x+1) 
+# N = x + (x+1) +(x+2) + (x+3)+ ... + y
+# => N = (x+y) * (y-x+1) / 2
+# => 2 * N = (x+y) * (y-x+1)
 # x     |odd  |even |odd  |even
-# y     |even |odd  |odd  |even 
+# y     |even |odd  |odd  |even
 # y-x+1 |even |even |odd  |odd
-# y+x   |odd  |odd  |even |even 
-# 2 * N |even |even |even |even 
+# y+x   |odd  |odd  |even |even
+# 2 * N |even |even |even |even
 # => let's say i = x+y, j = y-x+1, as long as not (i is odd and j is odd) or not (i is even and j is even)
 # we have one more way to express N as consecutive numbers sum
 */
 
 func consecutiveNumbersSum(N int) int {
-    
-    ans, N := 0, 2 * N
-    
-    for i := 1; i <= int(math.Sqrt(float64(N))); i++ {
-        j := N / i
-        if N % i == 0 && j % 2 != i % 2{ 
-            ans++            
-        }
-    }
-    
-    return ans
+
+	ans, N := 0, 2*N
+
+	for i := 1; i <= int(math.Sqrt(float64(N))); i++ {
+		j := N / i
+		if N%i == 0 && j%2 != i%2 {
+			ans++
+		}
+	}
+
+	return ans
 }

@@ -9,8 +9,8 @@ package leetcodeH
             [1, 2, 0, 1, 5],
             [4, 1, 0, 1, 7],
             [1, 0, 3, 0, 5]
-			
-			
+
+
 */
 
 import (
@@ -21,7 +21,7 @@ type NumArray2D struct {
 	nums, e [][]int
 }
 
-func Constructor(num [][]int) NumArray2D {
+func constructor_NumArray2D(num [][]int) NumArray2D {
 
 	o := NumArray2D{}
 
@@ -86,7 +86,7 @@ func (this *NumArray2D) sumRange(i, j, k, z int) int {
 
 func main() {
 
-	o := Constructor([][]int{
+	o := constructor_NumArray2D([][]int{
 		{3, 0, 1, 4, 2},
 		{5, 6, 3, 2, 1},
 		{1, 2, 0, 1, 5},
