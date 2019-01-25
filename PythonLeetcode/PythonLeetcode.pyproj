@@ -677,6 +677,9 @@
     <Compile Include="Leetcode\828_UniqueLetterString.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\829_ConsecutiveNumbersSum.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\834_SumofDistancesinTree.py">
       <SubType>Code</SubType>
     </Compile>
