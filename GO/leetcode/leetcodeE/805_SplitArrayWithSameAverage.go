@@ -8,7 +8,10 @@ package leetcodeE
 //  If we sort A, once avg(B) >= avg(A), we can't add any more item which is bigger than avg(A)
 //  
 // Complexity:
-import "sort"
+import (
+	"sort"
+	"math"
+)
 
 type Entity struct {
 	count, sum int
@@ -63,4 +66,62 @@ func splitArraySameAverage(A []int) bool {
 	}
 
 	return false
+}
+
+type key struct {
+	target, cnt int
+}
+
+func search(notFound map[key]int, val []int, target, amount, s int) bool {
+
+	k := key{target, amount}
+	if val, ok := notFound[k]; ok && val <= s {
+		return false
+	}
+
+	if amount == 0 {
+		return target == 0
+	}
+
+	if amount+s > len(val) {
+		return false
+	}
+
+	res := search(notFound, val, target-val[s], amount-1, s+1) || search(notFound, val, target, amount, s+1)
+
+	if !res {
+		if v, ok := notFound[k]; ok {
+			notFound[k] = int(math.Min(float64(s), float64(v)))
+		} else {
+			notFound[k] = int(math.Min(float64(s), float64(len(val))))
+		}
+	}
+
+	return res
+}
+
+func splitArraySameAverage(val []int) bool {
+
+	notFound := make(map[key]int)
+
+	sumA, length := 0, len(val)
+	for i := range val {
+		sumA += val[i]
+	}
+
+	for i := 1; i < int(length/2)+1; i++ {
+		if sumA*i%length == 0 && search(notFound, val, sumA*i/length, i, 0) {
+			return true
+		}
+	}
+
+	return false
+}
+
+func Test_805SplitArrayWithSameAverage() {
+
+	res := false
+
+	res = solution2([]int{1, 2, 3, 4, 5, 6, 7, 8})
+
 }
