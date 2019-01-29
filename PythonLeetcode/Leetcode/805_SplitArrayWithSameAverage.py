@@ -245,6 +245,44 @@ class SplitArraySameAverage:
         
 
 
+    # Change the quesiton change to a N-sum problem:
+    # To find if
+    # 1 element with sum = 1 * avg or
+    # 2 elements with sum = 2 * avg or
+    # i elements with sum = i * avg
+
+    # The size of smaller list between B and C will be less than N/2+1, so 0 < i < N/2+1
+    # Recursive funciton find try to find a subset of n elements from A with sum = target
+    
+    def doit6(self, A):
+        """
+        :type A: List[int]
+        :rtype: bool
+        """
+        def find(target, k, i):
+            if (target,k) in not_found and not_found[(target,k)] <= i: 
+                return False
+            
+            if k == 0: 
+                return target == 0
+            
+            if k + i > len(A): 
+                return False
+            
+            res = find(target - A[i], k - 1, i + 1) or find(target, k, i + 1)
+            
+            if not res: 
+                not_found[(target, k)] = min(not_found.get((target, k), n), i)
+            
+            return res
+        
+        not_found = dict()
+        
+        n, s = len(A), sum(A)
+        
+        return any(find(s * i / n, i, 0) for i in range(1, n // 2 + 1) if s * i % n == 0)
+
+
 if __name__ == "__main__":
 
     res = SplitArraySameAverage().doit1([1,2,3,4,5,6,7,8])
