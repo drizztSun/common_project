@@ -92,6 +92,7 @@ func UsePointer() {
 	fmt.Println("J is ", *p)
 }
 
+/*
 type Vertex struct {
 	X int
 	Y int
@@ -124,6 +125,7 @@ func UseStruct() {
 	)
 
 }
+*/
 
 func UseArrayAndSlice() {
 	var a [2]string
@@ -376,8 +378,8 @@ func adder() {
 func caller2Adder() {
 
 	pos, neg := adder(), adder()
-	for i:= 0; i < 10; i++ {
-		fmt.Println(pos(i), neg(-2 * i))
+	for i := 0; i < 10; i++ {
+		fmt.Println(pos(i), neg(-2*i))
 	}
 }
 
@@ -401,7 +403,7 @@ func callfibonacci() {
 	fmt.Printf("\n")
 }
 
-
+/*
 //* Interfaces
 // An interface type is defined as a set of method signatures.
 // A value of interface type can hold any value that implements those methods
@@ -414,7 +416,7 @@ type Abser interface {
 }
 
 func (v *Vertex) Abs() float64 {
-	return math.Sqrt(v.X * v.X+ v.Y * v.Y)
+	return math.Sqrt(v.X*v.X + v.Y*v.Y)
 }
 
 func (f MyFloat) Abs() float64 {
@@ -429,16 +431,14 @@ func callInterface() {
 	f := MyFloat(1)
 	v := Vertex{1, 2}
 
-	a = f	// MyFloat implement the Abser
-	a = &v	// *Vertex implement the Abser
+	a = f  // MyFloat implement the Abser
+	a = &v // *Vertex implement the Abser
 
 	a = v // v is Vertex and *Vertex, not implement the Abs()
 
 	fmt.Println(a.Abs())
 }
-
-
-
+*/
 func main() {
 	fmt.Printf("Hello World! \n")
 
@@ -579,7 +579,6 @@ func main() {
 		defer fmt.Println(i)
 	}
 	fmt.Println(" Done !")
-
 
 	caller2Adder()
 

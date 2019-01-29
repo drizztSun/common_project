@@ -1,4 +1,4 @@
-package concurrencytest
+package main
 
 import (
 	"fmt"
@@ -54,7 +54,7 @@ func sum(s []int, c chan int) {
 // Note: Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
 // Another note: Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a range loop.
 
-func fibonacci(n int, c chan int) {
+func fibonacci1(n int, c chan int) {
 	x, y := 0, 1
 	for i := 0; i < n; i++ {
 		c <- x
@@ -74,7 +74,7 @@ func fibonacci_select(c, quit chan int) {
 		select {
 		case c <- x:
 			x, y = y, x+y
-		case <-q:
+		case <-quit:
 			fmt.Println("quite")
 			return
 		}
@@ -103,7 +103,7 @@ type safeCounter struct {
 }
 
 func (c *safeCounter) Inc(key string) {
-	c.mux.lock()
+	c.mux.Lock()
 	c.v[key]++
 	c.mux.Unlock()
 }
@@ -111,10 +111,10 @@ func (c *safeCounter) Inc(key string) {
 func (c *safeCounter) Value(key string) (int, error) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
-	return 0, c.v[key]
+	return c.v[key], nil
 }
 
-func main() {
+func TestConcurrency() {
 
 	// *** Goroutines
 	// starts a new thread
@@ -153,7 +153,7 @@ func main() {
 	// *** Range and Close
 	{
 		c := make(chan int, 10)
-		go fibonacci(cap(c), c)
+		go fibonacci1(cap(c), c)
 
 		for i := range c {
 			fmt.Println(i)

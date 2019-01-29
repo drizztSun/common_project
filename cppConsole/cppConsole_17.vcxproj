@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="cpp14.cpp" />
     <ClCompile Include="cppConsole.cpp" />
+    <ClCompile Include="Functional.cpp" />
     <ClCompile Include="Leetcode.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test_unordered_map.cpp" />

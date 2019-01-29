@@ -12,7 +12,7 @@ import (
 	"math"
 	"strconv"
 )
- 
+
 /*
 655. Print Binary Tree
 
@@ -47,71 +47,71 @@ Input:
       1
      / \
     2   5
-   / 
-  3 
- / 
-4 
+   /
+  3
+ /
+4
 Output:
 
 [["",  "",  "", "",  "", "", "", "1", "",  "",  "",  "",  "", "", ""]
  ["",  "",  "", "2", "", "", "", "",  "",  "",  "",  "5", "", "", ""]
  ["",  "3", "", "",  "", "", "", "",  "",  "",  "",  "",  "", "", ""]
  ["4", "",  "", "",  "", "", "", "",  "",  "",  "",  "",  "", "", ""]]
- 
-*/ 
- 
-type TreeNode struct {
-	Val int
-	Left *TreeNode
-	Right *TreeNode
+
+*/
+
+type treeNode struct {
+	Val   int
+	Left  *treeNode
+	Right *treeNode
 }
 
-func depth(node *TreeNode) int {
+func depth(node *treeNode) int {
 
-    if node == nil {
-        return 0
-    }    
+	if node == nil {
+		return 0
+	}
 
-    if node.Left == nil && node.Right == nil {
-        return 1
-    }
+	if node.Left == nil && node.Right == nil {
+		return 1
+	}
 
-    r := depth(node.Right)
-    l := depth(node.Left)
+	r := depth(node.Right)
+	l := depth(node.Left)
 
-    if r > l {
-        return 1 + r
-    } else {
-        return 1 + l
-    }
+	if r > l {
+		return 1 + r
+	} else {
+		return 1 + l
+	}
 
 }
 
-func fill(matrix [][]string, node *TreeNode, i, start, end int) {
-    if node == nil {
-        return 
-    }
-    
-    mid := (start + end) / 2
-    matrix[i][mid] = strconv.Itoa(node.Val)
-    
-    fill(matrix, node.Left, i+1, start, mid-1)
-    fill(matrix, node.Right, i+1, mid+1, end)
+func fill(matrix [][]string, node *treeNode, i, start, end int) {
+	if node == nil {
+		return
+	}
+
+	mid := (start + end) / 2
+	matrix[i][mid] = strconv.Itoa(node.Val)
+
+	fill(matrix, node.Left, i+1, start, mid-1)
+	fill(matrix, node.Right, i+1, mid+1, end)
 }
 
-func printTree(root *TreeNode) [][]string {
-    
-    dep := depth(root)
-    m, n := dep, int(math.Pow(2, float64(dep))) - 1
-    
-    res := make([][]string, m)
-    for i := range res {
-        res[i] = make([]string, n)
-        for j := range res[i] {
-            res[i][j] = ""
-        }
-    }
-    
-    fill(res, root, 0, 0, n - 1)
-    return res
+func printTree(root *treeNode) [][]string {
+
+	dep := depth(root)
+	m, n := dep, int(math.Pow(2, float64(dep)))-1
+
+	res := make([][]string, m)
+	for i := range res {
+		res[i] = make([]string, n)
+		for j := range res[i] {
+			res[i][j] = ""
+		}
+	}
+
+	fill(res, root, 0, 0, n-1)
+	return res
 }

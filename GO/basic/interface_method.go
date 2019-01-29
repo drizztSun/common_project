@@ -1,14 +1,13 @@
-package method
+package main
 
 import (
-	"os"
 	"fmt"
+	"io"
+	"math"
+	"os"
 	"strings"
 	"time"
-	"io"
 )
-
-
 
 //* Interfaces
 // An interface type is defined as a set of method signatures.
@@ -22,23 +21,22 @@ type Vertex struct {
 	X, Y int
 }
 
-type Myfoat float64
+type Myfloat float64
 
 type Abser interface {
 	Abs() float64
 }
 
 func (v *Vertex) Abs() float64 {
-	return math.Sqrt(v.X * v.X+ v.Y * v.Y)
+	return math.Sqrt(float64(v.X*v.X + v.Y*v.Y))
 }
 
-func (f MyFloat) Abs() float64 {
+func (f Myfloat) Abs() float64 {
 	if f < 0 {
 		return float64(-f)
 	}
-	return math.Sqrt(f * f)
+	return math.Sqrt(float64(f * f))
 }
-
 
 // *** Stringers
 // One of the most ubiquitous interfaces is Stringer defined by the fmt package.
@@ -50,13 +48,12 @@ func (f MyFloat) Abs() float64 {
 
 type Person struct {
 	Name string
-	Age int
+	Age  int
 }
 
 func (p Person) String() string {
-	retrun fmt.Scanf(“%v (%v years)”, p.Name, p.Age)
+	return fmt.Scanf("%v (%v years)", p.Name, p.Age)
 }
-
 
 type IPAddr [4]byte
 
@@ -84,7 +81,7 @@ func (p IPAddr) String() string {
 //	A nil error denotes success; a non-nil error denotes failure.
 
 type MyError struct {
-	When time.time
+	When time.Time
 	What string
 }
 
@@ -93,12 +90,12 @@ func (e *MyError) Error() string {
 }
 
 func run(a int) (int, error) {
-	
-	if a % 2 == 1 {
-		
+
+	if a%2 == 1 {
+
 		return 1, nil
 	} else {
-			
+
 		return 3, &MyError{
 			time.Now(),
 			"it didn't work",
@@ -114,7 +111,7 @@ func run(a int) (int, error) {
 // func (T) Read(b []byte) (n int, err error)
 // Read populates the given byte slice with data and returns the number of bytes populated and an error value. It returns an io.EOF error when the stream ends.
 // The example code creates a strings.Reader and consumes its output 8 bytes at a time.
-type MyReader struct {}
+type MyReader struct{}
 
 func (v MyReader) Read(s []byte) (n int, err error) {
 	s = s[:cap(s)]
@@ -130,12 +127,12 @@ type rot13Reader struct {
 }
 
 func (rot *rot13Reader) Read(b []byte) (n int, err error) {
-	n, err := r.Read(b)
+	rot.r.Read(b)
 
 	for i := range b {
 		if (b[i] >= 'A' && b[i] <= 'M') || (b[i] >= 'a' && b[i] <= 'm') {
 			b[i] += 13
-		}  else if (b[i] >= 'N' && b[i] <= 'Z') || (b[i] >= 'n' && b[i] <= 'z') {
+		} else if (b[i] >= 'N' && b[i] <= 'Z') || (b[i] >= 'n' && b[i] <= 'z') {
 			b[i] -= 13
 		}
 	}
@@ -143,22 +140,21 @@ func (rot *rot13Reader) Read(b []byte) (n int, err error) {
 	return n, err
 }
 
-
 func callInterface() {
 
 	var a Abser
-	f := MyFloat(1)
+	f := MyFloat{1.0}
 	v := Vertex{1, 2}
 
-	a = f	// MyFloat implement the Abser
-	a = &v	// *Vertex implement the Abser
+	a = f  // MyFloat implement the Abser
+	a = &v // *Vertex implement the Abser
 
-	a = v // v is Vertex and *Vertex, not implement the Abs()
+	//a = v // v is Vertex and *Vertex, not implement the Abs()
 
 	fmt.Println(a.Abs())
 
 	// a nil interface
-	i := interface {}
+	var i interface{}
 	fmt.Println("v： %v. t: %T", i, i)
 
 	// Type assertions
@@ -175,16 +171,17 @@ func callInterface() {
 	// If i holds a T, then t will be the underlying value and ok will be true.
 	// If not, ok will be false and t will be the zero value of type T, and no panic occurs.
 	// Note the similarity between this syntax and that of reading from a map.
+	{
+		var i interface{} = "hello"
+		s := i.(string)
+		fmt.Println(s) // hello
 
-	var i interface{} = "hello"
-	s := i.(string)
-	fmt.Println(s) // hello
+		s, ok := i.(string)
+		fmt.Println(s, ok) // hello true
 
-	s, ok := i.(string)
-	fmt.Println(s, ok) // hello true
-	
-	s, ok := i.(float64)
-	fmt.Println(s, ok) // 0 false
+		s, ok = i.(float64)
+		fmt.Println(s, ok) // 0 false
+	}
 
 	// f = i.(float64) assert error
 
@@ -194,26 +191,25 @@ func callInterface() {
 
 	// switch v := i.(type) {
 	// case T:
-    	// here v has type T
+	// here v has type T
 	// case S:
-    	// here v has type S
+	// here v has type S
 	// default:
-    	// no match; here v has the same type as i
+	// no match; here v has the same type as i
 	// }
 	// The declaration in a type switch has the same syntax as a type assertion i.(T), but the specific type T is replaced with the keyword type.
 	// This switch statement tests whether the interface value i holds a value of type T or S. In each of the T and S cases, the variable v will be of type T or S respectively and hold the value held by i. In the default case (where there is no match), the variable v is of the same interface type and value as i.
 
-
-	printtype := func(v intreface{}) {
+	printtype := func(v interface{}) {
 
 		switch i := v.(type) {
 		case int:
-			fmt.Println("Twice %v is %v", i, 2 * i)
+			fmt.Println("Twice %v is %v", i, 2*i)
 		case string:
 			fmt.Println("%q is %v bytes long", i, len(i))
 		default:
 			fmt.Println("I don;t know about type %T", i)
-		} 
+		}
 	}
 
 	printtype(21)
@@ -221,18 +217,19 @@ func callInterface() {
 	printtype(true)
 
 	// *** string
-	a := Person{"Arthur Dent", 42}
-	b := Person{"Zaphod Beeblebrox", 9001}
+	{
+		a := Person{"Arthur Dent", 42}
+		b := Person{"Zaphod Beeblebrox", 9001}
 
-	fmt.Println(a, z)
+		fmt.Println(a, z)
+		host := map[string]IPAddr{
+			"loopback":  {127, 0, 0, 1},
+			"googleDNS": {8, 8, 8, 8},
+		}
 
-	host := map[string] IPAddr {
-		"loopback" : {127， 0， 0， 1}，
-		"googleDNS" : {8, 8, 8, 8},
-	}
-
-	for name, ip := range host {
-		fmt.Println("%V, %V", name, ip)
+		for name, ip := range host {
+			fmt.Println("%V, %V", name, ip)
+		}
 	}
 
 	// Error
@@ -242,23 +239,24 @@ func callInterface() {
 		fmt.Println("succeed! : ", i)
 	}
 
-	// Reader
-	f := strings.NewReader("Hello, Reader!")
-	b := make([]byte, 8)
+	{
+		// Reader
+		f := strings.NewReader("Hello, Reader!")
+		b := make([]byte, 8)
 
-	for {
-		n, err := f.Read(b)
+		for {
+			n, err := f.Read(b)
 
-		fmt.Println("n=%v, err=%v b=%v", n, err, b)
-		fmt.Println("b[:n] = %q", b[:n])
-		
-		if err == io.EOF {
-			break
+			fmt.Println("n=%v, err=%v b=%v", n, err, b)
+			fmt.Println("b[:n] = %q", b[:n])
+
+			if err == io.EOF {
+				break
+			}
 		}
 	}
 
-	r := rot13Reader{ strings.NewReader("Lbh penpxrq gur pbqr!") }
+	r := rot13Reader{strings.NewReader("Lbh penpxrq gur pbqr!")}
 	io.Copy(os.Stdout, &r)
 
 }
-

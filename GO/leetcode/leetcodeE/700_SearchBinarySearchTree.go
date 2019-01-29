@@ -25,13 +25,13 @@ In the example above, if we want to search the value 5, since there is no node w
 Note that an empty tree is represented by NULL, therefore you would see the expected output (serialized tree format) as [], not null.
 
 */
-type treeNode struct {
+type treeNodeN struct {
 	Val   int
-	Left  *TreeNode
-	Right *TreeNode
+	Left  *treeNodeN
+	Right *treeNodeN
 }
 
-func searchBST(root *treeNode, val int) *treeNode {
+func searchBST(root *treeNodeN, val int) *treeNodeN {
 
 	node := root
 
