@@ -154,6 +154,7 @@
     <ClCompile Include="cppConsole.cpp" />
     <ClCompile Include="Functional.cpp" />
     <ClCompile Include="Leetcode.cpp" />
+    <ClCompile Include="smart_ptr.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test_unordered_map.cpp" />
     <ClCompile Include="test_unordered_set.cpp" />
