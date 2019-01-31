@@ -4,7 +4,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("Hello World!");
+        System.out.println(" ------ Hello World! ------");
+
+        TestArray.TestArray();
 
         TestArrayList.TestArrayList();
 
@@ -26,5 +28,6 @@ public class Main {
 
         TestTreeSet.TestTreeSet();
 
+        System.out.println(" ------ Hello world end! ------")
     }
 }

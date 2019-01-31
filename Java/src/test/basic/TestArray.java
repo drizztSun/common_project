@@ -1,4 +1,4 @@
-package test.java;
+package test.basic;
 
 class Student {
 
@@ -18,13 +18,9 @@ public class TestArray {
 
         int array1[]; // declaration
 
-        array1 = int[20] //
+        array1 = new int[20]; //
 
         array1[0] = 0;
-
-
-
-        int array2[20];
 
         int[] array3 = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
 
