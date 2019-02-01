@@ -28,6 +28,6 @@ public class Main {
 
         TestTreeSet.TestTreeSet();
 
-        System.out.println(" ------ Hello world end! ------")
+        System.out.println(" ------ Hello world end! ------");
     }
 }
