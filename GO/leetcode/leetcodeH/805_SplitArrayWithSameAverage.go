@@ -1,15 +1,15 @@
-package leetcodeE
+package leetcodeH
+
 // Basic Ideas: BFS pruning
 // Observation:
 //  avg(A) == avg(B) == avg(C)
 //  We only need to check combination which has no more than len(A)/2 items.
-//          Apparently max(len(B), len(C)) <= len(A)/2 
+//          Apparently max(len(B), len(C)) <= len(A)/2
 //  Avoid duplicated caculation by using a hashmap
 //  If we sort A, once avg(B) >= avg(A), we can't add any more item which is bigger than avg(A)
-//  
+//
 // Complexity:
 import (
-	"sort"
 	"math"
 )
 
@@ -17,12 +17,13 @@ type Entity struct {
 	count, sum int
 }
 
+/*
 func splitArraySameAverage(A []int) bool {
 
-	if len(A) < 2 { 
-		return false 
+	if len(A) < 2 {
+		return false
 	}
-	
+
 	sum_a := 0
 	for _, v := range A { sum_a += v }
 	visited := map[Entity]bool {}
@@ -58,7 +59,7 @@ func splitArraySameAverage(A []int) bool {
 				}
 			}
 		}
-		
+
 		for _, v := range list {
 			queue = append(queue, v)
 		}
@@ -67,12 +68,13 @@ func splitArraySameAverage(A []int) bool {
 
 	return false
 }
+*/
 
 type key struct {
 	target, cnt int
 }
 
-func search(notFound map[key]int, val []int, target, amount, s int) bool {
+func _search(notFound map[key]int, val []int, target, amount, s int) bool {
 
 	k := key{target, amount}
 	if val, ok := notFound[k]; ok && val <= s {
@@ -87,7 +89,7 @@ func search(notFound map[key]int, val []int, target, amount, s int) bool {
 		return false
 	}
 
-	res := search(notFound, val, target-val[s], amount-1, s+1) || search(notFound, val, target, amount, s+1)
+	res := _search(notFound, val, target-val[s], amount-1, s+1) || _search(notFound, val, target, amount, s+1)
 
 	if !res {
 		if v, ok := notFound[k]; ok {
@@ -110,7 +112,7 @@ func splitArraySameAverage(val []int) bool {
 	}
 
 	for i := 1; i < int(length/2)+1; i++ {
-		if sumA*i%length == 0 && search(notFound, val, sumA*i/length, i, 0) {
+		if sumA*i%length == 0 && _search(notFound, val, sumA*i/length, i, 0) {
 			return true
 		}
 	}
@@ -122,6 +124,6 @@ func Test_805SplitArrayWithSameAverage() {
 
 	res := false
 
-	res = solution2([]int{1, 2, 3, 4, 5, 6, 7, 8})
+	res = splitArraySameAverage([]int{1, 2, 3, 4, 5, 6, 7, 8})
 
 }

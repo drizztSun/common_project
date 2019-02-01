@@ -422,6 +422,9 @@
     <Compile Include="LeetCodeE\752_OpenLock.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\754_ReachNumber.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\812_LargestTriangleArea.py">
       <SubType>Code</SubType>
     </Compile>

@@ -8,7 +8,7 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
-	// Test_805SplitArrayWithSameAverage()
+	//leetcodeH.Test_805SplitArrayWithSameAverage()
 
 	return
 }
