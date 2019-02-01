@@ -9,7 +9,7 @@
 #include <vector>
 
 /*
-	**** shared_ptr
+	******* shared_ptr
 std::shared_ptr is a smart pointer that retains shared ownership of an object through a pointer. 
 Several shared_ptr objects may own the same object. The object is destroyed and its memory deallocated 
 when either of the following happens:
@@ -101,7 +101,7 @@ void Test_shared_ptr() {
 
 
 /*
-	*****  Unique_Ptr *******
+	*******  Unique_Ptr *******
 
 std::unique_ptr is a smart pointer that owns and manages another object through a pointer and disposes of that object when the unique_ptr goes out of scope.
 
@@ -227,4 +227,46 @@ void Test_unique_ptr() {
 	//	D::~D
 	//	D::~D
 
+}
+
+/* ******* weak_ptr *******
+std::weak_ptr is a smart pointer that holds a non-owning ("weak") reference to an object that is managed by std::shared_ptr. 
+It must be converted to std::shared_ptr in order to access the referenced object.
+
+std::weak_ptr models temporary ownership: when an object needs to be accessed only if it exists, 
+and it may be deleted at any time by someone else, std::weak_ptr is used to track the object, 
+and it is converted to std::shared_ptr to assume temporary ownership. 
+If the original std::shared_ptr is destroyed at this time, the object's lifetime is extended until the temporary std::shared_ptr is destroyed as well.
+
+Another use for std::weak_ptr is to break reference cycles formed by objects managed by std::shared_ptr. 
+If such cycle is orphaned (i,e. there are no outside shared pointers into the cycle), 
+the shared_ptr reference counts cannot reach zero and the memory is leaked. To prevent this, one of the pointers in the cycle can be made weak.
+
+*/
+
+std::weak_ptr<int> gw;
+
+void observe() {
+	std::cout << "use_count == " << gw.use_count() << " : ";
+	if (auto p = gw.lock()) {
+		std::cout << *p << std::endl;
+	}
+	else {
+		std::cout << "gw is expired " << std::endl;
+	}
+}
+
+//use_count == 1: 42
+//use_count == 0 : gw is expired
+
+void Test_weak_ptr() {
+
+	{
+		auto p = std::make_shared<int>(42);
+		gw = p;
+
+		observe();
+	}
+
+	observe();
 }

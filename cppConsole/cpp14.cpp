@@ -121,6 +121,18 @@ public:
 */
 /******* final override ********/
 
+/******* delete *******/
+class DB {
+public:
+
+	// use = delete to remove those two default functions, CCompile made
+	DB(const DB&) = delete; 
+	DB& operator = (const DB&) = delete;
+
+	int i = 0;
+};
+/******* delete *******/
+
 /******* for each *******/
 
 void Test_foreach() {
