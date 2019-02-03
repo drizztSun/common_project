@@ -205,13 +205,14 @@ func TestConcurrency() {
 
 	// *** sync.Mutex
 	{
+		// var c sync.Mutex
 		v := safeCounter{v: make(map[string]int)}
 		for i := 0; i < 1000; i++ {
 			go v.Inc("somekey")
 		}
 
 		time.Sleep(time.Second)
-		fmt.Println(c.Value("somekey"))
+		fmt.Println(v.Value("somekey"))
 	}
 
 }

@@ -52,7 +52,9 @@ type Person struct {
 }
 
 func (p Person) String() string {
-	return fmt.Scanf("%v (%v years)", p.Name, p.Age)
+	var s string
+	fmt.Sscanf(s, "%s (%d years)", p.Name, p.Age)
+	return s
 }
 
 type IPAddr [4]byte
@@ -143,7 +145,7 @@ func (rot *rot13Reader) Read(b []byte) (n int, err error) {
 func callInterface() {
 
 	var a Abser
-	f := MyFloat{1.0}
+	f := Myfloat(1.0)
 	v := Vertex{1, 2}
 
 	a = f  // MyFloat implement the Abser
@@ -179,7 +181,7 @@ func callInterface() {
 		s, ok := i.(string)
 		fmt.Println(s, ok) // hello true
 
-		s, ok = i.(float64)
+		// s, ok = i.(float64)
 		fmt.Println(s, ok) // 0 false
 	}
 
@@ -222,6 +224,7 @@ func callInterface() {
 		b := Person{"Zaphod Beeblebrox", 9001}
 
 		fmt.Println(a, z)
+		fmt.Println(b)
 		host := map[string]IPAddr{
 			"loopback":  {127, 0, 0, 1},
 			"googleDNS": {8, 8, 8, 8},

@@ -168,6 +168,7 @@ func UseArrayAndSlice() {
 	c := names[0:2]
 	b := names[1:3]
 	fmt.Println(a, c)
+	fmt.Println(b)
 
 	c[0] = "XXX"
 	fmt.Println(a, c)
@@ -250,6 +251,9 @@ func UseArrayAndSlice() {
 	a3 := a2[:2]
 	a4 := a3[2:5]
 
+	fmt.Println(a1)
+	fmt.Println(a4)
+
 	// Create a tic-tac-toe board
 	board := [][]string{
 		[]string{"-", "-", "-"},
@@ -329,9 +333,11 @@ func UseMap() {
 
 	// retrieve element
 	elem1 := m1["Amazon"]
+	fmt.Println(elem1)
 
 	// Test value
 	elem, ok := m1["Amazon"]
+	fmt.Println(elem, ok)
 	// if "Amazon" is in m1, elem and ok is true. if not, ok is false
 	// if ok is false, elem is zero value
 
@@ -367,9 +373,9 @@ func UseFunctionValues() {
 }
 
 // function closure
-func adder() {
+func adder() func(int) int {
 	sum := 0
-	return func(a int) {
+	return func(a int) int {
 		sum += a
 		return sum
 	}
@@ -383,7 +389,7 @@ func caller2Adder() {
 	}
 }
 
-func fibonacci() {
+func fibonacci() func() int {
 	last1, last2 := 0, 1
 
 	return func() int {
@@ -398,7 +404,7 @@ func callfibonacci() {
 
 	fino := fibonacci()
 	for i := 0; i < 10; i++ {
-		fmt.Printf(fino(), ",")
+		fmt.Printf("%d, ", fino())
 	}
 	fmt.Printf("\n")
 }
@@ -439,7 +445,7 @@ func callInterface() {
 	fmt.Println(a.Abs())
 }
 */
-func main() {
+func basic() {
 	fmt.Printf("Hello World! \n")
 
 	fmt.Println("Current time is ", time.Now())
@@ -452,20 +458,24 @@ func main() {
 
 	fmt.Println("3 + 5 = ", add(3, 5))
 
-	fmt.Println("Swap a and b will be %v, %v", swap("a", "b"))
+	// fmt.Println("Swap a and b will be %v, %v", swap("a", "b"))
 
 	// with initializer, the 'type' could be ignored
 	var c, python, java = true, false, "no!"
+	fmt.Println(c, python, java)
 
 	// short variable declaration
 	// Inside a function, the := short assignment statement can be used in place of a var declaration with implicit type.
 	// Outside a function, every statement begins with a keyword (var, func, and so on) and so the := construct is not available.
 	i, j, k := 1, 2, 3
+	fmt.Println("i=%d, j=%d, k=%d", i, j, k)
 
 	// Type conversions
 	var x, y int = 3, 4
+	fmt.Println("x=%d, y=%d", x, y)
 	f := float32(i) // var f float64 = math.Sqrt（float64(x*x) + float64(y*y))
 	u := uint(i)    // var u uint = uint(f)
+	fmt.Println("f %[2]f, %[1]d", u, f)
 
 	// Type inference
 	// When declaring a variable without specifying an explicit type (either by using the := syntax or var = expression syntax), the variable's type is inferred from the value on the right hand side.
