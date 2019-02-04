@@ -31,7 +31,7 @@ type MyLinkedList struct {
 }
 
 // Constructor Initialize your data structure here.
-func Constructor() MyLinkedList {
+func constructorMyLinkedList() MyLinkedList {
 	return MyLinkedList{}
 }
 
