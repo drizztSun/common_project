@@ -6,7 +6,7 @@ type MyHashMap struct {
 }
 
 /** Initialize your data structure here. */
-func Constructor() MyHashMap {
+func MyHashMapConstructor() MyHashMap {
 	a := MyHashMap{}
 	a.keys = make([]int, 0)
 	a.values = make([]int, 0)

@@ -577,6 +577,9 @@
     <Compile Include="Leetcode\699_FallingSquares.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\705_DesignHashSet.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\706_DesignHashMap.py">
       <SubType>Code</SubType>
     </Compile>
