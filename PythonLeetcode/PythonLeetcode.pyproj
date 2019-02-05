@@ -413,6 +413,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\720_LongestWordInDictionary.py" />
+    <Compile Include="LeetCodeE\728_SelfDividingNumbers.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\729_MyCalendarI.py">
       <SubType>Code</SubType>
     </Compile>
@@ -606,6 +609,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\724_FindPivotIndex.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Leetcode\725_SplitLinkedListinParts.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\726_NumberofAtoms.py">
