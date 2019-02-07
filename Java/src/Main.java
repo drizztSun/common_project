@@ -2,7 +2,7 @@ import test.basic.*;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         System.out.println(" ------ Hello World! ------");
 
@@ -27,6 +27,8 @@ public class Main {
         TestPriorityQueue.TestPriorityQueue();
 
         TestTreeSet.TestTreeSet();
+
+        TestReflection.TestReflection();
 
         System.out.println(" ------ Hello world end! ------");
     }
