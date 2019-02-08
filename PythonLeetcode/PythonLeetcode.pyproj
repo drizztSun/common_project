@@ -631,6 +631,9 @@
     <Compile Include="Leetcode\736_ParseLispExpression.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\738_MonotoneIncreasingDigits.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\741_CherryPickup.py">
       <SubType>Code</SubType>
     </Compile>
