@@ -10,4 +10,8 @@ func main() {
 	Main_test_list()
 
 	test_array()
+
+	Test_str()
+
+	Test_strings()
 }
