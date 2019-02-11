@@ -28,10 +28,10 @@ class findMedianSortedArrays:
             nums1, nums2, m, n = nums2, nums1, n, m
             
         imin, imax = 0, m
-        half_len = (m+n+1)/2
+        half_len = (m+n+1) // 2
         
         while imin <= imax:
-            i = (imin + imax) / 2
+            i = (imin + imax) // 2
             j = half_len - i
             
             if i < m and nums1[i] < nums2[j-1]:

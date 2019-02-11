@@ -49,11 +49,11 @@ class FindMedianSortedArrays:
             
         lo, hi = 0, N1
         # left = right(even) or left = right + 1(odd)
-        half = (N1 + N2 + 1) / 2
+        half = (N1 + N2 + 1) // 2
         
         while lo <= hi:
             # m1 is from 0 ~ N1
-            m1 = (lo + hi) / 2
+            m1 = (lo + hi) // 2
             # because half is greater and equal to N1, m2 will be always valid [0, N2) 
             m2 = half - m1
             
@@ -100,10 +100,10 @@ class FindMedianSortedArrays:
         if n == 0: 
             raise ValueError
         
-        imin, imax, half_len = 0, m, (m + n + 1)/2
+        imin, imax, half_len = 0, m, (m + n + 1) // 2
         
         while imin <= imax:
-            i = (imin + imax) / 2
+            i = (imin + imax) // 2
             j = half_len - i
             
             if i < m and B[j-1] > A[i]:

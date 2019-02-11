@@ -94,7 +94,7 @@ func (pq *PriorityQueue) Pop() interface{} {
 
 func (pq *PriorityQueue) Push(i interface{}) {
 	n := len(*pq)
-	item := i.(Item)
+	item := i.(Item)	
 	item.index = n
 	*pq = append(*pq, &item)
 }

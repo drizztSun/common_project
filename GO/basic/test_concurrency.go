@@ -56,6 +56,7 @@ func restore(repos []string) error {
 	close(errChan)
 	return <-errChan
 } */
+
 func fetch(repo string) error {
 	if len(repo) > 0 {
 		return nil
