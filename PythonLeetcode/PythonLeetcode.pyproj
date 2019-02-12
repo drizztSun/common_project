@@ -640,6 +640,12 @@
     <Compile Include="Leetcode\745_PrefixSuffixSearch.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\747_LargestNumberAtLeastTwiceofOthers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Leetcode\748_ShortestCompletingWord.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\749_ContainVirus.py">
       <SubType>Code</SubType>
     </Compile>
