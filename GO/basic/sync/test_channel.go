@@ -123,6 +123,7 @@ func test_chann_semaphone() {
 	wg.Wait()
 }
 
+/*
 func main() {
 
 	test_chann()
@@ -131,3 +132,4 @@ func main() {
 
 	test_chann_semaphone()
 }
+*/

@@ -7,11 +7,13 @@ import (
 func main() {
 	fmt.Println("basic test main function")
 
-	Main_test_list()
+	//Main_test_list()
 
-	test_array()
+	//test_array()
 
-	Test_str()
+	//Test_str()
 
-	Test_strings()
+	//Test_strings()
+
+	Test_strconver()
 }
