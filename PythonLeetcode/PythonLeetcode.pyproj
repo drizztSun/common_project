@@ -634,6 +634,10 @@
     <Compile Include="Leetcode\738_MonotoneIncreasingDigits.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\739_DailyTemperatures.py" />
+    <Compile Include="Leetcode\740_DeleteandEarn.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\741_CherryPickup.py">
       <SubType>Code</SubType>
     </Compile>
