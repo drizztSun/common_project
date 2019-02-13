@@ -204,10 +204,8 @@ func Test_strconver() {
 
 	{
 		s := strconv.QuoteRuneToASCII('☺')
-		fmt.Println(s) '\u263a'
+		fmt.Println(s) // '\u263a'
 	}
-
-
 
 	{
 		s, err := strconv.Unquote("You can't unquote a string without quotes")
@@ -298,9 +296,9 @@ func Test_strconver() {
 		if _, err := strconv.ParseFloat(str, 64); err != nil {
 			e := err.(*strconv.NumError)
 			fmt.Println("Func:", e.Func) // Func: ParseFloat
-			fmt.Println("Num:", e.Num) // Num: Not a number
-			fmt.Println("Err:", e.Err) // Err: invalid syntax
-			fmt.Println(err) // strconv.ParseFloat: parsing "Not a number": invalid syntax
+			fmt.Println("Num:", e.Num)   // Num: Not a number
+			fmt.Println("Err:", e.Err)   // Err: invalid syntax
+			fmt.Println(err)             // strconv.ParseFloat: parsing "Not a number": invalid syntax
 		}
 	}
 }
