@@ -16,6 +16,8 @@
 
 
 class FindClosestElements:
+
+    # because it is sorted array, so binary search
     def doit(self, arr, k, x):
         """
         :type arr: List[int]
@@ -23,7 +25,32 @@ class FindClosestElements:
         :type x: int
         :rtype: List[int]
         """
-        pass
+        l, r = 0, len(arr) - k
+        while l < r:
+            m = l + (r - l) // 2
+            if x - arr[m] > arr[m+k] - x:
+                l = m + 1
+            else:
+                r = m
+
+        return arr[l: l + k]
+
+    def doit1(self, arr: 'List[int]', k: 'int', x: 'int') -> 'List[int]':
+        buff = {}
+        for c in arr:
+            buff[abs(c-x)] = buff.get(abs(c-x), []) + [c]
+            
+        ans = []
+        for s in sorted(buff.keys()):
+            
+            ans.extend(buff[s] if len(buff[s]) < k else buff[s][:k])
+            
+            k -= len(buff[s])
+            
+            if k <= 0:
+                break
+            
+        return sorted(ans)
 
 
 if __name__ == "__main__":

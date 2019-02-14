@@ -403,6 +403,9 @@
     <Compile Include="LeetCodeE\701_InsertintoBinarySearchTree.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\703_KthLargestElementinStream.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\704_BinarySearch.py">
       <SubType>Code</SubType>
     </Compile>
@@ -556,6 +559,7 @@
     <Compile Include="Leetcode\639_WordAbbreviation.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\658_FindKClosestElements.py" />
     <Compile Include="Leetcode\659_SplitArrayintoConsecutiveSubsequences.py">
       <SubType>Code</SubType>
     </Compile>
