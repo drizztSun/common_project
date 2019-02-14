@@ -20,7 +20,7 @@ package leetcodeE
  Explanation: 2 does not exist in nums so return -1
 */
 
-func search(nums []int, target int) int {
+func BinarySearch(nums []int, target int) int {
 
 	for s, e := 0, len(nums); s < e; {
 		mid := int((s + e) / 2)
