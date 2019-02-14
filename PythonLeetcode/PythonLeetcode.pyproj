@@ -388,10 +388,19 @@
     <Compile Include="LeetCodeE\655_PrintBinaryTree.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\657_RobotReturntoOrigin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\661_ImageSmoother.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\665_NondecreasingArray.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\669_TrimBinarySearchTree.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\671_SecondMinimumNodeInaBinaryTree.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\684_RedundantConnection.py">
