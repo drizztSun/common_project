@@ -1,5 +1,3 @@
-import os
-
 # 207. Interval Sum II
 # Given an integer array in the construct method, implement two methods query(start, end) and modify(index, value):
 

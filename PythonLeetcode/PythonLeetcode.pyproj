@@ -403,6 +403,9 @@
     <Compile Include="LeetCodeE\671_SecondMinimumNodeInaBinaryTree.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\674_LongestContinuousIncreasingSubsequence.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\684_RedundantConnection.py">
       <SubType>Code</SubType>
     </Compile>
@@ -577,6 +580,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\668_KthSmallestNumberinMultiplicationTable.py" />
+    <Compile Include="Leetcode\673_NumberofLongestIncreasingSubsequence.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\675_CutOffTreesforGolfEvent.py">
       <SubType>Code</SubType>
     </Compile>
