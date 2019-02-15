@@ -17,8 +17,124 @@
 
 # The length of A will be in the range [1, 30].
 # A[i] will be in the range of [0, 10000].
+
+
+# https://leetcode.com/problems/split-array-with-same-average/solution/
+class Solution(object):
+    def splitArraySameAverage(self, A):
+        from fractions import Fraction
+        N = len(A)
+        S = sum(A)
+        A = [z - Fraction(S, N) for z in A]
+
+        if N == 1: return False
+
+        #Want zero subset sum
+        left = {A[0]}
+        for i in xrange(1, N/2):
+            left = {z + A[i] for z in left} | left | {A[i]}
+        if 0 in left: return True
+
+        right = {A[-1]}
+        for i in xrange(N/2, N-1):
+            right = {z + A[i] for z in right} | right | {A[i]}
+        if 0 in right: return True
+
+        sleft = sum(A[i] for i in xrange(N/2))
+        sright = sum(A[i] for i in xrange(N/2, N))
+
+        return any(-ha in right and (ha, -ha) != (sleft, sright) for ha in left)
+
+
  
 class SplitArraySameAverage1:
+
+
+
+    # Change the quesiton change to a N-sum problem:
+    # To find if
+    # 1 element with sum = 1 * avg or
+    # 2 elements with sum = 2 * avg or
+    # i elements with sum = i * avg
+
+    
+    # Recursive funciton find try to find a subset of n elements from A with sum = target
+    # best one <>
+    def doit(self, A):
+        """
+        :type A: List[int]
+        :rtype: bool
+        """
+        def find(target, k, i):
+            # find a subarray, starts for i, with k elementes and totals will be target
+            if (target,k) in not_found and not_found[(target,k)] <= i:
+                # if we already find, not_found it since j <= i, so we return false 
+                return False
+            
+            if k == 0: 
+                # if k is 0, means we don't need to continue to find. so check the target == 0
+                return target == 0
+            
+            if k + i > len(A): 
+                # if ith + k already be outsied array, so no need to check
+                return False
+
+            # include this one or ignore this one            
+            res = find(target - A[i], k - 1, i + 1) or find(target, k, i + 1)
+            
+            if not res: 
+                # if not found, set the not found to be latest i index
+                not_found[(target, k)] = min(not_found.get((target, k), n), i)
+            
+            return res
+        
+        not_found = dict()
+        
+        n, s = len(A), sum(A)
+        
+        # The size of smaller list between B and C will be less than N/2+1, so 0 < i < N/2+1
+        return any(find(s * k / n, k, 0) for i in range(1, n // 2 + 1) if k * i % n == 0)
+
+    def doit1(self, A):
+        """
+        :type A: List[int]
+        :rtype: bool
+        """
+        if len(A) < 2:
+            return False
+        
+        totals = sum(A)
+        buff = set()
+        
+        for c in sorted(A):
+            
+            if c * len(A) == totals:
+                return True
+                
+            key = (1, c)
+
+            if key not in buff:
+                buff.add(key)
+
+            newkeys = []
+            for en in buff:
+
+                if en[0] * 2 < len(A):
+                    subtotal, cnt = c + en[1], 1 + en[0]
+                    v1,  v2 = subtotal * len(A), totals * cnt
+
+                
+                    if v1 == v2:
+                        return True
+
+                    else:
+                        if v1 < v2:
+                            newkeys.append((cnt, subtotal))
+                    
+            for key in newkeys:
+                buff.add(key)
+            
+        return False
 
     # <DFS> TLS
     def doit4(self, A):
@@ -85,13 +201,62 @@ class SplitArraySameAverage1:
         return False
 
 
+from collections import defaultdict
+class Solution(object):
+    def lsd2idx(self, n):
+        res = 0
+        mask = 1
+        while not (n & mask):
+            mask <<= 1
+            res += 1
+        return res
+
+    def splitArraySameAverage(self, A):
+        """
+        :type A: List[int]
+        :rtype: bool
+        """
+        if len(A) < 2:
+            return False
+        
+        N = len(A)
+        s = sum(A)
+        
+        nums = [n*N - s for n in A]
+        dpleft, dpright = {0: 0}, {0: 0}
+        cntleft, cntright = defaultdict(int), defaultdict(int)
+        
+        # find all possible sums
+        leftn, rightn = N//2, N-N//2
+        for i in range(1, 1<<leftn):
+            lsd = i & -i
+            dpleft[i] = dpleft[i - lsd] + nums[self.lsd2idx(lsd)]
+            cntleft[dpleft[i]] += 1
+        for i in range(1, 1<<rightn):
+            lsd = i&-i
+            dpright[i] = dpright[i - lsd] + nums[self.lsd2idx(lsd) + N//2]
+            cntright[dpright[i]] += 1
+        
+        if 0 in cntleft or 0 in cntright:
+            return True
+        
+        for i in cntleft:
+            if -i in cntright:
+                if i == dpleft[(1<<leftn)-1] and -i == dpright[(1<<rightn)-1] and cntleft[i] == 1 and cntright[-i] == 1:
+                    continue
+                return True 
+        
+        return False
 # We split the array into two parts with same size. (call it "left" and "right" subarray)
 
 # Then enumerate every possible combination of two sub-arrays.
 
-# Assume there is a combination of l1 numbers which sum is s1 in the "left subarray". Similarly, a combination of l2 numbers and s2 summary is in the "right subarray". If we concat the two combinations, the average should be: (s1 + s2) / (l1 + l2).
+# Assume there is a combination of l1 numbers which sum is s1 in the "left subarray". 
+# Similarly, a combination of l2 numbers and s2 summary is in the "right subarray". If we concat the two combinations, the average should be: (s1 + s2) / (l1 + l2).
 
-# So, if and only if (s1 + s2) / (l1 + l2) equals the average of the array, we can make the conclusion that we can split the array with equal average, and the average must be equal to the average of the whole array. As a result, if we know s1, l1, then we enumerate l2 (which could as large as 15 at most), and try to find out if there is an available s2.
+# So, if and only if (s1 + s2) / (l1 + l2) equals the average of the array, 
+# we can make the conclusion that we can split the array with equal average, and the average must be equal to the average of the whole array. 
+# As a result, if we know s1, l1, then we enumerate l2 (which could as large as 15 at most), and try to find out if there is an available s2.
 
 # The time complexity is O(N * 2^(N / 2)). As N is as large as 30, there is no chance for a TLE.
 

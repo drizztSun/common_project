@@ -745,6 +745,9 @@
     <Compile Include="Leetcode\839_SimilarStringGroups.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Leetcode\842_SplitArrayintoFibonacciSequence.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\843_GuesstheWord.py">
       <SubType>Code</SubType>
     </Compile>

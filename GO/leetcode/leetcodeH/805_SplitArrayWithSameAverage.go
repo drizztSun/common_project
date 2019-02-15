@@ -12,64 +12,68 @@ package leetcodeH
 import (
 	"fmt"
 	"math"
+	"sort"
 )
 
 type Entity struct {
 	count, sum int
 }
 
-/*
-func splitArraySameAverage(A []int) bool {
-
-	if len(A) < 2 {
+func splitArraySameAverage1(A []int) bool {
+	if len(A) <= 1 {
 		return false
 	}
 
 	sum_a := 0
-	for _, v := range A { sum_a += v }
-	visited := map[Entity]bool {}
-	queue := [][]int
+	for _, v := range A {
+		sum_a += v
+	}
 
-	sort.Ints(A)
+	visited := map[Entity]bool{}
+
+	sort.Ints(A[:])
+	// count, sum
+	queue := [][]int{}
 	for _, v := range A {
 
-		if v * len(A) == sum_a {
+		// add current item to queue
+		if v*len(A) == sum_a {
 			return true
 		}
 
-		en := Entity{1, v}
-		if visited[en] == false {
+		entity := Entity{1, v}
+		if visited[entity] == false {
 			queue = append(queue, []int{1, v})
-			visited[en] = true
+			visited[entity] = true
 		}
 
-		list := [][]int
+		// whether add current item to existings items in the queue
+		list := [][]int{}
 		for _, item := range queue {
 
-			v1, v2 := (item[1] + v) * len(A), (item[0] + 1) * sum_a
-			if v1 == v2 {
-				return true
-			} else {
-				if v1 < v2 {
-
-					entity = Entity{item[0] + 1, item[1] + v}
-					if visited[entity] == false{
-						list = append(list, []int{item[0]+1, item[1] + v})
-						visited[entity] = true
+			// whether to explore
+			if item[0]*2 < len(A) {
+				v1, v2 := (item[1]+v)*len(A), (item[0]+1)*sum_a
+				if v1 == v2 {
+					return true
+				} else {
+					if v1 < v2 {
+						entity = Entity{item[0] + 1, item[1] + v}
+						if visited[entity] == false {
+							list = append(list, []int{item[0] + 1, item[1] + v})
+							visited[entity] = true
+						}
 					}
 				}
 			}
 		}
-
+		// update queue
 		for _, v := range list {
 			queue = append(queue, v)
 		}
-
 	}
-
 	return false
 }
-*/
 
 type key struct {
 	target, cnt int
