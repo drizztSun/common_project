@@ -40,7 +40,7 @@ class inorderTraversal(object):
             if not node:
                 return []
 
-            return search(node.left) + [node.val] + search(node.right)
+            return search(node.left) + search(node.right) + [node.val]
             
         return search(root)
 

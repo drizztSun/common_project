@@ -148,11 +148,15 @@ void Test_foreach() {
 
 	// for each : works on any class that has begin() and end() 
 	for (auto i : v) {
-		cout << i; // read-only
+		cout << i; // read-only, it just copy the element in v to i
 	}
 
 	for (auto& i : v) {
-		i++; // because if ref &, we can change the value
+		i++; // because if ref &, we can change i and also change the element in v
+	}
+
+	for (const auto& c : v) {
+		cout << c << ' '; // because if const ref &, we can't change the value in v
 	}
 }
 

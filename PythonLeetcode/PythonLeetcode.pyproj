@@ -443,6 +443,9 @@
     <Compile Include="LeetCodeE\735_AsteroidCollision.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\744_FindSmallestLetterGreaterThanTarget.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\752_OpenLock.py">
       <SubType>Code</SubType>
     </Compile>
@@ -452,7 +455,13 @@
     <Compile Include="LeetCodeE\812_LargestTriangleArea.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\821_ShortestDistancetoCharacter.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\826_MostProfitAssigningWork.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\908_SmallestRangeI.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LeetCodeE\96_UniqueBinarySearchTree.py">
@@ -765,7 +774,13 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\85_MaximalRectangle.py" />
+    <Compile Include="Leetcode\865_SmallestSubtreewithalltheDeepestNodes.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\87_ScrambleString.py" />
+    <Compile Include="Leetcode\910_SmallestRangeII.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\97_interleavingString.py" />
     <Compile Include="Leetcode\99_RecoverBST.py" />
     <Compile Include="LintCode\201_SegementTree.py" />
@@ -783,7 +798,7 @@
     <Compile Include="LintCode\backpack\798._backpack.py" />
     <Compile Include="LintCode\backpack\799_backpackVIII.py" />
     <Compile Include="LintCode\backpack\92_backpackI.py" />
-    <Compile Include="test\questions.py">
+    <Compile Include="others\shortestRangeOfKSortedArray.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -793,7 +808,7 @@
     <Folder Include="LintCode\" />
     <Folder Include="LintCode\backpack\" />
     <Folder Include="algorithem\" />
-    <Folder Include="test\" />
+    <Folder Include="others\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
