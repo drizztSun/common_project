@@ -40,8 +40,9 @@ class CherryPickup:
 
 
 
-# The idea is to use self.memo[(i1, j1, i2, j2)] to store the maximum number of cherries that can be collected starting from (i1, j1) to (N-1, N-1) then to(i2, j2) .
-# Note that since I�m taking a step at each end at the same time, i1+j1 is always equal to i2+j2, therefore there are only O(N^3) states (and I�m using the full quadruple to store the state for the sake of clearness).
+# The idea is to use self.memo[(i1, j1, i2, j2)] to store the maximum number of cherries that can be collected starting from (i1, j1) to (N-1, N-1) then to(i2, j2).
+# Note that since I am taking a step at each end at the same time, i1+j1 is always equal to i2+j2, therefore there are only O(N^3) states
+# (and I am using the full quadruple to store the state for the sake of clearness).
     # <DP> <O(N^3)>
     def doit(self, grid):
         """
