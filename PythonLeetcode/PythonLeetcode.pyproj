@@ -486,6 +486,9 @@
     <Compile Include="Leetcode\207_CourseSchedule.py" />
     <Compile Include="Leetcode\212_WordSearch.py" />
     <Compile Include="Leetcode\213_HouseRobber.py" />
+    <Compile Include="Leetcode\215_KthLargestElement inanArray.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\216_CombinationSum.py" />
     <Compile Include="Leetcode\218_TheSkylineProblem.py" />
     <Compile Include="Leetcode\220_ContainsDuplicate.py" />

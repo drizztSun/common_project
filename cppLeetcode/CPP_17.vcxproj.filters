@@ -231,6 +231,9 @@
     <ClCompile Include="leetcode\546_removeBoxes.cpp">
       <Filter>leetcode</Filter>
     </ClCompile>
+    <ClCompile Include="215_KthLargestElementInArrat.cpp">
+      <Filter>leetcode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="leetcode">
