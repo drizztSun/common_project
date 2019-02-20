@@ -467,6 +467,9 @@
     <Compile Include="LeetCodeE\96_UniqueBinarySearchTree.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\973_KClosestPointsToOrigin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\10_RegularExpressionMatching.py" />
     <Compile Include="Leetcode\115_DistinctSubsequeneces.py" />
     <Compile Include="Leetcode\123_BestTimeBuySellStockIII.py" />
