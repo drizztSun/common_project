@@ -190,6 +190,24 @@ class postorderTraversal:
 
         return res
 
+    def doit(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        cur, buff, res = root, [], []
+        
+        while cur or buff:
+
+            while cur :
+                res = [cur.val] + res
+                buff.append(cur.left)
+                cur = cur.right
+
+            cur = buff.pop()
+
+        return res
+
     def doit2(self, root):
         """
         :type root: TreeNode

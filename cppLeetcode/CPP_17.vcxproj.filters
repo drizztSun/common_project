@@ -234,6 +234,9 @@
     <ClCompile Include="215_KthLargestElementInArrat.cpp">
       <Filter>leetcode</Filter>
     </ClCompile>
+    <ClCompile Include="hashmap.c">
+      <Filter>datastructure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="leetcode">
@@ -241,6 +244,9 @@
     </Filter>
     <Filter Include="leetcodeeasy">
       <UniqueIdentifier>{bb892d40-23da-43ed-974a-29eb1a4c3df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="datastructure">
+      <UniqueIdentifier>{10f37dfb-195a-4841-a983-a23777c0643f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

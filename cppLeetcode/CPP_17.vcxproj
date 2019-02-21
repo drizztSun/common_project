@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="215_KthLargestElementInArrat.cpp" />
+    <ClCompile Include="hashmap.c" />
     <ClCompile Include="leetcode.cpp" />
     <ClCompile Include="leetcode\10_RegularExpressionMatching.cpp" />
     <ClCompile Include="leetcode\11_ContainerWithMostWater.cpp" />
