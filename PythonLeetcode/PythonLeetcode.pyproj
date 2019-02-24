@@ -452,6 +452,9 @@
     <Compile Include="LeetCodeE\754_ReachNumber.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\762_PrimeNumberofSetBitsinBinaryRepresentation.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\812_LargestTriangleArea.py">
       <SubType>Code</SubType>
     </Compile>

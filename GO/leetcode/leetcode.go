@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"./leetcodeH"
+	"./leetcodeE"
 )
 
 func main() {
@@ -14,7 +14,9 @@ func main() {
 
 	//leetcodeE.Test_748()
 
-	leetcodeH.Test_842_splitIntoFibonacci()
+	// leetcodeH.Test_842_splitIntoFibonacci()
+
+	leetcodeE.CountPrimeSetBits(6, 10)
 
 	return
 }
