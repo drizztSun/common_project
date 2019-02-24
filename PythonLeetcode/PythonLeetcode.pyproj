@@ -455,6 +455,18 @@
     <Compile Include="LeetCodeE\762_PrimeNumberofSetBitsinBinaryRepresentation.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\766_ToeplitzMatrix.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\771_JewelsandStones.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\783_MinimumDistanceBetweenBSTNodes.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LeetCodeE\784_LetterCasePermutation.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="LeetCodeE\812_LargestTriangleArea.py">
       <SubType>Code</SubType>
     </Compile>
