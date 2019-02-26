@@ -485,6 +485,9 @@
     <Compile Include="LeetCodeE\973_KClosestPointsToOrigin.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LeetCodeE\977_SquaresofSortedArray.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\10_RegularExpressionMatching.py" />
     <Compile Include="Leetcode\115_DistinctSubsequeneces.py" />
     <Compile Include="Leetcode\123_BestTimeBuySellStockIII.py" />
@@ -497,6 +500,9 @@
     <Compile Include="Leetcode\159_LongestSubstringWithAtMostTwoDistinctCharacters.py" />
     <Compile Include="Leetcode\164_MaximumGap.py" />
     <Compile Include="Leetcode\174_DungeonGame.py" />
+    <Compile Include="Leetcode\179_LargestNumber.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Leetcode\188_BestTimeBuySellStockIV.py" />
     <Compile Include="Leetcode\207_CourseSchedule.py" />
     <Compile Include="Leetcode\212_WordSearch.py" />
@@ -800,6 +806,9 @@
     </Compile>
     <Compile Include="Leetcode\87_ScrambleString.py" />
     <Compile Include="Leetcode\910_SmallestRangeII.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Leetcode\976_LargestPerimeterTriangle.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Leetcode\97_interleavingString.py" />
