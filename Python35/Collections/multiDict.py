@@ -1,11 +1,10 @@
-
-
 from collections import defaultdict 
 from collections import OrderedDict
 
 
-
 def main():
+
+    print(" --- multi dict --- ")
 
     # defaultdict
     # Using list as the default_factory, it is easy to group a sequence of key-value pairs into a dictionary of lists:
@@ -40,9 +39,7 @@ def main():
     for k, v in s:
         d[k].add(v)
 
-    print(sorted(d.items))
-
-        
+    print(sorted(d.items()))
         
     
     #  orderdict 
@@ -58,10 +55,10 @@ def main():
     c['black'] = 400
     print(c)
      
-    c.popitem(False) # FIFO
+    print(c.popitem(False)) # FIFO
     print(c)
 
-    c.popitem(True) # LIFO
+    print(c.popitem(True)) # LIFO
     print(c)
     
     c.move_to_end('yellow', True) # move to the right
@@ -79,18 +76,12 @@ def main():
     print(OrderedDict(sorted(d.items(), key = lambda t: t[1])))
 
     # ordered by length of the key string
-    print(OrderedDict(sorted(d.items(), key = lambda t: len(t)))
+    print(OrderedDict(sorted(d.items(), key = lambda t: len(t))))
 
     
-
-    
-    
-    pass
+    print(" --- multi dict --- ")
 
 
 if __name__ == "__main__":
     
     main()
-
-
-    pass

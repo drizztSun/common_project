@@ -34,6 +34,9 @@
     <Compile Include="Collections\multiDict.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Collections\PriorityQueue.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Concurrent Execution\threadingTest.py">
       <SubType>Code</SubType>
     </Compile>

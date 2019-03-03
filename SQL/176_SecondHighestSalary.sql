@@ -6,6 +6,19 @@ SELECT
        ORDER BY Salary DESC
         LIMIT 1 OFFSET 1),
     NULL) AS SecondHighestSalary
+	
+[SQLSEVER]
+with SHS as 
+(select distinct Salary as SecondHighestSalary, Id
+from Employee)
+select 
+case
+when SecondHighestSalary is not null then SecondHighestSalary
+else null
+end as SecondHighestSalary
+from SHS
+where Id = 2
+order by SecondHighestSalary;
 
 
 Write a SQL query to get the second highest salary from the Employee table.

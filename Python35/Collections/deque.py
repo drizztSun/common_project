@@ -1,10 +1,9 @@
-import os
 from collections import deque
 
 
-
-
 def main():
+
+    print(" --- deque --- ")
 
     d = deque("ghi")
     for elem in d:
@@ -39,13 +38,10 @@ def main():
 
     d.clear()
 
-
-
-
-    pass
+    print(" --- deque --- ")
 
 if __name__ == "__main__":
     
     main()
-    pass
+
 
