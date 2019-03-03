@@ -1,6 +1,4 @@
 from collections import Counter, ChainMap
-import os
-
 
 # A counter tool is provided to support convenient and rapid tallies. For example:
 

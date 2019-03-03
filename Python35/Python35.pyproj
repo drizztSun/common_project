@@ -22,6 +22,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Collections\bisect_util.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Collections\counter.py">
       <SubType>Code</SubType>
     </Compile>
