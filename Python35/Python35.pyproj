@@ -43,6 +43,9 @@
     <Compile Include="Concurrent Execution\threadingTest.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Concurrent Execution\threading_basic.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FunctionalProgramming.py">
       <SubType>Code</SubType>
     </Compile>
@@ -104,22 +107,22 @@
     <Compile Include="standard lib\test_os.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="standard lib\threads.py">
+    <Compile Include="Concurrent Execution\threads.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="standard lib\threads2.py">
+    <Compile Include="Concurrent Execution\threads2.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="standard lib\thread_conditions.py">
+    <Compile Include="Concurrent Execution\thread_conditions.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="standard lib\thread_event.py">
+    <Compile Include="Concurrent Execution\thread_event.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="standard lib\thread_semaphore.py">
+    <Compile Include="Concurrent Execution\thread_semaphore.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="standard lib\thread_timer.py">
+    <Compile Include="Concurrent Execution\thread_timer.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="standard lib\times.py">

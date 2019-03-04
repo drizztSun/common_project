@@ -4,6 +4,32 @@ import (
 	"math"
 )
 
+type Stones [2]int
+
+// res := []int{math.MinInt32, math.MaxInt32}
+
+func (s Stones) search(node *TreeNode) {
+
+	if node == nil {
+		return
+	}
+
+	s.search(node.Left)
+
+	if node.Val-s[0] < s[1] {
+		s[1] = node.Val - s[0]
+	}
+
+	s.search(node.Right)
+}
+
+func minDiffInBST1(root *TreeNode) int {
+
+	s := Stones{math.MinInt32, math.MaxInt32}
+	s.search(root)
+	return s[1]
+}
+
 var res []int
 
 func searchTree(node *TreeNode) {
@@ -22,7 +48,7 @@ func searchTree(node *TreeNode) {
 	searchTree(node.Right)
 }
 
-func minDiffInBST(root *TreeNode) int {
+func minDiffInBST2(root *TreeNode) int {
 
 	res = []int{math.MinInt32, math.MaxInt32}
 	searchTree(root)
