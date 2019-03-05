@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 )
 
@@ -58,17 +59,24 @@ func test_map_sync() {
 
 	var m sync.Map
 
+	// Store sets the value for a key.
 	m.Store("Barca", 65)
 	m.Store("Real Madrid", 59)
 	m.Store("Madrid Althetic", 59)
 
+	// Load returns the value stored in the map for a key, or nil if no value is present.
+	// The ok result indicates whether value was found in the map.
 	v, ok := m.Load("Barca")
-	fmt.Printf("Barca %d ,%b \n", v, ok)
-	v, ok = m.Load("Real Madrid")
-	fmt.Printf("Real Madrid %d \n", v, ok)
-	v, ok = m.Load("Madrid Althetic")
-	fmt.Printf("Madrid Althetic %d \n", v, ok)
+	fmt.Printf("Barca %d ,%t \n", v, ok)
 
+	v, ok = m.Load("Real Madrid")
+	fmt.Printf("Real Madrid %d, %t\n", v, ok)
+
+	v, ok = m.Load("Madrid Althetic")
+	fmt.Printf("Madrid Althetic %d, %t \n", v, ok)
+
+	// LoadOrStore returns the existing value for the key if present.
+	// Otherwise, it stores and returns the given value. The loaded result is true if the value was loaded, false if stored.
 	v, ok = m.LoadOrStore("Barca", 100)
 	if ok {
 		fmt.Println("Barca is there, %V \n", v)
@@ -76,17 +84,29 @@ func test_map_sync() {
 
 	v, ok = m.LoadOrStore("Valencia", 50)
 	if !ok {
-		fmt.Println("Valencia is %V %b", v, ok)
+		fmt.Printf("Valencia is %d %t\n", v, ok)
 	}
 
+	// Delete deletes the value for a key.
 	m.Delete("Valencia")
 
 	if v, ok = m.Load("Valencia"); !ok {
 		fmt.Println("Valencia does not existed")
 	}
 
-}
+	// Range calls f sequentially for each key and value present in the map. If f returns false, range stops the iteration.
+	// Range does not necessarily correspond to any consistent snapshot of the Map's contents: no key will be visited more than once, but if the value for any key is stored or deleted concurrently, Range may reflect any mapping for that key from any point during the Range call.
+	// Range may be O(N) with the number of elements in the map even if f returns false after a constant number of calls.
+	m.Range(func(k, v interface{}) bool {
+		key := k.(string)
+		value := v.(int)
 
-func main() {
-	test_map_sync()
+		if strings.HasPrefix(key, "Athlete") {
+
+			return false
+		}
+
+		fmt.Println(key, value)
+		return true
+	})
 }

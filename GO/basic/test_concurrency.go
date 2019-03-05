@@ -58,11 +58,8 @@ func restore(repos []string) error {
 } */
 
 func fetch(repo string) error {
-	if len(repo) > 0 {
-		return nil
-	} else {
-		return nil
-	}
+
+	return nil
 }
 
 func work(repo string, wg *sync.WaitGroup, sem chan int, errChan chan error) {
