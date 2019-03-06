@@ -25,20 +25,23 @@ due to its nature as a linked list, having a size member that takes constant tim
 
 void test_forward_list() {
 
-	std::forward_list<int> mylist = { 20, 30, 40, 50 };
+	{
+		std::forward_list<int> mylist = { 20, 30, 40, 50 };
 
-	mylist.insert_after(mylist.before_begin(), 11);
+		mylist.insert_after(mylist.before_begin(), 11);
 
-	std::cout << "mylist contains:";
-	for (int& x : mylist) std::cout << ' ' << x;
-	std::cout << '\n';
+		std::cout << "mylist contains:";
+		for (int& x : mylist) std::cout << ' ' << x;
+		std::cout << '\n';
 
-	std::cout << "mylist contains:";
-	for (auto it = mylist.begin(); it != mylist.end(); ++it)
-		std::cout << ' ' << *it;
+		std::cout << "mylist contains:";
+		for (auto it = mylist.begin(); it != mylist.end(); ++it)
+			std::cout << ' ' << *it;
 
-	std::cout << '\n';
+		std::cout << '\n';
+	}
 
+	std::forward_list<std::pair<int, char>> mylist;
 
 	auto it = mylist.before_begin();
 

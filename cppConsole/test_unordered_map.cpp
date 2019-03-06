@@ -76,9 +76,6 @@ void BasicKeyInMap() {
 	}
 
 
-	
-
-
 	week["Mon"] += 10;
 	week.at("Tue") = week.at("Tue") + 10;
 
@@ -103,6 +100,11 @@ public:
 
 	bool operator == (const cord2& a) const {
 		return this->x == a.x && this->y == a.y;
+	}
+
+	operator string() const {
+		string a = x + "" + y;
+		return a;
 	}
 };
 
@@ -151,6 +153,61 @@ void UserDefinedClassAsKeyInMap() {
 		cout << "didn't find it" << endl;
 	}
 
+	/*
+	template <class... Args>
+		pair<iterator, bool> emplace ( Args&&... args );
+	Construct and insert element
+	Inserts a new element in the unordered_map if its key is unique. This new element is constructed in place using args as the arguments for the element's constructor.
+
+	The insertion only takes place if no element in the container has a key equivalent to the one being emplaced (keys in an unordered_map are unique).
+
+	If inserted, this effectively increases the container size by one.
+
+	A similar member function exists, insert, which either copies or moves existing objects into the container.
+	*/
+	cord2_map.emplace(cord2(5, 8), 9);
+	cord2_map.emplace(cord2(7, 8), 10);
+
+	/*
+	template <class... Args>
+		iterator emplace_hint ( const_iterator position, Args&&... args );
+		Construct and insert element with hint
+	Inserts a new element in the unordered_map if its key is unique. This new element is constructed in place using args as the arguments for the element's constructor. position points to a location in the container suggested as a hint on where to start the search for its insertion point (the container may or may not use this suggestion to optimize the insertion operation).
+
+	The insertion only takes place if no element in the container has a key equivalent to the one being emplaced (keys in an unordered_map are unique).
+
+	If inserted, this effectively increases the container size by one.
+
+	A similar member function exists, insert, which either copies or moves an existing object into the container, and may also take a position hint.
+	*/
+	auto it = cord2_map.begin();
+	it = cord2_map.emplace_hint(it, cord2(7, 9), 100);
+	it = cord2_map.emplace_hint(it, cord2(8, 9), 200);
+
+	for (auto c = cord2_map.begin(); c != cord2_map.end(); c++) {
+		cout << static_cast<string>(c->first).c_str() << " : " << c->second << endl;
+	}
+
+
+	/*
+	by position (1)	
+	iterator erase ( const_iterator position );
+	by key (2)	
+	size_type erase ( const key_type& k );
+	range (3)	
+	iterator erase ( const_iterator first, const_iterator last );
+	Erase elements
+	Removes from the unordered_map container either a single element or a range of elements ([first,last)).
+
+	This effectively reduces the container size by the number of elements removed, calling each element's destructor.
+	*/
+
+	cord2_map.erase(cord2_map.begin()); // erasing by iterator
+	cord2_map.erase(cord2(2, 3)); // erasing by key
+	cord2_map.erase(cord2_map.find(cord2(7, 9)), cord2_map.end()); // erasing by range
+
+	for ( auto& x: cord2_map )
+    	std::cout << static_cast<string>(x.first).c_str() << ": " << x.second << std::endl;
 }
 
 
