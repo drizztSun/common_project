@@ -21,6 +21,15 @@
     <ClCompile Include="test_deque.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
+    <ClCompile Include="test_array.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_forwardlist.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_list.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
