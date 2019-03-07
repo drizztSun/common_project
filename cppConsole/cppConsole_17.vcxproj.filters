@@ -5,8 +5,6 @@
     <ClCompile Include="Functional.cpp" />
     <ClCompile Include="Leetcode.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="test_unordered_map.cpp" />
-    <ClCompile Include="test_unordered_set.cpp" />
     <ClCompile Include="utf_str.cpp" />
     <ClCompile Include="smart_ptr.cpp" />
     <ClCompile Include="cpp14.cpp">
@@ -28,6 +26,21 @@
       <Filter>morden C</Filter>
     </ClCompile>
     <ClCompile Include="test_list.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_userdefined_conversion.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_unordered_map.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_unordered_set.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_map.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_stack.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
   </ItemGroup>
