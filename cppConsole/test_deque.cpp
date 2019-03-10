@@ -49,21 +49,24 @@ void test_deque_morden_cpp() {
 		std::cout << ' ' << x;
 	std::cout << '\n';
 
+	{
+		std::deque<int> mydeque = { 10,20,30,40,50 };
 
-	std::deque<int> mydeque = { 10,20,30,40,50 };
+		// cbegin/cend
+		std::cout << "mydeque contains:";
+		for (auto it = mydeque.cbegin(); it != mydeque.cend(); ++it)
+			std::cout << ' ' << *it;
 
-	// cbegin/cend
-	std::cout << "mydeque contains:";
-	for (auto it = mydeque.cbegin(); it != mydeque.cend(); ++it)
-		std::cout << ' ' << *it;
+		std::cout << '\n';
 
-	std::cout << '\n';
+		// crbegin/crend
+		std::cout << "mydeque backwards:";
+		for (auto rit = mydeque.crbegin(); rit != mydeque.crend(); ++rit)
+			std::cout << ' ' << *rit;
+		std::cout << '\n';
 
-	// crbegin/crend
-	std::cout << "mydeque backwards:";
-	for (auto rit = mydeque.crbegin(); rit != mydeque.crend(); ++rit)
-		std::cout << ' ' << *rit;
-	std::cout << '\n';
+	}
 
 	std::cout << "--- test_deque_morden_cpp end---" << std::endl;
+
 }

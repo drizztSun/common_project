@@ -51,11 +51,11 @@ void test_set_morden_cpp() {
 	*/
 	myset.emplace("foo");
 	myset.emplace("bar");
-	auto it = myset.emplace("foo");
+	auto it1 = myset.emplace("foo");
 
-	//if (!it.second) { ??????
-	//	std::cout << "foo already existed " << std::endl;
-	//}
+	if (!it1.second) {
+		std::cout << "foo already existed " << std::endl;
+	}
 
 
 	std::cout << "myset contains:";
@@ -63,18 +63,20 @@ void test_set_morden_cpp() {
 		std::cout << ' ' << x;
 	std::cout << '\n';
 
+	{
+		std::set<int> myset = { 50,20,60,10,25 };
 
-	std::set<int> myset = { 50,20,60,10,25 };
+		std::cout << "myset backwards:";
+		for (auto rit = myset.crbegin(); rit != myset.crend(); ++rit)
+			std::cout << ' ' << *rit;
 
-	std::cout << "myset backwards:";
-	for (auto rit = myset.crbegin(); rit != myset.crend(); ++rit)
-		std::cout << ' ' << *rit;
+		std::cout << '\n';
 
-	std::cout << '\n';
-	
-	std::cout << "myset contains:";
-	for (auto it = myset.cbegin(); it != myset.cend(); ++it)
-		std::cout << ' ' << *it;
+		std::cout << "myset contains:";
+		for (auto it = myset.cbegin(); it != myset.cend(); ++it)
+			std::cout << ' ' << *it;
+	}
+
 
 	std::cout << '\n';
 }

@@ -27,6 +27,7 @@ struct S{
 	S& operator=(const S&& a) {
 		print_log("S operator=");
 		s = a.s;
+		return *this;
 	}
 
 	int s;
