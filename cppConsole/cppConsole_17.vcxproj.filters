@@ -58,6 +58,9 @@
     <ClCompile Include="test_shared_ptr.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
+    <ClCompile Include="test_condition_variable.cpp">
+      <Filter>morden C\concurrency</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />

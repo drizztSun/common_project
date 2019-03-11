@@ -163,6 +163,7 @@
     <ClCompile Include="test_array.cpp" />
     <ClCompile Include="test_asynchronized.cpp" />
     <ClCompile Include="test_atomic.cpp" />
+    <ClCompile Include="test_condition_variable.cpp" />
     <ClCompile Include="test_deque.cpp" />
     <ClCompile Include="test_forwardlist.cpp" />
     <ClCompile Include="test_list.cpp" />

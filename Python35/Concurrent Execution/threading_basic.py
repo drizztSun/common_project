@@ -1,11 +1,6 @@
 import threading
 
-def threading_basic():
-
-    print("Thread name : ", threading.name)
-
-    
-def baisc():
+def basic():
 
     try:
         threading.stack_size(32768)
@@ -37,7 +32,7 @@ if __name__ == "__main__":
 
     id = []
     for i in range(2):
-        c = threading._start_new_thread(basic)
+        c = threading._start_new_thread(basic, ())
         id.append(c)
 
     for c in threading.enumerate():
@@ -46,6 +41,5 @@ if __name__ == "__main__":
 
     basic()
 
-    for i in range(2):
-        id.join()
-    
+    for c in id:
+        c.join()
