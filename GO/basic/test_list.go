@@ -79,9 +79,3 @@ func Main_test_list() {
 	output_list_reverse(l)
 
 }
-
-/*
-func main() {
-	Main_test_list()
-}
-*/
