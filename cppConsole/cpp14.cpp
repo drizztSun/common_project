@@ -280,6 +280,7 @@ void Test_nullptr() {
 /******* nullptr *******/
 
 /*******  enum class *******/
+// enum is a class-level, not an old-style integer 
 enum apple {green_a, red_a};
 enum orange {big_o, small_o};
 

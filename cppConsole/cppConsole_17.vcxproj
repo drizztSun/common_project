@@ -158,12 +158,14 @@
     <ClCompile Include="cppConsole.cpp" />
     <ClCompile Include="Functional.cpp" />
     <ClCompile Include="Leetcode.cpp" />
+    <ClCompile Include="Precessor_define.cpp" />
     <ClCompile Include="smart_ptr.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="test_array.cpp" />
     <ClCompile Include="test_asynchronized.cpp" />
     <ClCompile Include="test_atomic.cpp" />
     <ClCompile Include="test_condition_variable.cpp" />
+    <ClCompile Include="test_constexpr.cpp" />
     <ClCompile Include="test_deque.cpp" />
     <ClCompile Include="test_forwardlist.cpp" />
     <ClCompile Include="test_list.cpp" />

@@ -61,6 +61,10 @@
     <ClCompile Include="test_condition_variable.cpp">
       <Filter>morden C\concurrency</Filter>
     </ClCompile>
+    <ClCompile Include="test_constexpr.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="Precessor_define.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
