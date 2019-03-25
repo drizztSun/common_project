@@ -4,7 +4,6 @@
     <ClCompile Include="cppConsole.cpp" />
     <ClCompile Include="Functional.cpp" />
     <ClCompile Include="Leetcode.cpp" />
-    <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="utf_str.cpp" />
     <ClCompile Include="smart_ptr.cpp" />
     <ClCompile Include="cpp14.cpp">
@@ -65,13 +64,23 @@
       <Filter>morden C</Filter>
     </ClCompile>
     <ClCompile Include="Precessor_define.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <Filter>others</Filter>
+    </ClCompile>
+    <ClCompile Include="test_move_forward.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_future.cpp">
+      <Filter>morden C\concurrency</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClInclude Include="stdafx.h">
+      <Filter>others</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>others</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="morden C">
@@ -82,6 +91,9 @@
     </Filter>
     <Filter Include="morden C\concurrency">
       <UniqueIdentifier>{00e5c655-46ee-461e-a9d0-2c2f14fe2df7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="others">
+      <UniqueIdentifier>{f029828c-fad2-4a2d-8064-a9682d85a714}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

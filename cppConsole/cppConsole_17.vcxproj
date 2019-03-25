@@ -147,9 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -168,12 +165,14 @@
     <ClCompile Include="test_constexpr.cpp" />
     <ClCompile Include="test_deque.cpp" />
     <ClCompile Include="test_forwardlist.cpp" />
+    <ClCompile Include="test_future.cpp" />
     <ClCompile Include="test_list.cpp" />
     <ClCompile Include="test_map.cpp" />
     <ClCompile Include="test_mutex.cpp" />
     <ClCompile Include="test_set.cpp" />
     <ClCompile Include="test_shared_ptr.cpp" />
     <ClCompile Include="test_stack.cpp" />
+    <ClCompile Include="test_move_forward.cpp" />
     <ClCompile Include="test_thread.cpp" />
     <ClCompile Include="test_unordered_map.cpp" />
     <ClCompile Include="test_unordered_set.cpp" />
