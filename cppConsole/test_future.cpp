@@ -3,6 +3,10 @@
 #include <thread>
 #include <chrono>
 
+#include <random>
+#include <set>
+#include <algorithm>
+#include <iterator>
 /**
 
 std::future
@@ -145,4 +149,50 @@ void test_future2() {
 	//	f_completes: 9
 	//	f_times_out did not complete!
 	//	Done!
+}
+
+std::set<int> make_sorted_random(size_t number) 
+{
+	std::set<int> retval;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(0, number - 1);
+
+	std::generate_n(std::inserter(retval, retval.end()), number, [&]() { return dis(gen); });
+
+	// throw std::runtime_error("Hello world");
+	return retval;
+}
+
+void test_future3() 
+{
+	try {
+
+		auto f1 = std::async(std::launch::async, make_sorted_random, 10000);
+		auto f2 = std::async(std::launch::async, make_sorted_random, 10000);
+
+		/*
+		generic template (1)			T get();
+		reference specialization (2)	R& future<R&>::get();       // when T is a reference type (R&)
+		void specialization (3)			void future<void>::get();   // when T is void
+
+		Get value
+		Returns the value stored in the shared state (or throws its exception) when the shared state is ready.
+
+		If the shared state is not yet ready (i.e., the provider has not yet set its value or exception), the function blocks the calling thread and waits until it is ready.
+
+		Once the shared state is ready, the function unblocks and returns (or throws) releasing its shared state. 
+		This makes the future object no longer valid: this member function shall be called once at most for every future shared state.
+
+		All visible side effects are synchronized between the point the provider makes the shared state ready and the return of this function.
+
+		The member of the void specialization (3) does not return any value, but still waits for the shared state to become ready and releases it.
+		*/
+
+		std::cout << f1.get().size() << ' ' << f2.get().size() << '\n';
+	}
+	catch (std::exception& e) {
+		std::cout << "Exception : " << e.what() << '\n';
+	}
+
 }
