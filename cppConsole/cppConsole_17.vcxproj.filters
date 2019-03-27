@@ -73,6 +73,9 @@
     <ClCompile Include="test_future.cpp">
       <Filter>morden C\concurrency</Filter>
     </ClCompile>
+    <ClCompile Include="test_any.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -94,6 +97,9 @@
     </Filter>
     <Filter Include="others">
       <UniqueIdentifier>{f029828c-fad2-4a2d-8064-a9682d85a714}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="morden C\container">
+      <UniqueIdentifier>{a4657af0-d9c8-4225-ad8b-ca6cc89d5aa3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

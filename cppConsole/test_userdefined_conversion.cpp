@@ -33,7 +33,7 @@ struct X {
 };
 
 
-int main1()
+void main1()
 {
     X x;
  
@@ -63,17 +63,19 @@ struct From {
     operator To() const {return To();} // conversion function
 };
  
-int main2()
+void main2()
 {
     From f;
     To t1(f); // direct-initialization: calls the constructor
 // (note, if converting constructor is not available, implicit copy constructor
 //  will be selected, and conversion function will be called to prepare its argument)
+
     To t2 = f; // copy-initialization: ambiguous
 // (note, if conversion function is from a non-const type, e.g.
 //  From::operator To();, it will be selected instead of the ctor in this case)
-    To t3 = static_cast<To>(f); // direct-initialization: calls the constructor
-    const To& r = f; // reference-initialization: ambiguous
+    
+	To t3 = static_cast<To>(f); // direct-initialization: calls the constructor
+    //const To& r = f; // reference-initialization: ambiguous
 
     /*
     more than one user-defined conversion from "From" to "const To" applies: -- function "From::operator To() const" 
@@ -95,7 +97,7 @@ struct D : B
      operator D() override { return D(); }
 };
  
-int main3()
+void main3()
 {
     D obj;
     D obj2 = obj; // does not call D::operator D()
@@ -105,17 +107,17 @@ int main3()
 
 // It can also be called using member function call syntax:
 
-struct B {};
-struct X1 : B {
-    operator B&() { return *this; };
+struct B1 {};
+struct X1 : B1 {
+    operator B1&() { return *this; };
 };
  
-int main4()
+void main4()
 {
 	X1 x;
-    B& b1 = x;                  // does not call X::operatorB&()
-    B& b2 = static_cast<B&>(x); // does not call X::operatorB&
-    B& b3 = x.operator B&();    // calls X::operatorB&
+    B1& b1 = x;                  // does not call X::operatorB&()
+    B1& b2 = static_cast<B1&>(x); // does not call X::operatorB&
+    B1& b3 = x.operator B1&();    // calls X::operatorB&
 }
 
 // When making an explicit call to the conversion function, the type-id is greedy: 

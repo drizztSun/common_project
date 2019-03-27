@@ -27,7 +27,7 @@ The class std::condition_variable is a StandardLayoutType. It is not CopyConstru
 */
 
 
-std::mutex mux;
+std::mutex mux1;
 std::condition_variable cv;
 std::string data;
 bool ready = false;
@@ -36,7 +36,7 @@ bool processed = false;
 void worker_thread() {
 
 	// Wait until main() sends data
-	std::unique_lock<std::mutex> lk(mux);
+	std::unique_lock<std::mutex> lk(mux1);
 	cv.wait(lk, [] {return ready; });
 
 	// after the wait, we own the lock.
@@ -60,7 +60,7 @@ void test_condition_variable_basic() {
 	data = "Example data";
 	// send data to the worker thread
 	{
-		std::lock_guard<std::mutex> lk(mux);
+		std::lock_guard<std::mutex> lk(mux1);
 		ready = true;
 		std::cout << "main() signals data ready for processing\n";
 	}
@@ -68,7 +68,7 @@ void test_condition_variable_basic() {
 
 	// wait for the worker
 	{
-		std::unique_lock<std::mutex> lk(mux);
+		std::unique_lock<std::mutex> lk(mux1);
 		cv.wait(lk, [] {return processed; });
 	}
 	std::cout << "Back in main(), data = " << data.c_str() << '\n';
@@ -114,7 +114,7 @@ void signals()
 	cv.notify_all();
 }
 
-int main()
+void test_condition_variable()
 {
 	std::thread t1(waits), t2(waits), t3(waits), t4(signals);
 	t1.join();
