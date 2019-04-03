@@ -9,37 +9,10 @@
     <ClCompile Include="cpp14.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
-    <ClCompile Include="test_vector.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_set.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_deque.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_array.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
     <ClCompile Include="test_forwardlist.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
-    <ClCompile Include="test_list.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
     <ClCompile Include="test_userdefined_conversion.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_unordered_map.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_unordered_set.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_map.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_stack.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
     <ClCompile Include="test_asynchronized.cpp">
@@ -75,6 +48,39 @@
     </ClCompile>
     <ClCompile Include="test_any.cpp">
       <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_list.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_map.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_set.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_unordered_map.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_unordered_set.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_vector.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_stack.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_deque.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_array.cpp">
+      <Filter>morden C\container</Filter>
+    </ClCompile>
+    <ClCompile Include="test_variadic_template.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="test_lambda.cpp">
+      <Filter>morden C</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
