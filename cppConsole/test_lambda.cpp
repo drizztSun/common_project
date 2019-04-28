@@ -249,3 +249,69 @@ void test_lambda_bind() {
 
 
 }
+
+/*
+*
+*	recursive lambda
+*
+*
+*/
+// 1) wrong way
+constexpr auto fb = [](int n) {
+	if (n < 2) {
+		return 1;
+	}
+	
+	// return fb(n - 1) + fb(n - 2); // error because fb used before it is initialized
+};
+
+// 2) fix to above
+constexpr auto fb1 = [](const auto fb1, int n) -> int {
+	if (n < 2) {
+		return 1;
+	}
+	return fb1(fb1, n - 1) + fb1(fb1, n - 2);
+};
+
+// 3) 
+constexpr auto fb2 = [](int n) -> int{
+
+	const auto fb_ = [](const auto fib, int n) {
+		if (n < 2) {
+			return 1;
+		}
+		return fib(fib, n - 1) + fib(fib, n - 2);
+	};
+
+	return fb_(fb_, n);
+};
+
+// 4)
+auto f1 = [](const auto f1, const auto f2, int n) {
+	if (n < 2) {
+		return 1;
+	}
+	return n + f2(f1, f2, n - 1)
+};
+
+auto f2 = [](const auto f1, const auto f2, int n) {
+	if (n < 2) {
+			return 1;
+	}
+	return n + f1(f1, f2, n - 1);
+};
+
+
+void test_recursive_lambda() {
+
+
+	std::cout << "test_recursive_lambda \n";
+
+	std::cout << "fb1(fb1, 5) is " << fb1(fb1, 5) << "\n";
+
+	std::cout << "fb2(5) is " << fb2(5) << "\n";
+
+	std::cout << "f1(f1, f2, 5) is " << f1(f1, f2, 5) << "\n";
+
+	return;
+}
