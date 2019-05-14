@@ -10,7 +10,7 @@ import (
 
 func test1() {
 
-	port := 8080
+	//port := 8080
 	if len(os.Args) != 2 {
 		log.Fatal("Socket Port %s being used", os.Args[0])
 	}
