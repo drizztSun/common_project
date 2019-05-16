@@ -123,6 +123,60 @@ func test_chann_semaphone() {
 	wg.Wait()
 }
 
+// The first stage, gen, is a function that converts a list of integers to a channel that emits the integers in the list. 
+// The gen function starts a goroutine that sends the integers on the channel and closes the channel when all the values have been sent:
+func gen(nums ...int) <- chan int {
+
+	out := make(chan int)
+
+	go func() {
+		for i := range nums {
+			out <- i
+		}
+		close(out)
+	}()
+
+	return out
+}
+
+//The second stage, sq, receives integers from a channel and returns a channel that emits the square of each received integer. 
+// After the inbound channel is closed and this stage has sent all the values downstream, it closes the outbound channel:
+func sq(in <-chan int) <- chan int {
+	out := make(chan int)
+
+	go func() {
+		for n := range in {
+			out <- n * n
+		}
+	}()
+
+	return out
+}
+
+func test_channel() {
+
+	// The main function sets up the pipeline and runs the final stage: 
+	// it receives values from the second stage and prints each one, until the channel is closed:
+	c := gen(1, 2, 3, 4, 5, 6, 7, 8)
+	out := sq(c)
+
+	for {
+		select {
+		case n := <- out:
+			fmt.Println(n)
+		}	
+	}
+
+	// Since sq has the same type for its inbound and outbound channels, we can compose it any number of times. 
+	// We can also rewrite main as a range loop, like the other stages:
+	for n := range sq(sq(gen(3, 4))) {
+		fmt.Println(n)
+	}
+
+	
+	fmt.Println("--end--")
+}
+
 /*
 func main() {
 
