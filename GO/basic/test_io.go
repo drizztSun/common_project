@@ -174,7 +174,7 @@ func test_io_util() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("content : %s", content)
+	fmt.Printf("content : %s", string(content)
 
 	// TempDir
 	//content1 := []byte("temporary file content\n")
@@ -212,16 +212,16 @@ func test_io_util() {
 	if err := ioutil.WriteFile("tmpfile/tempfile", message, 0644); err != nil {
 		log.Fatal(err)
 	}
-
-
 }
 
-func test_io() {
+func Test_io() {
+
+	test_io_util()
 
 	test_io_basic()
 
 	test_pipe()
 
-	test_io_util()
+	
 }
 

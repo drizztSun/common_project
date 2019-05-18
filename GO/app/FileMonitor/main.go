@@ -5,6 +5,8 @@ import (
 	"time"
 	"io/ioutil"
 	"context"
+	"regexp"
+	"strings"
 )
 
 type FileMonitorListener struct {
@@ -27,8 +29,11 @@ var (
 func main() {
 	fmt.Println("--- FileMonitor start ---")
 
+	readConfigini("/Applications/Confer.app/cfg.ini")
+
 	readfile("/Applications/Confer.app/version")
 
+	
 
 	w, err := NewFileMonitor()
 	if err != nil {
@@ -62,6 +67,30 @@ func main() {
 	fmt.Println("--- FileMonitor end ---")
 } 
 
+func readConfigini(path string) error {
+
+	data, err := ioutil.ReadFile(path);
+
+	if err != nil {
+		fmt.Printf("Err: file read  %s", err)
+		return err
+	}
+	
+	content := string(data)
+
+	rule, _ := regexp.Compile(`DeviceId=([a-z|0-9|A-Z]+)`)
+	result := rule.FindAllString(content, -1)
+	if len(result) != 0 {
+		version := strings.TrimLeft(result[0], `DeviceId=`)
+		if version != "b0514978e64e345f9bdbf180f4dc79f5499f0a5bb36dca4b5849fb8a3a210f17" {
+			fmt.Println("Wrong")
+		}
+		fmt.Println("Version is : ", version)
+	}
+
+	return nil
+}
+
 func readfile(path string) error {
 
 	data, err := ioutil.ReadFile(path);
@@ -71,7 +100,21 @@ func readfile(path string) error {
 		return err
 	}
 
-	fmt.Printf("file content : %s", data)
+	fmt.Printf("file content : %s", string(data))
+
+	content := string(data)
+
+	rule, _ := regexp.Compile(`VERSION="([^\"]+)"`)
+	result := rule.FindAllString(content, -1)
+	if len(result) != 0 {
+		//rule2, _ := regexp.Compile(`([^\"]+)`)
+		//version := rule2.FindAllString(result[0], -1)[1]
+
+		version := strings.TrimLeft(strings.TrimRight(result[0], `\"`), `VERSION=\"`)
+		fmt.Println("Version is : ", version)
+	}
+	
+
 
 	return nil
 }
