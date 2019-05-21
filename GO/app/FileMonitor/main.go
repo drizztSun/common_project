@@ -1,21 +1,22 @@
 package main
 
 import (
-	"fmt"
-	"time"
-	"io/ioutil"
 	"context"
+	"fmt"
+	"io/ioutil"
+	"os"
 	"regexp"
+	"runtime"
 	"strings"
+	"time"
 )
 
 type FileMonitorListener struct {
 	Listener
 
 	FilePath string
-	Mode int
-
-} 
+	Mode     int
+}
 
 func (l FileMonitorListener) Listen(path string, mode int, data interface{}) {
 
@@ -29,31 +30,33 @@ var (
 func main() {
 	fmt.Println("--- FileMonitor start ---")
 
-	readConfigini("/Applications/Confer.app/cfg.ini")
+	if runtime.GOOS == "windows" {
+		readfile(os.Getenv("SYSTEMDRIVE") + "\\Program Files\\Confg\\cfg.ini")
 
-	readfile("/Applications/Confer.app/version")
+	} else {
+		readConfigini("/Applications/Confer.app/cfg.ini")
 
-	
+		readfile("/Applications/Confer.app/version")
+	}
 
 	w, err := NewFileMonitor()
+
 	if err != nil {
 		return
 	}
 
 	c := FileMonitorListener{
-		FilePath : "/Users/yusun/version",
-		Mode :  Create|Write|Remove|Rename,
+		FilePath: "/Users/yusun/version",
+		Mode:     Create | Write | Remove | Rename,
 	}
 
 	c2 := FileMonitorListener{
-		FilePath : "/Applications/Confer.app/version",
-		Mode :  Create|Write|Remove|Rename,
+		FilePath: "/Applications/Confer.app/version",
+		Mode:     Create | Write | Remove | Rename,
 	}
-
 
 	w.AddListener(c.FilePath, c.Mode, c)
 	w.AddListener(c2.FilePath, c2.Mode, c2)
-
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -65,17 +68,17 @@ func main() {
 	}
 
 	fmt.Println("--- FileMonitor end ---")
-} 
+}
 
 func readConfigini(path string) error {
 
-	data, err := ioutil.ReadFile(path);
+	data, err := ioutil.ReadFile(path)
 
 	if err != nil {
 		fmt.Printf("Err: file read  %s", err)
 		return err
 	}
-	
+
 	content := string(data)
 
 	rule, _ := regexp.Compile(`DeviceId=([a-z|0-9|A-Z]+)`)
@@ -93,7 +96,7 @@ func readConfigini(path string) error {
 
 func readfile(path string) error {
 
-	data, err := ioutil.ReadFile(path);
+	data, err := ioutil.ReadFile(path)
 
 	if err != nil {
 		fmt.Printf("Err: file read  %s", err)
@@ -113,8 +116,6 @@ func readfile(path string) error {
 		version := strings.TrimLeft(strings.TrimRight(result[0], `\"`), `VERSION=\"`)
 		fmt.Println("Version is : ", version)
 	}
-	
-
 
 	return nil
 }
