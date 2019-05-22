@@ -81,14 +81,28 @@ func readConfigini(path string) error {
 
 	content := string(data)
 
-	rule, _ := regexp.Compile(`DeviceId=([a-z|0-9|A-Z]+)`)
-	result := rule.FindAllString(content, -1)
-	if len(result) != 0 {
-		version := strings.TrimLeft(result[0], `DeviceId=`)
-		if version != "b0514978e64e345f9bdbf180f4dc79f5499f0a5bb36dca4b5849fb8a3a210f17" {
-			fmt.Println("Wrong")
+	{
+		rule, _ := regexp.Compile(`DeviceId=([a-z|0-9|A-Z]+)`)
+		result := rule.FindAllString(content, -1)
+		if len(result) != 0 {
+			version := strings.TrimLeft(result[0], `DeviceId=`)
+			if version != "b0514978e64e345f9bdbf180f4dc79f5499f0a5bb36dca4b5849fb8a3a210f17" {
+				fmt.Println("Wrong")
+			}
+			fmt.Println("Version is : ", version)
 		}
-		fmt.Println("Version is : ", version)
+	}
+
+
+	{
+		rule, _ := regexp.Compile(`RegistrationId=([a-z|0-9|A-Z|-]+)`)
+		result := rule.FindAllString(content, -1)
+		if len(result) != 0 {
+			RegId := strings.Split(strings.TrimLeft(result[0], `RegistrationId=`), `-`)
+			if len(RegId) == 2 {
+				fmt.Println("RegistrationId : ", RegId[1])
+			}
+		}
 	}
 
 	return nil

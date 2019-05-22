@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"bufio"
 	"io"
-	"ioutil"
+	"io/ioutil"
 	"os"
 )
 
@@ -19,7 +19,7 @@ func Test_os_read_file() {
 
 	fmt.Println("content ", string(data))
 
-	r, err := os.Open("tmp/test")
+	f, err := os.Open("tmp/test")
 	if err != nil {
 		return
 	}
@@ -44,7 +44,7 @@ func Test_os_read_file() {
 	
 	fmt.Printf("%d bytes @ %d, %s\n", n2, o2, string(b2))
 
-	o3, err != f.Seek(6, 0)
+	o3, err := f.Seek(6, 0)
 	if err != nil {
 		return
 	}
@@ -55,13 +55,13 @@ func Test_os_read_file() {
 	}
 	fmt.Printf("%d read @  %d, %s\n", n3, o3, string(b3))
 
-	_, err := f.Seek(0, 0)
+	_, err = f.Seek(0, 0)
 	if err != nil {
 		return
 	}
 
 	r4 := bufio.NewReader(f)
-	b4, err != r4.Pick(5)
+	b4, err := r4.Peek(5)
 	if err != nil {
 		return
 	}

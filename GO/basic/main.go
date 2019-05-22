@@ -15,7 +15,9 @@ func main() {
 
 	//Test_strings()
 
-	Test_io()
+	test_time() 
+
+	// Test_io()
 	
-	Test_strconver()
+	// Test_strconver()
 }

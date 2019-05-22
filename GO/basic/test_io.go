@@ -174,7 +174,7 @@ func test_io_util() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("content : %s", string(content)
+	fmt.Printf("content : %s", string(content))
 
 	// TempDir
 	//content1 := []byte("temporary file content\n")

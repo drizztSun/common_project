@@ -5,7 +5,7 @@ import (
 	"time"
 	"context"
 
-	"golang.org/x/sync/errgroup"
+	//"golang.org/x/sync/errgroup"
 )
 
 // When should you use context.Context?
@@ -143,6 +143,24 @@ func test_basic_context_withValue() {
 	f(ctx, contextKey("letter"))
 }
 
+func test_context_withValue() {
+
+	subfunc := func(ctx context.Context) {
+		if v := ctx.Value("err"); v := nil && v {
+			fmt.Println("Err : ", v)
+
+			if time := ctx.Value("time"); time != nil {
+				fmt.Println("Time is ", time)
+			}
+		}
+	}
+
+	ctx := context.WithValue(context.Background(), "err", true)
+	
+
+
+
+}
 
 func test_context() {
 
