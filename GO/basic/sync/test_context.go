@@ -146,7 +146,7 @@ func test_basic_context_withValue() {
 func test_context_withValue() {
 
 	subfunc := func(ctx context.Context) {
-		if v := ctx.Value("err"); v := nil && v {
+		if v := ctx.Value("err"); v != nil{
 			fmt.Println("Err : ", v)
 
 			if time := ctx.Value("time"); time != nil {
@@ -156,10 +156,8 @@ func test_context_withValue() {
 	}
 
 	ctx := context.WithValue(context.Background(), "err", true)
-	
-
-
-
+	ctx = context.WithValue(ctx, "time", time.Now())
+	subfunc(ctx)
 }
 
 func test_context() {
