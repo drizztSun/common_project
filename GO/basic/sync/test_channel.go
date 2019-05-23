@@ -122,14 +122,3 @@ func test_chann_semaphone() {
 
 	wg.Wait()
 }
-
-/*
-func main() {
-
-	test_chann()
-
-	test_buffed_chann()
-
-	test_chann_semaphone()
-}
-*/
