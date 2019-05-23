@@ -176,14 +176,3 @@ func test_channel() {
 	
 	fmt.Println("--end--")
 }
-
-/*
-func main() {
-
-	test_chann()
-
-	test_buffed_chann()
-
-	test_chann_semaphone()
-}
-*/
