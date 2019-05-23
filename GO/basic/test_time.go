@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"errors"
 )
 
 func test_basic_time() {
@@ -51,16 +52,34 @@ func test_basic_time() {
 }
 
 func test_stopped_timer() {
+
+	var (
+		err error
+		statusCode int
+	)
+
+	fmt.Printf("Error: %v, code: %d\n", err, statusCode)
+
+	err = errors.New("Something")
+	statusCode = 100
+
+	fmt.Printf("Error: %v, code: %d\n", err, statusCode)
+
 	t1 := time.NewTimer(0)
 	t1.Stop()
+
+	Wrapper := func (a *time.Timer) <-chan time.Time {
+		return a.C
+	}
+
 
 	t2 := time.NewTimer(5 * time.Second)
 
 	select {
-	case <- t1.C:
+	case <-Wrapper(t1):
 		fmt.Println("Wait t1 stopped timer")
 
-	case <- t2.C:
+	case <-Wrapper(t2):
 		fmt.Println("Wait t2 triggered")
 
 	case <- time.After(10 * time.Second):
