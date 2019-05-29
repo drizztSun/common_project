@@ -167,12 +167,18 @@ func replaceHostInURl(target string, newHost string) (string, error) {
 	}
 
 	//u.Host = newHost + u.Port()
+	/*
 	colon := strings.IndexByte(u.Host, ':') 
 	if colon == -1 { 
 		u.Host = newHost
 	} else {
 		u.Host = newHost + u.Host[colon:]
+	}*/
+	if strings.Count(newHost, `:`) >= 2 && strings.IndexByte(newHost, '[') == -1{
+		newHost = "[" + newHost + "]"
 	}
+
+	u.Host = newHost
 
 	return u.String(), nil
 }
@@ -190,6 +196,18 @@ func test_uri_replace() {
 		{
 			"https://127.0.0.1/index?q=a&c=b",
 			"www.yahoo.com",
+		},
+		{
+			"https://[0000:0000:0000:0000:0000]:9807/add?q=1&c=2",
+			"www.google.com",
+		},
+		{
+			"https://www.google.com/index?q=a&c=b",
+			"[0000:0000:0000:0000:0000]:9807",
+		},
+		{
+			"sfisgijsigjisj",
+			"sfhdsfhsfh",
 		},
 	} {
 		link, err := replaceHostInURl(v.host, v.replace);
