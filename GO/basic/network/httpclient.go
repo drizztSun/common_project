@@ -8,21 +8,19 @@ import (
 
 func test_basic_http() {
 
-	err := errors.New("place holder")
-	for retry := 5; retry > 0 && err != nil; retry-- {
-		resp, err := http.Get("http://www/google.com/")
-		if err != nil {
-			fmt.Println("Err : ", err)
-			continue
-		}
-		fmt.Println("Resp code : ", resp.StatusCode)
+	var (
+		err = errors.New("place holder")
+		resp *http.Response
+	)
+	
+	if resp, err = http.Get("http://localhost:8080/get"); err != nil {
+		fmt.Println("Error happended : ", err.Error())
 	}
 
-
-	
+	resp.Body.Close()
 }
 
-func test_http() {
+func test_httpclient() {
 
 	test_basic_http()
 

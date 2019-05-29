@@ -15,7 +15,9 @@ func main() {
 
 	//Test_strings()
 
-	test_time() 
+	test_uri()
+
+	//test_time() 
 
 	// Test_io()
 	

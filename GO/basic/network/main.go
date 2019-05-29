@@ -9,5 +9,7 @@ func main() {
 
 	fmt.Println("--- network ----")
 
-	test_http()
+	test_httpsever()
+
+	test_httpclient()
 }
