@@ -4,12 +4,27 @@ import (
 	//"net"
 	"net/http"
 	"fmt"
-	"io"
+	//"io"
+	"encoding/json"
 )
+
+type Data struct {
+	title	string `json:"title"`
+	data 	string `json:"data"`
+}
 
 func get(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("M: %s A: %s", r.Method, r.URL.Path)
-	io.WriteString(w, "Hello world!")
+
+	data, _ := json.Marshal(Data {
+		title : "get",
+		data : "Hello world",
+	})
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Add("Content-Type", "apllication/json")	
+	//io.WriteString(w, data)
+	w.Write(data)
 }
 
 func post(w http.ResponseWriter, r *http.Request) {
