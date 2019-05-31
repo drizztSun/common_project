@@ -9,16 +9,16 @@ import (
 )
 
 type Data struct {
-	title	string `json:"title"`
-	data 	string `json:"data"`
+	Title	string `json:"title"`
+	Data 	string `json:"data"`
 }
 
 func get(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("M: %s A: %s", r.Method, r.URL.Path)
 
 	data, _ := json.Marshal(Data {
-		title : "get",
-		data : "Hello world",
+		Title : "get",
+		Data : "Hello world",
 	})
 
 	w.WriteHeader(http.StatusOK)
