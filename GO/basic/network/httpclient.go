@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"io/ioutil"
-	"encoding/json"
+	//"encoding/json"
 )
 
 func test_basic_http() {
@@ -43,8 +43,13 @@ func test_basic_http() {
 	resp.Body.Close()
 }
 
+func test_basic_http_client() {
+
+	//resp, err := http.Get("http://localhost:8080/") 
+}
+
 func test_httpclient() {
 
-	test_basic_http()
+	//test_basic_http()
 
 }

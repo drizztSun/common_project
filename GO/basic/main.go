@@ -15,11 +15,13 @@ func main() {
 
 	//Test_strings()
 
-	test_uri()
+	// test_uri()
 
 	//test_time() 
 
 	// Test_io()
 	
 	// Test_strconver()
+
+	test_json()
 }
