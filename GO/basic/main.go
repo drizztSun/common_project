@@ -23,5 +23,7 @@ func main() {
 	
 	// Test_strconver()
 
+	Test_os()
+
 	test_json()
 }

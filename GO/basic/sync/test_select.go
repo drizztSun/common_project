@@ -35,6 +35,11 @@ func select_chan() {
 	fibonacci(c, quit)
 }
 
+func retryTimeout() <-chan time.Time {
+	retry := time.NewTimer(5 * time.Minute)
+	return retry.C
+}
+
 func select_time() {
 
 	tick := time.Tick(100 * time.Millisecond)
@@ -46,10 +51,14 @@ func select_time() {
 			fmt.Println("tick !")
 		case <-boom:
 			fmt.Println("boom !")
+		case <-retryTimeout():
+			// Won't go down to below code
 		default:
 			fmt.Println("No time signal")
 			time.Sleep(50 * time.Millisecond)
 		}
+
+		break
 	}
 }
 

@@ -68,6 +68,11 @@ func Test_os_read_file() {
 
 	fmt.Printf("5 bytes %s \n", string(b4))
 
+	dir, err := os.Getwd()
+	if err != nil {
+		fmt.Println(err)
+	}
+  	fmt.Println(dir)
 }
 
 
