@@ -27,5 +27,10 @@ func main() {
 
 	// test_json()
 
+
+	Test_os()
+
+	test_json()
+
 	fmt.Println(" --- basic main function end --- ")
 }
