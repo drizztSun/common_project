@@ -5,7 +5,9 @@ import (
 )
 
 func main() {
-	fmt.Println("basic test main function")
+	fmt.Println("--- basic main function ---")
+
+	test_struct()
 
 	//Main_test_list()
 
@@ -23,5 +25,7 @@ func main() {
 	
 	// Test_strconver()
 
-	test_json()
+	// test_json()
+
+	fmt.Println(" --- basic main function end --- ")
 }

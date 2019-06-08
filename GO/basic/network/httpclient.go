@@ -50,6 +50,6 @@ func test_basic_http_client() {
 
 func test_httpclient() {
 
-	//test_basic_http()
+	test_basic_http()
 
 }
