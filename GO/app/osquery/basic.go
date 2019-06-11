@@ -11,11 +11,14 @@ import (
 func test1() {
 
 	//port := 8080
-	if len(os.Args) != 2 {
-		log.Fatal("Socket Port %s being used", os.Args[0])
-	}
+	//if len(os.Args) != 2 {
+	//	log.Fatal("Socket Port %s being used", os.Args[0])
+	//}
+	var (
+		path = `/var/osquery/osquery.em`
+	)
 
-	server, err := osquery.NewExtensionManagerServer("foobar", os.Args[1])
+	server, err := osquery.NewExtensionManagerServer("foobar", path)
 
 	if err != nil {
 		log.Fatalf("Error creating server %s \n", err)
