@@ -49,11 +49,11 @@ func test_chann_select() {
 	x, y := 0, 1
 	for {
 		select {
-		case c <- x:
+		case c <- y:
 			x, y = y, x+y
 		case <-quit:
 			fmt.Println("quit")
-			return
+			return // only return, not break, can jump out for "for.. select ", or use break in for-loop
 		}
 	}
 }

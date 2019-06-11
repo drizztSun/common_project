@@ -6,6 +6,9 @@ import (
 
 func main() {
 
-	fmt.Println("--- Starting OSQuery client ---")
+	fmt.Println("--- OSQuery client Starting ---")
+
 	basic()
+
+	fmt.Println("--- OSQuery client Ending ---")
 }
