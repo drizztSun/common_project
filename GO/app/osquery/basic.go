@@ -3,20 +3,17 @@ package main
 import (
 	"context"
 	"log"
-	"os"
 	"github.com/kolide/osquery-go"
 	"github.com/kolide/osquery-go/plugin/table"
 )
 
-func test1() {
+func test_basic_osquery() {
 
-	//port := 8080
-	if len(os.Args) != 2 {
-		log.Fatal("Socket Port %s being used", os.Args[0])
-	}
+	var (
+		path = `\\.\pipe\osquery.em`
+	)
 
-	server, err := osquery.NewExtensionManagerServer("foobar", os.Args[1])
-
+	server, err := osquery.NewExtensionManagerServer("foobar", path)
 	if err != nil {
 		log.Fatalf("Error creating server %s \n", err)
 	}
@@ -53,5 +50,5 @@ func test1() {
 
 func basic() {
 
-	test1()
+	test_basic_osquery()
 }
