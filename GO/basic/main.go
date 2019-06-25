@@ -7,7 +7,9 @@ import (
 func main() {
 	fmt.Println("--- basic main function ---")
 
-	test_struct()
+	test_sort()
+
+	// test_struct()
 
 	//Main_test_list()
 
@@ -27,7 +29,7 @@ func main() {
 
 	// test_json()
 
-	test_reflect() 
+	// test_reflect() 
 
 	// Test_os()
 
