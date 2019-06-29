@@ -75,7 +75,23 @@ func Test_os_read_file() {
   	fmt.Println(dir)
 }
 
+func test_parameters() {
+
+	fmt.Println("Env, SYSTEMDRIVE : ", os.Getenv("SYSTEMDRIVE"))
+
+	fmt.Println("Env, ProgramFile : ", os.Getenv("PROGRAMFILE"))
+
+	os.Setenv("NAME", "gopher")
+	os.Setenv("BURROW", "/usr/gopher")
+
+	fmt.Printf("%s lives in %s \n", os.Getenv("NAME"), os.Getenv("BURROW"))
+
+}
+
 
 func Test_os() {
 
+	Test_os_read_file()
+
+	test_parameters()
 }
