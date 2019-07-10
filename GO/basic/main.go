@@ -7,7 +7,9 @@ import (
 func main() {
 	fmt.Println("--- basic main function ---")
 
-	test_sort()
+	test_gzip()
+
+	// test_sort()
 
 	// test_struct()
 
