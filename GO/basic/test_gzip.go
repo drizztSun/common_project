@@ -52,6 +52,7 @@ func test_gzip_basic_file() {
 		buf bytes.Buffer
 		b []byte
 		err error
+		file *os.File
 	)
 
 	if b, err = ioutil.ReadFile("./main.go"); err != nil {
@@ -70,7 +71,7 @@ func test_gzip_basic_file() {
 		return 
 	}
 
-	if file, err := os.Create("./main.gz"); err != nil {
+	if file, err = os.Create("./main.gz"); err != nil {
 		fmt.Println("err : ", err.Error())
 		return
 	}

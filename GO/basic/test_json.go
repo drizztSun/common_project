@@ -9,8 +9,8 @@ import (
 
 type TestJsonC struct {
 	Title string `json:"title"`
-	Name string `json:productname`
-	Time time.Time `json:time`
+	Name string `json:"productname"`
+	Time time.Time `json:"time"`
 }
 
 func test_json_basic() {
@@ -79,11 +79,76 @@ func test_json_basic() {
 
 }
 
+func test_json_dyna() {
+	type message struct {
+		Name string `json:"name"`
+		Status int `json:"status"`
+		Recovery string `json:"recovery"`
+	}
+
+	status := message{
+		Name : "test_json_dyna",
+		Status: 2,
+		Recovery: "recovery for test_json_dynamicc",
+	}
+
+	data, err := json.Marshal(status)
+	if err != nil {
+		fmt.Println("Err ", err)
+		return
+	}
+
+	var status2 = message{}
+	if err := json.Unmarshal(data, &status2); err != nil {
+		fmt.Println("Err ", err)
+		return
+	}
+
+	fmt.Println("name: ", status2.Name)
+	fmt.Println("status: ", status2.Status)
+	fmt.Println("recovery: ", status2.Recovery)
+	
+	return
+}
+
+func test_json_dynamic() {
+
+	status := map[string]interface{} {
+		"name": "test_json_dynamic",
+		"status": int(1),
+		"Recovery": "recovery for test_json_dynamic",
+	}
+
+	data, err := json.Marshal(status)
+	if err != nil {
+		fmt.Println("Err ", err)
+		return
+	}
+
+	fmt.Printf("Content : \n %s \n", data)
+
+	var signal = make(map[string]interface{})
+	if err := json.Unmarshal(data, &signal); err != nil {
+		fmt.Println("Err ", err)
+		return
+	}
+
+	fmt.Println("Signal ", signal["name"].(string))
+	fmt.Println("Status ", signal["status"].(float64))
+	fmt.Println("recovery: ", signal["Recovery"].(string))
+
+	return
+}
+
 func test_json() {
 
 	fmt.Println(" --- JSON Sta --- ")
 
 	test_json_basic()
+
+	test_json_dyna()
+
+	test_json_dynamic() 
 
 	fmt.Println(" --- JSON End --- ")
 }
