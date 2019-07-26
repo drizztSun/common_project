@@ -125,5 +125,8 @@ func test_array() {
 	array1 = array1[1:]
 	fmt.Println(array1)
 
+	// array10 combine to arrays
+	array10 := append(array1, array2...)
+
 	test_2darray()
 }
