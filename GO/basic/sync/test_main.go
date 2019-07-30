@@ -6,6 +6,8 @@ func main() {
 
 	fmt.Println("--- sync main ---")
 
+	test_channel()
+
 	test_once()
 
 	test_map_sync()

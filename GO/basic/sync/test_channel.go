@@ -33,7 +33,6 @@ func test_chann() {
 /*
  channel and select
 */
-
 func test_chann_select() {
 	quit := make(chan int)
 	c := make(chan int)
