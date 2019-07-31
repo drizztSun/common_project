@@ -13,19 +13,19 @@ ch <- v    // Send v to channel ch.
 v := <-ch  // Receive from ch, and
 		   // assign value to v.
 */
-func sum(s []int, c chan int) {
-	sums := 0
+func getSums(s []int, c chan int) {
+	total := 0
 	for _, v := range s {
-		sums += v
+		total += v
 	}
-	c <- sums
+	c <- total
 }
 
 func test_chann() {
 	nums := []int{1, 2, 3, 4, 5, 6}
 	c := make(chan int)
-	go sum(nums[0:3], c)
-	go sum(nums[3:], c)
+	go getSums(nums[0:3], c)
+	go getSums(nums[3:], c)
 	x, y := <-c, <-c // read - write - read - ..., blocked between any two of them
 	fmt.Println(x, y, x+y)
 }
@@ -129,8 +129,8 @@ func gen(nums ...int) <- chan int {
 	out := make(chan int)
 
 	go func() {
-		for i := range nums {
-			out <- i
+		for _, v  := range nums {
+			out <- v
 		}
 		close(out)
 	}()
@@ -140,13 +140,14 @@ func gen(nums ...int) <- chan int {
 
 //The second stage, sq, receives integers from a channel and returns a channel that emits the square of each received integer. 
 // After the inbound channel is closed and this stage has sent all the values downstream, it closes the outbound channel:
-func sq(in <-chan int) <- chan int {
+func sq(in <-chan int) <- chan int{
 	out := make(chan int)
 
 	go func() {
 		for n := range in {
 			out <- n * n
 		}
+		close(out)
 	}()
 
 	return out
@@ -159,11 +160,18 @@ func test_channel() {
 	c := gen(1, 2, 3, 4, 5, 6, 7, 8)
 	out := sq(c)
 
+	n := 0
 	for {
 		select {
-		case n := <- out:
+		case n = <- out:
 			fmt.Println(n)
-		}	
+
+		}
+
+		if n == 64 {
+			// Can't make sure Chan status, so have to use this way to jump
+			break
+		}
 	}
 
 	// Since sq has the same type for its inbound and outbound channels, we can compose it any number of times. 

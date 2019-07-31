@@ -15,8 +15,10 @@ func fibonacci(c chan int, quit chan bool) {
 			x, y = x+y, x
 
 		case <-quit:
-			break
+			close(c)
+			return 
 		}
+		println(x)
 	}
 }
 
@@ -30,6 +32,7 @@ func select_chan() {
 			fmt.Println(<-c)
 		}
 		quit <- true
+		close(quit)
 	}()
 
 	fibonacci(c, quit)
@@ -63,6 +66,8 @@ func select_time() {
 }
 
 func test_select() {
+
+	select_chan()
 
 	select_time()
 }

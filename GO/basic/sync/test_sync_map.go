@@ -52,7 +52,6 @@ func test_map_sync_multi() {
 	for i := 0; i < len(a); i++ {
 		<-c
 	}
-
 }
 
 func test_map_sync() {

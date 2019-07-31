@@ -37,11 +37,11 @@ func say(s string) {
 // The example code sums the numbers in a slice, distributing the work between two goroutines. Once both goroutines have completed their computation, it calculates the final result.
 
 func sum(s []int, c chan int) {
-	sum := 0
+	total := 0
 	for i := range s {
-		sum += i
+		total += i
 	}
-	c <- sum // send sum to c
+	c <- total // send total to c
 }
 
 // *** Range and Close

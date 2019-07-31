@@ -8,6 +8,8 @@ func main() {
 
 	test_channel()
 
+	test_select()
+
 	test_once()
 
 	test_map_sync()
