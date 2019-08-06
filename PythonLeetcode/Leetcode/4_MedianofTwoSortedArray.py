@@ -35,7 +35,6 @@ class FindMedianSortedArrays:
         else:
             return (nums1[N/2] + nums1[N/2-1]) / 2.0
 
-    
     def doit(self, nums1, nums2):
         """
         :type nums1: List[int]
@@ -85,8 +84,6 @@ class FindMedianSortedArrays:
             
                 return (max_left + min_right) / 2.0
 
-
-
     def doit2(self, nums1, nums2):
         """
         :type nums1: List[int]
@@ -132,7 +129,6 @@ class FindMedianSortedArrays:
                 
                 return (max_of_left + min_of_right)/2.0
 
-
     def doit1(self, nums1, nums2):
         """
         :type nums1: List[int]
@@ -164,6 +160,7 @@ class FindMedianSortedArrays:
                     return (max(L1, L2) + min(R1, R2)) / 2.0
                 
         return median(nums1, nums2)
+
 
 if __name__ == "__main__":
 

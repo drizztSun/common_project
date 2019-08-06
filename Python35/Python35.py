@@ -1,5 +1,6 @@
 import os
 
+
 def fib(i):
 
     if i == 1:
@@ -11,10 +12,10 @@ def fib(i):
 def Main():
     print(fib(1))
 
+
 if '__main__' == __name__:
 
     a = 1
     a = 2
     a = 3
     Main()
-    
