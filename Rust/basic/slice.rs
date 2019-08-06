@@ -43,7 +43,3 @@ fn test_slice() {
 
     test_slice_test();
 }
-
-fn main() {
-
-}
