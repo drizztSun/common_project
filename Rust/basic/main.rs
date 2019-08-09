@@ -4,6 +4,7 @@ mod owenership;
 mod enums;
 mod structs;
 mod syntax;
+mod test_collectors;
 
 fn main() {
 
@@ -18,4 +19,6 @@ fn main() {
     enums::test_enums();
 
     structs::test_structs();
+
+    test_collectors::test_collectors();
 }

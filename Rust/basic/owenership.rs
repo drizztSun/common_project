@@ -123,7 +123,7 @@ fn change(something: &mut String) {
     something.push_str("world!");
 }
 
-fn test_owenership() {
+pub fn test_owenership() {
     
     owenership_and_function();
 }

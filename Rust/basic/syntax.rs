@@ -1,6 +1,6 @@
 use std::io;
 
-fn test_if(number :i32) {
+fn test_if(number: i32) {
 
     if number % 4 == 0 {
         println!("number is divided by 4");
@@ -167,11 +167,11 @@ fn test_ownership() {
     println!("x = {}, y = {}", x, y);
 }
 
-fn test_syntax() {
+pub fn test_syntax() {
 
     test_data_type();
 
-    test_if();
+    test_if(100);
 
     test_loop();
 

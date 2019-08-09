@@ -39,7 +39,7 @@ fn test_slice_test() {
     println!("{} == {}", wholeword, wholeword1);
 }
 
-fn test_slice() {
+pub fn test_slice() {
 
     test_slice_test();
 }
