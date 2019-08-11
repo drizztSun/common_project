@@ -41,7 +41,7 @@ fn test_vec() {
     }
 
 
-    /*
+    /* ***
     When the program has a valid reference, the borrow checker enforces the ownership and borrowing rules 
     (covered in Chapter 4) to ensure this reference and any other references to the contents of the vector 
     remain valid. Recall the rule that states you can’t have mutable and immutable references in the same scope. That rule applies in Listing 8-7, where we hold an immutable reference to the first element in a vector and try to add an element to the end, which won’t work.

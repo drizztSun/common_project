@@ -5,6 +5,8 @@ mod enums;
 mod structs;
 mod syntax;
 mod test_collectors;
+mod test_string;
+mod test_hashmap;
 
 fn main() {
 
@@ -21,4 +23,8 @@ fn main() {
     structs::test_structs();
 
     test_collectors::test_collectors();
+
+    test_string::test_string();
+
+    test_hashmap::test_hashmap();
 }
