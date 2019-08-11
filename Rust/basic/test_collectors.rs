@@ -64,14 +64,14 @@ fn test_vec() {
   |                                          ----- immutable borrow later used here
     */
 
-    { // Iterate the array
+    { // Iterate the array 
         let v = vec![100, 32, 57];
         for i in &v {
             println!("{}", i);
         }
     }
 
-    { 
+    {  // only mut ref exists when iterate it
         let mut v = vec![100, 32, 57];
         for i in &mut v {
             *i += 50;
