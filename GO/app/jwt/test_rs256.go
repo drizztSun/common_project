@@ -1,9 +1,12 @@
 package main
 
+import (
+	"github.com/dgrijalva/jwt-go"
+)
 
 const (
 	JWTCase = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsIng1YyI6Inh4eHh4In0.eyJpc3MiOiJjYXMudGVzdC5jb20iLCJleHAiOjE1Njk4MDUyNjEsInN1YiI6Inl1c3VuX2xhcHRvcF9tYWNib29rIn0.UOh7zpCM_gYekciirq3xFzPqR7qAo6IpsF-jOl83_0VOub7b_wivS9m2M2cR2Hql9bHcxI30vUyykW69yth2Hz5GxUC7L0HQPPzzUloY7sOUv1DS4ixGQnW-iQO4tL6Lepb-LuGx9tqb2ZuTkiCDoN8LXh7D_1p47RgGdnbWWLtHSM7F1PyAXVZEAp1DH_2YxmZZC77zoJMEO6jVhtzVG9H4N38HHU_AkiXEIGZbOdU056pp1gdZLg6Kv9u2Z-Tc8FoCalQpAgCzjbND3ZmU8S-8AAAa-RfR471YwuA6Iy7Rb8ZRRpnu7Ke3uVVVcxItfyVleFWhIFtQEsC9pls7Yw"
-/*
+
 	publicKey = """-----BEGIN PUBLIC KEY-----
 	MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnzyis1ZjfNB0bBgKFMSv
 	vkTtwlvBsaJq7S5wA+kzeVOVpVWwkWdVha4s38XM/pa/yr47av7+z3VTmvDRyAHc
@@ -41,10 +44,10 @@ const (
 	y18Ae9n7dHVueyslrb6weq7dTkYDi3iOYRW8HRkIQh06wEdbxt0shTzAJvvCQfrB
 	jg/3747WSsf/zBTcHihTRBdAv6OmdhV4/dD5YBfLAkLrd+mX7iE=
 	-----END RSA PRIVATE KEY-----"
-)
-*/
+
 )
 
 func test_rs256() {
 
+	
 }
