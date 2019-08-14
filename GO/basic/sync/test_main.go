@@ -17,4 +17,6 @@ func main() {
 	test_map_sync_multi()
 
 	test_bufferchannel()
+
+	test_pool()
 }
