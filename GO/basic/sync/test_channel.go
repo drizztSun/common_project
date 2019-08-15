@@ -153,7 +153,7 @@ func sq(in <-chan int) <- chan int{
 	return out
 }
 
-func test_channel() {
+func test_channel_single_direction_channel() {
 
 	// The main function sets up the pipeline and runs the final stage: 
 	// it receives values from the second stage and prints each one, until the channel is closed:
@@ -182,4 +182,13 @@ func test_channel() {
 
 	
 	fmt.Println("--end--")
+}
+
+func test_channel() {
+
+	test_chann()
+
+	test_chann_select()
+
+	
 }

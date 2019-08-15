@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"sync"
+	//"sync"
 )
 /*
 Channels can be buffered. Provide the buffer length as the second argument to make to initialize a buffered channel:
@@ -30,8 +30,9 @@ func test_basic_bufferchannel() {
 
 func test_routine_bufferchannel() {
 
-	r := make(chan int 3)
-	w := make(chan int 3)
+	/*
+	r := make(chan int, 3)
+	w := make(chan int, 3)
 	quit := make(chan int)
 
 	go func() {
@@ -42,6 +43,7 @@ func test_routine_bufferchannel() {
 
 		)
 	} ()
+	*/
 }
 
 func test_bufferchannel() {
