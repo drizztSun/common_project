@@ -1,12 +1,14 @@
-use std::io;
 mod slice;
 mod owenership;
 mod enums;
 mod structs;
 mod syntax;
+mod generic;
 mod test_collectors;
 mod test_string;
 mod test_hashmap;
+mod traits;
+mod closure;
 
 fn main() {
 
@@ -21,6 +23,12 @@ fn main() {
     enums::test_enums();
 
     structs::test_structs();
+
+    generic::test_generic();
+
+    traits::test_traits();
+
+    closure::test_closure();
 
     test_collectors::test_collectors();
 
