@@ -1,6 +1,5 @@
+from test_decoding import test_decoding
 
-
-    
 
 def Main():
 
