@@ -86,20 +86,44 @@ fn test_data_type() {
     const NUMI128: i128 = 700;
     const NUMU128: u128 = 800;
 
+    // 
+    // Decimal	98_222
+    // Hex	0xff
+    // Octal	0o77
+    // Binary	0b1111_0000
+    // Byte (u8 only)	b'A'
+
     println!("NUMI8 = {} \n, NUMU8 = {}, \n, NUMI16 = {} \n, NUMU16 = {} \n, NUMI32 = {} \n, 
         NUMU32 = {} \n, NUMI64 = {},\n NUMU64 = {},\n NUMI128 = {}, \n NUMU128 = {}\n", NUMI8, NUMU8, NUMI16, NUMU16, NUMI32, NUMU32, NUMI64, NUMU64, NUMI128, NUMU128);
 
+    {
+        // addition
+        let sum = 5 + 10;
+
+        // subtraction
+        let difference = 95.5 - 4.3;
+
+        // multiplication
+        let product = 4 * 30;
+
+        // division
+        let quotient = 56.7 / 32.2;
+
+        // remainder
+        let remainder = 43 % 5;
+    }
+
     // const bool
     const TBOOL: bool = true;
+    let t = false;
 
-    // tuple 
-    let tup: (i32, f64, u8) = (500, 0.64, 1);
-    let (i1, i2, i3) = tup;
-    println!("tup, i1 {}, i2 {}, i3 {}", i1, i2, i3);
+    println!("TBOOL {}, t {}", TBOOL, t);
 
     // const Character 
-    // Rust’s char type is four bytes in size and represents a Unicode Scalar Value
-    // Unicode Scalar Values range from U+0000 to U+D7FF and U+E000 to U+10FFFF inclusive
+    // Rust’s char type is four bytes in size and represents a Unicode Scalar Value, which means it can represent a lot more than just ASCII. 
+    // Accented letters; Chinese, Japanese, and Korean characters; emoji; and zero-width spaces are all valid char values in Rust. 
+    // Unicode Scalar Values range from U+0000 to U+D7FF and U+E000 to U+10FFFF inclusive. 
+    // However, a “character” isn’t really a concept in Unicode, so your human intuition for what a “character” is may not match up with what a char is in Rust.
     let c = 'z';
     let z = 'ℤ';
     let heart_eyed_cat = '😻';
@@ -119,12 +143,40 @@ fn test_data_type() {
     let z = z * 2;
     println!("z is {}", z);
 
-    println!(" --- Array --- ");
+
+    // Compound Types
+    // Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.
+
+    // The Tuple Type
+    // A tuple is a general way of grouping together some number of other values with a variety of types into one compound type. 
+    // Tuples have a fixed length: once declared, they cannot grow or shrink in size.
+
+    // tuple 
+    let tup: (i32, f64, u8) = (500, 0.64, 1);
+    println!("tup, 0 {} 1 {} 2 {}", tup.0, tup.1, tup.2);
+
+    let (i1, i2, i3) = tup;
+    println!("tup, i1 {}, i2 {}, i3 {}", i1, i2, i3);
+    
     // array
+    // Another way to have a collection of multiple values is with an array. 
+    // Unlike a tuple, every element of an array must have the same type. 
+    // Arrays in Rust are different from arrays in some other languages because arrays in Rust have a fixed length, like tuples.
+    println!(" --- Array --- ");
     let months = ["January", "February", "March", "April", "May", "June", "July",
               "August", "September", "October", "November", "December"];
 
     let a: [i32; 5] = [1, 2, 3, 4, 5];
+
+    for b in months.iter() {
+        print!("{}", b)
+    }
+    println!("");
+
+    for c in a.iter() {
+        println!("a : {}", c)
+    }
+    println!("")
 }
 
 fn test_ownership() {
