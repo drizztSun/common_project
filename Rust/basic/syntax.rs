@@ -43,8 +43,7 @@ fn test_loop() {
             break count * 2;
         }
     };
-
-    // println!("res = {}", res);
+    println!("res = {}", res);
 
     // condition loop with while
     let mut number = 3;
@@ -111,6 +110,8 @@ fn test_data_type() {
 
         // remainder
         let remainder = 43 % 5;
+
+        println!("sum : {}, difference: {}, product: {}, quotient: {}, remainder: {}", sum, difference, product, quotient, remainder)
     }
 
     // const bool
@@ -127,6 +128,8 @@ fn test_data_type() {
     let c = 'z';
     let z = 'ℤ';
     let heart_eyed_cat = '😻';
+
+    println!("c: {}, z: {}. heart_eyed_cat: {}", c, z, heart_eyed_cat);
 
     let x = String::new();
 

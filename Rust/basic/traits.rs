@@ -35,7 +35,7 @@ pub struct NewsArticle {
 }
 
 // returns type that impl traits
-fn return_NewsArticle() -> impl Summary {
+fn Create_News_Article() -> impl Summary {
     NewsArticle {
         headline: String::from("default"),
         location: String::from("default"),
@@ -64,7 +64,7 @@ pub struct Tweet {
 }
 
 // return a trait
-fn return_Tweet() -> impl Summary {
+fn Create_Tweet() -> impl Summary {
     Tweet {
         username: String::from("default"),
         content: String::from("default"),
@@ -141,6 +141,10 @@ pub fn test_traits() {
     println!("nart: {}", nart.summarize());
     
     println!("nart: {}", nart.summarizing());
+
+
+    let article = Create_News_Article();
+    println!("article summarize : {}", article.summarize());
 
     //notifyTemp(nart);
 
