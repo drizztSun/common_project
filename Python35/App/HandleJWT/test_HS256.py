@@ -1,5 +1,6 @@
 import json
 import jwt
+import base64
 
 
 def test_hs_encoding(): 
@@ -10,9 +11,13 @@ def test_hs_encoding():
 
     print("encoded content : \n", encoded)
 
-    fields = encoded.split('.')
+    fields = encoded.decode('utf-8').split('.')
 
     print("JWT header : \n", jwt.get_unverified_header(encoded))
+
+    print("JWT header : \n", base64.urlsafe_b64decode(fields[0]))
+    print("JWT payload : \n", base64.urlsafe_b64decode(fields[1]))
+    # print("JWT signature : \n", base64.urlsafe_b64decode(fields[2]))
 
     return encoded
 

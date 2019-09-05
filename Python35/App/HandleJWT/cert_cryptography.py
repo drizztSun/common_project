@@ -24,6 +24,7 @@ def output_cert_Info(cert):
 
     print("signature: ", cert.signature)
 
+
 def get_der_certificate_public_key(data):
     
     pubCert = x509.load_der_x509_certificate(data, default_backend())
@@ -52,34 +53,8 @@ def extract_public_key_from_certificate(stream):
     cert = crypto.load_certificate(crypto.FILETYPE_ASN1, stream)
     return cert.get_pubkey().to_cryptography_key()#.decode("utf-8")
 
-def verify_dpc_signal_jws_token(request, signals):
-    #print("Headers : \n", request.headers)
-    print("Meta : \n", request.META)
-    print("COOKIE : \n", request.COOKIES)
-    #print("Request : \n", request)
-
-    #if 'HTTP_AUTHORIZATION' not in request.META:
-    #    print("No headers")
-    #    return False
-
-    #jws_token = request.META['HTTP_AUTHORIZATION'].lstrip()
-    
-    if 'COOKIE_NAME' not in request.COOKIES:
-        return False
-
-    jws_token = request.COOKIES['COOKIE_NAME'].lstrip()
-    #if not jws_token.startswith("Bearer "):
-    #    print("token format wrong : ", jws_token)
-    #    return False
-
-    #jws_token = jws_token[6:]
-    jws_token = jws_token.lstrip().rstrip()
-    device_id = signals['akamai_device_id']
-    return verify_jws_token(jws_token, {'sub': device_id})
-
-
 def main():
-    None
+    pass
 
 if __name__ == "__main__":
 
