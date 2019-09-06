@@ -65,6 +65,8 @@ pub fn test_structs() {
         active: true,
     };
 
+    println!("user1 \n name:{}, email:{}, sign_in:{}, active:{}", user1.name, user1.email, user1.sign_in, user1.active);
+
     let user2 = User {
         name: String::from("Jeff"),
         email: String::from("jeff@outlook.com"),
@@ -72,16 +74,24 @@ pub fn test_structs() {
         active: user1.active,
     };
 
+    println!("user2 \n name:{}, email:{}, sign_in:{}, active:{}", user2.name, user2.email, user2.sign_in, user2.active);
+
     let user3 = User {
         name: String::from("Michael"),
         email: String::from("Michael.Rache@outlook.com"),
         ..user1
     };
 
+    println!("user3 \n name:{}, email:{}, sign_in:{}, active:{}", user3.name, user3.email, user3.sign_in, user3.active);
+
     let black = Color(0, 0, 0);
     let origin = Point(0, 0, 0);
 
+    println!("black {}, {}, {} ", black.0, black.1, black.2);
+    println!("origin {}, {}, {}", origin.0, origin.1, origin.2);
+
     let m = Rectangle{width: 100, height: 100};
     println!("m's aera = {}", m.area());
-
+    println!("m can_hold = {}", m.can_hold(&m));
+    println!("m square width = {}", Rectangle::square(20).area());
 }

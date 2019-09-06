@@ -64,7 +64,7 @@ pub struct Tweet {
 }
 
 // return a trait
-fn Create_Tweet() -> impl Summary {
+fn create_tweet() -> impl Summary {
     Tweet {
         username: String::from("default"),
         content: String::from("default"),
@@ -146,13 +146,17 @@ pub fn test_traits() {
     let article = Create_News_Article();
     println!("article summarize : {}", article.summarize());
 
-    //notifyTemp(nart);
+    let tweet = create_tweet();
+    println!("tweet summarzie : {}", tweet.summarize());
+    // println!("tweet summarizing in (defaultSummary): {}", tweet.summarizing());
 
-    //notify(nart);
+    notify(article);
 
-    //notify(nart);
+    notify(tweet);
 
-    
+    notify(nart);
+
+    // template 
 
     //notifyTemp(tweet);
 }

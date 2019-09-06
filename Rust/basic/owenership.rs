@@ -1,4 +1,4 @@
-fn owenership_and_function() {
+fn ownership_and_function() {
     
     let s = String::from("hello");  // s comes into scope
 
@@ -64,7 +64,6 @@ fn return_value_and_scope1() {
 
 fn calculate_length(s: String) -> (String, usize) {
     let length = s.len(); // len() returns the length of a String
-
     (s, length)
 }
 
@@ -117,13 +116,126 @@ fn reference_borrow_mut() {
     let c2 = &s; // no problem, could be more than one const ref in a scope
 
     // * let c3 = &mut s; // big problem, limitd, ref and mut ref in a scope.
+
+
+    {
+        /*
+        let mut s = String::from("hello");
+
+        let r1 = &s; // no problem
+        let r2 = &s; // no problem
+        let r3 = &mut s; // BIG PROBLEM
+
+        println!("{}, {}, and {}", r1, r2, r3); 
+        
+        error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
+ --> src/main.rs:6:14
+  |
+4 |     let r1 = &s; // no problem
+  |              -- immutable borrow occurs here
+5 |     let r2 = &s; // no problem
+6 |     let r3 = &mut s; // BIG PROBLEM
+  |              ^^^^^^ mutable borrow occurs here
+7 |
+8 |     println!("{}, {}, and {}", r1, r2, r3);
+  |                                -- immutable borrow later used here
+        
+        Whew! We also cannot have a mutable reference while we have an immutable one. 
+        Users of an immutable reference don’t expect the values to suddenly change out from under them! However, 
+        multiple immutable references are okay because no one who is just reading the data has the ability 
+        to affect anyone else’s reading of the data.
+
+        Note that a reference’s scope starts from where it is introduced and continues 
+        through the last time that reference is used. For instance, 
+        this code will compile because the last usage of the immutable references occurs 
+        before the mutable reference is introduced:
+        */
+
+        // 1) At any given time, you can have either one mutable reference or any number of immutable references.
+        // 2) References must always be valid.
+
+        let mut s = String::from("hello");
+
+        let r1 = &s; // no problem
+        let r2 = &s; // no problem
+        println!("{} and {}", r1, r2);
+        // r1 and r2 are no longer used after this point
+
+        let r3 = &mut s; // no problem
+        println!("{}", r3);
+
+        // The scopes of the immutable references r1 and r2 end after the println! where they are last used, 
+        // which is before the mutable reference r3 is created. These scopes don’t overlap, so this code is allowed.
+
+    }
 }
 
 fn change(something: &mut String) {
     something.push_str("world!");
 }
 
+
+fn ownership() {
+
+    {
+        // Move
+        let s1 = String::from("hello world");
+        println!("s1 : {}", s1);
+        
+        // Move: s1 has been moved into s2
+        // after it, s1 is none
+        // it avoid the double call to drop func of memory
+        let s2 = s1;
+        println!("s2 : {}", s2);
+    }
+
+    {
+        // Clone
+        let s1 = String::from("hello world");
+        let s2 = s1.clone();
+
+        println!("s1: {} s2: {}", s1, s2);
+    }
+
+    {
+        // Stack-Only Data: Copy
+        // But this code seems to contradict what we just learned: we don’t have a call to clone, 
+        // but x is still valid and wasn’t moved into y.
+        let x = 5;
+        let y = x;
+        println!("x: {}, y: {}", x, y);
+
+        // The reason is that types such as integers that have a known size at compile time are stored entirely on the stack, 
+        // so copies of the actual values are quick to make. 
+        // That means there’s no reason we would want to prevent x from being valid after we create the variable y. 
+        // In other words, there’s no difference between deep and shallow copying here, 
+        // so calling clone wouldn’t do anything different from the usual shallow copying and we can leave it out.
+    
+        /*
+        Rust has a special annotation called the Copy trait that we can place on types like integers that are stored on the stack (we’ll talk more about traits in Chapter 10). 
+        If a type has the Copy trait, an older variable is still usable after assignment. 
+        Rust won’t let us annotate a type with the Copy trait if the type, or any of its parts, has implemented the Drop trait. 
+        If the type needs something special to happen when the value goes out of scope and we add the Copy annotation to that type, 
+        we’ll get a compile-time error. To learn about how to add the Copy annotation to your type, see “Derivable Traits” in Appendix C.
+
+        So what types are Copy? You can check the documentation for the given type to be sure, 
+        but as a general rule, any group of simple scalar values can be Copy, 
+        and nothing that requires allocation or is some form of resource is Copy. 
+        Here are some of the types that are Copy:
+
+        All the integer types, such as u32.
+        The Boolean type, bool, with values true and false.
+        All the floating point types, such as f64.
+        The character type, char.
+        Tuples, if they only contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
+            
+        */
+    }
+}
+
 pub fn test_owenership() {
     
-    owenership_and_function();
+    ownership();
+
+    ownership_and_function();
 }
