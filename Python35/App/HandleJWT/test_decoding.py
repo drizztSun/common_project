@@ -110,8 +110,8 @@ def _verify_rs_token(token, fields):
     header, payload, signature = token.split('.')
     header = json.loads(base64.urlsafe_b64decode(header))
     data = base64.b64decode(header['x5c'][0].encode('utf-8'))
-    key = cert_cryptography.extract_public_key_from_certificate(data)
-    # key = cert_cryptography.get_der_certificate_public_key(data)
+    # key = cert_cryptography.extract_public_key_from_certificate(data)
+    key = cert_cryptography.get_der_certificate_public_key(data)
 
     try:
         payload = jwt.decode(token, key, algorithms=header['alg'])
