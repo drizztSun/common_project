@@ -34,6 +34,7 @@
 #   "exp":1565974043
 
 import json
+from jsonschema import validate
 import base64
 import jwt
 from cryptography import x509
@@ -43,7 +44,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 
 import cert_cryptography
 #from cert_cryptography import output_cert_Info
-
+from cert_pyopenssl import CertUtil
 
 # publickey = b'-----BEGIN CERTIFICATE-----MIIFFjCCAv6gAwIBAgIJAJQR7xtzOanlMA0GCSqGSIb3DQEBCwUAMIGfMQswCQYDVQQGEwJVUzEWMBQGA1UECAwNTWFzc2FjaHVzZXR0czESMBAGA1UEBwwJQ2FtYnJpZGdlMRwwGgYDVQQKDBNBa2FtYWkgVGVjaG5vbG9naWVzMQwwCgYDVQQLDANLTUkxGTAXBgNVBAMMEEVBQSBEZXZpY2UgQ0EgRzExHTAbBgkqhkiG9w0BCQEWDmttaUBha2FtYWkuY29tMB4XDTE5MDgxNTExMjc0NVoXDTIwMDgxNTExMjc0NVowgaUxCzAJBgNVBAYTAlVTMRYwFAYDVQQIDA1NYXNzYWNodXNldHRzMRIwEAYDVQQHDAlDYW1icmlkZ2UxHDAaBgNVBAoME0FrYW1haSBUZWNobm9sb2dpZXMxDDAKBgNVBAsMA0tNSTEfMB0GA1UEAwwWRUFBIERldmljZSBDZXJ0aWZpY2F0ZTEdMBsGCSqGSIb3DQEJARYOa21pQGFrYW1haS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOIaexkXNjuNsuabl41fiwxocASROv4IREeWthbIOUDqWOk+qw9sHPtelMtaUsNyzlt2Tfi5e6PF1xTewkBy7AEFLO/dD0KhowVGm7Ezwrb3kCeQ8B7FWzdaBB+4sngnOYVOTCvN1aENv0BVmMeA7cdn9B2ZUNHZhdho+YFcPCuVXbhfosadg3lLBYn9hnIYr/2M+MljkpnBO7lLNPMVkhDlLeOecIehH3vbbI+Yx21EMHJeEK+l6Z+nuuYvVGGb6Ux3t55QQSSIdIVXnJB/hqeZFXbogLqgTOENU/OGwuchIFRXwSpzZLg7Q/gVe+bJlwTNZRvTB+H7JkdS45ipt1AgMBAAGjTTBLMAkGA1UdEwQCMAAwHQYDVR0OBBYEFOJSzuYuGCNw2KYzyB6iFpP/l/VxMB8GA1UdIwQYMBaAFNt+Hx7vsUuu8tIGZmZzEnUqAIIrMA0GCSqGSIb3DQEBCwUAA4ICAQAWboUd9xzu4eqBwknaaVEYRE2dt9ChOJFa0KApdDPquwvhunMD5OS0DpYuTxQY6ibtgN0QV/i/c/iTD6OYxSgmrCvzy/P0bOx6VwDPiV/JkPLR5479pn3reZeoJM1l8Ver2nuUjttZHDYMMa4LR3vrkPHi+Z9KT/F5rSQ8hvQ4dRAr2PGnB9mC67Kr1fWZGeGl3BfyHEf63h0ZmNXuPjKaJiyy7X801o5ay0VFSPWulfPFzis6GK6gMTV0CM/L+P+u7tVhNpdhNBW4hJtC2k0miRgdNErj2Pc8bHNi1FJ4FvrvqzzVnQEqaf2nuaYcgt0DMXz+v/tYd7kOlCATQ05Ih/ODa2q2u/EOqPSSPRpI8bJT+7DrPjWM0y+FP8xDukw1CX/36XvDEHnegveiIf+3AcHf31dN+FuyTttrqYrEfHuFmiQnmoPQvSmF9IK0taq36QBraCJh0TgDcdeu6h7NoYURlEqytnznY7Etn2M0MLwPnjX6dWF6UaVRpK0aJS3Rj+zH/Q1PzZSHjpRP7ybrld04IfUDEnTopvajU6uf7SmKiE1OLRtKNUikx7vLDEBCTiWRHqwnwFJpnUszA6RzmxEFLPUK/3l4f9t0y/nOLCAGssrDFuYErkOfc8VFYm35JxFf5kCkySm345Ki/weVNTzlEem/yCmhoyb7n6Xptg==-----END CERTIFICATE-----'
 
@@ -79,7 +80,47 @@ jg/3747WSsf/zBTcHihTRBdAv6OmdhV4/dD5YBfLAkLrd+mX7iE=
 -----END RSA PRIVATE KEY-----
 """
 
+# PEM
+device_root_cert = """-----BEGIN CERTIFICATE-----
+MIIGHjCCBAagAwIBAgIUDko8FhRn0DLgISykhELLjX5zTp4wDQYJKoZIhvcNAQEL
+BQAwgZ8xCzAJBgNVBAYTAlVTMRYwFAYDVQQIDA1NYXNzYWNodXNldHRzMRIwEAYD
+VQQHDAlDYW1icmlkZ2UxHDAaBgNVBAoME0FrYW1haSBUZWNobm9sb2dpZXMxDDAK
+BgNVBAsMA0tNSTEZMBcGA1UEAwwQRUFBIERldmljZSBDQSBHMTEdMBsGCSqGSIb3
+DQEJARYOa21pQGFrYW1haS5jb20wHhcNMTkwODE1MTEyNzQ1WhcNMjEwMjE1MTEy
+NzQ1WjCBnzELMAkGA1UEBhMCVVMxFjAUBgNVBAgMDU1hc3NhY2h1c2V0dHMxEjAQ
+BgNVBAcMCUNhbWJyaWRnZTEcMBoGA1UECgwTQWthbWFpIFRlY2hub2xvZ2llczEM
+MAoGA1UECwwDS01JMRkwFwYDVQQDDBBFQUEgRGV2aWNlIENBIEcxMR0wGwYJKoZI
+hvcNAQkBFg5rbWlAYWthbWFpLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCC
+AgoCggIBALzx0CfEC9GzhptNxe09RMNDwtF2rR+1v4XPkDbH7Zzg/FRbXRo0ug9t
+sCOhaYoBBFwzjfUZTFKIEYPAWOgmRBR+JGaElzwc2vMq8S7mHyAkaKktFykdB1qP
+b+uPOgXF3JjeJF/DQ1GjDsTQq5hoviLx5Pwd/V/XpQkbdmHSehYFsGFfKVFvGulk
+3JGb7AB862ZUBKW4FBXwrcCpc4SYxMMwwYzBlMl+V1wGQeGosFCQ1Tn/1fd2t+QR
+LzEybAmtY+gEK+7B9CVsqdsE63M88sVzrsNmeBRn2OnnOu6cqq8qcK0dtJPL77vM
+D0ivgopgRC9LAlymGjAdujG33aIrmaOEmlrAewJJ9wCbk8AIEB4FQKealMfxuXoB
+uK0QqnQiL8e0Cxjs2CQSPQ/67giHgiQGCFVDVIzGDIhUm/0gCrohcb7PQ5Af4+DF
+HMpIQvLfYTDDzLOrCImiNa4cyAj7s4YcbIKWQNU08B6/u4CQ6YLh3+Jabe2TBeie
+1QD3r3znLtSqCka5IKD5Og42Gz5y90o39ITp+CyTRb4dzTuqkXhVSsOCCrLUFKlK
+qFgtiy54KbulrmRI0D/ew2R7oYiVWjDqA30czfsOxrbO0F3S2XXRgiPcYOB8nWh1
+wJtjlgFwz47u8L0xL0PS2LriTY1Njut8iW+McLvl1DLTNEME25PlAgMBAAGjUDBO
+MAwGA1UdEwQFMAMBAf8wHQYDVR0OBBYEFNt+Hx7vsUuu8tIGZmZzEnUqAIIrMB8G
+A1UdIwQYMBaAFNt+Hx7vsUuu8tIGZmZzEnUqAIIrMA0GCSqGSIb3DQEBCwUAA4IC
+AQBg8eBOFI0o1ORV+Zdqd0O9sII9fBmRFy9t2JJ8sQ+54grRgsw/7dYqFO5E9h4b
+n/HIW5nINpaaDesl6J26+ymHsifeuqJFcnlabg8MJWeG0Z0g1wx7Ib0uiO3sWZ7v
+whLTPD0Sm/Pn6iNLlzf/rKaTdNbHDVxIY2jPpMTK8Lt/d40b+CF/PgFozZBynjWt
+fJDnFg+NGbZgYAlPWRU0AklAtnpJdRjHpxO6Vjj8YYfRKP2vnpGm3KcKdSHguy9Q
+hTChNhUbsG1oAEDASDI7ScQdQF+FYFR5E+IboRyOnCoULRrfqVP3cUmAB00hjfkU
+6Ngsk2oPnwDJm0hAdR8lwISvcgFDDZZ9BB//sncKPkJg2IpNK6mvrTXqdj/Y3koM
+lltRzJNihkeOnUmi6Ta6IZwgQaPM0M+ByLUC0fEMogpy9szNc8NtjMlgu1nSZYsX
+nRLPuS2A4UynEx02VwzmPyInKgaM/etEFE83w9VuW1tbp1IYILjDH20BW/Si6ZQV
+Trjul2J2wBtF2aroVp3qir+DxJAMtwJcDNAAa5yaMP2tfUlPSGztiVMqtRGuJtYJ
+BNpenEeQ3iidStIylqwq8abzmOllH3J1jgbJTJ7/eIqwKZPN0JKwSw4Q253hkb2E
+bKnObmYffXchMKpoDbva/0xYDiBPKakZVSkV8gvwjW5oAw==
+-----END CERTIFICATE-----"""
 
+
+device_root_cert_2 = b"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"
+
+device_root_cert_1 = "-----BEGIN CERTIFICATE-----\n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\n-----END CERTIFICATE-----"
 
 
 def test_decoding(token):
@@ -111,7 +152,12 @@ def _verify_rs_token(token, fields):
     header = json.loads(base64.urlsafe_b64decode(header))
     data = base64.b64decode(header['x5c'][0].encode('utf-8'))
     # key = cert_cryptography.extract_public_key_from_certificate(data)
-    key = cert_cryptography.get_der_certificate_public_key(data)
+    # key = cert_cryptography.get_der_certificate_public_key(data)
+    # CertUtil.import_eaadevice_rootcert(device_root_cert, "PEM")
+    CertUtil.import_eaadevice_rootcert(device_root_cert_1, "PEM")
+    key = CertUtil.extract_public_key_from_certificate(data)
+    # key = CertUtil.import_eaadevice_rootcert
+
 
     try:
         payload = jwt.decode(token, key, algorithms=header['alg'])
@@ -120,8 +166,8 @@ def _verify_rs_token(token, fields):
         if 'sub' in fields and fields['sub'] != payload['sub']:
             return False
         
-        #if not CertUtil.verify_certificate_sign_by_root(data):
-        #    return False
+        if not CertUtil.verify_certificate_sign_by_root(data):
+            return False
 
         return True
     except jwt.InvalidIssuerError:
@@ -174,6 +220,70 @@ def Main():
         return _verify_rs_token(token, {"sub": "3a2bd56f-ac78-4fda-afe2-be9b6188fb2f"})
 
 
+def verify_json():
+
+    try:
+        data = b"{ \"type\": \"PEM\", \"data\": \"-----BEGIN CERTIFICATE-----\
+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\
+-----END CERTIFICATE-----\"}"
+
+        body = json.loads(data.decode('utf-8'))
+        schema = {
+            "type": "object",
+            "properties": {
+                "type": { "type": "string"},
+                "data": {"type": "string"}
+            },
+            "required": ["type", "data"]
+        }
+
+        body["data"] = device_root_cert_1
+        validate(body, schema)
+
+        print(body)
+
+    except json.ValidationError as val_ex:
+        raise json.InvalidInputException("Failed to validate json body.  %s" % val_ex.message)
+
+    except json.SchemaError as ex:
+        # error("failed to validate json %s against schema %s    message: %s", json_data, json_schema, ex.message)
+        raise json.UnknownException("Unable to validate json ")
+
+
 if __name__ == "__main__":
 
     Main()
+
+    verify_json()

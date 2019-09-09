@@ -117,6 +117,7 @@ class CertUtil(object):
         store_ctx = crypto.X509StoreContext(CertUtil.store, crypto.load_certificate(CertUtil.cert_type[type], data))
 
         return (False, True)[store_ctx.verify_certificate() is None]
+        #return True if store_ctx.verify_certificate() is None else False
 
     @staticmethod
     def extract_public_key_from_certificate(data, type="ASN1"):
@@ -130,7 +131,7 @@ class CertUtil(object):
         return cert.get_pubkey().to_cryptography_key()
 
     @staticmethod
-    def import_eaadevice_rootcert(data, type):
+    def import_eaadevice_rootcert(data, type = "ASN1"):
         
         if type not in CertUtil.cert_type:
             return False
