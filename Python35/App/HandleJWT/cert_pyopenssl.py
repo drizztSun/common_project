@@ -96,6 +96,7 @@ def test_verify():
     except:
         print("Except happened")
 
+
 class CertUtil(object):
     
     root_certs = None
