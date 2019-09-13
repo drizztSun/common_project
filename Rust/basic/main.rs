@@ -9,6 +9,9 @@ mod test_string;
 mod test_hashmap;
 mod traits;
 mod closure;
+mod test_errorhandling;
+mod test_smart_pointer;
+mod test_list;
 
 fn main() {
 
@@ -35,4 +38,10 @@ fn main() {
     test_string::test_string();
 
     test_hashmap::test_hashmap();
+
+    test_errorhandling::test_errorhandling();
+
+    test_smart_pointer::test_smart_pointer();
+
+    test_list::test_list();
 }
