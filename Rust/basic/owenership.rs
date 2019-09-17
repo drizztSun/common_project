@@ -1,3 +1,39 @@
+// What Is Ownership?
+// Rust’s central feature is ownership. Although the feature is straightforward to explain, it has deep implications for the rest of the language.
+// All programs have to manage the way they use a computer’s memory while running. 
+// Some languages have garbage collection that constantly looks for no longer used memory as the program runs; 
+// in other languages, the programmer must explicitly allocate and free the memory. 
+// Rust uses a third approach: memory is managed through a system of ownership with a set of rules that the compiler checks at compile time. 
+// None of the ownership features slow down your program while it’s running.
+
+// Rust takes a different path: the memory is automatically returned once the variable that owns it goes out of scope. 
+
+// The Stack and the Heap
+// Both the stack and the heap are parts of memory that are available to your code to use at runtime, but they are structured in different ways. 
+// The stack stores values in the order it gets them and removes the values in the opposite order. This is referred to as last in, first out. 
+// Think of a stack of plates: when you add more plates, you put them on top of the pile, and when you need a plate, you take one off the top. 
+// Adding or removing plates from the middle or bottom wouldn’t work as well! Adding data is called pushing onto the stack, and removing data is called popping off the stack.
+
+// All data stored on the stack must have a known, fixed size. Data with an unknown size at compile time or a size that might change must be stored on the heap instead. 
+// The heap is less organized: when you put data on the heap, you request a certain amount of space. 
+// The operating system finds an empty spot in the heap that is big enough, marks it as being in use, and returns a pointer, which is the address of that location. 
+// This process is called allocating on the heap and is sometimes abbreviated as just allocating. Pushing values onto the stack is not considered allocating. 
+// Because the pointer is a known, fixed size, you can store the pointer on the stack, but when you want the actual data, you must follow the pointer.
+
+
+// Ownership Rules
+// First, let’s take a look at the ownership rules. Keep these rules in mind as we work through the examples that illustrate them:
+
+// 1）Each value in Rust has a variable that’s called its owner.
+// 2）There can only be one owner at a time.
+// 3）When the owner goes out of scope, the value will be dropped.
+
+
+
+// * Ownership and Functions
+// The semantics for passing a value to a function are similar to those for assigning a value to a variable. 
+// Passing a variable to a function will move or copy, just as assignment does.
+
 fn ownership_and_function() {
     
     let s = String::from("hello");  // s comes into scope
@@ -24,7 +60,11 @@ fn makes_copy(some_integer: i32) { // some_integer comes into scope
     println!("{}", some_integer);
 } // Here, some_integer goes out of scope. Nothing special happens.
 
+// * Return Values and Scope
+// Returning values can also transfer ownership
+
 fn return_value_and_scope() {
+
     let s1 = gives_ownership();         // gives_ownership moves its return
                                         // value into s1
 
