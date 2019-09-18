@@ -281,7 +281,7 @@ fn test_ref_cell() {
         let branch = Rc::new(Node{
             val: 5,
             parent: RefCell::new(Weak::new()),
-            children: RefCell::new(vec![Rc::clone(&leaf))],
+            children: RefCell::new(vec![Rc::clone(&leaf)]),
         });
 
         *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
