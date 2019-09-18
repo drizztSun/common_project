@@ -14,6 +14,7 @@ mod test_smart_pointer;
 mod test_list;
 mod test_thread;
 mod pattern;
+mod function_pointer;
 
 fn main() {
 
@@ -36,6 +37,8 @@ fn main() {
     closure::test_closure();
 
     pattern::test_pattern();
+
+    function_pointer::test_function_pointer();
 
     test_collectors::test_collectors();
 

@@ -365,7 +365,11 @@ fn foo(_: i32, y: i32) {
 }
 
 
-
+// Rust’s patterns are very useful in that they help distinguish between different kinds of data. 
+// When used in match expressions, Rust ensures your patterns cover every possible value, or your program won’t compile. 
+// Patterns in let statements and function parameters make those constructs more useful, 
+// enabling the destructuring of values into smaller parts at the same time as assigning to variables. 
+// We can create simple or complex patterns to suit our needs.
 
 
 pub fn test_pattern() {
