@@ -55,6 +55,8 @@ fn test_thread_basic2() {
     handle.join().unwrap();
 }
 
+// *** Using Message Passing to Transfer Data Between Threads ***
+
 // One increasingly popular approach to ensuring safe concurrency is message passing, where threads or actors communicate by sending each other messages containing data. 
 // Here’s the idea in a slogan from the Go language documentation: “Do not communicate by sharing memory; instead, share memory by communicating.”
 

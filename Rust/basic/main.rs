@@ -13,6 +13,7 @@ mod test_errorhandling;
 mod test_smart_pointer;
 mod test_list;
 mod test_thread;
+mod pattern;
 
 fn main() {
 
@@ -33,6 +34,8 @@ fn main() {
     traits::test_traits();
 
     closure::test_closure();
+
+    pattern::test_pattern();
 
     test_collectors::test_collectors();
 
