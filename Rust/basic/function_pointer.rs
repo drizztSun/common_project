@@ -33,6 +33,11 @@ fn test_function_pointer_basic() {
 // As an example of where you could use either a closure defined inline or a named function, 
 // let’s look at a use of map. To use the map function to turn a vector of numbers into a vector of strings, we could use a closure, 
 // like this:
+
+enum Status {
+    Value(u32),
+    Stop,
+}
 fn test_function_call() {
     
     {
@@ -50,10 +55,24 @@ fn test_function_call() {
         println!("nums : {:?}", list_of_nums);
         println!("nums str: {:?}", list_of_strings);
     }
+
+    {
+        let list_of_status: Vec<Status> = (0u32..20).map(Status::Value).collect();
+        println!("Status: ");
+    }
 }
 
+// fn return_closure() -> fn(i32) -> i32 { ?? ** Error, does not have a constant size known at compile-time
+fn return_closure() -> Box<dyn Fn(i32) -> i32> {
+    Box::new(|x| x + 1)
+}
+ 
 fn test_return_closure() {
 
+    let add_defined = return_closure();
+
+    println!("add(1) = {} ", add_defined(1));
+    println!("add(10) = {} ", add_defined(10));
 }
 
 pub fn test_function_pointer() {
