@@ -14,14 +14,18 @@ def match(letters, words):
             for w in words:
                 found_word = w
                 word_lenght = len(w)
-                if j >= word_lenght and letters[i][j - word_lenght + 1 : j+1 : -1] == found_word:
+                if j >= word_lenght and ''.join(letters[i][c] for c in range(j, j - word_lenght, -1)) == found_word:
                     pos = [i, j-word_lenght + 1, i, j]
-                elif n - j >= word_lenght and letters[i][j : j + word_lenght] == found_word:
+                    break;
+                elif n - j >= word_lenght and ''.join(letters[i][j : j + word_lenght]) == found_word:
                     pos = [i, j, i, j + word_lenght - 1]
-                elif i > word_lenght and letters[i - word_lenght + 1 : i + 1 : -1][j] == found_word:
+                    break;
+                elif i > word_lenght and ''.join(letters[c][j] for c in range(i, i - word_lenght, -1)) == found_word:
                     pos = [i - word_lenght + 1, j, i, j]
-                elif m - i >= word_lenght and  letters[i : i + word_lenght][j] == found_word:
+                    break;
+                elif m - i >= word_lenght and ''.join(letters[c][j] for c in range(i, i + word_lenght)) == found_word:
                     pos = [i, j, i + word_lenght,j]
+                    break;
             else:
                 pos = []
                 found_word = ''
@@ -35,18 +39,18 @@ def match(letters, words):
 
 def main():
 
-    source = ['DETAILWNRNZI',
-                     'GARTRFKIIAIB',
-                     'MAWHHSZAGNBV',
-                     'TFQQTGCRHLSE',
-                     'MCIAODIGTPJQ',
-                     'ZOKYVMBERTBO',
-                     'PFMARUQAHYUT',
-                     'JHOWIAYGHQMX',
-                     'UXOHHGIEWBEG',
-                     'GCCGUEZSEESZ',
-                     'HXPIHFAUICRV',
-                     'QPAHOMKDANCA']
+    source = [  'DETAILWNRNZI',
+                'GARTRFKIIAIB',
+                'MAWHHSZAGNBV',
+                'TFQQTGCRHLSE',
+                'MCIAODIGTPJQ',
+                'ZOKYVMBERTBO',
+                'PFMARUQAHYUT',
+                'JHOWIAYGHQMX',
+                'UXOHHGIEWBEG',
+                'GCCGUEZSEESZ',
+                'HXPIHFAUICRV',
+                'QPAHOMKDANCA']
 
     words=set(['SIGH', 'RIGHT', 'WEIGH', 'EIGHT', 'DETAIL', 'HEIGHT', 'SPRAY', 'BRAID', 'BAIT', 'GRAIN', 'SLIGHT', 'THIGH', 'TIGHT', 'RAISIN', 'TRAIT', 'HIGHWAY', 'FRIGHTEN', 'DISMAY', 'FREIGHT', 'SLEIGH'])
 

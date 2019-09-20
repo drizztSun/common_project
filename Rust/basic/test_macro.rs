@@ -27,17 +27,49 @@
 
 // The #[macro_export] annotation indicates that this macro should be made available whenever the crate in which the macro is defined is brought into scope. 
 // Without this annotation, the macro can’t be brought into scope.
+// We then start the macro definition with macro_rules! and the name of the macro we’re defining without the exclamation mark.
 
 #[macro_export]
 macro_rules! VECMAKER {
-    () => {
-
+    (  $( $x:expr ),* ) => {
+        {
+            let mut temp_vec = Vec::new();
+            $(
+                temp_vec.push($x);
+            )*
+            temp_vec
+        }
     };
 }
 
+// Here we have one arm with the pattern ( $( $x:expr ),* ), followed by => and the block of code associated with this pattern. 
+// If the pattern matches, the associated block of code will be emitted. 
+// Given that this is the only pattern in this macro, there is only one valid way to match; any other pattern will result in an error. 
+// More complex macros will have more than one arm.
 
+// First, a set of parentheses encompasses the whole pattern. 
+// A dollar sign ($) is next, followed by a set of parentheses that captures values that match the pattern within the parentheses for use in the replacement code. 
+// Within $() is $x:expr, which matches any Rust expression and gives the expression the name $x.
+
+// The comma following $() indicates that a literal comma separator character could optionally appear after the code that matches the code in $(). 
+// The * specifies that the pattern matches zero or more of whatever precedes the *.
+
+
+// *** Procedural Macros for Generating Code from Attributes
+
+// The second form of macros is procedural macros, which act more like functions (and are a type of procedure). 
+// Procedural macros accept some code as an input, operate on that code, and produce some code as an output rather than matching against patterns and replacing the code with other code as declarative macros do.
+// The three kinds of procedural macros (custom derive, attribute-like, and function-like) all work in a similar fashion.
+
+// When creating procedural macros, the definitions must reside in their own crate with a special crate type. 
+// This is for complex technical reasons that we hope to eliminate in the future.
 
 
 pub fn test_macro() {
 
+    let tmp = VECMAKER![1, 2, 3];
+
+    for i in tmp {
+        println!("R: {}", i);
+    }
 }

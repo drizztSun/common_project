@@ -15,6 +15,7 @@ mod test_list;
 mod test_thread;
 mod pattern;
 mod function_pointer;
+mod test_macro;
 
 fn main() {
 
@@ -37,6 +38,8 @@ fn main() {
     closure::test_closure();
 
     pattern::test_pattern();
+
+    test_macro::test_macro();
 
     function_pointer::test_function_pointer();
 
