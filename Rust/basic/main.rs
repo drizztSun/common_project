@@ -16,10 +16,13 @@ mod test_thread;
 mod pattern;
 mod function_pointer;
 mod test_macro;
+mod test_network;
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
+
+    test_network::test_network();
 
     syntax::test_syntax();
 
