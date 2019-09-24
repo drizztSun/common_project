@@ -7,6 +7,7 @@ import time
 from dateutil import parser
 from OpenSSL import crypto
 
+
 def output_cert_Info(cert):
     
     if not isinstance(cert, x509.Certificate):
@@ -35,6 +36,7 @@ def get_der_certificate_public_key(data):
     
     return pubCert.public_key()
 
+
 def verify_cert_root_ca(cert, root_cert):
 
     print("verify the two cert root ca")
@@ -45,8 +47,10 @@ def verify_cert_root_ca(cert, root_cert):
     except Exception as e:
         print("Err " + e)
 
+
 def verify_chain_of_trust_chain(cert, root_cert):
     pass
+
 
 def test_root_verify():
     
@@ -112,6 +116,7 @@ class cert_util(object):
 
 def main():
     pass
+
 
 if __name__ == "__main__":
 
