@@ -30,11 +30,14 @@ impl<T> myBox<T> {
 }
 
 impl<T> Deref for myBox<T> {
+    // The type Target = T; syntax defines an associated type for the Deref trait to use.
+    // Associated types are a slightly different way of declaring a generic parameter
     type Target = T;
 
+    // We fill in the body of the deref method with &self.0 so deref returns a reference to the value we want to access with the * operator
     fn deref(&self) -> &T{
         &self.0
-    }
+    }   
 }
 
 fn test_box() {
@@ -57,6 +60,7 @@ fn test_box() {
             Box::new(Cons(3,
                 Box::new(Nil))))));
 
+    // Using Box<T> Like a Reference
     let x = 5;
     let y = Box::new(x);
 
@@ -72,8 +76,15 @@ fn test_box() {
         let y = myBox::new(x);
 
         assert_eq!(5, x);
-        assert_eq!(5, *y); // Deref trait called 
-        // 
+        assert_eq!(5, *y); // == *(y.deref())
+        // Deref trait called 
+        // Rust substitutes the * operator with a call to the deref method and then a plain dereference so we don’t have to think about whether or 
+        // not we need to call the deref method. This Rust feature lets us write code that functions identically whether we have a regular reference or a type that implements Deref.
+
+        // The reason the deref method returns a reference to a value, and that the plain dereference outside the parentheses in *(y.deref()) is still necessary,
+        // is the ownership system. If the deref method returned the value directly instead of a reference to the value, the value would be moved out of self. We don’t want to take ownership of the inner value inside MyBox<T> in this case or in most cases where we use the dereference operator.
+
+        // Note that the * operator is replaced with a call to the deref method and then a call to the * operator just once, each time we use a * in our code. Because the substitution of the * operator does not recurse infinitely, we end up with data of type i32, which matches the 5 in assert_eq!
     }
 
 }
