@@ -17,10 +17,13 @@ mod pattern;
 mod function_pointer;
 mod test_macro;
 mod test_network;
+mod test_advance_trait;
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
+
+    test_advance_trait::test_advance_trait();
 
     test_network::test_network();
 
