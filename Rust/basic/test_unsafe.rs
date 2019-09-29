@@ -78,9 +78,16 @@ pub fn test_unsafe() {
         println!("r1 is {}", *r1);
         println!("r2 is {}", *r2);
 
+        // We must call the dangerous function within a separate unsafe block. If we try to call dangerous without the unsafe block, we’ll get an error:
+        dangerous();
     }
 }
 
 // *** Calling an Unsafe Function or Method ***
 // Unsafe functions and methods look exactly like regular functions and methods, but they have an extra unsafe before the rest of the definition. 
-// The unsafe keyword in this context indicates the function has requirements we need to uphold when we call this function, because Rust can’t guarantee we’ve met these requirements. By calling an unsafe function within an unsafe block, we’re saying that we’ve read this function’s documentation and take responsibility for upholding the function’s contracts.
+// The unsafe keyword in this context indicates the function has requirements we need to uphold when we call this function, because Rust can’t guarantee we’ve met these requirements. 
+// By calling an unsafe function within an unsafe block, we’re saying that we’ve read this function’s documentation and take responsibility for upholding the function’s contracts.
+
+unsafe dangerous() {
+    println!("This is dangerous !");
+}
