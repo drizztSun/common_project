@@ -1,6 +1,15 @@
 use std::collections::HashMap;
 
 fn test_hashmap_basic() {
+    {
+        // A HashMap with fixed list of elements can be initialized from an array:
+        let timber_resouces: HashMap<&str, i32> =
+            [ ("Norway", 12),
+              ("Denmark", 16),
+              ("Iceland", 20)].iter().cloned().collect();
+
+        
+    }
 
     {
         let mut h = HashMap::new();
@@ -64,6 +73,33 @@ fn test_hashmap_basic() {
         println!("{:?}", words);
     }
     
+}
+
+// The easiest way to use HashMap with a custom key type is to derive Eq and Hash. We must also derive PartialEq.
+#[derive(Hash, Eq, PartialEq, Debug)]
+struct Viking {
+    name: String,
+    country: String,
+}
+
+impl Viking {
+    // Create a new Viking
+    fn new(name: &str, country: &str) -> Viking {
+        Viking{name: name.to_string(), country: country.to_string()}
+    }
+}
+
+fn test_hashmap_customerkey() {
+
+    let mut vikings = HashMap::new();
+
+    vikings.insert(Viking::new("Einer", "Noway"), 25);
+    vikings.insert(Viking::new("Olaf", "Denmark"), 20);
+    vikings.insert(Viking::new("Harald", "Iceland"), 15);
+
+    for (viking, health) in &vikings {
+        println!("{:?} has {} hp", viking, health);
+    }
 }
 
 pub fn test_hashmap() {
