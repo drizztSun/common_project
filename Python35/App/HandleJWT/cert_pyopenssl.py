@@ -117,8 +117,8 @@ class CertUtil(object):
 
         store_ctx = crypto.X509StoreContext(CertUtil.store, crypto.load_certificate(CertUtil.cert_type[type], data))
 
-        return (False, True)[store_ctx.verify_certificate() is None]
-        #return True if store_ctx.verify_certificate() is None else False
+        # return (False, True)[store_ctx.verify_certificate() is None]
+        return True if store_ctx.verify_certificate() is None else False
 
     @staticmethod
     def extract_public_key_from_certificate(data, type="ASN1"):
