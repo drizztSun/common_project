@@ -40,16 +40,11 @@ def scan_generate_doc():
             generate_doc_from_rootdir(rootdir, docdir)
 
 
-if __name__ == '__main__':
-
-    scan_generate_doc()
-
-
-
 def ensure_dir(f):
     d = os.path.dirname(f)
     if not os.path.exists(d):
         os.makedirs(d)
+
 
 def main():
     # 
@@ -66,3 +61,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
+    scan_generate_doc()
