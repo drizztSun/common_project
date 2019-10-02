@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"io/ioutil"
-	"os"
+	//"os"
 	"regexp"
-	"runtime"
+	//"runtime"
 	"strings"
 	"time"
 )
@@ -30,14 +30,8 @@ var (
 func main() {
 	fmt.Println("--- FileMonitor start ---")
 
-	if runtime.GOOS == "windows" {
-		readfile(os.Getenv("SYSTEMDRIVE") + "\\Program Files\\Confg\\cfg.ini")
-
-	} else {
-		readConfigini("/Applications/Confer.app/cfg.ini")
-
-		readfile("/Applications/Confer.app/version")
-	}
+	inifile := "./files/cfg.ini"
+	readConfigini(inifile)
 
 	w, err := NewFileMonitor()
 
