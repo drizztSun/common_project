@@ -18,10 +18,17 @@ mod function_pointer;
 mod test_macro;
 mod test_network;
 mod test_advance_trait;
+mod test_json;
+mod test_module;
+
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
+
+    test_json::test_json();
+
+    test_module::test_modules();
 
     test_advance_trait::test_advance_trait();
 

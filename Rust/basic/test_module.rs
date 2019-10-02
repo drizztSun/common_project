@@ -1,3 +1,18 @@
+// *** use declaration
+// The use declaration can be used to bind a full path to a new name, for easier access. It is often used like this:
+
+// extern crate deeply; // normally, this would exist and not be commented out!
+/*
+use crate::deeply::nested::{
+    my_first_function,
+    my_second_function,
+    AndATraitType
+};
+*/
+
+// *** Visibility
+// By default, the items in a module have private visibility, but this can be overridden with the pub modifier. 
+// Only the public items of a module can be accessed from outside the module scope.
 
 // A mod named "my_mod"
 mod my_mod {
@@ -35,8 +50,9 @@ mod my_mod {
 
         // Functions declared using `pub(in path)` syntax are only visible
         // within the given path. `path` must be a parent or ancestor module
-        pub(in crate::my_mod) fn public_func_in_my_mod() {
+        pub(in crate::test_module::my_mod) fn public_func_in_my_mod() {
             println!("Calling 'my_mod::nest_mod::public_func()'");
+            public_func_in_nested();
         }
 
         // Functions declared using `pub(self)` syntax are only visible within
@@ -55,10 +71,10 @@ mod my_mod {
 
     pub fn call_public_function_in_my_mod() {
         print!("Calling 'my_mod::call_public_function_in_my_mod()', that \n> ");
-        nest_mod::public_function_in_my_mod();
+        nest_mod::public_func_in_my_mod();
         print!("> ");
         nest_mod::public_func_in_super_mode();
-        nest_mod::public_func_in_nested();
+        // nest_mod::public_func_in_nested(); // error because it is private, or pub(self)
     }
 
     // pub(crate) makes functions visible only within the current crate
@@ -85,7 +101,60 @@ fn function() {
     println!("Calling 'function()");
 }
 
-pub fn test_modules() {
+// *** Structv Visibility
+// Structs have an extra level of visibility with their fields. 
+// The visibility defaults to private, and can be overridden with the pub modifier. 
+// This visibility only matters when a struct is accessed from outside the module where it is defined, 
+// and has the goal of hiding information (encapsulation).
+
+mod my {
+
+    // A public struct with a public filed of generic type 'T'
+    pub struct OpenBox<T> {
+        pub content: T,
+    }
+
+    // A public struct with a private field of generic type 'T'
+    #[allow(dead_code)]
+    pub struct CloseBox<T> {
+        content: T,
+    }
+
+    impl<T> CloseBox<T> {
+        // A public constructor method
+        pub fn new(contents: T) -> CloseBox<T> {
+            CloseBox{
+                content: contents,
+            }
+        }
+    }
+}
+
+
+fn test_visibility_struct() {
+
+        // Public structs with public fields can be constructed as usual
+    let open_box = my::OpenBox { content: "public information" };
+
+    // and their fields can be normally accessed.
+    println!("The open box contains: {}", open_box.content);
+
+    // Public structs with private fields cannot be constructed using field names.
+    // Error! `ClosedBox` has private fields
+    //let closed_box = my::ClosedBox { contents: "classified information" };
+    // TODO ^ Try uncommenting this line
+
+    // However, structs with private fields can be created using
+    // public constructors
+    let _closed_box = my::CloseBox::new("classified information");
+
+    // and the private fields of a public struct cannot be accessed.
+    // Error! The `contents` field is private
+    //println!("The closed box contains: {}", _closed_box.contents);
+    // TODO ^ Try uncommenting this line
+}
+
+fn test_visibility() {
 
     // Modules allow disambiguation between items that have the same name.
     function();
@@ -126,4 +195,60 @@ pub fn test_modules() {
     // Error! `private_nested` is a private module
     //my_mod::private_nested::restricted_function();
     // TODO ^ Try uncommenting this line    
+}
+
+
+// *** super and self
+// The super and self keywords can be used in the path to remove ambiguity when accessing items and to prevent unnecessary hardcoding of paths.
+mod cool {
+    pub fn function() {
+        println!("called `cool::function()`");
+    }
+}
+
+mod my_cool {
+    fn function() {
+        println!("called `my::function()`");
+    }
+    
+    mod cool {
+        pub fn function() {
+            println!("called `my::cool::function()`");
+        }
+    }
+    
+    pub fn indirect_call() {
+        // Let's access all the functions named `function` from this scope!
+        print!("called `my::indirect_call()`, that\n> ");
+        
+        // The `self` keyword refers to the current module scope - in this case `my`.
+        // Calling `self::function()` and calling `function()` directly both give
+        // the same result, because they refer to the same function.
+        self::function();
+        function();
+        
+        // We can also use `self` to access another module inside `my`:
+        self::cool::function();
+        
+        // The `super` keyword refers to the parent scope (outside the `my` module).
+        super::function();
+        
+        // This will bind to the `cool::function` in the *crate* scope.
+        // In this case the crate scope is the outermost scope.
+        {
+            use crate::test_module::cool::function as root_function;
+            root_function();
+        }
+    }
+}
+
+
+
+pub fn test_modules() {
+
+    test_visibility();
+
+    test_visibility_struct();
+
+    my_cool::indirect_call();
 }
