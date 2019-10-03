@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io/ioutil"
-	//"os"
+	"os"
 	"regexp"
 	//"runtime"
 	"strings"
@@ -16,42 +16,103 @@ type FileMonitorListener struct {
 
 	FilePath string
 	Mode     int
+
+	callback func(path string, mode int, data interface{})
 }
 
 func (l FileMonitorListener) Listen(path string, mode int, data interface{}) {
 
 	fmt.Println(path)
+
+	if (l.callback != nil) {
+		l.callback(path, mode, data)
+	}
 }
 
 var (
 	WaitEvent chan struct{}
 )
 
+type CarbonBlackAppMonitor struct {
+	Listener
+
+	AppPath string
+	targetFile string	
+	Mode int
+
+	appMonitor, targetfileMonitor FileMonitorListener
+
+	targetFileCallback func(string, int, interface{});
+}
+
+func NewAppMonitor(w Monitor, callback func(string, int, interface{})) *CarbonBlackAppMonitor {
+
+	res := &CarbonBlackAppMonitor {
+		AppPath: "/Users/yusun/src/common_project/GO/app/FileMonitor/files/Confer",
+		targetFile: "/Users/yusun/src/common_project/GO/app/FileMonitor/files/Confer/cfg.ini",
+		Mode: Create | Write | Remove | Rename,
+		targetFileCallback: callback,	
+	}
+
+	res.targetfileMonitor = FileMonitorListener{FilePath: res.targetFile, Mode: res.Mode, callback: res.targetFileCallback}
+
+	appCallback := func(path string, mode int, data interface{}) {
+		if (path != res.AppPath) {
+			return
+		}
+
+		if (mode & Create == Create) {
+			w.AddListener(res.targetfileMonitor.FilePath, res.targetfileMonitor.Mode, res.targetfileMonitor)
+		} else if (mode & Remove == Remove) {
+			// w.RemoveListener(res.targetfileMonitor.FilePath, res.targetfileMonitor.Mode, res.targetfileMonitor)
+		}
+	}
+
+	res.appMonitor = FileMonitorListener{FilePath: res.AppPath, Mode: res.Mode, callback: appCallback}
+
+	w.AddListener(res.appMonitor.FilePath, res.appMonitor.Mode, res.appMonitor)
+
+	if (res.targetFile != "") {
+
+		if _, err := os.Stat(res.targetFile); !os.IsNotExist(err) {
+			fmt.Println("File existed %s", res.targetFile)
+			res.targetFileCallback(res.targetFile, Write, nil)
+			w.AddListener(res.targetfileMonitor.FilePath, res.targetfileMonitor.Mode, res.targetfileMonitor)
+		}
+	}
+
+	return res
+}
+
+func (l *CarbonBlackAppMonitor) Listen(path string, mode int, data interface{}) {
+	fmt.Println("notified from: ", path)
+}
+
 func main() {
+	
 	fmt.Println("--- FileMonitor start ---")
 
-	inifile := "./files/cfg.ini"
-	readConfigini(inifile)
-
 	w, err := NewFileMonitor()
-
 	if err != nil {
 		return
 	}
 
-	c := FileMonitorListener{
-		FilePath: "/Users/yusun/version",
-		Mode:     Create | Write | Remove | Rename,
-	}
+	carbonblack := NewAppMonitor(w, func(path string, mode int, data interface{}) {
 
-	c2 := FileMonitorListener{
-		FilePath: "/Applications/Confer.app/version",
-		Mode:     Create | Write | Remove | Rename,
-	}
+		if mode & (Create | Write) != 0 {
+			data, _ := ioutil.ReadFile(path)
+			rule, _ := regexp.Compile(`RegistrationId=([a-z|0-9|A-Z|-]+)`)
+			result := rule.FindAllString(string(data), -1)
+			if len(result) != 0 {
+				RegID := strings.Split(strings.TrimLeft(result[0], `RegistrationId=`), `-`)
+				if len(RegID) == 2 {
+					fmt.Println("CarbonBlack Registration ID : %s", RegID[1])
+				}
+			}
+		}
+	})
 
-	w.AddListener(c.FilePath, c.Mode, c)
-	w.AddListener(c2.FilePath, c2.Mode, c2)
-
+	fmt.Println("Target file %s", carbonblack.targetFile)
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	w.StartMointor(ctx)
@@ -126,4 +187,41 @@ func readfile(path string) error {
 	}
 
 	return nil
+}
+
+func test() {
+	fmt.Println("--- FileMonitor start ---")
+
+	inifile := "./files/cfg.ini"
+	readConfigini(inifile)
+
+	w, err := NewFileMonitor()
+
+	if err != nil {
+		return
+	}
+
+	c := FileMonitorListener{
+		FilePath: "/Applications/Confer.app/cfg.ini",
+		Mode:     Create | Write | Remove | Rename,
+	}
+
+	c2 := FileMonitorListener{
+		FilePath: "/Applications/Confer.app",
+		Mode:     Create | Write | Remove | Rename,
+	}
+
+	w.AddListener(c.FilePath, c.Mode, c)
+	w.AddListener(c2.FilePath, c2.Mode, c2)
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	w.StartMointor(ctx)
+
+	select {
+	case <-time.After(100 * time.Minute):
+		fmt.Println("Time to quit")
+	}
+
+	fmt.Println("--- FileMonitor end ---")
 }
