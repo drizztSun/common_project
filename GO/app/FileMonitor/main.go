@@ -22,7 +22,7 @@ type FileMonitorListener struct {
 
 func (l FileMonitorListener) Listen(path string, mode int, data interface{}) {
 
-	fmt.Println(path)
+	fmt.Printfln("path %s, mode %d", path, mode)
 
 	if (l.callback != nil) {
 		l.callback(path, mode, data)
@@ -88,7 +88,7 @@ func (l *CarbonBlackAppMonitor) Listen(path string, mode int, data interface{}) 
 	fmt.Println("notified from: ", path)
 }
 
-func main() {
+func test() {
 	
 	fmt.Println("--- FileMonitor start ---")
 
@@ -189,11 +189,14 @@ func readfile(path string) error {
 	return nil
 }
 
-func test() {
+func main() {
 	fmt.Println("--- FileMonitor start ---")
 
-	inifile := "./files/cfg.ini"
-	readConfigini(inifile)
+	inifolder := "/Users/yusun/src/common_project/GO/app/FileMonitor/files/Confer"
+	// inifile := "/Users/yusun/src/common_project/GO/app/FileMonitor/files/Confer/cfg.ini"
+
+	fmt.Println("inifolder ", inifolder)
+	fmt.Println("inifile ", inifile)
 
 	w, err := NewFileMonitor()
 
@@ -201,18 +204,20 @@ func test() {
 		return
 	}
 
+	
 	c := FileMonitorListener{
-		FilePath: "/Applications/Confer.app/cfg.ini",
+		FilePath: inifolder,
 		Mode:     Create | Write | Remove | Rename,
 	}
+	
 
 	c2 := FileMonitorListener{
-		FilePath: "/Applications/Confer.app",
+		FilePath: inifile,
 		Mode:     Create | Write | Remove | Rename,
 	}
-
-	w.AddListener(c.FilePath, c.Mode, c)
-	w.AddListener(c2.FilePath, c2.Mode, c2)
+	
+	err = w.AddListener(c.FilePath, c.Mode, c)
+	err = w.AddListener(c2.FilePath, c2.Mode, c2)
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()

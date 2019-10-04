@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 	"context"
+	//"time"
 	"github.com/fsnotify/fsnotify"
 )
 
@@ -75,6 +76,7 @@ func (mon *FileMonitor) StartMointor(ctx context.Context) {
 			select {
 			case event := <- mon.wFsNotifier.Events:
 				mon.mtx.Lock()
+				fmt.Println("Event ", event)
 				if items, ok := mon.Targets[event.Name]; ok {
 	
 					for _, c := range items {
