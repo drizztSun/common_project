@@ -11,3 +11,5 @@
 DEBUG
 RELEASE
 venv
+*/Debug
+*/Release
