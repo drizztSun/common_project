@@ -20,11 +20,14 @@ mod test_network;
 mod test_advance_trait;
 mod test_json;
 mod test_module;
+mod test_json_serde;
 
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
+
+    test_json_serde::test_json_serde();
 
     test_json::test_json();
 
