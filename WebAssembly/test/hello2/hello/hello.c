@@ -1,5 +1,10 @@
 #include <stdio.h>
-#include <emscripten/emscripten.h> 
+// #include <emscripten/emscripten.h> 
+
+// *** run command 'emcc hello.c -s WASM=1 -o hello.html' to compile ***
+// -s WASM=1 — Specifies that we want wasm output. If we don’t specify this, Emscripten will just output asm.js, as it does by default.
+// -o hello.html — Specifies that we want Emscripten to generate an HTML page to run our code in (and a filename to use), 
+// as well as the wasm module and the JavaScript "glue" code to compile and instantiate the wasm so it can be used in the web environment.
 
 // emcc hello.c -s WASM=1 -o hello.html
 // emcc -o hello2.html hello2.c -O3 -s WASM=1 --shell-file html_template/shell_minimal.html
@@ -35,10 +40,12 @@ extern "C" {
 // (Note that we need to compile with NO_EXIT_RUNTIME, which is necessary as otherwise when main() exits the runtime would be shut down 
 // — necessary for proper C emulation, e.g., atexits are called — and it wouldn't be valid to call compiled code.)
 // Putting EMSCRIPTEN_KEEPALIVE before a function name stops this from happening. You also need to import the emscripten.h library to use EMSCRIPTEN_KEEPALIVE.
+
+/*
 int EMSCRIPTEN_KEEPALIVE add(int a, int b) {
     printf("a: %d, b : %d, a + b : %d", a, b, a + b);
     return a + b;
-};
+};*/
 
 
 /* calling this component from html page
@@ -50,9 +57,10 @@ int EMSCRIPTEN_KEEPALIVE add(int a, int b) {
             });
         </script>
  */
+/*
 void EMSCRIPTEN_KEEPALIVE print() {
     print("my calcaulationg runs");
-}
+}*/
 
 #ifdef __cplusplus
 }
