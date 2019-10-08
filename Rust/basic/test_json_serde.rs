@@ -6,6 +6,29 @@ use serde_json::json;
 use serde_json::Result;
 use serde::{Serialize, Deserialize};
 
+
+// Out of the box, Serde is able to serialize and deserialize common Rust data types in any of the above formats. 
+// For example String, &str, usize, Vec<T>, HashMap<K,V> are all supported. 
+// In addition, Serde provides a derive macro to generate serialization implementations for structs in your own program. 
+// Using the derive macro goes like this:
+#[derive(Serialize, Deserialize, Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
+
+fn test_json_serialize_and_deserialize() {
+    let x = Point{x: 10, y: 10};
+
+    let serialized_json_stream = serde_json::to_string(&x).unwrap();
+
+    println!("Json format should be : {}", serialized_json_stream);
+
+    let y_deserialized: Point = serde_json::from_str(&serialized_json_stream).unwrap();
+
+    println!("Y is {:?}", y_deserialized);
+}
+
 #[derive(Serialize, Deserialize)]
 struct Address {
     street: String,

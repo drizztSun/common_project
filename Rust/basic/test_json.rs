@@ -1,5 +1,6 @@
 extern crate json;
 
+use json::{object, array};
 
 fn test_json_basic() {
     let parsed = json::parse(r#"
@@ -16,11 +17,11 @@ fn test_json_basic() {
         }
     "#).unwrap();
 
-    let instance = json::object!{
+    let instance = object!{
         "code" => 200,
         "success" => true,
-        "payload" => json::object!{
-            "features" => json::array!{
+        "payload" => object!{
+            "features" => array!{
                 "awesome",
                 "easyapi",
                 "lowLearningCurve"
