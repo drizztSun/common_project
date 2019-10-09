@@ -7,6 +7,13 @@ Python will search '__metaclass__' first, from 'class', 'parent-class', and 'mod
 if it can't find any, then it will use 'type', to create object
 
 """
+from singleton import GlobalSingle
+def access_global_class():
+
+    print("In meta GlobalSingle is : ", GlobalSingle.data)
+
+    GlobalSingle.data = GlobalSingle.data + 100
+
 
 class ObjectCreator(object):
     pass
