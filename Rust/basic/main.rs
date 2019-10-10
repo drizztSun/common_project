@@ -1,3 +1,4 @@
+// #![deny(warning, missing_docs)]
 mod slice;
 mod owenership;
 mod enums;
