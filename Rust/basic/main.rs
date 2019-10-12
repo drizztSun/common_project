@@ -19,6 +19,7 @@ mod function_pointer;
 mod test_macro;
 mod test_network;
 mod test_advance_trait;
+mod test_vec;
 mod test_json;
 mod test_module;
 mod test_json_serde;
@@ -27,6 +28,8 @@ mod test_json_serde;
 fn main() {
 
     println!("--- Starting RUST syntax ---");
+
+    test_vec::test_vec();
 
     test_json_serde::test_json_serde();
 
