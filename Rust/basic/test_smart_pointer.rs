@@ -20,16 +20,16 @@ enum List{
 }
 
 // user-defined smart-pointer
-struct myBox<T>(T);
+struct MyBox<T>(T);
 
-impl<T> myBox<T> {
+impl<T> MyBox<T> {
 
-    fn new(x: T) -> myBox<T> {
-        myBox(x)
+    fn new(x: T) -> MyBox<T> {
+        MyBox(x)
     }
 }
-
-impl<T> Deref for myBox<T> {
+// *** Treating Smart Pointers Like Regular References with the Deref Trait
+impl<T> Deref for MyBox<T> {
     // The type Target = T; syntax defines an associated type for the Deref trait to use.
     // Associated types are a slightly different way of declaring a generic parameter
     type Target = T;
@@ -40,7 +40,13 @@ impl<T> Deref for myBox<T> {
     }   
 }
 
+fn hello(name: &str) {
+    println!("hello, {}", name);
+}
+
 fn test_box() {
+
+    // *** A pointer type for heap allocation
 
     // Boxes don’t have performance overhead, other than storing their data on the heap instead of on the stack. 
     // But they don’t have many extra capabilities either. You’ll use them most often in these situations:
@@ -51,21 +57,39 @@ fn test_box() {
     let b = Box::new(5);
     println!("b = {}", b);
 
+    // it will be deallocated. The deallocation happens for the box (stored on the stack) and the data it points to (stored on the heap)
+
     // let list = Cons(1, Cons(2, Cons(3, Nil))); // error
     //  Cons(i32, List), List is a structure, no way to find out the size
                 // ----- recursive without indirection
     // = help: insert indirection (e.g., a `Box`, `Rc`, or `&`) at some point to
-    let list = Cons(1, 
+    // The compiler starts by looking at the Cons variant, which holds a value of type i32 and a value of type List. 
+    // Therefore, Cons needs an amount of space equal to the size of an i32 plus the size of a List. 
+    // To figure out how much memory the List type needs, the compiler looks at the variants, starting with the Cons variant. 
+    // The Cons variant holds a value of type i32 and a value of type List, and this process continues infinitely
+
+    // Using Box<T> to Get a Recursive Type with a Known Size
+    let mut list = Box::new(Cons(1, 
         Box::new(Cons(2, 
             Box::new(Cons(3,
-                Box::new(Nil))))));
+                Box::new(Nil)))))));
 
-    // Using Box<T> Like a Reference
-    let x = 5;
-    let y = Box::new(x);
+    while let Cons(node, next) = *list {
+        println!("Element : {}", node);
+        list = next;
+    }
 
-    assert_eq!(5, x);
-    assert_eq!(5, *y);
+    {
+        // Using Box<T> Like a Reference
+        // A regular reference is a type of pointer, and one way to think of a pointer is as an arrow to a value stored somewhere else.
+        let x = 5;
+        let z = &x;
+        let y = Box::new(x);
+
+        assert_eq!(5, x);
+        assert_eq!(5, *y);
+        assert_eq!(5, *z);
+    }
 
     // The Box<T> type is a smart pointer because it implements the Deref trait, which allows Box<T> values to be treated like references. 
     // When a Box<T> value goes out of scope, the heap data that the box is pointing to is cleaned up as well because of the Drop trait implementation. 
@@ -73,7 +97,7 @@ fn test_box() {
     
     {
         let x = 5;
-        let y = myBox::new(x);
+        let y = MyBox::new(x);
 
         assert_eq!(5, x);
         assert_eq!(5, *y); // == *(y.deref())
@@ -87,6 +111,38 @@ fn test_box() {
         // Note that the * operator is replaced with a call to the deref method and then a call to the * operator just once, each time we use a * in our code. Because the substitution of the * operator does not recurse infinitely, we end up with data of type i32, which matches the 5 in assert_eq!
     }
 
+    {
+        // Implicit Deref Coercions with Functions and Methods
+        // Deref coercion is a convenience that Rust performs on arguments to functions and methods. 
+        // Deref coercion converts a reference to a type that implements Deref into a reference to a type that Deref can convert the original type into. 
+        // Deref coercion happens automatically when we pass a reference to a particular type’s value as an argument to a function or method that doesn’t match the parameter type in the function or method definition. A sequence of calls to the deref method converts the type we provided into the type the parameter needs.
+        let x = Box::new(String::from("Testing box"));
+        hello(&x);
+
+        // Deref coercion was added to Rust so that programmers writing function and method calls don’t need to add as many explicit references and dereferences with & and *. The deref coercion feature also lets us write more code that can work for either references or smart pointers.
+
+        // Deref coercion was added to Rust so that programmers writing function and method calls don’t need to add as many explicit references and dereferences with & and *. 
+        // The deref coercion feature also lets us write more code that can work for either references or smart pointers.
+        hello(&(*x)[..]);
+        // The (*m) dereferences the MyBox<String> into a String. Then the & and [..] take a string slice of the String that is equal to the whole string to match the signature of hello. 
+    }
+
+    // *** Similar to how you use the Deref trait to override the * operator on immutable references, you can use the DerefMut trait to override the * operator on mutable references.
+
+    // Rust does deref coercion when it finds types and trait implementations in three cases:
+
+    // From &T to &U when T: Deref<Target=U>
+    // From &mut T to &mut U when T: DerefMut<Target=U>
+    // From &mut T to &U when T: Deref<Target=U>
+    // The first two cases are the same except for mutability. 
+    // The first case states that if you have a &T, and T implements Deref to some type U, you can get a &U transparently. 
+    // The second case states that the same deref coercion happens for mutable references.
+
+    // The third case is trickier: Rust will also coerce a mutable reference to an immutable one. 
+    // But the reverse is not possible: immutable references will never coerce to mutable references. 
+    // Because of the borrowing rules, if you have a mutable reference, that mutable reference must be the only reference to that data (otherwise, the program wouldn’t compile). 
+    // Converting one mutable reference to one immutable reference will never break the borrowing rules. 
+    // Converting an immutable reference to a mutable reference would require that there is only one immutable reference to that data, and the borrowing rules don’t guarantee that. Therefore, Rust can’t make the assumption that converting an immutable reference to a mutable reference is possible.
 }
 
 struct exam {
@@ -375,5 +431,6 @@ pub fn test_smart_pointer() {
 
     test_box();
 
+    test_ref_cell();
 
 }

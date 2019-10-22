@@ -38,6 +38,83 @@ func (f Myfloat) Abs() float64 {
 	return math.Sqrt(float64(f * f))
 }
 
+// Pointers to Interfaces
+// You almost never need a pointer to an interface. You should be passing interfaces as values—the underlying data can still be a pointer.
+
+// An interface is two fields:
+
+// 1) A pointer to some type-specific information. You can think of this as "type."
+// 2) Data pointer. If the data stored is a pointer, it’s stored directly. If the data stored is a value, then a pointer to the value is stored.
+// If you want interface methods to modify the underlying data, you must use a pointer.
+
+// Receivers and Interfaces
+// Methods with value receivers can be called on pointers as well as values.
+
+type S struct {
+	data string
+}
+
+func (s S) Read() string {
+	return s.data
+}
+
+func (s *S) Write(str string) {
+	s.data = str
+}
+
+type F interface {
+	f()
+}
+
+type S1 struct{}
+
+func (s S1) f() {}
+
+type S2 struct{}
+
+func (s *S2) f() {}
+
+func test_interface_and_receivers() {
+
+	// Receivers and Interfaces
+	{
+		//Methods with value receivers can be called on pointers as well as values.
+
+		sVals := map[int]S{1: {"A"}}
+
+		// You can only call Read using a value
+		sVals[1].Read()
+
+		// This will not compile:
+		//  sVals[1].Write("test")
+
+		sPtrs := map[int]*S{1: {"A"}}
+
+		// You can call both Read and Write using a pointer
+		sPtrs[1].Read()
+		sPtrs[1].Write("test")
+	}
+
+	{
+		// Similarly, an interface can be satisfied by a pointer, even if the method has a value receiver.
+		s1Val := S1{}
+		s1Ptr := &S1{}
+		s2Val := S2{}
+		s2Ptr := &S2{}
+
+		var i F
+		i = s1Val
+		i = s1Ptr
+		i = s2Ptr
+
+		s2Val.f()
+
+		// The following doesn't compile, since s2Val is a value, and there is no value receiver for f.
+		//   i = s2Val
+	}
+
+}
+
 // *** Stringers
 // One of the most ubiquitous interfaces is Stringer defined by the fmt package.
 

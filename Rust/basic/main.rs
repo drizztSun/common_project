@@ -23,6 +23,7 @@ mod test_vec;
 mod test_json;
 mod test_module;
 mod test_json_serde;
+mod test_refcell;
 
 
 fn main() {
@@ -30,6 +31,8 @@ fn main() {
     println!("--- Starting RUST syntax ---");
 
     test_vec::test_vec();
+
+    test_refcell::test_ref_cell();
 
     test_json_serde::test_json_serde();
 

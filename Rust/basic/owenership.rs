@@ -1,3 +1,8 @@
+// *** Summary
+// The concepts of ownership, borrowing, and slices ensure memory safety in Rust programs at compile time. 
+// The Rust language gives you control over your memory usage in the same way as other systems programming languages, 
+// but having the owner of data automatically clean up that data when the owner goes out of scope means you don’t have to write and debug extra code to get this control.
+
 // What Is Ownership?
 // Rust’s central feature is ownership. Although the feature is straightforward to explain, it has deep implications for the rest of the language.
 // All programs have to manage the way they use a computer’s memory while running. 
@@ -130,9 +135,11 @@ fn calculate_length_ref(s: &String) -> usize {
 
 // Reference and Borrowing 
 fn reference_borrow_mut() {
+
+    // *** Mutable References
     let mut s = String::from("hello ");
 
-    // But mutable references have one big restriction: you can have only one mutable reference to 
+    // But mutable references have one big restriction: *** you can have only one mutable reference to 
     // a particular piece of data in a particular scope. This code will fail:
     change(&mut s);
 
@@ -180,7 +187,7 @@ fn reference_borrow_mut() {
 8 |     println!("{}, {}, and {}", r1, r2, r3);
   |                                -- immutable borrow later used here
         
-        Whew! We also cannot have a mutable reference while we have an immutable one. 
+        Whew! *** We also cannot have a mutable reference while we have an immutable one. 
         Users of an immutable reference don’t expect the values to suddenly change out from under them! However, 
         multiple immutable references are okay because no one who is just reading the data has the ability 
         to affect anyone else’s reading of the data.
@@ -191,6 +198,7 @@ fn reference_borrow_mut() {
         before the mutable reference is introduced:
         */
 
+        // ***
         // 1) At any given time, you can have either one mutable reference or any number of immutable references.
         // 2) References must always be valid.
 
@@ -271,6 +279,53 @@ fn ownership() {
             
         */
     }
+}
+
+// Defining a function to take a string slice instead of a reference to a String makes our API more general and useful without losing any functionality:
+fn first_word(s: &str) -> &str {
+
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    &s[..]
+}
+
+fn test_slice() {
+    // *** Slice
+    // Another data type that does not have ownership is the slice. 
+    // Slices let you reference a contiguous sequence of elements in a collection rather than the whole collection.
+
+    // Here’s a small programming problem: write a function that takes a string and returns the first word it finds in that string. 
+    // If the function doesn’t find a space in the string, the whole string must be one word, so the entire string should be returned
+
+    // A string slice is a reference to part of a String
+    let mut s = String::from("hello world");
+
+    let hello = &s[0..5];
+    let world = &s[6..11];
+    // This is similar to taking a reference to the whole String but with the extra [0..5] bit. Rather than a reference to the entire String, it’s a reference to a portion of the String.
+
+    // We can create slices using a range within brackets by specifying [starting_index..ending_index], 
+    // where starting_index is the first position in the slice and ending_index is one more than the last position in the slice. 
+    let my_string = String::from("hello world");
+
+    // first_word works on slices of `String`s
+    let word = first_word(&my_string[..]);
+    // let word = first_word(my_string);  // error expected &str, found struct `std::string::String`
+
+    let my_string_literal = "hello world";
+
+    // first_word works on slices of string literals
+    let word = first_word(&my_string_literal[..]);
+
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+    let word = first_word(my_string_literal);
+
 }
 
 pub fn test_owenership() {

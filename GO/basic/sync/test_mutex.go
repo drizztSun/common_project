@@ -60,7 +60,6 @@ func test_safeCount() {
 	fmt.Println(c.Value("somekey"))
 }
 
-
 /*
 A RWMutex is a reader/writer mutual exclusion lock. The lock can be held by an arbitrary number of readers or a single writer. The zero value for a RWMutex is an unlocked mutex.
 
@@ -72,6 +71,66 @@ If a goroutine holds a RWMutex for reading and another goroutine might call Lock
 
 func test_mutex_rw() {
 
+}
+
+func test_mutex_basic() {
+
+	// *** Zero-value Mutexes are Valid
+	// The zero-value of sync.Mutex and sync.RWMutex is valid, so you almost never need a pointer to a mutex.
+	{
+		// good
+		var mu sync.Mutex
+		mu.Lock()
+		defer mu.Unlock()
+	}
+
+	{
+		//bad
+		mu := new(sync.Mutex)
+		mu.Lock()
+		defer mu.Unlock()
+	}
+
+}
+
+// If you use a struct by pointer, then the mutex can be a non-pointer field.
+// Unexported structs that use a mutex to protect fields of the struct may embed the mutex.
+type smap struct {
+	sync.Mutex // only for unexported types
+	// Embed for private types or types that need to implement the Mutex interface.
+	data map[string]string
+}
+
+func newSMap() *smap {
+	return &smap{
+		data: make(map[string]string),
+	}
+}
+
+func (m *smap) Get(k string) string {
+	m.Lock()
+	defer m.Unlock()
+
+	return m.data[k]
+}
+
+type SMap struct {
+	mu sync.Mutex // 	For exported types, use a private field.
+
+	data map[string]string
+}
+
+func NewSMap() *SMap {
+	return &SMap{
+		data: make(map[string]string),
+	}
+}
+
+func (m *SMap) Get(k string) string {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
+	return m.data[k]
 }
 
 func test_mutex() {
