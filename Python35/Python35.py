@@ -22,6 +22,7 @@ def muf1(a, b):
     return a**b
     
 
+
 if '__main__' == __name__:
 
     a = 1
@@ -31,5 +32,17 @@ if '__main__' == __name__:
 
     print(muf(6667,100000))
     print(muf1(8,2))
+
+
+
+
+
+print("'qqwertyuiop\nasdfghjkl\nzxcvbnm\n1234567890'")
+
+
+
+
+
+
 
 
