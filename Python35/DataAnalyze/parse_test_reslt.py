@@ -92,8 +92,8 @@ def show() :
     y_data2 = [52000, 54200, 51500,58300, 56800, 59500, 62700]
    
     # draw
-    plt.bar(x=x_data, height=y_data, label='C语言基础', color='steelblue', alpha=0.8)
-    plt.bar(x=x_data, height=y_data2, label='Java基础', color='indianred', alpha=0.8)
+    plt.bar(x=x_data, height=y_data, label='C language ', color='steelblue', alpha=0.8)
+    plt.bar(x=x_data, height=y_data2, label='Java language', color='indianred', alpha=0.8)
    
     # show data, v-align h-align
     for x, y in enumerate(y_data):
@@ -102,7 +102,7 @@ def show() :
         plt.text(x, y + 100, '%s' % y, ha='center', va='top')
     
     # title
-    plt.title("Java与Android图书对比")
+    plt.title("Java and  android book")
     
     # name of x-axis, y-axis
     plt.xlabel("year")
