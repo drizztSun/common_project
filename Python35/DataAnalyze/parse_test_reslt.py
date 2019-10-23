@@ -80,6 +80,7 @@ def show_result_graph(data_result):
     plt.title('avg and total of token validation spent')
     plt.xlabel('time')
     plt.ylabel('millisecond')
+    plt.xticks(range(len(x_data)), x_data)
 
     plt.legend()
     plt.show()
@@ -110,13 +111,14 @@ def show() :
 
     # show graph
     plt.legend()
+    plt.xticks(range(len(x_data)), x_data)
     plt.show()
 
 
 
 if __name__ == '__main__':
 
-    show()
+    # show()
 
     data_result = filter_test_result('./DataAnalyze/dps_test_res.txt')
 
