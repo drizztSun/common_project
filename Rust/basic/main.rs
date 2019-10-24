@@ -25,11 +25,13 @@ mod test_module;
 mod test_json_serde;
 mod test_refcell;
 mod test_box;
-
+mod test_btree;
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
+
+    test_btree::test_btree();
 
     test_box::test_box();
     
