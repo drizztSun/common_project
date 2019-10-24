@@ -1,5 +1,3 @@
-use std::cell::RefCell;
-
 // *** RefCell<T> and the Interior Mutability Pattern
 // Interior mutability is a design pattern in Rust that allows you to mutate data even when there are immutable references to that data; normally, this action is disallowed by the borrowing rules. 
 // To mutate data, the pattern uses unsafe code inside a data structure to bend Rust’s usual rules that govern mutation and borrowing. We haven’t yet covered unsafe code; we will in Chapter 19. 
@@ -10,8 +8,8 @@ use std::cell::RefCell;
 
 // *** Enforcing Borrowing Rules at Runtime with RefCell<T>
 // *** Unlike Rc<T>, the RefCell<T> type represents SINGLE OWNERSHIP over the data it holds. So, what makes RefCell<T> different from a type like Box<T>? 
-// Recall the borrowing rules you learned in Chapter 4:
 
+// *** Recall the borrowing rules you learned in Chapter 4:
 // 1) At any given time, you can have either (but not both of) one mutable reference or any number of immutable references.
 // 2) References must always be valid.
 // With references and Box<T>, the borrowing rules’ invariants are enforced at COMPILE time. With RefCell<T>, these invariants are enforced at RUNTIME. 
@@ -19,7 +17,7 @@ use std::cell::RefCell;
 
 // The advantages of checking the borrowing rules at compile time are that errors will be caught sooner in the development process, 
 // and there is no impact on runtime performance because all the analysis is completed beforehand. 
-// For those reasons, checking the borrowing rules at compile time is the best choice in the majority of cases, which is why this is Rust’s default.
+// For those reasons, checking the borrowing rules at compile time is the best choice in the majority of cases, which is why this is Rust’s defaul t.
 
 // The advantage of checking the borrowing rules at runtime instead is that certain memory-safe scenarios are then allowed, whereas they are disallowed by the compile-time checks. 
 // Static analysis, like the Rust compiler, is inherently conservative. Some properties of code are impossible to detect by analyzing the code: the most famous example is the Halting Problem, which is beyond the scope of this book but is an interesting topic to research.
@@ -27,6 +25,7 @@ use std::cell::RefCell;
 // Because some analysis is impossible, if the Rust compiler can’t be sure the code complies with the ownership rules, it might reject a correct program; 
 // in this way, it’s conservative. If Rust accepted an incorrect program, users wouldn’t be able to trust in the guarantees Rust makes. 
 // However, if Rust rejects a correct program, the programmer will be inconvenienced, but nothing catastrophic can occur. 
+
 // *** The RefCell<T> type is useful when you’re sure your code follows the borrowing rules but the compiler is unable to understand and guarantee that.
 
 // *** Similar to Rc<T>, RefCell<T> is only for use in single-threaded scenarios and will give you a compile-time error if you try using it in a multithreaded context. 
@@ -39,6 +38,10 @@ use std::cell::RefCell;
 // 3) Because RefCell<T> allows mutable borrows checked at runtime, you can mutate the value inside the RefCell<T> even when the RefCell<T> is immutable.
 
 // Mutating the value inside an immutable value is the interior mutability pattern. Let’s look at a situation in which interior mutability is useful and examine how it’s possible.
+
+use std::cell::RefCell;
+
+
 
 trait Messager {
     fn send(&self, msg: &str);
@@ -168,22 +171,22 @@ impl Messenger for MockMessenger {
 // Recall that Rc<T> lets you have multiple owners of some data, but it only gives immutable access to that data. 
 // If you have an Rc<T> that holds a RefCell<T>, you can get a value that can have multiple owners and that you can mutate!
 
-use crate::List::{Cons, Nil};
+use List::{Cons, Nil};
 use std::rc::Rc;
-
+/*
 #[derive(Debug)]
 enum List {
-    Cons(Rc<RefCell<i32>>, Rc<list>),
+    Cons(Rc<RefCell<i32>>, Rc<List>),
     Nil,
 }
 
 fn test_rc_refcell() {
     let value = Rc::new(RefCell::new(5));
 
-    let a = Rc::new(List{Rc::clone(&value), Rc::new(Nil)});
+    let a = Rc::new(Cons(Rc::clone(&value), Rc::new(Nil)));
 
-    let b = Cons(Rc::new(RefCell::new(6)), Rc::clone(a));
-    let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(a));
+    let b = Cons(Rc::new(RefCell::new(6)), Rc::clone(&a));
+    let c = Cons(Rc::new(RefCell::new(10)), Rc::clone(&a));
 
     *value.borrow_mut() += 10;
 
@@ -191,53 +194,57 @@ fn test_rc_refcell() {
     println!("b after = {:?}", b);
     println!("c after = {:?}", c);
 }
+*/
+
 // *** Reference Cycles Can Leak Memory
 // Rust’s memory safety guarantees make it difficult, but not impossible, to accidentally create memory that is never cleaned up (known as a memory leak). 
 // Preventing memory leaks entirely is not one of Rust’s guarantees in the same way that disallowing data races at compile time is, meaning memory leaks are memory safe in Rust.
 // We can see that Rust allows memory leaks by using Rc<T> and RefCell<T>: it’s possible to create references where items refer to each other in a cycle.
 // This creates memory leaks because the reference count of each item in the cycle will never reach 0, and the values will never be dropped.
-enum List1{
+
+#[derive(Debug)]
+enum List {
     Cons(i32, RefCell<Rc<List>>),
     Nil,
 }
-#[derive(Debug)]
-impl List1 {
-    fn tail(&self) -> Option<&RefCell<Rc<List1>>> {
+
+impl List {
+    fn tail(&self) -> Option<&RefCell<Rc<List>>> {
         match self {
-            Conns(_, item) => Some(item),
+            Cons(_, item) => Some(item),
             Nil => None,
         }
     }
 }
+
 // We’re using another variation of the List definition from Listing 15-5. 
 // The second element in the Cons variant is now RefCell<Rc<List>>, meaning that instead of having the ability to modify the i32 value as we did in Listing 15-24, 
 // we want to modify which List value a Cons variant is pointing to. 
 // We’re also adding a tail method to make it convenient for us to access the second item if we have a Cons variant.
 
 fn test_refcell_leak() {
-
     let a = Rc::new(Cons(5, RefCell::new(Rc::new(Nil))));
 
-    println!("a initial rc count = ", Rc::strong_count(&a));
-    println!("a next item = {:?}", a.tail())
+    println!("a initial rc count = {}", Rc::strong_count(&a));
+    println!("a next item = {:?}", a.tail());
 
-    let b = Rc::new(Cons(10, RefCell::new(Rc::clone(a))));
-    println!("a rc count = ", Rc::strong_count(&a));
-    println!("b initial rc count =  ", Rc::strong_count(&b));
+    let b = Rc::new(Cons(10, RefCell::new(Rc::clone(&a))));
+
+    println!("a rc count after b creation = {}", Rc::strong_count(&a));
+    println!("b initial rc count = {}", Rc::strong_count(&b));
     println!("b next item = {:?}", b.tail());
 
-    if let Some(link) = a.tail{
+    if let Some(link) = a.tail() {
         *link.borrow_mut() = Rc::clone(&b);
     }
 
-    println!("a rc count after changing a = {} ", Rc::strong_count(&a));
-    println!("b rc count after changing b = {} ", Rc::strong_count(&b));
+    println!("b rc count after changing a = {}", Rc::strong_count(&b));
+    println!("a rc count after changing a = {}", Rc::strong_count(&a));
 
     // Uncomment the next line to see that we have a cycle;
     // it will overflow the stack
     // println!("a next item = {:?}", a.tail());
 }
-
 
 // *** Preventing Reference Cycles: Turning an Rc<T> into a Weak<T>
 
@@ -252,15 +259,11 @@ fn test_refcell_leak() {
 // They won’t cause a reference cycle because any cycle involving some weak references will be broken once the strong reference count of values involved is 0.
 
 
-
-
-
-
 pub fn test_ref_cell() {
 
-    test_ref_cell_basic()
+    test_ref_cell_basic();
 
-    test_rc_refcell()
+    // test_rc_refcell();
 
-    test_refcell_leak()
+    test_refcell_leak();
 }

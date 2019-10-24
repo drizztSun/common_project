@@ -24,12 +24,15 @@ mod test_json;
 mod test_module;
 mod test_json_serde;
 mod test_refcell;
+mod test_box;
 
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
 
+    test_box::test_box();
+    
     test_vec::test_vec();
 
     test_refcell::test_ref_cell();
