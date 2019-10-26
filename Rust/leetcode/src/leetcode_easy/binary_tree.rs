@@ -37,45 +37,89 @@ impl TreeNode {
     }
 }
 
-
-pub fn inorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+fn inorder_one(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    let node = match root {
+        Some(n) => n,
+        None => return vec![],
+    };
 
     let mut buff = vec![];
-    let mut result = vec![];
+    let mut res = vec![];
 
+    buff.push((node, false));
 
-    match root {
-        Some(node) => {
-            buff.push(node.clone());
-            while !buff.is_empty() {
-                let top = buff.pop().unwrap();
-                let mut mut_top = top.borrow_mut();
-
-                if mut_top.left.is_some() {
-                    let left = mut_top.left().take().unwrap();
-                }
+    while let Some((node, left_checked)) = buff.pop() {
+        if ! left_checked {
+            buff.push((node.clone(), true));
+            if let Some(left) = node.borrow().left.clone() {
+                buff.push((left.clone(), false));
             }
-
-        },
-
-        None => {
-            result
+        } else {
+            res.push(node.borrow().val);
+            if let Some(right) = node.borrow().right.clone() {
+                buff.push((right.clone(), false));
+            }
         }
     }
 
-    return result
-}    
+    res
+}
 
+fn inorder_recur(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
 
+    fn helper(node: &Option<Rc<RefCell<TreeNode>>>, res: &mut Vec<i32>) {
+        if let Some(v) = node {
+            let v = v.borrow();
+            helper(&v.left, res);
+            res.push(v.val);
+            helper(&v.right, res);
+        }
+    }
 
+    let mut res = vec![];
+    if let Some(node) = root {
+        helper(&Some(node), &mut res);
+    }
+    res
+}
 
+fn inorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+
+    let mut res = vec![];
+    let mut stack = vec![];
+
+    match root {
+        Some(node) => {
+            stack.push(node.clone());
+            while !stack.is_empty() {
+                let top = stack.pop().unwrap();
+                let mut top_mut = top.borrow_mut();
+
+                if top_mut.left.is_some() {
+                    let left = top_mut.left.take().unwrap();
+                    stack.push(top.clone());
+                    stack.push(left);
+                } else {
+                    res.push(top_mut.val);
+                    if top_mut.right.is_some() {
+                        stack.push(top_mut.right.take().unwrap());
+                    }
+                }
+            }
+            res
+        },
+        None => {
+            res
+        }
+    }    
+}
 
 pub fn test_binary_tree() {
 
-    let root = Some(Rc::new(RefCell::new(TreeNode::new(1))));
-    // root.left = TreeNode::new(2);
-    root.as_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(3))));
+    let root = Rc::new(RefCell::new(TreeNode::new(1)));
+    root.borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(2))));
+    root.borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(3))));
 
-    let a = inorder_traversal(root);
+    let res = inorder_traversal(Some(root));
 
 }
