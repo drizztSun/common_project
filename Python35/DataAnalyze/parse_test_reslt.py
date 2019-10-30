@@ -123,7 +123,7 @@ def show() :
 
 if __name__ == '__main__':
 
-    # show()
+    show()
 
     data_result = filter_test_result('./DataAnalyze/dps.log')
 

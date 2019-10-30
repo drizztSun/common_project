@@ -28,10 +28,13 @@ mod test_box;
 mod test_btree;
 mod test_vecdeque;
 mod test_linkedlist;
+mod test_hashset;
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
+
+    test_hashset::test_hashset();
 
     test_linkedlist::test_linkedlist();
 

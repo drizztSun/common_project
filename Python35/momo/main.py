@@ -54,10 +54,11 @@ def cal(a, b, c):
         return a * b
     elif c == '/':
         
-        if c == '/' and b == 0:
-            print("-inf and inf (ERROR)")
+        if b == 0:
+            print("(ERROR)")
             return    
         return a / b
+
 
 
 
@@ -79,7 +80,7 @@ def test_list():
     print( min(a) )
     print( sum(a) )
     print( list(sorted(a)) )
-    print( (list(reversed(a)) )
+    print( list(reversed(a)) )
     #print( list(enumerate(a)) )
     #print(list(zip(a)))
     print( dir(a) )
@@ -103,7 +104,7 @@ def test_list():
     a.append([11])
     a.extend([[11],22])
     
-    for i in range(len(a))
+    for i in range(len(a)):
         print(a[i])
 
     i = 0
@@ -131,9 +132,34 @@ class Cat(object):
         self._speed = 10
 
 
+def partcal1(n):
+    res = n
+    for i in range(1,n):
+        res *=i
+    return res
+
+
+
+def fact_recur(n):
+    if n == 0:
+        return 1
+    return n * fact_recur(n-1)
+
+print(fact_recur(5))
+
+
+def f(n):
+    if n == 2 or n == 1:
+        return 1
+    return f(n-1)+f(n-2)
+    
+        
+print(f(4))
+        
+
 
 if __name__ == '__main__':
-
+    print(partcal1(5))
     print(dir(__builtins__))
 
 
