@@ -131,7 +131,8 @@ def test_decoding(token):
     # publicCert = b‘MIIFFjCCAv6gAwIBAgIJAJQR7xtzOanlMA0GCSqGSIb3DQEBCwUAMIGfMQswCQYDVQQGEwJVUzEWMBQGA1UECAwNTWFzc2FjaHVzZXR0czESMBAGA1UEBwwJQ2FtYnJpZGdlMRwwGgYDVQQKDBNBa2FtYWkgVGVjaG5vbG9naWVzMQwwCgYDVQQLDANLTUkxGTAXBgNVBAMMEEVBQSBEZXZpY2UgQ0EgRzExHTAbBgkqhkiG9w0BCQEWDmttaUBha2FtYWkuY29tMB4XDTE5MDgxNTExMjc0NVoXDTIwMDgxNTExMjc0NVowgaUxCzAJBgNVBAYTAlVTMRYwFAYDVQQIDA1NYXNzYWNodXNldHRzMRIwEAYDVQQHDAlDYW1icmlkZ2UxHDAaBgNVBAoME0FrYW1haSBUZWNobm9sb2dpZXMxDDAKBgNVBAsMA0tNSTEfMB0GA1UEAwwWRUFBIERldmljZSBDZXJ0aWZpY2F0ZTEdMBsGCSqGSIb3DQEJARYOa21pQGFrYW1haS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDOIaexkXNjuNsuabl41fiwxocASROv4IREeWthbIOUDqWOk+qw9sHPtelMtaUsNyzlt2Tfi5e6PF1xTewkBy7AEFLO/dD0KhowVGm7Ezwrb3kCeQ8B7FWzdaBB+4sngnOYVOTCvN1aENv0BVmMeA7cdn9B2ZUNHZhdho+YFcPCuVXbhfosadg3lLBYn9hnIYr/2M+MljkpnBO7lLNPMVkhDlLeOecIehH3vbbI+Yx21EMHJeEK+l6Z+nuuYvVGGb6Ux3t55QQSSIdIVXnJB/hqeZFXbogLqgTOENU/OGwuchIFRXwSpzZLg7Q/gVe+bJlwTNZRvTB+H7JkdS45ipt1AgMBAAGjTTBLMAkGA1UdEwQCMAAwHQYDVR0OBBYEFOJSzuYuGCNw2KYzyB6iFpP/l/VxMB8GA1UdIwQYMBaAFNt+Hx7vsUuu8tIGZmZzEnUqAIIrMA0GCSqGSIb3DQEBCwUAA4ICAQAWboUd9xzu4eqBwknaaVEYRE2dt9ChOJFa0KApdDPquwvhunMD5OS0DpYuTxQY6ibtgN0QV/i/c/iTD6OYxSgmrCvzy/P0bOx6VwDPiV/JkPLR5479pn3reZeoJM1l8Ver2nuUjttZHDYMMa4LR3vrkPHi+Z9KT/F5rSQ8hvQ4dRAr2PGnB9mC67Kr1fWZGeGl3BfyHEf63h0ZmNXuPjKaJiyy7X801o5ay0VFSPWulfPFzis6GK6gMTV0CM/L+P+u7tVhNpdhNBW4hJtC2k0miRgdNErj2Pc8bHNi1FJ4FvrvqzzVnQEqaf2nuaYcgt0DMXz+v/tYd7kOlCATQ05Ih/ODa2q2u/EOqPSSPRpI8bJT+7DrPjWM0y+FP8xDukw1CX/36XvDEHnegveiIf+3AcHf31dN+FuyTttrqYrEfHuFmiQnmoPQvSmF9IK0taq36QBraCJh0TgDcdeu6h7NoYURlEqytnznY7Etn2M0MLwPnjX6dWF6UaVRpK0aJS3Rj+zH/Q1PzZSHjpRP7ybrld04IfUDEnTopvajU6uf7SmKiE1OLRtKNUikx7vLDEBCTiWRHqwnwFJpnUszA6RzmxEFLPUK/3l4f9t0y/nOLCAGssrDFuYErkOfc8VFYm35JxFf5kCkySm345Ki/weVNTzlEem/yCmhoyb7n6Xptg==’
 
     header, payload, signature = token.split('.')
-    header = json.loads(base64.urlsafe_b64decode(header))
+    header += "=" * ((4 - len(header) % 4) % 4)
+    header = json.loads(base64.urlsafe_b64decode(header)) # ?????
     data = base64.b64decode(header['x5c'][0].encode('utf-8'))
     #key = cert_cryptography.get_der_certificate_public_key(data)
     key = cert_cryptography.extract_public_key_from_certificate(data)
@@ -157,7 +158,7 @@ def _verify_rs_token(token, fields):
     data = base64.b64decode(header['x5c'][0].encode('utf-8'))
     # key = cert_cryptography.extract_public_key_from_certificate(data)
     # key = cert_cryptography.get_der_certificate_public_key(data)
-    
+
     #CertUtil.import_eaadevice_rootcert(device_root_cert, "PEM")
     #CertUtil.import_eaadevice_rootcert(device_root_cert_1, "PEM")
 
@@ -195,6 +196,35 @@ def _verify_rs_token(token, fields):
     return False
 
 
+def verify_jws_token(token, callback):
+
+    try:
+        header = jwt.get_unverified_header(token)
+        public_cert = base64.b64decode(header['x5c'][0].encode('utf-8'))
+        key = CertUtil.extract_public_key_from_certificate(public_cert, 'PEM')
+
+        payload = jwt.decode(token, key, algorithms=header['alg'])
+
+        print("payload: ", payload)
+
+        return callback(payload)
+
+    except jwt.InvalidIssuerError:
+        print("invalude issuer")
+    except jwt.DecodeError:
+        print("Decoding err")
+    except jwt.InvalidAlgorithmError:
+        print("Expired Signatured Error")
+    except jwt.ExpiredSignatureError:
+        print("Signature has been expired")
+    except:
+        print("unknown error")
+    else:
+        return True
+
+    return False
+
+
 def Main():
 
     # jws = 'eyJ4NWMiOlsiTUlJRkZqQ0NBdjZnQXdJQkFnSUpBSlFSN3h0ek9hbmxNQTBHQ1NxR1NJYjNEUUVCQ3dVQU1JR2ZNUXN3Q1FZRFZRUUdFd0pWVXpFV01CUUdBMVVFQ0F3TlRXRnpjMkZqYUhWelpYUjBjekVTTUJBR0ExVUVCd3dKUTJGdFluSnBaR2RsTVJ3d0dnWURWUVFLREJOQmEyRnRZV2tnVkdWamFHNXZiRzluYVdWek1Rd3dDZ1lEVlFRTERBTkxUVWt4R1RBWEJnTlZCQU1NRUVWQlFTQkVaWFpwWTJVZ1EwRWdSekV4SFRBYkJna3Foa2lHOXcwQkNRRVdEbXR0YVVCaGEyRnRZV2t1WTI5dE1CNFhEVEU1TURneE5URXhNamMwTlZvWERUSXdNRGd4TlRFeE1qYzBOVm93Z2FVeEN6QUpCZ05WQkFZVEFsVlRNUll3RkFZRFZRUUlEQTFOWVhOellXTm9kWE5sZEhSek1SSXdFQVlEVlFRSERBbERZVzFpY21sa1oyVXhIREFhQmdOVkJBb01FMEZyWVcxaGFTQlVaV05vYm05c2IyZHBaWE14RERBS0JnTlZCQXNNQTB0TlNURWZNQjBHQTFVRUF3d1dSVUZCSUVSbGRtbGpaU0JEWlhKMGFXWnBZMkYwWlRFZE1Cc0dDU3FHU0liM0RRRUpBUllPYTIxcFFHRnJZVzFoYVM1amIyMHdnZ0VpTUEwR0NTcUdTSWIzRFFFQkFRVUFBNElCRHdBd2dnRUtBb0lCQVFET0lhZXhrWE5qdU5zdWFibDQxZml3eG9jQVNST3Y0SVJFZVd0aGJJT1VEcVdPaytxdzlzSFB0ZWxNdGFVc055emx0MlRmaTVlNlBGMXhUZXdrQnk3QUVGTE8vZEQwS2hvd1ZHbTdFendyYjNrQ2VROEI3Rld6ZGFCQis0c25nbk9ZVk9UQ3ZOMWFFTnYwQlZtTWVBN2NkbjlCMlpVTkhaaGRobytZRmNQQ3VWWGJoZm9zYWRnM2xMQlluOWhuSVlyLzJNK01samtwbkJPN2xMTlBNVmtoRGxMZU9lY0llaEgzdmJiSStZeDIxRU1ISmVFSytsNlorbnV1WXZWR0diNlV4M3Q1NVFRU1NJZElWWG5KQi9ocWVaRlhib2dMcWdUT0VOVS9PR3d1Y2hJRlJYd1NwelpMZzdRL2dWZStiSmx3VE5aUnZUQitIN0prZFM0NWlwdDFBZ01CQUFHalRUQkxNQWtHQTFVZEV3UUNNQUF3SFFZRFZSME9CQllFRk9KU3p1WXVHQ053MktZenlCNmlGcFAvbC9WeE1COEdBMVVkSXdRWU1CYUFGTnQrSHg3dnNVdXU4dElHWm1aekVuVXFBSUlyTUEwR0NTcUdTSWIzRFFFQkN3VUFBNElDQVFBV2JvVWQ5eHp1NGVxQndrbmFhVkVZUkUyZHQ5Q2hPSkZhMEtBcGREUHF1d3ZodW5NRDVPUzBEcFl1VHhRWTZpYnRnTjBRVi9pL2MvaVRENk9ZeFNnbXJDdnp5L1AwYk94NlZ3RFBpVi9Ka1BMUjU0NzlwbjNyZVplb0pNMWw4VmVyMm51VWp0dFpIRFlNTWE0TFIzdnJrUEhpK1o5S1QvRjVyU1E4aHZRNGRSQXIyUEduQjltQzY3S3IxZldaR2VHbDNCZnlIRWY2M2gwWm1OWHVQakthSml5eTdYODAxbzVheTBWRlNQV3VsZlBGemlzNkdLNmdNVFYwQ00vTCtQK3U3dFZoTnBkaE5CVzRoSnRDMmswbWlSZ2RORXJqMlBjOGJITmkxRko0RnZydnF6elZuUUVxYWYybnVhWWNndDBETVh6K3YvdFlkN2tPbENBVFEwNUloL09EYTJxMnUvRU9xUFNTUFJwSThiSlQrN0RyUGpXTTB5K0ZQOHhEdWt3MUNYLzM2WHZERUhuZWd2ZWlJZiszQWNIZjMxZE4rRnV5VHR0cnFZckVmSHVGbWlRbm1vUFF2U21GOUlLMHRhcTM2UUJyYUNKaDBUZ0RjZGV1Nmg3Tm9ZVVJsRXF5dG56blk3RXRuMk0wTUx3UG5qWDZkV0Y2VWFWUnBLMGFKUzNSait6SC9RMVB6WlNIanBSUDd5YnJsZDA0SWZVREVuVG9wdmFqVTZ1ZjdTbUtpRTFPTFJ0S05VaWt4N3ZMREVCQ1RpV1JIcXdud0ZKcG5Vc3pBNlJ6bXhFRkxQVUsvM2w0Zjl0MHkvbk9MQ0FHc3NyREZ1WUVya09mYzhWRlltMzVKeEZmNWtDa3lTbTM0NUtpL3dlVk5UemxFZW0veUNtaG95YjduNlhwdGc9PSJdLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2V0cGNhcy5ha2FtYWkuY29tIiwiaWF0IjoxNTY1OTcwNDQzLCJzdWIiOiIzYTJiZDU2Zi1hYzc4LTRmZGEtYWZlMi1iZTliNjE4OGZiMmYiLCJleHAiOjE1NjU5NzQwNDN9.mb2iOsillWacFiFPg7sb3Wf6t41rM_WOXHCMyMBRVi8DKTVa9bbl2xHHG4M8waSESfOUVhqoqvALn80bHcGbtknIKy8rqjaJjRBzrv5TH3WXjVzOMbqbbn42GDpiDnsBr4h0g1Zfz64msc7QySy2VG8CWowSFoypn71uZ_naIBRUk8GQ5R6N5-7Mxf55zc29U0sHyXbfwTKSeUjKzZBQxtHKbTlPmq1r1JKVrDdS-tfOuXFY9V6SlIzxlWPq6puPtz7Lrjxwwhb9rPHKTKcKZ6oqcRjaUSVClORuchpSgfzCzeINazt6--HtUHyCoQU4S-_9X2ZSulIJ-9ZmoDbrqg'
@@ -209,7 +239,7 @@ def Main():
     value = value.lstrip()
     if not value.startswith("Bearer "):
         return False
- 
+
     value = value[6:]
     token = value.lstrip().rstrip()
 
