@@ -17,6 +17,8 @@ fn test_hashset_basic() {
 
     { // create
         let mut books = HashSet::new();
+        books.insert("A Dance With Dragons".to_string());
+
 
         let viking_names: HashSet<&'static str> =
             [ "Einar", "Olaf", "Harald" ].iter().cloned().collect();
@@ -51,8 +53,8 @@ fn test_hashset_basic() {
         assert_eq!( set.get(&4), None);
 
         assert_eq!( set.len(), 3);
-        assert_eq!( set.get_or_insert(2), &2);
-        assert_eq!( set.get_or_insert(100), &100);
+        // assert_eq!( set.get_or_insert(2), &2);
+        // assert_eq!( set.get_or_insert(100), &100);
         assert_eq!( set.len(), 4); // 100 was inserted
     }
 

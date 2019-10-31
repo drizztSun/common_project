@@ -29,11 +29,15 @@ mod test_btree;
 mod test_vecdeque;
 mod test_linkedlist;
 mod test_hashset;
+mod test_binaryheap;
+
 
 fn main() {
 
     println!("--- Starting RUST syntax ---");
 
+    test_binaryheap::test_binaryheap();
+    
     test_hashset::test_hashset();
 
     test_linkedlist::test_linkedlist();
