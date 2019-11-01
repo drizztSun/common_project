@@ -207,7 +207,8 @@ def verify_jws_token(token, callback):
 
         print("payload: ", payload)
 
-        return callback(payload)
+        if callback:
+            return callback(payload)
 
     except jwt.InvalidIssuerError:
         print("invalude issuer")

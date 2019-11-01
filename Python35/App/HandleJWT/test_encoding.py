@@ -3,7 +3,8 @@ import jwt
 import base64
 import time
 
-from test_decoding import test_decoding, verify_jws_token
+from dateutil import parser
+from OpenSSL import crypto
 
 # DeviceFactory.cert
 device_factory_cert = b"""-----BEGIN CERTIFICATE-----
@@ -58,7 +59,7 @@ cWs4qRvJRoQQ4S7FmO4l2p0brnnhFclJzt7xDI2QTWU+EE7OrdFnKYSV4n7LE1/s
 -----END RSA PRIVATE KEY-----"""
 
 
-def test_encoding():
+def genetate_jwt_token():
 
     payload = {
         'sub': '3a2bd56f-ac78-4fda-afe2-be9b6188fb2f',
@@ -76,16 +77,14 @@ def test_encoding():
     res = jwt.encode(payload, device_factory_private_key, algorithm='RS256', headers = headers)
 
     print(res)
-
     h, p, s = res.decode('utf-8').split('.')
 
-    # test_decoding(res)
-
     print(jwt.get_unverified_header(res))
+    header = jwt.get_unverified_header(res)
+    print(type(header))
 
     h += "=" * ((4 - len(h) % 4) % 4)
     p += "=" * ((4 - len(p) % 4) % 4)
-
     print(h)
     print( json.loads(base64.urlsafe_b64decode(h)) )
     print(p)
@@ -95,6 +94,46 @@ def test_encoding():
     verify_jws_token(res, lambda x: x['sub'] == payload['sub'])
 
 
+def verify_jws_token(token, callback):
+
+    try:
+        header = jwt.get_unverified_header(token)
+        public_cert = base64.b64decode(header['x5c'][0].encode('utf-8'))
+        cert = crypto.load_certificate(crypto.FILETYPE_PEM, public_cert)
+        key = cert.get_pubkey().to_cryptography_key()
+
+        payload = jwt.decode(token, key, algorithms=header['alg'])
+
+        print("payload: ", payload)
+
+        if callback:
+            return callback(payload)
+
+        return True
+
+    except jwt.InvalidIssuerError:
+        print("invalude issuer")
+    except jwt.DecodeError:
+        print("Decoding err")
+    except jwt.InvalidAlgorithmError:
+        print("Expired Signatured Error")
+    except jwt.ExpiredSignatureError:
+        print("Signature has been expired")
+    except:
+        print("unknown error")
+
+    return False
+
+def verify_ca(public_cert_data, ca_cert_data):
+
+    ca_cert = crypto.load_certificate(crypto.FILETYPE_PEM, ca_cert_data)
+    store = crypto.X509Store()
+    store.add_cert(ca_cert)
+    store_ctx = crypto.X509StoreContext(store, crypto.load_certificate(crypto.FILETYPE_ASN1, public_cert_data))
+
+    return True if store_ctx.verify_certificate() is None else False
+
+
 if __name__ == '__main__':
 
-    test_encoding()
+    jwt = genetate_jwt_token()
