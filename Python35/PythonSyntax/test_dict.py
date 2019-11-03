@@ -1,7 +1,7 @@
 from copy import deepcopy
 
 
-def main():
+def test_dict_basic():
 
     # genenrator
     tel = dict([('Jack', 12), ('Peter', 13), ('Tom', 14)])
@@ -108,8 +108,82 @@ def main():
     print(tel)
 
 
+<<<<<<< HEAD
+=======
+# user-defined dict
+class mydict(dict):
+
+    def __getitem__(self, key):  # like mydict[key], 'get' doesn't go through this
+
+        if key == 'default':
+            return 2000
+
+        return super().__getitem__(key)
+
+    def __setitem__(self, key, val): # like mydict[key] = value, 'setdefault' doesn't go through this
+
+        return super().__setitem__(key, val)
+
+    def __delitem__(self, key): # del mydict[key]
+
+        return super().__delitem__(key)
+
+
+    def __contains__(self, key):
+
+        return super().__contains__(key)
+
+    def __iter__(self): # like for c in iter()
+        
+        for c in super().__iter__():
+            yield c
+
+
+    def __getattribute__(self, name): # object.name
+
+        return super().__getattribute__(name)
+
+    def __setattr__(self, name, value): # object.name = value
+
+        return super().__setattr__(name, value)
+
+    def __delattr__(self, name): # del object.name
+
+        return super().__delattr__(name)
+
+
+    def __len__(self): # len(object)
+
+        return super().__len__()
     
+>>>>>>> 4760a8c8dc0a92c9a4780ab38713519342a23103
     
+def test_user_defined():
+    
+    a = mydict([('a', 10), ('b', 20), ('c', 30)])
+
+    print( a['default'])
+
+    print( a['a'])
+
+    a['b'] = 100
+
+    print( a.get('a'))
+
+    a.setdefault('a', 200)
+
+    for c in a:
+        print(a[c])
+
+    del a['a']
+
+    a.new_attr = 'new_attr'
+
+    print( a.new_attr)
+
+    del a.new_attr
+
+
 
 if __name__ == '__main__':
 
@@ -121,4 +195,4 @@ if __name__ == '__main__':
 
     print(dir(dict))
 
-    main()
+    test_user_defined()
