@@ -52,10 +52,14 @@ def main():
     for key in tel.keys():
         print(tel[key])
 
-    # items
-    print("items = ", tel.items())
-    for item in tel.items():
-        print(item[0], '->', item[1])
+    # len
+    print("len = ", len(tel))
+
+    # get
+    tel['Tom']
+
+    print("Tom : ", tel.get('Tom', 100))
+    print("Jason : ", tel.get('Jason', 200))
 
 
     # len
@@ -103,17 +107,6 @@ def main():
     tel.clear()
     print(tel)
 
-
-# user-defined dict
-class mydict(dict):
-
-    def __getitem__(self, key):
-
-        return super().__getitem__(key)
-
-    def __setitem__(self, key, val):
-
-        return super().__setitem__(key, val)
 
     
     
