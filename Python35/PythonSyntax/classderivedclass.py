@@ -21,7 +21,7 @@ class MyClass:
     @z.setter 
     def z(self, z):
         self.__z = z
-    
+
     @z.deleter
     def z(self):
         del self.__z

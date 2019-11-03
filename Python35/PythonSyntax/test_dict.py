@@ -108,8 +108,6 @@ def test_dict_basic():
     print(tel)
 
 
-<<<<<<< HEAD
-=======
 # user-defined dict
 class mydict(dict):
 
@@ -134,7 +132,7 @@ class mydict(dict):
         return super().__contains__(key)
 
     def __iter__(self): # like for c in iter()
-        
+
         for c in super().__iter__():
             yield c
 
@@ -155,8 +153,7 @@ class mydict(dict):
     def __len__(self): # len(object)
 
         return super().__len__()
-    
->>>>>>> 4760a8c8dc0a92c9a4780ab38713519342a23103
+
     
 def test_user_defined():
     
@@ -187,10 +184,10 @@ def test_user_defined():
 
 if __name__ == '__main__':
 
-    # ['__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
+    # ['__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__',
     # '__getattribute__', '__getitem__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', 
     # '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__setitem__', '__sizeof__', 
-    # '__str__', '__subclasshook__', 
+    # '__str__', '__subclasshook__',
     # 'clear', 'copy', 'fromkeys', 'get', 'items', 'keys', 'pop', 'popitem', 'setdefault', 'update', 'values']
 
     print(dir(dict))

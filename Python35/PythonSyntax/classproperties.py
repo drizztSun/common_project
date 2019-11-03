@@ -6,7 +6,7 @@ class CProp:
         self.__x = x
         self._temp = 0
 
-    # define property with property function    
+    # define property with property function
     def xgetter(self):
         print("CProp : get")
         return self.__x
@@ -14,7 +14,7 @@ class CProp:
     def xsetter(self, n):
         print("CProp : set")
         self.__x = n
-    
+
     def xdeletor(self):
         print("CProp : del")
         del self.__x
@@ -37,7 +37,7 @@ class CProp:
     @temperature.deleter
     def temperature(self):
         print("temperature delete function")
-        del self._temp       
+        del self._temp
 
 
 
@@ -51,11 +51,11 @@ if __name__ == "__main__":
 
     print("x == {0}".format(obj.x))
 
-    del obj.x
-    
+    # del obj.x
+
     try:
         obj.x
-    except NameError as error:
+    except (AttributeError, NameError) as error:
         print("catch a exception", error)
 
 
@@ -73,5 +73,5 @@ if __name__ == "__main__":
 
     try:
         obj.temperature
-    except NameError as error:
+    except (AttributeError, NameError )as error:
         print("catch a exception", error)
