@@ -6,8 +6,9 @@ import time
 from dateutil import parser
 from OpenSSL import crypto
 
+
 # DeviceFactory.cert
-device_factory_cert = b"""-----BEGIN CERTIFICATE-----
+device_factory_cert_pem = b"""-----BEGIN CERTIFICATE-----
 MIIDWTCCAkGgAwIBAgIUDgvGbBTAYI68i0R4Hg3tqjkSNgEwDQYJKoZIhvcNAQEL
 BQAwPTEhMB8GA1UEChMYQWthbWFpIFRlY2hub2xvZ2llcyBJbmMuMRgwFgYDVQQD
 Ew9EZXZpY2VQb3N0dXJlQ0EwHhcNMTgxMDAxMTg1MDAyWhcNMjAxMDAxMTg0MTMz
@@ -28,6 +29,9 @@ zfeQA83gXYFdFUcA0jDDJtSwX9yBGgqFnDntQTH6X58T5njdOCM90YYlPVZX1K7w
 VWCMmePoUymFPBUUbctfYnsyOg74EATRURsDhhVQXBoltZK7Z6Mw3l76HQip
 -----END CERTIFICATE-----"""
 
+
+# DeviceFactory.der (base64)
+device_factory_cert_der = b'MIIDWTCCAkGgAwIBAgIUDgvGbBTAYI68i0R4Hg3tqjkSNgEwDQYJKoZIhvcNAQELBQAwPTEhMB8GA1UEChMYQWthbWFpIFRlY2hub2xvZ2llcyBJbmMuMRgwFgYDVQQDEw9EZXZpY2VQb3N0dXJlQ0EwHhcNMTgxMDAxMTg1MDAyWhcNMjAxMDAxMTg0MTMzWjA7MSEwHwYDVQQKDBhBa2FtYWkgVGVjaG5vbG9naWVzIEluYy4xFjAUBgNVBAMMDURldmljZUZhY3RvcnkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBFswzjaKpmy0jtoYLmeCOCMmka5nEExgrIJrfqL4DqfGdedcOWTvgAswkAm0uIdzlIicKmfff2sW3m85EnqAgl2Fvzd3fN68vF7gMI0uaokcAWLuEzmvNX3xM70/LUzFYbZnRIV0rcW4bRTG0XmC1Sm4PMswBGtI8oUQwV4AhK7RC9bKmzu60EJXNQpidPB81W2sh4jlCg7NGYtb1dmQbM3U9ZHW+cQggBl+T+X3qsDL3gcGz1cbpJyhzCuPsN4au2jjdEHVtpeBFg0sYQdQC7AdXi12/9WR/f6I2uMlMwIdN9U4+xSmz2LcZ5LaIbZc0zoHJ6RZfHtm9hclZFQ3HAgMBAAGjUzBRMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUMyFh52X89c5pH570arS3hulJevAwEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4IBAQA/2QTpKdI7ciHRNZve8qu7IzA8Ocq+HmVOLKO6wzRmlIy5t0Aey3mceKgCap0scTIXY9qEnXYTIxGs5aGjSpclFelg+pv2ZWRu3gJu6q5fLdm2fF/2cdRbyHmStMwZa6ooqemvi70J+TmUUPdaruVy8VYJg95/f9V2R6xo7rRjVv6jWcLfE+xPO9Z2kWw8PFIvwds8CQrwP2TGOzp1fP2ycujDzfeQA83gXYFdFUcA0jDDJtSwX9yBGgqFnDntQTH6X58T5njdOCM90YYlPVZX1K7wVWCMmePoUymFPBUUbctfYnsyOg74EATRURsDhhVQXBoltZK7Z6Mw3l76HQip'
 
 # DeviceFactory.key
 device_factory_private_key = b"""-----BEGIN RSA PRIVATE KEY-----
@@ -59,7 +63,7 @@ cWs4qRvJRoQQ4S7FmO4l2p0brnnhFclJzt7xDI2QTWU+EE7OrdFnKYSV4n7LE1/s
 -----END RSA PRIVATE KEY-----"""
 
 
-def genetate_jwt_token():
+def genetate_jwt_token(public_cert):
 
     payload = {
         'sub': '3a2bd56f-ac78-4fda-afe2-be9b6188fb2f',
@@ -70,7 +74,8 @@ def genetate_jwt_token():
 
     headers = {
         'x5c': [
-            base64.b64encode(device_factory_cert).decode('utf-8')
+            # base64.b64encode(device_factory_cert_der).decode('utf-8')
+            public_cert.decode('utf-8')
         ]
     }
 
@@ -91,15 +96,16 @@ def genetate_jwt_token():
     print( json.loads(base64.urlsafe_b64decode(p)) )
     print(s)
 
-    verify_jws_token(res, lambda x: x['sub'] == payload['sub'])
+    verify_jws_token(res, lambda x: x['sub'] == payload['sub'], type='DER')
 
 
-def verify_jws_token(token, callback):
+def verify_jws_token(token, callback, type):
 
     try:
         header = jwt.get_unverified_header(token)
         public_cert = base64.b64decode(header['x5c'][0].encode('utf-8'))
-        cert = crypto.load_certificate(crypto.FILETYPE_PEM, public_cert)
+        # cert = crypto.load_certificate(crypto.FILETYPE_PEM if type == 'PEM' else crypto.FILETYPE_ASN1, public_cert)
+        cert = crypto.load_certificate(crypto.FILETYPE_ASN1, public_cert)
         key = cert.get_pubkey().to_cryptography_key()
 
         payload = jwt.decode(token, key, algorithms=header['alg'])
@@ -124,6 +130,7 @@ def verify_jws_token(token, callback):
 
     return False
 
+
 def verify_ca(public_cert_data, ca_cert_data):
 
     ca_cert = crypto.load_certificate(crypto.FILETYPE_PEM, ca_cert_data)
@@ -134,6 +141,23 @@ def verify_ca(public_cert_data, ca_cert_data):
     return True if store_ctx.verify_certificate() is None else False
 
 
+def read_write_cert_files():
+
+    with open('./App/HandleJWT/public_cert.der', 'rb') as cert_hdl:
+        data = cert_hdl.read()
+        cert = crypto.load_certificate(crypto.FILETYPE_ASN1, data)
+        cert_data = base64.b64encode(data)
+
+    with open('./App/HandleJWT/device_factory.der', 'w') as der_hdl:
+        der_hdl.write(cert_data.decode('utf-8'))
+
+    return cert_data
+
+
 if __name__ == '__main__':
 
-    jwt = genetate_jwt_token()
+    cert_data = read_write_cert_files()
+
+    jwt = genetate_jwt_token(device_factory_cert_der)
+
+    print("--- end of jwt token ---")
