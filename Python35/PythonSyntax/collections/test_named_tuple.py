@@ -98,6 +98,7 @@ def test_named_tuple_():
     for emp in map(EmployeeRecord._make, cursor.fetchall()):
         print(emp.name, emp.title)
 
+
 def main():
 
     test_named_tuple()

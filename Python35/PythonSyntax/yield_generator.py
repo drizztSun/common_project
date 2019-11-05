@@ -33,7 +33,7 @@ def main():
     mygenerator = (x**2 for x in range(4))
     print("generator type is {0}".format(type(mygenerator)))
     for c in mygenerator:
-        print(c)    
+        print(c)
     
     objgenerator = creategenerator(10)
     print("objgenerator type is {0}".format(type(objgenerator)))
