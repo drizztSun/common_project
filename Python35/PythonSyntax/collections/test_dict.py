@@ -111,6 +111,9 @@ def test_dict_basic():
 # user-defined dict
 class mydict(dict):
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def __getitem__(self, key):  # like mydict[key], 'get' doesn't go through this
 
         if key == 'default':
@@ -154,6 +157,12 @@ class mydict(dict):
 
         return super().__len__()
 
+    def __iter__(self):
+        return super().__iter__()
+
+    def __next__(self):
+        return super().__next__()
+        
     
 def test_user_defined():
     

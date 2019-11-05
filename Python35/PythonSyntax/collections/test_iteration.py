@@ -74,6 +74,29 @@ class PrimeNumber:
 class non_iter:
     pass
 
+
+class ud_dict(dict):
+
+    def __init__(self, **kwargs):
+
+        super().__init__(**kwargs)
+
+    def __getitem__(self, key):
+        return super().__getitem__(key)
+
+    def __setitem__(self, key, value):
+        return super().__setitem__(key, value)
+
+    def __delitem__(self, key):
+        return super().__delitem__(key)
+
+    def __iter__(self):
+        return super().__iter__()
+
+    def __next__(self):
+        return super().__next__()
+
+
 def test_iteration():
 
     print(dir(list))
@@ -116,20 +139,26 @@ def test_iteration():
     for c in PrimeNumber(5):
         print(c)
     else:
-        print("iteration successfully")
+        print("success to iterate PrimeNumber")
 
 
     # user-defined class
     animals = Animal(['cat', 'dog', 'human'])
     for animal in animals:
         print(animal)
+    else:
+        print("success to iterate Animal")
 
     try:
         for c in non_iter():
             pass
-
     except TypeError as e:
         print(e)
+
+
+    t = ud_dict(a=100, b=200, c=300)
+    for c in t:
+        print( t[c] )
 
 
 class mylist(list):
