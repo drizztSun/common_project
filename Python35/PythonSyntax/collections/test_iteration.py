@@ -173,6 +173,9 @@ class mylist(list):
 
 def test_iteration_advanced():
 
+    print( dir(list))
+    print( dir(dict))
+
     a = mylist()
 
     for c in a:

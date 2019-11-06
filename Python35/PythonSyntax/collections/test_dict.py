@@ -162,7 +162,7 @@ class mydict(dict):
 
     def __next__(self):
         return super().__next__()
-        
+
     
 def test_user_defined():
     
