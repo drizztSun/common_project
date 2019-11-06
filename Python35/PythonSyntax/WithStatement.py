@@ -25,6 +25,7 @@ https://www.python.org/dev/peps/pep-0343/
 import os
 
 from contextlib import contextmanager # context to support 'With'
+from PythonSyntax.classproperties import CProp
 
 # <with statement>
 class WithStateMent:
@@ -61,6 +62,11 @@ def main():
         print(w.read())
 
     res = 1
+
+    # test 'WithStatement'
+    with WithStateMent('./functions.py') as f:
+        print(f.read())
+
 
 if __name__ == "__main__":
 
