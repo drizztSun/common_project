@@ -14,7 +14,7 @@ def findGoogle(pkt):
                     search = r[0].split('&')[0]
                     search = search.replace('q=', '').\
                       replace('+', ' ').replace('%20', ' ')
-                    print '[+] Searched For: ' + search
+                    print('[+] Searched For: ' + search
 
 
 def main():
@@ -25,13 +25,13 @@ def main():
     (options, args) = parser.parse_args()
 
     if options.interface == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         conf.iface = options.interface
 
     try:
-        print '[*] Starting Google Sniffer.'
+        print('[*] Starting Google Sniffer.'
         sniff(filter='tcp port 80', prn=findGoogle)
     except KeyboardInterrupt:
         exit(0)

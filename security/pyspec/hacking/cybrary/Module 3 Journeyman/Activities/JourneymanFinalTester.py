@@ -24,7 +24,7 @@ for i in files:
     s.send(i)
     data = s.recv(1024)
     if data != files[i]:
-        print "Failed: %s != %s" % (data , files[i])
+        print("Failed: %s != %s" % (data , files[i])
     s.close()
     
 s = socket.socket(socket.AF_INET , socket.SOCK_STREAM)
@@ -33,7 +33,7 @@ s.send("LOAD")
 s.send("File4")
 data = s.recv(1024)
 if data != "File Not Found":
-    print "Error check failed"
+    print("Error check failed"
 else:
-    print "SUCCESS!"
+    print("SUCCESS!"
 s.close()

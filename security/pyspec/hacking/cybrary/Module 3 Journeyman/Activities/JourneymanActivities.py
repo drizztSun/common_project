@@ -79,7 +79,7 @@ def journeyman4():
             self.hair_color = hair_color
             self.eye_color = eye_color
         def print_info (self):
-            print "Height:\t%d\tWeight:\t%d\tHair:\t%s\tEye:\t%s" % (self.height, self.weight, self.hair, self.eye)
+            print("Height:\t%d\tWeight:\t%d\tHair:\t%s\tEye:\t%s" % (self.height, self.weight, self.hair, self.eye)
     my_description = person(74,241,'brown', 'brown')
     my_description.print_info()
     return

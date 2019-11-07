@@ -18,8 +18,8 @@ class Client:
             s.login(self.host, self.user, self.password)
             return s
         except Exception, e:
-            print e
-            print '[-] Error Connecting'
+            print(e
+            print('[-] Error Connecting'
 
     def send_command(self, cmd):
         self.session.sendline(cmd)
@@ -30,8 +30,8 @@ class Client:
 def botnetCommand(command):
     for client in botNet:
         output = client.send_command(command)
-        print '[*] Output from ' + client.host
-        print '[+] ' + output 
+        print('[*] Output from ' + client.host
+        print('[+] ' + output 
 
 
 def addClient(host, user, password):

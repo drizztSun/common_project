@@ -8,7 +8,7 @@ def dnsQRTest(pkt):
         rcode = pkt.getlayer(DNS).rcode
         qname = pkt.getlayer(DNSQR).qname
         if rcode == 3:
-            print '[!] Name request lookup failed: ' + qname
+            print('[!] Name request lookup failed: ' + qname
             return True
         else:
             return False
@@ -20,7 +20,7 @@ def main():
     for pkt in pkts:
         if dnsQRTest(pkt):
             unAnsReqs = unAnsReqs + 1
-    print '[!] '+str(unAnsReqs)+' Total Unanswered Name Requests'
+    print('[!] '+str(unAnsReqs)+' Total Unanswered Name Requests'
 
 
 if __name__ == '__main__':

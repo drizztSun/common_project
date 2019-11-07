@@ -65,7 +65,7 @@ while True:
 
         process_log_message = "%s,%s,%s,%s,%s,%s,%s" % (create_date, proc_owner, executable, cmdline, pid, parent_pid,privileges)
 
-        print "%s\r\n" % process_log_message
+        print("%s\r\n" % process_log_message
 
         log_to_file(process_log_message)
 

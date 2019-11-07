@@ -14,9 +14,9 @@ def retBtAddr(addr):
 def checkBluetooth(btAddr):
     btName = lookup_name(btAddr)
     if btName:
-        print '[+] Detected Bluetooth Device: ' + btName
+        print('[+] Detected Bluetooth Device: ' + btName
     else:
-        print '[-] Failed to Detect Bluetooth Device.'
+        print('[-] Failed to Detect Bluetooth Device.'
 
 
 def wifiPrint(pkt):
@@ -24,9 +24,9 @@ def wifiPrint(pkt):
     if pkt.haslayer(Dot11):
         wifiMAC = pkt.getlayer(Dot11).addr2
         if iPhone_OUI == wifiMAC[:8]:
-            print '[*] Detected iPhone MAC: ' + wifiMAC
+            print('[*] Detected iPhone MAC: ' + wifiMAC
             btAddr = retBtAddr(wifiMAC)
-            print '[+] Testing Bluetooth MAC: ' + btAddr
+            print('[+] Testing Bluetooth MAC: ' + btAddr
             checkBluetooth(btAddr)
 
 

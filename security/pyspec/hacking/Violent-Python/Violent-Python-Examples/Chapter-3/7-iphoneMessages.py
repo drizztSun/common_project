@@ -28,7 +28,7 @@ def printMessage(msgDB):
             date = str(row[0])
             addr = str(row[1])
             text = row[2]
-            print '\n[+] Date: '+date+', Addr: '+addr \
+            print('\n[+] Date: '+date+', Addr: '+addr \
                 + ' Message: ' + text
     except:
         pass
@@ -43,7 +43,7 @@ def main():
     
     pathName = options.pathName
     if pathName == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         dirList = os.listdir(pathName)
@@ -51,7 +51,7 @@ def main():
             iphoneDB = os.path.join(pathName, fileName)
             if isMessageTable(iphoneDB):
                 try:
-                    print '\n[*] --- Found Messages ---'
+                    print('\n[*] --- Found Messages ---'
                     printMessage(iphoneDB)
                 except:
                     pass

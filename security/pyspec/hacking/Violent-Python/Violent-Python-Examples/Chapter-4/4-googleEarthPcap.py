@@ -47,7 +47,7 @@ def main():
       help='specify pcap filename')
     (options, args) = parser.parse_args()
     if options.pcapFile == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     pcapFile = options.pcapFile
     f = open(pcapFile)
@@ -57,7 +57,7 @@ def main():
     \n<kml xmlns="http://www.opengis.net/kml/2.2">\n<Document>\n'
     kmlfooter = '</Document>\n</kml>\n'
     kmldoc=kmlheader+plotIPs(pcap)+kmlfooter
-    print kmldoc
+    print(kmldoc
 
 
 if __name__ == '__main__':

@@ -17,7 +17,7 @@ def getRet(imm, allocaddr, max_opcodes = 300):
 
     return 0x0
 
-# A simple wrapper to just print out the hook
+# A simple wrapper to just print(out the hook
 # results in a friendly manner, it simply checks the hook
 # address against the stored addresses for RtlAllocateHeap, RtlFreeHeap
 def showresult(imm, a, rtlallocate, extra = ""):
@@ -37,7 +37,7 @@ def main(args):
     fast = imm.getKnowledge( Name )
     if fast:
         # We have previously set hooks, so we must want
-        # to print the results
+        # to print(the results
         hook_list = fast.getAllLog()
 
         rtlallocate, rtlfree = imm.getKnowledge("FuncNames")

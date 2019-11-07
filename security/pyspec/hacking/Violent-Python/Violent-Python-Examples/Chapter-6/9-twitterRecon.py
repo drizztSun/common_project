@@ -41,6 +41,6 @@ class reconPerson:
 
 
 ap = reconPerson('Boondock', 'Saint')
-print ap.query_twitter(\
+print(ap.query_twitter(\
   'from:th3j35t3r since:2010-01-01 include:retweets')
 

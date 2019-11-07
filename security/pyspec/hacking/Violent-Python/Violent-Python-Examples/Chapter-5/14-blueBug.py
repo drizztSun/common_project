@@ -13,6 +13,6 @@ for contact in range(1, 5):
     atCmd = 'AT+CPBR=' + str(contact) + '\n'
     phoneSock.send(atCmd)
     result = client_sock.recv(1024)
-    print '[+] ' + str(contact) + ' : ' + result
+    print('[+] ' + str(contact) + ' : ' + result
 
 sock.close()

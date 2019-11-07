@@ -57,13 +57,13 @@ def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("127.0.0.1", 12345))
     while True:
-        print "COMMANDS:"
-        print "CU - Create User"
-        print "DU - Delete User"
-        print "DRK - Download Registry Key"
-        print "DF - Download File"
-        print "GI - Gather Information"
-        print "EC - Execute Command"
+        print("COMMANDS:"
+        print("CU - Create User"
+        print("DU - Delete User"
+        print("DRK - Download Registry Key"
+        print("DF - Download File"
+        print("GI - Gather Information"
+        print("EC - Execute Command"
         
         cmd = raw_input(recv_data(s))
         
@@ -83,29 +83,29 @@ def main():
             
             data = recv_data(s)
             while data != "DATA_COMPLETE":
-                print data
+                print(data
                 data = recv_data(s)
                 
         elif cmd == "DF":
             send_data(s,cmd)
-            print recv_data(s)
+            print(recv_data(s)
             send_data(s,raw_input())
-            print recv_data(s)
+            print(recv_data(s)
             
         elif cmd == "GI":
             send_data(s,cmd)
             send_data(s,raw_input(recv_data(s)))
-            print recv_data(s)
+            print(recv_data(s)
             
         elif cmd == "EC":
             send_data(s,cmd)
-            print recv_data(s)
+            print(recv_data(s)
             send_data(s,raw_input())
-            print recv_data(s)
+            print(recv_data(s)
             send_data(s,raw_input())
         
         else:
-            print "INVALID"
+            print("INVALID"
     
         
     

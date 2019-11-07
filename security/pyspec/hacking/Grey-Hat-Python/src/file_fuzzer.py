@@ -77,7 +77,7 @@ class file_fuzzer:
 
     def start_debugger(self):
 
-        print "[*] Starting debugger for iteration: %d" % self.iteration
+        print("[*] Starting debugger for iteration: %d" % self.iteration
         self.running = True
         self.dbg = pydbg()
 
@@ -90,10 +90,10 @@ class file_fuzzer:
     def monitor_debugger(self):
 
         counter = 0
-        print "[*] Monitor thread for pid: %d waiting." % self.pid,
+        print("[*] Monitor thread for pid: %d waiting." % self.pid,
         while counter < 3:
             time.sleep(1)
-            print counter,
+            print(counter,
             counter += 1
 
         if self.in_accessv_handler != True:
@@ -102,7 +102,7 @@ class file_fuzzer:
             self.pid = None
             self.running = False
         else:
-            print "[*] The access violation handler is doing its business. Going to sleep"           
+            print("[*] The access violation handler is doing its business. Going to sleep"           
 
             while self.running:
                 time.sleep(1)
@@ -113,7 +113,7 @@ class file_fuzzer:
 
             return DBG_CONTINUE
 
-        print "[*] Woot! Handling an access violation!"
+        print("[*] Woot! Handling an access violation!"
         self.in_accessv_handler = True
         crash_bin = utils.crash_binning.crash_binning()
         crash_bin.record_crash(dbg)
@@ -180,15 +180,15 @@ class file_fuzzer:
 
 def print_usage():
 
-    print "[*]"
-    print "[*] file_fuzzer.py -e <Executable Path> -x <File Extension>"
-    print "[*]"
+    print("[*]"
+    print("[*] file_fuzzer.py -e <Executable Path> -x <File Extension>"
+    print("[*]"
 
     sys.exit(0)
 
 if __name__ == "__main__":
 
-    print "[*] Generic File Fuzzer."
+    print("[*] Generic File Fuzzer."
 
     # This is the path to the document parser
     # and the filename extension to use

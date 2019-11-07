@@ -8,9 +8,9 @@ from pyPdf import PdfFileReader
 def printMeta(fileName):
     pdfFile = PdfFileReader(file(fileName, 'rb'))
     docInfo = pdfFile.getDocumentInfo()
-    print '[*] PDF MetaData For: ' + str(fileName)
+    print('[*] PDF MetaData For: ' + str(fileName)
     for metaItem in docInfo:
-        print '[+] ' + metaItem + ':' + docInfo[metaItem]
+        print('[+] ' + metaItem + ':' + docInfo[metaItem]
 
 
 def main():
@@ -22,7 +22,7 @@ def main():
     (options, args) = parser.parse_args()
     fileName = options.fileName
     if fileName == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         printMeta(fileName)

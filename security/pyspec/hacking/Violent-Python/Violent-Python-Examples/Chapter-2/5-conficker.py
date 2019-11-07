@@ -14,7 +14,7 @@ def findTgts(subNet):
         if nmScan[host].has_tcp(445):
             state = nmScan[host]['tcp'][445]['state']
             if state == 'open':
-                print '[+] Found Target Host: ' + host
+                print('[+] Found Target Host: ' + host
                 tgtHosts.append(host)
     return tgtHosts
 
@@ -72,7 +72,7 @@ def main():
     (options, args) = parser.parse_args()
 
     if (options.tgtHost == None) | (options.lhost == None):
-        print parser.usage
+        print(parser.usage
         exit(0)
 
     lhost = options.lhost

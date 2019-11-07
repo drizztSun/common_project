@@ -10,12 +10,12 @@ def connScan(tgtHost, tgtPort) :
 		connSkt.send('GET / HTTP/1.0\r\n\r\n')
 		results = connSkt.recv(100)
 		screenLock.acquire()
-		print '[+] %d/tcp open'% tgtPort
-		print '[+] ' + str(results)
+		print('[+] %d/tcp open'% tgtPort
+		print('[+] ' + str(results)
 		connSkt.close()
 	except :
 		screenLock.acquire()
-		print '[-] %d/tcp closed\n'% tgtPort
+		print('[-] %d/tcp closed\n'% tgtPort
 	finally:
 		screenLock.release()
 		connSkt.close()
@@ -24,16 +24,16 @@ def portScan(tgtHost, tgtPorts) :
 	try :
 		tgtIP = gethostbyname(tgtHost)
 	except :
-		print "[-] Cannot resolve '%s': Unknown host"%tgtHost
+		print("[-] Cannot resolve '%s': Unknown host"%tgtHost
 		return
 	try :
 		tgtName = gethostbyaddr(tgtIP)
-		print '\n[+] Scan Results for: ' + tgtName[0]
+		print('\n[+] Scan Results for: ' + tgtName[0]
 	except :
-		print '\n[+] Scan Results for: ' + tgtIP
+		print('\n[+] Scan Results for: ' + tgtIP
 	setdefaulttimeout(1)
 	for tgtPort in tgtPorts :
-		#print 'Scanning port ' + tgtPort
+		#print('Scanning port ' + tgtPort
 		#connScan(tgtHost, int(tgtPort))
 		t = Thread(target=connScan, args=(tgtHost,int(tgtPort)))
 		t.start()
@@ -47,7 +47,7 @@ def main() :
 	tgtHost = options.tgtHost
 	tgtPorts = str(options.tgtPort).split(',')
 	if (tgtHost == None) | (tgtPorts == None) :
-		print parser.usage
+		print(parser.usage
 		exit(0)
 	portScan(tgtHost, tgtPorts)
 	

@@ -80,7 +80,7 @@ def search_directory(file_name): #DIRSEARCH
 
 def send_file_contents(file_name,usersock,userinfo): #DOWNLOAD
     data = read_file(file_name)
-    print data
+    print(data
     if (data == -1):
         send_data(usersock, "FILE NOT FOUND")
         return -1

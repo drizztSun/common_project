@@ -29,7 +29,7 @@ def get_last_input():
 
     elapsed = run_time - struct_lastinputinfo.dwTime
 
-    print "[*] It's been %d milliseconds since the last input event." % elapsed
+    print("[*] It's been %d milliseconds since the last input event." % elapsed
     
 
     return elapsed
@@ -111,4 +111,4 @@ def detect_sandbox():
             previous_timestamp = keypress_time
 
 detect_sandbox()
-print "We are ok!"
+print("We are ok!"

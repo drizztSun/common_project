@@ -16,10 +16,10 @@ port               = 0
 
 # this runs a command and returns the output
 def run_command(command):
-        
+
         # trim the newline
         command = command.rstrip()
-        
+
         # run the command and get the output back
         try:
                 output = subprocess.check_output(command,stderr=subprocess.STDOUT, shell=True)
@@ -90,7 +90,7 @@ def client_handler(client_socket):
                         
                         # send back the response
                         client_socket.send(response)
-        
+
 # this is for incoming connections
 def server_loop():
         global target
@@ -99,19 +99,19 @@ def server_loop():
         # if no target is defined we listen on all interfaces
         if not len(target):
                 target = "0.0.0.0"
-                
+
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind((target,port))
         
         server.listen(5)        
-        
+
         while True:
                 client_socket, addr = server.accept()
                 
                 # spin off a thread to handle our new client
                 client_thread = threading.Thread(target=client_handler,args=(client_socket,))
                 client_thread.start()
-                
+
 
 # if we don't listen we are a client....make it so.
 def client_sender(buffer):
@@ -188,10 +188,10 @@ def main():
         global command
         global upload_destination
         global target
-        
+
         if not len(sys.argv[1:]):
                 usage()
-                
+
         # read the commandline options
         try:
                 opts, args = getopt.getopt(sys.argv[1:],"hle:t:p:cu:",["help","listen","execute","target","port","command","upload"])
@@ -237,4 +237,4 @@ def main():
                 server_loop()
 
 if __name__ == "__main__":
-        main()       
+        main()

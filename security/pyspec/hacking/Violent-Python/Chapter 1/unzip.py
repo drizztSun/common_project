@@ -4,7 +4,7 @@ import optparse
 def extractFile(zFile, password):
 	try:
 		zFile.extractall(pwd=password)
-		print '[+] Found password ' + password + '\n'
+		print('[+] Found password ' + password + '\n'
 	except:
 		return
 
@@ -14,7 +14,7 @@ def main():
 	parser.add_option('-d', dest='dname', type='string', help='specify dictionary file')
 	(options, args) = parser.parse_args()
 	if (options.zname == None) | (options.dname == None):
-		print parser.usage
+		print(parser.usage
 		exit(0)
 	else:
 		zname = options.zname

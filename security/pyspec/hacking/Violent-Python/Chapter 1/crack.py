@@ -6,9 +6,9 @@ def testPass(cryptPass):
 		word = word.strip('\n')  
 		cryptword = crypt.crypt(word,salt)
 		if (cryptword == cryptPass) :
-			print "[+] Found password: "+word+"\n"
+			print("[+] Found password: "+word+"\n"
 			return
-	print "[-] Password not found.\n"
+	print("[-] Password not found.\n"
 	return
 
 def main():
@@ -17,7 +17,7 @@ def main():
 		if ":" in line:
 			user = line.split(':')[0]
 			cryptPass = line.split(':')[1].strip(' ')
-			print "[*] Cracking password for: "+user
+			print("[*] Cracking password for: "+user
 			testPass(cryptPass)
 
 if __name__ == "__main__":

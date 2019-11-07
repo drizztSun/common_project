@@ -1,16 +1,16 @@
 import crypt
 def testPass(cryptPass):
 	salt = cryptPass[0:11]
-	print "[+] Salt: " + salt
+	print("[+] Salt: " + salt
 	dictFile = open('dictionary.txt','r')
 	for word in dictFile.readlines():
 		word = word.strip('\n')  
 		cryptword = crypt.crypt(word,salt)
-		print "[+] Hash value: " + cryptword 
+		print("[+] Hash value: " + cryptword 
 		if (cryptword == cryptPass) :
-			print "[+] Found password: "+word+"\n"
+			print("[+] Found password: "+word+"\n"
 			return
-	print "[-] Password not found.\n"
+	print("[-] Password not found.\n"
 	return
 
 def main():
@@ -19,7 +19,7 @@ def main():
 		if ":" in line:
 			user = line.split(':')[0]
 			cryptPass = line.split(':')[1].strip(' ')
-			print "[*] Cracking password for: "+user
+			print("[*] Cracking password for: "+user
 			testPass(cryptPass)
 
 if __name__ == "__main__":

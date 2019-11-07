@@ -28,8 +28,8 @@ def printPcap(pcap):
             ip = eth.data
             src = socket.inet_ntoa(ip.src)
             dst = socket.inet_ntoa(ip.dst)
-            print '[+] Src: ' + src + ' --> Dst: ' + dst
-            print '[+] Src: ' + retGeoStr(src) + '--> Dst: ' \
+            print('[+] Src: ' + src + ' --> Dst: ' + dst
+            print('[+] Src: ' + retGeoStr(src) + '--> Dst: ' \
               + retGeoStr(dst)
         except:
             pass
@@ -41,7 +41,7 @@ def main():
       help='specify pcap filename')
     (options, args) = parser.parse_args()
     if options.pcapFile == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     pcapFile = options.pcapFile
     f = open(pcapFile)

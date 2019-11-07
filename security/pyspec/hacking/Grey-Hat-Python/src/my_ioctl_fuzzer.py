@@ -28,24 +28,24 @@ for device_name in device_list:
     # Make sure the device is accessed properly
     device_file = u"\\\\.\\%s" % device_name.split("\\")[::-1][0]
 
-    print "[*] Testing for device: %s" % device_file
+    print("[*] Testing for device: %s" % device_file
 
     driver_handle = kernel32.CreateFileW(device_file,GENERIC_READ|
                              GENERIC_WRITE,0,None,OPEN_EXISTING,0,None)
 
     if driver_handle:
         
-        print "[*] Success! %s is a valid device!"
+        print("[*] Success! %s is a valid device!"
 
         if device_file not in valid_devices:
             valid_devices.append( device_file )
         
         kernel32.CloseHandle( driver_handle )
     else:
-        print "[*] Failed! %s NOT a valid device."
+        print("[*] Failed! %s NOT a valid device."
 
 if not len(valid_devices):
-    print "[*] No valid devices found. Exiting..."
+    print("[*] No valid devices found. Exiting..."
     sys.exit(0)
 
 # Now let's begin feeding the driver test cases until we can't bear it anymore!

@@ -16,20 +16,20 @@ def checkVulns(banner, filename):
  f = open(filename, 'r')
  for line in f.readlines():
   if line.strip('\n') in banner:
-   print '[+] Server is vunlnerable: ' + banner.strip('\n')
+   print('[+] Server is vunlnerable: ' + banner.strip('\n')
    
 
 def main():
  if len(sys.argv) == 2:
   filename = sys.argv[1]
   if not os.path.isfile(filename):
-   print '[-] ' + filename + ' does not exist.'
+   print('[-] ' + filename + ' does not exist.'
    exit(0)
   if not os.acces(filename, os.R_OK):
-   print '[-] ' + filename + ' access denied.'
+   print('[-] ' + filename + ' access denied.'
    exit(0)
   else:
-   print '[-] usage: ' + str(sys.argv[0]) + ' <vuln filename>'
+   print('[-] usage: ' + str(sys.argv[0]) + ' <vuln filename>'
    exit(0)
  portlist = [21,22,25,80,110,443]
  
@@ -38,7 +38,7 @@ def main():
   for port in portlist:
    banner = retBanner(ip1, port)
    if banner:
-   print '[+] ' + ip + ': ' + banner1
+   print('[+] ' + ip + ': ' + banner1
    checkVulns(banner, filename)
 
 if __name__ == '__main__' :

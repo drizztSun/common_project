@@ -51,7 +51,7 @@ def twitter_locate(tweets,cities):
 	    locations.append(city)
 	    cityCnt+=1
    
-    print "[+] Found "+str(locCnt)+" locations "+\
+    print("[+] Found "+str(locCnt)+" locations "+\
       "via Twitter API and "+str(cityCnt)+\
       " locations from text search."
     return locations
@@ -72,7 +72,7 @@ def main():
     cityFile = options.cityFile
 
     if (handle==None):
-	print parser.usage
+	print(parser.usage
 	exit(0)
 
     cities = []
@@ -80,7 +80,7 @@ def main():
     	 cities = load_cities(cityFile)
     tweets = get_tweets(handle)
     locations = twitter_locate(tweets,cities)
-    print "[+] Locations: "+str(locations)
+    print("[+] Locations: "+str(locations)
 
 if __name__ == '__main__':
     main()

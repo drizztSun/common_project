@@ -81,31 +81,31 @@ def main():
     cont = True
                     
     if len(sys.argv) < 2:
-        print "Usage: %s [ADDRESS]" % sys.argv[0]
+        print("Usage: %s [ADDRESS]" % sys.argv[0]
         exit()
     
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         sock.connect((sys.argv[1],55555))
     except:
-        print "Cannot connect to %s" % sys.argv[1]
+        print("Cannot connect to %s" % sys.argv[1]
     
     while(cont != False):
         command = raw_input(recv_data(sock)).upper()
         send_data(sock, command)
         if command not in command_list:
-            print recv_data(sock)
-            print command_list
+            print(recv_data(sock)
+            print(command_list
             
         elif command == "DRIVESEARCH":
             file_name = raw_input(recv_data(sock))
             send_data(sock, file_name)
-            print recv_data(sock)
+            print(recv_data(sock)
             
         elif command == "DIRSEARCH":
             file_name = raw_input(recv_data(sock))
             send_data(sock, file_name)
-            print recv_data(sock)
+            print(recv_data(sock)
             
         elif command == "DOWNLOAD":
             file_name = raw_input(recv_data(sock))

@@ -20,11 +20,11 @@ def printResults(url):
             conn.request('GET', path)
             resp = conn.getresponse()
             status = resp.status
-            print '[+] Scanning file...'
+            print('[+] Scanning file...'
             conn.close()
             time.sleep(15)
 
-    print '[+] Scan Complete.'
+    print('[+] Scan Complete.'
     path = path.replace('file', 'analysis')
     conn = httplib.HTTPConnection(host)
     conn.request('GET', path)
@@ -36,12 +36,12 @@ def printResults(url):
     htmlStripRes = reResults[1].\
       replace('&lt;font color=\'red\'&gt;', '').\
       replace('&lt;/font&gt;', '')
-    print '[+] ' + str(htmlStripRes)
+    print('[+] ' + str(htmlStripRes)
 
 
 def uploadFile(fileName):
 
-    print "[+] Uploading file to NoVirusThanks..."
+    print("[+] Uploading file to NoVirusThanks..."
     fileContents = open(fileName,'rb').read()
 
     header = {'Content-Type': 'multipart/form-data; \
@@ -75,10 +75,10 @@ def main():
     fileName = options.fileName
 
     if fileName == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     elif os.path.isfile(fileName) == False:
-        print '[+] ' + fileName + ' does not exist.'
+        print('[+] ' + fileName + ' does not exist.'
         exit(0)
     else:
         loc = uploadFile(fileName)

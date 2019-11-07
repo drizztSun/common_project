@@ -37,13 +37,13 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
     # grab the details of what the user clicked
     http_traffic = self.context.getSelectedMessages()
 
-    print "%d requests highlighted" % len(http_traffic)
+    print("%d requests highlighted" % len(http_traffic)
 
     for traffic in http_traffic:
       http_service = traffic.getHttpService()
       host         = http_service.getHost()
 
-      print "User selected host: %s" % host
+      print("User selected host: %s" % host
 
       self.bing_search(host)
 
@@ -72,7 +72,7 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
 
   def bing_query(self,bing_query_string): 
     
-    print "Performing Bing search: %s" % bing_query_string
+    print("Performing Bing search: %s" % bing_query_string
     
     # encode our query
     quoted_query = urllib.quote(bing_query_string)
@@ -94,20 +94,20 @@ class BurpExtender(IBurpExtender, IContextMenuFactory):
       if len(r["d"]["results"]):
         for site in r["d"]["results"]:
           
-          print "*" * 100
-          print site['Title']
-          print site['Url']
-          print site['Description']
-          print "*" * 100          
+          print("*" * 100
+          print(site['Title']
+          print(site['Url']
+          print(site['Description']
+          print("*" * 100          
           
           j_url = URL(site['Url'])
           
           if not self._callbacks.isInScope(j_url):
-            print "Adding to Burp scope"
+            print("Adding to Burp scope"
             self._callbacks.includeInScope(j_url)
             
     except:
-      print "No results from Bing"
+      print("No results from Bing"
       pass    
     
     return

@@ -50,7 +50,7 @@ class Bruter(object):
         self.password_q = words
         self.found      = False
         
-        print "Finished setting up for: %s" % username
+        print("Finished setting up for: %s" % username
         
     def run_bruteforce(self):
         
@@ -69,7 +69,7 @@ class Bruter(object):
             
             page = response.read()
             
-            print "Trying: %s : %s (%d left)" % (self.username,brute,self.password_q.qsize())
+            print("Trying: %s : %s (%d left)" % (self.username,brute,self.password_q.qsize())
 
             # parse out the hidden fields
             parser = BruteParser()
@@ -90,10 +90,10 @@ class Bruter(object):
             if success_check in login_result:
                 self.found = True
                 
-                print "[*] Bruteforce successful."
-                print "[*] Username: %s" % username
-                print "[*] Password: %s" % brute
-                print "[*] Waiting for other threads to exit..."
+                print("[*] Bruteforce successful."
+                print("[*] Username: %s" % username
+                print("[*] Password: %s" % brute
+                print("[*] Waiting for other threads to exit..."
 
 def build_wordlist(wordlist_file):
 
@@ -116,7 +116,7 @@ def build_wordlist(wordlist_file):
             else:
                 if word == resume:
                     found_resume = True
-                    print "Resuming wordlist from: %s" % resume
+                    print("Resuming wordlist from: %s" % resume
                                         
         else:
             words.put(word)

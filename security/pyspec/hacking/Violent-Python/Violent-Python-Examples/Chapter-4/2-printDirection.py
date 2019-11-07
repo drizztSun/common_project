@@ -11,7 +11,7 @@ def printPcap(pcap):
             ip = eth.data
             src = socket.inet_ntoa(ip.src)
             dst = socket.inet_ntoa(ip.dst)
-            print '[+] Src: ' + src + ' --> Dst: ' + dst
+            print('[+] Src: ' + src + ' --> Dst: ' + dst
         except:
             pass
 

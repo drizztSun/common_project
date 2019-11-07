@@ -15,15 +15,15 @@ def main():
     ipHdr=struct.unpack("!12s4s4s",ipHeader)
     sourceIP = socket.inet_ntoa(ipHdr[0])
     destinationIP=socket.inet_ntoa(ipHdr[2])
-    print "Source IP: " +sourceIP
-    print "Destination IP: "+destinationIP
+    print("Source IP: " +sourceIP
+    print("Destination IP: "+destinationIP
 
 #TCP Header...
     tcpHeader=receivedPacket[34:54]
     tcpHdr=struct.unpack("!2s2s16s",tcpHeader)
     sourcePort=socket.inet_ntoa(tcpHdr[0])
     destinationPort=socket.inet_ntoa(tcpHdr[1])
-    print "Source Port: " + sourcePort
-    print "Destination Port: " + destinationPort
+    print("Source Port: " + sourcePort
+    print("Destination Port: " + destinationPort
 
 main()

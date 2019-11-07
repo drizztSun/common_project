@@ -14,11 +14,11 @@ def fireCatcher(pkt):
     if r and 'Set' not in raw:
         if r[0] not in cookieTable.keys():
             cookieTable[r[0]] = pkt.getlayer(IP).src
-            print '[+] Detected and indexed cookie.'
+            print('[+] Detected and indexed cookie.'
         elif cookieTable[r[0]] != pkt.getlayer(IP).src:
-            print '[*] Detected Conflict for ' + r[0]
-            print 'Victim   = ' + cookieTable[r[0]]
-            print 'Attacker = ' + pkt.getlayer(IP).src
+            print('[*] Detected Conflict for ' + r[0]
+            print('Victim   = ' + cookieTable[r[0]]
+            print('Attacker = ' + pkt.getlayer(IP).src
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
     (options, args) = parser.parse_args()
 
     if options.interface == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         conf.iface = options.interface

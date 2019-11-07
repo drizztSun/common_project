@@ -37,14 +37,14 @@ def wiglePrint(username, password, netid):
     rLon = re.findall(r'maplon=.*\&', resp)
     if rLon:
         mapLon = rLon[0].split
-    print '[-] Lat: ' + mapLat + ', Lon: ' + mapLon
+    print('[-] Lat: ' + mapLat + ', Lon: ' + mapLon
 
 
 def printNets(username, password):
     net = "SOFTWARE\Microsoft\Windows NT\CurrentVersion"+\
           "\NetworkList\Signatures\Unmanaged"
     key = OpenKey(HKEY_LOCAL_MACHINE, net)
-    print '\n[*] Networks You have Joined.'
+    print('\n[*] Networks You have Joined.'
     for i in range(100):
         try:
             guid = EnumKey(key, i)
@@ -53,7 +53,7 @@ def printNets(username, password):
             (n, name, t) = EnumValue(netKey, 4)
             macAddr = val2addr(addr)
             netName = str(name)
-            print '[+] ' + netName + '  ' + macAddr
+            print('[+] ' + netName + '  ' + macAddr
             wiglePrint(username, password, macAddr)
             CloseKey(netKey)
         except:
@@ -71,7 +71,7 @@ def main():
     username = options.username
     password = options.password
     if username == None or password == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         printNets(username, password)

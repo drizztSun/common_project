@@ -13,10 +13,10 @@ def ftpSniff(pkt):
     pswd = re.findall('(?i)PASS (.*)', raw)
     
     if user:
-        print '[*] Detected FTP Login to ' + str(dest)
-        print '[+] User account: ' + str(user[0])
+        print('[*] Detected FTP Login to ' + str(dest)
+        print('[+] User account: ' + str(user[0])
     elif pswd:
-        print '[+] Password: ' + str(pswd[0])
+        print('[+] Password: ' + str(pswd[0])
 
 
 def main():
@@ -27,7 +27,7 @@ def main():
     (options, args) = parser.parse_args()
     
     if options.interface == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         conf.iface = options.interface

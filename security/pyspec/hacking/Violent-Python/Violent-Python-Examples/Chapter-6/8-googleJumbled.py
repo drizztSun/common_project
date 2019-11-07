@@ -10,7 +10,7 @@ def google(search_term):
     search_term = urllib.quote_plus(search_term)
     response = ab.open('http://ajax.googleapis.com/'+\
       'ajax/services/search/web?v=1.0&q='+ search_term)
-    print response.read()
+    print(response.read()
 
 google('Boondock Saint')
 

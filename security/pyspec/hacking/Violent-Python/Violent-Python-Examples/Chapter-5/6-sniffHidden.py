@@ -14,7 +14,7 @@ def sniffDot11(p):
         addr2 = p.getlayer(Dot11).addr2
         if (addr2 in hiddenNets) & (addr2 not in unhiddenNets):
             netName = p.getlayer(Dot11ProbeResp).info
-            print '[+] Decloaked Hidden SSID : ' +\
+            print('[+] Decloaked Hidden SSID : ' +\
                 netName + ' for MAC: ' + addr2
             unhiddenNets.append(addr2)
     
@@ -22,7 +22,7 @@ def sniffDot11(p):
         if p.getlayer(Dot11Beacon).info == '':
             addr2 = p.getlayer(Dot11).addr2
             if addr2 not in hiddenNets:
-                print '[-] Detected Hidden SSID: ' +\
+                print('[-] Detected Hidden SSID: ' +\
                     'with MAC:' + addr2
                 hiddenNets.append(addr2)
 

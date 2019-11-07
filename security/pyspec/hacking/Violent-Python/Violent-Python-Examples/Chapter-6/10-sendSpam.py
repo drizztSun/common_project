@@ -16,20 +16,20 @@ def sendMail(user,pwd,to,subject,text):
 
     try:
     	smtpServer = smtplib.SMTP('smtp.gmail.com', 587)
-    	print "[+] Connecting To Mail Server."
+    	print("[+] Connecting To Mail Server."
     	smtpServer.ehlo()
-    	print "[+] Starting Encrypted Session."
+    	print("[+] Starting Encrypted Session."
     	smtpServer.starttls()
     	smtpServer.ehlo()
-    	print "[+] Logging Into Mail Server."
+    	print("[+] Logging Into Mail Server."
     	smtpServer.login(user, pwd)
-    	print "[+] Sending Mail."
+    	print("[+] Sending Mail."
     	smtpServer.sendmail(user, to, msg.as_string())
     	smtpServer.close()
-        print "[+] Mail Sent Successfully."
+        print("[+] Mail Sent Successfully."
 
     except:
-	print "[-] Sending Mail Failed."
+	print("[-] Sending Mail Failed."
 
 
 def main():
@@ -59,16 +59,16 @@ def main():
 
     if handle == None or tgt == None\
       or user ==None or pwd==None:
-        print parser.usage
+        print(parser.usage
         exit(0)
 
 
-    print "[+] Fetching tweets from: "+str(handle)
+    print("[+] Fetching tweets from: "+str(handle)
     spamTgt = reconPerson(handle)
     spamTgt.get_tweets()
-    print "[+] Fetching interests from: "+str(handle)
+    print("[+] Fetching interests from: "+str(handle)
     interests = spamTgt.find_interests()
-    print "[+] Fetching location information from: "+\
+    print("[+] Fetching location information from: "+\
       str(handle)
     location = spamTgt.twitter_locate('mlb-cities.txt')
 
@@ -94,7 +94,7 @@ def main():
           randLink+"."
 
     spamMsg += " Check out my link to http://evil.tgt/malware"
-    print "[+] Sending Msg: "+spamMsg
+    print("[+] Sending Msg: "+spamMsg
 
     sendMail(user, pwd, tgt, 'Re: Important', spamMsg)
 

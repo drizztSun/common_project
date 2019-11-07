@@ -13,20 +13,20 @@ def sendMail(user,pwd,to,subject,text):
 
     try:
     	smtpServer = smtplib.SMTP('smtp.gmail.com', 587)
-    	print "[+] Connecting To Mail Server."
+    	print("[+] Connecting To Mail Server."
     	smtpServer.ehlo()
-    	print "[+] Starting Encrypted Session."
+    	print("[+] Starting Encrypted Session."
     	smtpServer.starttls()
     	smtpServer.ehlo()
-    	print "[+] Logging Into Mail Server."
+    	print("[+] Logging Into Mail Server."
     	smtpServer.login(user, pwd)
-    	print "[+] Sending Mail."
+    	print("[+] Sending Mail."
     	smtpServer.sendmail(user, to, msg.as_string())
     	smtpServer.close()
-        print "[+] Mail Sent Successfully."
+        print("[+] Mail Sent Successfully."
 
     except:
-	print "[-] Sending Mail Failed."
+	print("[-] Sending Mail Failed."
 
 
 user = 'username'

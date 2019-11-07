@@ -23,7 +23,7 @@ for function in Functions(SegStart(current_address), SegEnd(current_address) ):
                 distance = frame_counter - prev_distance
 
                 if distance >= var_size_threshold:
-                    print "[*] Function: %s -> Stack Variable: %s (%d bytes)" % ( GetFunctionName(function), prev_member, distance )
+                    print("[*] Function: %s -> Stack Variable: %s (%d bytes)" % ( GetFunctionName(function), prev_member, distance )
 
             else:
 

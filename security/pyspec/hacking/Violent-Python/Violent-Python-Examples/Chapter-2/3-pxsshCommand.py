@@ -6,7 +6,7 @@ import pxssh
 def send_command(s, cmd):
     s.sendline(cmd)
     s.prompt()
-    print s.before
+    print(s.before
 
 
 def connect(host, user, password):
@@ -15,7 +15,7 @@ def connect(host, user, password):
         s.login(host, user, password)
         return s
     except:
-        print '[-] Error Connecting'
+        print('[-] Error Connecting'
         exit(0)
 
 s = connect('127.0.0.1', 'root', 'toor')

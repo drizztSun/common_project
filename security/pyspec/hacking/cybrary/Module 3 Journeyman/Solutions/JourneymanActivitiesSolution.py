@@ -64,7 +64,7 @@ def journeyman4():
             self.hair = hair
             self.eye = eye
         def print_info(self):
-            print "Height:\t%d\nWeight:\t%d\nHair:\t%s\nEye:\t%s\n" % (self.height , self.weight , self.hair , self.eye)
+            print("Height:\t%d\nWeight:\t%d\nHair:\t%s\nEye:\t%s\n" % (self.height , self.weight , self.hair , self.eye)
             
     Billy = Person(6 , 180 , "black" , "blue")
     Billy.print_info()

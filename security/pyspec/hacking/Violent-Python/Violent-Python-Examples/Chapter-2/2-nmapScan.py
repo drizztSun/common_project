@@ -5,7 +5,7 @@ def nmapScan(tgtHost,tgtPort):
     nmScan = nmap.PortScanner()
     nmScan.scan(tgtHost,tgtPort)
     state=nmScan[tgtHost]['tcp'][int(tgtPort)]['state']
-    print "[*] " + tgtHost + " tcp/"+tgtPort +" "+state
+    print("[*] " + tgtHost + " tcp/"+tgtPort +" "+state
 
 def main():
     parser = optparse.OptionParser('usage %prog '+\
@@ -21,7 +21,7 @@ def main():
     tgtPorts = str(options.tgtPort).split(',')
     
     if (tgtHost == None) | (tgtPorts[0] == None):
-        print parser.usage
+        print(parser.usage
         exit(0)
     for tgtPort in tgtPorts:
         nmapScan(tgtHost, tgtPort)

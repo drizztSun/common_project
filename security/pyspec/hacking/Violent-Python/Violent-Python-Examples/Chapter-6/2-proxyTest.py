@@ -8,7 +8,7 @@ def testProxy(url, proxy):
     browser.set_proxies(proxy)
     page = browser.open(url)
     source_code = page.read()
-    print source_code
+    print(source_code
 
 
 url = 'http://ip.nefsc.noaa.gov/'

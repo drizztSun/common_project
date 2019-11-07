@@ -14,7 +14,7 @@ def printf_randomizer(dbg):
     # When using read_process_memory, it returns a packed binary
     # string, we must first unpack it before we can use it further
     counter = struct.unpack("L",counter)[0]
-    print "Counter: %d" % int(counter)
+    print("Counter: %d" % int(counter)
     
     # Generate a random number and pack it into binary format
     # so that it is written correctly back into the process

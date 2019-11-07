@@ -9,7 +9,7 @@ def sdpBrowse(addr):
         name = service['name']
         proto = service['protocol']
         port = str(service['port'])
-        print '[+] Found ' + str(name) + ' on ' + str(proto) + ':' + port
+        print('[+] Found ' + str(name) + ' on ' + str(proto) + ':' + port
 
 
 sdpBrowse('00:16:38:DE:AD:11')

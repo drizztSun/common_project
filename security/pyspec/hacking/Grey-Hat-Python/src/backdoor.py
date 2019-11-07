@@ -42,7 +42,7 @@ def inject( pid, data, parameter = 0 ):
 
     if not h_process:
 
-        print "[*] Couldn't acquire a handle to PID: %s" % pid
+        print("[*] Couldn't acquire a handle to PID: %s" % pid
         sys.exit(0)
 
     arg_address = kernel32.VirtualAllocEx( h_process, 0, len(data), VIRTUAL_MEM, PAGE_READWRITE)
@@ -61,7 +61,7 @@ def inject( pid, data, parameter = 0 ):
 
     if not kernel32.CreateRemoteThread(h_process,None,0,start_address,parameter,0,byref(thread_id)):
 
-        print "[*] Failed to inject the DLL. Exiting."
+        print("[*] Failed to inject the DLL. Exiting."
         sys.exit(0)
 
     return True

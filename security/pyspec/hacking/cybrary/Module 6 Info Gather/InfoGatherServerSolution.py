@@ -72,7 +72,7 @@ def download_registry_key(root, path, sock):
     if root in root_dict:
         root = root_dict[root]
     else:
-        print "INVALID ROOT KEY"
+        print("INVALID ROOT KEY"
         return
     
     key_handle = CreateKey(root, path)
@@ -84,12 +84,12 @@ def download_registry_key(root, path, sock):
         value_dict[key] = value
         
     send_data(sock,"====================SUBKEYS====================")
-    print "SENT"
+    print("SENT"
     for i in subkey_list:
         send_data(sock,i)
         
     send_data(sock,"\n\n=====================VALUES====================")
-    print "SENT"
+    print("SENT"
     for i in value_dict:
         send_data(sock,i + " : " + str(value_dict[i]))
     send_data(sock,"DATA_COMPLETE")

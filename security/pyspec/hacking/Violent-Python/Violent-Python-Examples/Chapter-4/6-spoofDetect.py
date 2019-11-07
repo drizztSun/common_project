@@ -19,9 +19,9 @@ def checkTTL(ipsrc, ttl):
         ttlValues[ipsrc] = pkt.ttl
 
     if abs(int(ttl) - int(ttlValues[ipsrc])) > THRESH:
-        print '\n[!] Detected Possible Spoofed Packet From: '\
+        print('\n[!] Detected Possible Spoofed Packet From: '\
           + ipsrc
-        print '[!] TTL: ' + ttl + ', Actual TTL: ' \
+        print('[!] TTL: ' + ttl + ', Actual TTL: ' \
             + str(ttlValues[ipsrc])
 
 

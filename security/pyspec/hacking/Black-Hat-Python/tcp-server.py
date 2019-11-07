@@ -17,7 +17,7 @@ def handle_client(client_socket):
     # send something
     client_socket.send("Connected\r\n")
     
-    # print out what the client sends
+    # print(out what the client sends
     request = client_socket.recv(1024)
     
     print("[*] Reveived: %s" % request)

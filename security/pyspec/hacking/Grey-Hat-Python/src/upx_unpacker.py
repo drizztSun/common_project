@@ -87,8 +87,8 @@ def jmp_handler(emu, mnemonic, eip, op1, op2, op3):
     
     # The UPX1 section	
     if eip < emu.sections["UPX1"]["base"]:
-        print "[*] We are jumping out of the unpacking routine."
-        print "[*] OEP = 0x%08x" % eip
+        print("[*] We are jumping out of the unpacking routine."
+        print("[*] OEP = 0x%08x" % eip
 
 	# Dump the unpacked binary to disk
         dump_unpacked(emu)
@@ -105,23 +105,23 @@ def dump_unpacked(emu):
     
     fh = open(outputfile, 'wb')
 
-    print "[*] Dumping UPX0 Section"
+    print("[*] Dumping UPX0 Section"
     base   = emu.sections["UPX0"]["base"]
     length = emu.sections["UPX0"]["vsize"]
-    print "[*] Base: 0x%08x  Vsize: %08x" % (base, length)
+    print("[*] Base: 0x%08x  Vsize: %08x" % (base, length)
 
     for x in range(length):
         fh.write("%c" % emu.get_memory(base + x, 1))
     
-    print "[*] Dumping UPX1 Section"
+    print("[*] Dumping UPX1 Section"
     base   = emu.sections["UPX1"]["base"]
     length = emu.sections["UPX1"]["vsize"]
-    print "[*] Base: 0x%08x  Vsize: %08x" % (base, length)
+    print("[*] Base: 0x%08x  Vsize: %08x" % (base, length)
     
     for x in range(length):
         fh.write("%c" % emu.get_memory(base + x, 1))
     
-    print "[*] Finished."
+    print("[*] Finished."
     
 
 # Commandline arguments
@@ -135,10 +135,10 @@ if exename:
     
     # Load the binary into PyEmu
     if not emu.load(exename):
-        print "[!] Problem loading %s" % exename
+        print("[!] Problem loading %s" % exename
         sys.exit(2)
 else:
-    print "[!] Blank filename specified"
+    print("[!] Blank filename specified"
     sys.exit(3)
 
 

@@ -32,17 +32,17 @@ def test_remote():
             response = urllib2.urlopen(request)
             content  = response.read()
 
-            print "[%d] => %s" % (response.code,path) 
+            print("[%d] => %s" % (response.code,path) 
 
             response.close()
         
         except urllib2.HTTPError as error: 
-            #print "Failed %s" % error.code
+            #print("Failed %s" % error.code
             pass
         
         
 
 for i in range(threads): 
-    print "Spawning thread: %d" % i
+    print("Spawning thread: %d" % i
     t = threading.Thread(target=test_remote)
     t.start()

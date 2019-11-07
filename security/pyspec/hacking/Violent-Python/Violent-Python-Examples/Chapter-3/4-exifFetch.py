@@ -10,7 +10,7 @@ from PIL.ExifTags import TAGS
 
 
 def findImages(url):
-    print '[+] Finding images on ' + url
+    print('[+] Finding images on ' + url
     urlContent = urllib2.urlopen(url).read()
     soup = BeautifulSoup(urlContent)
     imgTags = soup.findAll('img')
@@ -19,7 +19,7 @@ def findImages(url):
 
 def downloadImage(imgTag):
     try:
-        print '[+] Dowloading image...'
+        print('[+] Dowloading image...'
         imgSrc = imgTag['src']
         imgContent = urllib2.urlopen(imgSrc).read()
         imgFileName = basename(urlsplit(imgSrc)[2])
@@ -42,7 +42,7 @@ def testForExif(imgFileName):
                 exifData[decoded] = value
             exifGPS = exifData['GPSInfo']
             if exifGPS:
-                print '[*] ' + imgFileName + \
+                print('[*] ' + imgFileName + \
                  ' contains GPS MetaData'
     except:
         pass
@@ -57,7 +57,7 @@ def main():
     (options, args) = parser.parse_args()
     url = options.url
     if url == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         imgTags = findImages(url)

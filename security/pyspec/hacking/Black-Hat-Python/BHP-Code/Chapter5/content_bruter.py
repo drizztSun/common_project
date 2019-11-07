@@ -30,7 +30,7 @@ def build_wordlist(wordlist_file):
             else:
                 if word == resume:
                     found_resume = True
-                    print "Resuming wordlist from: %s" % resume
+                    print("Resuming wordlist from: %s" % resume
                                         
         else:
             words.put(word)
@@ -71,12 +71,12 @@ def dir_bruter(extensions=None):
                 response = urllib2.urlopen(r)
                 
                 if len(response.read()):
-                    print "[%d] => %s" % (response.code,url)
+                    print("[%d] => %s" % (response.code,url)
                     
             except urllib2.HTTPError,e:
 
                 if e.code != 404:
-                    print "!!! %d => %s" % (e.code,url)
+                    print("!!! %d => %s" % (e.code,url)
                 
                 pass
 

@@ -22,7 +22,7 @@ def main():
         handlePkt(pkt)
     
     for item in dnsRecords:
-        print '[+] '+item+' has '+str(len(dnsRecords[item])) \
+        print('[+] '+item+' has '+str(len(dnsRecords[item])) \
             + ' unique IPs.'
 
 

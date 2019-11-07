@@ -44,11 +44,11 @@ def main():
     keyword = options.keyword
 
     if options.keyword == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         results = google(keyword)
-        print results
+        print(results
 
 
 if __name__ == '__main__':

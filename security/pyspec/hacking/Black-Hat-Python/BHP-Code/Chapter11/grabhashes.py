@@ -34,11 +34,11 @@ for offset in registry.all_offsets:
     
     if registry.all_offsets[offset].endswith("\\SAM"):
         sam_offset = offset
-        print "[*] SAM: 0x%08x" % offset
+        print("[*] SAM: 0x%08x" % offset
     
     if registry.all_offsets[offset].endswith("\\system"):
         sys_offset = offset
-        print "[*] System: 0x%08x" % offset
+        print("[*] System: 0x%08x" % offset
     
     if sam_offset is not None and sys_offset is not None:
         config.sys_offset = sys_offset
@@ -47,9 +47,9 @@ for offset in registry.all_offsets:
         hashdump = HashDump(config)
         
         for hash in hashdump.calculate():
-            print hash
+            print(hash
         
         break
 
 if sam_offset is None or sys_offset is None:
-    print "[*] Failed to find the system or SAM offsets."
+    print("[*] Failed to find the system or SAM offsets."

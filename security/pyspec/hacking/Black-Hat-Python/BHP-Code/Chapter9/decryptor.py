@@ -49,4 +49,4 @@ while offset < len(encrypted):
 # now we decompress to original
 plaintext = zlib.decompress(decrypted)
     
-print plaintext
+print(plaintext

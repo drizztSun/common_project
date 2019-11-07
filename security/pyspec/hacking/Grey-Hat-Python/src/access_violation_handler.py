@@ -13,7 +13,7 @@ def check_accessv(dbg):
 
     crash_bin = utils.crash_binning.crash_binning()
     crash_bin.record_crash(dbg)
-    print crash_bin.crash_synopsis()
+    print(crash_bin.crash_synopsis()
     
     dbg.terminate_process()
     

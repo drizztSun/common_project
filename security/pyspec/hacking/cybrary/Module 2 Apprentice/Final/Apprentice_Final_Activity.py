@@ -7,32 +7,32 @@ def remove_letter(): #Remove a selected letter from a string
     letter_remove = str(raw_input("Enter Letter: "))
 
     letter_remove = letter_remove[0]
-    print "New String: %s" % base_string.strip(letter_remove)
+    print("New String: %s" % base_string.strip(letter_remove)
     return
 
 def num_compare(): #Compare 2 numbers to determine the larger
-    print "Number Compare"
+    print("Number Compare"
     num1 = int(raw_input("Enter First Number: "))
     num2 = int(raw_input("Enter Second Number: "))
     if num1 > num2 :
-        print "First number is larger"
+        print("First number is larger"
     elif num1 < num2 :
-        print "Second number is larger"
+        print("Second number is larger"
     else :
-        print "The numbers are equal"
+        print("The numbers are equal"
     return
 
-def print_string(): #Print the previously stored string
-    print "String: %s" % saved_string
+def print_string(): #print(the previously stored string
+    print("String: %s" % saved_string
     return
 
 def calculator(): #Basic Calculator (addition, subtraction, multiplication, division)
-    print "Calculator"
+    print("Calculator"
     num1 = int(raw_input("Enter the First Number: "))
     sign = str(raw_input("Enter the Action: "))
     num2 = int(raw_input("Enter the Second Number: "))
     sign_dict = {"+" : operator.add, "-" : operator.sub, "*" : operator.mul, "\\" : operator.div}
-    print sign_dict[sign](num1, num2)
+    print(sign_dict[sign](num1, num2)
     return
     
     
@@ -50,12 +50,12 @@ def main(): #menu goes here
                 num_compare,
                 remove_letter]
     while True:
-        print "Select Option:"
-        print "1\tAccept and Store"
-        print "2\tCalculator"
-        print "3\tPrint Stored String"
-        print "4\tNumber Comparison"
-        print "5\tLetter Remover"
+        print("Select Option:"
+        print("1\tAccept and Store"
+        print("2\tCalculator"
+        print("3\tprint(Stored String"
+        print("4\tNumber Comparison"
+        print("5\tLetter Remover"
     
         opt_choice = int(raw_input("Enter your selection: "))
         opt_choice -= 1

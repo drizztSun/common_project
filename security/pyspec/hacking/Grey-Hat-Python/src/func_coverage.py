@@ -4,7 +4,7 @@ class FuncCoverage(DBG_Hooks):
 
     # Our breakpoint handler
     def dbg_bpt(self, tid, ea):
-        print "[*] Hit: 0x%08x" % ea
+        print("[*] Hit: 0x%08x" % ea
         return 1
 
 # Add our function coverage debugger hook
@@ -21,4 +21,4 @@ for function in Functions(SegStart( current_addr ), SegEnd( current_addr )):
 
 num_breakpoints = GetBptQty()
 
-print "[*] Set %d breakpoints." % num_breakpoints
+print("[*] Set %d breakpoints." % num_breakpoints

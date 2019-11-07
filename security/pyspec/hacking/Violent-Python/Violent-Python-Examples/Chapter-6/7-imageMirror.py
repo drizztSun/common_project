@@ -18,7 +18,7 @@ def mirrorImages(url, dir):
         filename = image['src'].lstrip('http://')
         filename = os.path.join(dir,\
 	  filename.replace('/', '_'))
-        print '[+] Saving ' + str(filename)
+        print('[+] Saving ' + str(filename)
         data = ab.open(image['src']).read()
         ab.back()
         save = open(filename, 'wb')
@@ -41,15 +41,15 @@ def main():
     dir = options.dir
 
     if url == None or dir == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     
     else:
         try:
             mirrorImages(url, dir)
         except Exception, e:
-            print '[-] Error Mirroring Images.'
-            print '[-] ' + str(e)
+            print('[-] Error Mirroring Images.'
+            print('[-] ' + str(e)
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ def printCookies(url):
     browser.set_cookiejar(cookie_jar)
     page = browser.open(url)
     for cookie in cookie_jar:
-	print cookie
+	print(cookie
 
 url = 'http://www.syngress.com/'
 printCookies(url)

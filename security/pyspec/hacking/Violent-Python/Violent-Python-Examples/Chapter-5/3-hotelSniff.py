@@ -10,7 +10,7 @@ def findGuest(pkt):
     name = re.findall('(?i)LAST_NAME=(.*)&', raw)
     room = re.findall("(?i)ROOM_NUMBER=(.*)'", raw)
     if name:
-        print '[+] Found Hotel Guest ' + str(name[0])+\
+        print('[+] Found Hotel Guest ' + str(name[0])+\
           ', Room #' + str(room[0])
 
 
@@ -22,13 +22,13 @@ def main():
     (options, args) = parser.parse_args()
 
     if options.interface == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         conf.iface = options.interface
 
     try:
-        print '[*] Starting Hotel Guest Sniffer.'
+        print('[*] Starting Hotel Guest Sniffer.'
         sniff(filter='tcp', prn=findGuest, store=0)
     except KeyboardInterrupt:
         exit(0)

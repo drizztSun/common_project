@@ -21,7 +21,7 @@ def checkVulns(banner, filename):
     f = open(filename, 'r')
     for line in f.readlines():
         if line.strip('\n') in banner:
-            print '[+] Server is vulnerable: ' +\
+            print('[+] Server is vulnerable: ' +\
                 banner.strip('\n')
 
 
@@ -30,16 +30,16 @@ def main():
     if len(sys.argv) == 2:
         filename = sys.argv[1]
         if not os.path.isfile(filename):
-            print '[-] ' + filename +\
+            print('[-] ' + filename +\
                 ' does not exist.'
             exit(0)
 
         if not os.access(filename, os.R_OK):
-            print '[-] ' + filename +\
+            print('[-] ' + filename +\
                 ' access denied.'
             exit(0)
     else:   
-        print '[-] Usage: ' + str(sys.argv[0]) +\
+        print('[-] Usage: ' + str(sys.argv[0]) +\
             ' <vuln filename>'
         exit(0)
 
@@ -49,7 +49,7 @@ def main():
         for port in portList:
             banner = retBanner(ip, port)
             if banner:
-                print '[+] ' + ip + ' : ' + banner
+                print('[+] ' + ip + ' : ' + banner
                 checkVulns(banner, filename)
 
 

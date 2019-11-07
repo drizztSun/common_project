@@ -61,7 +61,7 @@ def main():
     else:
         src = options.src
     if options.tgt == None:
-        print parser.usage
+        print(parser.usage
         exit(0)
     else:
         dst = options.tgt

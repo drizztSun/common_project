@@ -8,9 +8,9 @@ def passcrack(pass_hash):
         m.update(str(i))
         test_hash = m.hexdigest()
         if (test_hash != pass_hash):
-            print "Failed: %s\t%s" % (test_hash, pass_hash)
+            print("Failed: %s\t%s" % (test_hash, pass_hash)
         else:
-            print "Success: %d" % i
+            print("Success: %d" % i
             return
 
 m=md5()

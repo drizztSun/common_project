@@ -139,7 +139,7 @@ def server_loop(local_host,local_port,remote_host,remote_port,receive_first):
         while True:
                 client_socket, addr = server.accept()
                
-                # print out the local connection information
+                # print(out the local connection information
                 print("[==>] Received incoming connection from %s:%d" % (addr[0],addr[1]))
                 
                 # start a thread to talk to the remote host

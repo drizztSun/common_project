@@ -61,14 +61,14 @@ class debugger():
                                    byref(startupinfo),
                                    byref(process_information)):
             
-            print "[*] We have successfully launched the process!"
-            print "[*] The Process ID I have is: %d" % \
+            print("[*] We have successfully launched the process!"
+            print("[*] The Process ID I have is: %d" % \
                          process_information.dwProcessId
             self.pid = process_information.dwProcessId
             self.h_process = self.open_process(self,process_information.dwProcessId)
             self.debugger_active = True
         else:    
-            print "[*] Error with error code %d." % kernel32.GetLastError()
+            print("[*] Error with error code %d." % kernel32.GetLastError()
 
     def open_process(self,pid):
         
@@ -88,7 +88,7 @@ class debugger():
             self.pid             = int(pid)
                                   
         else:
-            print "[*] Unable to attach to the process."
+            print("[*] Unable to attach to the process."
             
     def run(self):
         
@@ -109,7 +109,7 @@ class debugger():
             self.debug_event       = debug_event
             
                        
-            print "Event Code: %d Thread ID: %d" % \
+            print("Event Code: %d Thread ID: %d" % \
                 (debug_event.dwDebugEventCode,debug_event.dwThreadId)
             
             if debug_event.dwDebugEventCode == EXCEPTION_DEBUG_EVENT:
@@ -118,11 +118,11 @@ class debugger():
                 
                 # call the internal handler for the exception event that just occured.
                 if self.exception == EXCEPTION_ACCESS_VIOLATION:
-                    print "Access Violation Detected."
+                    print("Access Violation Detected."
                 elif self.exception == EXCEPTION_BREAKPOINT:
                     continue_status = self.exception_handler_breakpoint()
                 elif self.exception == EXCEPTION_GUARD_PAGE:
-                    print "Guard Page Access Detected."
+                    print("Guard Page Access Detected."
                 elif self.exception == EXCEPTION_SINGLE_STEP:
                     self.exception_handler_single_step()
                 
@@ -132,10 +132,10 @@ class debugger():
     def detach(self):
         
         if kernel32.DebugActiveProcessStop(self.pid):
-            print "[*] Finished debugging. Exiting..."
+            print("[*] Finished debugging. Exiting..."
             return True
         else:
-            print "There was an error"
+            print("There was an error"
             return False
     
     def open_thread (self, thread_id):
@@ -145,7 +145,7 @@ class debugger():
         if h_thread is not None:
             return h_thread
         else:
-            print "[*] Could not obtain a valid thread handle."
+            print("[*] Could not obtain a valid thread handle."
             return False
         
     def enumerate_threads(self):
@@ -216,7 +216,7 @@ class debugger():
             return True
     
     def bp_set(self,address):
-        print "[*] Setting breakpoint at: 0x%08x" % address
+        print("[*] Setting breakpoint at: 0x%08x" % address
         if not self.breakpoints.has_key(address):
 
             # store the original byte
@@ -237,7 +237,7 @@ class debugger():
 
     
     def exception_handler_breakpoint(self):
-        print "[*] Exception address: 0x%08x" % self.exception_address
+        print("[*] Exception address: 0x%08x" % self.exception_address
         # check if the breakpoint is one that we set
         if not self.breakpoints.has_key(self.exception_address):
            
@@ -245,11 +245,11 @@ class debugger():
                 # then let's just continue on
                 if self.first_breakpoint == True:
                    self.first_breakpoint = False
-                   print "[*] Hit the first breakpoint."
+                   print("[*] Hit the first breakpoint."
                    return DBG_CONTINUE
                
         else:
-            print "[*] Hit user defined breakpoint."
+            print("[*] Hit user defined breakpoint."
             # this is where we handle the breakpoints we set 
             # first put the original byte back
             self.write_process_memory(self.exception_address, self.breakpoints[self.exception_address])
@@ -332,7 +332,7 @@ class debugger():
         return True
     
     def exception_handler_single_step(self):
-        print "[*] Exception address: 0x%08x" % self.exception_address
+        print("[*] Exception address: 0x%08x" % self.exception_address
         # Comment from PyDbg:
         # determine if this single step event occured in reaction to a hardware breakpoint and grab the hit breakpoint.
         # according to the Intel docs, we should be able to check for the BS flag in Dr6. but it appears that windows
@@ -354,7 +354,7 @@ class debugger():
         if self.bp_del_hw(slot):
             continue_status = DBG_CONTINUE
 
-        print "[*] Hardware breakpoint removed."
+        print("[*] Hardware breakpoint removed."
         return continue_status
     
     def bp_del_hw(self,slot):

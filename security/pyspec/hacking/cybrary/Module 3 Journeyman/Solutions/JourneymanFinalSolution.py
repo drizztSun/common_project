@@ -13,8 +13,8 @@ class datasave:
         self.data = data
         return
     def load(self, connection):
-        print "\nLOAD FILE"
-        print "%s:\t%s" % (self.name , self.data)
+        print("\nLOAD FILE"
+        print("%s:\t%s" % (self.name , self.data)
         connection.send(self.data)
         connection.close()
         return
@@ -57,7 +57,7 @@ def main():
                 found_file = False #Always reset sentinels
 
         else:
-            print mode
+            print(mode
             sentinel = True
             
     s.close()

@@ -26,7 +26,7 @@ def python_read_file(filename = ''):
     data = create_string_buffer(4096)
     read_data = c_int(0)
     windll.Kernel32.ReadFile(file_handle,byref(data),4096,byref(read_data),0)
-    print data.value
+    print(data.value
     return
 
 '''2.4 Regex: Write a regular expression to search a data block for a 
@@ -34,8 +34,8 @@ string contained in <> (html-style) brackets. IE: <span color=black>'''
 def regex_html(data):
     html_match = re.compile("<.*>")
     html_results = re.search(html_match, data)
-    print data
-    print html_results.group()
+    print(data
+    print(html_results.group()
     return
     
 
@@ -44,17 +44,17 @@ phone numbers in the form of (xxx) xxx-xxxx'''
 def regex_phone(data):
     phone_match = re.compile("\(\d{3}\) \d{3}-\d{4}")
     phone_results = re.search(phone_match, data)
-    print data
-    print phone_results.group()
+    print(data
+    print(phone_results.group()
     return
 
 '''2.6 Regex: Write a regular expression to find every instance of the 
 phrase "Nobody expects" and replace it with "The Spanish Inquisition"'''
 def monty_python(data):
     ne_string = re.compile("Nobody expects")
-    print data
+    print(data
     data = re.sub(ne_string, "The Spanish Inquisition", data)
-    print data
+    print(data
         
     return
 

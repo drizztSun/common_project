@@ -28,7 +28,7 @@ class BHPFuzzer(IIntruderPayloadGenerator):
     self._extender = extender
     self._helpers  = extender._helpers
     self._attack   = attack
-    print "BHP Fuzzer initialized"
+    print("BHP Fuzzer initialized"
     self.max_payloads = 1000
     self.num_payloads = 0
 
@@ -36,12 +36,12 @@ class BHPFuzzer(IIntruderPayloadGenerator):
 
 
   def hasMorePayloads(self):
-    print "hasMorePayloads called."
+    print("hasMorePayloads called."
     if self.num_payloads == self.max_payloads:
-      print "No more payloads."
+      print("No more payloads."
       return False
     else:
-      print "More payloads. Continuing."
+      print("More payloads. Continuing."
       return True
 
 
