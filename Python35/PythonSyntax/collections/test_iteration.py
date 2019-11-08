@@ -5,6 +5,18 @@
 # Python supports a concept of iteration over containers. This is implemented using two distinct methods; these are used to allow user-defined classes to support iteration.
 # Sequences, described below in more detail, always support the iteration methods.
 
+# Collections.abs.Iterator
+
+# iterator
+# An object representing a stream of data. Repeated calls to the iterator’s __next__() method (or passing it to the built-in function next()) return successive items in the stream.
+# When no more data are available a StopIteration exception is raised instead.
+# At this point, the iterator object is exhausted and any further calls to its __next__() method just raise StopIteration again.
+# Iterators are required to have an __iter__() method that returns the iterator object itself so every iterator is also iterable and may be used in most places where other iterables are accepted.
+# One notable exception is code which attempts multiple iteration passes. A container object (such as a list) produces a fresh new iterator each time you pass it to the iter() function or use it in a for loop.
+# Attempting this with an iterator will just return the same exhausted iterator object used in the previous iteration pass, making it appear like an empty container.
+
+# More information can be found in Iterator Types.
+
 # One method needs to be defined for container objects to provide iteration support:
 
 # *** container.__iter__()
@@ -30,7 +42,6 @@
 # Implementations that do not obey this property are deemed broken.
 
 
-
 # *** next(iterator[, default])
 # Retrieve the next item from the iterator by calling its __next__() method.
 # If default is given, it is returned if the iterator is exhausted, otherwise StopIteration is raised.
@@ -41,13 +52,17 @@
 # If it does not support either of those protocols, TypeError is raised. If the second argument, sentinel, is given, then object must be a callable object.
 # The iterator created in this case will call object with no arguments for each call to its __next__() method; if the value returned is equal to sentinel, StopIteration will be raised, otherwise the value will be returned.
 
+from _collections_abc import Iterable, Iterator
+
+
 class Animal:
     def __init__(self, animal_list):
         self.animals_name = animal_list
 
     def __getitem__(self, index):
         if index == len(self.animals_name):
-            raise StopIteration # without raise, it get dead-loop. for ...in ... can capture this exception.
+            # without raise, it get dead-loop. for ...in ... can capture this exception.
+            raise StopIteration
 
         return self.animals_name[index]
 
@@ -65,7 +80,8 @@ class PrimeNumber:
 
     def __next__(self):
         if self._num > self._max_number:
-            raise StopIteration # without raise, it get dead-loop, for ...in ... can capture this exception.
+            # without raise, it get dead-loop, for ...in ... can capture this exception.
+            raise StopIteration
 
         self._num += 1
         return self._num
@@ -96,6 +112,84 @@ class ud_dict(dict):
     def __next__(self):
         return super().__next__()
 
+#
+
+
+class EvenNumber(Iterable):
+
+    """
+        Inherit from abs Iterable
+        Iterable only __iter__
+    """
+
+    def __init__(self, max_number):
+        self._max_number = max_number
+        self._num = 2
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self._num += 2
+        if self._num > self._max_number:
+            raise StopIteration
+        return self._num
+
+
+class OddNumber(Iterator):
+
+    """
+        Inherit from abs Iterator
+        Iterator has __iter__, __next__
+    """
+
+    def __init__(self, max_number):
+        self._max_number = max_number
+        self._num = 1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self._num += 2
+        if self._num > self._max_number:
+            raise StopIteration
+        return self._num
+
+
+def test_iterate_numbers():
+
+    even = EvenNumber(25)
+    for c in even:
+        print(c)
+
+    odd = OddNumber(25)
+    for c in odd:
+        print(c)
+
+
+def test_iterate_subclass():
+
+    # __subclasshook__
+    # Itertable ==> _check_methods(C, "__iter__")
+    # Iterator ==> _check_methods(C, '__iter__', '__next__')
+
+    print('EvenNumber subclass Iterable ', issubclass(EvenNumber, Iterable))
+
+    print('OddNumber subclass Iterable ', issubclass(OddNumber, Iterable))
+
+    print('EvenNumber subclass Iterator ', issubclass(EvenNumber, Iterator))
+
+    print('OddNumber subclass Iterator ', issubclass(OddNumber, Iterator))
+
+    print('ud_dict subclass Iterator ', issubclass(ud_dict, Iterator))
+
+    print('non_iter subclass Iterator ', issubclass(non_iter, Iterator))
+
+    print('Animal subclass Iterator ', issubclass(Animal, Iterator))
+
+    print('PrimeNumber subclass Iterator ', issubclass(PrimeNumber, Iterator))
+
 
 def test_iteration():
 
@@ -112,7 +206,7 @@ def test_iteration():
             print(c)
 
     if '__iter__' in dict_func and '__getitem__' in dict_func:
-        items = { 'a': 20, 'b': 30, 'c': 40}
+        items = {'a': 20, 'b': 30, 'c': 40}
         for key in items:
             print(items[key])
 
@@ -128,19 +222,17 @@ def test_iteration():
     iter_c = iter([1, 2, 3, 4, 5, 6])
     while True:
         try:
-            print( next(iter_c))
+            print(next(iter_c))
         except StopIteration:
             break
 
     iter_c = iter([1, 2, 3, 4, 5, 6])
-
 
     # user-defined class with iter
     for c in PrimeNumber(5):
         print(c)
     else:
         print("success to iterate PrimeNumber")
-
 
     # user-defined class
     animals = Animal(['cat', 'dog', 'human'])
@@ -155,10 +247,9 @@ def test_iteration():
     except TypeError as e:
         print(e)
 
-
     t = ud_dict(a=100, b=200, c=300)
     for c in t:
-        print( t[c] )
+        print(t[c])
 
 
 class mylist(list):
@@ -171,18 +262,27 @@ class mylist(list):
         c = super().__next__()
         return c
 
+
 def test_iteration_advanced():
 
-    print( dir(list))
-    print( dir(dict))
+    print(dir(list))
+    print(dir(dict))
 
     a = mylist()
+    a.append(1)
+    a.append(2)
+    a.append(3)
 
     for c in a:
         print(c)
 
+
 if __name__ == '__main__':
+
+    test_iterate_subclass()
 
     test_iteration_advanced()
 
     test_iteration()
+
+    test_iterate_numbers()
