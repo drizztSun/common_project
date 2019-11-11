@@ -1,11 +1,14 @@
 import datetime
 
+
 def main():
 
     for i in range(10):
         print(i)
     # print("Current time %s " % (datetime.datetime.now()))
 
+
+print("loading the pyc")
 
 if __name__ == '__main__':
 

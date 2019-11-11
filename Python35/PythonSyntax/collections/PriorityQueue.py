@@ -15,14 +15,12 @@ import itertools
 
 
 class PriorityQueue:
-    
 
     def __init__(self):
 
         self.__entry = {}
         self.__pq = []
         self.__cnt = itertools.count()
-        
 
     def add_task(self, task, priority):
 
@@ -33,21 +31,36 @@ class PriorityQueue:
         self.__entry[task] = entry
         heapq.heappush(self.__pq, entry)
 
-    def remove_task(task):
+    def remove_task(self, task):
+
         entry = self.__entry[task]
         entry[-1] = "REMOVED"
 
-    def pop_task():
-        while self.__pq:
+    def pop_task(self):
 
+        while self.__pq:
             priority, cnt, task = heapq.heappop(self.__pq)
             if task is not "REMOVED":
                 del self.__entry[task]
                 return task
         else:
-            raise KeyError('pop from an empty priority queue')
-        
+            #raise KeyError('pop from an empty priority queue')
+            raise StopIteration
 
 
-    
-    
+if __name__ == '__main__':
+
+    q = PriorityQueue()
+
+    q.add_task('moveleft', 1)
+    q.add_task('moveleft', 1)
+    q.add_task('moveforward', 1)
+    q.add_task('bing', 2)
+    q.add_task('jump', 1)
+    q.add_task('delte', 3)
+
+    q.remove_task('moveleft')
+
+    for c in q.pop_task():
+        print(c)
+    pass

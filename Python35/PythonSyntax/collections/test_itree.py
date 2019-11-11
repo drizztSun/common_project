@@ -3,6 +3,11 @@ from collections import defaultdict, Mapping, MutableMapping
 from warnings import warn
 
 
+# It happens, because Python built-in dict is implemented on C and its methods are independent of one another.
+# It is done for performance, I guess.
+# So what you really need is Mapping (read-only) or MutableMapping abstract base classes from collections.abc module.
+# The classes provide full dictionary interface based on a handful of abstract methods you have to override and they work as expected.
+
 __all__ = ['ITree', 'Tree', 'flatten', 'rarefy']
 
 
