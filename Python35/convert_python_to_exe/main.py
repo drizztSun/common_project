@@ -19,6 +19,8 @@ if __name__ == '__main__':
 
 # pyinstaller --onefile -w main.py
 
+# pyinstaller --onefile main.py # on windows
+
 #  install 'pyinstaller'
 # pip install pyinstaller
 
@@ -40,3 +42,29 @@ if __name__ == '__main__':
 #                   [--distpath DIR] [--workpath WORKPATH] [-y]
 #                   [--upx-dir UPX_DIR] [-a] [--clean] [--log-level LEVEL]
 #                   scriptname [scriptname ...]
+
+
+import compileall
+
+compileall.compile_dir('Lib/', force=True)
+
+# Perform same compilation, excluding files in .svn directories.
+import re
+compileall.compile_dir('Lib/', rx=re.compile(r'[/\\][.]svn'), force=True)
+
+# pathlib.Path objects can also be used.
+import pathlib
+compileall.compile_dir(pathlib.Path('Lib/'), force=True)
+
+
+
+# The py_compile module provides a function to generate a byte-code file from a source file, 
+# and another function used when the module source file is invoked as a script.
+
+# Though not often needed, this function can be useful when installing modules for shared use, 
+# especially if some of the users may not have permission to write the byte-code cache files in the directory containing the source code.
+
+# Lib/py_compile.py
+import py_compile
+
+py_compile.compile('dir/main.py')
