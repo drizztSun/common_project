@@ -1,4 +1,21 @@
 
+def binary_search(a, s):
+
+    l, h = 0, len(a)
+
+    while l < h:
+
+        mid = l + (h-l) // 2
+
+        if a[mid] == s:
+            return mid
+        elif a[mid] > s:
+            h = mid
+        else:
+            l = mid + 1
+
+    return -1
+
 
 def select_sort(a):
 
@@ -99,6 +116,9 @@ def heap_sort(a):
 
 
 if __name__ == '__main__':
+
+    for i in range(12):
+        print('%d in pos: %d' % (i, binary_search([1, 3, 5, 7, 9, 11], i)))
 
     print(select_sort([1, 7, 2, 6, 3, 5, 4]))
 
