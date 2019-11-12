@@ -5,7 +5,8 @@ def heapsort(iterable):
     h = []
     for val in iterable:
         heapq.heappush(h, val)
-    return [ heapq.heappop(h) for i in range(len(h)) ]
+    return [heapq.heappop(h) for i in range(len(h))]
+
 
 def heapsort1(h):
     # h = [1, 6, 2, 5, 4, 3]
@@ -15,27 +16,28 @@ def heapsort1(h):
     print("sort results")
     print([heapq.heappop(h) for _ in range(len(h))])
 
+
 def heap_nlarget_nsmallest():
 
     h = [1, 6, 2, 5, 4, 3, 7]
     heapq.heapify(h)
-    
-    # Return a list with the n largest elements from the dataset defined by iterable. 
-    # key, if provided, specifies a function of one argument that is used to extract a comparison key from each element in the iterable: 
+
+    # Return a list with the n largest elements from the dataset defined by iterable.
+    # key, if provided, specifies a function of one argument that is used to extract a comparison key from each element in the iterable:
     # key=str.lower Equivalent to: sorted(iterable, key=key, reverse=True)[:n]
     print(heapq.nlargest(3, [1, 6, 2, 5, 4, 3, 7]))
-    
 
-    # Return a list with the n smallest elements from the dataset defined by iterable. 
-    # key, if provided, specifies a function of one argument that is used to extract a comparison key from each element in the iterable: 
+    # Return a list with the n smallest elements from the dataset defined by iterable.
+    # key, if provided, specifies a function of one argument that is used to extract a comparison key from each element in the iterable:
     # key=str.lower Equivalent to: sorted(iterable, key=key)[:n]
     print(heapq.nsmallest(3, [1, 6, 2, 5, 4, 3, 7]))
 
+
 def heap_merge(*iterable):
-    # Merge multiple sorted inputs into a single sorted output (for example, merge timestamped entries from multiple log files). 
+    # Merge multiple sorted inputs into a single sorted output (for example, merge timestamped entries from multiple log files).
     # Returns an iterator over the sorted values.
 
-    # Similar to sorted(itertools.chain(*iterables)) but returns an iterable, does not pull the data into memory all at once, 
+    # Similar to sorted(itertools.chain(*iterables)) but returns an iterable, does not pull the data into memory all at once,
     # and assumes that each of the input streams is already sorted (smallest to largest).
     print(list(heapq.merge(iterable)))
 
@@ -45,7 +47,7 @@ def main():
     print(" --- Test heapq --- ")
 
     A = [1, 6, 2, 5, 4, 3]
-    
+
     print(heapsort(A))
 
     c = [1, 6, 2, 5, 4, 3, 7]
@@ -62,7 +64,7 @@ def main():
 
     print(h)
 
-    # Pop and return the smallest item from the heap, maintaining the heap invariant. 
+    # Pop and return the smallest item from the heap, maintaining the heap invariant.
     # If the heap is empty, IndexError is raised. To access the smallest item without popping it, use heap[0].
     print(heapq.heappop(h))
 
@@ -74,10 +76,9 @@ def main():
     except IndexError as e:
         print(e)
 
-    # Push item on the heap, then pop and return the smallest item from the heap. 
+    # Push item on the heap, then pop and return the smallest item from the heap.
     # The combined action runs more efficiently than heappush() followed by a separate call to heappop().
     print(heapq.heappushpop(h, (1, "write spec")))
-
 
     # Pop and return the smallest item from the heap, and also push the new item. The heap size doesn’t change. If the heap is empty, IndexError is raised.
 
@@ -93,7 +94,6 @@ def main():
             heapq.heapreplace(h, i + 8)
     except IndexError as e:
         print*(e)
-    
 
     heap_nlarget_nsmallest()
 
@@ -101,6 +101,7 @@ def main():
 
     print(" --- Test heapq --- ")
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
 
     main()
