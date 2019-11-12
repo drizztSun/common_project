@@ -1,4 +1,44 @@
-from collections import defaultdict, OrderedDict, UserDict
+from collections import defaultdict, OrderedDict, UserDict, Counter
+
+
+def test_counter():
+
+    cnt = Counter('this is the test for counter')
+    print(cnt)
+
+    cnt1 = Counter({'red': 4, 'blue': 2})
+    print(cnt1)
+
+    cnt2 = Counter(cats=4, dogs=8)
+    print(cnt2)
+
+    print(list(cnt.elements()))
+    print(sorted(cnt.elements()))
+
+    print(cnt.most_common(4))  # most 4 elements
+
+    print(cnt)
+    cnt.subtract(Counter(a=1, b=1, i=3, o=1))
+    print(cnt)
+
+    # Elements are counted from an iterable or added-in from another mapping (or counter). Like dict.update() but adds counts instead of replacing them.
+    # Also, the iterable is expected to be a sequence of elements, not a sequence of (key, value) pairs.
+    cnt.update(Counter(a=1, b=1, i=3, o=1))
+    print(cnt)
+
+    # +, - & |
+    c1 = Counter(a=3, b=1)
+    c2 = Counter(a=1, b=2)
+
+    print(c1 + c2)  # add two counters together:  c[x] + d[x]
+    print(c1 - c2)  # subtract (keeping only positive counts)
+    print(c1 & c2)  # intersection:  min(c[x], d[x]) # doctest: +SKIP
+    print(c1 | c2)  # union:  max(c[x], d[x])
+
+    # Unary addition and subtraction are shortcuts for adding an empty counter or subtracting from an empty counter.
+    c = Counter(a=2, b=-5)
+    print(+c)
+    print(-c)
 
 
 def test_defaultdict():
@@ -131,7 +171,7 @@ class LastUpdatedOrderedDict(OrderedDict):
 class LRU(OrderedDict):
     'Limit size, evicting the least recently looked-up key when full'
 
-    def __init__(self, maxsize=128, / , *args, **kwds):
+    def __init__(self, maxsize=128, *args, **kwds):
         self.maxsize = maxsize
         super().__init__(*args, **kwds)
 
@@ -145,6 +185,14 @@ class LRU(OrderedDict):
         if len(self) > self.maxsize:
             oldest = next(iter(self))
             del self[oldest]
+
+
+class myUserDict(UserDict):
+
+    def __init__(self):
+        super().__init__()
+        self['a'] = 0
+        self['b'] = 0
 
 
 def test_userdict():
@@ -163,11 +211,42 @@ def test_userdict():
     # data
     # A real dictionary used to store the contents of the UserDict class.
 
-    ud = UserDict(OrderedDict)
+    m = myUserDict()
+    m['a'] = 5
+    m['b'] = 7
+
+    print(m)
+
+    return
+    
+    c = UserDict(dict=dict)
+
+    c['blue'] = 100
+    c['yellow'] = 200
+    c['red'] = 300
+
+    c['black'] = 400
+    print(c)
+
+    print(c.popitem(False))  # FIFO
+    print(c)
+
+    print(c.popitem(True))  # LIFO
+    print(c)
+
+    c.move_to_end('yellow', True)  # move to the right
+    print(c)
+
+    c.move_to_end('yellow', False)  # move to the left
+    print(c)
 
 
 if __name__ == "__main__":
 
+    test_counter()
+
     test_defaultdict()
 
     test_orderdict()
+
+    test_userdict()

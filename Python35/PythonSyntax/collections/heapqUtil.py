@@ -93,7 +93,7 @@ def main():
         for i in range(1, len(h) + 1):
             heapq.heapreplace(h, i + 8)
     except IndexError as e:
-        print*(e)
+        print(e)
 
     heap_nlarget_nsmallest()
 
