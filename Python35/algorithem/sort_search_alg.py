@@ -60,7 +60,38 @@ def quick_sort(a):
 
 
 def merge_sort(a):
-    pass
+
+    def merge(a, i, j, step):
+        s, e1, e2 = i, j, min(j + step, len(a))
+        b = []
+        while i < e1 and j < e2:
+            if a[i] < a[j]:
+                b.append(a[i])
+                i += 1
+            else:
+                b.append(a[j])
+                j += 1
+
+        if j == e1:
+            return
+
+        if i == e1:
+            b.extend(a[j:e2])
+        else:
+            b.extend(a[i:e1])
+
+        a[s:e2] = b
+
+    step = 1
+    while step < len(a):
+        i = 0
+        while i < len(a):
+            if i + step < len(a):
+                merge(a, i, i + step, step)
+            i += step * 2
+        step *= 2
+
+    return a
 
 
 def heap_sort(a):
@@ -76,3 +107,5 @@ if __name__ == '__main__':
     print(bubble_sort([1, 7, 2, 6, 3, 5, 4]))
 
     print(quick_sort([1, 7, 2, 6, 3, 5, 4]))
+
+    print(merge_sort([1, 7, 2, 6, 3, 5, 4]))
