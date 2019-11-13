@@ -22,7 +22,7 @@ func get(w http.ResponseWriter, r *http.Request) {
 	})
 
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("Content-Type", "apllication/json")	
+	w.Header().Add("Content-Type", "apllication/json")
 	//io.WriteString(w, data)
 	w.Write(data)
 }

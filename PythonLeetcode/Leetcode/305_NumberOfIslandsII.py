@@ -1,6 +1,5 @@
 
 
-
 # 305. Number of Islands II
 
 # A 2d grid map of m rows and n columns is initially filled with water.
@@ -47,7 +46,6 @@
 # <hard> <important>
 class NumberOfIslandII(object):
 
-
     # <union-find>
     def doit(self, m, n, posiitons):
         """
@@ -62,36 +60,32 @@ class NumberOfIslandII(object):
 
         def root(id):
             while parent[id] != id:
-                parent[id] = parent[parent[id]] # Path Suspress, child points to father's father
+                # Path Suspress, child points to father's father
+                parent[id] = parent[parent[id]]
                 id = parent[id]
             return id
 
-        for x, y in posiitons:            
+        for x, y in posiitons:
             id = x * n + y
             parent[id] = id
-            lands += 1 
+            lands += 1
             nears = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
 
             for nx, ny in nears:
                 nid = nx * n + ny
-                if 0<= nx < n and 0<= ny < m and parent[nid] != -1:
+                if 0 <= nx < n and 0 <= ny < m and parent[nid] != -1:
                     rootid = root(nid)
                     if rootid != id:
                         parent[rootid] = id
                         lands -= 1
-            
+
             result.append(lands)
-        return result 
-                        
-                        
+        return result
 
 
+if __name__ == "__main__":
 
-if __name__=="__main__":
-
-
-    res = NumberOfIslandII().doit(3, 3, [[0,0], [0,1], [1,2], [2,1]]) # [1, 1, 2, 3]
-
-        
+    res = NumberOfIslandII().doit(
+        3, 3, [[0, 0], [0, 1], [1, 2], [2, 1]])  # [1, 1, 2, 3]
 
     pass

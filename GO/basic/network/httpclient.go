@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"net/url"
 	"io/ioutil"
 	//"encoding/json"
 )
@@ -57,7 +58,7 @@ func test_basic_http() {
 		resp *http.Response
 		host = "http://127.0.0.1:8080/"
 	)
-	
+
 	if resp, err = http.Get(host); err != nil {
 		fmt.Println("Error happened : ", err.Error())
 	}

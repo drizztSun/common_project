@@ -113,23 +113,23 @@ class Solution:
     # # <union-find>
     def swimInWater(self, grid):
         
-        def zhaobaba(x, y):
-            if baba[x][y] == (x, y):
-                return baba[x][y]
-            baba[x][y] = zhaobaba(baba[x][y][0], baba[x][y][1])
-            return baba[x][y]
-        
-        def hebing(a, b):
-            a = zhaobaba(a[0], a[1])
-            b = zhaobaba(b[0], b[1])
+        def findParent(x, y):
+            if parent[x][y] == (x, y):
+                return parent[x][y]
+            parent[x][y] = findParent(parent[x][y][0], parent[x][y][1])
+            return parent[x][y]
+
+        def union(a, b):
+            a = findParent(a[0], a[1])
+            b = findParent(b[0], b[1])
             if size[a[0]][a[1]] < size[b[0]][b[1]]:
-                baba[a[0]][a[1]] = b
+                parent[a[0]][a[1]] = b
                 size[b[0]][b[1]] += size[a[0]][a[1]]
             else:
-                baba[b[0]][b[1]] = a
+                parent[b[0]][b[1]] = a
                 size[a[0]][a[1]] += size[b[0]][b[1]]
             
-        WEI = [[-1, 0], [0, -1], [1, 0], [0, 1]]
+        WAYS = [[-1, 0], [0, -1], [1, 0], [0, 1]]
         
         pos = {}
         m = len(grid)
@@ -138,24 +138,24 @@ class Solution:
             for j in range(n):
                 pos[grid[i][j]] = (i, j)
                 
-        baba = []
+        parent = []
         size = []
         for i in range(m):
             new_list = []
             for j in range(n):
                 new_list.append((i, j))
-            baba.append(new_list)
+            parent.append(new_list)
             size.append([1] * n)
-        
+
         for i in range(m * n):
             x, y = pos[i]
-            for wei in WEI:
-                tx = x + wei[0]
-                ty = y + wei[1]
+            for w in WAYS:
+                tx = x + w[0]
+                ty = y + w[1]
                 if tx >= 0 and tx < m and ty >= 0 and ty < n:
                     if grid[tx][ty] <= i:
-                        hebing((x, y), (tx, ty))
-                        if zhaobaba(0, 0) == zhaobaba(m - 1, n - 1):
+                        union((x, y), (tx, ty))
+                        if findParent(0, 0) == findParent(m - 1, n - 1):
                             return i
 
 
