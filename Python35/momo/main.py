@@ -163,7 +163,7 @@ if __name__ == '__main__':
     print(dir(__builtins__))
 
 
-    test_list()
+    
 
     a = 1234567890
     b = 9876543210
