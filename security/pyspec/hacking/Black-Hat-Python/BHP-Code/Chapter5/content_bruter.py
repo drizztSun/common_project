@@ -71,12 +71,12 @@ def dir_bruter(extensions=None):
                 response = urllib2.urlopen(r)
 
                 if len(response.read()):
-                    print("[%d] => %s" % (response.code, url)
+                    print("[%d] => %s" % (response.code, url))
 
             except urllib2.HTTPError as e:
 
                 if e.code != 404:
-                    print("!!! %d => %s" % (e.code, url)
+                    print("!!! %d => %s" % (e.code, url))
 
                 pass
 

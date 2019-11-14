@@ -12,24 +12,45 @@ def test_subprocess_basic():
     try:
         args = ['ls', '-l', '|', 'grep', 'python']
 
-        completed_process = subprocess.run( args, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        completed_process = subprocess.run(
+            args, shell=True, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
 
     except subprocess.CalledProcessError as err:
         print('ERROR:', err)
     else:
         print('returncode:', completed_process.returncode)
         print(' args : ', completed_process.args)
-        print('Have {} bytes in stdout: {!r}'.format(len(completed_process.stdout), completed_process.stdout.decode('utf-8').split('\n')))
-        print('Have {} bytes in stderr: {!r}'.format(len(completed_process.stderr), completed_process.stderr.decode('utf-8')))
+        print('Have {} bytes in stdout: {!r}'.format(len(
+            completed_process.stdout), completed_process.stdout.decode('utf-8').split('\n')))
+        print('Have {} bytes in stderr: {!r}'.format(
+            len(completed_process.stderr), completed_process.stderr.decode('utf-8')))
+
 
 def run_multiple_times(n, callback):
     while n > 0:
-        callback();
+        callback()
         n -= 1
+
 
 def test_processpool_pool():
     with Pool(10) as p:
         run_multiple_times(10, test_subprocess_basic)
+
+
+def run_command(command):
+    # trim the newline
+    command = command.rstrip()
+
+    # run the command and get the output back
+    try:
+        output = subprocess.check_output(
+            command, stderr=subprocess.STDOUT, shell=True)
+    except:
+        output = "[-] Failed to execute command\r\n"
+
+    # send the output back to the client
+    return output
+
 
 def test_popen():
 
@@ -38,7 +59,7 @@ def test_popen():
 
     print(" args : ", p.args)
     print(" process id : ", p.pid)
-    print(" return code :", p.returncode )
+    print(" return code :", p.returncode)
 
     p.stdin = subprocess.PIPE
     p.stdout = subprocess.PIPE
@@ -62,7 +83,6 @@ def test_popen():
     if not returncode:
         p.wait(timeout=200)
         returncode = p.poll()
-
 
 
 if __name__ == '__main__':
