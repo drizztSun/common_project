@@ -126,7 +126,7 @@ class DB {
 public:
 
 	// use = delete to remove those two default functions, CCompile made
-	DB(const DB&) = delete; 
+	DB(const DB&) = delete;
 	DB& operator = (const DB&) = delete;
 
 	int i = 0;
@@ -146,7 +146,7 @@ void Test_foreach() {
 		*it++;
 	}
 
-	// for each : works on any class that has begin() and end() 
+	// for each : works on any class that has begin() and end()
 	for (auto i : v) {
 		cout << i; // read-only, it just copy the element in v to i
 	}
@@ -273,7 +273,7 @@ void Test_nullptr() {
 	char * a = nullptr; 
 	
 	// nullptr will be the new value to pointer, instead of NULL. because of NULL is also 0, which made Ambigurity
-	foo(NULL); // Ambigurity
+	// foo(NULL); // Ambigurity
 
 	foo(nullptr); // correctly hit the foo(char*)
 }

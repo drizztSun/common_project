@@ -102,8 +102,8 @@ def server_loop():
 
         server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server.bind((target,port))
-        
-        server.listen(5)        
+
+        server.listen(5)
 
         while True:
                 client_socket, addr = server.accept()
