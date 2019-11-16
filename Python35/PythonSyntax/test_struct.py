@@ -1,11 +1,56 @@
 
+from struct import *
+from ctypes import *
 import struct
 
 from collections import namedtuple
 
+class IP(Structure):
+
+    _fields_ = [
+        ("ihl",           c_ubyte, 4),
+        ("version",       c_ubyte, 4),
+        ("tos",           c_ubyte),
+        ("len",           c_ushort),
+        ("id",            c_ushort),
+        ("offset",        c_ushort),
+        ("ttl",           c_ubyte),
+        ("protocol_num",  c_ubyte),
+        ("sum",           c_ushort),
+        ("src",           c_ulong),
+        ("dst",           c_ulong)
+    ]
+    
+    def __new__(self, socket_buffer=None):
+            return self.from_buffer_copy(socket_buffer)
+
+
+class Int(Structure):
+    _fields_ = [
+        ('first_16', c_int, 16),
+        ('second_16', c_int, 16)
+    ]
+
+    def __init__(self):
+        pass
+
+    def __repr__(self):
+        return '(%d, %d)' % (self.first_16, self.second_16)
+
+
 def test_struct():
 
     print("--- test struct ---")
+    # Int
+    a = Int()
+    print("a :", a, a.first_16, a.second_16)
+
+    a.first_16 = 100
+    a.second_16 = 200
+
+    print("a :", a, a.first_16, a.second_16)
+
+
 
 
 def test_ctype():
@@ -27,7 +72,7 @@ def test_ctype():
     print('name : ', st.name)
 
     # The ordering of format characters may have an impact on size since the padding needed to satisfy alignment requirements is different:
-    print( struct.pack('ci', b'*', 0x12131415)) # b'*\x00\x00\x00\x12\x13\x14\x15'
+    print( pack('ci', b'*', 0x12131415)) # b'*\x00\x00\x00\x12\x13\x14\x15'
     print( 'ci size : ', struct.calcsize('ci'))
 
     print( struct.pack('ic', 0x12131415, b'*')) # b'\x12\x13\x14\x15*'
