@@ -3,8 +3,8 @@ from collections import namedtuple
 # *** collections.namedtuple(typename, field_names, *, rename=False, defaults=None, module=None)
 # Returns a new tuple subclass named typename. 
 # The new subclass is used to create tuple-like objects that have fields accessible by attribute lookup as well as being indexable and iterable. 
-# Instances of the subclass also have a helpful docstring (with typename and field_names) and a helpful __repr__() method which lists the tuple contents in a name=value format.
 
+# Instances of the subclass also have a helpful docstring (with typename and field_names) and a helpful __repr__() method which lists the tuple contents in a name=value forma
 # The field_names are a sequence of strings such as ['x', 'y']. 
 # Alternatively, field_names can be a single string with each fieldname separated by whitespace and/or commas, 
 # for example 'x y' or 'x, y'.
@@ -109,8 +109,16 @@ class PixelPoint(namedtuple('Point', ['x', 'y'])):
     def __str__(self):
         return 'Point x=%6.3f, y=%6.3f, hypot=%6.3f ' % (self.x, self.y, self.hypot)
 
+# See typing.NamedTuple for a way to add type hints for named tuples. It also provides an elegant notation using the class keyword:
+import typing
+class Component(typing.NamedTuple):
+    part_number: int
+    weight: float
+    description: typing.Optional[str] = None
+# See types.SimpleNamespace() for a mutable namespace based on an underlying dictionary instead of a tuple.
+# The dataclasses module provides a decorator and functions for automatically adding generated special methods to user-defined classes.
 
-def test_named_tuple_():
+def test_named_tuple_advance():
 
     EmployeeRecord = namedtuple('EmployeeRecord', 'name, age, title, department, paygrade')
 
@@ -129,6 +137,8 @@ def test_named_tuple_():
 def main():
 
     test_named_tuple()
+
+    test_named_tuple_advance()
 
 if __name__ == '__main__':
 
