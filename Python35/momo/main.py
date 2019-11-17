@@ -156,7 +156,16 @@ def f(n):
         
 print(f(4))
         
+def han(n,x,y,z):
+    if n == 1:
+        print(x,'-->',z)
+    han(n-1,x,z,y)    
+    print(x,'-->',z)
+    han(n-1,)
 
+                  
+      
+     
 
 if __name__ == '__main__':
     print(partcal1(5))

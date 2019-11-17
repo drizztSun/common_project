@@ -50,7 +50,9 @@ def test_struct():
 
     print("a :", a, a.first_16, a.second_16)
 
+    #IP
 
+    
 
 
 def test_ctype():
