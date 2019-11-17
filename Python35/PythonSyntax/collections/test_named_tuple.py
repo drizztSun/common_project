@@ -52,14 +52,18 @@ def test_named_tuple():
 
     print(p._asdict())
 
-    p._replace(x=100)
+    # return a new Point
+    p1 = p._replace(x=100)
+    print(p1)
     print(p)
 
+    # _field_defaults imported by 3.7
+    # Dictionary mapping field names to default values.
+    # print("_field_defaults : ", p._field_defaults)
+
+    # _fields
     print("_fields : ", p._fields)
 
-    print("_field_defaults : ", p._field_defaults)
-
-    # extend
     Color = namedtuple('Color', 'red green blue', defaults=[0, 0, 0])
     Pixel = namedtuple('Pixel', Point._fields + Color._fields)
     px = Pixel(10, 10, 128, 128, 128)
@@ -72,8 +76,31 @@ def test_named_tuple():
     for p in PixelPoint(3, 4), PixelPoint(5, 5/17):
         print(p)
 
+    # Docstrings can be customized by making direct assignments to the __doc__ fields:
+    Book = namedtuple('Book', ['id', 'title', 'authors'])
+    Book.__doc__ += ': Hardcover book in active collection'
+    Book.id.__doc__ = '13-digit ISBN'
+    Book.title.__doc__ = 'Title of first printing'
+    Book.authors.__doc__ = 'List of authors sorted by last name'
 
+
+    # Default values can be implemented by using _replace() to customize a prototype instance:
+    Account = namedtuple('Account', 'owner balance transaction_count')
+    default_account = Account('<owner name>', 0.0, 0)
+    
+    johns_account = default_account._replace(owner='John')
+    print(johns_account)
+
+    janes_account = default_account._replace(owner='Jane')
+    print(janes_account)
+
+
+# Since a named tuple is a regular Python class, it is easy to add or change functionality with a subclass. 
+# Here is how to add a calculated field and a fixed-width print format:
 class PixelPoint(namedtuple('Point', ['x', 'y'])):
+    
+    # The subclass shown above sets __slots__ to an empty tuple. 
+    # This helps keep memory requirements low by preventing the creation of instance dictionaries.
     __slots__ = ()
     @property
     def hypot(self):

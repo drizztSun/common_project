@@ -65,6 +65,7 @@ def test_ctype():
     # Unpacked fields can be named by assigning them to variables or by wrapping the result in a named tuple:
     record = b'raymond   \x32\x12\x08\x01\x08'
     name, serialnum, school, gradelevel = struct.unpack('<10sHHb', record)
+    print(name, serialnum, school, gradelevel)
     
     Student = namedtuple('Student', 'name serialnum school gradelevel')
     st = Student._make(struct.unpack('<10sHHb', record))
