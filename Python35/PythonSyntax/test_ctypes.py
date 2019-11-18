@@ -1,5 +1,5 @@
 from ctypes import *
-from struct import Structure
+from struct import *
 
 import os
 
@@ -118,6 +118,15 @@ def test_fundmental_types():
     c.value = 'Hi there'
     print(c)
 
+
+class Point(Structure):
+
+    _fields_ = [
+        ('x', c_int, 16),
+        ('y', c_int, 16)
+    ]
+
+
 class PointArr(Structure):
 
     _fields_=[
@@ -125,6 +134,7 @@ class PointArr(Structure):
         ("b", c_float),
         ("point_array", Point * 4)
     ]    
+
 
 def test_ctype_advanced():
 
