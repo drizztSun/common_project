@@ -1,29 +1,10 @@
-Set-ExecutionPolicy Unrestricted  -Scope LocalMachine 
-#RemoteSigned
-
-
-
-
-$currentWi = [Security.Principal.WindowsIdentity]::GetCurrent() 
-$currentWp = [Security.Principal.WindowsPrincipal]$currentWi
- 
-if( -not $currentWp.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) 
-{
-    $boundPara = ($MyInvocation.BoundParameters.Keys | foreach{
-        '-{0} {1}' -f  $_ ,$MyInvocation.BoundParameters[$_]} ) -join ' '
-  
-    $currentFile = (Resolve-Path  $MyInvocation.InvocationName).Path 
- 
-    $fullPara = $boundPara + ' ' + $args -join ' '
-    Start-Process "$psHome\powershell.exe"   -ArgumentList "$currentFile $fullPara" -verb runas 
-    return
-} 
+# Set-ExecutionPolicy Unrestricted  -Scope LocalMachine
+Set-ExecutionPolicy RemoteSigned
+# Set-ExecutionPolicy Bypass
 
 
 $DpcExt = 'C:\ProgramData\osquery\akadp.ext.exe'
 $Folder = 'C:\ProgramData\osquery'
-$DPCService = 'Akamai Device Posture'
-$OSQueryService = 'Akamai Osquery Daemon'
 
 if (Test-Path $DpcExt) {
 
@@ -39,9 +20,7 @@ if (Test-Path $DpcExt) {
 
             if (Get-Service $serviceName -ErrorAction SilentlyContinue) {
                 Stop-Service -Name $serviceName
-                
-                # Remove-Service -Name $serviceName
-                sc.exe delete $serviceName
+
             } else {
                 Write-Verbose("service {0} has been removed"-f $serviceName)
                 break
@@ -55,11 +34,16 @@ if (Test-Path $DpcExt) {
                 break
             }
         }
-    } 
+    }
+
+    # wait for service fully stopped
+    Start-Sleep -s 15
 
     # clear the installation folder
     Remove-Item $Folder -Recurse;
-    
-    Read-Host
+
+    foreach ($serviceName in $services) {
+        sc.exe delete $serviceName
+    }
 }
 
