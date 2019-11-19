@@ -1,7 +1,6 @@
-# Set-ExecutionPolicy Unrestricted  -Scope LocalMachine
 Set-ExecutionPolicy RemoteSigned
 # Set-ExecutionPolicy Bypass
-
+# Set-ExecutionPolicy Unrestricted  -Scope LocalMachine
 
 $DpcExt = 'C:\ProgramData\osquery\akadp.ext.exe'
 $Folder = 'C:\ProgramData\osquery'
@@ -37,13 +36,15 @@ if (Test-Path $DpcExt) {
     }
 
     # wait for service fully stopped
-    Start-Sleep -s 15
+    Start-Sleep -s 10
 
     # clear the installation folder
     Remove-Item $Folder -Recurse;
 
     foreach ($serviceName in $services) {
-        sc.exe delete $serviceName
+        if (Get-Service $serviceName -ErrorAction SilentlyContinue) {
+            sc.exe delete $serviceName
+        }
     }
 }
 
