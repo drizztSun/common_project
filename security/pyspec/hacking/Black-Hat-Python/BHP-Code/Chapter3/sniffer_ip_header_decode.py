@@ -22,8 +22,8 @@ class IP(Structure):
         ("dst",           c_ulong)
     ]
 
-    def __new__(self, socket_buffer=None):
-        return self.from_buffer_copy(socket_buffer)    
+    def __new__(cls, socket_buffer=None):
+        return cls.from_buffer_copy(socket_buffer)
 
     def __init__(self, socket_buffer=None):
 
