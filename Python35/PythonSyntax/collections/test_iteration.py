@@ -55,6 +55,50 @@
 from _collections_abc import Iterable, Iterator
 
 
+# Iterator
+class CustomIterator(object):
+
+    def __init__(self, start, end):
+        self.index, self.end = start, end
+
+    def __next__(self):
+        if self.index < self.end:
+            tmp = self.index
+            self.index += 1
+            return tmp
+        else:
+            raise StopIteration()
+
+
+# Iterable
+class CustomIteratble(object):
+
+    def __init__(self, start, end):
+        self.start, self.end = start, end
+
+    def __iter__(self):
+        return CustomIterator(self.start, self.end)
+
+
+# Iterator and Iterable
+class CustomerId(object):
+
+    def __init__(self, start, end):
+        self.start, self.end = start, end
+        self.item = start
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.item < self.end:
+            tmp = self.item
+            self.item += 1
+            return tmp
+        else:
+            raise StopIteration()
+
+
 class Animal:
     def __init__(self, animal_list):
         self.animals_name = animal_list
