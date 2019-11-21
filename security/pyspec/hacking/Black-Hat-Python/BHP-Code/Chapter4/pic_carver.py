@@ -64,7 +64,7 @@ def extract_image(headers,http_payload):
 					elif headers['Content-Encoding'] == "deflate":
 						image = zlib.decompress(image)
 			except:
-				pass	
+				pass
 	except:
 		return None,None
 	

@@ -1,7 +1,6 @@
-import urllib2
 import urllib
 import threading
-import Queue
+from queue import Queue
 
 threads = 5
 target_url = "http://testphp.vulnweb.com"
@@ -18,7 +17,7 @@ def build_wordlist(wordlist_file):
     fd.close()
 
     found_resume = False
-    words = Queue.Queue()
+    words = Queue()
 
     for word in raw_words:
 
@@ -68,12 +67,12 @@ def dir_bruter(extensions=None):
                 headers["User-Agent"] = user_agent
                 r = urllib2.Request(url, headers=headers)
 
-                response = urllib2.urlopen(r)
+                response = urllib.urlopen(r)
 
                 if len(response.read()):
                     print("[%d] => %s" % (response.code, url))
 
-            except urllib2.HTTPError as e:
+            except urllib.HTTPError as e:
 
                 if e.code != 404:
                     print("!!! %d => %s" % (e.code, url))
@@ -81,9 +80,9 @@ def dir_bruter(extensions=None):
                 pass
 
 
-word_queue=build_wordlist(wordlist_file)
-extensions=[".php", ".bak", ".orig", ".inc"]
+word_queue = build_wordlist(wordlist_file)
+extensions = [".php", ".bak", ".orig", ".inc"]
 
 for i in range(threads):
-            t=threading.Thread(target=dir_bruter, args=(extensions,))
-            t.start()
+    t = threading.Thread(target=dir_bruter, args=(extensions,))
+    t.start()
