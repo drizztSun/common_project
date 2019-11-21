@@ -1,13 +1,14 @@
 from queue import Queue
 import threading
 import os
-import urllib
 
+from urllib.request import Request, urlopen, HTTPError
+from urllib.error import HTTPError
 
 threads = 10
 
-target = "http://www.test.com"
-directory = "/Users/justin/Downloads/joomla-3.1.1"
+target = "http://www.test.com"  # Test.com create test case
+directory = "/Users/yusun/src/joomla_3.9.13"  # local folder of joolma_3.9.13
 filters = [".jpg", ".gif", "png", ".css"]
 
 os.chdir(directory)
@@ -28,16 +29,16 @@ def test_remote():
         path = web_paths.get()
         url = "%s%s" % (target, path)
 
-        request = urllib.Request(url)
+        request = Request(url)
 
         try:
-            response = urllib.urlopen(request)
+            response = urlopen(request)
             content = response.read()
 
             print("[%d] => %s" % (response.code, path))
             response.close()
 
-        except urllib.HTTPError as error:
+        except HTTPError as error:
             print("Failed %s" % error.code)
             pass
 

@@ -2,9 +2,13 @@ import urllib
 import threading
 from queue import Queue
 
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError
+from urllib.parse import quote
+
 threads = 5
 target_url = "http://testphp.vulnweb.com"
-wordlist_file = "/tmp/all.txt"  # from SVNDigger
+wordlist_file = "../../data/SVNDigger/all.txt"  # from SVNDigger
 resume = None
 user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:19.0) Gecko/20100101 Firefox/19.0"
 
@@ -41,7 +45,7 @@ def build_wordlist(wordlist_file):
 def dir_bruter(extensions=None):
 
     while not word_queue.empty():
-        attempt = word_queue.get()
+        attempt = str(word_queue.get())
 
         attempt_list = []
 
@@ -60,19 +64,19 @@ def dir_bruter(extensions=None):
         # iterate over our list of attempts
         for brute in attempt_list:
 
-            url = "%s%s" % (target_url, urllib.quote(brute))
+            url = "%s%s" % (target_url, quote(brute))
 
             try:
                 headers = {}
                 headers["User-Agent"] = user_agent
-                r = urllib2.Request(url, headers=headers)
+                r = Request(url, headers=headers)
 
-                response = urllib.urlopen(r)
+                response = urlopen(r)
 
                 if len(response.read()):
                     print("[%d] => %s" % (response.code, url))
 
-            except urllib.HTTPError as e:
+            except HTTPError as e:
 
                 if e.code != 404:
                     print("!!! %d => %s" % (e.code, url))

