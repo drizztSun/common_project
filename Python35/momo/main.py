@@ -172,7 +172,34 @@ if __name__ == '__main__':
     print(dir(__builtins__))
 
 
+    b = [ i for i in range(101)]
+
+    total = 0
+    for i in range (101):
+        total += b[i]
+
+    print(total)
+
     
+
+
+    a = [ [ i for i in range(10) ] for _ in range(10)]
+    e = 0
+    for i in range(10):
+        for j in range(10):
+            e +=a[i][j]
+    print(e)
+
+
+    s = [ [ [i for i in range(10) ] for _ in range(10) ] for _ in range(99)]
+    f = 0
+    for i in range(99):
+        for j in range(10):
+            for k in range(10):
+                f +=s[i][j][k]
+    print(f)            
+
+
 
     a = 1234567890
     b = 9876543210

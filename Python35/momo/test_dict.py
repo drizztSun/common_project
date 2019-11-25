@@ -1,6 +1,6 @@
-
-def test_dict()
-    # create
+if __name__ == "__main__":
+    
+ # create
     print("============TEST_DICT=================",)
     dict1 = {}
     print(dict1)
@@ -61,7 +61,7 @@ def counter_list(a):
 
 
 
-if __name__ == "__main__":
+
     
     
     a = [1, 23, 2, 7, 4, 5, 10, 2, 7, 6, 5, 2, 1, 4, 2, 2, 2]
@@ -90,8 +90,8 @@ if __name__ == "__main__":
     assert( 'sdfjskfds' not in dect1)
 
     # iterate
-    for k in dect1:
-        print('key {} occurs {} times '.format(k))
+    for k,v in dect1:
+        print('key {} occurs {} times '.format(k,v))
 
     # add
     b = 'b'

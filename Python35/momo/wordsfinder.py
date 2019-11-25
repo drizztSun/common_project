@@ -16,16 +16,16 @@ def match(letters, words):
                 word_lenght = len(w)
                 if j >= word_lenght and ''.join(letters[i][c] for c in range(j, j - word_lenght, -1)) == found_word:
                     pos = [i, j-word_lenght + 1, i, j]
-                    break;
+                    break
                 elif n - j >= word_lenght and ''.join(letters[i][j : j + word_lenght]) == found_word:
                     pos = [i, j, i, j + word_lenght - 1]
-                    break;
+                    break
                 elif i > word_lenght and ''.join(letters[c][j] for c in range(i, i - word_lenght, -1)) == found_word:
                     pos = [i - word_lenght + 1, j, i, j]
-                    break;
+                    break
                 elif m - i >= word_lenght and ''.join(letters[c][j] for c in range(i, i + word_lenght)) == found_word:
                     pos = [i, j, i + word_lenght,j]
-                    break;
+                    break
             else:
                 pos = []
                 found_word = ''
