@@ -1,6 +1,6 @@
 use std::net::Ipv4Addr;
 
-/* 
+/*
 old-style way has to use enum and struct to represent IP
  */
 #[derive(Debug)]
@@ -15,8 +15,8 @@ struct IpAddrStruct {
     address: String,
 }
 
-/* 
-We can represent the same concept in a more concise way using just an enum, rather than an enum inside a struct, by putting data directly into each enum variant. 
+/*
+We can represent the same concept in a more concise way using just an enum, rather than an enum inside a struct, by putting data directly into each enum variant.
 This new definition of the IpAddr enum says that both V4 and V6 variants will have associated String values:
 */
 #[derive(Debug)]
@@ -31,7 +31,7 @@ enum IpAddrInt {
     V6(String),
 }
 
-/* 
+/*
 This enum has four variants with different types:
 
 1) Quit has no data associated with it at all.
@@ -59,16 +59,16 @@ enum UsState {
     Massachusetts,
     Maine,
 }
-/* 
+/*
 Patterns that Bind to Values
-Another useful feature of match arms is that they can bind to the parts of the values that match the pattern. 
+Another useful feature of match arms is that they can bind to the parts of the values that match the pattern.
 This is how we can extract values out of enum variants.
 */
 enum Coin {
     Penny,
     Nickel,
     Dime,
-    Quarter (UsState),
+    Quarter(UsState),
 }
 
 // *** C-like enum
@@ -104,18 +104,17 @@ fn value_in_cents(coin: Coin) -> u8 {
         Coin::Penny => {
             println!("Lucky penny!");
             1
-        },
+        }
         Coin::Nickel => 5,
         Coin::Dime => 10,
         Coin::Quarter(state) => {
             println!("State quarter from {:?}", state);
             25
-        },
+        }
     }
 }
 
 pub fn test_enums() {
-
     // old style code
     let home = IpAddrStruct {
         kind: IpAddrKind::V4,
@@ -133,7 +132,7 @@ pub fn test_enums() {
     let homes = IpAddrStr::V4(String::from("127.0.0.1"));
     let loopbacks = IpAddrStr::V6(String::from("::1"));
 
-    let homei = IpAddrInt::V4(127,0,0,1);
+    let homei = IpAddrInt::V4(127, 0, 0, 1);
     let loopbacki = IpAddrInt::V6(String::from("::1"));
 
     println!("homes = {:?}, loopbacks = {:?}", homes, loopbacks);
@@ -162,23 +161,21 @@ pub fn test_enums() {
         _ => (), // default
     }
 
-
     C_like_enum();
 }
 
 fn iflet_vs_match() {
-
     let some_8 = Some(0u8);
     match some_8 {
         Some(3) => println!("three"),
-        _=>(),
+        _ => (),
     }
     /*
-    The syntax if let takes a pattern and an expression separated by an equal sign. 
+    The syntax if let takes a pattern and an expression separated by an equal sign.
     It works the same way as a match, where the expression is given to the match and the pattern is its first arm.
 
-    Using if let means less typing, less indentation, and less boilerplate code. 
-    However, you lose the exhaustive checking that match enforces. 
+    Using if let means less typing, less indentation, and less boilerplate code.
+    However, you lose the exhaustive checking that match enforces.
     Choosing between match and if let depends on what you’re doing in your particular situation and whether gaining conciseness is an appropriate trade-off for losing exhaustive checking.
 
     In other words, you can think of if let as syntax sugar for a match that runs code when the value matches one pattern and then ignores all other values.
@@ -189,10 +186,10 @@ fn iflet_vs_match() {
     }
 
     /*
-    We can include an else with an if let. The block of code that goes with the else is the same as the block of code 
-    that would go with the _ case in the match expression that is equivalent to the if let and else. 
-    Recall the Coin enum definition in Listing 6-4, where the Quarter variant also held a UsState value. 
-    If we wanted to count all non-quarter coins we see while also announcing the state of the quarters, 
+    We can include an else with an if let. The block of code that goes with the else is the same as the block of code
+    that would go with the _ case in the match expression that is equivalent to the if let and else.
+    Recall the Coin enum definition in Listing 6-4, where the Quarter variant also held a UsState value.
+    If we wanted to count all non-quarter coins we see while also announcing the state of the quarters,
     we could do that with a match expression like this:
     */
 
@@ -218,7 +215,7 @@ fn plus_one(a: Option<i32>) -> Option<i32> {
         // None matched
         None => None,
         // some(i) matched
-        Some(i) => Some(i+1),
+        Some(i) => Some(i + 1),
         // There, we need both 'None' and 'Some', because it covers all two situations.
     }
 }

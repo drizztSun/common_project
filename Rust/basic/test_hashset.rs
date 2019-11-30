@@ -9,20 +9,18 @@ In other words, if two keys are equal, their hashes must be equal.
 It is a logic error for an item to be modified in such a way that the item's hash, as determined by the Hash trait, or its equality, as determined by the Eq trait, changes while it is in the set. This is normally only possible through Cell, RefCell, global state, I/O, or unsafe code.
 */
 
-use std::collections::HashSet;
 use std::collections::hash_map::RandomState;
-
+use std::collections::HashSet;
 
 fn test_hashset_basic() {
-
-    { // create
+    {
+        // create
         let mut books = HashSet::new();
         books.insert("A Dance With Dragons".to_string());
 
-
         let viking_names: HashSet<&'static str> =
-            [ "Einar", "Olaf", "Harald" ].iter().cloned().collect();
-        
+            ["Einar", "Olaf", "Harald"].iter().cloned().collect();
+
         let set: HashSet<i32> = HashSet::with_capacity(10);
         assert!(set.capacity() >= 10);
 
@@ -34,35 +32,36 @@ fn test_hashset_basic() {
 
         // Creates a new empty hash set which will use the given hasher to hash keys.
         // The hash set is also created with the default initial capacity.
-        // Warning: hasher is normally randomly generated, and is designed to allow HashSets to be resistant to attacks that cause many collisions and very poor performance. 
+        // Warning: hasher is normally randomly generated, and is designed to allow HashSets to be resistant to attacks that cause many collisions and very poor performance.
         // Setting it manually using this function can expose a DoS attack vector.
         let s = RandomState::new();
         let mut set = HashSet::with_hasher(s);
         set.insert(2);
     }
 
-    {   // insert
+    {
+        // insert
         let mut set = HashSet::new();
 
-        assert_eq!( set.insert(2), true);
-        assert_eq!( set.insert(2), false);
-        assert_eq!( set.len(), 1);
+        assert_eq!(set.insert(2), true);
+        assert_eq!(set.insert(2), false);
+        assert_eq!(set.len(), 1);
 
         let set: HashSet<_> = [1, 2, 3].iter().cloned().collect();
-        assert_eq!( set.get(&2), Some(&2));
-        assert_eq!( set.get(&4), None);
+        assert_eq!(set.get(&2), Some(&2));
+        assert_eq!(set.get(&4), None);
 
-        assert_eq!( set.len(), 3);
+        assert_eq!(set.len(), 3);
         // assert_eq!( set.get_or_insert(2), &2);
         // assert_eq!( set.get_or_insert(100), &100);
-        assert_eq!( set.len(), 4); // 100 was inserted
+        assert_eq!(set.len(), 4); // 100 was inserted
     }
 
     {
         // contain
         let set: HashSet<_> = [1, 2, 3].iter().cloned().collect();
-        assert_eq!( set.contains(&1), true);
-        assert_eq!( set.contains(&4), false);
+        assert_eq!(set.contains(&1), true);
+        assert_eq!(set.contains(&4), false);
     }
 
     {
@@ -171,22 +170,20 @@ fn test_hashset_basic() {
         }
     }
 
-    {
-        
-    }
+    {}
 
     {
         // drain
         // Clears the set, returning all elements in an iterator.
 
         let mut set: HashSet<_> = [1, 2, 3].iter().cloned().collect();
-        assert_eq!( set.is_empty(), false);
+        assert_eq!(set.is_empty(), false);
 
         for i in set.drain() {
             println!("{}", i);
         }
 
-        assert_eq!( set.is_empty(), true);
+        assert_eq!(set.is_empty(), true);
     }
 
     {
@@ -195,8 +192,7 @@ fn test_hashset_basic() {
         let set: HashSet<i32> = HashSet::with_hasher(hasher);
         let hasher: &RandomState = set.hasher();
     }
-
-} 
+}
 
 fn test_hashset_example() {
     // Type inference lets us omit an explicit type signature (which
@@ -211,8 +207,10 @@ fn test_hashset_example() {
 
     // Check for a specific one.
     if !books.contains("The Winds of Winter") {
-        println!("We have {} books, but The Winds of Winter ain't one.",
-                books.len());
+        println!(
+            "We have {} books, but The Winds of Winter ain't one.",
+            books.len()
+        );
     }
 
     // Remove a book.
@@ -223,13 +221,24 @@ fn test_hashset_example() {
         println!("{}", book);
     }
 
-
     let mut vikings = HashSet::new();
 
-    vikings.insert(Viking { name: "Einar".to_string(), power: 9 });
-    vikings.insert(Viking { name: "Einar".to_string(), power: 9 });
-    vikings.insert(Viking { name: "Olaf".to_string(), power: 4 });
-    vikings.insert(Viking { name: "Harald".to_string(), power: 8 });
+    vikings.insert(Viking {
+        name: "Einar".to_string(),
+        power: 9,
+    });
+    vikings.insert(Viking {
+        name: "Einar".to_string(),
+        power: 9,
+    });
+    vikings.insert(Viking {
+        name: "Olaf".to_string(),
+        power: 4,
+    });
+    vikings.insert(Viking {
+        name: "Harald".to_string(),
+        power: 8,
+    });
 
     // Use derived implementation to print the vikings.
     for x in &vikings {
@@ -237,8 +246,7 @@ fn test_hashset_example() {
     }
 
     // A HashSet with fixed list of elements can be initialized from an array:
-    let viking_names: HashSet<&'static str> =
-        [ "Einar", "Olaf", "Harald" ].iter().cloned().collect();
+    let viking_names: HashSet<&'static str> = ["Einar", "Olaf", "Harald"].iter().cloned().collect();
     // use the values stored in the set
 }
 
@@ -250,13 +258,8 @@ struct Viking {
     power: usize,
 }
 
-
-
-
 pub fn test_hashset() {
-
     test_hashset_basic();
 
     test_hashset_example();
-
 }

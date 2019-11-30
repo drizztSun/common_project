@@ -1,7 +1,6 @@
 use std::io;
 
 fn test_if(number: i32) {
-
     if number % 4 == 0 {
         println!("number is divided by 4");
     } else if number % 3 == 0 {
@@ -14,19 +13,14 @@ fn test_if(number: i32) {
 
     // use if in let Statement
     let condition = true;
-    let num = if condition {
-        5
-    } else {
-        6
-    };
+    let num = if condition { 5 } else { 6 };
 
     println!("num is {}", num);
 }
 
 fn test_loop() {
-
     let mut i = 0;
-    // loop 
+    // loop
     loop {
         println!(" i == {}", i);
         if i == 5 {
@@ -58,15 +52,14 @@ fn test_loop() {
         println!("the value is : {}", element);
     }
 
-    // reverse 
+    // reverse
     for number in (1..4).rev() {
         println!("the value is : {}", number);
     }
 }
 
 // define a function
-fn add(a :i32, b :i32) -> i32 {
-
+fn add(a: i32, b: i32) -> i32 {
     println!("a + b = {} ", a + b);
     return a + b;
 }
@@ -85,15 +78,18 @@ fn test_data_type() {
     const NUMI128: i128 = 700;
     const NUMU128: u128 = 800;
 
-    // 
+    //
     // Decimal	98_222
     // Hex	0xff
     // Octal	0o77
     // Binary	0b1111_0000
     // Byte (u8 only)	b'A'
 
-    println!("NUMI8 = {} \n, NUMU8 = {}, \n, NUMI16 = {} \n, NUMU16 = {} \n, NUMI32 = {} \n, 
-        NUMU32 = {} \n, NUMI64 = {},\n NUMU64 = {},\n NUMI128 = {}, \n NUMU128 = {}\n", NUMI8, NUMU8, NUMI16, NUMU16, NUMI32, NUMU32, NUMI64, NUMU64, NUMI128, NUMU128);
+    println!(
+        "NUMI8 = {} \n, NUMU8 = {}, \n, NUMI16 = {} \n, NUMU16 = {} \n, NUMI32 = {} \n, 
+        NUMU32 = {} \n, NUMI64 = {},\n NUMU64 = {},\n NUMI128 = {}, \n NUMU128 = {}\n",
+        NUMI8, NUMU8, NUMI16, NUMU16, NUMI32, NUMU32, NUMI64, NUMU64, NUMI128, NUMU128
+    );
 
     {
         // addition
@@ -111,7 +107,10 @@ fn test_data_type() {
         // remainder
         let remainder = 43 % 5;
 
-        println!("sum : {}, difference: {}, product: {}, quotient: {}, remainder: {}", sum, difference, product, quotient, remainder)
+        println!(
+            "sum : {}, difference: {}, product: {}, quotient: {}, remainder: {}",
+            sum, difference, product, quotient, remainder
+        )
     }
 
     // const bool
@@ -120,10 +119,10 @@ fn test_data_type() {
 
     println!("TBOOL {}, t {}", TBOOL, t);
 
-    // const Character 
-    // Rust’s char type is four bytes in size and represents a Unicode Scalar Value, which means it can represent a lot more than just ASCII. 
-    // Accented letters; Chinese, Japanese, and Korean characters; emoji; and zero-width spaces are all valid char values in Rust. 
-    // Unicode Scalar Values range from U+0000 to U+D7FF and U+E000 to U+10FFFF inclusive. 
+    // const Character
+    // Rust’s char type is four bytes in size and represents a Unicode Scalar Value, which means it can represent a lot more than just ASCII.
+    // Accented letters; Chinese, Japanese, and Korean characters; emoji; and zero-width spaces are all valid char values in Rust.
+    // Unicode Scalar Values range from U+0000 to U+D7FF and U+E000 to U+10FFFF inclusive.
     // However, a “character” isn’t really a concept in Unicode, so your human intuition for what a “character” is may not match up with what a char is in Rust.
     let c = 'z';
     let z = 'ℤ';
@@ -146,28 +145,39 @@ fn test_data_type() {
     let z = z * 2;
     println!("z is {}", z);
 
-
     // Compound Types
     // Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.
 
     // The Tuple Type
-    // A tuple is a general way of grouping together some number of other values with a variety of types into one compound type. 
+    // A tuple is a general way of grouping together some number of other values with a variety of types into one compound type.
     // Tuples have a fixed length: once declared, they cannot grow or shrink in size.
 
-    // tuple 
+    // tuple
     let tup: (i32, f64, u8) = (500, 0.64, 1);
     println!("tup, 0 {} 1 {} 2 {}", tup.0, tup.1, tup.2);
 
     let (i1, i2, i3) = tup;
     println!("tup, i1 {}, i2 {}, i3 {}", i1, i2, i3);
-    
+
     // array
-    // Another way to have a collection of multiple values is with an array. 
-    // Unlike a tuple, every element of an array must have the same type. 
+    // Another way to have a collection of multiple values is with an array.
+    // Unlike a tuple, every element of an array must have the same type.
     // Arrays in Rust are different from arrays in some other languages because arrays in Rust have a fixed length, like tuples.
     println!(" --- Array --- ");
-    let months = ["January", "February", "March", "April", "May", "June", "July",
-              "August", "September", "October", "November", "December"];
+    let months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
 
     let a: [i32; 5] = [1, 2, 3, 4, 5];
 
@@ -183,12 +193,13 @@ fn test_data_type() {
 }
 
 fn test_ownership() {
-
     let s1 = String::from("Hello");
     let s2 = s1;
 
     println!("--- heap object copy behavior ---");
-    println!(" normally move value from one to another, aka shallow copy, but clone will deep copy");
+    println!(
+        " normally move value from one to another, aka shallow copy, but clone will deep copy"
+    );
 
     // right now, s1 will be empty and s2 will take what was in s1
     // s1 had been moved into s2
@@ -201,13 +212,13 @@ fn test_ownership() {
 
     println!("c1 = {}, c2 = {}", c1, c2);
 
-    // 
+    //
     println!(" --- stack only behavior --- ");
     println!("stack objecrs only copy value ");
 
     /*
-    So what types are Copy? You can check the documentation for the given type to be sure, but as a general rule, 
-    any group of simple scalar values can be Copy, and nothing that requires allocation or is some form of resource is Copy. 
+    So what types are Copy? You can check the documentation for the given type to be sure, but as a general rule,
+    any group of simple scalar values can be Copy, and nothing that requires allocation or is some form of resource is Copy.
     Here are some of the types that are Copy:
 
     All the integer types, such as u32.
@@ -223,7 +234,6 @@ fn test_ownership() {
 }
 
 pub fn test_syntax() {
-
     test_data_type();
 
     test_if(100);

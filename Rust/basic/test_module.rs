@@ -11,7 +11,7 @@ use crate::deeply::nested::{
 */
 
 // *** Visibility
-// By default, the items in a module have private visibility, but this can be overridden with the pub modifier. 
+// By default, the items in a module have private visibility, but this can be overridden with the pub modifier.
 // Only the public items of a module can be accessed from outside the module scope.
 
 // A mod named "my_mod"
@@ -47,7 +47,6 @@ mod my_mod {
             println!("Calling 'my_mod::nest_mod::private_function()'");
         }
 
-
         // Functions declared using `pub(in path)` syntax are only visible
         // within the given path. `path` must be a parent or ancestor module
         pub(in crate::test_module::my_mod) fn public_func_in_my_mod() {
@@ -66,8 +65,7 @@ mod my_mod {
         pub(super) fn public_func_in_super_mode() {
             println!("Calling 'my_mod::nest_mod::public_func_in_super_mode()'");
         }
-     }
-
+    }
 
     pub fn call_public_function_in_my_mod() {
         print!("Calling 'my_mod::call_public_function_in_my_mod()', that \n> ");
@@ -102,9 +100,9 @@ fn function() {
 }
 
 // *** Structv Visibility
-// Structs have an extra level of visibility with their fields. 
-// The visibility defaults to private, and can be overridden with the pub modifier. 
-// This visibility only matters when a struct is accessed from outside the module where it is defined, 
+// Structs have an extra level of visibility with their fields.
+// The visibility defaults to private, and can be overridden with the pub modifier.
+// This visibility only matters when a struct is accessed from outside the module where it is defined,
 // and has the goal of hiding information (encapsulation).
 
 mod my {
@@ -123,18 +121,16 @@ mod my {
     impl<T> CloseBox<T> {
         // A public constructor method
         pub fn new(contents: T) -> CloseBox<T> {
-            CloseBox{
-                content: contents,
-            }
+            CloseBox { content: contents }
         }
     }
 }
 
-
 fn test_visibility_struct() {
-
-        // Public structs with public fields can be constructed as usual
-    let open_box = my::OpenBox { content: "public information" };
+    // Public structs with public fields can be constructed as usual
+    let open_box = my::OpenBox {
+        content: "public information",
+    };
 
     // and their fields can be normally accessed.
     println!("The open box contains: {}", open_box.content);
@@ -155,7 +151,6 @@ fn test_visibility_struct() {
 }
 
 fn test_visibility() {
-
     // Modules allow disambiguation between items that have the same name.
     function();
 
@@ -194,9 +189,8 @@ fn test_visibility() {
 
     // Error! `private_nested` is a private module
     //my_mod::private_nested::restricted_function();
-    // TODO ^ Try uncommenting this line    
+    // TODO ^ Try uncommenting this line
 }
-
 
 // *** super and self
 // The super and self keywords can be used in the path to remove ambiguity when accessing items and to prevent unnecessary hardcoding of paths.
@@ -210,29 +204,29 @@ mod my_cool {
     fn function() {
         println!("called `my::function()`");
     }
-    
+
     mod cool {
         pub fn function() {
             println!("called `my::cool::function()`");
         }
     }
-    
+
     pub fn indirect_call() {
         // Let's access all the functions named `function` from this scope!
         print!("called `my::indirect_call()`, that\n> ");
-        
+
         // The `self` keyword refers to the current module scope - in this case `my`.
         // Calling `self::function()` and calling `function()` directly both give
         // the same result, because they refer to the same function.
         self::function();
         function();
-        
+
         // We can also use `self` to access another module inside `my`:
         self::cool::function();
-        
+
         // The `super` keyword refers to the parent scope (outside the `my` module).
         super::function();
-        
+
         // This will bind to the `cool::function` in the *crate* scope.
         // In this case the crate scope is the outermost scope.
         {
@@ -242,10 +236,7 @@ mod my_cool {
     }
 }
 
-
-
 pub fn test_modules() {
-
     test_visibility();
 
     test_visibility_struct();
