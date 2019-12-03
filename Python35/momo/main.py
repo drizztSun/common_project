@@ -2,7 +2,7 @@ import random
 def jackpot_1999(a, b, c):
     i = 0
     while i < 10:
-        secret = random.randint(1,10)
+        secret = random.randint(1,1000000)
 
         print("GOLD RUSH",i)
         temp = input("guess")
@@ -164,10 +164,38 @@ def han(n,x,y,z):
     han(n-1,)
 
                   
-      
+def find_max_min_differnce(a):
+    if len(a) == 0:
+        print('The list a is empty')
+        return
+ 
+    #big, small = float('-inf'), float('inf')
+    big, small = a[0], a[0]
+
+    for i in range(1, len(a)):
+        if a[i] > big:
+            big = a[i]
+
+        if a[i] < small:
+            small = a[i]
+        
+    return big - small                
+        
+
+
+
+
      
 
 if __name__ == '__main__':
+
+
+    a = [1, 3, 9, 34, 27, 165, -3, 1, 0, 9, 19]
+    a = [283749058398574395872309853048572348570483357403825789035734857,-49526348569287345627384659785693478659834756348756483756247563569345674387365973456823745634785634569438743955830589204345351395045348]
+
+    C = find_max_min_differnce(a)
+    print(C)
+
     print(partcal1(5))
     print(dir(__builtins__))
 

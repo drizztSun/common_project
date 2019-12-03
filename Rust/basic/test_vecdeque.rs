@@ -1,9 +1,7 @@
 use std::collections::VecDeque;
 
-
 fn test_deque_basic() {
-
-    // create 
+    // create
     let instance: VecDeque<u32> = VecDeque::new();
 
     let mut dp_vec: VecDeque<u32> = VecDeque::with_capacity(18);
@@ -57,7 +55,7 @@ fn test_deque_basic() {
     // empty
     assert!(!dp_vec.is_empty());
 
-    // remove 
+    // remove
     dp_vec.push_front(100);
     if let Some(front) = dp_vec.remove(0) {
         assert_eq!(front, 100);
@@ -65,7 +63,7 @@ fn test_deque_basic() {
     }
 
     // front
-    { 
+    {
         let mut d = VecDeque::new();
         assert_eq!(d.front(), None);
 
@@ -78,13 +76,13 @@ fn test_deque_basic() {
         }
 
         match d.front_mut() {
-            None => {},
+            None => {}
             Some(a) => *a *= 10,
         }
         assert_eq!(d.front(), Some(&2000));
     }
 
-    // back 
+    // back
     {
         let mut d = VecDeque::new();
         assert_eq!(d.back(), None);
@@ -98,7 +96,7 @@ fn test_deque_basic() {
         }
 
         match d.back_mut() {
-            None => {},
+            None => {}
             Some(a) => *a *= 10,
         }
 
@@ -125,7 +123,6 @@ fn test_deque_basic() {
 }
 
 fn test_deque_slice() {
-
     let mut buff1 = VecDeque::new();
 
     buff1.push_back(0);
@@ -138,7 +135,6 @@ fn test_deque_slice() {
     assert_eq!(buff1.as_slices(), (&[9, 10][..], &[0, 1, 2][..]));
 
     assert_eq!(buff1, &[0, 1, 2, 9, 10]);
-
 
     let mut buff2 = VecDeque::new();
 
@@ -155,9 +151,7 @@ fn test_deque_slice() {
 }
 
 pub fn test_vecdeque() {
-
     test_deque_basic();
 
     test_deque_slice();
-
 }

@@ -1,8 +1,8 @@
-// Initially, the Rust team thought that ensuring memory safety and preventing concurrency problems were two separate challenges to be solved with different methods. 
-// Over time, the team discovered that the ownership and type systems are a powerful set of tools to help manage memory safety and concurrency problems! 
-// By leveraging ownership and type checking, many concurrency errors are compile-time errors in Rust rather than runtime errors. 
-// Therefore, rather than making you spend lots of time trying to reproduce the exact circumstances under which a runtime concurrency bug occurs, incorrect code will refuse to compile and present an error explaining the problem. 
-// As a result, you can fix your code while you’re working on it rather than potentially after it has been shipped to production. We’ve nicknamed this aspect of Rust fearless concurrency. 
+// Initially, the Rust team thought that ensuring memory safety and preventing concurrency problems were two separate challenges to be solved with different methods.
+// Over time, the team discovered that the ownership and type systems are a powerful set of tools to help manage memory safety and concurrency problems!
+// By leveraging ownership and type checking, many concurrency errors are compile-time errors in Rust rather than runtime errors.
+// Therefore, rather than making you spend lots of time trying to reproduce the exact circumstances under which a runtime concurrency bug occurs, incorrect code will refuse to compile and present an error explaining the problem.
+// As a result, you can fix your code while you’re working on it rather than potentially after it has been shipped to production. We’ve nicknamed this aspect of Rust fearless concurrency.
 // Fearless concurrency allows you to write code that is free of subtle bugs and is easy to refactor without introducing new bugs.
 
 // Here are the topics we’ll cover in this chapter:
@@ -22,10 +22,9 @@ use std::thread;
 use std::time::Duration;
 
 fn test_thread_basic() {
-
-    // The calls to thread::sleep force a thread to stop its execution for a short duration, allowing a different thread to run. 
-    // The threads will probably take turns, but that isn’t guaranteed: it depends on how your operating system schedules the threads. 
-    // In this run, the main thread printed first, even though the print statement from the spawned thread appears first in the code. 
+    // The calls to thread::sleep force a thread to stop its execution for a short duration, allowing a different thread to run.
+    // The threads will probably take turns, but that isn’t guaranteed: it depends on how your operating system schedules the threads.
+    // In this run, the main thread printed first, even though the print statement from the spawned thread appears first in the code.
     // And even though we told the spawned thread to print until i is 9, it only got to 5 before the main thread shut down.
     let slave = thread::spawn(|| {
         for i in 1..10 {
@@ -43,7 +42,6 @@ fn test_thread_basic() {
 }
 
 fn test_thread_basic2() {
-
     // Using move Closures with Threads
     // The move closure is often used alongside thread::spawn because it allows you to use data from one thread in another thread.
     let v = vec![1, 2, 3];
@@ -57,38 +55,37 @@ fn test_thread_basic2() {
 
 // *** Using Message Passing to Transfer Data Between Threads ***
 
-// One increasingly popular approach to ensuring safe concurrency is message passing, where threads or actors communicate by sending each other messages containing data. 
+// One increasingly popular approach to ensuring safe concurrency is message passing, where threads or actors communicate by sending each other messages containing data.
 // Here’s the idea in a slogan from the Go language documentation: “Do not communicate by sharing memory; instead, share memory by communicating.”
 
-// One major tool Rust has for accomplishing message-sending concurrency is the channel, a programming concept that Rust’s standard library provides an implementation of. 
-// You can imagine a channel in programming as being like a channel of water, such as a stream or a river. 
+// One major tool Rust has for accomplishing message-sending concurrency is the channel, a programming concept that Rust’s standard library provides an implementation of.
+// You can imagine a channel in programming as being like a channel of water, such as a stream or a river.
 // If you put something like a rubber duck or boat into a stream, it will travel downstream to the end of the waterway.
 
-// One increasingly popular approach to ensuring safe concurrency is message passing, where threads or actors communicate by sending each other messages containing data. 
+// One increasingly popular approach to ensuring safe concurrency is message passing, where threads or actors communicate by sending each other messages containing data.
 // Here’s the idea in a slogan from the Go language documentation: “Do not communicate by sharing memory; instead, share memory by communicating.”
 
-// One major tool Rust has for accomplishing message-sending concurrency is the channel, a programming concept that Rust’s standard library provides an implementation of. 
-// You can imagine a channel in programming as being like a channel of water, such as a stream or a river. 
+// One major tool Rust has for accomplishing message-sending concurrency is the channel, a programming concept that Rust’s standard library provides an implementation of.
+// You can imagine a channel in programming as being like a channel of water, such as a stream or a river.
 // If you put something like a rubber duck or boat into a stream, it will travel downstream to the end of the waterway.
 
 // Channels and Ownership Transference
-// The ownership rules play a vital role in message sending because they help you write safe, concurrent code. 
+// The ownership rules play a vital role in message sending because they help you write safe, concurrent code.
 // Preventing errors in concurrent programming is the advantage of thinking about ownership throughout your Rust programs.
-// 
+//
 
 use std::sync::mpsc;
 fn test_thread_channel() {
-
     let (tx, rv) = mpsc::channel();
 
     let slave = thread::spawn(move || {
         let info = String::from("channel message");
         println!("slave thread send : {}", info);
         tx.send(info).unwrap(); // Here, info has been Move. Channels and Ownership Transference
-        // println!("slave thread send : {}", info); // Compile Error: value borrowed here after move, Info is None now.
-     });
+                                // println!("slave thread send : {}", info); // Compile Error: value borrowed here after move, Info is None now.
+    });
 
-    let info = rv.recv().unwrap(); 
+    let info = rv.recv().unwrap();
     // return Result<T, E> block func, "try_recv" non-block func, "unwrap" in Result will panic if error, or return value
     println!("Main thread get : {}", info);
 }
@@ -102,7 +99,7 @@ fn test_thread_channel_multiple_info() {
             String::from("Hello"),
             String::from("from"),
             String::from("Slave"),
-            String::from("thread")
+            String::from("thread"),
         ];
 
         for i in info {
@@ -121,8 +118,7 @@ fn test_thread_multiple_producer() {
     let (tx, rv) = mpsc::channel();
     let tx1 = mpsc::Sender::clone(&tx);
 
-    let slave1 = thread::spawn( move || {
-
+    let slave1 = thread::spawn(move || {
         let vals = vec![
             String::from("Hello"),
             String::from("from"),
@@ -136,7 +132,7 @@ fn test_thread_multiple_producer() {
         }
     });
 
-    let slave2 = thread::spawn( move || {
+    let slave2 = thread::spawn(move || {
         let vals = vec![
             String::from("hello1"),
             String::from("from1"),
@@ -156,7 +152,6 @@ fn test_thread_multiple_producer() {
 }
 
 pub fn test_thread() {
-
     test_thread_basic();
 
     test_thread_basic2();

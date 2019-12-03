@@ -1,21 +1,19 @@
-use std::vec::*;
 use std::mem;
 use std::ptr;
-
+use std::vec::*;
 
 /*
 *** Capacity and reallocation
-The capacity of a vector is the amount of space allocated for any future elements that will be added onto the vector. 
-This is not to be confused with the length of a vector, which specifies the number of actual elements within the vector. 
+The capacity of a vector is the amount of space allocated for any future elements that will be added onto the vector.
+This is not to be confused with the length of a vector, which specifies the number of actual elements within the vector.
 If a vector's length exceeds its capacity, its capacity will automatically be increased, but its elements will have to be reallocated.
 
-For example, a vector with capacity 10 and length 0 would be an empty vector with space for 10 more elements. 
-Pushing 10 or fewer elements onto the vector will not change its capacity or cause reallocation to occur. 
-However, if the vector's length is increased to 11, it will have to reallocate, which can be slow. 
+For example, a vector with capacity 10 and length 0 would be an empty vector with space for 10 more elements.
+Pushing 10 or fewer elements onto the vector will not change its capacity or cause reallocation to occur.
+However, if the vector's length is increased to 11, it will have to reallocate, which can be slow.
 For this reason, it is recommended to use Vec::with_capacity whenever possible to specify how big the vector is expected to get.
 */
 fn test_vec_basic() {
-
     // A contiguous growable array type, written Vec<T> but pronounced 'vector'.
     let mut vec = Vec::new();
 
@@ -40,29 +38,29 @@ fn test_vec_basic() {
         // insert
         let mut vec = vec![1, 2, 3];
         vec.insert(1, 4);
-        assert_eq!( vec, [1, 4, 2, 3]);
+        assert_eq!(vec, [1, 4, 2, 3]);
         vec.insert(4, 5);
-        assert_eq!( vec, [1, 4, 2, 3, 5]);
+        assert_eq!(vec, [1, 4, 2, 3, 5]);
     }
 
     {
         // push
         let mut vec = vec![1, 2];
         vec.push(3);
-        assert_eq!( vec, [1, 2, 3]);
+        assert_eq!(vec, [1, 2, 3]);
 
         // pop
         let mut vec = vec![1, 2, 3];
-        assert_eq!( vec.pop(), Some(3));
-        assert_eq!( vec, [1, 2]);
+        assert_eq!(vec.pop(), Some(3));
+        assert_eq!(vec, [1, 2]);
     }
 
     {
         // remove
         // Removes and returns the element at position index within the vector, shifting all elements after it to the left.
         let mut v = vec![1, 2, 3];
-        assert_eq!( v.remove(1), 2);
-        assert_eq!( v, [1, 3]);
+        assert_eq!(v.remove(1), 2);
+        assert_eq!(v, [1, 3]);
 
         // remove_item
         // Removes the first instance of item from the vector if the item exists.
@@ -82,7 +80,7 @@ fn test_vec_basic() {
             println!("{}", top);
         }
 
-        assert_eq!( stack.is_empty(), true )
+        assert_eq!(stack.is_empty(), true)
     }
 
     // indexing
@@ -100,9 +98,9 @@ fn test_vec_basic() {
 
         read_slice(&v);
 
-        let x : &[usize] = &v;
+        let x: &[usize] = &v;
 
-        // In Rust, it's more common to pass slices as arguments rather than vectors when you just want to provide a read access. 
+        // In Rust, it's more common to pass slices as arguments rather than vectors when you just want to provide a read access.
         // The same goes for String and &str.
     }
 
@@ -111,17 +109,14 @@ fn test_vec_basic() {
         let mut vec = vec![1, 2, 3];
         let mut vec2 = vec![4, 5, 6];
         vec.append(&mut vec2);
-        assert_eq!( vec, [1, 2, 3, 4, 5, 6]);
-        assert_eq!( vec2.is_empty(), true);
+        assert_eq!(vec, [1, 2, 3, 4, 5, 6]);
+        assert_eq!(vec2.is_empty(), true);
 
         vec.clear();
     }
-
 }
 
-fn read_slice(r: &[usize]) {
-
-}
+fn read_slice(r: &[usize]) {}
 
 fn test_vec_macro() {
     {
@@ -132,7 +127,7 @@ fn test_vec_macro() {
     }
 
     {
-        // It can also initialize each element of a Vec<T> with a given value. 
+        // It can also initialize each element of a Vec<T> with a given value.
         // This may be more efficient than performing allocation and initialization in separate steps, especially when initializing a vector of zeros:
         let mut vec1 = vec![0; 5];
         assert_eq!(vec1, [0, 0, 0, 0, 0]);
@@ -162,14 +157,13 @@ fn test_vec_funcs_from_raw_ptrs() {
             ptr::write(p.offset(i), 4 + i);
         }
 
-        // 
+        //
         let rebuilt = Vec::from_raw_parts(p, len, cap);
         assert_eq!(rebuilt, [4, 5, 6]);
     }
 }
 
 fn test_vec_funcs_capacity() {
-
     let mut v = Vec::with_capacity(5);
 
     assert_eq!(v.capacity(), 5);
@@ -180,33 +174,31 @@ fn test_vec_funcs_capacity() {
     assert!(v.capacity() >= 11);
 }
 
-fn test_vec_add_remove_iter() {
-
-}
+fn test_vec_add_remove_iter() {}
 
 fn test_vec_advanced_usage() {
-
-    { // dedup
-      // Removes consecutive repeated elements in the vector according to the PartialEq trait implementation.
-      // If the vector is sorted, this removes all duplicates.
+    {
+        // dedup
+        // Removes consecutive repeated elements in the vector according to the PartialEq trait implementation.
+        // If the vector is sorted, this removes all duplicates.
         let mut vec = vec![1, 2, 2, 3, 3, 4, 5, 6];
 
         vec.dedup();
 
-        assert_eq!( vec, [1, 2, 3, 4, 5, 6] );
+        assert_eq!(vec, [1, 2, 3, 4, 5, 6]);
     }
 
     {
         // dedup_by
         // Removes all but the first of consecutive elements in the vector satisfying a given equality relation.
-        // The same_bucket function is passed references to two elements from the vector and must determine if the elements compare equal. 
+        // The same_bucket function is passed references to two elements from the vector and must determine if the elements compare equal.
         // The elements are passed in opposite order from their order in the slice, so if same_bucket(a, b) returns true, a is removed.
         // If the vector is sorted, this removes all duplicates.
         let mut vec = vec!["foo", "bar", "Bar", "baz", "bar"];
 
         vec.dedup_by(|a, b| a.eq_ignore_ascii_case(b));
 
-        assert_eq!( vec, ["foo", "bar", "baz", "bar"]);
+        assert_eq!(vec, ["foo", "bar", "baz", "bar"]);
     }
 
     {
@@ -214,10 +206,10 @@ fn test_vec_advanced_usage() {
         // Removes all but the first of consecutive elements in the vector that resolve to the same key.
         // If the vector is sorted, this removes all duplicates.
         let mut vec = vec![10, 20, 21, 30, 20];
-        
+
         vec.dedup_by_key(|x| *x / 10);
 
-        assert_eq!( vec, [10, 20, 30, 20]);
+        assert_eq!(vec, [10, 20, 30, 20]);
     }
 
     {
@@ -228,21 +220,20 @@ fn test_vec_advanced_usage() {
 
         let mut v = vec![1, 2, 3];
         let u: Vec<_> = v.drain(1..).collect();
-        assert_eq!( u, &[2, 3]);
-        assert_eq!( v, &[1]);
+        assert_eq!(u, &[2, 3]);
+        assert_eq!(v, &[1]);
 
         // A full range clears the vector
         v.drain(..);
-        assert_eq!( v.is_empty(), true);
+        assert_eq!(v.is_empty(), true);
     }
 
     {
         // drain_filter
         // Creates an iterator which uses a closure to determine if an element should be removed.
-        // If the closure returns true, then the element is removed and yielded. 
+        // If the closure returns true, then the element is removed and yielded.
         // If the closure returns false, the element will remain in the vector and will not be yielded by the iterator.
         // Using this method is equivalent to the following code:
-
 
         let mut numbers = vec![1, 2, 3, 4, 5, 6, 8, 9, 11, 13, 14, 15];
         // #![allow(unused)]
@@ -289,9 +280,9 @@ fn test_vec_advanced_usage() {
         // It will drop down as close as possible to the length but the allocator may still inform the vector that there is space for a few more elements.
         let mut vec = Vec::with_capacity(10);
         vec.extend([1, 2, 3].iter().cloned());
-        assert_eq!( vec.capacity(), 10 );
+        assert_eq!(vec.capacity(), 10);
         vec.shrink_to_fit();
-        assert!( vec.capacity() >= 3 );
+        assert!(vec.capacity() >= 3);
     }
 
     {
@@ -303,8 +294,8 @@ fn test_vec_advanced_usage() {
 
         let mut vec = vec![1, 2, 3, 4, 5, 6];
 
-        vec.retain(|&x| x%2 == 0);
-        assert_eq!( vec, [2, 4, 6]);
+        vec.retain(|&x| x % 2 == 0);
+        assert_eq!(vec, [2, 4, 6]);
     }
 
     {
@@ -316,8 +307,8 @@ fn test_vec_advanced_usage() {
         let mut vec = vec![1, 2, 3];
         let vec2 = vec.split_off(1);
 
-        assert_eq!( vec, [1]);
-        assert_eq!( vec2, [2, 3]);
+        assert_eq!(vec, [1]);
+        assert_eq!(vec2, [2, 3]);
     }
 
     {
@@ -328,8 +319,8 @@ fn test_vec_advanced_usage() {
 
         let mut v = vec!["foo", "bar", "baz", "qux"];
 
-        assert_eq!( v.swap_remove(1), "bar");
-        assert_eq!( v, ["foo", "qux", "baz"]);
+        assert_eq!(v.swap_remove(1), "bar");
+        assert_eq!(v, ["foo", "qux", "baz"]);
 
         assert_eq!(v.swap_remove(0), "foo");
         assert_eq!(v, ["baz", "qux"]);
@@ -343,21 +334,17 @@ fn test_vec_advanced_usage() {
         // Note that this method has no effect on the allocated capacity of the vector.
         let mut v = vec![1, 2, 3, 4, 5, 6];
         v.truncate(2);
-        assert_eq!( v, [1, 2]);
+        assert_eq!(v, [1, 2]);
 
         v.truncate(8);
-        assert_eq!( v, [1, 2]);
+        assert_eq!(v, [1, 2]);
 
         v.truncate(0);
-        assert_eq!( v.is_empty(), true);
+        assert_eq!(v.is_empty(), true);
     }
-
-
 }
 
-
 pub fn test_vec() {
-
     test_vec_basic();
 
     test_vec_macro();

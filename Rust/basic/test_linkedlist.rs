@@ -5,12 +5,11 @@ use std::collections::LinkedList;
 A doubly-linked list with owned nodes.
 
 The LinkedList allows pushing and popping elements at either end in constant time.
-Almost always it is better to use Vec or VecDeque instead of LinkedList. 
+Almost always it is better to use Vec or VecDeque instead of LinkedList.
 In general, array-based containers are faster, more memory efficient and make better use of CPU cache.
 */
 
 fn test_linkedlist_basic() {
-
     let list: LinkedList<u32> = LinkedList::new();
 
     {
@@ -25,46 +24,46 @@ fn test_linkedlist_basic() {
         list1.append(&mut list2);
 
         let mut iter = list1.iter();
-        assert_eq!( iter.next(), Some(&'a') );
-        assert_eq!( iter.next(), Some(&'b') );
-        assert_eq!( iter.next(), Some(&'c') );
-        assert!( iter.next().is_none());
+        assert_eq!(iter.next(), Some(&'a'));
+        assert_eq!(iter.next(), Some(&'b'));
+        assert_eq!(iter.next(), Some(&'c'));
+        assert!(iter.next().is_none());
 
-        assert!( list2.is_empty() );
+        assert!(list2.is_empty());
 
         list1.push_back('d');
-        assert_eq!( list1.pop_back(), Some('d') );
+        assert_eq!(list1.pop_back(), Some('d'));
 
         list1.push_front('0');
-        assert_eq!( list1.pop_front(), Some('0') );
+        assert_eq!(list1.pop_front(), Some('0'));
 
         // len
-        assert_eq!( list1.len(), 3 );
+        assert_eq!(list1.len(), 3);
 
         assert_eq!(list.is_empty(), true);
 
         // front and back
-        assert_eq!( list1.front(), Some(&'a') );
+        assert_eq!(list1.front(), Some(&'a'));
 
-        assert_eq!( list1.back(), Some(&'c') );
+        assert_eq!(list1.back(), Some(&'c'));
 
-        // front 
+        // front
         match list1.front_mut() {
-            None => {},
+            None => {}
             Some(m) => *m = 'f',
         }
-        assert_eq!( list1.front(), Some(&'f'));
+        assert_eq!(list1.front(), Some(&'f'));
 
         match list1.back_mut() {
-            None => {},
+            None => {}
             Some(m) => *m = 'e',
         }
-        assert_eq!( list1.back(), Some(&'f'));
+        assert_eq!(list1.back(), Some(&'f'));
 
         // clear
         list1.clear();
-        
-        assert_eq!( list.is_empty(), false );
+
+        assert_eq!(list.is_empty(), false);
     }
 
     {
@@ -94,10 +93,8 @@ fn test_linkedlist_basic() {
         assert_eq!(iter.next(), None);
 
         // contain
-        assert_eq!( list.contains(&0), true);
-        assert_eq!( list.contains(&100), false);
-
-
+        assert_eq!(list.contains(&0), true);
+        assert_eq!(list.contains(&100), false);
     }
 
     {
@@ -115,7 +112,7 @@ fn test_linkedlist_basic() {
     }
 
     {
-        // drain 
+        // drain
         let mut numbers: LinkedList<u32> = LinkedList::new();
         numbers.extend(&[1, 2, 3, 4, 5, 6, 8, 9, 11, 13, 14, 15]);
 
@@ -123,15 +120,13 @@ fn test_linkedlist_basic() {
         let odds = numbers;
 
         // assert_eq!(evens.into_iter().collect::<Vec<_>>(), vec![2, 4, 6, 8, 14]);
-        assert_eq!(odds.into_iter().collect::<Vec<_>>(), vec![1, 3, 5, 9, 11, 13, 15]);
+        assert_eq!(
+            odds.into_iter().collect::<Vec<_>>(),
+            vec![1, 3, 5, 9, 11, 13, 15]
+        );
     }
 }
 
-
-
 pub fn test_linkedlist() {
-
     test_linkedlist_basic();
 }
-
-

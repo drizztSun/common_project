@@ -28,13 +28,13 @@ pub fn test_box() {
     let point: Point = origin();
     let rectangle: Rectangle = Rectangle {
         p1: origin(),
-        p2: Point { x: 3.0, y: 4.0 }
+        p2: Point { x: 3.0, y: 4.0 },
     };
 
     // Heap allocated rectangle
     let boxed_rectangle: Box<Rectangle> = Box::new(Rectangle {
         p1: origin(),
-        p2: origin()
+        p2: origin(),
     });
 
     // The output of functions can be boxed
@@ -43,21 +43,33 @@ pub fn test_box() {
     // Double indirection
     let box_in_a_box: Box<Box<Point>> = Box::new(boxed_origin());
 
-    println!("Point occupies {} bytes on the stack",
-             mem::size_of_val(&point));
-    println!("Rectangle occupies {} bytes on the stack",
-             mem::size_of_val(&rectangle));
+    println!(
+        "Point occupies {} bytes on the stack",
+        mem::size_of_val(&point)
+    );
+    println!(
+        "Rectangle occupies {} bytes on the stack",
+        mem::size_of_val(&rectangle)
+    );
 
     // box size == pointer size
-    println!("Boxed point occupies {} bytes on the stack",
-             mem::size_of_val(&boxed_point));
-    println!("Boxed rectangle occupies {} bytes on the stack",
-             mem::size_of_val(&boxed_rectangle));
-    println!("Boxed box occupies {} bytes on the stack",
-             mem::size_of_val(&box_in_a_box));
+    println!(
+        "Boxed point occupies {} bytes on the stack",
+        mem::size_of_val(&boxed_point)
+    );
+    println!(
+        "Boxed rectangle occupies {} bytes on the stack",
+        mem::size_of_val(&boxed_rectangle)
+    );
+    println!(
+        "Boxed box occupies {} bytes on the stack",
+        mem::size_of_val(&box_in_a_box)
+    );
 
     // Copy the data contained in `boxed_point` into `unboxed_point`
     let unboxed_point: Point = *boxed_point;
-    println!("Unboxed point occupies {} bytes on the stack",
-             mem::size_of_val(&unboxed_point));
+    println!(
+        "Unboxed point occupies {} bytes on the stack",
+        mem::size_of_val(&unboxed_point)
+    );
 }

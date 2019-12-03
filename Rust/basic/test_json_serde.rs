@@ -1,15 +1,14 @@
-extern crate serde_json;
 extern crate serde;
+extern crate serde_json;
 
-use serde_json::Value as jsonValue;
+use serde::{Deserialize, Serialize};
 use serde_json::json;
 use serde_json::Result;
-use serde::{Serialize, Deserialize};
+use serde_json::Value as jsonValue;
 
-
-// Out of the box, Serde is able to serialize and deserialize common Rust data types in any of the above formats. 
-// For example String, &str, usize, Vec<T>, HashMap<K,V> are all supported. 
-// In addition, Serde provides a derive macro to generate serialization implementations for structs in your own program. 
+// Out of the box, Serde is able to serialize and deserialize common Rust data types in any of the above formats.
+// For example String, &str, usize, Vec<T>, HashMap<K,V> are all supported.
+// In addition, Serde provides a derive macro to generate serialization implementations for structs in your own program.
 // Using the derive macro goes like this:
 #[derive(Serialize, Deserialize, Debug)]
 struct Point {
@@ -18,7 +17,7 @@ struct Point {
 }
 
 fn test_json_serialize_and_deserialize() {
-    let x = Point{x: 10, y: 10};
+    let x = Point { x: 10, y: 10 };
 
     let serialized_json_stream = serde_json::to_string(&x).unwrap();
 
@@ -35,7 +34,7 @@ struct Address {
     city: String,
 }
 
-// Any type that implements Serde's Serialize trait can be serialized this way. 
+// Any type that implements Serde's Serialize trait can be serialized this way.
 // This includes built-in Rust standard library types like Vec<T> and HashMap<K, V>, as well as any structs or enums annotated with #[derive(Serialize)].
 fn test_json_by_serielizing_data_struct() {
     // Some data structure.
@@ -52,7 +51,6 @@ fn test_json_by_serielizing_data_struct() {
 }
 
 fn test_json_serde_from_str() {
-
     let content = r#"
         {
             "name": "John Doe",
@@ -66,11 +64,13 @@ fn test_json_serde_from_str() {
 
     let v: jsonValue = serde_json::from_str(content).unwrap();
 
-    println!("name: {}, age: {}, phones: {}", v["name"], v["age"], v["phones"]);
+    println!(
+        "name: {}, age: {}, phones: {}",
+        v["name"], v["age"], v["phones"]
+    );
 
     println!("{}", v.to_string());
 
-    
     let john = json!({
         "name": "John Doe",
         "age": 43,
@@ -86,7 +86,6 @@ fn test_json_serde_from_str() {
     println!("{}", john.to_string());
 }
 
-
 // *** Parsing JSON as strongly typed data structures
 #[derive(Serialize, Deserialize)]
 struct Person {
@@ -96,7 +95,6 @@ struct Person {
 }
 
 fn test_json_serde_from_strong_type() {
-
     let content = r#"
         {
             "name": "John Doe",
@@ -112,13 +110,8 @@ fn test_json_serde_from_strong_type() {
 
     println!("Pleace call {} at the number {}", v.name, v.phones[1]);
 
-    {
-
-    }
+    {}
 }
-
-
-
 
 pub fn test_json_serde() {
     // Serde JSON provides a json! macro to build serde_json::Value objects with very natural JSON syntax.

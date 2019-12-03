@@ -12,7 +12,6 @@ fn first_word(s: &String) -> &str {
 }
 
 fn test_slice_test() {
-
     let word = String::from("Hello world");
 
     let s = first_word(&word);
@@ -40,6 +39,5 @@ fn test_slice_test() {
 }
 
 pub fn test_slice() {
-
     test_slice_test();
 }
