@@ -92,11 +92,12 @@ func ReadFileStatistics(file *FileBufferReader, counter chan Counter) {
 
 func main() {
 
-	if len(os.Args) < 2 {
-		panic("No file specified")
+	filePath := "./wc-test.txt"
+	if len(os.Args) > 1 {
+		filePath = os.Args[1]
 	}
 
-	bufferReader := NewFileBufferReader(os.Args[1])
+	bufferReader := NewFileBufferReader(filePath)
 	workers := runtime.NumCPU()
 	buff := make(chan Counter)
 
@@ -111,4 +112,5 @@ func main() {
 		totalResult.WordCount += cnt.WordCount
 	}
 
+	fmt.Println("total")
 }
