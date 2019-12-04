@@ -11,7 +11,6 @@ enum List {
 
 // Methods can be attached to an enum
 impl List {
-
     // Create an empty list
     fn new() -> List {
         // `Nil` has type `List`
@@ -35,7 +34,7 @@ impl List {
             // instead take a reference to the tail
             Cons(_, ref tail) => 1 + tail.len(),
             // Base Case: An empty list has zero length
-            Nil => 0
+            Nil => 0,
         }
     }
 
@@ -45,18 +44,14 @@ impl List {
             Cons(header, ref tail) => {
                 // 'format!' is similiar as 'print!', but return a heap
                 format!("{}, {}", header, tail.stringify())
-            },
-            Nil => {
-                format!("Nil")
-            },
+            }
+            Nil => format!("Nil"),
         }
     }
 }
 
-
 pub fn test_list() {
-
-    // create empty list 
+    // create empty list
     let mut lt = List::new();
 
     // append some elements

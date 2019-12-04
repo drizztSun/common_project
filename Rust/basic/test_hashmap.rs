@@ -4,11 +4,10 @@ fn test_hashmap_basic() {
     {
         // A HashMap with fixed list of elements can be initialized from an array:
         let timber_resouces: HashMap<&str, i32> =
-            [ ("Norway", 12),
-              ("Denmark", 16),
-              ("Iceland", 20)].iter().cloned().collect();
-
-        
+            [("Norway", 12), ("Denmark", 16), ("Iceland", 20)]
+                .iter()
+                .cloned()
+                .collect();
     }
 
     {
@@ -39,7 +38,7 @@ fn test_hashmap_basic() {
 
         println!("score = {:?}", score);
 
-        for (k ,v) in &scores {
+        for (k, v) in &scores {
             println!("k = {}, v = {}", k, v);
         }
     }
@@ -67,12 +66,11 @@ fn test_hashmap_basic() {
         let s = "The world most famous people is the people who eats the biggest hubgur";
         for c in s.split_whitespace() {
             let count = words.entry(c).or_insert(0);
-            *count += 1; 
+            *count += 1;
         }
 
         println!("{:?}", words);
     }
-    
 }
 
 // The easiest way to use HashMap with a custom key type is to derive Eq and Hash. We must also derive PartialEq.
@@ -85,12 +83,14 @@ struct Viking {
 impl Viking {
     // Create a new Viking
     fn new(name: &str, country: &str) -> Viking {
-        Viking{name: name.to_string(), country: country.to_string()}
+        Viking {
+            name: name.to_string(),
+            country: country.to_string(),
+        }
     }
 }
 
 fn test_hashmap_customerkey() {
-
     let mut vikings = HashMap::new();
 
     vikings.insert(Viking::new("Einer", "Noway"), 25);
@@ -103,9 +103,7 @@ fn test_hashmap_customerkey() {
 }
 
 pub fn test_hashmap() {
-
     println!(" --- hashmap ---");
 
     test_hashmap_basic();
-
 }

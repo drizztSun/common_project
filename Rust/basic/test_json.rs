@@ -1,9 +1,10 @@
 extern crate json;
 
-use json::{object, array};
+use json::{array, object};
 
 fn test_json_basic() {
-    let parsed = json::parse(r#"
+    let parsed = json::parse(
+        r#"
         {
             "code": 200,
             "success": true,
@@ -15,9 +16,11 @@ fn test_json_basic() {
                 ]
             }
         }
-    "#).unwrap();
+    "#,
+    )
+    .unwrap();
 
-    let instance = object!{
+    let instance = object! {
         "code" => 200,
         "success" => true,
         "payload" => object!{
@@ -30,9 +33,8 @@ fn test_json_basic() {
     };
 
     assert_eq!(parsed, instance);
-} 
+}
 
 pub fn test_json() {
-
     test_json_basic();
 }

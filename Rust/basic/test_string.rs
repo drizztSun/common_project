@@ -1,6 +1,4 @@
-
 fn test_string_basic() {
-    
     {
         let data = "initial strings";
         let s = data.to_string(); // anything with 'Display' function has this
@@ -52,22 +50,22 @@ fn test_string_basic() {
 
 
         fn add(self, s: &str) -> String {
-        This isn’t the exact signature that’s in the standard library: in the standard library, add is defined using generics. 
+        This isn’t the exact signature that’s in the standard library: in the standard library, add is defined using generics.
         Here, we’re looking at the signature of add with concrete types substituted for the generic ones, which is what happens when we call this method with String values. We’ll discuss generics in Chapter 10. This signature gives us the clues we need to understand the tricky bits of the + operator.
 
-        First, s2 has an &, meaning that we’re adding a reference of the second string to the first string because of the s parameter in the add function: 
-        we can only add a &str to a String; we can’t add two String values together. But wait—the type of &s2 is &String, not &str, 
+        First, s2 has an &, meaning that we’re adding a reference of the second string to the first string because of the s parameter in the add function:
+        we can only add a &str to a String; we can’t add two String values together. But wait—the type of &s2 is &String, not &str,
         as specified in the second parameter to add. So why does Listing 8-18 compile?
 
-        The reason we’re able to use &s2 in the call to add is that the compiler can coerce the &String argument into a &str. 
-        When we call the add method, Rust uses a deref coercion, which here turns &s2 into &s2[..]. 
-        We’ll discuss deref coercion in more depth in Chapter 15. Because add does not take ownership of the s parameter, 
+        The reason we’re able to use &s2 in the call to add is that the compiler can coerce the &String argument into a &str.
+        When we call the add method, Rust uses a deref coercion, which here turns &s2 into &s2[..].
+        We’ll discuss deref coercion in more depth in Chapter 15. Because add does not take ownership of the s parameter,
         s2 will still be a valid String after this operation.
 
-        Second, we can see in the signature that add takes ownership of self, because self does not have an &. 
-        This means s1 in Listing 8-18 will be moved into the add call and no longer be valid after that. 
-        So although let s3 = s1 + &s2; looks like it will copy both strings and create a new one, 
-        this statement actually takes ownership of s1, appends a copy of the contents of s2, and then returns ownership of the result. 
+        Second, we can see in the signature that add takes ownership of self, because self does not have an &.
+        This means s1 in Listing 8-18 will be moved into the add call and no longer be valid after that.
+        So although let s3 = s1 + &s2; looks like it will copy both strings and create a new one,
+        this statement actually takes ownership of s1, appends a copy of the contents of s2, and then returns ownership of the result.
         In other words, it looks like it’s making a lot of copies but isn’t; the implementation is more efficient than copying.
         */
     }
@@ -102,24 +100,22 @@ fn test_string_basic() {
         // A String is a wrapper over a Vec<u8>. Let’s look at some of our properly encoded UTF-8 example strings from Listing 8-14. First, this one:
         let len = String::from("Hola").len();
         /*
-        In this case, len will be 4, which means the vector storing the string “Hola” is 4 bytes long. 
-        Each of these letters takes 1 byte when encoded in UTF-8. But what about the following line? 
+        In this case, len will be 4, which means the vector storing the string “Hola” is 4 bytes long.
+        Each of these letters takes 1 byte when encoded in UTF-8. But what about the following line?
         (Note that this string begins with the capital Cyrillic letter Ze, not the Arabic number 3.)
         */
         let len1 = String::from("Здравствуйте").len();
-        /* 
-        Asked how long the string is, you might say 12. However, Rust’s answer is 24: 
-        that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because each Unicode scalar value in that string takes 2 bytes of storage. 
+        /*
+        Asked how long the string is, you might say 12. However, Rust’s answer is 24:
+        that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because each Unicode scalar value in that string takes 2 bytes of storage.
         Therefore, an index into the string’s bytes will not always correlate to a valid Unicode scalar value. To demonstrate, consider this invalid Rust code:
         */
-
-
     }
 
     {
         /*
         Methods for Iterating Over Strings Fortunately, you can access elements in a string in other ways.
-        If you need to perform operations on individual Unicode scalar values, the best way to do so is to use the chars method. 
+        If you need to perform operations on individual Unicode scalar values, the best way to do so is to use the chars method.
         Calling chars on “नमस्ते” separates out and returns six values of type char, and you can iterate over the result to access each element:
          */
         for c in "नमस्ते".chars() {
@@ -135,6 +131,4 @@ fn test_string_basic() {
     }
 }
 
-pub fn test_string() {
-
-}
+pub fn test_string() {}
