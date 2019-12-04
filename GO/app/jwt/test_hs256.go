@@ -1,35 +1,36 @@
 package main
 
 import (
-	"time"
-	"fmt"
 	"encoding/json"
+	"fmt"
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 )
 
 type JwtHeader struct {
-	Alg string `json:"alg"`
-	Typ string `json:"typ"`
+	Alg string   `json:"alg"`
+	Typ string   `json:"typ"`
 	X5c []string `json:"x5c"`
 }
 
 type JwtContent struct {
 	Iss string `json:"iss"`
-	Exp int32 `json:"exp"`
+	Exp int32  `json:"exp"`
 	Sub string `json:"sub"`
 }
 
 func encodeJWTHS256() {
-	
-	header := JwtHeader {
+
+	header := JwtHeader{
 		Alg: "HS256",
 		Typ: "JWT",
-		X5c: []string {
+		X5c: []string{
 			"MIIEXjCCA0agAwIBAgICE...",
 		},
 	}
 
-	content := JwtContent {
+	content := JwtContent{
 		Iss: "http://cas.test.com",
 		Exp: 1569805261,
 		Sub: "yusun_laptop_macbook",
@@ -40,7 +41,7 @@ func encodeJWTHS256() {
 
 	if err == nil {
 		fmt.Println("header json : ", headerJson)
-		fmt.Println("content json : ", contentJson)	
+		fmt.Println("content json : ", contentJson)
 	}
 }
 
@@ -54,7 +55,7 @@ func decodeJWTHS256() {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
 		}
-	
+
 		// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
 		fmt.Println("res: ", hmacSampleSecret)
 		return hmacSampleSecret, nil
@@ -147,7 +148,7 @@ func test_jwt_encoding_decoding() {
 			ExpiresAt: 1569805261,
 			Issuer:    "test",
 		}
-	
+
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 		ss, err := token.SignedString(mySigningKey)
 		fmt.Printf("%v %v", ss, err)
@@ -164,15 +165,15 @@ func test_jwt_encoding_decoding() {
 
 		// sample token is expired.  override time so it parses as valid
 		//at(time.Unix(0, 0), func() {
-			token, err := jwt.ParseWithClaims(tokenString, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
-				return []byte("AllYourBase"), nil
-			})
+		token, err := jwt.ParseWithClaims(tokenString, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+			return []byte("AllYourBase"), nil
+		})
 
-			if claims, ok := token.Claims.(*MyCustomClaims); ok && token.Valid {
-				fmt.Printf("%v %v", claims.Foo, claims.StandardClaims.ExpiresAt)
-			} else {
-				fmt.Println(err)
-			}
+		if claims, ok := token.Claims.(*MyCustomClaims); ok && token.Valid {
+			fmt.Printf("%v %v", claims.Foo, claims.StandardClaims.ExpiresAt)
+		} else {
+			fmt.Println(err)
+		}
 		//})
 	}
 
@@ -190,10 +191,10 @@ func test_jwt_encoding_decoding() {
 			"yuxin sun test",
 			jwt.StandardClaims{
 				ExpiresAt: time.Now().AddDate(1, 10, 100).Unix(),
-				Id: "yusun",
-				Issuer: "yusun-issuer",
-				Subject: "yusun-sub",
-				IssuedAt: time.Now().Unix(),
+				Id:        "yusun",
+				Issuer:    "yusun-issuer",
+				Subject:   "yusun-sub",
+				IssuedAt:  time.Now().Unix(),
 				NotBefore: time.Now().Unix(),
 			},
 		}
@@ -203,24 +204,22 @@ func test_jwt_encoding_decoding() {
 		fmt.Printf("%v %v", ss, err)
 
 		// decoding
-		newtoken, err := jwt.ParseWithClaims(ss, &MyCustomClaims{}, func(token * jwt.Token) (interface{}, error) {
+		newtoken, err := jwt.ParseWithClaims(ss, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 			return []byte("testkeyforsigning"), nil
 		})
 
 		if newClaims, ok := newtoken.Claims.(*MyCustomClaims); ok && !token.Valid {
-			fmt.Println("Content: \n", newClaims.Foo, 
-				newClaims.StandardClaims.ExpiresAt, 
-				newClaims.StandardClaims.Id, 
+			fmt.Println("Content: \n", newClaims.Foo,
+				newClaims.StandardClaims.ExpiresAt,
+				newClaims.StandardClaims.Id,
 				newClaims.StandardClaims.Issuer,
 				newClaims.StandardClaims.Subject,
 				newClaims.StandardClaims.IssuedAt,
-				newClaims.StandardClaims.NotBefore, )
+				newClaims.StandardClaims.NotBefore)
 		} else {
 			fmt.Println(err)
-		} 
+		}
 	}
-
-
 
 }
 
@@ -228,7 +227,7 @@ func test_hs256() {
 
 	// encodeJWTHS256();
 
-	test_jwt_encoding_decoding();
+	test_jwt_encoding_decoding()
 
 	// decodeJWTHS256();
 }
