@@ -109,6 +109,8 @@ func test_interface_and_receivers() {
 
 		s2Val.f()
 
+		i.f()
+
 		// The following doesn't compile, since s2Val is a value, and there is no value receiver for f.
 		//   i = s2Val
 	}
