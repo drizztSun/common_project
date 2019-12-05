@@ -11,31 +11,66 @@ const (
 
 	// DeviceFactory.cert
 	Device_Factory_Cert_PEM = `-----BEGIN CERTIFICATE-----
-	MIIDWTCCAkGgAwIBAgIUDgvGbBTAYI68i0R4Hg3tqjkSNgEwDQYJKoZIhvcNAQEL
-	BQAwPTEhMB8GA1UEChMYQWthbWFpIFRlY2hub2xvZ2llcyBJbmMuMRgwFgYDVQQD
-	Ew9EZXZpY2VQb3N0dXJlQ0EwHhcNMTgxMDAxMTg1MDAyWhcNMjAxMDAxMTg0MTMz
-	WjA7MSEwHwYDVQQKDBhBa2FtYWkgVGVjaG5vbG9naWVzIEluYy4xFjAUBgNVBAMM
-	DURldmljZUZhY3RvcnkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDB
-	FswzjaKpmy0jtoYLmeCOCMmka5nEExgrIJrfqL4DqfGdedcOWTvgAswkAm0uIdzl
-	IicKmfff2sW3m85EnqAgl2Fvzd3fN68vF7gMI0uaokcAWLuEzmvNX3xM70/LUzFY
-	bZnRIV0rcW4bRTG0XmC1Sm4PMswBGtI8oUQwV4AhK7RC9bKmzu60EJXNQpidPB81
-	W2sh4jlCg7NGYtb1dmQbM3U9ZHW+cQggBl+T+X3qsDL3gcGz1cbpJyhzCuPsN4au
-	2jjdEHVtpeBFg0sYQdQC7AdXi12/9WR/f6I2uMlMwIdN9U4+xSmz2LcZ5LaIbZc0
-	zoHJ6RZfHtm9hclZFQ3HAgMBAAGjUzBRMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgw
-	FoAUMyFh52X89c5pH570arS3hulJevAwEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYD
-	VR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4IBAQA/2QTpKdI7ciHRNZve8qu7IzA8
-	Ocq+HmVOLKO6wzRmlIy5t0Aey3mceKgCap0scTIXY9qEnXYTIxGs5aGjSpclFelg
-	+pv2ZWRu3gJu6q5fLdm2fF/2cdRbyHmStMwZa6ooqemvi70J+TmUUPdaruVy8VYJ
-	g95/f9V2R6xo7rRjVv6jWcLfE+xPO9Z2kWw8PFIvwds8CQrwP2TGOzp1fP2ycujD
-	zfeQA83gXYFdFUcA0jDDJtSwX9yBGgqFnDntQTH6X58T5njdOCM90YYlPVZX1K7w
-	VWCMmePoUymFPBUUbctfYnsyOg74EATRURsDhhVQXBoltZK7Z6Mw3l76HQip
-	-----END CERTIFICATE-----`
+MIIDWTCCAkGgAwIBAgIUDgvGbBTAYI68i0R4Hg3tqjkSNgEwDQYJKoZIhvcNAQEL
+BQAwPTEhMB8GA1UEChMYQWthbWFpIFRlY2hub2xvZ2llcyBJbmMuMRgwFgYDVQQD
+Ew9EZXZpY2VQb3N0dXJlQ0EwHhcNMTgxMDAxMTg1MDAyWhcNMjAxMDAxMTg0MTMz
+WjA7MSEwHwYDVQQKDBhBa2FtYWkgVGVjaG5vbG9naWVzIEluYy4xFjAUBgNVBAMM
+DURldmljZUZhY3RvcnkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDB
+FswzjaKpmy0jtoYLmeCOCMmka5nEExgrIJrfqL4DqfGdedcOWTvgAswkAm0uIdzl
+IicKmfff2sW3m85EnqAgl2Fvzd3fN68vF7gMI0uaokcAWLuEzmvNX3xM70/LUzFY
+bZnRIV0rcW4bRTG0XmC1Sm4PMswBGtI8oUQwV4AhK7RC9bKmzu60EJXNQpidPB81
+W2sh4jlCg7NGYtb1dmQbM3U9ZHW+cQggBl+T+X3qsDL3gcGz1cbpJyhzCuPsN4au
+2jjdEHVtpeBFg0sYQdQC7AdXi12/9WR/f6I2uMlMwIdN9U4+xSmz2LcZ5LaIbZc0
+zoHJ6RZfHtm9hclZFQ3HAgMBAAGjUzBRMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgw
+FoAUMyFh52X89c5pH570arS3hulJevAwEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYD
+VR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4IBAQA/2QTpKdI7ciHRNZve8qu7IzA8
+Ocq+HmVOLKO6wzRmlIy5t0Aey3mceKgCap0scTIXY9qEnXYTIxGs5aGjSpclFelg
++pv2ZWRu3gJu6q5fLdm2fF/2cdRbyHmStMwZa6ooqemvi70J+TmUUPdaruVy8VYJ
+g95/f9V2R6xo7rRjVv6jWcLfE+xPO9Z2kWw8PFIvwds8CQrwP2TGOzp1fP2ycujD
+zfeQA83gXYFdFUcA0jDDJtSwX9yBGgqFnDntQTH6X58T5njdOCM90YYlPVZX1K7w
+VWCMmePoUymFPBUUbctfYnsyOg74EATRURsDhhVQXBoltZK7Z6Mw3l76HQip
+-----END CERTIFICATE-----`
 
 	// DeviceFactory.der (base64)
 	Device_Factory_Cert_DER = "MIIDWTCCAkGgAwIBAgIUDgvGbBTAYI68i0R4Hg3tqjkSNgEwDQYJKoZIhvcNAQELBQAwPTEhMB8GA1UEChMYQWthbWFpIFRlY2hub2xvZ2llcyBJbmMuMRgwFgYDVQQDEw9EZXZpY2VQb3N0dXJlQ0EwHhcNMTgxMDAxMTg1MDAyWhcNMjAxMDAxMTg0MTMzWjA7MSEwHwYDVQQKDBhBa2FtYWkgVGVjaG5vbG9naWVzIEluYy4xFjAUBgNVBAMMDURldmljZUZhY3RvcnkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBFswzjaKpmy0jtoYLmeCOCMmka5nEExgrIJrfqL4DqfGdedcOWTvgAswkAm0uIdzlIicKmfff2sW3m85EnqAgl2Fvzd3fN68vF7gMI0uaokcAWLuEzmvNX3xM70/LUzFYbZnRIV0rcW4bRTG0XmC1Sm4PMswBGtI8oUQwV4AhK7RC9bKmzu60EJXNQpidPB81W2sh4jlCg7NGYtb1dmQbM3U9ZHW+cQggBl+T+X3qsDL3gcGz1cbpJyhzCuPsN4au2jjdEHVtpeBFg0sYQdQC7AdXi12/9WR/f6I2uMlMwIdN9U4+xSmz2LcZ5LaIbZc0zoHJ6RZfHtm9hclZFQ3HAgMBAAGjUzBRMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUMyFh52X89c5pH570arS3hulJevAwEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4IBAQA/2QTpKdI7ciHRNZve8qu7IzA8Ocq+HmVOLKO6wzRmlIy5t0Aey3mceKgCap0scTIXY9qEnXYTIxGs5aGjSpclFelg+pv2ZWRu3gJu6q5fLdm2fF/2cdRbyHmStMwZa6ooqemvi70J+TmUUPdaruVy8VYJg95/f9V2R6xo7rRjVv6jWcLfE+xPO9Z2kWw8PFIvwds8CQrwP2TGOzp1fP2ycujDzfeQA83gXYFdFUcA0jDDJtSwX9yBGgqFnDntQTH6X58T5njdOCM90YYlPVZX1K7wVWCMmePoUymFPBUUbctfYnsyOg74EATRURsDhhVQXBoltZK7Z6Mw3l76HQip"
 
-	// Code in JWT does check the '\n'
-	Device_Factory_Private_KEY = "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAwRbMM42iqZstI7aGC5ngjgjJpGuZxBMYKyCa36i+A6nxnXnXDlk74ALMJAJtLiHc5SInCpn339rFt5vORJ6gIJdhb83d3zevLxe4DCNLmqJHAFi7hM5rzV98TO9Py1MxWG2Z0SFdK3FuG0UxtF5gtUpuDzLMARrSPKFEMFeAISu0QvWyps7utBCVzUKYnTwfNVtrIeI5QoOzRmLW9XZkGzN1PWR1vnEIIAZfk/l96rAy94HBs9XG6Scocwrj7DeGrto43RB1baXgRYNLGEHUAuwHV4tdv/Vkf3+iNrjJTMCHTfVOPsUps9i3GeS2iG2XNM6ByekWXx7ZvYXJWRUNxwIDAQABAoIBAGVN4LTrinwRvg0OpiVQBlB+q8xn57THj9aQtLDDh23Eq89DLWGJz7Anx5Lc8wtRGOPelz0oqrP3w+QhCodV8g0nXyeZit6iCHdcqmMz4Wav3TCBXWDALC8D+eMja2nxq+IJHrpqFsfEK1CDbSCEo5h6BGRU8lNiDwtgULZMMh00NYk5AgLuPb3CrZv24AbOEWD8164Vqs61c2ajHAh87+Wtd7iOT+eehAvv7JnznOoinmcv2/pj+HptL5XhjiWg4xB2ac3Ea1/10Z+MVwBCd+4XAp+0boFo1W4BPlJVLx8w4Q4UEjVi5Gf3IdPT31D0Lb9o86R/oW8OCztfF4qVoIECgYEA/TsrX+72W6C9s2sLa045tzQ7JWrHN0b7fgz2tXMqYp+J/G/78vu/sKrVw9LZSlraoE0QXYJQGxDd1R0mKsFxR8eCyhI7jwMFXBE5s2WuZ401Jpl0KGHX3mIk4cXUcRUcriQqDhfPYCWmG0RVLJZJRrGMRSkgYd+NB/rBKeKjPlsCgYEAwzNIJ6AE4lLQegpEjIHFWm5giQ8KJReGSUQ23K/5Y73qS5vtJzps4H42vUYv3/PnI85ugkF8PTCEGUx5XI2nzdgF3+4bHahxsD2YKpquKnXXZM1nwBrfxCDCawBpZYbbt1bneyr47kjH6zWIfK/h2jHYq1B4Id1xsrfZzjTyYgUCgYEA1daXZCV4qBtu1gm41N5z4n8ayxgGLmmkiecMlmEwE6RBc4hlK+TnFJrOdNSiZSWfpOouvagDWTe+++3ngwdjT4fsrBMFdFjKt9pb7WAaDJuznGrNKiSlk8cw+e6C3RNE6tDjKo90sO5Z/ICRpFsseaQInYaDL+MFRw26/FHEJC0CgYBc1Ua7kZ7BBCGh6MAxEoaJO3UtublZapaywX5V9lrk1K1YyA9BWMfu/BeMbJTYLWb/4G0uBXbQowIwBe6x1ay4eMRSeyrqL/Hhn2l+2ZF7IBAQIJ/2/NDutaXAvbFiV4Cm8O2l5gn9SR/K/OqsYflHi+0/jEWV1Xr9Q/KR3xxnAQKBgQCIy0yZextMpdaS22mttXol5zcsJuVFeabLO7Jj3eJAedAlgR4hUUkjcWs4qRvJRoQQ4S7FmO4l2p0brnnhFclJzt7xDI2QTWU+EE7OrdFnKYSV4n7LE1/s7/npW5wRUI5ZKeQTw4zLq4fauNksCcUUANqG0uv1TPP6BIZJCivW6w==\n-----END RSA PRIVATE KEY-----"
+	Public_KEY = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnzyis1ZjfNB0bBgKFMSv
+vkTtwlvBsaJq7S5wA+kzeVOVpVWwkWdVha4s38XM/pa/yr47av7+z3VTmvDRyAHc
+aT92whREFpLv9cj5lTeJSibyr/Mrm/YtjCZVWgaOYIhwrXwKLqPr/11inWsAkfIy
+tvHWTxZYEcXLgAXFuUuaS3uF9gEiNQwzGTU1v0FqkqTBr4B8nW3HCN47XUu0t8Y0
+e+lf4s4OxQawWD79J9/5d3Ry0vbV3Am1FtGJiJvOwRsIfVChDpYStTcHTCMqtvWb
+V6L11BWkpzGXSW4Hv43qa+GSYOD2QU68Mb59oSk2OB+BtOLpJofmbGEGgvmwyCI9
+MwIDAQAB
+-----END PUBLIC KEY-----`
+
+	Private_KEY = `-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAnzyis1ZjfNB0bBgKFMSvvkTtwlvBsaJq7S5wA+kzeVOVpVWw
+kWdVha4s38XM/pa/yr47av7+z3VTmvDRyAHcaT92whREFpLv9cj5lTeJSibyr/Mr
+m/YtjCZVWgaOYIhwrXwKLqPr/11inWsAkfIytvHWTxZYEcXLgAXFuUuaS3uF9gEi
+NQwzGTU1v0FqkqTBr4B8nW3HCN47XUu0t8Y0e+lf4s4OxQawWD79J9/5d3Ry0vbV
+3Am1FtGJiJvOwRsIfVChDpYStTcHTCMqtvWbV6L11BWkpzGXSW4Hv43qa+GSYOD2
+QU68Mb59oSk2OB+BtOLpJofmbGEGgvmwyCI9MwIDAQABAoIBACiARq2wkltjtcjs
+kFvZ7w1JAORHbEufEO1Eu27zOIlqbgyAcAl7q+/1bip4Z/x1IVES84/yTaM8p0go
+amMhvgry/mS8vNi1BN2SAZEnb/7xSxbflb70bX9RHLJqKnp5GZe2jexw+wyXlwaM
++bclUCrh9e1ltH7IvUrRrQnFJfh+is1fRon9Co9Li0GwoN0x0byrrngU8Ak3Y6D9
+D8GjQA4Elm94ST3izJv8iCOLSDBmzsPsXfcCUZfmTfZ5DbUDMbMxRnSo3nQeoKGC
+0Lj9FkWcfmLcpGlSXTO+Ww1L7EGq+PT3NtRae1FZPwjddQ1/4V905kyQFLamAA5Y
+lSpE2wkCgYEAy1OPLQcZt4NQnQzPz2SBJqQN2P5u3vXl+zNVKP8w4eBv0vWuJJF+
+hkGNnSxXQrTkvDOIUddSKOzHHgSg4nY6K02ecyT0PPm/UZvtRpWrnBjcEVtHEJNp
+bU9pLD5iZ0J9sbzPU/LxPmuAP2Bs8JmTn6aFRspFrP7W0s1Nmk2jsm0CgYEAyH0X
++jpoqxj4efZfkUrg5GbSEhf+dZglf0tTOA5bVg8IYwtmNk/pniLG/zI7c+GlTc9B
+BwfMr59EzBq/eFMI7+LgXaVUsM/sS4Ry+yeK6SJx/otIMWtDfqxsLD8CPMCRvecC
+2Pip4uSgrl0MOebl9XKp57GoaUWRWRHqwV4Y6h8CgYAZhI4mh4qZtnhKjY4TKDjx
+QYufXSdLAi9v3FxmvchDwOgn4L+PRVdMwDNms2bsL0m5uPn104EzM6w1vzz1zwKz
+5pTpPI0OjgWN13Tq8+PKvm/4Ga2MjgOgPWQkslulO/oMcXbPwWC3hcRdr9tcQtn9
+Imf9n2spL/6EDFId+Hp/7QKBgAqlWdiXsWckdE1Fn91/NGHsc8syKvjjk1onDcw0
+NvVi5vcba9oGdElJX3e9mxqUKMrw7msJJv1MX8LWyMQC5L6YNYHDfbPF1q5L4i8j
+8mRex97UVokJQRRA452V2vCO6S5ETgpnad36de3MUxHgCOX3qL382Qx9/THVmbma
+3YfRAoGAUxL/Eu5yvMK8SAt/dJK6FedngcM3JEFNplmtLYVLWhkIlNRGDwkg3I5K
+y18Ae9n7dHVueyslrb6weq7dTkYDi3iOYRW8HRkIQh06wEdbxt0shTzAJvvCQfrB
+jg/3747WSsf/zBTcHihTRBdAv6OmdhV4/dD5YBfLAkLrd+mX7iE=
+-----END RSA PRIVATE KEY-----`
 )
 
 func test_jwt_encoding_decoding_rs() {
@@ -48,7 +83,7 @@ func test_jwt_encoding_decoding_rs() {
 		})
 
 		// Sign and get the complete encoded token as a string using the secret
-		rsa, err := jwt.ParseRSAPrivateKeyFromPEM([]byte(Device_Factory_Private_KEY))
+		rsa, err := jwt.ParseRSAPrivateKeyFromPEM([]byte(Private_KEY))
 		if err != nil {
 			fmt.Println(err)
 			panic(err)
@@ -62,7 +97,27 @@ func test_jwt_encoding_decoding_rs() {
 		fmt.Println(TokenString)
 
 		// jwt rs356 decoding
-		// jwt.Parse(TokenString)
+		token, err = jwt.Parse(TokenString, func(token *jwt.Token) (interface{}, error) {
+			return jwt.ParseRSAPublicKeyFromPEM([]byte(Public_KEY))
+		})
+
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+
+		fmt.Println("Raw : ", token.Raw)
+		fmt.Println("Header : ", token.Header)
+		if claims, ok := token.Claims.(jwt.MapClaims); ok {
+			fmt.Println("Claims : ", claims)
+
+			fmt.Println("Expires At : ", claims.VerifyExpiresAt(time.Now().Unix(), false))
+			fmt.Println("Issues At : ", claims.VerifyIssuedAt(time.Now().Unix(), false))
+			fmt.Println("Issuer : ", claims.VerifyIssuer("syx", false))
+			fmt.Println("Not before : ", claims.VerifyNotBefore(time.Now().Unix(), false))
+		}
+		fmt.Println("Signature : ", token.Signature)
+		fmt.Println("Valid : ", token.Valid)
 
 	}
 
@@ -120,18 +175,73 @@ func test_jwt_encoding_decoding_rs() {
 
 	// standard claim encoding
 	{
-		mySigningKey := []byte("AllYourBase")
-
 		// Create the Claims
 		// StandardClaims in body
 		claims := &jwt.StandardClaims{
-			ExpiresAt: 1569805261,
-			Issuer:    "test",
+			Audience:  "syx",
+			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
+			Id:        "123-456-789",
+			Issuer:    "syx",
+			IssuedAt:  time.Now().Unix(),
+			NotBefore: time.Now().Unix(),
+			Subject:   "syx-testing-001",
 		}
 
-		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-		ss, err := token.SignedString(mySigningKey)
-		fmt.Printf("%v %v", ss, err)
+		token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
+
+		// Sign and get the complete encoded token as a string using the secret
+		rsa, err := jwt.ParseRSAPrivateKeyFromPEM([]byte(Private_KEY))
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+
+		TokenString, err := token.SignedString(rsa)
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+		fmt.Println(TokenString)
+
+		// Parse token
+		claims = &jwt.StandardClaims{
+			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
+		}
+
+		token, err = jwt.ParseWithClaims(TokenString, claims, func(token *jwt.Token) (interface{}, error) {
+
+			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
+				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			}
+
+			return jwt.ParseRSAPublicKeyFromPEM([]byte(Public_KEY))
+		})
+
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+
+		fmt.Println("Raw : ", token.Raw)
+		fmt.Println("Header : ", token.Header)
+		if claims, ok := token.Claims.(*jwt.StandardClaims); ok && token.Valid {
+			fmt.Println("Claims : ", claims)
+			fmt.Println("Audience : ", claims.Audience)
+			fmt.Println("Expired At : ", claims.ExpiresAt)
+			fmt.Println("Id : ", claims.Id)
+			fmt.Println("IssueAt : ", claims.IssuedAt)
+			fmt.Println("Issuer : ", claims.Issuer)
+			fmt.Println("NoBefore : ", claims.NotBefore)
+			fmt.Println("Subject : ", claims.Subject)
+
+			fmt.Println("Expires At : ", claims.VerifyExpiresAt(time.Now().Unix(), false))
+			fmt.Println("Issues At : ", claims.VerifyIssuedAt(time.Now().Unix(), false))
+			fmt.Println("Issuer : ", claims.VerifyIssuer("syx", false))
+			fmt.Println("Not before : ", claims.VerifyNotBefore(time.Now().Unix(), false))
+		}
+		fmt.Println("Signature : ", token.Signature)
+		fmt.Println("Valid : ", token.Valid)
+
 	}
 
 	// customed claim decoding
@@ -159,8 +269,6 @@ func test_jwt_encoding_decoding_rs() {
 
 	// customed claims
 	{
-		mySigningKey := []byte("testkeyforsigning")
-
 		type MyCustomClaims struct {
 			Foo string `json:"foo"`
 			jwt.StandardClaims
@@ -179,13 +287,30 @@ func test_jwt_encoding_decoding_rs() {
 			},
 		}
 
-		token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-		ss, err := token.SignedString(mySigningKey)
-		fmt.Printf("%v %v", ss, err)
+		token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
+
+		// Sign and get the complete encoded token as a string using the secret
+		rsa, err := jwt.ParseRSAPrivateKeyFromPEM([]byte(Private_KEY))
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+
+		TokenString, err := token.SignedString(rsa)
+		if err != nil {
+			fmt.Println(err)
+			panic(err)
+		}
+		fmt.Println(TokenString)
 
 		// decoding
-		newtoken, err := jwt.ParseWithClaims(ss, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
-			return []byte("testkeyforsigning"), nil
+		newtoken, err := jwt.ParseWithClaims(TokenString, &MyCustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+
+			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
+				return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			}
+
+			return jwt.ParseRSAPublicKeyFromPEM([]byte(Public_KEY))
 		})
 
 		if newClaims, ok := newtoken.Claims.(*MyCustomClaims); ok && !token.Valid {
