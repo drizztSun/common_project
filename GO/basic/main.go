@@ -7,7 +7,11 @@ import (
 func main() {
 	fmt.Println("--- basic main function ---")
 
-	test_json()
+	basic()
+
+	// test_closure()
+
+	// test_json()
 
 	// test_gzip()
 
@@ -25,15 +29,15 @@ func main() {
 
 	// test_uri()
 
-	//test_time() 
+	//test_time()
 
 	// Test_io()
-	
+
 	// Test_strconver()
 
 	// test_json()
 
-	// test_reflect() 
+	// test_reflect()
 
 	// Test_os()
 

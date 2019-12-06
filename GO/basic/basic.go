@@ -446,43 +446,42 @@ func callInterface() {
 }
 */
 
-
-
 /*
 Difference between Receiverby-Reference and Receiver-By-Value
 1) Receiver-by-Reference for writing or passing struct more efficient
-2) Receiver-by-Value for reading, becuse if you change field, it will shows in final object 
+2) Receiver-by-Value for reading, becuse if you change field, it will shows in final object
 */
 type Mutatable struct {
-    a int
-    b int
+	a int
+	b int
 }
 
 func (m Mutatable) StayTheSame() {
-    m.a = 5
-    m.b = 7
+	m.a = 5
+	m.b = 7
 }
 
 func (m *Mutatable) Mutate() {
-    m.a = 5
-    m.b = 7
+	m.a = 5
+	m.b = 7
 }
-
 
 func TestReceiver() {
 
 	m := &Mutatable{0, 0}
 	fmt.Println(m) // &{0, 0}
-	
-    m.StayTheSame()
+
+	m.StayTheSame()
 	fmt.Println(m) // &{0, 0}
-	
-    m.Mutate()
-    fmt.Println(m) // &{5, 7}
+
+	m.Mutate()
+	fmt.Println(m) // &{5, 7}
 }
 
 func basic() {
 	fmt.Printf("Hello World! \n")
+
+	TestReceiver()
 
 	fmt.Println("Current time is ", time.Now())
 
