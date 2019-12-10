@@ -18,9 +18,9 @@ class PermuteUnique:
 
     def doit(self, nums):
 
-        def helper(a):
+        nums.sort()
 
-            nums.sort()
+        def helper(a):
 
             if len(a) == 1:
                 return [a]

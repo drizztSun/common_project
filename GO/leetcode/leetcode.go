@@ -6,9 +6,14 @@ import (
 	"./leetcodeH"
 )
 
+
 func main() {
 
 	fmt.Println("leetcode hello world")
+
+	// leetcodeE.Test_46_permutations()
+
+	leetcodeE.Test_47_permuteII()
 
 	//leetcodeH.Test_4_Median()
 
@@ -20,7 +25,7 @@ func main() {
 
 	// leetcodeH.Test_179LargetNumber()
 
-	leetcodeE.Test_43_multiply_strings()
+	// leetcodeE.Test_43_multiply_strings()
 
 	leetcodeH.Test_179LargetNumber()
 

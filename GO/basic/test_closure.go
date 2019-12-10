@@ -8,7 +8,7 @@ import (
 func c_adder() func(int) int {
 	sum := 0
 	return func(a int) int {
-		sum += a
+		sum = sum + a
 		return sum
 	}
 }

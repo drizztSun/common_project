@@ -7,7 +7,7 @@ import (
 func main() {
 	fmt.Println("--- basic main function ---")
 
-	basic()
+	// basic()
 
 	// test_closure()
 
@@ -21,7 +21,7 @@ func main() {
 
 	//Main_test_list()
 
-	//test_array()
+	test_array()
 
 	//Test_str()
 
