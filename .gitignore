@@ -13,3 +13,4 @@ RELEASE
 venv
 */Debug
 */Release
+*/.idea
