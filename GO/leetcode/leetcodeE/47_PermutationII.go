@@ -5,6 +5,7 @@ import (
 	"sort"
 )
 
+// way1
 func permuteUnique_1(nums []int) [][]int {
 
 	sort.Ints(nums)
@@ -21,7 +22,7 @@ func permuteUnique_1(nums []int) [][]int {
 			continue
 		}
 
-		next := nums
+		next := append([]int{}, nums...)
 		next = append(next[:i], next[i+1:]...)
 		for _, c := range permuteUnique_1(next) {
 			res = append(res, append([]int{nums[i]}, c...))
@@ -31,6 +32,7 @@ func permuteUnique_1(nums []int) [][]int {
 	return res
 }
 
+// way2
 func permuteUnique_2(nums []int, used []bool, result *[][]int, temp []int) {
 	if len(nums) == len(temp) {
 		r := append([]int{}, temp...)
@@ -65,10 +67,11 @@ func permuteUnique_(nums []int) [][]int {
 	return result
 }
 
+// way3
 func permuteUnique(nums []int) [][]int {
 	res := make([][]int, 0)
 	m := getCounts(nums)
-	return permute([]int{}, m, res, len(nums))
+	return permuteUnique_3([]int{}, m, res, len(nums))
 }
 
 func getCounts(nums []int) map[int]int {
@@ -79,7 +82,7 @@ func getCounts(nums []int) map[int]int {
 	return m
 }
 
-func permute_3(prefix []int, counts map[int]int, res [][]int, n int) [][]int {
+func permuteUnique_3(prefix []int, counts map[int]int, res [][]int, n int) [][]int {
 	if len(prefix) == n {
 		completed := append([]int{}, prefix...)
 		return append(res, completed)
@@ -88,7 +91,7 @@ func permute_3(prefix []int, counts map[int]int, res [][]int, n int) [][]int {
 	for k, v := range counts {
 		if v > 0 {
 			counts[k] -= 1
-			res = permute_3(append(prefix, k), counts, res, n)
+			res = permuteUnique_3(append(prefix, k), counts, res, n)
 			counts[k] += 1
 		}
 	}
@@ -96,6 +99,7 @@ func permute_3(prefix []int, counts map[int]int, res [][]int, n int) [][]int {
 	return res
 }
 
+// way4
 func permuteUnique_4(nums []int) [][]int {
 	sort.Ints(nums)
 	ans := [][]int{}
