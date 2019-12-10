@@ -96,6 +96,42 @@ func permute_3(prefix []int, counts map[int]int, res [][]int, n int) [][]int {
 	return res
 }
 
+func permuteUnique_4(nums []int) [][]int {
+	sort.Ints(nums)
+	ans := [][]int{}
+	appendAns := func(list []int) {
+		ans = append(ans, append([]int{}, list...))
+	}
+	recurse(nums, []int{}, appendAns)
+	return ans
+}
+
+func recurse(nums []int, list []int, appendAns func([]int)) {
+	if len(nums) == 0 {
+		appendAns(list)
+		return
+	}
+	for i := 0; i < len(nums); i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		list = append(list, nums[i])
+		recurse(exclude(nums, i), list, appendAns)
+		list = list[:len(list)-1]
+	}
+}
+
+func exclude(nums []int, n int) []int {
+	ret := make([]int, 0, len(nums)-1)
+	for i := 0; i < len(nums); i++ {
+		if i == n {
+			continue
+		}
+		ret = append(ret, nums[i])
+	}
+	return ret
+}
+
 func Test_47_permuteII() {
 
 	fmt.Println(permuteUnique_1([]int{1, 1, 2}))
