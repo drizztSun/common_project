@@ -1,20 +1,21 @@
 package main
 
-
 import (
-	"fmt"
 	"bufio"
+	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
-func Test_os_read_file() {
+func test_os_read_file() {
 
 	data, err := ioutil.ReadFile("/tmp/test")
 
 	if err != nil {
-		return 
+		return
 	}
 
 	fmt.Println("content ", string(data))
@@ -40,8 +41,8 @@ func Test_os_read_file() {
 	n2, err := f.Read(b2)
 	if err != nil {
 		return
-	} 
-	
+	}
+
 	fmt.Printf("%d bytes @ %d, %s\n", n2, o2, string(b2))
 
 	o3, err := f.Seek(6, 0)
@@ -72,7 +73,7 @@ func Test_os_read_file() {
 	if err != nil {
 		fmt.Println(err)
 	}
-  	fmt.Println(dir)
+	fmt.Println(dir)
 }
 
 func test_parameters() {
@@ -88,10 +89,40 @@ func test_parameters() {
 
 }
 
+func test_signal() {
+
+	{
+		// Resigter a channel 'term', and signal.Notify register it listern to system event, defined in 'signals'.
+		signals := []os.Signal{os.Interrupt, syscall.SIGTERM, syscall.SIGSEGV}
+		term := make(chan os.Signal, len(signals))
+		signal.Notify(term, signals...)
+
+		// Listern to system signal
+		s := <-term
+		fmt.Println(s)
+	}
+
+	{
+		// Set up channel on which to send signal notifications.
+		// We must use a buffered channel or risk missing the signal
+		// if we're not ready to receive when the signal is sent.
+		c := make(chan os.Signal, 1)
+
+		// Passing no signals to Notify means that
+		// all signals will be sent to the channel.
+		signal.Notify(c)
+
+		// Block until any signal is received.
+		s := <-c
+		fmt.Println("Got signal:", s)
+	}
+}
 
 func Test_os() {
 
-	Test_os_read_file()
+	test_os_read_file()
 
 	test_parameters()
+
+	test_signal()
 }
