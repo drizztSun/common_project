@@ -156,12 +156,12 @@ def f(n):
         
 print(f(4))
         
-def han(n,x,y,z):
-    if n == 1:
-        print(x,'-->',z)
-    han(n-1,x,z,y)    
-    print(x,'-->',z)
-    han(n-1,)
+#def han(n,x,y,z):
+#   if n == 1:
+#      print(x,'-->',z)
+# han(n-1,x,z,y)    
+#print(x,'-->',z)
+#han(n-1,)
 
                   
 def find_max_min_differnce(a):
@@ -298,12 +298,12 @@ def can_divided_by5(a):
 
         if a[i] % 5 == 0:
             return True
-            break
+            
         
         a[i] *= 2
         i = i+1
     else:
-        return False
+        
         print("There is no number divided by 5")
 
 def BIG(a):
