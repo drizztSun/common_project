@@ -147,14 +147,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="215_KthLargestElementInArrat.cpp" />
-    <ClCompile Include="hashmap.c" />
+    <ClCompile Include="alg\hashmap.c" />
     <ClCompile Include="leetcode.cpp" />
     <ClCompile Include="leetcode\10_RegularExpressionMatching.cpp" />
     <ClCompile Include="leetcode\11_ContainerWithMostWater.cpp" />
     <ClCompile Include="leetcode\123_BestTimetoBuyandSellStockIII.cpp" />
     <ClCompile Include="leetcode\128_LongestConsecutiveSequence.cpp" />
     <ClCompile Include="leetcode\188_BestTimeBuySellStockIV.cpp" />
+    <ClCompile Include="leetcode\215_KthLargestElementInArrat.cpp" />
     <ClCompile Include="leetcode\218_SkylineProblem.cpp" />
     <ClCompile Include="leetcode\218_TheSkylinesProblem.cpp" />
     <ClCompile Include="leetcode\23_MergeSortedList.cpp" />
