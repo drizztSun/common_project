@@ -76,12 +76,28 @@ class RotateString:
     def doit2(self, A, B):
         if A == B:
             return True
+
         if len(A) != len(B):
             return False
 
         sa = set([(i, j) for i, j in zip(A, A[1:])] + [(A[-1], A[0])])
         sb = set([(i, j) for i, j in zip(B, B[1:])] + [(B[-1], B[0])])
         return sa == sb
+
+    def doit3(self, A, B):
+        if A == B:
+            return True
+
+        if len(A) == 0 or len(B) == 0:
+            return False
+
+        n = len(A) - 1
+        while n :
+            A = A[1:] + A[0]
+            if A == B :
+                return True
+            n -= 1
+        return False
 
 
 if __name__ == '__main__':

@@ -32,6 +32,23 @@ class RotatedDigits:
                 result += 1
         return result
 
+    def doit(self, N):
+        s1 = set([0, 1, 8])
+        s2 = set([0, 1, 8, 2, 5, 6, 9])
+        s = set()
+        res = 0
+        N = list(map(int, str(N)))
+        for i, v in enumerate(N):
+            for j in range(v):
+                if s.issubset(s2) and j in s2:
+                    res += 7**(len(N) - i - 1)
+                if s.issubset(s1) and j in s1:
+                    res -= 3**(len(N) - i - 1)
+            if v not in s2:
+                return res
+            s.add(v)
+        return res + (s.issubset(s2) and not s.issubset(s1))
+
     def doit(self, N: int) -> int:
         res = 0
         bad = [3, 4, 7]
@@ -52,24 +69,24 @@ class RotatedDigits:
 
     def doit1(self, N: int) -> int:
         N, t, c = str(N), 0, 1
-        L, a, b = len(N) - 1, [1,2,3,3,3,4,5,5,6,7], [1,2,2,2,2,2,2,2,3,3] 
-    	
+        L, a, b = len(N) - 1, [1,2,3,3,3,4,5,5,6,7], [1,2,2,2,2,2,2,2,3,3]
+
         for i in range(L):
-            if N[i] == '0': 
+            if N[i] == '0':
                 continue
-            t += a[int(N[i])-1]*7**(L-i) - c * b[int(N[i])-1]*3**(L-i)
-            if N[i] in '347': 
+            t += a[int(N[i])-1] * 7**(L-i) - c * b[int(N[i])-1] * 3**(L-i)
+            if N[i] in '347':
                 return t
-            if N[i] not in '18': 
+            if N[i] not in '18':
                 c = 0
 
-        return t + a[int(N[-1])] - c*b[int(N[-1])]
+        return t + a[int(N[-1])] - c * b[int(N[-1])]
 
     def doit(self, N):
 
         A = list(map(int, str(N)))
         memo = {}
-        
+
         def dp(i, equality_flag, involution_flag):
             if i == len(A):
                 return + (involution_flag)
@@ -87,10 +104,42 @@ class RotatedDigits:
 
         return dp(0, True, False)
 
+    def doit(self, N):
+        smallSet = {0,1,8}
+        bigSet = {2,5,6,9}
+
+        smallNum = [0,0,1,1,1,2,3,3,3,4][N % 10]
+        bigNum = [1,2,3,3,3,4,5,5,6,7][N % 10]
+
+        N = N // 10
+        smInc, bgInc = 4, 7
+
+        while N:
+            x = N % 10
+            N = N // 10
+            sm, bg = 0, 0
+            for i in range(x):
+                if i in smallSet:
+                    sm += smInc
+                    bg += bgInc
+                elif i in bigSet:
+                    sm += bgInc
+                    bg += bgInc
+            if x in smallSet:
+                smallNum += sm
+                bigNum += bg
+            elif x in bigSet:
+                smallNum = bigNum + sm
+                bigNum += bg
+            else:
+                smallNum = sm
+                bigNum = bg
+            smInc, bgInc = 4*bgInc + 3*smInc, bgInc * 7
+        return smallNum
+
 
 if __name__ == '__main__':
 
-    res = RotatedDigits().doit(10) # 4
+    res = RotatedDigits().doit1(120368) # 4
 
     pass
-        
