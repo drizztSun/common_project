@@ -237,6 +237,9 @@
     <ClCompile Include="alg\hashmap.c">
       <Filter>alg</Filter>
     </ClCompile>
+    <ClCompile Include="787_CheapestFlightsWithinKStops.cpp">
+      <Filter>leetcode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="leetcode">

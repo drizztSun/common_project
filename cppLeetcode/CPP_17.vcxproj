@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="787_CheapestFlightsWithinKStops.cpp" />
     <ClCompile Include="alg\hashmap.c" />
     <ClCompile Include="leetcode.cpp" />
     <ClCompile Include="leetcode\10_RegularExpressionMatching.cpp" />

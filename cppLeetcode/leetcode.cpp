@@ -129,6 +129,8 @@ void Test_731_MyCalendarII();
 
 void Test_729_MyCalendarI();
 
+void Test_787_CheapestFlights();
+
 
 void leetcode() {
 
@@ -260,6 +262,7 @@ void leetcode() {
 
 	// Test_854_KthSimilarString();
 
+	Test_787_CheapestFlights();
 
 	Test_729_MyCalendarI();
 
