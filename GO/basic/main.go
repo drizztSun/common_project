@@ -7,6 +7,8 @@ import (
 func main() {
 	fmt.Println("--- basic main function ---")
 
+	test_hmac_hex()
+
 	basic()
 
 	// test_closure()
