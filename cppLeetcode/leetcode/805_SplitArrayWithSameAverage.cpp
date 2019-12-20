@@ -31,7 +31,7 @@ class SplitArraySameAverage {
 
 public:
 	
-	bool doit(vector<int>& A) {
+	bool doit(vector<int>&& A) {
 		
 		int N = A.size();
 		int S = 0;
