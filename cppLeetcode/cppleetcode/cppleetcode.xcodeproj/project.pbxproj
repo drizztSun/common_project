@@ -87,6 +87,7 @@
 		08CEC95023AD566100584EA0 /* 843_GuesstheWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEC90223AD566100584EA0 /* 843_GuesstheWord.cpp */; };
 		08CEC95123AD566100584EA0 /* 736_ParseLispExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEC90323AD566100584EA0 /* 736_ParseLispExpression.cpp */; };
 		08CEC95223AD566100584EA0 /* 215_KthLargestElementInArrat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CEC90423AD566100584EA0 /* 215_KthLargestElementInArrat.cpp */; };
+		08DE08EF23B98AB200D2A0B8 /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08DE08ED23B98AB200D2A0B8 /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -183,6 +184,7 @@
 		08CEC90223AD566100584EA0 /* 843_GuesstheWord.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = 843_GuesstheWord.cpp; path = ../../../leetcode/843_GuesstheWord.cpp; sourceTree = "<group>"; };
 		08CEC90323AD566100584EA0 /* 736_ParseLispExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = 736_ParseLispExpression.cpp; path = ../../../leetcode/736_ParseLispExpression.cpp; sourceTree = "<group>"; };
 		08CEC90423AD566100584EA0 /* 215_KthLargestElementInArrat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = 215_KthLargestElementInArrat.cpp; path = ../../../leetcode/215_KthLargestElementInArrat.cpp; sourceTree = "<group>"; };
+		08DE08ED23B98AB200D2A0B8 /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 801_MinimumSwapsToMakeSequencesIncreasing.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 				08CEC90223AD566100584EA0 /* 843_GuesstheWord.cpp */,
 				08CEC8F723AD566000584EA0 /* 847_ShortestPathVisitingAllNodes.cpp */,
 				08CEC8E823AD566000584EA0 /* 854_KthSimilarString.cpp */,
+				08DE08ED23B98AB200D2A0B8 /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				08CEC92123AD566100584EA0 /* 546_removeBoxes.cpp in Sources */,
 				08CEC94423AD566100584EA0 /* 591_TagValidator.cpp in Sources */,
 				08CEC94123AD566100584EA0 /* 329_LongestIncreasingPathInMatrix.cpp in Sources */,
+				08DE08EF23B98AB200D2A0B8 /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */,
 				08CEC94823AD566100584EA0 /* 757_SetIntersectionSizeAtLeastTwo.cpp in Sources */,
 				08CEC93923AD566100584EA0 /* 23_MergeSortedList.cpp in Sources */,
 			);

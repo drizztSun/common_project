@@ -41,7 +41,7 @@ using namespace std;
 class MaxChunksToSorted {
 public:
 	int doit(vector<int>&& arr) {
-		size_t length = arr.size();
+		auto length = arr.size();
 		vector<int> leftMax(length), rightMin(length);
 	
 		leftMax[0] = arr[0];

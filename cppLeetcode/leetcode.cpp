@@ -135,6 +135,8 @@ void Test_802_FindEventualSafeStates();
 
 void Test_801_MinimumSwaps();
 
+void Test_801_MiniumSwapToMakeSequenceIncreasing();
+
 void leetcode() {
 
 	//minimum_window_substring();
@@ -259,9 +261,7 @@ void leetcode() {
 
 	// Test_689_MaxSumOfThreeSubarray();
 
-
 	// Test_218_TheSKylinesProblem();
-
 
 	// Test_854_KthSimilarString();
 
@@ -274,4 +274,9 @@ void leetcode() {
 	Test_729_MyCalendarI();
 
 	Test_731_MyCalendarII();
+
+	Test_731_MyCalendarII();
+    
+    Test_801_MiniumSwapToMakeSequenceIncreasing();
 }
+
