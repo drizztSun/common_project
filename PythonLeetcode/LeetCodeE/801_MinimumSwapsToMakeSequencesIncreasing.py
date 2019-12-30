@@ -42,15 +42,15 @@
 
 # Another, (not exclusive) possibility is that a1 < b2 and b1 < a2. This means that it is allowed to have exactly one of these columns swapped.
 # This possibility leads to n2 = min(n2, s1), s2 = min(s2, n1 + 1)
-# 
+#
 # Note that it is important to use two if statements seperately, because both of the above possibilities might be possible.
 # At this end, the optimal solution must the last column either natural or swapped, so we take the minumum number of swaps between two possibilities.
-# 
-# 
+#
+#
 # Complexity Analysis
 # Time Complexity O(n)
 # Space Complexity O(n)
-# 
+#
 #
 
 
@@ -67,23 +67,23 @@ class MinSwap:
         for i in range(len(A)):
 
             n2, s2 = float('inf'), float('inf')
-            
+
             if A[i] < A[i-1] and B[i] < B[i-1]:
                 n2 = min(n2, s1)
                 s2 = min(s2, n1 + 1)
-            
+
             if A[i-1] < B[i] and B[i-1] < A[i]:
                 n2 = min(n2, s1)
-                s2 = min(s2, n1 + 1) 
+                s2 = min(s2, n1 + 1)
 
             n1 = n2
             s1 = s2
-        
+
         return min(n1, s1)
 
 
 if __name__ == '__main__':
 
-    res = MinSwap(A = [1,3,5,4], B = [1,2,3,7])
+    res = MinSwap.doit(A=[1, 3, 5, 4], B=[1, 2, 3, 7])
 
     pass
