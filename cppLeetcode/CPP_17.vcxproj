@@ -147,7 +147,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="787_CheapestFlightsWithinKStops.cpp" />
     <ClCompile Include="alg\hashmap.c" />
     <ClCompile Include="leetcode.cpp" />
     <ClCompile Include="leetcode\10_RegularExpressionMatching.cpp" />
@@ -221,6 +220,8 @@
     <ClCompile Include="leetcode\773_SlidingPuzzle.cpp" />
     <ClCompile Include="leetcode\778_SwimInRisingWater.cpp" />
     <ClCompile Include="leetcode\782_TransformtoChessboard.cpp" />
+    <ClCompile Include="leetcode\801_MinimumSwapsToMakeSequencesIncreasing.cpp" />
+    <ClCompile Include="leetcode\802_FindEventualSafeStates.cpp" />
     <ClCompile Include="leetcode\803_BricksFallingWhenHit.cpp" />
     <ClCompile Include="leetcode\805_SplitArrayWithSameAverage.cpp" />
     <ClCompile Include="leetcode\839_SimilarStringGroups.cpp" />

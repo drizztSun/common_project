@@ -237,7 +237,10 @@
     <ClCompile Include="alg\hashmap.c">
       <Filter>alg</Filter>
     </ClCompile>
-    <ClCompile Include="787_CheapestFlightsWithinKStops.cpp">
+    <ClCompile Include="leetcode\801_MinimumSwapsToMakeSequencesIncreasing.cpp">
+      <Filter>leetcode</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcode\802_FindEventualSafeStates.cpp">
       <Filter>leetcode</Filter>
     </ClCompile>
   </ItemGroup>

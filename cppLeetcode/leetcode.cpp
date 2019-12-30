@@ -131,6 +131,9 @@ void Test_729_MyCalendarI();
 
 void Test_787_CheapestFlights();
 
+void Test_802_FindEventualSafeStates();
+
+void Test_801_MinimumSwaps();
 
 void leetcode() {
 
@@ -262,11 +265,13 @@ void leetcode() {
 
 	// Test_854_KthSimilarString();
 
-	Test_787_CheapestFlights();
+	Test_801_MinimumSwaps();
+
+	Test_802_FindEventualSafeStates();
+
+	// Test_787_CheapestFlights();
 
 	Test_729_MyCalendarI();
 
-
 	Test_731_MyCalendarII();
-
 }
