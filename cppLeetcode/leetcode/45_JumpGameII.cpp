@@ -24,7 +24,7 @@ class Jump {
 
 public:
 
-	int doit(vector<int>& nums) {
+	int doit(vector<int>&& nums) {
 
 		if (nums.size() < 2)
 			return 0;

@@ -59,7 +59,8 @@ public:
 		for (int bt = 29; bt >= 0; bt--) {
 			if (num & 1 << bt)
 				return num & (1 << (bt - 1)) ? fb[bt] : fb[bt - 1] + findInteger((num & ~(1 << bt)));
-		} 
+		}
+        return 0;
 	}
 
 };

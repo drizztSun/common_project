@@ -5,7 +5,7 @@ class MinimumWindowSubString {
 
 public:
 
-	std::string doit(std::string& s, std::string& t)
+	std::string doit(std::string&& s, std::string&& t)
 	{
 		std::vector<int> nums(128);
 		for (size_t i = 0; i < t.size(); i++) {

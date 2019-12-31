@@ -12,7 +12,7 @@ public:
 
 
 // O(n*logN)
-	int doit(vector<int>& nums, int k) {
+	int doit(vector<int>&& nums, int k) {
 
 		sort(nums.begin(), nums.end());
 		int lo = 0, hi = nums.back() - nums[0];
@@ -40,7 +40,7 @@ public:
 
 
 // O(n^2)
-	int doit1(vector<int>& nums, int k) {
+	int doit1(vector<int>&& nums, int k) {
 		int N = 10000000;
 		vector<int> cnt(N, 0);
 		int maxv = INT_MIN, minv = INT_MAX;

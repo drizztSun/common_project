@@ -31,8 +31,11 @@
 #include <string>
 #include <unordered_map>
 #include <algorithm>
+#include <array>
+#include <vector>
 
 using namespace std;
+using std::vector;
 
 class StrangePrinter {
 

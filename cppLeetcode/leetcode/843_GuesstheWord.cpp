@@ -89,7 +89,7 @@ class FindSecretWord {
 public:
 
 	// incorrect
-    void doit1(vector<string>& wordlist, Master& master) {
+    void doit1(vector<string>&& wordlist, Master& master) {
         
         int n = 0;
 		int size = wordlist.size();
@@ -114,7 +114,7 @@ public:
 
     }
 	
-	void doit(vector<string>& wordlist, Master& master) {
+	void doit(vector<string>&& wordlist, Master&& master) {
 		for (int i = 0, x = 0; i < 10 && x < 6; ++i) {
 			// get the most-simliar one to the rest (by minimized val)
 			unordered_map<string, int> count;

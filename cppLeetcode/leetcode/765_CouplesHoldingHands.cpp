@@ -41,7 +41,7 @@ class MinSwapsCouples {
 
 public:
 
-	int doit(vector<int>& row) {
+	int doit(vector<int>&& row) {
 
 		unordered_map<int, int> pos;
 		for (auto i = 0; i < row.size(); i++)

@@ -31,6 +31,8 @@
 #include <string>
 #include <unordered_set>
 #include <algorithm>
+#include <cmath>
+#include <vector>
 
 using namespace std;
 
@@ -64,8 +66,7 @@ public:
 
 		int postfixCount = (int) pow(k, n - 1);
 		int total = (int) pow(k, n);
-		vector<bool> visit(total);
-
+		std::vector<bool> visit(total);
 		string result(n, '0');
 		visit[0] = true;
 		int cur = 0;
@@ -93,6 +94,8 @@ public:
 
 
 void Test_753_CrackingTheSafe() {
+    
+    //vector<bool> a;
 
 	auto res = CrackSafe().doit(1, 2);
 

@@ -148,7 +148,7 @@ public:
 
 public:
 
-	int dfs(CORD_MAP& dist, vector<vector<int>>& grid, CORD& pos) {
+	int dfs(CORD_MAP& dist, vector<vector<int>>& grid, CORD&& pos) {
 
 		int M = grid.size(), N = grid[0].size();
 		int x1 = pos.x1, y1 = pos.y1, x2 = pos.x1, y2 = pos.y2;
@@ -187,9 +187,9 @@ public:
 	int doit2(vector<vector<int>>& grid) {
 
 		CORD_MAP dist;
-		CORD pos{ 0, 0, 0, 0 };
+		// CORD pos{ 0, 0, 0, 0 };
 
-		return dfs(dist, grid, pos);
+		return dfs(dist, grid, CORD{ 0, 0, 0, 0 });
 	}
 
 };

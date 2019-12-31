@@ -22,7 +22,7 @@
 
 
 */
-
+#include <cmath>
 #include <vector>
 #include <algorithm>
 using namespace std;
@@ -90,7 +90,7 @@ class JudgePoint24 {
 
 public:
 
-	bool doit(vector<int>& nums) {
+	bool doit(vector<int>&& nums) {
 
 		vector<double> num;
 		for (auto c : nums) {

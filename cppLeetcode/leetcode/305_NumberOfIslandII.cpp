@@ -5,7 +5,7 @@ using namespace std;
 class NumberOfIslandII {
 public:
 
-	vector<int> doit(int m, int n, vector<pair<int, int>>& positions) {
+	vector<int> doit(int m, int n, vector<pair<int, int>>&& positions) {
 
 		vector<vector<int>> mp(m, vector<int>(n, 0));
 		vector<int> parent(m*n, -1);

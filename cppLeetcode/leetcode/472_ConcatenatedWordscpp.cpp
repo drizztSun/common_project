@@ -47,7 +47,7 @@ public:
 		return false;
 	}
 
-	vector<string> doit(vector<string>& words) {
+	vector<string> doit(vector<string>&& words) {
 
 		unordered_set<string> wordsmap;
 		vector<string> ans;
@@ -169,7 +169,8 @@ void Test_472_ConcatenatedWords() {
 
 	auto res = A.doit1(input);
 
-	res = A.doit1(vector<string>());
+    vector<string> a;
+	res = A.doit1(a);
 
 	return;
 }

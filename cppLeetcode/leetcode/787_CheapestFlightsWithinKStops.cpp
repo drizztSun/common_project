@@ -19,7 +19,7 @@ struct Node {
 class FindCheapestPrice {
 
 public:	
-	int doit(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+	int doit(int n, vector<vector<int>>&& flights, int src, int dst, int K) {
 
 
 		vector<vector<Edge>> flight_prices(n, vector<Edge>());

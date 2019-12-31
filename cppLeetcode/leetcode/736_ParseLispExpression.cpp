@@ -69,6 +69,7 @@
 #include <stdlib.h>
 #include <iostream>
 
+#include <list>
 #include <vector>
 #include <stack>
 #include <string>

@@ -17,7 +17,7 @@ using namespace std;
 
 class MaxArea {
 public:
-	int doit(vector<int>& height) {
+	int doit(vector<int>&& height) {
 
 		int left = 0, right = height.size() - 1;
 		int area = 0;

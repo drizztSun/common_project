@@ -263,9 +263,9 @@ void leetcode() {
 
 	// Test_854_KthSimilarString();
 
-	Test_801_MinimumSwaps();
+	// Test_801_MinimumSwaps();
 
-	Test_802_FindEventualSafeStates();
+	// Test_802_FindEventualSafeStates();
 
 	// Test_787_CheapestFlights();
 

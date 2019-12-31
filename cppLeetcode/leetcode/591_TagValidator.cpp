@@ -105,7 +105,7 @@ using namespace std;
 class TagValidator {
 
 public:
-	bool isValid(string& code) {
+	bool isValid(string&& code) {
 		int i = 0;
 		return validTag(code, i) && i == code.size();
 	}

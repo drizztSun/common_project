@@ -25,7 +25,7 @@ using namespace std;
 
 class TrapWater {
 public:
-	int doit(vector<int>& height) {
+	int doit(vector<int>&& height) {
 		int N = height.size();
 		vector<int> left(N, 0);
 		int leftMax = 0;

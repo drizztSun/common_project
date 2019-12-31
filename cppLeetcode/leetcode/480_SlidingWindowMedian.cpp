@@ -63,6 +63,7 @@ public:
 
 			window.erase(window.lower_bound(nums[i - k]));
 		}
+        return medians;
 	} 
 
 

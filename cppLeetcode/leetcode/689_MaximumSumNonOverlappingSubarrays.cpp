@@ -32,7 +32,7 @@ class MaxSumOfThreeSubarrays {
 
 public:
 	
-	vector<int> doit(vector<int>& nums, int k) {
+	vector<int> doit(vector<int>&& nums, int k) {
 		int N = nums.size();
 		vector<int> sums(N + 1, 0);
 

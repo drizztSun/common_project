@@ -95,7 +95,8 @@ public:
 
 	bool isMatch(string s, string p) {
 
-		return search(s, 0, p, 0, unordered_map<pair<int, int>, bool>());
+        unordered_map<pair<int, int>, bool> A;
+		return search(s, 0, p, 0, A);
 	}
 };
 

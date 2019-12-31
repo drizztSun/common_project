@@ -72,9 +72,7 @@ using namespace std;
 class FullJustify {
 
 	bool dfs(const vector<string>& words, int idx, int maxWidth, vector<string>& res) {
-
-
-
+        return false;
 	}
 
 
@@ -85,7 +83,7 @@ public:
 		return vector<string>{};
 	}
 
-	vector<string> doit(vector<string>& words, int maxWidth) {
+	vector<string> doit(vector<string>&& words, int maxWidth) {
 
 		vector<string> res;
 		int amount = 0;

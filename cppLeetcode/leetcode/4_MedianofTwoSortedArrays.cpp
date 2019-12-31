@@ -1,4 +1,4 @@
-﻿/*
+/*
 
 There are two sorted arrays nums1 and nums2 of size m and n respectively.
 
@@ -33,11 +33,11 @@ class FindMedianSortedArrays {
 public:
 
 	// O(log(m) + log(n))
-	double findMedian(vector<int>& nums1, vector<int>& nums2) {
+	double findMedian(vector<int>&& nums1, vector<int>&& nums2) {
 
 		int N1 = nums1.size(), N2 = nums2.size();
 		if (N1 > N2)
-			return findMedian(nums2, nums1);
+			return findMedian(std::move(nums2), std::move(nums1));
 
 		int lo = 0, hi = N1 * 2;
 		while (lo <= hi) {
@@ -90,10 +90,10 @@ public:
 	}
 
 	//  
-	double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+	double findMedianSortedArrays(vector<int>&& nums1, vector<int>&& nums2) {
 
 		if (nums1.size() > nums2.size())
-			return findMedianSortedArrays(nums2, nums1);
+			return findMedianSortedArrays(std::move(nums2), std::move(nums1));
 
 		int N1 = nums1.size(), N2 = nums2.size();
 		int lo = 0, hi = N1;
@@ -130,6 +130,7 @@ public:
 				return (max_left + min_right) / 2.0;
 			}
 		}
+        return 0.0;
 	}
 };
 

@@ -1,4 +1,4 @@
-﻿/*
+/*
 
 
 */
@@ -82,7 +82,7 @@ public:
 
 class ShortestPathLength {
 public:
-	int doit(vector<vector<int>>& graph) {
+	int doit(vector<vector<int>>&& graph) {
 
 		int N = graph.size();
 

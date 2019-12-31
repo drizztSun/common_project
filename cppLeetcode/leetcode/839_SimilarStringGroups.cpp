@@ -86,7 +86,7 @@ public:
 
 class NumSimilarGroups {
 public:
-	int doit(vector<string>& A) {
+	int doit(vector<string>&& A) {
 		disjoint_set ds(A.size());
 
 		for (auto i = 0; i < A.size(); i++)

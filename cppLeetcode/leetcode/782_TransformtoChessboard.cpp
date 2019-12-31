@@ -55,7 +55,7 @@ using namespace std;
 
 class MovesToChessboard {
 public:
-	int doit(vector<vector<int>>& board) {
+	int doit(vector<vector<int>>&& board) {
 
 		int N = board.size();
 

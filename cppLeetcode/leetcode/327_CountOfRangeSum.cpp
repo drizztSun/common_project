@@ -25,7 +25,7 @@ class CountRangeSum {
 
 public:
 
-	int countSum(std::vector<int>& nums, int lower, int upper) {
+	int countSum(std::vector<int>&& nums, int lower, int upper) {
 
 		std::vector<int> sums;
 		sums.push_back(0);
@@ -92,11 +92,11 @@ void Test_327_CountOfRangeSum() {
 	CountRangeSum A;
 
 	std::vector<int> nums = {-2, 5, -1};
-	int res = A.countSum(nums, -2, 2);
+	int res = A.countSum(std::move(nums), -2, 2);
 
 
 	nums = { 0, -3, -3, 1, 1, 2 };
-	res = A.countSum(nums, 3, 5);
+	res = A.countSum(std::move(nums), 3, 5);
 
 	res = A.countSum(std::vector<int>(), 0, 0);
 }

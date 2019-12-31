@@ -41,7 +41,7 @@ class StockMaxProfit {
 
 public:
 
-	int doit(vector<int>& prices) {
+	int doit(vector<int>&& prices) {
 		if (prices.empty())
 			return 0;
 

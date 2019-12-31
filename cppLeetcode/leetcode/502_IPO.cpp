@@ -29,7 +29,7 @@ public:
 		Move those previous undoables from high to doables low whose C[i] <= W.
 		Repeat steps 2 and 3 until we reach maximum k projects or no more doable projects.
 	*/
-	int doit(int k, int W, vector<int>& P, vector<int>& C) {
+	int doit(int k, int W, vector<int>&& P, vector<int>&& C) {
 		priority_queue<int> low;      // P[i]'s within current W
 		multiset<pair<int, int>> high; // (C[i],P[i])'s' outside current W
 
@@ -72,7 +72,7 @@ public:
 	}
 
 
-	int doit2(int k, int W, vector<int>& Profits, vector<int>& Capital) {
+	int doit2(int k, int W, vector<int>&& Profits, vector<int>&& Capital) {
 
 		vector<std::pair<int, int>> buff;
 		for (auto i = 0; i < Profits.size(); i++) {

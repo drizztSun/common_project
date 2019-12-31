@@ -24,7 +24,7 @@ using namespace std;
 
 class FirstMissingPositive {
 public:
-	int doit(vector<int>& nums) {
+	int doit(vector<int>&& nums) {
 
 		for (int i = 0; i < nums.size(); i++) {
 			while (nums[i] > 0 && nums[i] <= nums.size() && nums[i] != i+1 && nums[i] != nums[nums[i]-1]) {
@@ -55,7 +55,7 @@ public:
 
 class Solution {
 public:
-	int firstMissingPositive(vector<int>& nums) {
+	int firstMissingPositive(vector<int>&& nums) {
 
 		int size = nums.size();
 		int result = size + 1;
