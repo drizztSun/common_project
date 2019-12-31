@@ -62,7 +62,7 @@ using namespace std;
 
 class HitBricks {
 public:
-	vector<int> doit(vector<vector<int>>& grid, vector<vector<int>>& hits) {
+	vector<int> doit(vector<vector<int>>&& grid, vector<vector<int>>&& hits) {
 
 		int M = grid.size(), N = grid[0].size();
 
@@ -142,7 +142,7 @@ int* hitBricks(int** grid, int gridRowSize, int *gridColSizes, int** hits, int h
 
 class Solution {
 public:
-	vector<int> hitBricks(vector<vector<int>>& grid, vector<vector<int>>& hits) {
+	vector<int> hitBricks(vector<vector<int>>&& grid, vector<vector<int>>&& hits) {
 		int** c_grid = (int**)malloc(grid.size() * sizeof(int*));
 		for (int i = 0; i < grid.size(); i++)
 			c_grid[i] = grid[i].data();
