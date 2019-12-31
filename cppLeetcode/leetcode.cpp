@@ -135,8 +135,6 @@ void Test_802_FindEventualSafeStates();
 
 void Test_801_MinimumSwaps();
 
-void Test_801_MiniumSwapToMakeSequenceIncreasing();
-
 void leetcode() {
 
 	//minimum_window_substring();
@@ -276,7 +274,5 @@ void leetcode() {
 	Test_731_MyCalendarII();
 
 	Test_731_MyCalendarII();
-    
-    Test_801_MiniumSwapToMakeSequenceIncreasing();
 }
 
