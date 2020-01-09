@@ -91,6 +91,15 @@ class LargestOverlap:
                                 count[i-i2, j-j2] += 1
         return max(count.values() or [0])
 
+    def doit(self, A, B):
+        N = len(A)
+        LA = [i // N * 100 + i % N for i in range(N * N) if A[i // N][i % N]]
+        LB = [i // N * 100 + i % N for i in range(N * N) if B[i // N][i % N]]
+
+        c = collections.Counter(i - j for i in LA for j in LB)
+
+        return max(c.values() or [0])
+
 
 if __name__ == '__main__':
 
