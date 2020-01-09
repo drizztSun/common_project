@@ -35,41 +35,54 @@ def max_min(a):
 # Calculate max and min of list
 # Calculate amount of each number
 class Counter:
-
-    def __init__(self, t:list):
+    def __init__(self, t):
         self._t = t
+        self._max_min = max_min2(self._t)
+        self._count = {}
+        for i in range(len(self._t)):
+            # self._count[i] = self._count.get(i, 0) + 1
+            if self._t[i] not in self._count:
+                self._count[self._t[i]] = 0
+            self._count[self._t[i]] += 1
 
+    @classmethod
+    def MAX(clr):
+        return 0
+
+    def update(self, t):
+        self._t = t
+        self._max_min = max_min2(self._t)
+        self._count = {}
+        for i in range(len(self._t)):
+            self._count[i] = self._count.get(i,0) +1
+       
 
 
     def max(self):
-        maxv, minv = max_min2(self._t)
-        return maxv
+        return self._max_min[0]
 
     def min(self):
-        maxv, minv = max_min2(self._t)
-        return minv
+        return self._max_min[1]
+    
+    def count(self,n):
+        return self._count[n]
 
-    def count(self, n: int):
-        a = 0
-        for i in range(len(self._t)):
-            if self._t[i] == n:
-                a = a + 1
-        return a
 
 
 if __name__ == "__main__":
 
 
     t = Counter([1, 2, 2, 2, 3, 4, 5, 6, 6, 6])
-
+    
     print(t.max()) # 6
+
+    t.update([6, 2, 3, 4])
 
     print(t.min()) # 1
 
     print(t.count(1)) # 1
 
     print(t.count(2)) # 3
-
 
 
     a = [1,2,3,-9,25374,123456,-98]
