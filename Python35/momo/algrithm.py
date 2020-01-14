@@ -65,7 +65,34 @@ class Counter:
         return self._max_min[1]
     
     def count(self,n):
+
         return self._count[n]
+
+def max_consegant_length(a: str):
+    
+    length = 0
+    length_max = 0
+
+    for i in range(len(a)):
+        if i == 0:
+            length_max = 1
+            length += 1
+        elif i > 0 and a[i-1] == a[i]:
+            length += 1
+            if length > length_max:
+                length_max = length 
+           
+        elif i > 0 and a[i-1] != a[i]:
+           
+
+            length = 1    
+    return length_max
+
+
+
+
+
+    
 
 
 
@@ -93,3 +120,7 @@ if __name__ == "__main__":
 
     a = [2]
     print(max_min(a))
+
+    print(max_consegant_length("xxxxyyyybbbbbbbb")) # 8
+
+    print(max_consegant_length("aaabbbbbbbccc")) # 7
