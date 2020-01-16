@@ -74,6 +74,21 @@ class MincostToHireWorkers:
 
         return float(ans)
 
+    def doit(self, quality, wage, K):
+        workers = [(w/q, w, q) for w, q in zip(wage, quality)]
+        workers.sort()
+        heap = [-q for r, w, q in workers[:K]]
+        total_q = -sum(heap)
+        res = workers[K-1][0] * total_q
+        heapq.heapify(heap)
+
+        for i in range(K, len(workers)):
+            r, w, q = workers[i]
+            total_q += heapq.heappop(heap) + q
+            heapq.heappush(heap, -q)
+            res = min(res, r*total_q)
+        return res
+
     """
     Approach 1: Greedy
     Intuition
