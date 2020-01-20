@@ -84,14 +84,14 @@ class PossibleBipartition:
         enemies = [[] for _ in range(N + 1)]
 
         for dislike in dislikes:
-            enemies[dislike[0]].append(dislike[1]) 
+            enemies[dislike[0]].append(dislike[1])
             enemies[dislike[1]].append(dislike[0])
-        
+
         colors = [0] * (N + 1)
         for person in range(1, N + 1):
             if colors[person]:
                 continue
-            
+
             stack = [person]
             colors[person] = 1
             while stack:
