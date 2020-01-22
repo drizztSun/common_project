@@ -70,6 +70,7 @@ class ReachableNodes:
     import collections
     import heapq
 
+    # (Dijkstra)
     def doit(self, edges, M, N):
 
         graph = collections.defaultdict(dict)
@@ -111,6 +112,71 @@ class ReachableNodes:
             ans += min(w, used.get((u, v), 0) + used.get((v, u), 0))
 
         return ans
+
+    '''
+    Dijkstra + Heap is O(E log E)
+    Dijkstra + Fibonacci heap is O(N log N + E)
+    '''
+
+    def doit1(self, edges, M, N):
+        e = collections.defaultdict(dict)
+        for i, j, l in edges:
+            e[i][j] = e[j][i] = l
+        pq = [(-M, 0)]
+        seen = {}  # we can arrive at node i and have seen[i] moves left.
+
+        while pq:
+            moves, cur = heapq.heappop(pq)
+            # every time when we pop from pq, we get the state with the most moves left.
+            # move means the number of moves left, not distance. moves equals to the M - distance
+            # the first time you reach a node, must be the shortest path.
+            if cur not in seen:
+                seen[cur] = -moves
+                for nxt in e[cur]:
+                    moves2 = -moves - e[cur][nxt] - 1
+                    if nxt not in seen and moves2 >= 0:
+                        heapq.heappush(pq, (-moves2, nxt))
+
+        res = len(seen)
+        for i, j, k in edges:
+            '''
+            seen.get(i, 0) the biggest left moves we can have at the node i. 
+            For the edge node i to node j, we can reach seen.get(i, 0) + seen.get(j, 0) nodes, 
+            but no bigger than the number of nodes on this edge.
+
+            just look at the example in the description, nodes between 0 and 1, 
+            you either can visit all nodes (e[0][1]) or 
+                addition of nodes reachable from 0 (6 nodes) and reachable from 1(one node)
+            '''
+            res += min(seen.get(i, 0) + seen.get(j, 0), e[i][j])
+        return res
+    # This seems like a standard Dijkstra problem. Remember to calculate move even cannot reach the next node.
+    # TLE
+
+    def doit3(self, edges, M, N):
+        graph = [[-1]*N for _ in range(N)]
+        for edge in edges:
+            graph[edge[0]][edge[1]] = edge[2]
+            graph[edge[1]][edge[0]] = edge[2]
+        result = 0
+        # PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> (b[1] - a[1]));
+        pq = []
+        visited = [False]*N
+        heapq.heappush(pq, [-M, 0])
+        while pq:
+            move, start = heapq.heappop(pq)
+            move *= -1
+            if visited[start]:
+                continue
+            visited[start] = True
+            result += 1
+            for i in range(N):
+                if graph[start][i] > -1:
+                    if move > graph[start][i] and not visited[i]:
+                        heapq.heappush(pq, [-(move - graph[start][i] - 1), i])
+                    graph[i][start] -= min(move, graph[start][i])
+                    result += min(move, graph[start][i])
+        return result
 
 
 if __name__ == '__main__':
