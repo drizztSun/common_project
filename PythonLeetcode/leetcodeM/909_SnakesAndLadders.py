@@ -44,8 +44,54 @@
 
 
 class SnakesAndLadders:
+
+    """
+    Approach 1: Breadth-First Search
+    Intuition
+
+    As we are looking for a shortest path, a breadth-first search is ideal. The main difficulty is to handle enumerating all possible moves from each square.
+
+    Algorithm
+
+    Suppose we are on a square with number s. We would like to know all final destinations with number s2 after making one move.
+
+    This requires knowing the coordinates get(s2) of square s2. This is a small puzzle in itself:
+    we know that the row changes every N squares, and so is only based on quot = (s2-1) / N;
+    also the column is only based on rem = (s2-1) % N and what row we are on (forwards or backwards.)
+
+    From there, we perform a breadth first search, where the nodes are the square numbers s.
+
+    Complexity Analysis
+
+    Time Complexity: O(N^2), where NN is the length of the board.
+
+    Space Complexity: O(N^2)
+    """
+
     def doit(self, board):
-        pass
+        N = len(board)
+
+        def get(s):
+            # Given a square num s, return board coordinates (r, c)
+            quot, rem = divmod(s-1, N)
+            row = N - 1 - quot
+            col = rem if row % 2 != N % 2 else N - 1 - rem
+            return row, col
+
+        dist = {1: 0}
+        queue = collections.deque([1])
+        while queue:
+            s = queue.popleft()
+            if s == N * N:
+                return dist[s]
+            for s2 in range(s+1, min(s+6, N*N) + 1):
+                r, c = get(s2)
+                if board[r][c] != -1:
+                    s2 = board[r][c]
+                if s2 not in dist:
+                    dist[s2] = dist[s] + 1
+                    queue.append(s2)
+        return -1
 
 
 if __name__ == '__main__':
