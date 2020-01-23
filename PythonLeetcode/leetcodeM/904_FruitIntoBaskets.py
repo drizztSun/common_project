@@ -53,6 +53,24 @@ class TotalFruit:
 
     def doit(self, tree):
 
+        best, i0, j0, j1, x0, x1 = 0, len(tree), -1, -1, -1, -1
+
+        for i, x in enumerate(tree):
+            if x0 == x:
+                j0 = i
+            elif x1 == x:
+                j1 = i
+            else:
+                best = max(i - i0, best)
+                if j1 < j0:
+                    i0, j1, x1 = j1 + 1, i, x
+                else:
+                    i0, j0, j1, x0, x1 = j0 + 1, j1, i, x1, x
+
+        return max(len(tree) - i0, best)
+
+    def doit(self, tree):
+
         i, j, ans = 0, 0, 1
         types = {}
 
