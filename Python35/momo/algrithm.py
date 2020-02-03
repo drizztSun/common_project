@@ -1,4 +1,5 @@
-
+def DADISPOOP():
+    return 'DAD IS POOP AND HE EATS POOP!'
 
 #O(log(n))
 def max_min2(a):
@@ -88,16 +89,17 @@ def max_consegant_length(a: str):
             length = 1    
     return length_max
 
-
-
-
-
-    
-
-
-
+print('1111@@@11111111@@@1111')
+print('1111@@@11111111@@@1111')
+print('1111111111111111111111')
+print('11|111111###111111|111')#a b c d e f g h i j k l m n o p q r s t u v w x y z (study those if you blahblahblahblahblahblahblahblahblahblah.)BLAHBLAHBLAHBLAHBLAHBLAH                                                                                                                                                                                                                                MARK:   ...........  OK, what did the fox say?    james:NOTHING.   MARK:NOOOOOOOO!       james:WWWWWWWWWWWWWWWWWWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                                         
+print('11|111111###111111|111')    
+print('11|111111111111111|111')
+print('11|111111111111111|111')
+print('11|111111111111111|111')
+print('11\===============/111')
 if __name__ == "__main__":
-
+    print('dad is poop and he eats poop! dad is poop and he eats poop! dad is poop and he eats poop!')
 
     t = Counter([1, 2, 2, 2, 3, 4, 5, 6, 6, 6])
     
@@ -124,3 +126,4 @@ if __name__ == "__main__":
     print(max_consegant_length("xxxxyyyybbbbbbbb")) # 8
 
     print(max_consegant_length("aaabbbbbbbccc")) # 7
+    print(DADISPOOP())
