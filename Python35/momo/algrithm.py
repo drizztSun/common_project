@@ -98,8 +98,46 @@ print('11|111111111111111|111')
 print('11|111111111111111|111')
 print('11|111111111111111|111')
 print('11\===============/111')
+
+
+
+A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
+#(0) 8 low = 0 high = len(A)  
+#(1) mid = (low + high) / 2 = (len(A) + 0) / 2
+#(2) if A[mid] < 8, low = mid, high = high, mid = (low + high) // 2
+#(3) if A[mid] > 8, low = low, high = mid, mid = (low + high) // 2  
+#(4) if A[mid] == 8, or low >= high, None
+# O(log(n))
+def binarySearch(A , n):
+    low, high = 0, len(A)
+
+    while low < high:
+
+        mid = (low + high)//2
+        
+        if A[mid] == n:
+            return mid
+        
+        elif A[mid] < n:
+            low = mid 
+        
+        elif A[mid] > n:
+            high = mid
+
+    return None
+
+# O(n)
+def search(A, n):
+    for i in range(len(A)):
+        if A[i] == n:
+            return i
+    return -1
+
+
 if __name__ == "__main__":
-    print('dad is poop and he eats poop! dad is poop and he eats poop! dad is poop and he eats poop!')
+    print('dad is poop and he eats poop! dad is poop and he eats poop! dad is poop and he eats poop!') 
+
+    print(search(A, 6))
 
     t = Counter([1, 2, 2, 2, 3, 4, 5, 6, 6, 6])
     
@@ -127,3 +165,5 @@ if __name__ == "__main__":
 
     print(max_consegant_length("aaabbbbbbbccc")) # 7
     print(DADISPOOP())
+
+    print(binarySearch(A,10))
