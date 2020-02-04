@@ -64,30 +64,30 @@ class PrisonAfterNDays:
 
     def doit(self, cells, N):
 
-        def next_cell(cells):
-            return [int(i > 1 and i < 7 and cell[i-1] == cell[i+1]) for i in range(8)]
+        def nextday(cells):
+            return [int(i > 0 and i < 7 and cells[i-1] == cells[i+1])
+                    for i in range(8)]
 
         seen = {}
-        while n > 0:
-
+        while N > 0:
             c = tuple(cells)
-
             if c in seen:
                 N %= seen[c] - N
-
-            seen[N] = c
+            seen[c] = N
 
             if N >= 1:
                 N -= 1
-                cells = next_cell(cells)
+                cells = nextday(cells)
 
         return cells
 
 
 if __name__ == '__main__':
 
-    res = PrisonAfterNDays().doit(cells=[0, 1, 0, 1, 1, 0, 0, 1], N=7)
+    res = PrisonAfterNDays().doit(
+        cells=[0, 1, 0, 1, 1, 0, 0, 1], N=7)  # [0,0,1,1,0,0,0,0]
 
-    res = PrisonAfterNDays().doit(cells=[1, 0, 0, 1, 0, 0, 1, 0], N=1000000000)
+    res = PrisonAfterNDays().doit(
+        cells=[1, 0, 0, 1, 0, 0, 1, 0], N=1000000000)  # [0,0,1,1,1,1,1,0]
 
     pass
