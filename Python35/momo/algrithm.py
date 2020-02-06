@@ -134,6 +134,27 @@ def search(A, n):
     return -1
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     print('dad is poop and he eats poop! dad is poop and he eats poop! dad is poop and he eats poop!') 
 
