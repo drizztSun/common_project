@@ -1,4 +1,4 @@
-
+trash= 'trash'
 import turtle  #create window.
 wn = turtle.Screen()
 wn.title('PING PONG')
@@ -34,7 +34,7 @@ pen.color('yellow')
 pen.penup()
 pen.hideturtle()
 pen.goto(0,260)
-pen.write('PLAYER 1 : 0 , PLAYER 2 : 0, ONE PLAER FAILS: 0' ,align='center', font=('Courier',24,'normal'))
+pen.write('PLAYER 1 : 0 ,LAYER 2 : 0,ONE PLAER FAILS: 0' ,align='center', font=('Courier',24,'normal'))
 #BALL
 ball = turtle.Turtle()
 ball.shape('circle')
