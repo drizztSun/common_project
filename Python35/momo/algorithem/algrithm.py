@@ -1,7 +1,6 @@
 def DADISPOOP():
     return 'DAD IS POOP AND HE EATS POOP!'
-
-#O(log(n))
+m = 1
 def max_min2(a):
     if len(a) == 1:
         return a[0], a[0]
@@ -69,25 +68,7 @@ class Counter:
 
         return self._count[n]
 
-def max_consegant_length(a: str):
-    
-    length = 0
-    length_max = 0
 
-    for i in range(len(a)):
-        if i == 0:
-            length_max = 1
-            length += 1
-        elif i > 0 and a[i-1] == a[i]:
-            length += 1
-            if length > length_max:
-                length_max = length 
-           
-        elif i > 0 and a[i-1] != a[i]:
-           
-
-            length = 1    
-    return length_max
 
 print('1111@@@11111111@@@1111')
 print('1111@@@11111111@@@1111')
@@ -102,36 +83,9 @@ print('11\===============/111')
 
 
 A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
-#(0) 8 low = 0 high = len(A)  
-#(1) mid = (low + high) / 2 = (len(A) + 0) / 2
-#(2) if A[mid] < 8, low = mid, high = high, mid = (low + high) // 2
-#(3) if A[mid] > 8, low = low, high = mid, mid = (low + high) // 2  
-#(4) if A[mid] == 8, or low >= high, None
-# O(log(n))
-def binarySearch(A , n):
-    low, high = 0, len(A)
 
-    while low < high:
 
-        mid = (low + high)//2
-        
-        if A[mid] == n:
-            return mid
-        
-        elif A[mid] < n:
-            low = mid 
-        
-        elif A[mid] > n:
-            high = mid
 
-    return None
-
-# O(n)
-def search(A, n):
-    for i in range(len(A)):
-        if A[i] == n:
-            return i
-    return -1
 
 
 
@@ -156,10 +110,10 @@ def search(A, n):
 
 
 if __name__ == "__main__":
+   
     print('dad is poop and he eats poop! dad is poop and he eats poop! dad is poop and he eats poop!') 
 
-    print(search(A, 6))
-
+    
     t = Counter([1, 2, 2, 2, 3, 4, 5, 6, 6, 6])
     
     print(t.max()) # 6
@@ -182,9 +136,190 @@ if __name__ == "__main__":
     a = [2]
     print(max_min(a))
 
-    print(max_consegant_length("xxxxyyyybbbbbbbb")) # 8
-
-    print(max_consegant_length("aaabbbbbbbccc")) # 7
+    
     print(DADISPOOP())
 
-    print(binarySearch(A,10))
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    m +=1
