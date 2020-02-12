@@ -30,11 +30,14 @@ mod test_thread;
 mod test_vec;
 mod test_vecdeque;
 mod traits;
+mod test_option;
 
 fn main() {
     println!("--- Starting RUST syntax ---");
 
     test_binaryheap::test_binaryheap();
+
+    test_option::test_option();
 
     test_hashset::test_hashset();
 
