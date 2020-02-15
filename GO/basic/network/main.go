@@ -1,6 +1,5 @@
 package main
 
-
 import (
 	"fmt"
 )
@@ -9,7 +8,9 @@ func main() {
 
 	fmt.Println("--- network ----")
 
-	test_httpsever()
+	test_basic_cycle_network_request()
 
-	test_httpclient()
+	// test_httpsever()
+
+	// test_httpclient()
 }
