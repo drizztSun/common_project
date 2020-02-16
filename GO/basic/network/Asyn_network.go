@@ -1,19 +1,19 @@
 package main
 
 import (
-	"net"
-	"io"
+	"bytes"
+	"crypto/tls"
+	"encoding/binary"
 	"fmt"
+	"io"
+	"net"
 	"os"
 	"time"
-	"bytes"
-	"encoding/binary"
-	"crypto/tls"
 )
 
 func test_basic_sync_server() {
 
-	// Writing down a synchrized model 
+	// Writing down a synchrized model
 	l, err := net.Listen("tcp", "localhost:8080")
 	if err != nil {
 		fmt.Printf("Error on listen : %v", err)
@@ -21,7 +21,7 @@ func test_basic_sync_server() {
 	}
 
 	for {
-		// wait any connection 
+		// wait any connection
 		conn, err := l.Accept()
 		if err != nil {
 			fmt.Printf("Error on accept : %v", err)
@@ -33,7 +33,6 @@ func test_basic_sync_server() {
 		conn.Close()
 	}
 }
-
 
 func test_basic_async_server() {
 
@@ -60,7 +59,7 @@ func test_basic_async_server() {
 	}
 }
 
-type prefixConn struct{
+type prefixConn struct {
 	net.Conn
 	io.Reader
 }
@@ -98,8 +97,8 @@ func proxyit(conn net.Conn) {
 	}
 
 	c := prefixConn{
-		Conn : conn,
-		Reader : io.MultiReader(&buf, conn),
+		Conn:   conn,
+		Reader: io.MultiReader(&buf, conn),
 	}
 
 	conn.SetReadDeadline(time.Time{})
@@ -109,7 +108,7 @@ func proxyit(conn net.Conn) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	config := &tls.Config{Certificates : []tls.Certificate{cert}}
+	config := &tls.Config{Certificates: []tls.Certificate{cert}}
 	tlsConn := tls.Server(c, config)
 	copyToStderr(tlsConn)
 }

@@ -8,7 +8,7 @@ def max_consegant_length(a: str):
     for i in range(len(a)):
         if i == 0:
             length_max = 1
-            length += 1
+            length += 1 #
         elif i > 0 and a[i-1] == a[i]:
             length += 1
             if length > length_max:
@@ -126,7 +126,7 @@ def select_sort(array):
 # [1, 2, 3, 4, 5]
 # O(n^2)
 def insert_sort(arr):
-   
+
     for i in range(1, len(arr)):
 
         for j in range(i, 0, -1):
@@ -137,21 +137,83 @@ def insert_sort(arr):
                 break
     return arr
 
+<<<<<<< HEAD
 def bubble_sort(arr):
     for i in range(len(arr)-1):  
         for j in range(len(arr)-i-1):  
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
     return arr
+=======
+    # a = [1, 3, 7,8], b = [2, 4, 5, 6]
+def merge2(a, b):
+    c = []
+    i, j = 0, 0
+    while i < len(a) or j < len(b):
+
+        if i == len(a) or (j != len(b) and a[i] > b[j]):
+            c.append(b[j])
+            j += 1
+
+        elif j == len(b) or a[i] <= b[j]:
+            c.append(a[i])
+            i += 1
+
+    return c
+
+def merge(a:list, i:int, j:int, k:int):
+
+    s1, s2 = i, j
+    c = []
+
+    while s1 < j and s2 < k:
+        if a[s1] > a[s2]:
+            c.append(a[s2])
+            s2 += 1
+        elif a[s1]<= a[s2]:
+            c.append(a[s1])
+            s1 += 1
+
+    if s1 < j:
+        c.extend(a[s1:j])
+    elif s2 < k:
+        c.extend(a[s2:k])
+
+    a[i:k] = c[:]
+
+
+'''
+def bottom_up_sort(arr):
+    t = 1
+    s = 1
+    while t < l(arr):
+        s, t, i = t, 2*s, 0
+        while i + t <= l(arr):
+            merge(merge(arr,i+1),merge(i+s,i+t))
+            i += t
+        if i + s < l(arr):
+              merge(arr,i+1,i+s,l(arr))
+        pass
+'''
+
+>>>>>>> 33398731c306d940ffb6256fc69b0c037a243252
 
 if __name__ == '__main__':
-    
+
+    print(merge2(a = [1, 3, 7, 8], b = [2, 4, 5, 6]))
+
+    print(merge2([2, 4, 5, 6], [1, 3, 7, 8]))
+
+    A = [1, 5, 2, 3]
+    print(merge(A, 0, 2, 4))
+
     array = [1, 5, 2, 7, 9, 0, -4, 57, 12345]
-    print(select_sort(array)) 
+    print(select_sort(array))
 
     array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
     print(insert_sort(array))
 
+<<<<<<< HEAD
     arr = [8,6,5,4,2,8,4,9,3,7,3,6,4,56,4,6,6,3,5,-7,0]
     print(bubble_sort(arr))
 
@@ -160,4 +222,8 @@ if __name__ == '__main__':
 
 
 
+=======
+    array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
+    #print(bottom_up_sort(array))
+>>>>>>> 33398731c306d940ffb6256fc69b0c037a243252
     pass

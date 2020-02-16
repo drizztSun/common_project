@@ -1,6 +1,6 @@
-trash= 'trash'
-import turtle  #create window.
-wn = turtle.Screen()
+
+import turtle as t  #create window.
+wn = t.Screen()
 wn.title('PING PONG')
 wn.bgcolor('gray')
 wn.setup(width=1000, height=600   )
@@ -9,7 +9,7 @@ wn.tracer(0)
 score1 = 0
 score2 = 0
 #PAD1
-pad1 = turtle.Turtle()
+pad1 = t.Turtle()
 pad1.speed(0)
 pad1.shape('square')
 pad1.color('blue')
@@ -20,7 +20,7 @@ pad1.shapesize(stretch_wid=5,stretch_len=1)
 
 
 #PAD2
-pad2 = turtle.Turtle()
+pad2 = t.Turtle()
 pad2.speed(0)
 pad2.shape('square')
 pad2.color('red')
@@ -28,7 +28,7 @@ pad2.penup()
 pad2.goto(450 , 0)
 pad2.shapesize(stretch_wid=5,stretch_len=1)
 #pen
-pen = turtle.Turtle()
+pen = t.Turtle()
 pen.speed(0)
 pen.color('yellow')
 pen.penup()
@@ -36,7 +36,7 @@ pen.hideturtle()
 pen.goto(0,260)
 pen.write('PLAYER 1 : 0 ,LAYER 2 : 0,ONE PLAER FAILS: 0' ,align='center', font=('Courier',24,'normal'))
 #BALL
-ball = turtle.Turtle()
+ball = t.Turtle()
 ball.shape('circle')
 ball.speed(0)
 ball.color('orange')
