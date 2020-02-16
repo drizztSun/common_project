@@ -137,6 +137,12 @@ def insert_sort(arr):
                 break
     return arr
 
+def bubble_sort(arr):
+    for i in range(len(arr)-1):  
+        for j in range(len(arr)-i-1):  
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
 
 if __name__ == '__main__':
     
@@ -145,5 +151,13 @@ if __name__ == '__main__':
 
     array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
     print(insert_sort(array))
+
+    arr = [8,6,5,4,2,8,4,9,3,7,3,6,4,56,4,6,6,3,5,-7,0]
+    print(bubble_sort(arr))
+
+    l = [5, 4, 3, 2, 1]
+    print(bubble_sort(l))
+
+
 
     pass
