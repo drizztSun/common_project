@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include <vector>
+#include <string>
 #include <math.h>
 using namespace std;
 
