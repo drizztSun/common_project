@@ -85,13 +85,13 @@ while True:
         ball.dx *= -1
         score1 += 1
         pen.clear()
-        pen.write('PLAYER 1 : {} , PLAYER 2 : {},ONE PLAER FAILS: {}'.format(score1,score2,score2+score1) ,align='center', font=('Courier',24,'normal'))
+        pen.write('PLAYER 1 : {} , PLAYER 2 : {},ONE PLAER FAILS: {}'.format(score1,score2,score2+score1) ,align='center', font=('Impact',24,'normal'))
     if ball.xcor() <-490:  
         ball.goto(0,0)
         ball.dx *= -1
         score2 += 1
         pen.clear()
-        pen.write('PLAYER 1 : {} , PLAYER 2 : {},ONE PLAYER FAILS: {}'.format(score1,score2,score1+score2) ,align='center', font=('Courier',24,'normal'))
+        pen.write('PLAYER 1 : {} , PLAYER 2 : {},ONE PLAYER FAILS: {}'.format(score1,score2,score1+score2) ,align='center', font=('Impact',24,'normal'))
     if (ball.xcor() > 440 and ball.xcor() < 450) and (ball.ycor() < pad2.ycor() + 50 and ball.ycor() > pad2.ycor() - 50):
         ball.setx(440)
         ball.dx *= -1

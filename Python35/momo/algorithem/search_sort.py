@@ -174,19 +174,19 @@ def merge(a:list, i:int, j:int, k:int):
     a[i:k] = c[:]
 
 
-'''
+
 def bottom_up_sort(arr):
     t = 1
     s = 1
-    while t < l(arr):
+    while t < len(arr):
         s, t, i = t, 2*s, 0
-        while i + t <= l(arr):
-            merge(merge(arr,i+1),merge(i+s,i+t))
+        while i + t <= len(arr):
+            merge(arr,i+1,i+s,i+t)
             i += t
-        if i + s < l(arr):
-              merge(arr,i+1,i+s,l(arr))
-        pass
-'''
+        if i + s < len(arr):
+              merge(arr,i+1,i+s,len(arr))
+    return arr
+
 
 
 if __name__ == '__main__':
@@ -204,6 +204,5 @@ if __name__ == '__main__':
     array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
     print(insert_sort(array))
 
-    array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
-    #print(bottom_up_sort(array))
-    pass
+    array = [9, 5, 2, 7]
+    print(bottom_up_sort(array))
