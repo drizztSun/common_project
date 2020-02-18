@@ -2,7 +2,7 @@ import random
 def jackpot_1999(a, b, c):
     i = 0
     while i < 10:
-        secret = random.randint(1,1000000)
+        secret = random.randint(1,1000)
 
         print("GOLD RUSH",i)
         temp = input("guess")
@@ -111,6 +111,7 @@ def test_list():
     while i < len(a):
         print(a[i])
         i +=1
+    return
     
     
 
@@ -219,12 +220,12 @@ if __name__ == '__main__':
     print(e)
 
 
-    s = [ [ [i for i in range(10) ] for _ in range(10) ] for _ in range(99)]
-    f = 0
-    for i in range(99):
+    s = [ [ [i for i in range(10) ] for _ in range(10) ] for _ in range(10)]
+    f = []
+    for i in range(10):
         for j in range(10):
             for k in range(10):
-                f +=s[i][j][k]
+                f +=s
     print(f)            
 
 
