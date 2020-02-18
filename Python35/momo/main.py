@@ -146,7 +146,7 @@ def fact_recur(n):
         return 1
     return n * fact_recur(n-1)
 
-print(fact_recur(5))
+print(fact_recur(52))
 
 
 def f(n):

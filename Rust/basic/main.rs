@@ -23,6 +23,8 @@ mod test_list;
 mod test_macro;
 mod test_module;
 mod test_network;
+mod test_option;
+mod test_result;
 mod test_refcell;
 mod test_smart_pointer;
 mod test_string;
@@ -35,6 +37,10 @@ fn main() {
     println!("--- Starting RUST syntax ---");
 
     test_binaryheap::test_binaryheap();
+
+    test_option::test_option();
+
+    test_result::test_result();
 
     test_hashset::test_hashset();
 

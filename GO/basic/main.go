@@ -7,9 +7,9 @@ import (
 func main() {
 	fmt.Println("--- basic main function ---")
 
-	test_hmac_hex()
+	// test_hmac_hex()
 
-	basic()
+	// basic()
 
 	// test_closure()
 
@@ -23,7 +23,7 @@ func main() {
 
 	//Main_test_list()
 
-	test_array()
+	// test_array()
 
 	//Test_str()
 
@@ -31,7 +31,7 @@ func main() {
 
 	// test_uri()
 
-	//test_time()
+	test_time()
 
 	// Test_io()
 
@@ -41,7 +41,7 @@ func main() {
 
 	// test_reflect()
 
-	Test_os()
+	// Test_os()
 
 	// test_json()
 

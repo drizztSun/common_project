@@ -291,7 +291,7 @@ auto f1 = [](const auto f1, const auto f2, int n) {
 	if (n < 2) {
 		return 1;
 	}
-	return n + f2(f1, f2, n - 1)
+	return n + f2(f1, f2, n - 1);
 };
 
 auto f2 = [](const auto f1, const auto f2, int n) {
