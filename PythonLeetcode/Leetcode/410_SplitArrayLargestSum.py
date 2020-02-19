@@ -110,7 +110,7 @@ class splitArray(object):
         :type m: int
         :rtype: int
         """
-        
+
         dp = [[sys.maxint]*(m) for _ in range(len(nums)+1)]
         acc = 0
         dp[0][0] = 0
