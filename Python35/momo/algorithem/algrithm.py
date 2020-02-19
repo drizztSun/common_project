@@ -40,10 +40,8 @@ class Counter:
         self._max_min = max_min2(self._t)
         self._count = {}
         for i in range(len(self._t)):
-            # self._count[i] = self._count.get(i, 0) + 1
-            if self._t[i] not in self._count:
-                self._count[self._t[i]] = 0
-            self._count[self._t[i]] += 1
+            self._count[i] = self._count.get(i, 0) + 1
+
 
     @classmethod
     def MAX(clr):
@@ -63,7 +61,7 @@ class Counter:
 
     def min(self):
         return self._max_min[1]
-    
+
     def count(self,n):
 
         return self._count[n]
@@ -78,7 +76,7 @@ print('11|111111###111111|111')
 print('11|111111111111111|111')
 print('11|111111111111111|111')
 print('11|111111111111111|111')
-print('11\===============/111')
+print('11|===============|111')
 
 
 
