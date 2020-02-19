@@ -223,7 +223,7 @@ func test_jwt_encoding_decoding() {
 
 }
 
-func test_hs256() {
+func Test_hs256() {
 
 	// encodeJWTHS256();
 

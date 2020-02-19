@@ -34,7 +34,6 @@ VWCMmePoUymFPBUUbctfYnsyOg74EATRURsDhhVQXBoltZK7Z6Mw3l76HQip
 	// DeviceFactory.der (base64)
 	Device_Factory_Cert_DER = "MIIDWTCCAkGgAwIBAgIUDgvGbBTAYI68i0R4Hg3tqjkSNgEwDQYJKoZIhvcNAQELBQAwPTEhMB8GA1UEChMYQWthbWFpIFRlY2hub2xvZ2llcyBJbmMuMRgwFgYDVQQDEw9EZXZpY2VQb3N0dXJlQ0EwHhcNMTgxMDAxMTg1MDAyWhcNMjAxMDAxMTg0MTMzWjA7MSEwHwYDVQQKDBhBa2FtYWkgVGVjaG5vbG9naWVzIEluYy4xFjAUBgNVBAMMDURldmljZUZhY3RvcnkwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBFswzjaKpmy0jtoYLmeCOCMmka5nEExgrIJrfqL4DqfGdedcOWTvgAswkAm0uIdzlIicKmfff2sW3m85EnqAgl2Fvzd3fN68vF7gMI0uaokcAWLuEzmvNX3xM70/LUzFYbZnRIV0rcW4bRTG0XmC1Sm4PMswBGtI8oUQwV4AhK7RC9bKmzu60EJXNQpidPB81W2sh4jlCg7NGYtb1dmQbM3U9ZHW+cQggBl+T+X3qsDL3gcGz1cbpJyhzCuPsN4au2jjdEHVtpeBFg0sYQdQC7AdXi12/9WR/f6I2uMlMwIdN9U4+xSmz2LcZ5LaIbZc0zoHJ6RZfHtm9hclZFQ3HAgMBAAGjUzBRMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUMyFh52X89c5pH570arS3hulJevAwEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4IBAQA/2QTpKdI7ciHRNZve8qu7IzA8Ocq+HmVOLKO6wzRmlIy5t0Aey3mceKgCap0scTIXY9qEnXYTIxGs5aGjSpclFelg+pv2ZWRu3gJu6q5fLdm2fF/2cdRbyHmStMwZa6ooqemvi70J+TmUUPdaruVy8VYJg95/f9V2R6xo7rRjVv6jWcLfE+xPO9Z2kWw8PFIvwds8CQrwP2TGOzp1fP2ycujDzfeQA83gXYFdFUcA0jDDJtSwX9yBGgqFnDntQTH6X58T5njdOCM90YYlPVZX1K7wVWCMmePoUymFPBUUbctfYnsyOg74EATRURsDhhVQXBoltZK7Z6Mw3l76HQip"
 
-<<<<<<< HEAD
 	Public_KEY = `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnzyis1ZjfNB0bBgKFMSv
 vkTtwlvBsaJq7S5wA+kzeVOVpVWwkWdVha4s38XM/pa/yr47av7+z3VTmvDRyAHc
@@ -71,7 +70,8 @@ NvVi5vcba9oGdElJX3e9mxqUKMrw7msJJv1MX8LWyMQC5L6YNYHDfbPF1q5L4i8j
 3YfRAoGAUxL/Eu5yvMK8SAt/dJK6FedngcM3JEFNplmtLYVLWhkIlNRGDwkg3I5K
 y18Ae9n7dHVueyslrb6weq7dTkYDi3iOYRW8HRkIQh06wEdbxt0shTzAJvvCQfrB
 jg/3747WSsf/zBTcHihTRBdAv6OmdhV4/dD5YBfLAkLrd+mX7iE=
-=======
+-----END RSA PRIVATE KEY-----`
+
 	// DeviceFactory.key
 	Device_Factory_Private_KEY = `-----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAwRbMM42iqZstI7aGC5ngjgjJpGuZxBMYKyCa36i+A6nxnXnX
@@ -99,7 +99,6 @@ eaQInYaDL+MFRw26/FHEJC0CgYBc1Ua7kZ7BBCGh6MAxEoaJO3UtublZapaywX5V
 3xxnAQKBgQCIy0yZextMpdaS22mttXol5zcsJuVFeabLO7Jj3eJAedAlgR4hUUkj
 cWs4qRvJRoQQ4S7FmO4l2p0brnnhFclJzt7xDI2QTWU+EE7OrdFnKYSV4n7LE1/s
 7/npW5wRUI5ZKeQTw4zLq4fauNksCcUUANqG0uv1TPP6BIZJCivW6w==
->>>>>>> 45c4c5d0d38fe9293d500e5ea94538bb3a0eb7e4
 -----END RSA PRIVATE KEY-----`
 )
 
@@ -127,7 +126,6 @@ func test_jwt_encoding_decoding_rs() {
 		fmt.Println(TokenString)
 
 		// jwt rs356 decoding
-<<<<<<< HEAD
 		token, err = jwt.Parse(TokenString, func(token *jwt.Token) (interface{}, error) {
 			return jwt.ParseRSAPublicKeyFromPEM([]byte(Public_KEY))
 		})
@@ -150,8 +148,6 @@ func test_jwt_encoding_decoding_rs() {
 		fmt.Println("Signature : ", token.Signature)
 		fmt.Println("Valid : ", token.Valid)
 
-=======
->>>>>>> 45c4c5d0d38fe9293d500e5ea94538bb3a0eb7e4
 	}
 
 	{
@@ -361,7 +357,7 @@ func test_jwt_encoding_decoding_rs() {
 
 }
 
-func test_rs256() {
+func Test_rs256() {
 
 	fmt.Println("--- test_rs256 ---")
 

@@ -2,7 +2,7 @@ package main
 
 func main() {
 
-	test_hs256()
+	Test_hs256()
 
-	test_rs256()
+	Test_rs256()
 }
