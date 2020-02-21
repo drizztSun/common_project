@@ -129,3 +129,10 @@ if __name__ == '__main__':
     print(quick_sort([1, 7, 2, 6, 3, 5, 4]))
 
     print(merge_sort([1, 7, 2, 6, 3, 5, 4]))
+
+
+    arr= [12, 24, 23, 56, 1, 3, 10, 4, 6, 45]
+
+    quick_sort(arr)
+
+    print(arr)
