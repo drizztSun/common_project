@@ -193,30 +193,56 @@ def bottom_up_sort(arr):
               merge(arr,i+1,i+s,len(arr))
     return arr
 
-
+#O(n)
 def quick_sort_once(arr, s, e):
     
-    k = arr[s]
-    i, j = s, s
-
-    for i in range(s, e+1):
-        
+    k, j = arr[s], s
+    
+    for i in range(s, e):        
         if arr[i] < k:
             arr[j+1], arr[i] = arr[i], arr[j+1]
-            j +=1    
+            j +=1
+
     arr[s], arr[j] = arr[j], arr[s]
-    return arr        
+    return j            
 
 
-    
+def quick_sort(arr, i, j):
+    if j - i <= 1:
+        return
+
+    k = quick_sort_once(arr, i, j)
+
+    quick_sort(arr, i, k)
+    quick_sort(arr, k+1, j)
 
 
-def quick_sort(arr):
-    pass
+
+def QuickSort(arr):
+
+    quick_sort(arr, 0, len(arr))
+
+
+
+
 
 if __name__ == '__main__':
 
-    print(quick_sort_once(arr= [12, 24, 23, 56, 1, 3, 10, 4, 6, 45], s = 3, e = 9))
+
+    arr= [12, 24, 23, 56, 1, 3, 10, 4, 6, 45]
+
+    QuickSort(arr)
+
+    print(arr)
+
+    print(quick_sort_once(arr, s = 3, e = 9))
+
+    arr= [12, 24, 23, 56, 1, 3, 10, 4, 6, 45]
+    print(quick_sort_once(arr, s = 0, e = len(arr) - 1))
+
+    arr= [12, 2, 23, 56, 1, 3, 10, 4, 6, 45]
+    print(quick_sort_once(arr, s = 0, e = len(arr) - 1))
+
 
     print(merge2(a = [1, 3, 7, 8], b = [2, 4, 5, 6]))
 
