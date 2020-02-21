@@ -1,0 +1,21 @@
+
+
+syntax = "proto3";
+
+option java_multi_files = true;
+option java_package = "io.grpc.test.message"
+option java_outer_classname = "messageproto"
+
+package message;
+
+service TestGRPCMessage {
+    rpc HelloMsg(MessageRequest) returns (MessageReply) {}
+}
+
+message MessageRequest {
+    string name = 1;
+}
+
+message MessageReply {
+    string message = 1;
+}
