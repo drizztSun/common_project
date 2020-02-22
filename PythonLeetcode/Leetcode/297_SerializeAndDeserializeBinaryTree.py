@@ -2,9 +2,6 @@ import os
 import collections
 
 
-
-
-
 # 297 Serialzie and Deserialize Binary Tree
 
 # Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
@@ -21,13 +18,13 @@ import collections
 # as "[1,2,3,null,null,4,5]", just the same as how LeetCode OJ serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
 
 
-
 # Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, x):
-         self.val = x
-         self.left = None
-         self.right = None
+        self.val = x
+        self.left = None
+        self.right = None
+
 
 class Codec1:
 
@@ -41,7 +38,7 @@ class Codec1:
                 vals.append('#')
         vals = []
         doit(root)
-        return ' '.join(vals)
+        return ','.join(vals)
 
     def deserialize(self, data):
         def doit():
@@ -52,7 +49,7 @@ class Codec1:
             node.left = doit()
             node.right = doit()
             return node
-        vals = iter(data.split())
+        vals = iter(data.split(','))
         return doit()
 
 
@@ -76,19 +73,18 @@ class CodecBFS:
                 a = buff.popleft()
                 res.append(str(a.val) if a else "N")
 
-                if a :
+                if a:
                     tmp.append(a.left)
                     tmp.append(a.right)
-            
+
             if any(tmp):
                 buff = tmp
 
         return ' '.join(res)
-        
 
     def deserialize(self, data1):
         """Decodes your encoded data to tree.
-        
+
         :type data: str
         :rtype: TreeNode
         """
@@ -108,12 +104,13 @@ class CodecBFS:
             while step > 0:
 
                 t = pt.popleft()
-                t.left =  TreeNode(int(data[i])) if data[i] != 'N' else None
-                t.right = TreeNode(int(data[i+1])) if data[i+1] != 'N' else None
+                t.left = TreeNode(int(data[i])) if data[i] != 'N' else None
+                t.right = TreeNode(
+                    int(data[i+1])) if data[i+1] != 'N' else None
 
                 if t.left:
                     tmp.append(t.left)
-                    
+
                 if t.right:
                     tmp.append(t.right)
 
@@ -131,7 +128,7 @@ class CodecReCursivePreOrder:
 
     def serialize(self, root):
         """Encodes a tree to a single string.
-        
+
         :type root: TreeNode
         :rtype: str
         """
@@ -147,21 +144,20 @@ class CodecReCursivePreOrder:
 
         return doit(root)
 
-
     def deserialize(self, data1):
         """Decodes your encoded data to tree.
-        
+
         :type data: str
         :rtype: TreeNode
         """
         if not data1:
             return None
-        
+
         data = data1.split()
-        content = iter(data)       
+        content = iter(data)
 
         def doit(pt):
-            
+
             val = next(pt)
             if val == '#':
                 return None
@@ -175,8 +171,9 @@ class CodecReCursivePreOrder:
             return node
 
         return doit(content)
-        
-if __name__=="__main__":
+
+
+if __name__ == "__main__":
 
     # Your Codec object will be instantiated and called as such:
 
@@ -189,8 +186,6 @@ if __name__=="__main__":
     root.right.right = TreeNode(5)
 
     res = codec.deserialize(codec.serialize(root))
-
-
 
     root = TreeNode(-1)
     root.left = TreeNode(0)
