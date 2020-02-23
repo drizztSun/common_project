@@ -2,24 +2,24 @@ package main
 
 import (
 	"fmt"
-	"sort"
 	"math"
+	"sort"
 )
 
 type PersonInfo struct {
 	Name string
-	Age int
+	Age  int
 }
 
 type ByAge []PersonInfo
 
-func (a ByAge) Len() int { return len(a)}
+func (a ByAge) Len() int           { return len(a) }
 func (a ByAge) Less(i, j int) bool { return a[i].Age < a[j].Age }
-func (a ByAge) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
 // test_sort_basic
 func test_sort_basic() {
-	persons := ByAge {
+	persons := []PersonInfo{
 		{"Tom", 19},
 		{"Peter", 20},
 		{"Mike", 13},
@@ -27,7 +27,7 @@ func test_sort_basic() {
 
 	fmt.Println(persons)
 
-	sort.Sort(persons)
+	sort.Sort(ByAge(persons))
 
 	fmt.Println(persons)
 
@@ -84,7 +84,7 @@ func (s *planetSorter) Less(i, j int) bool {
 
 // test_sort_sortkeys
 func test_sort_sortkeys() {
-	
+
 	var planets = []Planet{
 		{"Mercury", 0.055, 0.4},
 		{"Venus", 0.815, 0.7},
@@ -105,7 +105,7 @@ func test_sort_sortkeys() {
 	decreasingDistance := func(p1, p2 *Planet) bool {
 		return distance(p2, p1)
 	}
-	
+
 	// Sort the planets by the various criteria.
 	By(name).Sort(planets)
 	fmt.Println("By name:", planets)
@@ -117,7 +117,7 @@ func test_sort_sortkeys() {
 	fmt.Println("By distance:", planets)
 
 	By(decreasingDistance).Sort(planets)
-	fmt.Println("By decreasing distance:", planets)	
+	fmt.Println("By decreasing distance:", planets)
 }
 
 // A Change is a record of source code changes, recording user, language, and delta size.
@@ -132,19 +132,19 @@ type lessFunc func(p1, p2 *Change) bool
 // multiSorter implements the Sort interface, sorting the changes within.
 type multiSorter struct {
 	Changes []Change
-	less []lessFunc
+	less    []lessFunc
 }
 
 // Sort sorts the argument slice according to the less functions passed to OrderedBy.
 func (ms *multiSorter) Sort(changes []Change) {
 	ms.Changes = changes
 	sort.Sort(ms)
-} 
+}
 
 // OrderedBy returns a Sorter that sorts using the less functions, in order.
 // Call its Sort method to sort the data.
 func OrderedBy(less ...lessFunc) *multiSorter {
-	return &multiSorter{ less: less }
+	return &multiSorter{less: less}
 }
 
 // Len is part of sort.Interface.
@@ -167,12 +167,12 @@ func (ms *multiSorter) Less(i, j int) bool {
 	p, q := &ms.Changes[i], &ms.Changes[j]
 	// Try all but the last comparison.
 	var k = 1
-	for k = 0; k < len(ms.less) - 1; k++ {
+	for k = 0; k < len(ms.less)-1; k++ {
 		less := ms.less[k]
-		switch {		
+		switch {
 		case less(p, q):
 			// p < q, so we have a decision.
-			return true			
+			return true
 		case less(q, p):
 			// p > q, so we have a decision.
 			return false
@@ -196,7 +196,7 @@ func test_sort_multikeys() {
 		{"r", "C", 150},
 		{"gri", "Smalltalk", 80},
 	}
-	
+
 	// Closures that order the Change structure.
 	user := func(c1, c2 *Change) bool {
 		return c1.user < c2.user
@@ -229,9 +229,6 @@ func test_sort_multikeys() {
 	fmt.Println("By language,<lines,user:", changes)
 }
 
-
-
-
 type Grams int
 
 func (m Grams) String() string {
@@ -239,7 +236,7 @@ func (m Grams) String() string {
 }
 
 type Organ struct {
-	Name string
+	Name   string
 	Weight Grams
 }
 
@@ -273,7 +270,6 @@ func (w ByWeight) Less(i, j int) bool {
 	return w.Organs[i].Weight < w.Organs[j].Weight
 }
 
-
 func printOrgans(s []*Organ) {
 	for _, o := range s {
 		fmt.Printf("%-8s (%v)\n", o.Name, o.Weight)
@@ -300,7 +296,6 @@ func test_sort_sortwrapper() {
 	printOrgans(s)
 }
 
-
 func test_sort_basic_func() {
 
 	// sort.Strings
@@ -318,7 +313,7 @@ func test_sort_basic_func() {
 		sort.Ints(s)
 		fmt.Println(s)
 
-		// IntsAreSorted 
+		// IntsAreSorted
 		fmt.Println("ages is sorted : ", sort.IntsAreSorted(s))
 	}
 
@@ -328,7 +323,7 @@ func test_sort_basic_func() {
 		fmt.Println(s) // [-3.8 -1.3 0.7 2.6 5.2]
 		// Float64sAreSorted
 		fmt.Println("Distance are sorted : ", sort.Float64sAreSorted(s))
-	
+
 		s = []float64{math.Inf(1), math.NaN(), math.Inf(-1), 0.0} // unsorted
 		sort.Float64s(s)
 		fmt.Println(s) // [NaN -Inf 0 +Inf]
@@ -336,11 +331,10 @@ func test_sort_basic_func() {
 		fmt.Println("Distance are sorted : ", sort.Float64sAreSorted(s))
 	}
 
-
 	{
 		a := []int{1, 3, 6, 10, 15, 21, 28, 36, 45, 55}
 		x := 6
-	
+
 		i := sort.Search(len(a), func(i int) bool { return a[i] >= x })
 		// found 6 at index 2 in [1 3 6 10 15 21 28 36 45 55]
 
@@ -355,7 +349,7 @@ func test_sort_basic_func() {
 	{
 		a := []int{55, 45, 36, 28, 21, 15, 10, 6, 3, 1}
 		x := 6
-	
+
 		i := sort.Search(len(a), func(i int) bool { return a[i] <= x })
 		if i < len(a) && a[i] == x {
 			fmt.Printf("found %d at index %d in %v\n", x, i, a)
@@ -377,11 +371,11 @@ func test_sort_basic_func() {
 		}
 		sort.Slice(people, func(i, j int) bool { return people[i].Name < people[j].Name })
 		fmt.Println("By name:", people)
-	
+
 		sort.Slice(people, func(i, j int) bool { return people[i].Age < people[j].Age })
 		fmt.Println("By age:", people)
 	}
-	
+
 	// StringSlice (Increasing order)
 	names := sort.StringSlice{"TOM", "PETER", "MICHAEL", "Messi", "ada"}
 	sort.Sort(names)
@@ -405,7 +399,7 @@ func test_sort_basic_func() {
 		// Search uses binary search to find and return the smallest index i in [0, n) at which f(i) is true
 		a := []int{1, 3, 6, 10, 15, 21, 28, 36, 45, 55}
 		x := 6
-	
+
 		// found 6 at index 2 in [1 3 6 10 15 21 28 36 45 55]
 		i := sort.Search(len(a), func(i int) bool { return a[i] >= x })
 		if i < len(a) && a[i] == x {
@@ -435,6 +429,6 @@ func test_sort() {
 
 	test_sort_basic()
 
-	test_sort_sortwrapper() 
+	test_sort_sortwrapper()
 
 }

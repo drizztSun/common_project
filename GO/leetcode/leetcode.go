@@ -2,16 +2,15 @@ package main
 
 import (
 	"fmt"
-	"./leetcodeE"
-	"./leetcodeH"
-)
 
+	"./leetcodeE"
+)
 
 func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodeE.Test_744_OrderOfLargestPlusSign()
+	// leetcodeE.Test_744_OrderOfLargestPlusSign()
 
 	// leetcodeE.Test_46_permutations()
 
@@ -21,7 +20,7 @@ func main() {
 
 	// leetcodeE.Test_748()
 
-	leetcodeH.Test_842_splitIntoFibonacci()
+	// leetcodeH.Test_842_splitIntoFibonacci()
 
 	// leetcodeE.CountPrimeSetBits(6, 10)
 
@@ -30,6 +29,8 @@ func main() {
 	// leetcodeE.Test_43_multiply_strings()
 
 	// leetcodeH.Test_179LargetNumber()
+
+	leetcodeE.Test_1029_TwoCityScheduling()
 
 	return
 }
