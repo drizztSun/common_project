@@ -34,7 +34,7 @@ void ht_add(struct ht_t* ht, void* key, void* data) {
 	n->key = key;
 	n->data = data;
 
-	struct ndoe* tmp = ht->bucket[index];
+	struct node* tmp = ht->bucket[index];
 	ht->bucket[index] = n;
 	n->next = tmp;
 } 

@@ -56,7 +56,7 @@ using namespace std;
 
 class isMatch {
 
-	bool match(string& s, int s1, string& p, int p1, vector<vector<int>>& dict) {
+	bool match(string& s, size_t s1, string& p, size_t p1, vector<vector<int>>& dict) {
 
 		if (dict[s1][p1] != -1)
 			return dict[s1][p1];

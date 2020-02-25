@@ -72,16 +72,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\language\boost1.68\include\boost-1_68;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\language\boost1.68\lib_static_x32_debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\language\boost170\include\boost-1_70;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\language\boost170\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\language\boost1.68\include\boost-1_68;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\language\boost1.68\lib_static_x32_debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\language\boost170\include\boost-1_70;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\language\boost170\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>

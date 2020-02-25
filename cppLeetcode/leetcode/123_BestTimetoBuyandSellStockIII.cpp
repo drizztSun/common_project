@@ -74,7 +74,7 @@ public:
 
 		int minV = INT_MAX;
 		vector<int> left(prices.size(), 0);
-		for (int i = 0; i < prices.size(); i++) {
+		for (size_t i = 0; i < prices.size(); i++) {
 			if (i > 0)
 				left[i] = std::max(left[i - 1], prices[i] - minV);
 			minV = std::min(minV, prices[i]);
@@ -90,12 +90,9 @@ public:
 		}
 
 		int res = 0;
-		for (int i = 0; i < prices.size() - 1; i++) {
+		for (size_t i = 0; i < prices.size() - 1; i++) {
 			res = max(res, left[i] + right[i + 1]);
 		}
-
-		res = max(res, right[0]);
-		return res;
 	}
 
 };

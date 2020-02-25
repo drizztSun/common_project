@@ -67,4 +67,8 @@ class SmallestRangeII:
 
 if __name__ == "__main__":
 
-    res = SmallestRangeII().doit()        
+    res = SmallestRangeII().doit(A = [1], K = 0) # 0
+
+    res = SmallestRangeII().doit(A = [0,10], K = 2) # 6
+
+    res = SmallestRangeII().doit(A = [1,3,6], K = 3) # 3

@@ -48,7 +48,7 @@ public:
 				}
 		int min_dist = 0x3f3f3f3f;
 		for (auto i = 0; i < N; i++) {
-			min_dist = min(min_dist, dp[1 << N - 1][i]);
+			min_dist = min(min_dist, dp[(1 << N) - 1][i]);
 		}
 
 		return min_dist;
@@ -64,11 +64,11 @@ public:
 
 	int shortestPathLength(vector<vector<int>>& graph) {
 
-		int N = graph.size();
+		size_t N = graph.size();
 		vector<vector<int>> dist(N, vector<int>(N, 0x3f));
 
-		for (auto i = 0; i < N; i++) {
-			for (auto j = 0; j < graph[i].size(); j++) {
+		for (size_t i = 0; i < N; i++) {
+			for (size_t j = 0; j < graph[i].size(); j++) {
 				dist[i][graph[i][j]] = 1;
 			}
 		}

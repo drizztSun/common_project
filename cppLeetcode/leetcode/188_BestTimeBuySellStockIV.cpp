@@ -35,14 +35,14 @@ public:
 	# f[k, 0] = 0; if there is only one price data point you can't make any money no matter how many times you can trade
 	*/
 	// <DP>
-	int doit(int k, vector<int>& prices) {
+	int doit(size_t k, vector<int>& prices) {
 
 		if (prices.size() < 2)
 			return 0;
 		
 		int res = 0;
 		if (k >= prices.size() / 2) {
-			for (auto i = 1; i < prices.size(); i++)
+			for (size_t i = 1; i < prices.size(); i++)
 				if (prices[i] > prices[i - 1])
 					res += prices[i] - prices[i - 1];
 			return res;
@@ -51,10 +51,10 @@ public:
 		vector<vector<int>> DP(k + 1, vector<int>(prices.size()));
 		int maxv = 0;
 
-		for (auto x = 1; x < k + 1; x++) {
+		for (size_t x = 1; x < k + 1; x++) {
 
 			int tmp = DP[x - 1][0] - prices[0];
-			for (auto i = 1; i < prices.size(); i++) {
+			for (size_t i = 1; i < prices.size(); i++) {
 
 				DP[x][i] = max(DP[x][i - 1], prices[i] + tmp);
 				tmp = std::max(tmp, DP[x - 1][i] - prices[i]);
