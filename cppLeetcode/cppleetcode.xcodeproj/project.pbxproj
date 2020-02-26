@@ -40,13 +40,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		081E87F02407174B008932EA /* leetcode */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = leetcode;
-			sourceTree = "<group>";
-		};
 		08FC0AC72403634500939CB4 = {
 			isa = PBXGroup;
 			children = (
@@ -66,7 +59,6 @@
 		08FC0AD22403634500939CB4 /* cppleetcode */ = {
 			isa = PBXGroup;
 			children = (
-				081E87F02407174B008932EA /* leetcode */,
 				081E87EC2407116F008932EA /* leetcode.cpp */,
 				081E87EA24070F10008932EA /* main.cpp */,
 			);
