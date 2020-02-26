@@ -269,10 +269,10 @@ void leetcode() {
 
 	// Test_787_CheapestFlights();
 
-	Test_729_MyCalendarI();
+	// Test_729_MyCalendarI();
 
-	Test_731_MyCalendarII();
+    // Test_731_MyCalendarII();
 
-	Test_731_MyCalendarII();
+	// Test_731_MyCalendarII();
 }
 
