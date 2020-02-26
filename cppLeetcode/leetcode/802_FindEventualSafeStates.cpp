@@ -47,7 +47,7 @@ public:
 		return true;
 	}
 
-	vector<int> doit(vector<vector<int>>& graph) {
+	vector<int> doit(vector<vector<int>>&& graph) {
 
 		vector<int> terminal(graph.size());
 		vector<int> res;

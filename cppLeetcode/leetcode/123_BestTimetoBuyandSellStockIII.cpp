@@ -93,6 +93,7 @@ public:
 		for (size_t i = 0; i < prices.size() - 1; i++) {
 			res = max(res, left[i] + right[i + 1]);
 		}
+        return maxV;
 	}
 
 };

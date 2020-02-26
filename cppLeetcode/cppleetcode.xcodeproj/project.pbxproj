@@ -9,6 +9,87 @@
 /* Begin PBXBuildFile section */
 		081E87EB24070F10008932EA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081E87EA24070F10008932EA /* main.cpp */; };
 		081E87ED2407116F008932EA /* leetcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081E87EC2407116F008932EA /* leetcode.cpp */; };
+		086A8A6224071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6124071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp */; };
+		086A8AB224071C4A00CFAEED /* 732_MyCalendarIII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6324071C4400CFAEED /* 732_MyCalendarIII.cpp */; };
+		086A8AB324071C4A00CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6424071C4400CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp */; };
+		086A8AB424071C4A00CFAEED /* 432_AllOneDataStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6524071C4400CFAEED /* 432_AllOneDataStructure.cpp */; };
+		086A8AB524071C4A00CFAEED /* 679_24Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6624071C4400CFAEED /* 679_24Game.cpp */; };
+		086A8AB624071C4A00CFAEED /* 68_TextJustification.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6724071C4400CFAEED /* 68_TextJustification.cpp */; };
+		086A8AB724071C4A00CFAEED /* 699_fallingSquare.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6824071C4400CFAEED /* 699_fallingSquare.cpp */; };
+		086A8AB824071C4A00CFAEED /* 327_CountOfRangeSum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6924071C4400CFAEED /* 327_CountOfRangeSum.cpp */; };
+		086A8AB924071C4A00CFAEED /* 753_CrackingTheSafe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6A24071C4400CFAEED /* 753_CrackingTheSafe.cpp */; };
+		086A8ABA24071C4A00CFAEED /* 787_CheapestFlightsWithinKStops.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6B24071C4400CFAEED /* 787_CheapestFlightsWithinKStops.cpp */; };
+		086A8ABB24071C4A00CFAEED /* 689_MaximumSumNonOverlappingSubarrays.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6C24071C4400CFAEED /* 689_MaximumSumNonOverlappingSubarrays.cpp */; };
+		086A8ABC24071C4A00CFAEED /* 839_SimilarStringGroups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6D24071C4400CFAEED /* 839_SimilarStringGroups.cpp */; };
+		086A8ABD24071C4A00CFAEED /* 218_TheSkylinesProblem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6E24071C4400CFAEED /* 218_TheSkylinesProblem.cpp */; };
+		086A8ABE24071C4A00CFAEED /* 514_FreedomTrail.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6F24071C4400CFAEED /* 514_FreedomTrail.cpp */; };
+		086A8ABF24071C4A00CFAEED /* 805_SplitArrayWithSameAverage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7024071C4400CFAEED /* 805_SplitArrayWithSameAverage.cpp */; };
+		086A8AC024071C4A00CFAEED /* 765_CouplesHoldingHands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7124071C4400CFAEED /* 765_CouplesHoldingHands.cpp */; };
+		086A8AC124071C4A00CFAEED /* 664_StrangePrinter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7224071C4400CFAEED /* 664_StrangePrinter.cpp */; };
+		086A8AC224071C4A00CFAEED /* 57_InsertInterval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7324071C4400CFAEED /* 57_InsertInterval.cpp */; };
+		086A8AC324071C4A00CFAEED /* 32_LongestValidParentheses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7424071C4400CFAEED /* 32_LongestValidParentheses.cpp */; };
+		086A8AC424071C4A00CFAEED /* 741_CherryPickup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7524071C4400CFAEED /* 741_CherryPickup.cpp */; };
+		086A8AC524071C4A00CFAEED /* 23_MergeSortedList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7624071C4400CFAEED /* 23_MergeSortedList.cpp */; };
+		086A8AC624071C4A00CFAEED /* 76_MinimumWindowSubstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7724071C4400CFAEED /* 76_MinimumWindowSubstring.cpp */; };
+		086A8AC724071C4A00CFAEED /* 188_BestTimeBuySellStockIV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7824071C4400CFAEED /* 188_BestTimeBuySellStockIV.cpp */; };
+		086A8AC824071C4A00CFAEED /* 11_ContainerWithMostWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7924071C4400CFAEED /* 11_ContainerWithMostWater.cpp */; };
+		086A8AC924071C4A00CFAEED /* 37_SudokuSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7A24071C4400CFAEED /* 37_SudokuSolver.cpp */; };
+		086A8ACA24071C4A00CFAEED /* 502_IPO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7B24071C4400CFAEED /* 502_IPO.cpp */; };
+		086A8ACB24071C4A00CFAEED /* 668_KthSmallestNumberInMultiplicationTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7C24071C4400CFAEED /* 668_KthSmallestNumberInMultiplicationTable.cpp */; };
+		086A8ACC24071C4A00CFAEED /* 745_PrefixSuffixSearch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7D24071C4400CFAEED /* 745_PrefixSuffixSearch.cpp */; };
+		086A8ACD24071C4A00CFAEED /* 749_ContainVirus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7E24071C4400CFAEED /* 749_ContainVirus.cpp */; };
+		086A8ACE24071C4A00CFAEED /* 42_TrappingRainWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A7F24071C4500CFAEED /* 42_TrappingRainWater.cpp */; };
+		086A8ACF24071C4A00CFAEED /* 768_MaxChunksToMakeSortedII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8024071C4500CFAEED /* 768_MaxChunksToMakeSortedII.cpp */; };
+		086A8AD024071C4A00CFAEED /* 803_BricksFallingWhenHit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8124071C4500CFAEED /* 803_BricksFallingWhenHit.cpp */; };
+		086A8AD124071C4A00CFAEED /* 782_TransformtoChessboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8224071C4500CFAEED /* 782_TransformtoChessboard.cpp */; };
+		086A8AD224071C4A00CFAEED /* 629_KthInversePairsArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8324071C4500CFAEED /* 629_KthInversePairsArray.cpp */; };
+		086A8AD324071C4A00CFAEED /* 41_FirstMissingPositive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8424071C4500CFAEED /* 41_FirstMissingPositive.cpp */; };
+		086A8AD424071C4A00CFAEED /* 10_RegularExpressionMatching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8524071C4500CFAEED /* 10_RegularExpressionMatching.cpp */; };
+		086A8AD524071C4A00CFAEED /* 472_ConcatenatedWordscpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8624071C4500CFAEED /* 472_ConcatenatedWordscpp.cpp */; };
+		086A8AD624071C4A00CFAEED /* 480_SlidingWindowMedian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8724071C4500CFAEED /* 480_SlidingWindowMedian.cpp */; };
+		086A8AD724071C4A00CFAEED /* 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8824071C4500CFAEED /* 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp */; };
+		086A8AD824071C4A00CFAEED /* 639_DecodeWaysII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8924071C4500CFAEED /* 639_DecodeWaysII.cpp */; };
+		086A8AD924071C4A00CFAEED /* 757_SetIntersectionSizeAtLeastTwo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8A24071C4500CFAEED /* 757_SetIntersectionSizeAtLeastTwo.cpp */; };
+		086A8ADA24071C4A00CFAEED /* 44_WildcardMatching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8B24071C4500CFAEED /* 44_WildcardMatching.cpp */; };
+		086A8ADB24071C4A00CFAEED /* 321_CreateMaximumNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8C24071C4600CFAEED /* 321_CreateMaximumNumber.cpp */; };
+		086A8ADC24071C4A00CFAEED /* 761_SpecialBinaryString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8D24071C4600CFAEED /* 761_SpecialBinaryString.cpp */; };
+		086A8ADD24071C4A00CFAEED /* 295_FindMedianfromDataStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8E24071C4600CFAEED /* 295_FindMedianfromDataStream.cpp */; };
+		086A8ADE24071C4A00CFAEED /* 564_FindTheClosestPalindrome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A8F24071C4600CFAEED /* 564_FindTheClosestPalindrome.cpp */; };
+		086A8ADF24071C4A00CFAEED /* 215_KthLargestElementInArrat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9024071C4600CFAEED /* 215_KthLargestElementInArrat.cpp */; };
+		086A8AE024071C4A00CFAEED /* 218_SkylineProblem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9124071C4600CFAEED /* 218_SkylineProblem.cpp */; };
+		086A8AE124071C4A00CFAEED /* 329_LongestIncreasingPathInMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9224071C4600CFAEED /* 329_LongestIncreasingPathInMatrix.cpp */; };
+		086A8AE224071C4A00CFAEED /* 591_TagValidator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9324071C4600CFAEED /* 591_TagValidator.cpp */; };
+		086A8AE324071C4A00CFAEED /* 778_SwimInRisingWater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9424071C4600CFAEED /* 778_SwimInRisingWater.cpp */; };
+		086A8AE424071C4A00CFAEED /* 632_SmallestRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9524071C4600CFAEED /* 632_SmallestRange.cpp */; };
+		086A8AE524071C4A00CFAEED /* 305_NumberOfIslandII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9624071C4600CFAEED /* 305_NumberOfIslandII.cpp */; };
+		086A8AE624071C4A00CFAEED /* 519_RandomFlipMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9724071C4600CFAEED /* 519_RandomFlipMatrix.cpp */; };
+		086A8AE724071C4A00CFAEED /* 128_LongestConsecutiveSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9824071C4600CFAEED /* 128_LongestConsecutiveSequence.cpp */; };
+		086A8AE824071C4A00CFAEED /* 45_JumpGameII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9924071C4600CFAEED /* 45_JumpGameII.cpp */; };
+		086A8AE924071C4A00CFAEED /* 420_StrongPasswordChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9A24071C4700CFAEED /* 420_StrongPasswordChecker.cpp */; };
+		086A8AEA24071C4A00CFAEED /* 719_FindKthSmallestPairDistance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9B24071C4700CFAEED /* 719_FindKthSmallestPairDistance.cpp */; };
+		086A8AEB24071C4A00CFAEED /* 854_KthSimilarString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9C24071C4700CFAEED /* 854_KthSimilarString.cpp */; };
+		086A8AEC24071C4A00CFAEED /* 466_CountRepetitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9D24071C4700CFAEED /* 466_CountRepetitions.cpp */; };
+		086A8AED24071C4A00CFAEED /* 736_ParseLispExpression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9E24071C4700CFAEED /* 736_ParseLispExpression.cpp */; };
+		086A8AEE24071C4A00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A9F24071C4700CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */; };
+		086A8AEF24071C4A00CFAEED /* 336_PalindromeParis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA024071C4700CFAEED /* 336_PalindromeParis.cpp */; };
+		086A8AF024071C4A00CFAEED /* 552_StudentAttendanceRecordII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA124071C4700CFAEED /* 552_StudentAttendanceRecordII.cpp */; };
+		086A8AF124071C4A00CFAEED /* 530_MinimumAbsoluteDifferenceBST.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA224071C4700CFAEED /* 530_MinimumAbsoluteDifferenceBST.cpp */; };
+		086A8AF224071C4A00CFAEED /* 546_removeBoxes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA324071C4700CFAEED /* 546_removeBoxes.cpp */; };
+		086A8AF324071C4A00CFAEED /* 507_Perfect_Number.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA424071C4700CFAEED /* 507_Perfect_Number.cpp */; };
+		086A8AF424071C4A00CFAEED /* 354_RussianDollEnvelopes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA524071C4700CFAEED /* 354_RussianDollEnvelopes.cpp */; };
+		086A8AF524071C4A00CFAEED /* 773_SlidingPuzzle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA624071C4700CFAEED /* 773_SlidingPuzzle.cpp */; };
+		086A8AF624071C4A00CFAEED /* 330_PatchingArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA724071C4700CFAEED /* 330_PatchingArray.cpp */; };
+		086A8AF724071C4A00CFAEED /* 847_ShortestPathVisitingAllNodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA824071C4800CFAEED /* 847_ShortestPathVisitingAllNodes.cpp */; };
+		086A8AF824071C4A00CFAEED /* 726_NumberofAtoms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AA924071C4800CFAEED /* 726_NumberofAtoms.cpp */; };
+		086A8AF924071C4A00CFAEED /* 731_MyCalendarII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AAA24071C4800CFAEED /* 731_MyCalendarII.cpp */; };
+		086A8AFA24071C4A00CFAEED /* 802_FindEventualSafeStates.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AAB24071C4800CFAEED /* 802_FindEventualSafeStates.cpp */; };
+		086A8AFB24071C4A00CFAEED /* 843_GuesstheWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AAC24071C4800CFAEED /* 843_GuesstheWord.cpp */; };
+		086A8AFC24071C4A00CFAEED /* 30_SubstringWithConcatenationOfAllWords.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AAD24071C4800CFAEED /* 30_SubstringWithConcatenationOfAllWords.cpp */; };
+		086A8AFD24071C4A00CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AAE24071C4800CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp */; };
+		086A8AFE24071C4A00CFAEED /* 65_ValidNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AAF24071C4800CFAEED /* 65_ValidNumber.cpp */; };
+		086A8AFF24071C4A00CFAEED /* 587_ErectTheFence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AB024071C4900CFAEED /* 587_ErectTheFence.cpp */; };
+		086A8B0024071C4A00CFAEED /* 729_MyCalendarI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */; };
+		086A8B0324071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +107,87 @@
 /* Begin PBXFileReference section */
 		081E87EA24070F10008932EA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 		081E87EC2407116F008932EA /* leetcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = leetcode.cpp; sourceTree = SOURCE_ROOT; };
+		086A8A6124071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4_MedianofTwoSortedArrays.cpp; sourceTree = "<group>"; };
+		086A8A6324071C4400CFAEED /* 732_MyCalendarIII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 732_MyCalendarIII.cpp; sourceTree = "<group>"; };
+		086A8A6424071C4400CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 26_RemoveDuplicateFromSortedArray.cpp; sourceTree = "<group>"; };
+		086A8A6524071C4400CFAEED /* 432_AllOneDataStructure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 432_AllOneDataStructure.cpp; sourceTree = "<group>"; };
+		086A8A6624071C4400CFAEED /* 679_24Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 679_24Game.cpp; sourceTree = "<group>"; };
+		086A8A6724071C4400CFAEED /* 68_TextJustification.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 68_TextJustification.cpp; sourceTree = "<group>"; };
+		086A8A6824071C4400CFAEED /* 699_fallingSquare.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 699_fallingSquare.cpp; sourceTree = "<group>"; };
+		086A8A6924071C4400CFAEED /* 327_CountOfRangeSum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 327_CountOfRangeSum.cpp; sourceTree = "<group>"; };
+		086A8A6A24071C4400CFAEED /* 753_CrackingTheSafe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 753_CrackingTheSafe.cpp; sourceTree = "<group>"; };
+		086A8A6B24071C4400CFAEED /* 787_CheapestFlightsWithinKStops.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 787_CheapestFlightsWithinKStops.cpp; sourceTree = "<group>"; };
+		086A8A6C24071C4400CFAEED /* 689_MaximumSumNonOverlappingSubarrays.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 689_MaximumSumNonOverlappingSubarrays.cpp; sourceTree = "<group>"; };
+		086A8A6D24071C4400CFAEED /* 839_SimilarStringGroups.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 839_SimilarStringGroups.cpp; sourceTree = "<group>"; };
+		086A8A6E24071C4400CFAEED /* 218_TheSkylinesProblem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 218_TheSkylinesProblem.cpp; sourceTree = "<group>"; };
+		086A8A6F24071C4400CFAEED /* 514_FreedomTrail.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 514_FreedomTrail.cpp; sourceTree = "<group>"; };
+		086A8A7024071C4400CFAEED /* 805_SplitArrayWithSameAverage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 805_SplitArrayWithSameAverage.cpp; sourceTree = "<group>"; };
+		086A8A7124071C4400CFAEED /* 765_CouplesHoldingHands.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 765_CouplesHoldingHands.cpp; sourceTree = "<group>"; };
+		086A8A7224071C4400CFAEED /* 664_StrangePrinter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 664_StrangePrinter.cpp; sourceTree = "<group>"; };
+		086A8A7324071C4400CFAEED /* 57_InsertInterval.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 57_InsertInterval.cpp; sourceTree = "<group>"; };
+		086A8A7424071C4400CFAEED /* 32_LongestValidParentheses.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 32_LongestValidParentheses.cpp; sourceTree = "<group>"; };
+		086A8A7524071C4400CFAEED /* 741_CherryPickup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 741_CherryPickup.cpp; sourceTree = "<group>"; };
+		086A8A7624071C4400CFAEED /* 23_MergeSortedList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 23_MergeSortedList.cpp; sourceTree = "<group>"; };
+		086A8A7724071C4400CFAEED /* 76_MinimumWindowSubstring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 76_MinimumWindowSubstring.cpp; sourceTree = "<group>"; };
+		086A8A7824071C4400CFAEED /* 188_BestTimeBuySellStockIV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 188_BestTimeBuySellStockIV.cpp; sourceTree = "<group>"; };
+		086A8A7924071C4400CFAEED /* 11_ContainerWithMostWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 11_ContainerWithMostWater.cpp; sourceTree = "<group>"; };
+		086A8A7A24071C4400CFAEED /* 37_SudokuSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 37_SudokuSolver.cpp; sourceTree = "<group>"; };
+		086A8A7B24071C4400CFAEED /* 502_IPO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 502_IPO.cpp; sourceTree = "<group>"; };
+		086A8A7C24071C4400CFAEED /* 668_KthSmallestNumberInMultiplicationTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 668_KthSmallestNumberInMultiplicationTable.cpp; sourceTree = "<group>"; };
+		086A8A7D24071C4400CFAEED /* 745_PrefixSuffixSearch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 745_PrefixSuffixSearch.cpp; sourceTree = "<group>"; };
+		086A8A7E24071C4400CFAEED /* 749_ContainVirus.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 749_ContainVirus.cpp; sourceTree = "<group>"; };
+		086A8A7F24071C4500CFAEED /* 42_TrappingRainWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 42_TrappingRainWater.cpp; sourceTree = "<group>"; };
+		086A8A8024071C4500CFAEED /* 768_MaxChunksToMakeSortedII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 768_MaxChunksToMakeSortedII.cpp; sourceTree = "<group>"; };
+		086A8A8124071C4500CFAEED /* 803_BricksFallingWhenHit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 803_BricksFallingWhenHit.cpp; sourceTree = "<group>"; };
+		086A8A8224071C4500CFAEED /* 782_TransformtoChessboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 782_TransformtoChessboard.cpp; sourceTree = "<group>"; };
+		086A8A8324071C4500CFAEED /* 629_KthInversePairsArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 629_KthInversePairsArray.cpp; sourceTree = "<group>"; };
+		086A8A8424071C4500CFAEED /* 41_FirstMissingPositive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 41_FirstMissingPositive.cpp; sourceTree = "<group>"; };
+		086A8A8524071C4500CFAEED /* 10_RegularExpressionMatching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 10_RegularExpressionMatching.cpp; sourceTree = "<group>"; };
+		086A8A8624071C4500CFAEED /* 472_ConcatenatedWordscpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 472_ConcatenatedWordscpp.cpp; sourceTree = "<group>"; };
+		086A8A8724071C4500CFAEED /* 480_SlidingWindowMedian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 480_SlidingWindowMedian.cpp; sourceTree = "<group>"; };
+		086A8A8824071C4500CFAEED /* 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp; sourceTree = "<group>"; };
+		086A8A8924071C4500CFAEED /* 639_DecodeWaysII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 639_DecodeWaysII.cpp; sourceTree = "<group>"; };
+		086A8A8A24071C4500CFAEED /* 757_SetIntersectionSizeAtLeastTwo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 757_SetIntersectionSizeAtLeastTwo.cpp; sourceTree = "<group>"; };
+		086A8A8B24071C4500CFAEED /* 44_WildcardMatching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 44_WildcardMatching.cpp; sourceTree = "<group>"; };
+		086A8A8C24071C4600CFAEED /* 321_CreateMaximumNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 321_CreateMaximumNumber.cpp; sourceTree = "<group>"; };
+		086A8A8D24071C4600CFAEED /* 761_SpecialBinaryString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 761_SpecialBinaryString.cpp; sourceTree = "<group>"; };
+		086A8A8E24071C4600CFAEED /* 295_FindMedianfromDataStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 295_FindMedianfromDataStream.cpp; sourceTree = "<group>"; };
+		086A8A8F24071C4600CFAEED /* 564_FindTheClosestPalindrome.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 564_FindTheClosestPalindrome.cpp; sourceTree = "<group>"; };
+		086A8A9024071C4600CFAEED /* 215_KthLargestElementInArrat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 215_KthLargestElementInArrat.cpp; sourceTree = "<group>"; };
+		086A8A9124071C4600CFAEED /* 218_SkylineProblem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 218_SkylineProblem.cpp; sourceTree = "<group>"; };
+		086A8A9224071C4600CFAEED /* 329_LongestIncreasingPathInMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 329_LongestIncreasingPathInMatrix.cpp; sourceTree = "<group>"; };
+		086A8A9324071C4600CFAEED /* 591_TagValidator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 591_TagValidator.cpp; sourceTree = "<group>"; };
+		086A8A9424071C4600CFAEED /* 778_SwimInRisingWater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 778_SwimInRisingWater.cpp; sourceTree = "<group>"; };
+		086A8A9524071C4600CFAEED /* 632_SmallestRange.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 632_SmallestRange.cpp; sourceTree = "<group>"; };
+		086A8A9624071C4600CFAEED /* 305_NumberOfIslandII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 305_NumberOfIslandII.cpp; sourceTree = "<group>"; };
+		086A8A9724071C4600CFAEED /* 519_RandomFlipMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 519_RandomFlipMatrix.cpp; sourceTree = "<group>"; };
+		086A8A9824071C4600CFAEED /* 128_LongestConsecutiveSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 128_LongestConsecutiveSequence.cpp; sourceTree = "<group>"; };
+		086A8A9924071C4600CFAEED /* 45_JumpGameII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 45_JumpGameII.cpp; sourceTree = "<group>"; };
+		086A8A9A24071C4700CFAEED /* 420_StrongPasswordChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 420_StrongPasswordChecker.cpp; sourceTree = "<group>"; };
+		086A8A9B24071C4700CFAEED /* 719_FindKthSmallestPairDistance.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 719_FindKthSmallestPairDistance.cpp; sourceTree = "<group>"; };
+		086A8A9C24071C4700CFAEED /* 854_KthSimilarString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 854_KthSimilarString.cpp; sourceTree = "<group>"; };
+		086A8A9D24071C4700CFAEED /* 466_CountRepetitions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 466_CountRepetitions.cpp; sourceTree = "<group>"; };
+		086A8A9E24071C4700CFAEED /* 736_ParseLispExpression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 736_ParseLispExpression.cpp; sourceTree = "<group>"; };
+		086A8A9F24071C4700CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 801_MinimumSwapsToMakeSequencesIncreasing.cpp; sourceTree = "<group>"; };
+		086A8AA024071C4700CFAEED /* 336_PalindromeParis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 336_PalindromeParis.cpp; sourceTree = "<group>"; };
+		086A8AA124071C4700CFAEED /* 552_StudentAttendanceRecordII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 552_StudentAttendanceRecordII.cpp; sourceTree = "<group>"; };
+		086A8AA224071C4700CFAEED /* 530_MinimumAbsoluteDifferenceBST.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 530_MinimumAbsoluteDifferenceBST.cpp; sourceTree = "<group>"; };
+		086A8AA324071C4700CFAEED /* 546_removeBoxes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 546_removeBoxes.cpp; sourceTree = "<group>"; };
+		086A8AA424071C4700CFAEED /* 507_Perfect_Number.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 507_Perfect_Number.cpp; sourceTree = "<group>"; };
+		086A8AA524071C4700CFAEED /* 354_RussianDollEnvelopes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 354_RussianDollEnvelopes.cpp; sourceTree = "<group>"; };
+		086A8AA624071C4700CFAEED /* 773_SlidingPuzzle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 773_SlidingPuzzle.cpp; sourceTree = "<group>"; };
+		086A8AA724071C4700CFAEED /* 330_PatchingArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 330_PatchingArray.cpp; sourceTree = "<group>"; };
+		086A8AA824071C4800CFAEED /* 847_ShortestPathVisitingAllNodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 847_ShortestPathVisitingAllNodes.cpp; sourceTree = "<group>"; };
+		086A8AA924071C4800CFAEED /* 726_NumberofAtoms.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 726_NumberofAtoms.cpp; sourceTree = "<group>"; };
+		086A8AAA24071C4800CFAEED /* 731_MyCalendarII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 731_MyCalendarII.cpp; sourceTree = "<group>"; };
+		086A8AAB24071C4800CFAEED /* 802_FindEventualSafeStates.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 802_FindEventualSafeStates.cpp; sourceTree = "<group>"; };
+		086A8AAC24071C4800CFAEED /* 843_GuesstheWord.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 843_GuesstheWord.cpp; sourceTree = "<group>"; };
+		086A8AAD24071C4800CFAEED /* 30_SubstringWithConcatenationOfAllWords.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 30_SubstringWithConcatenationOfAllWords.cpp; sourceTree = "<group>"; };
+		086A8AAE24071C4800CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 123_BestTimetoBuyandSellStockIII.cpp; sourceTree = "<group>"; };
+		086A8AAF24071C4800CFAEED /* 65_ValidNumber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 65_ValidNumber.cpp; sourceTree = "<group>"; };
+		086A8AB024071C4900CFAEED /* 587_ErectTheFence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 587_ErectTheFence.cpp; sourceTree = "<group>"; };
+		086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 729_MyCalendarI.cpp; sourceTree = "<group>"; };
+		086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 801_MinimumSwapsToMakeSequencesIncreasing.cpp; sourceTree = "<group>"; };
 		08FC0AD02403634500939CB4 /* cppleetcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppleetcode; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -40,9 +202,114 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		086A8A6024071B9900CFAEED /* leetcode */ = {
+			isa = PBXGroup;
+			children = (
+				086A8A8524071C4500CFAEED /* 10_RegularExpressionMatching.cpp */,
+				086A8A7924071C4400CFAEED /* 11_ContainerWithMostWater.cpp */,
+				086A8A7624071C4400CFAEED /* 23_MergeSortedList.cpp */,
+				086A8A6424071C4400CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp */,
+				086A8AAD24071C4800CFAEED /* 30_SubstringWithConcatenationOfAllWords.cpp */,
+				086A8A7424071C4400CFAEED /* 32_LongestValidParentheses.cpp */,
+				086A8A7A24071C4400CFAEED /* 37_SudokuSolver.cpp */,
+				086A8A8424071C4500CFAEED /* 41_FirstMissingPositive.cpp */,
+				086A8A7F24071C4500CFAEED /* 42_TrappingRainWater.cpp */,
+				086A8A8B24071C4500CFAEED /* 44_WildcardMatching.cpp */,
+				086A8A9924071C4600CFAEED /* 45_JumpGameII.cpp */,
+				086A8A7324071C4400CFAEED /* 57_InsertInterval.cpp */,
+				086A8AAF24071C4800CFAEED /* 65_ValidNumber.cpp */,
+				086A8A6724071C4400CFAEED /* 68_TextJustification.cpp */,
+				086A8A7724071C4400CFAEED /* 76_MinimumWindowSubstring.cpp */,
+				086A8AAE24071C4800CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp */,
+				086A8A9824071C4600CFAEED /* 128_LongestConsecutiveSequence.cpp */,
+				086A8A7824071C4400CFAEED /* 188_BestTimeBuySellStockIV.cpp */,
+				086A8A9024071C4600CFAEED /* 215_KthLargestElementInArrat.cpp */,
+				086A8A9124071C4600CFAEED /* 218_SkylineProblem.cpp */,
+				086A8A6E24071C4400CFAEED /* 218_TheSkylinesProblem.cpp */,
+				086A8A8E24071C4600CFAEED /* 295_FindMedianfromDataStream.cpp */,
+				086A8A9624071C4600CFAEED /* 305_NumberOfIslandII.cpp */,
+				086A8A8C24071C4600CFAEED /* 321_CreateMaximumNumber.cpp */,
+				086A8A6924071C4400CFAEED /* 327_CountOfRangeSum.cpp */,
+				086A8A9224071C4600CFAEED /* 329_LongestIncreasingPathInMatrix.cpp */,
+				086A8AA724071C4700CFAEED /* 330_PatchingArray.cpp */,
+				086A8AA024071C4700CFAEED /* 336_PalindromeParis.cpp */,
+				086A8AA524071C4700CFAEED /* 354_RussianDollEnvelopes.cpp */,
+				086A8A9A24071C4700CFAEED /* 420_StrongPasswordChecker.cpp */,
+				086A8A6524071C4400CFAEED /* 432_AllOneDataStructure.cpp */,
+				086A8A9D24071C4700CFAEED /* 466_CountRepetitions.cpp */,
+				086A8A8624071C4500CFAEED /* 472_ConcatenatedWordscpp.cpp */,
+				086A8A8724071C4500CFAEED /* 480_SlidingWindowMedian.cpp */,
+				086A8A7B24071C4400CFAEED /* 502_IPO.cpp */,
+				086A8AA424071C4700CFAEED /* 507_Perfect_Number.cpp */,
+				086A8A6F24071C4400CFAEED /* 514_FreedomTrail.cpp */,
+				086A8A9724071C4600CFAEED /* 519_RandomFlipMatrix.cpp */,
+				086A8AA224071C4700CFAEED /* 530_MinimumAbsoluteDifferenceBST.cpp */,
+				086A8AA324071C4700CFAEED /* 546_removeBoxes.cpp */,
+				086A8AA124071C4700CFAEED /* 552_StudentAttendanceRecordII.cpp */,
+				086A8A8F24071C4600CFAEED /* 564_FindTheClosestPalindrome.cpp */,
+				086A8AB024071C4900CFAEED /* 587_ErectTheFence.cpp */,
+				086A8A9324071C4600CFAEED /* 591_TagValidator.cpp */,
+				086A8A8824071C4500CFAEED /* 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp */,
+				086A8A8324071C4500CFAEED /* 629_KthInversePairsArray.cpp */,
+				086A8A9524071C4600CFAEED /* 632_SmallestRange.cpp */,
+				086A8A8924071C4500CFAEED /* 639_DecodeWaysII.cpp */,
+				086A8A7224071C4400CFAEED /* 664_StrangePrinter.cpp */,
+				086A8A7C24071C4400CFAEED /* 668_KthSmallestNumberInMultiplicationTable.cpp */,
+				086A8A6624071C4400CFAEED /* 679_24Game.cpp */,
+				086A8A6C24071C4400CFAEED /* 689_MaximumSumNonOverlappingSubarrays.cpp */,
+				086A8A6824071C4400CFAEED /* 699_fallingSquare.cpp */,
+				086A8A9B24071C4700CFAEED /* 719_FindKthSmallestPairDistance.cpp */,
+				086A8AA924071C4800CFAEED /* 726_NumberofAtoms.cpp */,
+				086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */,
+				086A8AAA24071C4800CFAEED /* 731_MyCalendarII.cpp */,
+				086A8A6324071C4400CFAEED /* 732_MyCalendarIII.cpp */,
+				086A8A9E24071C4700CFAEED /* 736_ParseLispExpression.cpp */,
+				086A8A7524071C4400CFAEED /* 741_CherryPickup.cpp */,
+				086A8A7D24071C4400CFAEED /* 745_PrefixSuffixSearch.cpp */,
+				086A8A7E24071C4400CFAEED /* 749_ContainVirus.cpp */,
+				086A8A6A24071C4400CFAEED /* 753_CrackingTheSafe.cpp */,
+				086A8A8A24071C4500CFAEED /* 757_SetIntersectionSizeAtLeastTwo.cpp */,
+				086A8A8D24071C4600CFAEED /* 761_SpecialBinaryString.cpp */,
+				086A8A7124071C4400CFAEED /* 765_CouplesHoldingHands.cpp */,
+				086A8A8024071C4500CFAEED /* 768_MaxChunksToMakeSortedII.cpp */,
+				086A8AA624071C4700CFAEED /* 773_SlidingPuzzle.cpp */,
+				086A8A9424071C4600CFAEED /* 778_SwimInRisingWater.cpp */,
+				086A8A8224071C4500CFAEED /* 782_TransformtoChessboard.cpp */,
+				086A8A6B24071C4400CFAEED /* 787_CheapestFlightsWithinKStops.cpp */,
+				086A8A9F24071C4700CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */,
+				086A8AAB24071C4800CFAEED /* 802_FindEventualSafeStates.cpp */,
+				086A8A8124071C4500CFAEED /* 803_BricksFallingWhenHit.cpp */,
+				086A8A7024071C4400CFAEED /* 805_SplitArrayWithSameAverage.cpp */,
+				086A8A6D24071C4400CFAEED /* 839_SimilarStringGroups.cpp */,
+				086A8AAC24071C4800CFAEED /* 843_GuesstheWord.cpp */,
+				086A8AA824071C4800CFAEED /* 847_ShortestPathVisitingAllNodes.cpp */,
+				086A8A9C24071C4700CFAEED /* 854_KthSimilarString.cpp */,
+				086A8A6124071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp */,
+			);
+			path = leetcode;
+			sourceTree = "<group>";
+		};
+		086A8B0124071CE700CFAEED /* leetcodeM */ = {
+			isa = PBXGroup;
+			children = (
+				086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */,
+			);
+			path = leetcodeM;
+			sourceTree = "<group>";
+		};
+		086A8B0424071D2C00CFAEED /* leetcodeE */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = leetcodeE;
+			sourceTree = "<group>";
+		};
 		08FC0AC72403634500939CB4 = {
 			isa = PBXGroup;
 			children = (
+				086A8B0424071D2C00CFAEED /* leetcodeE */,
+				086A8B0124071CE700CFAEED /* leetcodeM */,
+				086A8A6024071B9900CFAEED /* leetcode */,
 				08FC0AD22403634500939CB4 /* cppleetcode */,
 				08FC0AD12403634500939CB4 /* Products */,
 			);
@@ -122,8 +389,89 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				086A8ACE24071C4A00CFAEED /* 42_TrappingRainWater.cpp in Sources */,
+				086A8AB224071C4A00CFAEED /* 732_MyCalendarIII.cpp in Sources */,
+				086A8AE324071C4A00CFAEED /* 778_SwimInRisingWater.cpp in Sources */,
+				086A8AF524071C4A00CFAEED /* 773_SlidingPuzzle.cpp in Sources */,
+				086A8AF824071C4A00CFAEED /* 726_NumberofAtoms.cpp in Sources */,
 				081E87ED2407116F008932EA /* leetcode.cpp in Sources */,
+				086A8AFE24071C4A00CFAEED /* 65_ValidNumber.cpp in Sources */,
+				086A8ABA24071C4A00CFAEED /* 787_CheapestFlightsWithinKStops.cpp in Sources */,
+				086A8AE524071C4A00CFAEED /* 305_NumberOfIslandII.cpp in Sources */,
+				086A8AFA24071C4A00CFAEED /* 802_FindEventualSafeStates.cpp in Sources */,
+				086A8AD824071C4A00CFAEED /* 639_DecodeWaysII.cpp in Sources */,
+				086A8ACC24071C4A00CFAEED /* 745_PrefixSuffixSearch.cpp in Sources */,
+				086A8AED24071C4A00CFAEED /* 736_ParseLispExpression.cpp in Sources */,
+				086A8ACD24071C4A00CFAEED /* 749_ContainVirus.cpp in Sources */,
 				081E87EB24070F10008932EA /* main.cpp in Sources */,
+				086A8AFD24071C4A00CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp in Sources */,
+				086A8AC524071C4A00CFAEED /* 23_MergeSortedList.cpp in Sources */,
+				086A8AC124071C4A00CFAEED /* 664_StrangePrinter.cpp in Sources */,
+				086A8AF224071C4A00CFAEED /* 546_removeBoxes.cpp in Sources */,
+				086A8AFF24071C4A00CFAEED /* 587_ErectTheFence.cpp in Sources */,
+				086A8AB824071C4A00CFAEED /* 327_CountOfRangeSum.cpp in Sources */,
+				086A8AEB24071C4A00CFAEED /* 854_KthSimilarString.cpp in Sources */,
+				086A8AB924071C4A00CFAEED /* 753_CrackingTheSafe.cpp in Sources */,
+				086A8AD924071C4A00CFAEED /* 757_SetIntersectionSizeAtLeastTwo.cpp in Sources */,
+				086A8B0324071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */,
+				086A8AE424071C4A00CFAEED /* 632_SmallestRange.cpp in Sources */,
+				086A8ADD24071C4A00CFAEED /* 295_FindMedianfromDataStream.cpp in Sources */,
+				086A8AC224071C4A00CFAEED /* 57_InsertInterval.cpp in Sources */,
+				086A8AF324071C4A00CFAEED /* 507_Perfect_Number.cpp in Sources */,
+				086A8AD424071C4A00CFAEED /* 10_RegularExpressionMatching.cpp in Sources */,
+				086A8AE124071C4A00CFAEED /* 329_LongestIncreasingPathInMatrix.cpp in Sources */,
+				086A8A6224071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp in Sources */,
+				086A8AE024071C4A00CFAEED /* 218_SkylineProblem.cpp in Sources */,
+				086A8ADA24071C4A00CFAEED /* 44_WildcardMatching.cpp in Sources */,
+				086A8ADE24071C4A00CFAEED /* 564_FindTheClosestPalindrome.cpp in Sources */,
+				086A8AEC24071C4A00CFAEED /* 466_CountRepetitions.cpp in Sources */,
+				086A8ADB24071C4A00CFAEED /* 321_CreateMaximumNumber.cpp in Sources */,
+				086A8AD024071C4A00CFAEED /* 803_BricksFallingWhenHit.cpp in Sources */,
+				086A8AD224071C4A00CFAEED /* 629_KthInversePairsArray.cpp in Sources */,
+				086A8ACF24071C4A00CFAEED /* 768_MaxChunksToMakeSortedII.cpp in Sources */,
+				086A8AF724071C4A00CFAEED /* 847_ShortestPathVisitingAllNodes.cpp in Sources */,
+				086A8AB424071C4A00CFAEED /* 432_AllOneDataStructure.cpp in Sources */,
+				086A8AC724071C4A00CFAEED /* 188_BestTimeBuySellStockIV.cpp in Sources */,
+				086A8ACB24071C4A00CFAEED /* 668_KthSmallestNumberInMultiplicationTable.cpp in Sources */,
+				086A8AD124071C4A00CFAEED /* 782_TransformtoChessboard.cpp in Sources */,
+				086A8AE824071C4A00CFAEED /* 45_JumpGameII.cpp in Sources */,
+				086A8AF024071C4A00CFAEED /* 552_StudentAttendanceRecordII.cpp in Sources */,
+				086A8AE624071C4A00CFAEED /* 519_RandomFlipMatrix.cpp in Sources */,
+				086A8ABD24071C4A00CFAEED /* 218_TheSkylinesProblem.cpp in Sources */,
+				086A8AD724071C4A00CFAEED /* 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp in Sources */,
+				086A8ABB24071C4A00CFAEED /* 689_MaximumSumNonOverlappingSubarrays.cpp in Sources */,
+				086A8ADF24071C4A00CFAEED /* 215_KthLargestElementInArrat.cpp in Sources */,
+				086A8AFC24071C4A00CFAEED /* 30_SubstringWithConcatenationOfAllWords.cpp in Sources */,
+				086A8AFB24071C4A00CFAEED /* 843_GuesstheWord.cpp in Sources */,
+				086A8ACA24071C4A00CFAEED /* 502_IPO.cpp in Sources */,
+				086A8AC824071C4A00CFAEED /* 11_ContainerWithMostWater.cpp in Sources */,
+				086A8AEA24071C4A00CFAEED /* 719_FindKthSmallestPairDistance.cpp in Sources */,
+				086A8AF624071C4A00CFAEED /* 330_PatchingArray.cpp in Sources */,
+				086A8ADC24071C4A00CFAEED /* 761_SpecialBinaryString.cpp in Sources */,
+				086A8AE724071C4A00CFAEED /* 128_LongestConsecutiveSequence.cpp in Sources */,
+				086A8AB324071C4A00CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp in Sources */,
+				086A8AE224071C4A00CFAEED /* 591_TagValidator.cpp in Sources */,
+				086A8AEE24071C4A00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */,
+				086A8AC924071C4A00CFAEED /* 37_SudokuSolver.cpp in Sources */,
+				086A8AF124071C4A00CFAEED /* 530_MinimumAbsoluteDifferenceBST.cpp in Sources */,
+				086A8AC424071C4A00CFAEED /* 741_CherryPickup.cpp in Sources */,
+				086A8AC624071C4A00CFAEED /* 76_MinimumWindowSubstring.cpp in Sources */,
+				086A8AF924071C4A00CFAEED /* 731_MyCalendarII.cpp in Sources */,
+				086A8AC024071C4A00CFAEED /* 765_CouplesHoldingHands.cpp in Sources */,
+				086A8B0024071C4A00CFAEED /* 729_MyCalendarI.cpp in Sources */,
+				086A8AD324071C4A00CFAEED /* 41_FirstMissingPositive.cpp in Sources */,
+				086A8AB724071C4A00CFAEED /* 699_fallingSquare.cpp in Sources */,
+				086A8AE924071C4A00CFAEED /* 420_StrongPasswordChecker.cpp in Sources */,
+				086A8ABE24071C4A00CFAEED /* 514_FreedomTrail.cpp in Sources */,
+				086A8AD524071C4A00CFAEED /* 472_ConcatenatedWordscpp.cpp in Sources */,
+				086A8AEF24071C4A00CFAEED /* 336_PalindromeParis.cpp in Sources */,
+				086A8ABF24071C4A00CFAEED /* 805_SplitArrayWithSameAverage.cpp in Sources */,
+				086A8ABC24071C4A00CFAEED /* 839_SimilarStringGroups.cpp in Sources */,
+				086A8AB524071C4A00CFAEED /* 679_24Game.cpp in Sources */,
+				086A8AC324071C4A00CFAEED /* 32_LongestValidParentheses.cpp in Sources */,
+				086A8AB624071C4A00CFAEED /* 68_TextJustification.cpp in Sources */,
+				086A8AD624071C4A00CFAEED /* 480_SlidingWindowMedian.cpp in Sources */,
+				086A8AF424071C4A00CFAEED /* 354_RussianDollEnvelopes.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
