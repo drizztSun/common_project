@@ -90,6 +90,7 @@
 		086A8AFF24071C4A00CFAEED /* 587_ErectTheFence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AB024071C4900CFAEED /* 587_ErectTheFence.cpp */; };
 		086A8B0024071C4A00CFAEED /* 729_MyCalendarI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */; };
 		086A8B0324071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */; };
+		086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -188,6 +189,7 @@
 		086A8AB024071C4900CFAEED /* 587_ErectTheFence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 587_ErectTheFence.cpp; sourceTree = "<group>"; };
 		086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 729_MyCalendarI.cpp; sourceTree = "<group>"; };
 		086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 801_MinimumSwapsToMakeSequencesIncreasing.cpp; sourceTree = "<group>"; };
+		086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1048_LongestStringChain.cpp; sourceTree = "<group>"; };
 		08FC0AD02403634500939CB4 /* cppleetcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppleetcode; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -293,6 +295,7 @@
 			isa = PBXGroup;
 			children = (
 				086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */,
+				086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				086A8AEF24071C4A00CFAEED /* 336_PalindromeParis.cpp in Sources */,
 				086A8ABF24071C4A00CFAEED /* 805_SplitArrayWithSameAverage.cpp in Sources */,
 				086A8ABC24071C4A00CFAEED /* 839_SimilarStringGroups.cpp in Sources */,
+				086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */,
 				086A8AB524071C4A00CFAEED /* 679_24Game.cpp in Sources */,
 				086A8AC324071C4A00CFAEED /* 32_LongestValidParentheses.cpp in Sources */,
 				086A8AB624071C4A00CFAEED /* 68_TextJustification.cpp in Sources */,

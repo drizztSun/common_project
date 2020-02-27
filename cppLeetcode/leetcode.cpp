@@ -135,8 +135,12 @@ void Test_802_FindEventualSafeStates();
 
 void Test_801_MinimumSwaps();
 
+void test_1048_longest_string_chain();
+
 void leetcode() {
 
+    test_1048_longest_string_chain();
+    
 	//minimum_window_substring();
 
 	//substring_with_concatenation_of_all_words();
