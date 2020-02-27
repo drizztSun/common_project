@@ -8,6 +8,16 @@ import (
 	"sync"
 )
 
+/*
+Splitting the input
+While buffering I/O reads is critical to improving performance, calling ReadByte() and checking for errors in a loop introduces a lot of unnecessary overhead.
+We can avoid this by manually buffering our read calls, rather than relying on bufio.Reader.
+
+To do this, we will split our input into buffered chunks that can be processed individually.
+Fortunately, to process a chunk, the only thing we need to know about the previous chunk (as we saw earlier) is if its last character was whitespace.
+
+Let's write a few utility functions:
+*/
 type Counter struct {
 	WordCount int32
 	LineCount int32
