@@ -41,7 +41,7 @@ class NumMovesStonesII:
 
         stones.sort()
 
-        max_cnts = max(sum(stones[i] - stones[i-1] - 1 for i in range(2, len(stones))), sum(stones[i] - stones[i-1] for i in range(len(stones)-2, 0, -1)))
+        max_cnts = max(sum(stones[i] - stones[i-1] - 1 for i in range(2, len(stones))), sum(stones[i] - stones[i-1] - 1 for i in range(len(stones)-2, 0, -1)))
 
         min_cnts = float("Inf")
         start, end = 0, 1
@@ -65,6 +65,48 @@ class NumMovesStonesII:
             min_cnts = min(min_cnts, rem)
 
         return [min_cnts, max_cnts]
+
+    def doit(self, stones):
+
+        stones.sort()
+
+        gaps = [stones[i+1] - stones[i] - 1 for i in range(len(stones)-1)]
+
+        max_cnts = max(sum(c for c in gaps[1:]), sum(c for c in gaps[:-1]))
+
+        min_cnts = float('Inf')
+        s, e = 0, 1
+        cnts = 1
+
+        while e <= len(stones):
+
+            if e == len(stones) or stones[e] - stones[s] >= len(stones):
+
+                rem = len(stones) - cnts
+
+                if rem != 1 or stones[e-1] - stones[s] == len(stones) - 1:
+                    min_cnts = min(min_cnts, rem)
+
+                s += 1
+                cnts -= 1
+
+                if e == len(stones):
+                    break
+
+            else:
+
+                e += 1
+                cnts += 1
+
+        return [min_cnts, max_cnts]
+
+    def doit(self, s):
+        s.sort()
+        n, i = len(s), 0
+        for j in range(n):
+            if s[j] - s[i] >= n:
+                i += 1
+        return[2 if i == 1 and s[-1] - s[0] != n and (s[-2] - s[0] == n-2 or s[-1] - s[1] == n-2) else i, s[-1] - s[0] - n - min(s[1] - s[0], s[-1] - s[-2]) + 2]
 
 
 if __name__ == '__main__':
