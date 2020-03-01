@@ -36,35 +36,15 @@
 
 class NumMovesStonesII:
 
-    def doit(self, stones):
-        import heapq
+    """
+    For minimum number of moves, the final arrangement will be of the form [a, a+1, a+2, ... a+L-1] for L stones for some 'a'.
+    The possible values of 'a' are all the stone positions in the given input array.
+    For each possible 'a' check how many positions (from a to a+L-1) already have stones. We need to fill in the missing remaining positions.
+    Thus if there are K missing positions we need K moves to fill them. Compute K for each value of 'a' and take their minimum.
 
-        stones.sort()
-
-        max_cnts = max(sum(stones[i] - stones[i-1] - 1 for i in range(2, len(stones))), sum(stones[i] - stones[i-1] - 1 for i in range(len(stones)-2, 0, -1)))
-
-        min_cnts = float("Inf")
-        start, end = 0, 1
-        cnts = 1
-
-        while end < len(stones):
-            if stones[end] < stones[start] + len(stones):
-                cnts += 1
-                end += 1
-            else:
-                rem = len(stones) - cnts
-                if (rem == 1 and stones[end-1] == stones[start]+len(stones)-1) or rem != 1:
-                    min_cnts = min(min_cnts, rem)
-
-                start += 1
-                cnts -= 1
-
-        rem = len(stones)-cnts
-
-        if (rem == 1 and stones[end-1] == stones[start]+len(stones)-1) or rem != 1:
-            min_cnts = min(min_cnts, rem)
-
-        return [min_cnts, max_cnts]
+    For maximum it is just the sum of the gaps between each stone. But if we take the 1st stone then we cannot count the gaps betwwen 1st and 2nd stone.
+    Similarly if we take the last stone then we cannot count the gaps between last and 2nd last stone. Thus we need to take the maximum of these two cases.
+    """
 
     def doit(self, stones):
 
@@ -106,7 +86,10 @@ class NumMovesStonesII:
         for j in range(n):
             if s[j] - s[i] >= n:
                 i += 1
-        return[2 if i == 1 and s[-1] - s[0] != n and (s[-2] - s[0] == n-2 or s[-1] - s[1] == n-2) else i, s[-1] - s[0] - n - min(s[1] - s[0], s[-1] - s[-2]) + 2]
+
+        maxv = s[-1] - s[0] - n - min(s[1] - s[0], s[-1] - s[-2]) + 2
+        minv = 2 if i == 1 and s[-1] - s[0] != n and (s[-2] - s[0] == n-2 or s[-1] - s[1] == n-2) else i
+        return [minv, maxv]
 
 
 if __name__ == '__main__':
