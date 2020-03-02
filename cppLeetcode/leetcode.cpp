@@ -137,9 +137,13 @@ void Test_801_MinimumSwaps();
 
 void test_1048_longest_string_chain();
 
+void test_1034_Coloring_A_Border();
+
 void leetcode() {
 
-    test_1048_longest_string_chain();
+    // test_1048_longest_string_chain();
+    
+    test_1034_Coloring_A_Border();
     
 	//minimum_window_substring();
 
