@@ -107,4 +107,6 @@ if __name__ == '__main__':
 
     res = IsRobotBounded().doit("GG")
 
+    res = IsRobotBounded().doit("GGLLL")
+
     pass
