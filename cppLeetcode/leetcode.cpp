@@ -139,11 +139,23 @@ void test_1048_longest_string_chain();
 
 void test_1034_Coloring_A_Border();
 
+void test_1040_moving_stones_until_consecutive();
+
+void test_1041_robot_bounded_in_circle();
+
+void test_1039_Minimum_Score_Triangulation_of_Polygon();
+
 void leetcode() {
+    
+    test_1039_Minimum_Score_Triangulation_of_Polygon();
+    
+    // test_1041_robot_bounded_in_circle();
 
     // test_1048_longest_string_chain();
     
-    test_1034_Coloring_A_Border();
+    // test_1040_moving_stones_until_consecutive();
+    
+    //test_1034_Coloring_A_Border();
     
 	//minimum_window_substring();
 
