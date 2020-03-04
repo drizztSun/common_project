@@ -145,9 +145,17 @@ void test_1041_robot_bounded_in_circle();
 
 void test_1039_Minimum_Score_Triangulation_of_Polygon();
 
+void test_1038_Binary_Search_Tree_Greater_Sum_Tree();
+
+void test_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays();
+
 void leetcode() {
     
-    test_1039_Minimum_Score_Triangulation_of_Polygon();
+    test_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays();
+    
+    // test_1038_Binary_Search_Tree_Greater_Sum_Tree();
+    
+    // test_1039_Minimum_Score_Triangulation_of_Polygon();
     
     // test_1041_robot_bounded_in_circle();
 

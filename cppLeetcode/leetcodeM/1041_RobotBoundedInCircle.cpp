@@ -45,7 +45,9 @@
  */
 
 #include <string>
+#include <vector>
 
+using std::vector;
 using std::string;
 
 
@@ -79,6 +81,29 @@ public:
             return false; // still facing north and cannot be back to origin
         
         return pos[0] == 0 && pos[1] == 0; // get to the origin point
+    }
+    
+    bool doit1(string instructions) {
+        int pos[3] = {0, 0, 0};
+        vector<std::pair<int, int>> direct{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        
+        for (auto c : instructions) {
+            
+            if (c == 'G') {
+                pos[0] += direct[pos[2]].first;
+                pos[1] += direct[pos[2]].second;
+            } else if (c == 'L') {
+                pos[2] = pos[2] - 1 < 0 ? 3 : pos[2] - 1;
+            } else if (c == 'R') {
+                pos[2] = pos[2] + 1 > 3 ? 0 : pos[2] + 1;
+            }
+        }
+        
+        if (pos[2] == 0)
+            if (pos[0] != 0 || pos[1] != 0)
+                return false;
+        
+        return true;
     }
 };
 

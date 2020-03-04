@@ -4,13 +4,16 @@ import (
 	"fmt"
 
 	"./leetcodeE"
+	"./leetcodem"
 )
 
 func main() {
 
 	fmt.Println("leetcode hello world")
 
-	// leetcodeE.Test_744_OrderOfLargestPlusSign()
+	leetcodem.Test_1040_MovingStonesUntilConsecutive()
+
+	leetcodeE.Test_744_OrderOfLargestPlusSign()
 
 	// leetcodeE.Test_46_permutations()
 
@@ -30,7 +33,7 @@ func main() {
 
 	// leetcodeH.Test_179LargetNumber()
 
-	leetcodeE.Test_1029_TwoCityScheduling()
+	// leetcodeE.Test_1029_TwoCityScheduling()
 
 	return
 }

@@ -98,6 +98,34 @@ class IsRobotBounded:
 
         return pos == [0, 0]
 
+    # 1. We observe that the first time we go through the instructions, we end up at position (x,y) facing any direction.
+    # 2. It is interesting to check that when we are still facing north, and (x,y) is not (0,0), our distance to the origin is unbounded.
+    # Otherwise( (x,y) is (0,0) or we are facing other directions, we can always go back to the origin by repeating the instructions 4 times and our movement is cyclic.
+    # As the graph shows.)
+
+    def doit(self, instructions):
+        pos = [0, 0, 1]
+        dic = {1: (0, 1), 2: (1, 0), 3: (0, -1), 4: (-1, 0)}
+        for i in instructions:
+            if i == 'G':
+                pos[0] += dic[pos[2]][0]
+                pos[1] += dic[pos[2]][1]
+
+            elif i == 'L':
+                pos[2] = pos[2] - 1
+                if pos[2] < 1:
+                    pos[2] = 4
+            elif i == 'R':
+                pos[2] = pos[2] + 1
+                if pos[2] == 5:
+                    pos[2] = 1
+
+        if pos[2] == 1:
+            if pos[0] != 0 or pos[1] != 0:
+                return False
+
+        return True
+
 
 if __name__ == '__main__':
 

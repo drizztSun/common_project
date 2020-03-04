@@ -69,8 +69,7 @@ class MaxSumTwoNoOverlap:
 
         ans = 0
         for i in range(len(A)):
-            ans = max(ans, L_Arr[i][0] + M_Arr[i]
-                      [1], L_Arr[i][1] + M_Arr[i][0])
+            ans = max(ans, L_Arr[i][0] + M_Arr[i][1], L_Arr[i][1] + M_Arr[i][0])
 
         return ans
 
