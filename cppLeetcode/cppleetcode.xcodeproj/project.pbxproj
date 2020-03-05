@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080BDFF724103CF300D46B59 /* 1024_VideoStitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 080BDFF624103CF300D46B59 /* 1024_VideoStitching.cpp */; };
+		080BDFF924106BAB00D46B59 /* 1023_CamelcaseMatching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 080BDFF824106BAB00D46B59 /* 1023_CamelcaseMatching.cpp */; };
 		081DA43E240DDC2C001A928A /* 1041_RobotBoundedInCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081DA43D240DDC2C001A928A /* 1041_RobotBoundedInCircle.cpp */; };
 		081E87EB24070F10008932EA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081E87EA24070F10008932EA /* main.cpp */; };
 		081E87ED2407116F008932EA /* leetcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081E87EC2407116F008932EA /* leetcode.cpp */; };
@@ -92,8 +94,11 @@
 		086A8B0024071C4A00CFAEED /* 729_MyCalendarI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */; };
 		086A8B0324071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */; };
 		086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */; };
+		08927792240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */; };
+		089277942410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 089277932410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp */; };
 		089A9760240D842300917010 /* 1049_LastStoneWeightII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 089A975E240D842200917010 /* 1049_LastStoneWeightII.cpp */; };
 		089A9761240D842300917010 /* 1043_PartitionArrayForMaximumSum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 089A975F240D842300917010 /* 1043_PartitionArrayForMaximumSum.cpp */; };
+		08CA46F324112DF20098CD5F /* 1020_NumberOfEnclaves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CA46F224112DF20098CD5F /* 1020_NumberOfEnclaves.cpp */; };
 		08D40851240D84D7004716AB /* 1040_MovingStonesUntilConsecutiveII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08D40850240D84D7004716AB /* 1040_MovingStonesUntilConsecutiveII.cpp */; };
 		08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08D40852240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp */; };
 		08DC310E240C71C200577788 /* 1034_ColoringABorder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08DC310D240C71C200577788 /* 1034_ColoringABorder.cpp */; };
@@ -115,6 +120,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		080BDFF624103CF300D46B59 /* 1024_VideoStitching.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1024_VideoStitching.cpp; sourceTree = "<group>"; };
+		080BDFF824106BAB00D46B59 /* 1023_CamelcaseMatching.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1023_CamelcaseMatching.cpp; sourceTree = "<group>"; };
 		081DA43D240DDC2C001A928A /* 1041_RobotBoundedInCircle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1041_RobotBoundedInCircle.cpp; sourceTree = "<group>"; };
 		081E87EA24070F10008932EA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 		081E87EC2407116F008932EA /* leetcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = leetcode.cpp; sourceTree = SOURCE_ROOT; };
@@ -200,8 +207,11 @@
 		086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 729_MyCalendarI.cpp; sourceTree = "<group>"; };
 		086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 801_MinimumSwapsToMakeSequencesIncreasing.cpp; sourceTree = "<group>"; };
 		086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1048_LongestStringChain.cpp; sourceTree = "<group>"; };
+		08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1027_LongestArithmeticSequence.cpp; sourceTree = "<group>"; };
+		089277932410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp; sourceTree = "<group>"; };
 		089A975E240D842200917010 /* 1049_LastStoneWeightII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 1049_LastStoneWeightII.cpp; sourceTree = "<group>"; };
 		089A975F240D842300917010 /* 1043_PartitionArrayForMaximumSum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 1043_PartitionArrayForMaximumSum.cpp; sourceTree = "<group>"; };
+		08CA46F224112DF20098CD5F /* 1020_NumberOfEnclaves.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1020_NumberOfEnclaves.cpp; sourceTree = "<group>"; };
 		08D40850240D84D7004716AB /* 1040_MovingStonesUntilConsecutiveII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1040_MovingStonesUntilConsecutiveII.cpp; sourceTree = "<group>"; };
 		08D40852240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1039_MinimumScoreTriangulationOfPolygon.cpp; sourceTree = "<group>"; };
 		08DC310D240C71C200577788 /* 1034_ColoringABorder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1034_ColoringABorder.cpp; sourceTree = "<group>"; };
@@ -312,17 +322,22 @@
 		086A8B0124071CE700CFAEED /* leetcodeM */ = {
 			isa = PBXGroup;
 			children = (
-				089A975F240D842300917010 /* 1043_PartitionArrayForMaximumSum.cpp */,
-				089A975E240D842200917010 /* 1049_LastStoneWeightII.cpp */,
 				086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */,
-				086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */,
+				080BDFF824106BAB00D46B59 /* 1023_CamelcaseMatching.cpp */,
+				080BDFF624103CF300D46B59 /* 1024_VideoStitching.cpp */,
+				089277932410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp */,
+				08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */,
+				08E76F27240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp */,
 				08DC310D240C71C200577788 /* 1034_ColoringABorder.cpp */,
-				08D40850240D84D7004716AB /* 1040_MovingStonesUntilConsecutiveII.cpp */,
-				08D40852240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp */,
-				081DA43D240DDC2C001A928A /* 1041_RobotBoundedInCircle.cpp */,
 				08E76F23240EB3F200F1CC8F /* 1035_UncrossedLines.cpp */,
 				08E76F25240ED04600F1CC8F /* 1038_BinarySearchTreeToGreaterSumTree.cpp */,
-				08E76F27240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp */,
+				08D40852240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp */,
+				08D40850240D84D7004716AB /* 1040_MovingStonesUntilConsecutiveII.cpp */,
+				081DA43D240DDC2C001A928A /* 1041_RobotBoundedInCircle.cpp */,
+				089A975F240D842300917010 /* 1043_PartitionArrayForMaximumSum.cpp */,
+				086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */,
+				089A975E240D842200917010 /* 1049_LastStoneWeightII.cpp */,
+				08CA46F224112DF20098CD5F /* 1020_NumberOfEnclaves.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -426,6 +441,7 @@
 				086A8AF524071C4A00CFAEED /* 773_SlidingPuzzle.cpp in Sources */,
 				086A8AF824071C4A00CFAEED /* 726_NumberofAtoms.cpp in Sources */,
 				081E87ED2407116F008932EA /* leetcode.cpp in Sources */,
+				080BDFF924106BAB00D46B59 /* 1023_CamelcaseMatching.cpp in Sources */,
 				086A8AFE24071C4A00CFAEED /* 65_ValidNumber.cpp in Sources */,
 				086A8ABA24071C4A00CFAEED /* 787_CheapestFlightsWithinKStops.cpp in Sources */,
 				086A8AE524071C4A00CFAEED /* 305_NumberOfIslandII.cpp in Sources */,
@@ -437,6 +453,7 @@
 				086A8ACD24071C4A00CFAEED /* 749_ContainVirus.cpp in Sources */,
 				081E87EB24070F10008932EA /* main.cpp in Sources */,
 				086A8AFD24071C4A00CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp in Sources */,
+				080BDFF724103CF300D46B59 /* 1024_VideoStitching.cpp in Sources */,
 				086A8AC524071C4A00CFAEED /* 23_MergeSortedList.cpp in Sources */,
 				086A8AC124071C4A00CFAEED /* 664_StrangePrinter.cpp in Sources */,
 				086A8AF224071C4A00CFAEED /* 546_removeBoxes.cpp in Sources */,
@@ -452,6 +469,7 @@
 				086A8AC224071C4A00CFAEED /* 57_InsertInterval.cpp in Sources */,
 				086A8AF324071C4A00CFAEED /* 507_Perfect_Number.cpp in Sources */,
 				086A8AD424071C4A00CFAEED /* 10_RegularExpressionMatching.cpp in Sources */,
+				08927792240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp in Sources */,
 				086A8AE124071C4A00CFAEED /* 329_LongestIncreasingPathInMatrix.cpp in Sources */,
 				086A8A6224071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp in Sources */,
 				086A8AE024071C4A00CFAEED /* 218_SkylineProblem.cpp in Sources */,
@@ -469,6 +487,7 @@
 				086A8AD124071C4A00CFAEED /* 782_TransformtoChessboard.cpp in Sources */,
 				086A8AE824071C4A00CFAEED /* 45_JumpGameII.cpp in Sources */,
 				086A8AF024071C4A00CFAEED /* 552_StudentAttendanceRecordII.cpp in Sources */,
+				08CA46F324112DF20098CD5F /* 1020_NumberOfEnclaves.cpp in Sources */,
 				086A8AE624071C4A00CFAEED /* 519_RandomFlipMatrix.cpp in Sources */,
 				086A8ABD24071C4A00CFAEED /* 218_TheSkylinesProblem.cpp in Sources */,
 				086A8AD724071C4A00CFAEED /* 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp in Sources */,
@@ -502,6 +521,7 @@
 				08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */,
 				086A8AEF24071C4A00CFAEED /* 336_PalindromeParis.cpp in Sources */,
 				086A8ABF24071C4A00CFAEED /* 805_SplitArrayWithSameAverage.cpp in Sources */,
+				089277942410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp in Sources */,
 				08DC310E240C71C200577788 /* 1034_ColoringABorder.cpp in Sources */,
 				086A8ABC24071C4A00CFAEED /* 839_SimilarStringGroups.cpp in Sources */,
 				086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */,

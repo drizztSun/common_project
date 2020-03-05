@@ -149,9 +149,25 @@ void test_1038_Binary_Search_Tree_Greater_Sum_Tree();
 
 void test_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays();
 
+void test_1027_Longest_Arithmetic_Sequence();
+
+void test_1024_VideoStitching();
+
+void test_1023_CamlcaseMatching();
+
+void test_1020_number_of_enclave();
+
 void leetcode() {
     
-    test_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays();
+    test_1020_number_of_enclave();
+    
+    // test_1023_CamlcaseMatching();
+    
+    // test_1024_VideoStitching();
+    
+    // test_1027_Longest_Arithmetic_Sequence();
+    
+    // test_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays();
     
     // test_1038_Binary_Search_Tree_Greater_Sum_Tree();
     

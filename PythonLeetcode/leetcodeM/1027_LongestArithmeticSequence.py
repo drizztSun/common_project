@@ -32,7 +32,7 @@ class LongestArithSeqLength:
     def doit(self, A):
 
         from collections import defaultdict
-
+        # dp for each element i, sequence length is j, and how manch elements in the sequence, ended by ith element.
         dp = defaultdict(lambda: defaultdict(lambda: 1))
         ans = 0
 
@@ -61,10 +61,12 @@ class LongestArithSeqLength:
                 res = max(res, d[k][i])
         return res
 
+    # (DP)
     def doit(self, A):
 
         n = len(A)
         indices = {}
+        # dp[][] shows every two element,(i, j). How much A[i] and A[j] is in a sequence size, if they are in a sequence, by default it is two.
         dp = [[2] * n for _ in range(n)]
         res = 2
 

@@ -30,6 +30,7 @@
 # All rows have the same size.
 
 class NumEnclaves:
+
     def doit(self, A):
 
         self.Count = 0
@@ -55,6 +56,38 @@ class NumEnclaves:
                 else:
                     self.Count = 0
         return count
+
+    def doit1(self, grid):
+
+        row, col = len(grid), len(grid[0])
+
+        def query(r0, c0, row=row, col=col):
+            if grid[r0][c0] == 0:
+                return
+
+            q = [(r0, c0)]
+            while q:
+                x, y = q.pop()
+                grid[x][y] = 0
+
+                for x0, y0 in [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]:
+                    if 0 <= x0 < row and 0 <= y0 < col and grid[x0][y0] == 1:
+                        q.append((x0, y0))
+
+        for i in range(row):
+            query(i, 0)
+            query(i, col-1)
+
+        for j in range(col):
+            query(0, j)
+            query(row-1, j)
+
+        cnt = 0
+        for i in range(row):
+            for j in range(col):
+                cnt += grid[i][j]
+
+        return cnt
 
     def doit(self, grid):
 
@@ -93,13 +126,13 @@ class NumEnclaves:
 
 if __name__ == '__main__':
 
-    res = NumEnclaves().doit(
+    res = NumEnclaves().doit1(
         [[0, 0, 0, 0],
          [1, 0, 1, 0],
          [0, 1, 1, 0],
          [0, 0, 0, 0]])
 
-    res = NumEnclaves().doit(
+    res = NumEnclaves().doit1(
         [[0, 1, 1, 0],
          [0, 0, 1, 0],
          [0, 0, 1, 0],
