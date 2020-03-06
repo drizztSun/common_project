@@ -33,7 +33,7 @@
  # "FooBarTest" can be generated like this "Fo" + "o" + "Ba" + "r" + "T" + "est".
  
  */
-
+#include <algorithm>
 #include <vector>
 #include <string>
 using std::string;

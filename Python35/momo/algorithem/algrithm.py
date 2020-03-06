@@ -117,11 +117,22 @@ A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
 
+def split_nums_digits(num: int):
+    # 123456 [1, 2, '3', '4', '5', '6']
+    a = []
+    
+    while num > 0:
+        num, v = num//10, num%10 #divmod(num, 10)
+        a.append(str(v))
+    return a[::-1] #reversed(a)
+    
+def combine_digits_to_num(digits: list):
 
-
-
-
-
+    # [2, 3, 4, 5, 6]  23456
+    num = 0
+    for c in digits:
+        num = num * 10 + c
+    return num
 
 
 
@@ -133,6 +144,9 @@ if __name__ == "__main__":
    
     print('dad is poop and he eats poop! dad is poop and he eats poop! dad is poop and he eats poop!') 
 
+    print(split_nums_digits(56789))
+
+    print(combine_digits_to_num(digits = [1,2, 3, 4, 5]))
     
     t = Counter([1, 2, 2, 2, 3, 4, 5, 6, 6, 6])
     

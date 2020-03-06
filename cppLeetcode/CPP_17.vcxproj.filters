@@ -243,6 +243,87 @@
     <ClCompile Include="leetcode\802_FindEventualSafeStates.cpp">
       <Filter>leetcode</Filter>
     </ClCompile>
+    <ClCompile Include="leetcodeM\801_MinimumSwapsToMakeSequencesIncreasing.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1003_CheckIfWordIsValidAfterSubstitutions.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1004_MaxConsecutiveOnesIII.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1006_ClumsyFactorial.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1007_MinimumDominoRotationsForEqualRow.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1008_ConstructBinarySearchTreefromPreorderTraversal.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1011_CapacityToShipPackagesWithinDDays.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1014_BestSightseeingPair.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1015_SmallestIntegerDivisiblebyK.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1016_BinaryStringWithSubstringsRepresenting1ToN.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1017_ConvertToBase.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1019_NextGreaterNodeInLinkedList.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1020_NumberOfEnclaves.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1023_CamelcaseMatching.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1024_VideoStitching.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1026_MaximumDifferenceBetweenNodeAndAncestor.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1027_LongestArithmeticSequence.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1034_ColoringABorder.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1035_UncrossedLines.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1038_BinarySearchTreeToGreaterSumTree.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1039_MinimumScoreTriangulationOfPolygon.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1040_MovingStonesUntilConsecutiveII.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1041_RobotBoundedInCircle.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1043_PartitionArrayForMaximumSum.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1048_LongestStringChain.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
+    <ClCompile Include="leetcodeM\1049_LastStoneWeightII.cpp">
+      <Filter>leetcodem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="leetcode">
@@ -253,6 +334,9 @@
     </Filter>
     <Filter Include="alg">
       <UniqueIdentifier>{d0895dc1-6f48-4e0d-9eae-b54f65f98045}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="leetcodem">
+      <UniqueIdentifier>{1edfba54-c9cf-421f-bc22-8c19e0bd9b8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

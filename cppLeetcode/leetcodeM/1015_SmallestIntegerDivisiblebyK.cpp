@@ -43,7 +43,7 @@ public:
     
     int doit(int K) {
         
-        if (K % 2 == 0 or K % 5 == 0)
+        if (K % 2 == 0 || K % 5 == 0)
             return -1;
         
         int i = 1;

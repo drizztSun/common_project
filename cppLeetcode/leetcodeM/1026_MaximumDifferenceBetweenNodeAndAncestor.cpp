@@ -22,7 +22,7 @@
  
  
  */
-
+#include <algorithm>
 #include <vector>
 
 struct TreeNode {

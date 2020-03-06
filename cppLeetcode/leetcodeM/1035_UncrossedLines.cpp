@@ -42,6 +42,7 @@
  
  */
 
+#include <algorithm>
 #include <vector>
 #include <unordered_set>
 

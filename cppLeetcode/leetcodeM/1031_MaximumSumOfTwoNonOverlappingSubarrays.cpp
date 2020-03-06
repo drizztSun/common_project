@@ -41,6 +41,7 @@
  
  */
 
+#include <algorithm>
 #include <vector>
 
 using std::vector;

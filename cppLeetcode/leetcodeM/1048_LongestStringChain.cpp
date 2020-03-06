@@ -29,6 +29,7 @@
  */
 
 #include <stdio.h>
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <unordered_set>
