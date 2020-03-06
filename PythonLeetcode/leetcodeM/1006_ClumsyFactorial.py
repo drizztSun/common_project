@@ -108,6 +108,31 @@ class Clumsy:
 
         return sum(st)
 
+    def doit(self, N):
+
+        if N == 1:
+            return 1
+        if N == 2:
+            return 2
+        if N == 3:
+            return 6
+
+        res = 0
+        for m in range(N//4):
+            if m == 0:
+                res += (N-m*4)*(N-m*4-1)//(N-m*4-2)+(N-m*4-3)
+            else:
+                res -= (N-m*4)*(N-m*4-1)//(N-m*4-2)-(N-m*4-3)
+
+        if N % 4 == 0:
+            return res
+        if N % 4 == 1:
+            return res-1
+        if N % 4 == 2:
+            return res-2
+        if N % 4 == 3:
+            return res-6
+
 
 if __name__ == '__main__':
 

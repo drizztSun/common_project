@@ -157,9 +157,41 @@ void test_1023_CamlcaseMatching();
 
 void test_1020_number_of_enclave();
 
+void test_1017_convert_to_base();
+
+void test_1016_binary_string_with_substrings_representing();
+
+void test_1014_best_sight_seeing_pair();
+
+void test_1011_capacity_to_ship_package_within_d_days();
+
+void test_1008_constrcut_binary_search_tree_from_preorder_traversal();
+
+void test_1007_minimum_domina_rotation_for_equal_row();
+
+void test_1004_max_consecutive_ones_III();
+
+void test_1003_check_if_word_is_valid_after_substitution();
+
 void leetcode() {
     
-    test_1020_number_of_enclave();
+    test_1003_check_if_word_is_valid_after_substitution();
+    
+    // test_1004_max_consecutive_ones_III();
+    
+    // test_1007_minimum_domina_rotation_for_equal_row();
+    
+    // test_1008_constrcut_binary_search_tree_from_preorder_traversal();
+    
+    // test_1011_capacity_to_ship_package_within_d_days();
+    
+    // test_1014_best_sight_seeing_pair();
+    
+    // test_1016_binary_string_with_substrings_representing();
+    
+    // test_1017_convert_to_base();
+    
+    // test_1020_number_of_enclave();
     
     // test_1023_CamlcaseMatching();
     

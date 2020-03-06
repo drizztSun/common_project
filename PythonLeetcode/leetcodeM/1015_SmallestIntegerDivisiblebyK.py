@@ -45,12 +45,17 @@ class SmallestRepunitDivByK:
     """
 
     def doit(self, K):
-        if K % 2 == 0 or K % 5 == 0:
-            return -1
 
-        i = n = 1
-        while n % K != 0:
-            n, i = (10*n + 1) % K, i + 1
+        if (K % 2 == 0 or K % 5 == 0)
+        return -1
+
+        int i = 1
+        int n = 1
+
+        while (n % K != 0) {
+            n = (10 * n + 1) % K
+            i++
+        }
 
         return i
 
