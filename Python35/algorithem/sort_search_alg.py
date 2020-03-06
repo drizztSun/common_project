@@ -1,3 +1,6 @@
+import math
+
+
 
 def binary_search(a, s):
 
@@ -74,6 +77,7 @@ def quick_sort(a):
 
     quick_sort_with_insert(a, 0, len(a))
     return a
+
 
 
 def merge_sort(a):

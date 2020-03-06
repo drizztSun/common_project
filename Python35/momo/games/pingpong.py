@@ -34,7 +34,7 @@ pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
 pen.write('PLAYER 1 : 0 ,LAYER 2 : 0,ONE PLAER FAILS: 0',
-          align='center', font=('Courier', 1, 'normal'))
+          align='center', font=('Courier', 20, 'normal'))
 # BALL
 ball = t.Turtle()
 ball.shape('circle')
@@ -42,8 +42,8 @@ ball.speed(0)
 ball.color('orange')
 ball.penup()
 ball.goto(0, 0)
-ball.dx = 2
-ball.dy = 2
+ball.dx = 0.2
+ball.dy = 0.2
 # func
 
 
@@ -60,8 +60,8 @@ def pad1_dwn():
 
 
 wn.listen()
-wn.onkeypress(pad1_up, 'w')
-wn.onkeypress(pad1_dwn, 's')
+wn.onkeypress(pad1_up, '1')
+wn.onkeypress(pad1_dwn, '2')
 
 
 def pad2_up():
@@ -77,8 +77,8 @@ def pad2_dwn():
 
 
 wn.listen()
-wn.onkeypress(pad2_up, 'i')
-wn.onkeypress(pad2_dwn, 'k')
+wn.onkeypress(pad2_up, '9')
+wn.onkeypress(pad2_dwn, '0')
 while True:
     wn.update()
     ball.setx(ball.xcor() + ball.dx)
@@ -96,14 +96,14 @@ while True:
         score1 += 1
         pen.clear()
         pen.write('PLAYER 1 : {} , PLAYER 2 : {},ONE PLAER FAILS: {}'.format(
-            score1, score2, score2+score1), align='center', font=('Impact', float('inf'), 'normal'))
+            score1, score2, score2+score1), align='center', font=('Impact', 20, 'normal'))
     if ball.xcor() < -490:
         ball.goto(0, 0)
         ball.dx *= -1
         score2 += 1
         pen.clear()
         pen.write('PLAYER 1 : {} , PLAYER 2 : {},ONE PLAYER FAILS: {}'.format(
-            score1, score2, score1+score2), align='center', font=('Impact', float('inf'), 'normal'))
+            score1, score2, score1+score2), align='center', font=('Impact', 20, 'normal'))
     if (ball.xcor() > 440 and ball.xcor() < 450) and (ball.ycor() < pad2.ycor() + 50 and ball.ycor() > pad2.ycor() - 50):
         ball.setx(440)
         ball.dx *= -1
