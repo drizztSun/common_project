@@ -177,9 +177,14 @@ void test_1012_Numbers_with_repeated_digits();
 
 void test_1001_grid_illumination();
 
+void test_1028_recover_tree_from_preorder_travels();
+
 void leetcode() {
     
-    test_1001_grid_illumination();
+    
+    test_1028_recover_tree_from_preorder_travels();
+    
+    // test_1001_grid_illumination();
     
     // test_1012_Numbers_with_repeated_digits();
     

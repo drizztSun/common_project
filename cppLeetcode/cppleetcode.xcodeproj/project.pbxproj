@@ -99,6 +99,7 @@
 		086A8B0024071C4A00CFAEED /* 729_MyCalendarI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */; };
 		086A8B0324071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */; };
 		086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */; };
+		0873E6CB24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0873E6CA24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp */; };
 		088ED63924140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 088ED63824140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp */; };
 		08927792240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */; };
 		089277942410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 089277932410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp */; };
@@ -225,6 +226,7 @@
 		086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 729_MyCalendarI.cpp; sourceTree = "<group>"; };
 		086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 801_MinimumSwapsToMakeSequencesIncreasing.cpp; sourceTree = "<group>"; };
 		086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1048_LongestStringChain.cpp; sourceTree = "<group>"; };
+		0873E6CA24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1028_RecoverTreeFromPreorderTraversal.cpp; sourceTree = "<group>"; };
 		088ED63824140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1012_NumbersWithRepeatedDigits.cpp; sourceTree = "<group>"; };
 		08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1027_LongestArithmeticSequence.cpp; sourceTree = "<group>"; };
 		089277932410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 				086A8A9C24071C4700CFAEED /* 854_KthSimilarString.cpp */,
 				088ED63824140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp */,
 				08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */,
+				0873E6CA24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -574,6 +577,7 @@
 				086A8AEF24071C4A00CFAEED /* 336_PalindromeParis.cpp in Sources */,
 				086A8ABF24071C4A00CFAEED /* 805_SplitArrayWithSameAverage.cpp in Sources */,
 				089277942410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp in Sources */,
+				0873E6CB24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp in Sources */,
 				08DC310E240C71C200577788 /* 1034_ColoringABorder.cpp in Sources */,
 				086A8ABC24071C4A00CFAEED /* 839_SimilarStringGroups.cpp in Sources */,
 				086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */,
