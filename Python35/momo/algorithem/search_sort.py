@@ -154,7 +154,9 @@ def bubble_sort(arr):
             if arr[j] > arr[j+1]:
                 arr[j], arr[j+1] = arr[j+1], arr[j]
     return arr
-    # a = [1, 3, 7,8], b = [2, 4, 5, 6]
+    
+    
+# a = [1, 3, 7, 8], b = [2, 4, 5, 6]
 def merge2(a, b):
     c = []
     i, j = 0, 0
@@ -190,19 +192,38 @@ def merge(a:list, i:int, j:int, k:int):
 
     a[i:k] = c[:]
 
+def merge_sort(arr):
 
+    s = 1
+    while s < len(arr):
+        
+        i = 0
+        while i + s < len(arr):
 
+            j = i + s
+            k = j + s
+            if k > len(arr):
+                k = len(arr)
+
+            merge(arr, i, j, k)
+            i = k
+            
+        s = s * 2
+    return arr    
 
 def bottom_up_sort(arr):
     t = 1
     s = 1
     while t < len(arr):
+
         s, t, i = t, 2*s, 0
         while i + t <= len(arr):
-            merge(arr,i+1,i+s,i+t)
+            merge(arr, i, i+s, i+t)
             i += t
+        
         if i + s < len(arr):
-              merge(arr,i+1,i+s,len(arr))
+              merge(arr, i, i+s, len(arr))
+    
     return arr
 
 #O(n)
@@ -271,8 +292,8 @@ if __name__ == '__main__':
     array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
     print(insert_sort(array))
 
-    array = [9, 5, 2, 7]
-    print(bottom_up_sort(array))
+    array = [8,6,5,4,2,8,4,9,3,7,3,6,4,56,4,6,6,3,5,-7,0]
+    print(merge_sort(array))
 
     arr = [8,6,5,4,2,8,4,9,3,7,3,6,4,56,4,6,6,3,5,-7,0]
     print(bubble_sort(arr))
@@ -284,5 +305,7 @@ if __name__ == '__main__':
 
 
     array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
-    #print(bottom_up_sort(array))
+    print(bottom_up_sort(array))
+
+
     pass
