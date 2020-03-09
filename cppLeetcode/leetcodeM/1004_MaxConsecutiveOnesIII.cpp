@@ -32,7 +32,7 @@
  
  
  */
-
+#include <algorithm>
 #include <vector>
 using std::vector;
 
@@ -54,7 +54,7 @@ public:
                 else
                     zeros++;
             
-            while (j < i and zeros > K) {
+            while (j < i && zeros > K) {
                 if (A[j] == 1)
                     ones--;
                 else

@@ -18,6 +18,7 @@
  
  */
 
+#include <algorithm>
 #include <vector>
 
 using std::vector;
@@ -66,7 +67,7 @@ public:
     
     TreeNode* doit2(vector<int>& preorder) {
         vector<int> inorder(preorder);
-        sort(inorder.begin(), inorder.end());
+        std::sort(inorder.begin(), inorder.end());
         int inL = 0, inR = inorder.size()-1, prL = 0, prR = preorder.size()-1;
         return helper(preorder, prL, prR, inorder, inL, inR);
     }

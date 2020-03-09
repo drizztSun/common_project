@@ -21,6 +21,7 @@
  */
 
 #include <stdio.h>
+#include <algorithm>
 #include <numeric>
 #include <vector>
 using std::vector;

@@ -22,6 +22,7 @@
  A[i], B[i] are integer values in the range [0, 2000].
  */
 
+#include <algorithm>
 #include <vector>
 
 using namespace std;
@@ -53,12 +54,12 @@ public:
                 dp[1][i] = dp[i][i-1] + 1;
             } else {
                 // Ai, Bi > A_{i-1}, B_{i-1}, free to swap :)
-                dp[0][i] = min(dp[0][i-1], dp[1][i-1]);
+                dp[0][i] = std::min(dp[0][i-1], dp[1][i-1]);
                 dp[1][i] = dp[0][i] + 1;
             }
         }
         
-        return min(dp[0].back(), dp[1].back());
+        return std::min(dp[0].back(), dp[1].back());
     }
 };
 

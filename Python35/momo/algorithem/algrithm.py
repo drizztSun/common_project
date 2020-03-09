@@ -1,4 +1,4 @@
-def DADISPOOP():
+def DADISPOOP(jfk):
     return 'DAD IS POOP AND HE EATS POOP!'
 m = 1
 def max_min2(a):
@@ -71,7 +71,7 @@ class Counter:
 print('1111@@@11111111@@@1111')
 print('1111@@@11111111@@@1111')
 print('1111111111111111111111')
-print('11|111111###111111|111')#a b c d e f g h i j k l m n o p q r s t u v w x y z (study those if you blahblahblahblahblahblahblahblahblahblah.)BLAHBLAHBLAHBLAHBLAHBLAH                                                                                                                                                                                                                                MARK:   ...........  OK, what did the fox say?    james:NOTHING.   MARK:NOOOOOOOO!       james:WWWWWWWWWWWWWWWWWWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!                                                         
+print('11|111111###111111|111')#a b c d e f g h i j k l m n o p q r s t u v w x y z (study those if you blahblahblahblahblahblahblahblahblahblah.)BLAHBLAHBLAHBLAHBLAHBLAH                                                                                                                                                                                                                                \
 print('11|111111###111111|111')    
 print('11|111111111111111|111')
 print('11|111111111111111|111')
@@ -82,6 +82,7 @@ print('11|===============|111')
 
 A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
 
+#(what are those for?)
 
 
 
@@ -100,6 +101,38 @@ A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def split_nums_digits(num: int):
+    # 123456 [1, 2, '3', '4', '5', '6']
+    a = []
+    
+    while num > 0:
+        num, v = num//10, num%10 #divmod(num, 10)
+        a.append(str(v))
+    return a[::-1] #reversed(a)
+    
+def combine_digits_to_num(digits: list):
+
+    # [2, 3, 4, 5, 6]  23456
+    num = 0
+    for c in digits:
+        num = num * 10 + c
+    return num
 
 
 
@@ -111,6 +144,9 @@ if __name__ == "__main__":
    
     print('dad is poop and he eats poop! dad is poop and he eats poop! dad is poop and he eats poop!') 
 
+    print(split_nums_digits(56789))
+
+    print(combine_digits_to_num(digits = [1,2, 3, 4, 5]))
     
     t = Counter([1, 2, 2, 2, 3, 4, 5, 6, 6, 6])
     
@@ -135,11 +171,10 @@ if __name__ == "__main__":
     print(max_min(a))
 
     
-    print(DADISPOOP())
+    print(DADISPOOP(234567890-2345678))
 
    
-
-
+#                     ???
 
 
 
