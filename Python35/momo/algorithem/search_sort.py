@@ -117,6 +117,14 @@ def select_sort(array):
             array[k] = a
 
     return array
+def max_select_sort(a):
+    for i in range(len(a)-1):
+        s = 0
+        for j in range(len(a)-i):
+            if a[j] > a[s]:
+                s = j
+        a[len(a)- i - 1], a[s] = a[s], a[len(a)- i - 1]     
+    return a
 
 # insert sort
 # [4, 3, 1, 2, 5]
@@ -125,17 +133,20 @@ def select_sort(array):
 # [1, 2, 3, 4, 5] 
 # [1, 2, 3, 4, 5]
 # O(n^2)
+
 def insert_sort(arr):
 
     for i in range(1, len(arr)):
 
         for j in range(i, 0, -1):
 
-            if arr[j] <= arr[j-1]:
-                arr[j], arr[j-1] = arr[j-1], arr[j]
-            else:
+            if arr[j] > arr[j-1]:
                 break
+
+            arr[j], arr[j-1] = arr[j-1], arr[j]
+
     return arr
+
 
 def bubble_sort(arr):
     for i in range(len(arr)-1):  
@@ -229,6 +240,8 @@ def QuickSort(arr):
 
 if __name__ == '__main__':
 
+    print(max_select_sort(a = [4, 3, 5, 1, 2]))
+
 
     arr= [12, 24, 23, 56, 1, 3, 10, 4, 6, 45]
 
@@ -267,6 +280,7 @@ if __name__ == '__main__':
     l = [5, 4, 3, 2, 1]
     print(bubble_sort(l))
 
+    print(insert_sort(arr = [1, 5, 3, 4, 2]))
 
 
     array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
