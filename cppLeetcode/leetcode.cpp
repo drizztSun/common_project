@@ -173,9 +173,17 @@ void test_1004_max_consecutive_ones_III();
 
 void test_1003_check_if_word_is_valid_after_substitution();
 
+void test_1012_Numbers_with_repeated_digits();
+
+void test_1001_grid_illumination();
+
 void leetcode() {
     
-    test_1003_check_if_word_is_valid_after_substitution();
+    test_1001_grid_illumination();
+    
+    // test_1012_Numbers_with_repeated_digits();
+    
+    // test_1003_check_if_word_is_valid_after_substitution();
     
     // test_1004_max_consecutive_ones_III();
     

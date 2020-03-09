@@ -29,6 +29,55 @@
 
 class Clumsy:
 
+    """
+    it's just an algebra problem...
+
+    n-(n-1)*(n-2)/(n-3) = n - (n-3+3) - 2/(n-3) = 0 if n - 3 > 2.
+    so we just seperate f(n) to three parts.
+
+    1) n*(n-1)/n-2
+    2) some (n-3)-(n-4)*(n-5)/(n-6)
+    3) a tail. To cacluate the tail value, we need to consider four possible reminder:0 1 2 3
+    """
+
+    def doit(self, N):
+
+        if N <= 2:
+            return N
+        if N == 3:
+            return 6
+        if N == 4:
+            return 7
+        if N == 5:
+            return 7
+
+        res = N * (N-1) // (N-2)
+        N = (N - 3) % 4
+
+        if N == 0:
+            return res - 2  # 4-3*2/1=-2
+        elif N == 1:
+            return res  # 5 - 4 * 3 / 2 + 1 = 0
+        elif N == 2:
+            return res + 1  # 6 - 5 * 4 / 3 + 2 - 1 = 1
+        elif N == 3:
+            return res + 1  # 7 - 6 * 5 / 4 + 3 - 2 * 1 = 1
+
+    def doit(self, N):
+        """
+        :type N: int
+        :rtype: int
+        """
+        rem = [1, 2, 2, -1]
+
+        if N < 3:
+            return N
+
+        if N < 5:
+            return N + 3
+
+        return N + rem[N % 4]
+
     def doit(self, N):
         if N == 1:
             return 1
@@ -53,21 +102,6 @@ class Clumsy:
             return helper((M - 2) % 4 + 2)
 
         return N * (N - 1) / (N - 2) + helper(N - 3)
-
-    def doit(self, N):
-        """
-        :type N: int
-        :rtype: int
-        """
-        rem = [1, 2, 2, -1]
-
-        if N < 3:
-            return N
-
-        if N < 5:
-            return N + 3
-
-        return N + rem[N % 4]
 
     def doit(self, N):
         """
