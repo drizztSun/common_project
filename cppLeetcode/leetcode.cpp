@@ -179,10 +179,21 @@ void test_1001_grid_illumination();
 
 void test_1028_recover_tree_from_preorder_travels();
 
+void test_1032_stream_of_characters();
+
+void test_1036_escape_large_maze();
+
+void test_974_subarray_sums_division_by_k();
+
 void leetcode() {
     
+    test_974_subarray_sums_division_by_k();
     
-    test_1028_recover_tree_from_preorder_travels();
+    // test_1036_escape_large_maze();
+    
+    // test_1032_stream_of_characters();
+    
+    // test_1028_recover_tree_from_preorder_travels();
     
     // test_1001_grid_illumination();
     
