@@ -57,9 +57,7 @@ Space Complexity: O(min(H_1, H_2)), where H_1, H_2 are the heights of the trees 
 
 
 class FlipEquiv:
-
     def doit(self, root1, root2):
-
         def search(n1, n2):
 
             if not n1 and not n2:
@@ -71,12 +69,14 @@ class FlipEquiv:
             if n1.val != n2.val:
                 return False
 
-            return (search(n1.left, n2.right) and search(n1.right, n2.left)) or (search(n1.left, n2.left) and search(n1.right, n2.right))
+            return (search(n1.left, n2.right) and search(n1.right, n2.left)) or (
+                search(n1.left, n2.left) and search(n1.right, n2.right)
+            )
 
         return search(root1, root2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     r1 = TreeNode(1)
     r1.left = TreeNode(2)
