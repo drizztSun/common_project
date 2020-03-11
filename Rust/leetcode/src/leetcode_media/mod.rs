@@ -1,1 +1,2 @@
 pub mod A967_NumbersWithSameConsecutiveDifferences;
+pub mod A978_LongestTurbulentSubarray;
