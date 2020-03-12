@@ -122,6 +122,9 @@
 		08E76F28240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08E76F27240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp */; };
 		08F33EF82411DAC600E25377 /* 1014_BestSightseeingPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F33EF72411DAC600E25377 /* 1014_BestSightseeingPair.cpp */; };
 		08F33EFA2411E03D00E25377 /* 1011_CapacityToShipPackagesWithinDDays.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F33EF92411E03D00E25377 /* 1011_CapacityToShipPackagesWithinDDays.cpp */; };
+		08F4D69E241972960057856A /* 429_NaryTreeLevelOrderTraversal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F4D69D241972960057856A /* 429_NaryTreeLevelOrderTraversal.cpp */; };
+		08F4D6A0241987400057856A /* 206_ReverseLinkedList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F4D69F2419873F0057856A /* 206_ReverseLinkedList.cpp */; };
+		08F4D6A2241989C10057856A /* 25_ReverseNodesInk-Group.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F4D6A1241989C10057856A /* 25_ReverseNodesInk-Group.cpp */; };
 		08FAA2DA2415A9390002E430 /* 1001_GridIllumination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */; };
 /* End PBXBuildFile section */
 
@@ -253,6 +256,9 @@
 		08E76F27240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp; sourceTree = "<group>"; };
 		08F33EF72411DAC600E25377 /* 1014_BestSightseeingPair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1014_BestSightseeingPair.cpp; sourceTree = "<group>"; };
 		08F33EF92411E03D00E25377 /* 1011_CapacityToShipPackagesWithinDDays.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1011_CapacityToShipPackagesWithinDDays.cpp; sourceTree = "<group>"; };
+		08F4D69D241972960057856A /* 429_NaryTreeLevelOrderTraversal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 429_NaryTreeLevelOrderTraversal.cpp; sourceTree = "<group>"; };
+		08F4D69F2419873F0057856A /* 206_ReverseLinkedList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 206_ReverseLinkedList.cpp; sourceTree = "<group>"; };
+		08F4D6A1241989C10057856A /* 25_ReverseNodesInk-Group.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "25_ReverseNodesInk-Group.cpp"; sourceTree = "<group>"; };
 		08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1001_GridIllumination.cpp; sourceTree = "<group>"; };
 		08FC0AD02403634500939CB4 /* cppleetcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppleetcode; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -356,6 +362,7 @@
 				0873E6CA24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp */,
 				08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */,
 				08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */,
+				08F4D6A1241989C10057856A /* 25_ReverseNodesInk-Group.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -363,7 +370,10 @@
 		086A8B0124071CE700CFAEED /* leetcodeM */ = {
 			isa = PBXGroup;
 			children = (
+				08F4D69D241972960057856A /* 429_NaryTreeLevelOrderTraversal.cpp */,
 				086A8B0224071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp */,
+				08B505B22418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp */,
+				08077B4124186A79001EBED2 /* 974_SubarraySumsDivisibleByK.cpp */,
 				08012E892412F296004D11A8 /* 1003_CheckIfWordIsValidAfterSubstitutions.cpp */,
 				08012E872412EDD6004D11A8 /* 1004_MaxConsecutiveOnesIII.cpp */,
 				08012E8524129D9B004D11A8 /* 1006_ClumsyFactorial.cpp */,
@@ -382,16 +392,14 @@
 				08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */,
 				08E76F27240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp */,
 				08DC310D240C71C200577788 /* 1034_ColoringABorder.cpp */,
-				08E76F23240EB3F200F1CC8F /* 1035_UncrossedLines.cpp */,
 				08E76F25240ED04600F1CC8F /* 1038_BinarySearchTreeToGreaterSumTree.cpp */,
 				08D40852240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp */,
+				08E76F23240EB3F200F1CC8F /* 1035_UncrossedLines.cpp */,
 				08D40850240D84D7004716AB /* 1040_MovingStonesUntilConsecutiveII.cpp */,
 				081DA43D240DDC2C001A928A /* 1041_RobotBoundedInCircle.cpp */,
 				089A975F240D842300917010 /* 1043_PartitionArrayForMaximumSum.cpp */,
 				086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */,
 				089A975E240D842200917010 /* 1049_LastStoneWeightII.cpp */,
-				08B505B22418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp */,
-				08077B4124186A79001EBED2 /* 974_SubarraySumsDivisibleByK.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -399,6 +407,7 @@
 		086A8B0424071D2C00CFAEED /* leetcodeE */ = {
 			isa = PBXGroup;
 			children = (
+				08F4D69F2419873F0057856A /* 206_ReverseLinkedList.cpp */,
 			);
 			path = leetcodeE;
 			sourceTree = "<group>";
@@ -496,6 +505,7 @@
 				086A8AF824071C4A00CFAEED /* 726_NumberofAtoms.cpp in Sources */,
 				081E87ED2407116F008932EA /* leetcode.cpp in Sources */,
 				080BDFF924106BAB00D46B59 /* 1023_CamelcaseMatching.cpp in Sources */,
+				08F4D6A0241987400057856A /* 206_ReverseLinkedList.cpp in Sources */,
 				086A8AFE24071C4A00CFAEED /* 65_ValidNumber.cpp in Sources */,
 				086A8ABA24071C4A00CFAEED /* 787_CheapestFlightsWithinKStops.cpp in Sources */,
 				086A8AE524071C4A00CFAEED /* 305_NumberOfIslandII.cpp in Sources */,
@@ -548,6 +558,7 @@
 				086A8ACB24071C4A00CFAEED /* 668_KthSmallestNumberInMultiplicationTable.cpp in Sources */,
 				086A8AD124071C4A00CFAEED /* 782_TransformtoChessboard.cpp in Sources */,
 				08012E8224129168004D11A8 /* 1008_ConstructBinarySearchTreefromPreorderTraversal.cpp in Sources */,
+				08F4D69E241972960057856A /* 429_NaryTreeLevelOrderTraversal.cpp in Sources */,
 				086A8AE824071C4A00CFAEED /* 45_JumpGameII.cpp in Sources */,
 				086A8AF024071C4A00CFAEED /* 552_StudentAttendanceRecordII.cpp in Sources */,
 				08CA46F324112DF20098CD5F /* 1020_NumberOfEnclaves.cpp in Sources */,
@@ -597,6 +608,7 @@
 				08DC310E240C71C200577788 /* 1034_ColoringABorder.cpp in Sources */,
 				086A8ABC24071C4A00CFAEED /* 839_SimilarStringGroups.cpp in Sources */,
 				086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */,
+				08F4D6A2241989C10057856A /* 25_ReverseNodesInk-Group.cpp in Sources */,
 				086A8AB524071C4A00CFAEED /* 679_24Game.cpp in Sources */,
 				089A9760240D842300917010 /* 1049_LastStoneWeightII.cpp in Sources */,
 				089A9761240D842300917010 /* 1043_PartitionArrayForMaximumSum.cpp in Sources */,
