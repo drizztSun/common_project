@@ -26,21 +26,6 @@
 import collections
 
 
-class DSU:
-    def __init__(self, N):
-        self.p = range(N)
-
-    def find(self, x):
-        if self.p[x] != x:
-            self.p[x] = self.find(self.p[x])
-        return self.p[x]
-
-    def union(self, x, y):
-        xr = self.find(x)
-        yr = self.find(y)
-        self.p[xr] = yr
-
-
 class LargestComponentSize:
 
     """
@@ -62,12 +47,28 @@ class LargestComponentSize:
     Factor each A[i]A[i] into prime factors, and index every occurrence of these primes. (To save time, we can use a sieve.
     Please see this article's comments for more details.)
 
-    Then, use a union-find structure to union together any prime factors that came from the same A[i]A[i].
+    Then, use a union-find structure to union together any prime factors that came from the same A[i].
 
-    Finally, we can count the size of each component, by inspecting and counting the id of the component each A[i]A[i] belongs to.
+    Finally, we can count the size of each component, by inspecting and counting the id of the component each A[i] belongs to.
     """
 
     def doit(self, A):
+
+        # (DSU)
+        class DSU:
+            def __init__(self, N):
+                self.p = range(N)
+
+            def find(self, x):
+                if self.p[x] != x:
+                    self.p[x] = self.find(self.p[x])
+                return self.p[x]
+
+            def union(self, x, y):
+                xr = self.find(x)
+                yr = self.find(y)
+                self.p[xr] = yr
+
         B = []
         for x in A:
             facs = []
@@ -91,15 +92,13 @@ class LargestComponentSize:
             for x in facs:
                 dsu.union(prime_to_index[facs[0]], prime_to_index[x])
 
-        count = collections.Counter(
-            dsu.find(prime_to_index[facs[0]]) for facs in B)
+        count = collections.Counter(dsu.find(prime_to_index[facs[0]]) for facs in B)
 
         return max(count.values())
 
     def doit(self, A):
-
         def isEdge(a, b):
-            for i in range(2, math.sqrt(a)+1):
+            for i in range(2, math.sqrt(a) + 1):
                 if a % i == 0 and b % i == 0:
                     return True
             return max(a, b) % min(a, b) == 0
@@ -109,7 +108,7 @@ class LargestComponentSize:
 
         g = [set()] * len(A)
         for i in range(len(A)):
-            for j in range(i+1, len(A)):
+            for j in range(i + 1, len(A)):
                 if isEdge(A[i], A[j]):
                     g[i].add(j)
                     g[j].add(i)
@@ -123,9 +122,75 @@ class LargestComponentSize:
         return depth
 
 
-if __name__ == '__main__':
+# 99% faster then any Python code
+class UnionFind:
+    def __init__(self, n: int):
+        self.parent = list(range(n))
+        self.size = [1] * n
 
-    res = LargestComponentSize().doit([4, 6, 15, 35])
+    def find(self, x: int):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+
+    def union(self, a: int, b: int):
+        a, b = self.find(a), self.find(b)
+
+        if a == b:
+            return
+        if self.size[a] < self.size[b]:
+            a, b = b, a
+
+        self.parent[b] = a
+        self.size[a] += self.size[b]
+
+
+class LargestComponentSize1:
+    def doit(self, A):
+        lower_primes = self.prime_sieve(100000)
+        B = []
+
+        for x in A:
+            factors = []
+            for p in lower_primes:
+                if not x % p:
+                    while not x % p:
+                        x //= p
+                    factors.append(p)
+            if x > 1 or not factors:
+                factors.append(x)
+            B.append(factors)
+
+        primes = list({p for factors in B for p in factors})
+        prime_to_index = {p: i for i, p in enumerate(primes)}
+        uf = UnionFind(len(primes))
+
+        for factors in B:
+            for x in factors:
+                uf.union(prime_to_index[factors[0]], prime_to_index[x])
+
+        count = collections.Counter(
+            uf.find(prime_to_index[factors[0]]) for factors in B
+        )
+
+        return max(count.values())
+
+    @staticmethod
+    def prime_sieve(max_num: int):
+        max_prime = int(max_num ** 0.5) + 1
+        is_prime = [False, False] + [True] * (max_prime - 2)
+
+        for p in range(2, max_prime):
+            if is_prime[p]:
+                for q in range(p * p, max_prime, p):
+                    is_prime[q] = False
+
+        return [i for i, x in enumerate(is_prime) if x]
+
+
+if __name__ == "__main__":
+
+    res = LargestComponentSize1().doit([4, 6, 15, 35])
 
     res = LargestComponentSize().doit([20, 50, 9, 63])
 
