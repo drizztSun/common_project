@@ -149,8 +149,9 @@ void workWithContainer(const C& container) {
 	copies to dangle.
 	*/
 
-	std::all_of(begin(container), end(container),
-		[=](const auto& vaue) (return value % divisor == 0;));
+    std::all_of(begin(container), end(container), [=](const auto& value) -> bool{
+                return value % divisor == 0;
+    });
 }
 
 class Widget {
@@ -261,8 +262,8 @@ constexpr auto fb = [](int n) {
 	if (n < 2) {
 		return 1;
 	}
-	
 	// return fb(n - 1) + fb(n - 2); // error because fb used before it is initialized
+    return 2;
 };
 
 // 2) fix to above

@@ -70,7 +70,7 @@ void main2()
 // (note, if converting constructor is not available, implicit copy constructor
 //  will be selected, and conversion function will be called to prepare its argument)
 
-    To t2 = f; // copy-initialization: ambiguous
+    // To t2 = f; // copy-initialization: ambiguous
 // (note, if conversion function is from a non-const type, e.g.
 //  From::operator To();, it will be selected instead of the ctor in this case)
     
