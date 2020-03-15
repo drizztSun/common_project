@@ -74,9 +74,8 @@ class MinDeletionSizeII:
     """
 
     def doit(self, A):
-
         def is_sorted(A):
-            return all(A[i] <= A[i+1] for i in xrange(len(A) - 1))
+            return all(A[i] <= A[i + 1] for i in range(len(A) - 1))
 
         ans = 0
         # cur : all rows we have written
@@ -125,9 +124,9 @@ class MinDeletionSizeII:
         ans = 0
 
         for col in zip(*A):
-            if all(cuts[i] or col[i] <= col[i+1] for i in range(len(col) - 1)):
+            if all(cuts[i] or col[i] <= col[i + 1] for i in range(len(col) - 1)):
                 for i in range(len(col) - 1):
-                    if col[i] < col[i+1]:
+                    if col[i] < col[i + 1]:
                         cuts[i] = True
             else:
                 ans += 1
@@ -135,20 +134,20 @@ class MinDeletionSizeII:
 
     def doit(self, A):
 
-        buf = [False] * (len(A)-1)
+        buf = [False] * (len(A) - 1)
         ans = 0
 
         for col in zip(*A):
 
-            if all(col[c] < col[c+1] for c in range(len(A)-1)):
+            if all(col[c] < col[c + 1] for c in range(len(A) - 1)):
                 break
 
-            if any(col[c] > col[c+1] and not buf[c] for c in range(len(A)-1)):
+            if any(col[c] > col[c + 1] and not buf[c] for c in range(len(A) - 1)):
                 ans += 1
                 continue
 
-            for i in range(len(A)-1):
-                if not buf[i] and col[i] < col[i+1]:
+            for i in range(len(A) - 1):
+                if not buf[i] and col[i] < col[i + 1]:
                     buf[i] = True
 
             if all(buf):
@@ -157,7 +156,7 @@ class MinDeletionSizeII:
         return ans
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     res = MinDeletionSizeII().doit(["ca", "bb", "ac"])
 

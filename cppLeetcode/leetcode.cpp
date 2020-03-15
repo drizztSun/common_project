@@ -185,9 +185,41 @@ void test_1036_escape_large_maze();
 
 void test_974_subarray_sums_division_by_k();
 
+void test_956_Tallest_Billboards();
+
+void test_955_delete_columns_to_make_sortedII();
+
+void test_960_delete_columns_to_make_sorted_III();
+
+void test_560_subarray_sum_equalk();
+
+void test_56_merge_intervals();
+
+void test_283_move_zones();
+
+void test_636_exclusive_time_of_functions();
+
+void test_67_add_binary();
+
 void leetcode() {
     
-    test_974_subarray_sums_division_by_k();
+    test_67_add_binary();
+    
+    // test_636_exclusive_time_of_functions();
+    
+    // test_283_move_zones();
+    
+    // test_56_merge_intervals();
+    
+    // test_560_subarray_sum_equalk();
+    
+    // test_960_delete_columns_to_make_sorted_III();
+    
+    // test_955_delete_columns_to_make_sortedII();
+    
+    // test_956_Tallest_Billboards();
+    
+    // test_974_subarray_sums_division_by_k();
     
     // test_1036_escape_large_maze();
     
