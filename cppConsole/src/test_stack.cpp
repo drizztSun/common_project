@@ -39,3 +39,8 @@ void test_stack_mordern_cpp() {
 
 
 }
+
+void test_stack() {
+    
+    test_stack_mordern_cpp();
+}

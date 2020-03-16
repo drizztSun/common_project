@@ -17,8 +17,14 @@ void test_vector_morden_cpp();
 
 void Test_share_ptr();
 
+void test_constrexpr();
+
+void test_deque();
+
+void test_stack();
+
 int main(int argc, const char * argv[]) {
-    // insert code here...
+
     std::cout << "Hello, World!\n";
 
     TestUnorderMap();
@@ -28,6 +34,12 @@ int main(int argc, const char * argv[]) {
     test_vector_morden_cpp();
 
     Test_share_ptr();
+    
+    test_constrexpr();
+    
+    test_deque();
+    
+    test_stack();
 
     return 1;
 }

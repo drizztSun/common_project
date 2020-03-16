@@ -70,3 +70,7 @@ void test_deque_morden_cpp() {
 	std::cout << "--- test_deque_morden_cpp end---" << std::endl;
 
 }
+
+void test_deque() {
+    test_deque_morden_cpp();
+}
