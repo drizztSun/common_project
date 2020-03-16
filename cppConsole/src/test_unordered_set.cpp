@@ -38,9 +38,19 @@ void Test_normal_set() {
 
 void Test_UserDefined_set() {
 
-	typedef unordered_set<CORD, function<decltype(cord_hash1)>> CORD_SET;
+	// typedef unordered_set<CORD, function<decltype(cord_hash1)>> CORD_SET;
 
-	CORD_SET A;
+    auto hash_cord = [](const CORD& c) {
+        return hash<int>()(c.first) ^ hash<int>()(c.second);
+    };
+    
+    auto equal_cord = [](const CORD& a, const CORD& b){
+        return a.first == b.first && a.second == b.second;
+    };
+    
+    typedef unordered_set<CORD, decltype(hash_cord), decltype(equal_cord)> CORD_SET;
+    
+	CORD_SET A(10, hash_cord, equal_cord);
 	CORD c = make_pair(1, 2);
 	CORD d = make_pair(0, 0);
 

@@ -135,7 +135,7 @@ void UserDefinedClassAsKeyInMap() {
 
 	for (auto t : cord2_map) {
 
-		cout << "key : " << t.first.x << " , " << t.first.y << " num" << t.second << endl;
+		cout << "key : " << t.first.x << " , " << t.first.y << " num " << t.second << endl;
 	}
 
 	if (cord2_map.find(cord2(3, 4)) != cord2_map.end()) {
