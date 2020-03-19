@@ -106,17 +106,17 @@ class MinAreaFreeRect:
             radius = abs(center - P)
             seen[(center, radius)].append(P)
 
-        ans = float('inf')
+        ans = float("inf")
         for (center, radius), candidates in seen.items():
 
             for P, Q in itertools.combinations(candidates, 2):
 
                 ans = min(ans, abs(P - Q) * abs(P - (2 * center - Q)))
 
-        return ans if ans < float('inf') else 0
+        return ans if ans < float("inf") else 0
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     res = MinAreaFreeRect().doit([[1, 2], [2, 1], [1, 0], [0, 1]])
 
@@ -125,6 +125,7 @@ if __name__ == '__main__':
     res = MinAreaFreeRect().doit([[0, 3], [1, 2], [3, 1], [1, 3], [2, 1]])
 
     res = MinAreaFreeRect().doit(
-        [[3, 1], [1, 1], [0, 1], [2, 1], [3, 3], [3, 2], [0, 2], [2, 3]])
+        [[3, 1], [1, 1], [0, 1], [2, 1], [3, 3], [3, 2], [0, 2], [2, 3]]
+    )
 
     pass

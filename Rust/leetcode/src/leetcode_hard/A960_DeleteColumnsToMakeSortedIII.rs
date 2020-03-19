@@ -6,36 +6,17 @@ mod delete_columns_to_make_sorted_iii {
 
     pub fn doit(a: Vec<String>) -> i32 {
 
-        let mut dp = Vec::with_capacity(a[0].len());
-        let col: i32 = a[0].len();
-
-        for i in (0..col-2).rev() {
-
-            for j in (i+1..col-1) {
-
-                let mut cnt = 0;
-                for word in a.iter() {
-                    //if word.chars()[i] > word[j] {
-                    //    break;
-                    //}
-                    cnt += 1;
-                }
-                if cnt == a.len() {
-                    //dp[i] = max(dp[i], dp[j] + 1);
-                }
-            }
-        }
-        return col;
+        return 0;
     }
 }
 
 pub fn test_960_delete_columns_to_make_sortedIII() {
 
-    let res1 = delete_columns_to_make_sorted_iii::doit(vec!["babca","bbazb"]);
+    let res1 = delete_columns_to_make_sorted_iii::doit(vec!["babca".to_string(), "bbazb".to_string()]);
 
-    let res2 = delete_columns_to_make_sorted_iii::doit(vec!["edcba"]);
+    let res2 = delete_columns_to_make_sorted_iii::doit(vec!["edcba".to_string()]);
 
-    let res3 = delete_columns_to_make_sorted_iii::doit(vec!["ghi","def","abc"]);
+    let res3 = delete_columns_to_make_sorted_iii::doit(vec!["ghi".to_string(), "def".to_string(), "abc".to_string()]);
 
     return;
 }

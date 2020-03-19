@@ -67,20 +67,6 @@
 # 1 <= grid.length == grid[0].length <= 30
 # grid[i][j] is either '/', '\', or ' '.
 
-class DSU:
-    def __init__(self, N):
-        self.p = range(N)
-
-    def find(self, x):
-        if self.p[x] != x:
-            self.p[x] = self.find(self.p[x])
-        return self.p[x]
-
-    def union(self, x, y):
-        xr = self.find(x)
-        yr = self.find(y)
-        self.p[xr] = yr
-
 
 """
 Approach 1: Union-Find
@@ -114,20 +100,37 @@ Space Complexity: O(N∗N).
 """
 
 
-class RegionsBySlashes:
+class DSU:
+    def __init__(self, N):
+        self.p = list(range(N))
 
+    def find(self, x):
+        if self.p[x] != x:
+            self.p[x] = self.find(self.p[x])
+        return self.p[x]
+
+    def union(self, x, y):
+        xr = self.find(x)
+        yr = self.find(y)
+        self.p[xr] = yr
+
+
+class RegionsBySlashes:
     def doit(self, grid):
 
         N = len(grid)
+        # each cell have 4 values, {north : 0, south : 3, east : 2, west : 1}
         dsu = DSU(4 * N * N)
 
         for r, row in enumerate(grid):
             for c, val in enumerate(row):
                 root = 4 * (r * N + c)
-                if val in '/ ':
+
+                if val in "/ ":
                     dsu.union(root + 0, root + 1)
                     dsu.union(root + 2, root + 3)
-                if val in '\ ':
+
+                if val in "\ ":
                     dsu.union(root + 0, root + 2)
                     dsu.union(root + 1, root + 3)
 
@@ -137,6 +140,7 @@ class RegionsBySlashes:
                     dsu.union(root + 3, (root + 4 * N) + 0)
                 if r - 1 >= 0:
                     dsu.union(root + 0, (root - 4 * N) + 3)
+
                 # east/west
                 if c + 1 < N:
                     dsu.union(root + 2, (root + 4) + 1)
@@ -146,12 +150,12 @@ class RegionsBySlashes:
         return sum(dsu.find(x) == x for x in range(4 * N * N))
 
     # more and more fast
-    def doit(self, grid)
+    def doit(self, grid):
 
-     n = len(grid)
-      ds = []
+        n = len(grid)
+        ds = []
 
-       def joint(ds, x, y):
+        def joint(ds, x, y):
             while ds[x] >= 0:
                 x = ds[x]
             while ds[y] >= 0:
@@ -170,9 +174,9 @@ class RegionsBySlashes:
         top_left = grid[0][0]
         ds += [-1]
 
-        if top_left == ' ':
+        if top_left == " ":
             bottom[0][0] = right[0][0] = 0
-        elif top_left == '/':
+        elif top_left == "/":
             ds += [-1]
             bottom[0][0] = right[0][0] = 1
         else:
@@ -181,11 +185,11 @@ class RegionsBySlashes:
             right[0][0] = 1
 
         for i in range(1, n):
-            left = right[0][i-1]
+            left = right[0][i - 1]
             x = grid[0][i]
-            if x == ' ':
+            if x == " ":
                 bottom[0][i] = right[0][i] = left
-            elif x == '/':
+            elif x == "/":
                 bottom[0][i] = right[0][i] = len(ds)
                 ds += [-1]
             else:
@@ -195,17 +199,17 @@ class RegionsBySlashes:
 
         for i in range(1, n):
             for j in range(n):
-                up = bottom[i-1][j]
+                up = bottom[i - 1][j]
                 left = None
                 if j > 0:
-                    left = right[i][j-1]
+                    left = right[i][j - 1]
                 x = grid[i][j]
 
-                if x == ' ':
+                if x == " ":
                     bottom[i][j] = right[i][j] = up
                     if left != None and left != up:
                         joint(ds, left, up)
-                elif x == '/':
+                elif x == "/":
                     if left != None and left != up:
                         joint(ds, left, up)
                     bottom[i][j] = right[i][j] = len(ds)
@@ -220,9 +224,7 @@ class RegionsBySlashes:
         return len([x for x in ds if x < 0])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
-    res = RegionsBySlashes().doit([
-        " /",
-        "/ "
-    ])
+    res = RegionsBySlashes().doit([" /", "/ "])
+

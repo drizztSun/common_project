@@ -72,8 +72,26 @@ class IsCompleteTree:
 
     def doit(self, root):
 
-        pass
+        from collections import deque
 
+        buf = deque()
+        buf.append(root)
+        pre = True
+
+        while buf :
+
+            c = buf.popleft()
+
+            if c == None:
+                pre = False
+            else:
+                if not pre:
+                    return False
+
+                buf.append(c.left)
+                buf.append(c.right)
+
+        return True
 
 if __name__ == '__main__':
 

@@ -14,5 +14,11 @@ fn main() {
     leetcode_media::A974_SubarraySumsDivisibleByK::test_974_subarray_sums_divisible_by_k();
 
     leetcode_hard::A960_DeleteColumnsToMakeSortedIII::test_960_delete_columns_to_make_sortedIII();
+
+    leetcode_hard::A839_SimilarStringGroups::test_839_similar_string_groups();
+
+    leetcode_media::A71_SimplifyPath::test_71_simplify_path();
+
+    leetcode_media::A962_MaximumWidthRamp::test_962_maximum_width_ramp();
 }
 

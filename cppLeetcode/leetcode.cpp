@@ -201,9 +201,41 @@ void test_636_exclusive_time_of_functions();
 
 void test_67_add_binary();
 
+void test_71_simplify_path();
+
+void test_958_check_completeness_of_binary_tree();
+
+void test_954_array_of_double_pairs();
+
+void test_957_prison_cells_after_n_days();
+
+void test_959_region_cut_by_slashes();
+
+void test_962_maxium_width_ramp();
+
+void test_963_minimum_area_rectangle_ii();
+
+void test_939_minimum_area_rectangle();
+
 void leetcode() {
     
-    test_67_add_binary();
+    test_939_minimum_area_rectangle();
+    
+    // test_963_minimum_area_rectangle_ii();
+    
+    // test_962_maxium_width_ramp();
+    
+    // test_959_region_cut_by_slashes();
+    
+    // test_957_prison_cells_after_n_days();
+    
+    // test_954_array_of_double_pairs();
+    
+    // test_958_check_completeness_of_binary_tree();
+    
+    // test_71_simplify_path();
+    
+    // test_67_add_binary();
     
     // test_636_exclusive_time_of_functions();
     
