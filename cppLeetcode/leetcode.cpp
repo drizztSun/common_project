@@ -217,9 +217,53 @@ void test_963_minimum_area_rectangle_ii();
 
 void test_939_minimum_area_rectangle();
 
+void test_966_vowel_spellchecker();
+
+void test_968_binary_tree_camera();
+
+void test_967_numbers_with_same_consecutive_difference();
+
+void test_969_pancake_sorting();
+
+void test_200_number_of_islands();
+
+void test_971_flip_match_voyage();
+
+void test_973_kclosest_points_to_origin();
+
+void test_976_largest_perimeter_triangle();
+
+void test_978_longest_turbulent_subarray();
+
+void test_979_distribute_coins_binary_tree();
+
+void test_978_longest_turbulent_subarrayIII();
+
 void leetcode() {
     
-    test_939_minimum_area_rectangle();
+    test_978_longest_turbulent_subarrayIII();
+    
+    // test_979_distribute_coins_binary_tree();
+    
+    // test_978_longest_turbulent_subarray();
+    
+    // test_976_largest_perimeter_triangle();
+    
+    // test_973_kclosest_points_to_origin();
+    
+    // test_971_flip_match_voyage();
+    
+    // test_200_number_of_islands();
+    
+    // test_969_pancake_sorting();
+    
+    // test_967_numbers_with_same_consecutive_difference();
+    
+    // test_968_binary_tree_camera();
+    
+    // test_966_vowel_spellchecker();
+    
+    // test_939_minimum_area_rectangle();
     
     // test_963_minimum_area_rectangle_ii();
     

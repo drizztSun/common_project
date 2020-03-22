@@ -42,6 +42,9 @@ using std::unordered_set;
 #include <unordered_map>
 using std::unordered_map;
 
+#include <complex>
+using std::complex;
+
 #include <cfloat>
 #include <limits>
 
@@ -109,7 +112,38 @@ public:
      
      */
     
-    
+    /*
+    double doit1(vector<vector<int>>&& points) {
+        
+        vector<complex<float>> complexes;
+        for (auto& c : points)
+            complexes.push_back(complex<float>(c[0], c[1]));
+        
+        unordered_map<std::pair<complex<float>, float>, vector<complex<float>>> seen;
+        
+        for (int i = 0; i < complexes.size(); i++)
+            for (int j = i + 1; j < complexes.size(); j++) {
+                auto& p = complexes[i], q = complexes[j];
+                
+                complex<float> center = (p + q);
+                float radius = abs(center - p);
+                
+                seen[{center, radius}].push_back({p});
+            }
+        
+        double ans = DBL_MAX;
+        for (auto c = seen.begin(); c != seen.end(); c++) {
+            
+            for (int i = 0; i < c->second.size(); i++)
+                for (int j = i+1; j < c->second.size(); j++) {
+                    auto& p = c->second[i], q = c->second[j];
+                    complex<float> center(c->first.first.real(), c->first.first.imag());
+                    ans = std::min(ans, double(abs(p-q) * abs(p - (center - q))));
+                }
+        }
+        
+        return ans;
+    }*/
 };
 
 
