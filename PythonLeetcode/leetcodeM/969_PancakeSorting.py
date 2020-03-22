@@ -34,8 +34,8 @@ class PancakeSort:
     Approach 1: Sort Largest to Smallest
     Intuition
 
-    We can place the largest element (in location i, 1-indexed) by flipping i to move the element to the first position,
-    then A.length to move it to the last position. Afterwards, the largest element is in the correct position, so we no longer need to pancake-flip by A.length or more.
+    We can place the largest element (in location i, 1-indexed) by flipping i to move the element to the first position, then A.length to move it to the last position.
+    Afterwards, the largest element is in the correct position, so we no longer need to pancake-flip by A.length or more.
 
     We can repeat this process until the array is sorted. Each move will use 2 flips per element.
 
@@ -49,7 +49,7 @@ class PancakeSort:
     After, we flip by i then N-- to put this element in the correct position.
     Complexity Analysis
 
-    Time Complexity: O(N^2), where NN is the length of A.
+    Time Complexity: O(N^2), where N is the length of A.
 
     Space Complexity: O(N).
     """
@@ -58,7 +58,7 @@ class PancakeSort:
 
         ans = []
         N = len(A)
-        B = sorted(range(1, N+1), key=lambda i: -A[i-1])
+        B = sorted(range(1, N + 1), key=lambda i: -A[i - 1])
 
         for i in B:
 
@@ -83,8 +83,12 @@ class PancakeSort:
         return res
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     res = PancakeSort().doit([3, 2, 4, 1])  # [4,2,4,3]
 
     res = PancakeSort().doit([1, 2, 3])  # []
+
+    res = PancakeSort().doit([3, 1, 2])
+
+    pass

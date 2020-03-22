@@ -42,9 +42,9 @@ class FlipMatchVoyage:
 
     Complexity Analysis
 
-    Time Complexity: O(N)O(N), where NN is the number of nodes in the given tree.
+    Time Complexity: O(N), where NN is the number of nodes in the given tree.
 
-    Space Complexity: O(N)O(N).
+    Space Complexity: O(N).
 
     """
 
@@ -63,7 +63,11 @@ class FlipMatchVoyage:
                 return
 
             self.index += 1
-            if self.index < len(voyage) and node.left and node.left.val != voyage[self.index]:
+            if (
+                self.index < len(voyage)
+                and node.left
+                and node.left.val != voyage[self.index]
+            ):
                 self.ans.append(node.val)
                 search(node.right)
                 search(node.left)
@@ -81,7 +85,7 @@ class FlipMatchVoyage:
         return self.ans
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     root = TreeNode(1)
     root.left, root.right = TreeNode(2), TreeNode(3)
