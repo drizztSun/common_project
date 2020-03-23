@@ -239,9 +239,17 @@ void test_979_distribute_coins_binary_tree();
 
 void test_978_longest_turbulent_subarrayIII();
 
+void test_975_odd_even_jumo();
+
+void test_1000_mininum_cost_to_merge_stons();
+
 void leetcode() {
     
-    test_978_longest_turbulent_subarrayIII();
+    test_1000_mininum_cost_to_merge_stons();
+    
+    // test_975_odd_even_jumo();
+    
+    // test_978_longest_turbulent_subarrayIII();
     
     // test_979_distribute_coins_binary_tree();
     

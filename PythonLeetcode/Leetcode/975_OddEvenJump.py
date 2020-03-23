@@ -37,7 +37,8 @@
 
 # During our 1st jump (odd numbered), we first jump to i = 1 because A[1] is the smallest value in (A[1], A[2], A[3], A[4]) that is greater than or equal to A[0].
 
-# During our 2nd jump (even numbered), we jump from i = 1 to i = 2 because A[2] is the largest value in (A[2], A[3], A[4]) that is less than or equal to A[1].  A[3] is also the largest value, but 2 is a smaller index, so we can only jump to i = 2 and not i = 3.
+# During our 2nd jump (even numbered), we jump from i = 1 to i = 2 because A[2] is the largest value in (A[2], A[3], A[4]) that is less than or equal to A[1].
+# A[3] is also the largest value, but 2 is a smaller index, so we can only jump to i = 2 and not i = 3.
 
 # During our 3rd jump (odd numbered), we jump from i = 2 to i = 3 because A[3] is the smallest value in (A[3], A[4]) that is greater than or equal to A[2].
 
@@ -58,16 +59,131 @@
 # We can reach the end from starting indexes 1, 2, and 4.
 
 
-class oddEvenJumps:
+class OddEvenJumps:
+
+    '''
+
+    Approach 1: Monotonic Stack
+    Intuition
+
+    First, we notice that where you jump to is determined only by the state of your current index and the jump number parity.
+
+    For each state, there is exactly one state you could jump to (or you can't jump.)
+    If we somehow knew these jumps, we could solve the problem by a simple traversal.
+
+    So the problem reduces to solving this question: for some index i during an odd numbered jump, what index do we jump to (if any)? The question for even-numbered jumps is similar.
+
+    Algorithm
+
+    Let's figure out where index i jumps to, assuming this is an odd-numbered jump.
+
+    Let's consider each value of A in order from smallest to largest.
+    When we consider a value A[j] = v, we search the values we have already processed (which are <= v) from largest to smallest.
+    If we find that we have already processed some value v0 = A[i] with i < j, then we know i jumps to j.
+
+    Naively this is a little slow, but we can speed this up with a common trick for harder problems: a monotonic stack.
+    (For another example of this technique, please see the solution to this problem: (Article - Sum of Subarray Minimums))
+
+    Let's store the indices i of the processed values v0 = A[i] in a stack, and maintain the invariant that this is monotone decreasing.
+    When we add a new index j, we pop all the smaller indices i < j from the stack, which all jump to j.
+
+    Afterwards, we know oddnext[i], the index where i jumps to if this is an odd numbered jump. Similarly, we know evennext[i].
+    We can use this information to quickly build out all reachable states using dynamic programming.
+    '''
+
     def doit(self, A):
-        pass
+
+        N = len(A)
+        def make(B):
+            ans = [None] * N
+            buf = []
+            for c in B:
+                while buf and c > buf[-1]:
+                    ans[buf.pop()] = c
+                buf.append(c)
+
+        B = sorted(range(N), key=lambda i: A[i])
+        oddnext = make(B)
+
+        B = sorted(B, key=lambda i: -A[i])
+        evenext = make(B)
+
+        odd, even = [False] * N, [False] * N
+        odd[N-1] = even[N-1] = True
+
+        for i in range(N-2, -1, -1):
+            if oddnext[i] is not None:
+                odd[i] = even[oddnext[i]]
+
+            if evenext[i] is not None:
+                even[i] = odd[evenext[i]]
+
+        return sum(odd)
+
+
+    """
+    Approach 2: Tree Map
+    Intuition
+    
+    As in Approach 1, the problem reduces to solving this question: for some index i during an odd numbered jump, what index do we jump to (if any)?
+    
+    Algorithm
+    
+    We can use a TreeMap, which is an excellent structure for maintaining sorted data. Our map vals will map values v = A[i] to indices i.
+    
+    Iterating from i = N-2 to i = 0, we have some value v = A[i] and we want to know what the next largest or next smallest value is. The TreeMap.lowerKey and TreeMap.higherKey functions do this for us.
+    
+    With this in mind, the rest of the solution is straightforward: we use dynamic programming to maintain odd[i] and even[i]: 
+    whether the state of being at index i on an odd or even numbered jump is possible to reach.    
+    
+    Complexity Analysis
+
+    Time Complexity: O(NlogN), where N is the length of A.
+    Space Complexity: O(N).
+    """
+
+    def doit(self, A):
+
+        if len(A) <= 1:
+            return 0
+
+        N = len(A)
+        odd, even = [False] * N, [False] * N
+        odd[N-1] = even[N-1] = True
+        buf = {A[N-1]: N-1}
+
+        for i in range(N-2, -1, -1):
+
+            if A[i] in buf:
+                odd[i] = even[buf[A[i]]]
+                even[i] = odd[buf[A[i]]]
+            else:
+                keys = sorted(buf.keys())
+                low, high = None, None
+                for i in range(len(keys)):
+                    if keys[i] < A[i]:
+                        low = keys[i]
+                    elif keys[i] > A[i]:
+                        high = keys[i]
+                        break
+
+                if low != None:
+                    even[i] = odd[buf[low]]
+
+                if high != None:
+                    odd[i] = even[buf[high]]
+
+
+            buf[A[i]] = i
+
+        return sum(odd)
 
 
 if __name__ == "__main__":
 
-    res = oddEvenJumps().doit([10, 13, 12, 14, 15])  # 2
+    res = OddEvenJumps().doit([10, 13, 12, 14, 15])  # 2
 
-    res = oddEvenJumps().doit([2, 3, 1, 1, 4])  # 3
+    res = OddEvenJumps().doit([2, 3, 1, 1, 4])  # 3
 
-    res = oddEvenJumps().doit([5, 1, 3, 4, 2])  # 3
+    res = OddEvenJumps().doit([5, 1, 3, 4, 2])  # 3
 
