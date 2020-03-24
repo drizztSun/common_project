@@ -4,12 +4,17 @@ import (
 	"fmt"
 
 	"./leetcodeE"
+	"./leetcodeH"
 	"./leetcodem"
 )
 
 func main() {
 
 	fmt.Println("leetcode hello world")
+
+	leetcodeH.Test_992_SubarrayWithKDistinct()
+
+	leetcodeH.Test_996_NumberOfSquarefulArrays()
 
 	leetcodem.Test_1040_MovingStonesUntilConsecutive()
 

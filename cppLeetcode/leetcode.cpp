@@ -243,9 +243,25 @@ void test_975_odd_even_jumo();
 
 void test_1000_mininum_cost_to_merge_stons();
 
+void test_654_maximum_binary_tree();
+
+void test_996_number_of_squareful_array();
+
+void test_995_minimum_number_of_consecutive_bit_flips();
+
+void test_992_subarray_with_kdifferent_integer();
+
 void leetcode() {
     
-    test_1000_mininum_cost_to_merge_stons();
+    test_992_subarray_with_kdifferent_integer();
+    
+    // test_995_minimum_number_of_consecutive_bit_flips();
+    
+    // test_996_number_of_squareful_array();
+    
+    // test_654_maximum_binary_tree();
+    
+    // test_1000_mininum_cost_to_merge_stons();
     
     // test_975_odd_even_jumo();
     
