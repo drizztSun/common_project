@@ -12,6 +12,8 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodeH.Test_982_TripleWithBitwiseAndEqualToZero()
+
 	leetcodeH.Test_992_SubarrayWithKDistinct()
 
 	leetcodeH.Test_996_NumberOfSquarefulArrays()

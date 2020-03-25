@@ -251,9 +251,17 @@ void test_995_minimum_number_of_consecutive_bit_flips();
 
 void test_992_subarray_with_kdifferent_integer();
 
+void test_982_triple_with_bitwise_and_equal_to_zero();
+
+void test_984_string_without_aaa_or_bbb();
+
 void leetcode() {
     
-    test_992_subarray_with_kdifferent_integer();
+    test_984_string_without_aaa_or_bbb();
+    
+    // test_982_triple_with_bitwise_and_equal_to_zero();
+    
+    // test_992_subarray_with_kdifferent_integer();
     
     // test_995_minimum_number_of_consecutive_bit_flips();
     

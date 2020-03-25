@@ -37,6 +37,7 @@
 		0894CCBA241EE0D6003DF4A6 /* test_condition_variable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC9D241EE0D6003DF4A6 /* test_condition_variable.cpp */; };
 		0894CCBB241EE0D6003DF4A6 /* test_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC9E241EE0D6003DF4A6 /* test_stack.cpp */; };
 		0894CCBC241EE0D6003DF4A6 /* test_deque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC9F241EE0D6003DF4A6 /* test_deque.cpp */; };
+		08B3CBB3242B7B4400DD00DB /* test_stl_algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,6 +84,7 @@
 		0894CC9D241EE0D6003DF4A6 /* test_condition_variable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_condition_variable.cpp; sourceTree = "<group>"; };
 		0894CC9E241EE0D6003DF4A6 /* test_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_stack.cpp; sourceTree = "<group>"; };
 		0894CC9F241EE0D6003DF4A6 /* test_deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_deque.cpp; sourceTree = "<group>"; };
+		08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_stl_algorithm.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 				0894CC96241EE0D6003DF4A6 /* test_variadic_template.cpp */,
 				0894CC95241EE0D6003DF4A6 /* test_vector.cpp */,
 				0894CC8B241EE0D6003DF4A6 /* utf_str.cpp */,
+				08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */,
 			);
 			name = src;
 			path = ../../src;
@@ -240,6 +243,7 @@
 				0894CCAE241EE0D6003DF4A6 /* test_atomic.cpp in Sources */,
 				0894CCAA241EE0D6003DF4A6 /* Precessor_define.cpp in Sources */,
 				0894CCBA241EE0D6003DF4A6 /* test_condition_variable.cpp in Sources */,
+				08B3CBB3242B7B4400DD00DB /* test_stl_algorithm.cpp in Sources */,
 				0894CCBB241EE0D6003DF4A6 /* test_stack.cpp in Sources */,
 				0894CCB9241EE0D6003DF4A6 /* test_future.cpp in Sources */,
 				0894CCA1241EE0D6003DF4A6 /* test_unordered_map.cpp in Sources */,
