@@ -255,9 +255,21 @@ void test_982_triple_with_bitwise_and_equal_to_zero();
 
 void test_984_string_without_aaa_or_bbb();
 
+void test_983_minimum_cost_for_tickets();
+
+void test_990_statifiability_of_equality_equations();
+
+void test_991_broken_calculator();
+
 void leetcode() {
     
-    test_984_string_without_aaa_or_bbb();
+    test_991_broken_calculator();
+    
+    // test_990_statifiability_of_equality_equations();
+    
+    // test_983_minimum_cost_for_tickets();
+    
+    // test_984_string_without_aaa_or_bbb();
     
     // test_982_triple_with_bitwise_and_equal_to_zero();
     
