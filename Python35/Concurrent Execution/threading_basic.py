@@ -42,4 +42,5 @@ if __name__ == "__main__":
     basic()
 
     for c in id:
-        c.join()
+        c.join(0)
+        
