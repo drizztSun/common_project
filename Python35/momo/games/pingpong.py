@@ -1,7 +1,7 @@
 
 import turtle as t  # create window.
 wn = t.Screen()
-wn.title('nightmare PING PONG')
+wn.title(' PING PONG')
 wn.bgcolor('gray')
 wn.setup(width=1000, height=600)
 wn.tracer(0)
@@ -29,7 +29,7 @@ pad2.shapesize(stretch_wid=5, stretch_len=1)
 # pen
 pen = t.Turtle()
 pen.speed(0)
-pen.color('yellow')
+pen.color('cyan')
 pen.penup()
 pen.hideturtle()
 pen.goto(0, 260)
