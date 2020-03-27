@@ -261,9 +261,21 @@ void test_990_statifiability_of_equality_equations();
 
 void test_991_broken_calculator();
 
+void test_988_smallest_from_leaf();
+
+void test_987_vertical_order_traversal_of_binary_tree();
+
+void test_981_time_based_key_value_store();
+
 void leetcode() {
     
-    test_991_broken_calculator();
+    test_981_time_based_key_value_store();
+    
+    // test_987_vertical_order_traversal_of_binary_tree();
+    
+    // test_988_smallest_from_leaf();
+    
+    // test_991_broken_calculator();
     
     // test_990_statifiability_of_equality_equations();
     

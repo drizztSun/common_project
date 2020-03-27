@@ -12,6 +12,8 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodem.Test_981_time_based_key_value_store()
+
 	leetcodem.Test_990_satifiability_of_equality_equation()
 
 	leetcodeH.Test_982_TripleWithBitwiseAndEqualToZero()

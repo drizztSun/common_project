@@ -125,6 +125,9 @@
 		08741644242CD90600567406 /* 991_BrokenCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08741643242CD90600567406 /* 991_BrokenCalculator.cpp */; };
 		087F2E2C2424D28D0006B29B /* 200_NumberOfIslands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087F2E2B2424D28D0006B29B /* 200_NumberOfIslands.cpp */; };
 		087F2E2E242582710006B29B /* 973_KClosestPointsToOrigin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087F2E2D242582710006B29B /* 973_KClosestPointsToOrigin.cpp */; };
+		0881502B242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0881502A242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp */; };
+		0881502D242D50780089D46D /* 987_VerticalOrderTraversalOfABinaryTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0881502C242D50780089D46D /* 987_VerticalOrderTraversalOfABinaryTree.cpp */; };
+		0881502F242D63A40089D46D /* 981_TimeBasedKeyValueStore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0881502E242D63A40089D46D /* 981_TimeBasedKeyValueStore.cpp */; };
 		088ED63924140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 088ED63824140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp */; };
 		08927792240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */; };
 		089277942410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 089277932410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp */; };
@@ -296,6 +299,9 @@
 		08741643242CD90600567406 /* 991_BrokenCalculator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 991_BrokenCalculator.cpp; sourceTree = "<group>"; };
 		087F2E2B2424D28D0006B29B /* 200_NumberOfIslands.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 200_NumberOfIslands.cpp; sourceTree = "<group>"; };
 		087F2E2D242582710006B29B /* 973_KClosestPointsToOrigin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 973_KClosestPointsToOrigin.cpp; sourceTree = "<group>"; };
+		0881502A242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 988_SmallestStringStartingFromLeaf.cpp; sourceTree = "<group>"; };
+		0881502C242D50780089D46D /* 987_VerticalOrderTraversalOfABinaryTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 987_VerticalOrderTraversalOfABinaryTree.cpp; sourceTree = "<group>"; };
+		0881502E242D63A40089D46D /* 981_TimeBasedKeyValueStore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 981_TimeBasedKeyValueStore.cpp; sourceTree = "<group>"; };
 		088ED63824140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1012_NumbersWithRepeatedDigits.cpp; sourceTree = "<group>"; };
 		08927791240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1027_LongestArithmeticSequence.cpp; sourceTree = "<group>"; };
 		089277932410167300F4ECAD /* 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1026_MaximumDifferenceBetweenNodeAndAncestor.cpp; sourceTree = "<group>"; };
@@ -506,6 +512,9 @@
 				08268B45242BDD34001A80DD /* 983_MinimumCostForTickets.cpp */,
 				08A17CA3242C240800D372EA /* 990_SatisfiabilityOfEqualityEquations.cpp */,
 				08741643242CD90600567406 /* 991_BrokenCalculator.cpp */,
+				0881502A242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp */,
+				0881502C242D50780089D46D /* 987_VerticalOrderTraversalOfABinaryTree.cpp */,
+				0881502E242D63A40089D46D /* 981_TimeBasedKeyValueStore.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -636,6 +645,7 @@
 				086A8ACD24071C4A00CFAEED /* 749_ContainVirus.cpp in Sources */,
 				08F33EFA2411E03D00E25377 /* 1011_CapacityToShipPackagesWithinDDays.cpp in Sources */,
 				081E87EB24070F10008932EA /* main.cpp in Sources */,
+				0881502D242D50780089D46D /* 987_VerticalOrderTraversalOfABinaryTree.cpp in Sources */,
 				083F7C39241C17AC00D3D54A /* 956_TallestBillboard.cpp in Sources */,
 				086A8AFD24071C4A00CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp in Sources */,
 				080BDFF724103CF300D46B59 /* 1024_VideoStitching.cpp in Sources */,
@@ -705,12 +715,14 @@
 				086A8ADF24071C4A00CFAEED /* 215_KthLargestElementInArrat.cpp in Sources */,
 				08B505B32418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp in Sources */,
 				086A8AFC24071C4A00CFAEED /* 30_SubstringWithConcatenationOfAllWords.cpp in Sources */,
+				0881502F242D63A40089D46D /* 981_TimeBasedKeyValueStore.cpp in Sources */,
 				086A8AFB24071C4A00CFAEED /* 843_GuesstheWord.cpp in Sources */,
 				08DAD83B242A79BC003BB719 /* 992_SubarraysWithKDifferentIntegers.cpp in Sources */,
 				08077B4224186A79001EBED2 /* 974_SubarraySumsDivisibleByK.cpp in Sources */,
 				08D40851240D84D7004716AB /* 1040_MovingStonesUntilConsecutiveII.cpp in Sources */,
 				086A8ACA24071C4A00CFAEED /* 502_IPO.cpp in Sources */,
 				086A8AC824071C4A00CFAEED /* 11_ContainerWithMostWater.cpp in Sources */,
+				0881502B242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp in Sources */,
 				08CA46FB241191D60098CD5F /* 1015_SmallestIntegerDivisiblebyK.cpp in Sources */,
 				086A8AEA24071C4A00CFAEED /* 719_FindKthSmallestPairDistance.cpp in Sources */,
 				08012E8424129AE8004D11A8 /* 1007_MinimumDominoRotationsForEqualRow.cpp in Sources */,
