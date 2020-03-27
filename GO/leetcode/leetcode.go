@@ -12,6 +12,10 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodem.Test_1008_ConstructBinarySearchTreeFromPreorderTraversal()
+
+	leetcodem.Test_1003_Check_if_WordIsValidAfterSub()
+
 	leetcodem.Test_981_time_based_key_value_store()
 
 	leetcodem.Test_990_satifiability_of_equality_equation()
