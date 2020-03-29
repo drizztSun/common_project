@@ -12,6 +12,14 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodem.Test_1023_CamelcaseMatching()
+
+	leetcodem.Test_1020_NumberOfEnclaves()
+
+	leetcodem.Test_1017_ConvertToBase2()
+
+	leetcodem.Test_1011_CapacityToShipPackagesWithDDays()
+
 	leetcodem.Test_1008_ConstructBinarySearchTreeFromPreorderTraversal()
 
 	leetcodem.Test_1003_Check_if_WordIsValidAfterSub()

@@ -41,6 +41,21 @@ class SmallestRepunitDivByK {
     
 public:
     
+    /*
+     """
+     Explanation:
+     First observe that integers that end in 1 are never divisible by 2 or 5. Thus the program starts by checking if K is divisisble by 2 or 5.
+     If it is, then K cannot be a factor of a number that ends in 1, and we return -1.
+
+     Next, since we only care about divisibility by K and not the actual value of n, we can do everything modulo K.
+     Starting with n = 1, the recursion n = 10n + 1, leads to n = 1, 11, 111, 1111, etc.
+     Thus this recursion is an easy way to generate potential values of n.
+     To avoid n getting too big we can replace (10n + 1) with (10n + 1) % K during each iteration.
+     The value in i simply records the number of iterations done so far which is equivalent to the length of n.
+     The while loop will keep occurring until n is divisible by K for the first time. The value of i that is returned corresponds to the shortest length of n.
+     """
+     */
+    
     int doit(int K) {
         
         if (K % 2 == 0 || K % 5 == 0)
