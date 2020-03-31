@@ -12,6 +12,8 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodem.Test_1024_VideoStiching()
+
 	leetcodem.Test_1023_CamelcaseMatching()
 
 	leetcodem.Test_1020_NumberOfEnclaves()
