@@ -269,7 +269,7 @@ void test_981_time_based_key_value_store();
 
 void leetcode() {
     
-    test_981_time_based_key_value_store();
+    // test_981_time_based_key_value_store();
     
     // test_987_vertical_order_traversal_of_binary_tree();
     
@@ -399,7 +399,7 @@ void leetcode() {
     
     // test_1040_moving_stones_until_consecutive();
     
-    //test_1034_Coloring_A_Border();
+    test_1034_Coloring_A_Border();
     
 	//minimum_window_substring();
 

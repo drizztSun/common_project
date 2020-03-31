@@ -7,13 +7,6 @@ package leetcodem
 
 */
 
-// Definition for a binary tree node.
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 func AbsInt(l int) int {
 	if l < 0 {
 		return -l
@@ -21,14 +14,14 @@ func AbsInt(l int) int {
 	return l
 }
 
-func search(node *TreeNode, ans *int) int {
+func distributeCoins_search(node *TreeNode, ans *int) int {
 
 	if node == nil {
 		return 0
 	}
 
-	l := search(node.Left, ans)
-	r := search(node.Right, ans)
+	l := distributeCoins_search(node.Left, ans)
+	r := distributeCoins_search(node.Right, ans)
 
 	*ans += AbsInt(l) + AbsInt(r)
 
@@ -38,6 +31,6 @@ func search(node *TreeNode, ans *int) int {
 func distributeCoins(root *TreeNode) int {
 
 	ans := 0
-	search(root, &ans)
+	distributeCoins_search(root, &ans)
 	return ans
 }

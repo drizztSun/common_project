@@ -12,6 +12,16 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodem.Test_1034_ColoringABorder()
+
+	leetcodem.Test_1039_MinimumScoreTriangulationOfPolygon()
+
+	leetcodem.Test_1035_UncrossedLines()
+
+	leetcodem.Test_1031_MaximumSumOfTwoNonOverlappingSubarray()
+
+	leetcodem.Test_1027_LongestArithmeticSequence()
+
 	leetcodem.Test_1024_VideoStiching()
 
 	leetcodem.Test_1023_CamelcaseMatching()
