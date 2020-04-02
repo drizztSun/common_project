@@ -267,7 +267,11 @@ void test_987_vertical_order_traversal_of_binary_tree();
 
 void test_981_time_based_key_value_store();
 
+void test_1044_longest_duplicate_substring();
+
 void leetcode() {
+    
+    test_1044_longest_duplicate_substring();
     
     // test_981_time_based_key_value_store();
     

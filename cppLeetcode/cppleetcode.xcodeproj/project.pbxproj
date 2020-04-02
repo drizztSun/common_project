@@ -123,6 +123,7 @@
 		086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */; };
 		0873E6CB24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0873E6CA24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp */; };
 		08741644242CD90600567406 /* 991_BrokenCalculator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08741643242CD90600567406 /* 991_BrokenCalculator.cpp */; };
+		087C791F24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */; };
 		087F2E2C2424D28D0006B29B /* 200_NumberOfIslands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087F2E2B2424D28D0006B29B /* 200_NumberOfIslands.cpp */; };
 		087F2E2E242582710006B29B /* 973_KClosestPointsToOrigin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087F2E2D242582710006B29B /* 973_KClosestPointsToOrigin.cpp */; };
 		0881502B242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0881502A242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp */; };
@@ -297,6 +298,7 @@
 		086A8B0524071E0700CFAEED /* 1048_LongestStringChain.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1048_LongestStringChain.cpp; sourceTree = "<group>"; };
 		0873E6CA24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1028_RecoverTreeFromPreorderTraversal.cpp; sourceTree = "<group>"; };
 		08741643242CD90600567406 /* 991_BrokenCalculator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 991_BrokenCalculator.cpp; sourceTree = "<group>"; };
+		087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1044_LongestDuplicateSubstring.cpp; sourceTree = "<group>"; };
 		087F2E2B2424D28D0006B29B /* 200_NumberOfIslands.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 200_NumberOfIslands.cpp; sourceTree = "<group>"; };
 		087F2E2D242582710006B29B /* 973_KClosestPointsToOrigin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 973_KClosestPointsToOrigin.cpp; sourceTree = "<group>"; };
 		0881502A242D39490089D46D /* 988_SmallestStringStartingFromLeaf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 988_SmallestStringStartingFromLeaf.cpp; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				0873E6CA24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp */,
 				08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */,
 				08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */,
+				087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -744,6 +747,7 @@
 				086A8AF924071C4A00CFAEED /* 731_MyCalendarII.cpp in Sources */,
 				086A8AC024071C4A00CFAEED /* 765_CouplesHoldingHands.cpp in Sources */,
 				081C69D3241E4BD9005CE99B /* 56_MergeIntervals.cpp in Sources */,
+				087C791F24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp in Sources */,
 				086A8B0024071C4A00CFAEED /* 729_MyCalendarI.cpp in Sources */,
 				086A8AD324071C4A00CFAEED /* 41_FirstMissingPositive.cpp in Sources */,
 				086A8AB724071C4A00CFAEED /* 699_fallingSquare.cpp in Sources */,
