@@ -12,6 +12,12 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodem.Test_1049_LastStoneWeightII()
+
+	leetcodem.Test_1048_LongestStringChain()
+
+	leetcodem.Test_1041_RobotBoundledInCircle()
+
 	leetcodem.Test_1034_ColoringABorder()
 
 	leetcodem.Test_1039_MinimumScoreTriangulationOfPolygon()
