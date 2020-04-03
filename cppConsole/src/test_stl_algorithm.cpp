@@ -22,6 +22,11 @@ using std::vector;
 
 #include <algorithm>
 
+#include <functional>
+#include <numeric>
+
+#include <functional>
+
 
 void test_sort() {
     
@@ -315,12 +320,19 @@ struct Sum
     int sum;
 };
 
+template <typename Container>
+bool in_quote(const Container& cont, const std::string& s)
+{
+    return std::search(cont.begin(), cont.end(), s.begin(), s.end()) != cont.end();
+}
+
 void test_for_each() {
     
     /*  Non-modifying sequence operations  */
     
-    {   // for_each
-        
+    {
+        // for_each
+        // applies a function to a range of elements
         /*
          template< class InputIt, class UnaryFunction >
          UnaryFunction for_each( InputIt first, InputIt last, UnaryFunction f ); (until C++20)
@@ -376,9 +388,275 @@ void test_for_each() {
     }
     
     {
-        //
+        // std::all_of, any_of, none_of
+        // checks if a predicate is true for all, any or none of the elements in a range
+           std::vector<int> v(10, 2);
+           std::partial_sum(v.cbegin(), v.cend(), v.begin());
+           std::cout << "Among the numbers: ";
+           std::copy(v.cbegin(), v.cend(), std::ostream_iterator<int>(std::cout, " "));
+           std::cout << '\n';
+        
+           if (std::all_of(v.cbegin(), v.cend(), [](int i){ return i % 2 == 0; })) {
+               std::cout << "All numbers are even\n";
+           }
+           if (std::none_of(v.cbegin(), v.cend(), std::bind(std::modulus<int>(),
+                                                            std::placeholders::_1, 2))) {
+               std::cout << "None of them are odd\n";
+           }
+           struct DivisibleBy
+           {
+               const int d;
+               DivisibleBy(int n) : d(n) {}
+               bool operator()(int n) const { return n % d == 0; }
+           };
+        
+           if (std::any_of(v.cbegin(), v.cend(), DivisibleBy(7))) {
+               std::cout << "At least one number is divisible by 7\n";
+           }
+    }
+    
+    
+    {
+        // std::count, std::count_if
+        // returns the number of elements satisfying specific criteria
+       std::vector<int> v{ 1, 2, 3, 4, 4, 3, 7, 8, 9, 10 };
+    
+       // determine how many integers in a std::vector match a target value.
+       int target1 = 3;
+       int target2 = 5;
+       int num_items1 = std::count(v.begin(), v.end(), target1);
+       int num_items2 = std::count(v.begin(), v.end(), target2);
+       std::cout << "number: " << target1 << " count: " << num_items1 << '\n';
+       std::cout << "number: " << target2 << " count: " << num_items2 << '\n';
+    
+       // use a lambda expression to count elements divisible by 3.
+       int num_items3 = std::count_if(v.begin(), v.end(), [](int i) {
+           return i % 3 == 0;
+       });
+       std::cout << "number divisible by three: " << num_items3 << '\n';
+    }
+    
+    {
+        // std::find, std::find_if, std::find_if_not
+        // finds the first element satisfying specific criteria
+        
+        // template< class InputIt, class T >
+        // InputIt find( InputIt first, InputIt last, const T& value ); (since C++20)
+
+        // template< class InputIt, class UnaryPredicate >
+        // bInputIt find_if( InputIt first, InputIt last, UnaryPredicate p );
+
+        // template< class InputIt, class UnaryPredicate >
+        // InputIt find_if_not( InputIt first, InputIt last, UnaryPredicate q );
+        
+       int n1 = 3;
+       int n2 = 5;
+    
+       std::vector<int> v{0, 1, 2, 3, 4};
+    
+       auto result1 = std::find(std::begin(v), std::end(v), n1);
+       auto result2 = std::find(std::begin(v), std::end(v), n2);
+    
+       if (result1 != std::end(v)) {
+           std::cout << "v contains: " << n1 << '\n';
+       } else {
+           std::cout << "v does not contain: " << n1 << '\n';
+       }
+    
+       if (result2 != std::end(v)) {
+           std::cout << "v contains: " << n2 << '\n';
+       } else {
+           std::cout << "v does not contain: " << n2 << '\n';
+       }
+        
+        auto res1 = std::find_if(std::begin(v), std::end(v), [](auto a) {
+            return a % 2 == 0;
+        });
+        
+        auto res2 = std::find_if_not(std::begin(v), std::end(v), [](auto a) {
+            return a % 2 == 0;
+        });
+    }
+    
+    {
+        // std::find_first_of
+        // searches for any one of a set of elements
+        
+        // template< class ForwardIt1, class ForwardIt2>
+        // ForwardIt1 find_first_of( ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first, ForwardIt2 s_last );
+        
+        // template< class ForwardIt1, class ForwardIt2, class BinaryPredicate >
+        // ForwardIt1 find_first_of( ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first, ForwardIt2 s_last, BinaryPredicate p );
+        
+        // Searches the range [first, last) for any of the elements in the range [s_first, s_last).
+
+        // 1) Elements are compared using operator==.
+        // 3) Elements are compared using the given binary predicate p.
+       std::vector<int> v{0, 2, 3, 25, 5};
+       std::vector<int> t{3, 19, 10, 2};
+    
+       auto result = std::find_first_of(v.begin(), v.end(), t.begin(), t.end());
+    
+       if (result == v.end()) {
+           std::cout << "no elements of v were equal to 3, 19, 10 or 2\n";
+       } else {
+           std::cout << "found a match at "
+                     << std::distance(v.begin(), result) << "\n";
+       }
+        
+        auto res = std::find_first_of(v.begin(), v.end(), t.begin(), t.end(), [](auto& c, auto& d) {
+            return c + d > 30;
+        });
+        
+    }
+    
+    {
+        // std::find_end
+        // finds the last sequence of elements in a certain range
+        
+        // template< class ForwardIt1, class ForwardIt2 >
+        // ForwardIt1 find_end( ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first, ForwardIt2 s_last );
+        
+        // template< class ForwardIt1, class ForwardIt2, class BinaryPredicate >
+        // constexpr ForwardIt1 find_end( ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first, ForwardIt2 s_last, BinaryPredicate p );
+    
+       std::vector<int> v{1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4};
+       std::vector<int>::iterator result;
+    
+       std::vector<int> t1{1, 2, 3};
+    
+       result = std::find_end(v.begin(), v.end(), t1.begin(), t1.end());
+       if (result == v.end()) {
+           std::cout << "sequence not found\n";
+       } else {
+           std::cout << "last occurrence is at: "
+                     << std::distance(v.begin(), result) << "\n";
+       }
+    
+       std::vector<int> t2{4, 5, 6};
+        result = std::find_end(v.begin(), v.end(), t2.begin(), t2.end(), [](auto& c, auto& d) {
+            return c * d > 10;
+        });
+        
+       if (result == v.end()) {
+           std::cout << "sequence not found\n";
+       } else {
+           std::cout << "last occurrence is at: "
+                     << std::distance(v.begin(), result) << "\n";
+       }
+        
+    }
+    
+    
+    {
+        // adjacent_find
+        // finds the first two adjacent items that are equal (or satisfy a given predicate)
+        
+        // template< class ForwardIt >
+        // ForwardIt adjacent_find( ForwardIt first, ForwardIt last );
+        
+        // template< class ForwardIt, class BinaryPredicate>
+        // ForwardIt adjacent_find( ForwardIt first, ForwardIt last, BinaryPredicate p );
+       std::vector<int> v1{0, 1, 2, 3, 40, 40, 41, 41, 5};
+    
+       auto i1 = std::adjacent_find(v1.begin(), v1.end());
+    
+       if (i1 == v1.end()) {
+           std::cout << "no matching adjacent elements\n";
+       } else {
+           std::cout << "the first adjacent pair of equal elements at: "
+                     << std::distance(v1.begin(), i1) << '\n';
+       }
+    
+       auto i2 = std::adjacent_find(v1.begin(), v1.end(), std::greater<int>());
+       if (i2 == v1.end()) {
+           std::cout << "The entire vector is sorted in ascending order\n";
+       } else {
+           std::cout << "The last element in the non-decreasing subsequence is at: "
+                     << std::distance(v1.begin(), i2) << '\n';
+       }
+    }
+    
+    {
+        // search
+        // searches for a range of elements
+        
+        // template< class ForwardIt1, class ForwardIt2 >
+        // ForwardIt1 search( ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first, ForwardIt2 s_last );
+        
+        // template< class ForwardIt1, class ForwardIt2, class BinaryPredicate >
+        // ForwardIt1 search( ForwardIt1 first, ForwardIt1 last, ForwardIt2 s_first, ForwardIt2 s_last, BinaryPredicate p );
+        
+       std::string str = "why waste time learning, when ignorance is instantaneous?";
+       // str.find() can be used as well
+       std::cout << std::boolalpha << in_quote(str, "learning") << '\n'
+                                   << in_quote(str, "lemming")  << '\n';
+    
+       std::vector<char> vec(str.begin(), str.end());
+       std::cout << std::boolalpha << in_quote(vec, "learning") << '\n'
+                                   << in_quote(vec, "lemming")  << '\n';
+    
+       // The C++17 overload demo:
+       std::string in = "Lorem ipsum dolor sit amet, consectetur adipiscing elit,"
+                        " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+       std::string needle = "pisci";
+        
+       auto it = std::search(in.begin(), in.end(),
+                      //std::boyer_moore_searcher(
+                         needle.begin(), needle.end());
+       if(it != in.end())
+           std::cout << "The string " << needle << " found at offset "
+                     << it - in.begin() << '\n';
+       else
+           std::cout << "The string " << needle << " not found\n";
+        
+    }
+    
+    {
+        // search_n
+        // searches a range for a number of consecutive copies of an element
+        // 1) Elements are compared using operator==.
+        // 3) Elements are compared using the given binary predicate p.
+       std::vector<int> v1{0, 1, 2, 3, 40, 40, 41, 41, 5};
+    
+       auto i1 = std::adjacent_find(v1.begin(), v1.end());
+    
+       if (i1 == v1.end()) {
+           std::cout << "no matching adjacent elements\n";
+       } else {
+           std::cout << "the first adjacent pair of equal elements at: "
+                     << std::distance(v1.begin(), i1) << '\n';
+       }
+    
+       auto i2 = std::adjacent_find(v1.begin(), v1.end(), std::greater<int>());
+       if (i2 == v1.end()) {
+           std::cout << "The entire vector is sorted in ascending order\n";
+       } else {
+           std::cout << "The last element in the non-decreasing subsequence is at: "
+                     << std::distance(v1.begin(), i2) << '\n';
+       }
+    }
+    
+    {
+        // std::mismatch
+        // template< class InputIt1, class InputIt2 >
+        // std::pair<InputIt1,InputIt2> mismatch( InputIt1 first1, InputIt1 last1, InputIt2 first2 );
+        
+        // template< class InputIt1, class InputIt2, class BinaryPredicate >
+        // constexpr std::pair<InputIt1,InputIt2>
+        // mismatch( InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p );
+        
+        auto mirror_ends = [](const std::string& in) -> std::string {
+            return std::string(in.begin(),
+                               std::mismatch(in.begin(), in.end(), in.rbegin()).first);
+        };
+        
+        std::cout << mirror_ends("abXYZba") << '\n'
+                     << mirror_ends("abca") << '\n'
+                     << mirror_ends("aba") << '\n';
     }
 }
+
 
 
 
