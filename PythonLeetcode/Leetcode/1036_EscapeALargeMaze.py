@@ -27,7 +27,7 @@ from collections import deque
 
 
 class IsEscapePossible:
-    def doit(self, blocked, source, target):
+    def doit1(self, blocked, source, target):
 
         N = 10 ** 6
         blocked = set(tuple(c) for c in blocked)
@@ -42,12 +42,7 @@ class IsEscapePossible:
                 if len(seen) > 19900:
                     return 1  # outside
                 for c in ((x - 1, y), (x, y - 1), (x, y + 1), (x + 1, y)):
-                    if (
-                        c not in blocked
-                        and c not in seen
-                        and 0 <= c[0] < N
-                        and 0 <= c[1] < N
-                    ):
+                    if c not in blocked and c not in seen and 0 <= c[0] < N and 0 <= c[1] < N:
                         q.append(c)
                         seen.add(c)
 
@@ -55,16 +50,65 @@ class IsEscapePossible:
 
         return bfs(source) ^ bfs(target) != 1
 
+    def doit(self, blocked, source, target):
+        """
+        :type blocked: List[List[int]]
+        :type source: List[int]
+        :type target: List[int]
+        :rtype: bool
+        """
 
+        # Based on Lee215's inspiration, but with some modifications. Ideas are below:
+        # we can track the visited blocked, if all blocked are visited and BFS queue is not empty, then it means source is not trapped
+        # if we have more alive nodes in our BFS queue than the count of non-visited blocks, then source is definitely not trapped.
+        # using BFS depth as the termination condition is very time-consuming as BFS queue increases very quickly
+        # changing:
+        # len(queue) > len(blocked) - len(seen_block)
+        # to:
+        # len(queue) > (len(blocked) - len(seen_block))*2
+        # will only cost one more BFS step instead of double it
+
+        def bfs(blocked, source, target):
+            queue = deque([source])
+            visited = set([source])
+            seen_block = set()     # the visited blocks
+            while queue:
+                for _ in range(len(queue)):
+                    i, j = queue.popleft()
+                    if (i, j) == target:
+                        return True
+                    for v in ((0, 1), (0, -1), (1, 0), (-1, 0)):
+                        p, q = i+v[0], j+v[1]
+                        if (p, q) in blocked:
+                            seen_block.add((p, q))
+                            continue
+                        if p >= 0 and q >= 0 and (p, q) not in visited:
+                            queue.append((p, q))
+                            visited.add((p, q))
+                if len(queue) > len(blocked) - len(seen_block):   # much faster than BFS_depth > len(blocked)*2
+                    return True
+            return False
+
+        blocked = map(tuple, blocked)  # list is not hashable
+        blocked = set(blocked)  # don't forget !
+        source = tuple(source)
+        target = tuple(target)
+        if not blocked:
+            return True
+
+        if target in blocked or source in blocked:
+            return False
+
+        return bfs(blocked, source, target) and bfs(blocked, target, source)
 
 
 if __name__ == "__main__":
 
-    res = IsEscapePossible().doit(
-        blocked=[[0, 1], [1, 0]], source=[0, 0], target=[0, 2]
-    )
+    res = IsEscapePossible().doit(blocked=[[0, 1], [1, 0]], source=[0, 0], target=[0, 2])
 
     res = IsEscapePossible().doit(blocked=[], source=[0, 0], target=[999999, 999999])
+
+    res = IsEscapePossible().doit([[0, 3], [1, 0], [1, 1], [1, 2], [1, 3]], [0, 0], [0, 2])
 
     res = IsEscapePossible().doit(
         [

@@ -12,6 +12,8 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodeH.Test_1044_LongestDuplicateSubstring()
+
 	leetcodem.Test_1049_LastStoneWeightII()
 
 	leetcodem.Test_1048_LongestStringChain()
