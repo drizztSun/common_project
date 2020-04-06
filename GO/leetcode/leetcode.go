@@ -12,6 +12,10 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodeH.Test_1012_NumbersWithRepeatDigits()
+
+	leetcodeH.Test_1028_RecoverATreeFromPreorderTraversal()
+
 	leetcodeH.Test_1044_LongestDuplicateSubstring()
 
 	leetcodem.Test_1049_LastStoneWeightII()

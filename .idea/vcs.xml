@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www" vcs="Git" />
   </component>
 </project>

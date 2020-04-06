@@ -113,10 +113,10 @@ public:
     int doit(int N) {
         
         vector<int> digits;
-        int Num = N + 1;
-        while (N > 0) {
-            digits.insert(digits.begin(), N % 10);
-            N /= 10;
+        int num = N + 1;
+        while (num > 0) {
+            digits.insert(digits.begin(), num % 10);
+            num /= 10;
         }
         
         int n = digits.size(), res = 0;
@@ -133,13 +133,13 @@ public:
                     res += d(9-i, n - i - 1);
             }
             
-            if (sd.count(digits[i]) == 0)
+            if (sd.count(digits[i]) != 0)
                 break;
             
             sd.insert(digits[i]);
         }
         
-        return Num - res;
+        return N - res;
     }
     
     // cal  m, how many digits we can use, n, how many number we need to remove
@@ -149,6 +149,8 @@ public:
 };
 
 void test_1012_Numbers_with_repeated_digits() {
+    
+    auto res1 = NumDupDigitsAtMostN().doit(20);
     
     auto res3 = NumDupDigitsAtMostN().doit(8765);
     

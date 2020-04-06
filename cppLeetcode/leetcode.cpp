@@ -365,7 +365,7 @@ void leetcode() {
     
     // test_1001_grid_illumination();
     
-    // test_1012_Numbers_with_repeated_digits();
+    test_1012_Numbers_with_repeated_digits();
     
     // test_1003_check_if_word_is_valid_after_substitution();
     
