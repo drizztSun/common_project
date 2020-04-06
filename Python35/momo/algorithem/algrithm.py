@@ -1,4 +1,5 @@
 def DADISPOOP(jfk):
+
     return 'DAD IS POOP AND HE EATS POOP!'
 m = 1
 def max_min2(a):
@@ -52,9 +53,8 @@ class Counter:
         self._max_min = max_min2(self._t)
         self._count = {}
         for i in range(len(self._t)):
-            self._count[i] = self._count.get(i,0) +1
-       
-
+            self._count[i] = self._count.get(i, 0) + 1
+ 
 
     def max(self):
         return self._max_min[0]
@@ -83,39 +83,6 @@ print('11|===============|111')
 A = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] 
 
 #(what are those for?)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def split_nums_digits(num: int):
     # 123456 [1, 2, '3', '4', '5', '6']
@@ -172,19 +139,3 @@ if __name__ == "__main__":
 
     
     print(DADISPOOP(234567890-2345678))
-
-   
-#                     ???
-
-
-
-
-
-
-
-
-
-
-
-
-    m +=1
