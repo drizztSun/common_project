@@ -112,6 +112,7 @@ public:
     
     int doit(int N) {
         
+
         vector<int> digits;
         int num = N + 1;
         while (num > 0) {
