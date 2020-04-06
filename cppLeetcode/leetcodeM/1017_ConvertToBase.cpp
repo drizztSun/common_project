@@ -43,6 +43,7 @@ public:
         string ans;
         while (N != 0) {
             if (N % 2 != 0) {
+                // if (-2) ^ 2 + (-2) ^ 1 + (-2) ^ 0 = 3,  3 should minus 1, will be next level
                 ans = '1' + ans;
                 N -= 1;
             }

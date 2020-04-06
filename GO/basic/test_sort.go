@@ -19,23 +19,61 @@ func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
 // test_sort_basic
 func test_sort_basic() {
-	persons := []PersonInfo{
-		{"Tom", 19},
-		{"Peter", 20},
-		{"Mike", 13},
+
+	{
+		// basic sort sort.Ints, sort.Float64, sort.Strings
+		s := []int{3, 2, 4, 1}
+		sort.Ints(s)
+		fmt.Println(s)
+
+		s1 := []float64{1.0, 2.0, 4.0, 3.0}
+		sort.Float64s(s1)
+		fmt.Println(s1)
+
+		s2 := []string{"abs", "abc", "bce", "cdf"}
+		sort.Strings(s2)
+		fmt.Println(s2)
 	}
 
-	fmt.Println(persons)
+	{
+		persons := []PersonInfo{
+			{"Tom", 19},
+			{"Peter", 20},
+			{"Mike", 13},
+		}
 
-	sort.Sort(ByAge(persons))
+		fmt.Println(persons)
 
-	fmt.Println(persons)
+		sort.Sort(ByAge(persons))
 
-	sort.Slice(persons, func(i, j int) bool {
-		return persons[i].Age < persons[j].Age
-	})
+		fmt.Println(persons)
 
-	fmt.Println(persons)
+		sort.Slice(persons, func(i, j int) bool {
+			return persons[i].Age < persons[j].Age
+		})
+
+		fmt.Println(persons)
+	}
+
+	{
+		// Bonus: Sort a map by key or value
+		// A map is an unordered collection of key-value pairs.
+		// If you need a stable iteration order, you must maintain a separate data structure.
+		// This code example uses a slice of keys to sort a map in key order.
+
+		m := map[string]int{"Alice": 2, "Cecil": 1, "Bob": 3}
+
+		keys := make([]string, 0, len(m))
+		for k := range m {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+
+		for _, k := range keys {
+			fmt.Println(k, m[k])
+		}
+
+	}
 }
 
 // A couple of type definitions to make the units clear.
@@ -421,6 +459,43 @@ func test_sort_basic_func() {
 		}
 	}
 
+}
+
+/*
+// Sort custom data structures
+// Use the generic sort.Sort and sort.Stable functions.
+// They sort any collection that implements the sort.Interface interface.
+type Interface interface {
+        // Len is the number of elements in the collection.
+        Len() int
+        // Less reports whether the element with
+        // index i should sort before the element with index j.
+        Less(i, j int) bool
+        // Swap swaps the elements with indexes i and j.
+        Swap(i, j int)
+}
+*/
+
+type Per struct {
+	name string
+	Age  int
+}
+
+type ByAgePer []Per
+
+func (a ByAgePer) Len() int           { return len(a) }
+func (a ByAgePer) Less(i, j int) bool { return a[i].Age < a[j].Age }
+func (a ByAgePer) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+
+func test_custom_data_structure() {
+	family := []Per{
+		{"ALice", 20},
+		{"Eve", 2},
+		{"Bob", 25},
+	}
+
+	sort.Sort(ByAgePer(family))
+	fmt.Println(family)
 }
 
 func test_sort() {

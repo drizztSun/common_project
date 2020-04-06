@@ -43,17 +43,25 @@ public:
 
      First, we notice that if the sum of all the numbers is odd. The smallest possible difference is 1 instead of 0 no matter how.
 
-     Next, we can declare an int target to be the sum of EACH group that we want to find. For example, if the sum = 23, target can be either 11 (or 12), which means that we want to find some of the numbers to sum up to 11 (or 12). Notice that we can simply use 11 as target in this case since the other group will definitely sum up to 12 if we can find a group summing up to 11.
+     Next, we can declare an int target to be the sum of EACH group that we want to find. For example, if the sum = 23, target can be either 11 (or 12),
+     which means that we want to find some of the numbers to sum up to 11 (or 12).
+     Notice that we can simply use 11 as target in this case since the other group will definitely sum up to 12 if we can find a group summing up to 11.
 
-     Last, if we cannot find target, we need to double the difference between target and the closest (but not exceed) number to return. For example, in the previous case, if we can only find 9 (and 14) to be the closest sum, the returned value is 1 + 2 * (target - 9) = 5 since 14 - 9 = 5. There is a 1 since the total sum is odd.
+     Last, if we cannot find target, we need to double the difference between target and the closest (but not exceed) number to return.
+     
+     For example, in the previous case, if we can only find 9 (and 14) to be the closest sum, the returned value is 1 + 2 * (target - 9) = 5 since 14 - 9 = 5. There is a 1 since the total sum is odd.
 
      Method 1 : Dynamic Programing
      ---Time Complexity = O(sum * stones.size())
      ---Space Complexity = O(sum)
 
-     After we find the target, we declare a vector called dp with size of target + 1 which stores all the possible sum from 0 to target (inclusive). dp[j] will be 1 if it's possible to find some numbers summing up to j.
-     And then, we start to check from dp[target], if dp[k] is not 1, meaning that we cannot find some numbers summing up to target. Then we need to increase the returned value by 2. We repeat this process and decrease the checking number by 1 every time until we find a dp[k] is 1.
+     After we find the target, we declare a vector called dp with size of target + 1 which stores all the possible sum from 0 to target (inclusive).
+     dp[j] will be 1 if it's possible to find some numbers summing up to j.
+     
+     And then, we start to check from dp[target], if dp[k] is not 1, meaning that we cannot find some numbers summing up to target.
+     Then we need to increase the returned value by 2. We repeat this process and decrease the checking number by 1 every time until we find a dp[k] is 1.
      */
+    
     int doit(vector<int>&& stones) {
         
         int total = std::accumulate(stones.begin(), stones.end(), 0);

@@ -261,9 +261,25 @@ void test_990_statifiability_of_equality_equations();
 
 void test_991_broken_calculator();
 
+void test_988_smallest_from_leaf();
+
+void test_987_vertical_order_traversal_of_binary_tree();
+
+void test_981_time_based_key_value_store();
+
+void test_1044_longest_duplicate_substring();
+
 void leetcode() {
     
-    test_991_broken_calculator();
+    test_1044_longest_duplicate_substring();
+    
+    // test_981_time_based_key_value_store();
+    
+    // test_987_vertical_order_traversal_of_binary_tree();
+    
+    // test_988_smallest_from_leaf();
+    
+    // test_991_broken_calculator();
     
     // test_990_statifiability_of_equality_equations();
     
@@ -341,7 +357,7 @@ void leetcode() {
     
     // test_974_subarray_sums_division_by_k();
     
-    // test_1036_escape_large_maze();
+    test_1036_escape_large_maze();
     
     // test_1032_stream_of_characters();
     
@@ -387,7 +403,7 @@ void leetcode() {
     
     // test_1040_moving_stones_until_consecutive();
     
-    //test_1034_Coloring_A_Border();
+    test_1034_Coloring_A_Border();
     
 	//minimum_window_substring();
 

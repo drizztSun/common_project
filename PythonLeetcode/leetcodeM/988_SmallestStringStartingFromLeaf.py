@@ -34,17 +34,16 @@ class TreeNode:
 
 
 class SmallestFromLeaf:
-
     def doit(self, root):
 
         self._ans = None
-        base = 'abcdefghijklmnopqrstuvwxyz'
+        base = "abcdefghijklmnopqrstuvwxyz"
 
         def search(n, path):
 
             if not n.left and not n.right:
 
-                r = ''.join([base[n.val]] + path)
+                r = "".join([base[n.val]] + path)
                 if not self._ans or self._ans > r:
                     self._ans = r
                 return
@@ -60,25 +59,42 @@ class SmallestFromLeaf:
         return self._ans
 
     def doit(self, root):
+        ans = [None]
 
-        cache = OrderedDict()
-        self.traverse(root, 0, 0, cache)
-        return [[val[0] for val in sorted(item[1], key=lambda x: (abs(x[1]), x[0]))] for item in sorted(cache.items(), key=lambda x: x[0])]
+        def dfs(node, string):
+            if node is None:
+                return
+            res = string + chr(97 + node.val)
+            if node.left is node.right:
+                res = res[::-1]
+                if ans[0] is None:
+                    ans[0] = res
+                elif res < ans[0]:
+                    ans[0] = res
+            else:
+                dfs(node.left, res)
+                dfs(node.right, res)
 
-    def traverse(self, root, x, y, cache):
-        if not root:
-            return
-        else:
+        dfs(root, "")
+        return ans[0]
 
-            self.traverse(root.left, x - 1, y - 1, cache)
+    def doit(self, root):
+        self.res = []
 
-            curr = cache.get(x, [])
-            curr.append((root.val, y))
-            cache[x] = curr
-            self.traverse(root.right, x + 1, y - 1, cache)
+        def dfs(root, s):
+            if not root.left and not root.right:
+                self.res.append(chr(97 + root.val) + s)
+            if root.left:
+                dfs(root.left, chr(97 + root.val) + s)
+            if root.right:
+                dfs(root.right, chr(97 + root.val) + s)
+
+        dfs(root, "")
+        self.res.sort()
+        return self.res[0]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     root = TreeNode(0)
     root.left = TreeNode(1)

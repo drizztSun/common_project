@@ -34,8 +34,6 @@ public:
         string parts = "0";
         
         for (size_t i = 1; i <= N; i++) {
-            
-            bool pos = false;
         
             for (size_t j = parts.length() - 1; j <= -1; j--) {
                 if (j == -1){

@@ -33,6 +33,16 @@ class LastStoneWeightII:
         total = sum(stones)
         start = min(stones)
 
+        # Given a vector of numbers stones, divide these numbers into 2 groups and try to make these 2 groups have closest sum.
+        # Return the smallest possible difference of the sums.
+        # First, we notice that if the sum of all the numbers is odd. The smallest possible difference is 1 instead of 0 no matter how.
+
+        # Next, we can declare an int target to be the sum of EACH group that we want to find. For example, if the sum = 23, target can be either 11 (or 12),
+        # which means that we want to find some of the numbers to sum up to 11 (or 12).
+        # Notice that we can simply use 11 as target in this case since the other group will definitely sum up to 12 if we can find a group summing up to 11.
+
+        # Last, if we cannot find target, we need to double the difference between target and the closest (but not exceed) number to return.
+
         # every possible weight value, if dp[i] == true, i is a sum of partial weight of sub array
         dp = [False] * (total // 2 + 1)
         dp[0] = True

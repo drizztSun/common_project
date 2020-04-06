@@ -12,6 +12,40 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodeH.Test_1044_LongestDuplicateSubstring()
+
+	leetcodem.Test_1049_LastStoneWeightII()
+
+	leetcodem.Test_1048_LongestStringChain()
+
+	leetcodem.Test_1041_RobotBoundledInCircle()
+
+	leetcodem.Test_1034_ColoringABorder()
+
+	leetcodem.Test_1039_MinimumScoreTriangulationOfPolygon()
+
+	leetcodem.Test_1035_UncrossedLines()
+
+	leetcodem.Test_1031_MaximumSumOfTwoNonOverlappingSubarray()
+
+	leetcodem.Test_1027_LongestArithmeticSequence()
+
+	leetcodem.Test_1024_VideoStiching()
+
+	leetcodem.Test_1023_CamelcaseMatching()
+
+	leetcodem.Test_1020_NumberOfEnclaves()
+
+	leetcodem.Test_1017_ConvertToBase2()
+
+	leetcodem.Test_1011_CapacityToShipPackagesWithDDays()
+
+	leetcodem.Test_1008_ConstructBinarySearchTreeFromPreorderTraversal()
+
+	leetcodem.Test_1003_Check_if_WordIsValidAfterSub()
+
+	leetcodem.Test_981_time_based_key_value_store()
+
 	leetcodem.Test_990_satifiability_of_equality_equation()
 
 	leetcodeH.Test_982_TripleWithBitwiseAndEqualToZero()
