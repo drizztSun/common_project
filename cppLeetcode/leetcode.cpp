@@ -271,7 +271,7 @@ void test_1044_longest_duplicate_substring();
 
 void leetcode() {
     
-    test_1044_longest_duplicate_substring();
+    // test_1044_longest_duplicate_substring();
     
     // test_981_time_based_key_value_store();
     
@@ -357,7 +357,7 @@ void leetcode() {
     
     // test_974_subarray_sums_division_by_k();
     
-    test_1036_escape_large_maze();
+    // test_1036_escape_large_maze();
     
     // test_1032_stream_of_characters();
     

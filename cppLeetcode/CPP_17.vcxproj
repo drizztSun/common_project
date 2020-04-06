@@ -90,6 +90,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -120,6 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -176,6 +178,7 @@
     <ClCompile Include="leetcodeM\1048_LongestStringChain.cpp" />
     <ClCompile Include="leetcodeM\1049_LastStoneWeightII.cpp" />
     <ClCompile Include="leetcodeM\801_MinimumSwapsToMakeSequencesIncreasing.cpp" />
+    <ClCompile Include="leetcodeM\939_MinimumAreaRectangle.cpp" />
     <ClCompile Include="leetcode\10_RegularExpressionMatching.cpp" />
     <ClCompile Include="leetcode\11_ContainerWithMostWater.cpp" />
     <ClCompile Include="leetcode\123_BestTimetoBuyandSellStockIII.cpp" />

@@ -17,9 +17,9 @@ int main() {
 
 
 
-	//TestUnorderMap();
+	TestUnorderMap();
 
-	// Test_Unordered_set();
+	Test_Unordered_set();
 
 	test_vector_morden_cpp();
 

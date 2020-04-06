@@ -2,84 +2,95 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="cppConsole.cpp" />
-    <ClCompile Include="Functional.cpp" />
     <ClCompile Include="Leetcode.cpp" />
-    <ClCompile Include="utf_str.cpp" />
-    <ClCompile Include="smart_ptr.cpp" />
-    <ClCompile Include="cpp14.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_forwardlist.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_userdefined_conversion.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_asynchronized.cpp">
-      <Filter>boost</Filter>
-    </ClCompile>
-    <ClCompile Include="test_thread.cpp">
-      <Filter>morden C\concurrency</Filter>
-    </ClCompile>
-    <ClCompile Include="test_mutex.cpp">
-      <Filter>morden C\concurrency</Filter>
-    </ClCompile>
-    <ClCompile Include="test_atomic.cpp">
-      <Filter>morden C\concurrency</Filter>
-    </ClCompile>
-    <ClCompile Include="test_shared_ptr.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="test_condition_variable.cpp">
-      <Filter>morden C\concurrency</Filter>
-    </ClCompile>
-    <ClCompile Include="test_constexpr.cpp">
-      <Filter>morden C</Filter>
-    </ClCompile>
-    <ClCompile Include="Precessor_define.cpp" />
     <ClCompile Include="stdafx.cpp">
       <Filter>others</Filter>
     </ClCompile>
-    <ClCompile Include="test_move_forward.cpp">
+    <ClCompile Include="src\cpp14.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
-    <ClCompile Include="test_future.cpp">
-      <Filter>morden C\concurrency</Filter>
-    </ClCompile>
-    <ClCompile Include="test_any.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_list.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_map.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_set.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_unordered_map.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_unordered_set.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_vector.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_stack.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_deque.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_array.cpp">
-      <Filter>morden C\container</Filter>
-    </ClCompile>
-    <ClCompile Include="test_variadic_template.cpp">
+    <ClCompile Include="src\Functional.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
-    <ClCompile Include="test_lambda.cpp">
+    <ClCompile Include="src\Precessor_define.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\share_ptr.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\smart_ptr.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_any.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_array.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_asynchronized.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_atomic.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_condition_variable.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_constexpr.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_deque.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_forwardlist.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_future.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_lambda.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_list.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_map.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_move_forward.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_mutex.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_set.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_shared_ptr.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_stack.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_thread.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_unordered_map.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_unordered_set.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_userdefined_conversion.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_variadic_template.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\test_vector.cpp">
+      <Filter>morden C</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utf_str.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
   </ItemGroup>

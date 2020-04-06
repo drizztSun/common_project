@@ -170,7 +170,7 @@ public:
          unordered_map<std::pair<int,int>, int, Hash> seenPairsOfY2X;
          int res = std::numeric_limits<int>::max();
          for (auto&[x, ys] : x2y) {
-             sort(ys.begin(), ys.end());
+             std::sort(ys.begin(), ys.end());
              for (int i = 0; i < ys.size(); ++i)
                  for (int j = 0; j < i; ++j) {
                      int y1 = ys[j], y2 = ys[i]; // y2 > y1

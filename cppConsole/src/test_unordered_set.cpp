@@ -82,8 +82,8 @@ void Test_normal_set() {
          myset.erase ( myset.find("Japan"), myset.end() ); // erasing by range
 
          std::cout << "myset contains:";
-         for ( const std::string& x: myset )
-             std::cout << " " << x;
+         for ( auto& x: myset )
+             std::cout << " " << x.c_str() ;
          std::cout << std::endl;
     }
     
@@ -97,7 +97,7 @@ void Test_normal_set() {
 
         auto s = myset.insert (mystring);                        // copy insertion
         if (s.second) {
-            std::cout << "insert element " << *s.first << endl;
+            std::cout << "insert element " << s.first->c_str() << endl;
         }
         
         myset.insert (mystring+"dish");                 // move insertion
@@ -106,8 +106,8 @@ void Test_normal_set() {
 
 
         std::cout << "myset contains:";
-        for (const std::string& x: myset)
-            std::cout << " " << x;
+        for (auto& x: myset)
+            std::cout << " " << x.c_str();
         std::cout <<  std::endl;
     }
     
@@ -124,8 +124,8 @@ void Test_normal_set() {
         myset.emplace ("flour");
 
         std::cout << "myset contains:";
-        for (const std::string& x: myset)
-            std::cout << " " << x;
+        for (auto& x: myset)
+            std::cout << " " << x.c_str();
 
         std::cout << std::endl;
     }
@@ -198,14 +198,16 @@ void Test_normal_set() {
     {
         std::unordered_set<std::string> first = {"Metropolis","Solaris","Westworld"}, second  = {"Avatar","Inception"};
 
-         swap(first,second);
+         swap(first, second);
 
          std::cout << "first:";
-         for (const std::string& x: first) std::cout << " " << x;
+         for (auto& x: first) 
+			 std::cout << " " << x.c_str();
          std::cout << std::endl;
 
          std::cout << "second:";
-         for (const std::string& x: second) std::cout << " " << x;
+         for (auto& x: second) 
+			 std::cout << " " << x.c_str();
          std::cout << std::endl;
     }
     

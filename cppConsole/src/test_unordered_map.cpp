@@ -263,14 +263,14 @@ void BasicKeyInMap() {
 
         std::cout << "mymap contains:";
         for ( auto it = mymap.begin(); it != mymap.end(); ++it )
-          std::cout << " " << it->first << ":" << it->second;
+          std::cout << " " << it->first.c_str() << ":" << it->second.c_str();
         std::cout << std::endl;
 
         std::cout << "mymap's buckets contain:\n";
         for ( unsigned i = 0; i < mymap.bucket_count(); ++i) {
           std::cout << "bucket #" << i << " contains:";
           for ( auto local_it = mymap.begin(i); local_it!= mymap.end(i); ++local_it )
-            std::cout << " " << local_it->first << ":" << local_it->second;
+            std::cout << " " << local_it->first.c_str() << ":" << local_it->second.c_str();
           std::cout << std::endl;
         }
             
@@ -279,14 +279,14 @@ void BasicKeyInMap() {
         // Returns a const_iterator pointing to the first element in the unordered_map container (1) or in one of its buckets (2).
         std::cout << "mymap contains:";
         for ( auto it = mymap.cbegin(); it != mymap.cend(); ++it )
-          std::cout << " " << it->first << ":" << it->second;  // cannot modify *it
+          std::cout << " " << it->first.c_str() << ":" << it->second.c_str();  // cannot modify *it
         std::cout << std::endl;
 
         std::cout << "mymap's buckets contain:\n";
         for ( unsigned i = 0; i < mymap.bucket_count(); ++i) {
           std::cout << "bucket #" << i << " contains:";
           for ( auto local_it = mymap.cbegin(i); local_it!= mymap.cend(i); ++local_it )
-            std::cout << " " << local_it->first << ":" << local_it->second;
+            std::cout << " " << local_it->first.c_str() << ":" << local_it->second.c_str();
           std::cout << std::endl;
         }
     }
@@ -316,7 +316,7 @@ void BasicKeyInMap() {
         mymap["Produce"] = mymap["Gifts"];    // new element "Gifts" inserted, "Produce" written
 
         for (auto& x: mymap) {
-          std::cout << x.first << ": " << x.second << std::endl;
+          std::cout << x.first.c_str() << ": " << x.second.c_str() << std::endl;
         }
         
         // std::unordered_map::at
@@ -337,7 +337,7 @@ void BasicKeyInMap() {
         mymap1.at("Jupiter") = mymap1.at("Saturn") + 9638;
 
         for (auto& x: mymap) {
-          std::cout << x.first << ": " << x.second << std::endl;
+          std::cout << x.first.c_str() << ": " << x.second.c_str() << std::endl;
         }
     }
 
@@ -357,7 +357,7 @@ void BasicKeyInMap() {
         if ( got == mymap.end() )
           std::cout << "not found";
         else
-          std::cout << got->first << " is " << got->second;
+          std::cout << got->first.c_str() << " is " << got->second;
 
         std::cout << std::endl;
         
@@ -394,7 +394,7 @@ void BasicKeyInMap() {
 
             std::cout << "mymap contains:" << std::endl;
             for (auto& x: mymap)
-              std::cout << x.first << ": " << x.second << std::endl;
+              std::cout << x.first.c_str() << ": " << x.second.c_str() << std::endl;
 
             std::cout << std::endl;
         }
@@ -419,7 +419,7 @@ void BasicKeyInMap() {
 
             std::cout << "myrecipe contains:" << std::endl;
             for (auto& x: myrecipe)
-              std::cout << x.first << ": " << x.second << std::endl;
+              std::cout << x.first.c_str() << ": " << x.second << std::endl;
 
             std::cout << std::endl;
         }
@@ -447,7 +447,7 @@ void BasicKeyInMap() {
 
             // show content:
             for ( auto& x: mymap1 )
-              std::cout << x.first << ": " << x.second << std::endl;
+              std::cout << x.first.c_str() << ": " << x.second.c_str() << std::endl;
         }
         
         // clear
@@ -458,7 +458,8 @@ void BasicKeyInMap() {
                    { {"house","maison"}, {"car","voiture"}, {"grapefruit","pamplemousse"} };
 
             std::cout << "mymap contains:";
-            for (auto& x: mymap) std::cout << " " << x.first << "=" << x.second;
+            for (auto& x: mymap) 
+				std::cout << " " << x.first.c_str() << "=" << x.second.c_str();
             std::cout << std::endl;
 
             mymap.clear();
@@ -466,7 +467,7 @@ void BasicKeyInMap() {
             mymap["sun"]="soleil";
 
             std::cout << "mymap contains:";
-            for (auto& x: mymap) std::cout << " " << x.first << "=" << x.second;
+            for (auto& x: mymap) std::cout << " " << x.first.c_str() << "=" << x.second.c_str();
             std::cout << std::endl;
         }
         
@@ -483,11 +484,11 @@ void BasicKeyInMap() {
             first.swap(second);
 
             std::cout << "first: ";
-            for (auto& x: first) std::cout << x.first << " (" << x.second << "), ";
+            for (auto& x: first) std::cout << x.first.c_str() << " (" << x.second.c_str() << "), ";
             std::cout << std::endl;
 
             std::cout << "second: ";
-            for (auto& x: second) std::cout << x.first << " (" << x.second << "), ";
+            for (auto& x: second) std::cout << x.first.c_str() << " (" << x.second.c_str() << "), ";
             std::cout << std::endl;
         }
     }
@@ -516,7 +517,7 @@ void BasicKeyInMap() {
             for (unsigned i=0; i<n; ++i) {
               std::cout << "bucket #" << i << " contains: ";
               for (auto it = mymap.begin(i); it!=mymap.end(i); ++it)
-                std::cout << "[" << it->first << ":" << it->second << "] ";
+                std::cout << "[" << it->first.c_str() << ":" << it->second.c_str() << "] ";
               std::cout << "\n";
             }
             
@@ -550,7 +551,7 @@ void BasicKeyInMap() {
             };
 
             for (auto& x: mymap) {
-              std::cout << "Element [" << x.first << ":" << x.second << "]";
+              std::cout << "Element [" << x.first.c_str() << ":" << x.second.c_str() << "]";
               std::cout << " is in bucket #" << mymap.bucket(x.first) << std::endl;
             }
         }
@@ -666,7 +667,7 @@ void BasicKeyInMap() {
             mymap["grapefruit"] = "pamplemousse";
 
             for (auto& x: mymap) {
-              std::cout << x.first << ": " << x.second << std::endl;
+              std::cout << x.first.c_str() << ": " << x.second.c_str() << std::endl;
             }
         }
     }
