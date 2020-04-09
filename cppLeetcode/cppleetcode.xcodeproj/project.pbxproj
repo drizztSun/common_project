@@ -143,6 +143,7 @@
 		08AB629E2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08AB629D2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp */; };
 		08AB62A02427E4A300C26A4C /* 975_OddEvenJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08AB629F2427E4A300C26A4C /* 975_OddEvenJump.cpp */; };
 		08AB62A2242826C000C26A4C /* 1000_MinimumCostToMergeStones.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08AB62A1242826C000C26A4C /* 1000_MinimumCostToMergeStones.cpp */; };
+		08ADEC0F243E9A0C009F8AEB /* 906_SuperPalindromes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */; };
 		08B505B12417E87B001E19BE /* 1036_EscapeLargeMaze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */; };
 		08B505B32418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B505B22418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp */; };
 		08CA26F32424596100450C6C /* 971_FlipBinaryTreeToMatchPreorderTraversal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CA26F22424596100450C6C /* 971_FlipBinaryTreeToMatchPreorderTraversal.cpp */; };
@@ -319,6 +320,7 @@
 		08AB629D2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 972_EqualRationalNumbers.cpp; sourceTree = "<group>"; };
 		08AB629F2427E4A300C26A4C /* 975_OddEvenJump.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 975_OddEvenJump.cpp; sourceTree = "<group>"; };
 		08AB62A1242826C000C26A4C /* 1000_MinimumCostToMergeStones.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1000_MinimumCostToMergeStones.cpp; sourceTree = "<group>"; };
+		08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 906_SuperPalindromes.cpp; sourceTree = "<group>"; };
 		08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1036_EscapeLargeMaze.cpp; sourceTree = "<group>"; };
 		08B505B22418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 951_FlipEquivalentBinaryTrees.cpp; sourceTree = "<group>"; };
 		08CA26F22424596100450C6C /* 971_FlipBinaryTreeToMatchPreorderTraversal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 971_FlipBinaryTreeToMatchPreorderTraversal.cpp; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */,
 				087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */,
 				089BB604243BC29400BB3A70 /* 902_NumbersAtMostNGivenDigitSet.cpp */,
+				08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -759,6 +762,7 @@
 				0840A363242413D300BB7143 /* 967_NumbersWithSameConsecutiveDifferences.cpp in Sources */,
 				08D8ED6B242AD8BC00F8543D /* 982_TriplesWithBitwiseANDEqualToZero.cpp in Sources */,
 				086A8ABE24071C4A00CFAEED /* 514_FreedomTrail.cpp in Sources */,
+				08ADEC0F243E9A0C009F8AEB /* 906_SuperPalindromes.cpp in Sources */,
 				086A8AD524071C4A00CFAEED /* 472_ConcatenatedWordscpp.cpp in Sources */,
 				08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */,
 				08AB629E2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp in Sources */,

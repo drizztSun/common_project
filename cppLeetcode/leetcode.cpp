@@ -271,9 +271,13 @@ void test_1044_longest_duplicate_substring();
 
 void test_902_at_most_given_digits();
 
+void test_906_SuperPalindromes();
+
 void leetcode() {
     
-    test_902_at_most_given_digits();
+    test_906_SuperPalindromes();
+    
+    // test_902_at_most_given_digits();
     
     // test_1044_longest_duplicate_substring();
     
