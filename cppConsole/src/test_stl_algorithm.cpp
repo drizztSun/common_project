@@ -21,15 +21,434 @@
 using std::vector;
 
 #include <algorithm>
-
+#include <array>
 #include <functional>
 #include <numeric>
-
+#include <random>
 #include <functional>
+#include <forward_list>
+#include <iomanip>
 
+void test_sort();
+void test_partition();
+void test_permutation();
+void test_max_min();
+
+
+static bool abs_compare(int a, int b)
+{
+    return (std::abs(a) < std::abs(b));
+}
+ 
+void test_max_min()
+{
+    {
+        // std::max_element
+       std::vector<int> v{ 3, 1, -14, 1, 5, 9 };
+       std::vector<int>::iterator result;
+    
+       result = std::max_element(v.begin(), v.end());
+       std::cout << "max element at: " << std::distance(v.begin(), result) << '\n';
+    
+       result = std::max_element(v.begin(), v.end(), abs_compare);
+       std::cout << "max element (absolute) at: " << std::distance(v.begin(), result) << '\n';
+    }
+    
+    {
+        // std::min_element
+       std::vector<int> v{3, 1, 4, 1, 5, 9};
+    
+       std::vector<int>::iterator result = std::min_element(v.begin(), v.end());
+       std::cout << "min element at: " << std::distance(v.begin(), result);
+    }
+    
+    {
+        // std::minmax_element
+       const auto v = { 3, 9, 1, 4, 2, 5, 9 };
+       const auto [min, max] = std::minmax_element(begin(v), end(v));
+    
+       std::cout << "min = " << *min << ", max = " << *max << '\n';
+    }
+    
+    {
+        // std::clamp
+        // clamps a value between a pair of boundary values
+        // template<class T>
+        // constexpr const T& clamp( const T& v, const T& lo, const T& hi );
+
+        // template<class T, class Compare>
+        // constexpr const T& clamp( const T& v, const T& lo, const T& hi, Compare comp );
+        // 1) If v compares less than lo, returns lo; otherwise if hi compares less than v, returns hi; otherwise returns v. Uses operator< to compare the values.
+        std::mt19937 g(std::random_device{}());
+        std::uniform_int_distribution<> d(-300, 300);
+        std::cout << " raw   clamped to int8_t   clamped to uint8_t\n";
+        for(int n = 0; n < 5; ++n) {
+            int v = d(g);
+            std::cout << std::setw(4) << v
+                      << std::setw(20) << std::clamp(v, INT8_MIN, INT8_MAX)
+                      << std::setw(21) << std::clamp(v, 0, UINT8_MAX) << '\n';
+        }
+    }
+    
+    {
+        // std::minmax
+        // returns the smaller and larger of two elements
+        
+       std::vector<int> v {3, 1, 4, 1, 5, 9, 2, 6};
+       std::srand(std::time(0));
+       std::pair<int, int> bounds = std::minmax(std::rand() % v.size(),
+                                                std::rand() % v.size());
+    
+       std::cout << "v[" << bounds.first << "," << bounds.second << "]: ";
+       for (int i = bounds.first; i < bounds.second; ++i) {
+           std::cout << v[i] << ' ';
+       }
+       std::cout << '\n';
+    }
+}
+
+
+template <class ForwardIt>
+void quicksort(ForwardIt first, ForwardIt last)
+{
+   if(first == last) return;
+   auto pivot = *std::next(first, std::distance(first,last)/2);
+   ForwardIt middle1 = std::partition(first, last,
+                        [pivot](const auto& em){ return em < pivot; });
+   ForwardIt middle2 = std::partition(middle1, last,
+                        [pivot](const auto& em){ return !(pivot < em); });
+   quicksort(first, middle1);
+   quicksort(middle2, last);
+}
+
+void test_partition() {
+    
+    
+    {
+        // std::is_partitioned
+        // determines if the range is partitioned by the given predicate
+        
+        // 1) Returns true if all elements in the range [first, last) that satisfy the predicate p appear before all elements that don't. Also returns true if [first, last) is empty.
+        
+       std::array<int, 9> v = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        
+       auto is_even = [](int i){
+           return i % 2 == 0;
+       };
+        
+       std::cout.setf(std::ios_base::boolalpha);
+       std::cout << std::is_partitioned(v.begin(), v.end(), is_even) << ' ';
+    
+       std::partition(v.begin(), v.end(), is_even);
+       std::cout << std::is_partitioned(v.begin(), v.end(), is_even) << ' ';
+    
+       std::reverse(v.begin(), v.end());
+       std::cout << std::is_partitioned(v.begin(), v.end(), is_even);
+    }
+    
+    {
+        // std::partition
+        // divides a range of elements into two groups
+        
+       std::vector<int> v = {0,1,2,3,4,5,6,7,8,9};
+       std::cout << "Original vector:\n    ";
+       for(int elem : v) std::cout << elem << ' ';
+    
+       auto it = std::partition(v.begin(), v.end(), [](int i){
+           return i % 2 == 0;
+       });
+    
+       std::cout << "\nPartitioned vector:\n    ";
+       std::copy(std::begin(v), it, std::ostream_iterator<int>(std::cout, " "));
+       std::cout << " * ";
+       std::copy(it, std::end(v), std::ostream_iterator<int>(std::cout, " "));
+    
+       std::forward_list<int> fl = {1, 30, -4, 3, 5, -4, 1, 6, -8, 2, -5, 64, 1, 92};
+       std::cout << "\nUnsorted list:\n    ";
+       for(int n : fl) std::cout << n << ' ';
+       std::cout << '\n';
+    
+       quicksort(std::begin(fl), std::end(fl));
+       std::cout << "Sorted using quicksort:\n    ";
+       for(int fi : fl) std::cout << fi << ' ';
+       std::cout << '\n';
+    }
+    
+    {
+        // std::partition_copy
+        // copies a range dividing the elements into two groups
+        
+        // 1) Copies the elements from the range [first, last) to two different ranges depending on the value returned by the predicate p. The elements that satisfy the predicate p are copied to the range beginning at d_first_true. The rest of the elements are copied to the range beginning at d_first_false.
+        // The behavior is undefined if the input range overlaps either of the output ranges.
+        
+       int arr [10] = {1,2,3,4,5,6,7,8,9,10};
+       int true_arr [5] = {0};
+       int false_arr [5] = {0};
+    
+       std::partition_copy(std::begin(arr), std::end(arr),
+                           std::begin(true_arr),std::begin(false_arr),
+                           [] (int i) {return i > 5;
+       });
+    
+       std::cout << "true_arr: ";
+       for (int x : true_arr) {
+           std::cout << x << ' ';
+       }
+       std::cout << '\n';
+    
+       std::cout << "false_arr: ";
+       for (int x : false_arr) {
+           std::cout << x << ' ';
+       }
+       std::cout << '\n';
+    }
+    
+    {
+        // std::stable_partition
+        // divides elements into two groups while preserving their relative order
+        
+        // 1) Reorders the elements in the range [first, last) in such a way that all elements for which the predicate p
+        // returns true precede the elements for which predicate p returns false. Relative order of the elements is preserved.
+        std::vector<int> v{0, 0, 3, 0, 2, 4, 5, 0, 7};
+        std::stable_partition(v.begin(), v.end(), [](int n){return n>0;});
+        for (int n : v) {
+            std::cout << n << ' ';
+        }
+    }
+    
+    {
+        // std::partition_point
+        // locates the partition point of a partitioned range
+        
+        // Examines the partitioned (as if by std::partition) range [first, last) and locates the end of the first partition,
+        // that is, the first element that does not satisfy p or last if all elements satisfy p.
+        
+       std::array<int, 9> v = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    
+       auto is_even = [](int i){ return i % 2 == 0; };
+       std::partition(v.begin(), v.end(), is_even);
+    
+       auto p = std::partition_point(v.begin(), v.end(), is_even);
+    
+       std::cout << "Before partition:\n    ";
+       std::copy(v.begin(), p, std::ostream_iterator<int>(std::cout, " "));
+       std::cout << "\nAfter partition:\n    ";
+       std::copy(p, v.end(), std::ostream_iterator<int>(std::cout, " "));
+    }
+}
+
+
+
+
+
+struct Employee
+{
+    int age;
+    std::string name;  // Does not participate in comparisons
+};
+ 
+bool operator<(const Employee & lhs, const Employee & rhs)
+{
+    return lhs.age < rhs.age;
+}
 
 void test_sort() {
     
+    {
+        // is_sorted
+        // checks whether a range is sorted into ascending order
+        
+        // template< class ForwardIt >
+        // bool is_sorted( ForwardIt first, ForwardIt last );
+        
+        // template< class ForwardIt, class Compare >
+        // bool is_sorted( ForwardIt first, ForwardIt last, Compare comp );
+        
+       int digits[] = {3, 1, 4, 1, 5};
+    
+       for (auto i : digits) std::cout << i << ' ';
+       std::cout << ": is_sorted: " << std::boolalpha << std::is_sorted(std::begin(digits), std::end(digits)) << '\n';
+    
+       std::sort(std::begin(digits), std::end(digits));
+    
+       for (auto i : digits)
+           std::cout << i << ' ';
+       std::cout << ": is_sorted: " << std::is_sorted(std::begin(digits), std::end(digits)) << '\n';
+    }
+    
+    {
+        // std::is_sorted_until
+        // finds the largest sorted subrange
+        
+        // template< class ForwardIt >
+        // ForwardIt is_sorted_until( ForwardIt first, ForwardIt last );
+        
+        // template< class ForwardIt, class Compare >
+        // ForwardIt is_sorted_until( ForwardIt first, ForwardIt last, Compare comp );
+        
+       std::random_device rd;
+       std::mt19937 g(rd());
+       const int N = 6;
+       int nums[N] = {3, 1, 4, 1, 5, 9};
+    
+       const int min_sorted_size = 4;
+       int sorted_size = 0;
+       do {
+           std::shuffle(nums, nums + N, g);
+           int *sorted_end = std::is_sorted_until(nums, nums + N);
+           sorted_size = std::distance(nums, sorted_end);
+    
+           for (auto i : nums) std::cout << i << ' ';
+           std::cout << " : " << sorted_size << " initial sorted elements\n";
+       } while (sorted_size < min_sorted_size);
+    }
+    
+    {
+        // std::sort
+        // sorts a range into ascending order
+        
+        // template< class RandomIt >
+        // void sort( RandomIt first, RandomIt last );
+        
+        // template< class RandomIt, class Compare >
+        // void sort( RandomIt first, RandomIt last, Compare comp );
+        
+           std::array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+        
+           // sort using the default operator<
+           std::sort(s.begin(), s.end());
+           for (auto a : s) {
+               std::cout << a << " ";
+           }
+           std::cout << '\n';
+        
+           // sort using a standard library compare function object
+           std::sort(s.begin(), s.end(), std::greater<int>());
+           for (auto a : s) {
+               std::cout << a << " ";
+           }
+           std::cout << '\n';
+        
+           // sort using a custom function object
+           // using default struct
+           struct {
+               bool operator()(int a, int b) const
+               {
+                   return a < b;
+               }
+           } customLess;
+           std::sort(s.begin(), s.end(), customLess);
+           for (auto a : s) {
+               std::cout << a << " ";
+           }
+           std::cout << '\n';
+        
+           // sort using a lambda expression
+           std::sort(s.begin(), s.end(), [](int a, int b) {
+               return a > b;
+           });
+           for (auto a : s) {
+               std::cout << a << " ";
+           }
+           std::cout << '\n';
+    }
+    
+    {
+        // std::partial_sort
+        // sorts the first N elements of a range
+        
+        // template< class RandomIt >
+        // void partial_sort( RandomIt first, RandomIt middle, RandomIt last );
+        
+        // template< class RandomIt, class Compare >
+        // void partial_sort( RandomIt first, RandomIt middle, RandomIt last, Compare comp );
+        
+       std::array<int, 10> s{5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+    
+       std::partial_sort(s.begin(), s.begin() + 3, s.end());
+       for (int a : s) {
+           std::cout << a << " ";
+       } // 0 1 2 7 8 6 5 9 4 3
+    }
+    
+    {
+        // std::partial_sort_copy
+        // copies and partially sorts a range of elements
+        
+        // Sorts some of the elements in the range [first, last) in ascending order, storing the result in the range [d_first, d_last).
+        // At most d_last - d_first of the elements are placed sorted to the range [d_first, d_first + n).
+        // n is the number of elements to sort (n = min(last - first, d_last - d_first)). The order of equal elements is not guaranteed to be preserved.
+       std::vector<int> v0{4, 2, 5, 1, 3};
+       std::vector<int> v1{10, 11, 12};
+       std::vector<int> v2{10, 11, 12, 13, 14, 15, 16};
+       std::vector<int>::iterator it;
+    
+       it = std::partial_sort_copy(v0.begin(), v0.end(), v1.begin(), v1.end());
+    
+       std::cout << "Writing to the smaller vector in ascending order gives: ";
+       for (int a : v1) {
+           std::cout << a << " ";
+       }
+       std::cout << '\n';
+       if(it == v1.end())
+           std::cout << "The return value is the end iterator\n";
+    
+       it = std::partial_sort_copy(v0.begin(), v0.end(), v2.begin(), v2.end(),
+                                   std::greater<int>());
+    
+       std::cout << "Writing to the larger vector in descending order gives: ";
+       for (int a : v2) {
+           std::cout << a << " ";
+       }
+       std::cout << '\n' << "The return value is the iterator to " << *it << '\n';
+    }
+    
+    {
+        // std::stable_sort
+        // sorts a range of elements while preserving order between equal elements
+        
+        // template< class RandomIt >
+        // void stable_sort( RandomIt first, RandomIt last );
+    
+        // template< class RandomIt, class Compare >
+        // void stable_sort( RandomIt first, RandomIt last, Compare comp );
+        
+       std::vector<Employee> v =
+       {
+           {108, "Zaphod"},
+           {32, "Arthur"},
+           {108, "Ford"},
+       };
+    
+       std::stable_sort(v.begin(), v.end());
+    
+       for (const Employee & e : v)
+           std::cout << e.age << ", " << e.name << '\n';
+        // 32, Arthur
+        // 108, Zaphod
+        // 108, Ford
+    }
+    
+    {
+        // std::nth_element
+        // partially sorts the given range making sure that it is partitioned by the given element
+        
+        // nth_element is a partial sorting algorithm that rearranges elements in [first, last) such that:
+
+        // The element pointed at by nth is changed to whatever element would occur in that position if [first, last) were sorted.
+        // All of the elements before this new nth element are less than or equal to the elements after the new nth element.
+        // More formally, nth_element partially sorts the range [first, last) in ascending order so that the condition !(*j < *i) (for (1-2), or comp(*j, *i) == false for (3-4)) is met for any i in the range [first, nth) and for any j in the range [nth, last). The element placed in the nth position is exactly the element that would occur in this position if the range was fully sorted.
+
+        // nth may be the end iterator, in this case the function has no effect.
+        
+       std::vector<int> v{5, 6, 4, 3, 2, 6, 7, 9, 3};
+    
+       std::nth_element(v.begin(), v.begin() + v.size()/2, v.end());
+       std::cout << "The median is " << v[v.size()/2] << '\n';
+    
+       std::nth_element(v.begin(), v.begin()+1, v.end(), std::greater<int>());
+       std::cout << "The second largest element is " << v[1] << '\n';
+    }
 }
 
 void test_heap() {
@@ -310,6 +729,50 @@ void test_heap() {
 
 void test_permutation() {
     
+    // test_permutation
+    {
+        // std::is_permutation
+        // determines if a sequence is a permutation of another sequence
+        
+           std::vector<int> v1{1,2,3,4,5};
+           std::vector<int> v2{3,5,4,1,2};
+           std::cout << "3,5,4,1,2 is a permutation of 1,2,3,4,5? "
+                     << std::boolalpha
+                     << std::is_permutation(v1.begin(), v1.end(), v2.begin()) << '\n';
+        
+        // 3,5,4,1,2 is a permutation of 1,2,3,4,5? true
+        
+           std::vector<int> v3{3,5,4,1,1};
+           std::cout << "3,5,4,1,1 is a permutation of 1,2,3,4,5? "
+                     << std::boolalpha
+                     << std::is_permutation(v1.begin(), v1.end(), v3.begin()) << '\n';
+        
+        // 3,5,4,1,1 is a permutation of 1,2,3,4,5? false
+    }
+    
+    {
+        // std::next_permutation
+        // generates the next greater lexicographic permutation of a range of elements
+        
+       std::string s = "aba";
+       std::sort(s.begin(), s.end());
+       do {
+           std::cout << s << '\n';
+       } while(std::next_permutation(s.begin(), s.end()));
+    }
+    
+    {
+        // std::prev_permutation
+        // generates the next smaller lexicographic permutation of a range of elements
+        
+        std::string s="abc";
+        std::sort(s.begin(), s.end(), std::greater<char>());
+        do {
+            std::cout << s << ' ';
+        } while(std::prev_permutation(s.begin(), s.end()));
+        std::cout << '\n';
+        // cba cab bca bac acb abc
+    }
 }
 
 
@@ -639,6 +1102,8 @@ void test_for_each() {
     
     {
         // std::mismatch
+        // finds the first position where two ranges differ
+        
         // template< class InputIt1, class InputIt2 >
         // std::pair<InputIt1,InputIt2> mismatch( InputIt1 first1, InputIt1 last1, InputIt2 first2 );
         
@@ -647,8 +1112,7 @@ void test_for_each() {
         // mismatch( InputIt1 first1, InputIt1 last1, InputIt2 first2, BinaryPredicate p );
         
         auto mirror_ends = [](const std::string& in) -> std::string {
-            return std::string(in.begin(),
-                               std::mismatch(in.begin(), in.end(), in.rbegin()).first);
+            return std::string(in.begin(), std::mismatch(in.begin(), in.end(), in.rbegin()).first);
         };
         
         std::cout << mirror_ends("abXYZba") << '\n'
