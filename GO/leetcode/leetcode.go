@@ -12,6 +12,8 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodeH.Test_913_CatAndMouse()
+
 	leetcodeH.Test_1012_NumbersWithRepeatDigits()
 
 	leetcodeH.Test_1028_RecoverATreeFromPreorderTraversal()

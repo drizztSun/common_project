@@ -160,9 +160,63 @@ class CatMouseGame(object):
 
         return color[1, 2, 1]
 
+    def doit1(self, graph):
+
+        MOUSE, CAT, DRAW = 1, 2, 0
+        l = len(graph)
+        origin_status = (1, 2, MOUSE)
+        status_value = dict()
+        queue = collections.deque()
+        for i in range(1, l):
+            queue.append((i, i, MOUSE))
+            queue.append((i, i, CAT))
+            status_value[(i, i, MOUSE)] = CAT
+            status_value[(i, i, CAT)] = CAT
+
+            queue.append((0, i, MOUSE))
+            queue.append((0, i, CAT))
+            status_value[(0, i, MOUSE)] = MOUSE
+            status_value[(0, i, CAT)] = MOUSE
+
+        while len(queue) != 0:
+            mouse_pos, cat_pos, turn = queue.popleft()
+            if turn == MOUSE:
+                for pre_cat_pos in graph[cat_pos]:
+                    if pre_cat_pos != 0:
+                        pre_status = (mouse_pos, pre_cat_pos, CAT)
+                        if pre_status not in status_value:
+                            values = [status_value[(mouse_pos, nxt_cat_pos, MOUSE)] for nxt_cat_pos in
+                                      graph[pre_cat_pos] if (mouse_pos, nxt_cat_pos, MOUSE) in status_value]
+                            if CAT in values:
+                                status_value[pre_status] = CAT
+                                queue.append(pre_status)
+                            elif len(values) == (
+                            len(graph[pre_cat_pos]) - 1 if 0 in graph[pre_cat_pos] else len(graph[pre_cat_pos])):
+                                status_value[pre_status] = MOUSE
+                                queue.append(pre_status)
+            else:
+                for pre_mouse_pos in graph[mouse_pos]:
+                    pre_status = (pre_mouse_pos, cat_pos, MOUSE)
+                    if pre_status not in status_value:
+                        values = [status_value[(nxt_mouse_pos, cat_pos, CAT)] for nxt_mouse_pos in graph[pre_mouse_pos]
+                                  if (nxt_mouse_pos, cat_pos, CAT) in status_value]
+                        if MOUSE in values:
+                            status_value[pre_status] = MOUSE
+                            queue.append(pre_status)
+                        elif len(values) == len(graph[pre_mouse_pos]):
+                            status_value[pre_status] = CAT
+                            queue.append(pre_status)
+
+            if origin_status in status_value:
+                return status_value[origin_status]
+
+        return DRAW
+
 
 if __name__ == '__main__':
 
     res = CatMouseGame().doit([[2, 5], [3], [0, 4, 5], [1, 4, 5], [2, 3], [0, 2, 3]])  # 0
+
+    res = CatMouseGame().doit([[1,3],[0],[3],[0,2]]) # 1
 
     pass

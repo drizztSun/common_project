@@ -39,6 +39,7 @@
 		0848D06B24296D6500238DC9 /* 995_MinimumNumberOfKConsecutiveBitFlips.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0848D06A24296D6500238DC9 /* 995_MinimumNumberOfKConsecutiveBitFlips.cpp */; };
 		085D768E2422ED700032D93E /* 939_MinimumAreaRectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 085D768D2422ED700032D93E /* 939_MinimumAreaRectangle.cpp */; };
 		08640D122416DC7500D72888 /* 1032_StreamOfCharacters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */; };
+		0864A89D24409BE2002BE5F0 /* 913_CatAndMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0864A89C24409BE2002BE5F0 /* 913_CatAndMouse.cpp */; };
 		086A8A6224071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6124071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp */; };
 		086A8AB224071C4A00CFAEED /* 732_MyCalendarIII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6324071C4400CFAEED /* 732_MyCalendarIII.cpp */; };
 		086A8AB324071C4A00CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 086A8A6424071C4400CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp */; };
@@ -216,6 +217,7 @@
 		0848D06A24296D6500238DC9 /* 995_MinimumNumberOfKConsecutiveBitFlips.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 995_MinimumNumberOfKConsecutiveBitFlips.cpp; sourceTree = "<group>"; };
 		085D768D2422ED700032D93E /* 939_MinimumAreaRectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 939_MinimumAreaRectangle.cpp; sourceTree = "<group>"; };
 		08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1032_StreamOfCharacters.cpp; sourceTree = "<group>"; };
+		0864A89C24409BE2002BE5F0 /* 913_CatAndMouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 913_CatAndMouse.cpp; sourceTree = "<group>"; };
 		086A8A6124071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 4_MedianofTwoSortedArrays.cpp; sourceTree = "<group>"; };
 		086A8A6324071C4400CFAEED /* 732_MyCalendarIII.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 732_MyCalendarIII.cpp; sourceTree = "<group>"; };
 		086A8A6424071C4400CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 26_RemoveDuplicateFromSortedArray.cpp; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */,
 				089BB604243BC29400BB3A70 /* 902_NumbersAtMostNGivenDigitSet.cpp */,
 				08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */,
+				0864A89C24409BE2002BE5F0 /* 913_CatAndMouse.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 				086A8AE724071C4A00CFAEED /* 128_LongestConsecutiveSequence.cpp in Sources */,
 				08012E8624129D9B004D11A8 /* 1006_ClumsyFactorial.cpp in Sources */,
 				086A8AB324071C4A00CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp in Sources */,
+				0864A89D24409BE2002BE5F0 /* 913_CatAndMouse.cpp in Sources */,
 				086A8AE224071C4A00CFAEED /* 591_TagValidator.cpp in Sources */,
 				086A8AEE24071C4A00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */,
 				08E76F24240EB3F200F1CC8F /* 1035_UncrossedLines.cpp in Sources */,

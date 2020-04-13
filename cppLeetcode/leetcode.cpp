@@ -273,9 +273,13 @@ void test_902_at_most_given_digits();
 
 void test_906_SuperPalindromes();
 
+void test_939_CatAndMouse();
+
 void leetcode() {
     
-    test_906_SuperPalindromes();
+    test_939_CatAndMouse();
+    
+    // test_906_SuperPalindromes();
     
     // test_902_at_most_given_digits();
     
@@ -411,7 +415,7 @@ void leetcode() {
     
     // test_1040_moving_stones_until_consecutive();
     
-    test_1034_Coloring_A_Border();
+    // test_1034_Coloring_A_Border();
     
 	//minimum_window_substring();
 
@@ -551,4 +555,3 @@ void leetcode() {
 
 	// Test_731_MyCalendarII();
 }
-

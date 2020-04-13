@@ -38,6 +38,7 @@
 		0894CCBB241EE0D6003DF4A6 /* test_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC9E241EE0D6003DF4A6 /* test_stack.cpp */; };
 		0894CCBC241EE0D6003DF4A6 /* test_deque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC9F241EE0D6003DF4A6 /* test_deque.cpp */; };
 		08B3CBB3242B7B4400DD00DB /* test_stl_algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */; };
+		08B587322441FC6A002F2F40 /* test_tuple_pair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +86,7 @@
 		0894CC9E241EE0D6003DF4A6 /* test_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_stack.cpp; sourceTree = "<group>"; };
 		0894CC9F241EE0D6003DF4A6 /* test_deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_deque.cpp; sourceTree = "<group>"; };
 		08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_stl_algorithm.cpp; sourceTree = "<group>"; };
+		08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_tuple_pair.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				0894CC95241EE0D6003DF4A6 /* test_vector.cpp */,
 				0894CC8B241EE0D6003DF4A6 /* utf_str.cpp */,
 				08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */,
+				08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */,
 			);
 			name = src;
 			path = ../../src;
@@ -242,6 +245,7 @@
 				0894CC2B241ED15E003DF4A6 /* main.cpp in Sources */,
 				0894CCAE241EE0D6003DF4A6 /* test_atomic.cpp in Sources */,
 				0894CCAA241EE0D6003DF4A6 /* Precessor_define.cpp in Sources */,
+				08B587322441FC6A002F2F40 /* test_tuple_pair.cpp in Sources */,
 				0894CCBA241EE0D6003DF4A6 /* test_condition_variable.cpp in Sources */,
 				08B3CBB3242B7B4400DD00DB /* test_stl_algorithm.cpp in Sources */,
 				0894CCBB241EE0D6003DF4A6 /* test_stack.cpp in Sources */,
