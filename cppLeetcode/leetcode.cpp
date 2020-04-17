@@ -275,9 +275,21 @@ void test_906_SuperPalindromes();
 
 void test_939_CatAndMouse();
 
+void test_920_number_of_music_playlist();
+
+void test_940_distinct_subsequences_II();
+
+void test_924_minimize_malware_spread();
+
 void leetcode() {
     
-    test_939_CatAndMouse();
+    test_924_minimize_malware_spread();
+    
+    // test_940_distinct_subsequences_II();
+    
+    // test_920_number_of_music_playlist();
+    
+    // test_939_CatAndMouse();
     
     // test_906_SuperPalindromes();
     
