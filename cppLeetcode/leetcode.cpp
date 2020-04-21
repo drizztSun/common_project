@@ -281,9 +281,13 @@ void test_940_distinct_subsequences_II();
 
 void test_924_minimize_malware_spread();
 
+void test_943_find_shortest_superstring();
+
 void leetcode() {
     
-    test_924_minimize_malware_spread();
+    test_943_find_shortest_superstring();
+    
+    // test_924_minimize_malware_spread();
     
     // test_940_distinct_subsequences_II();
     
