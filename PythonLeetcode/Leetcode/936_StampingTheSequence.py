@@ -168,7 +168,7 @@ class MovesToStamp(object):
                 return False
         return True
 
-    def doit2(self, stamp: str, target: str) -> List[int]:
+    def doit2(self, stamp, target):
 
         t_len = len(target)
         s_len = len(stamp)
