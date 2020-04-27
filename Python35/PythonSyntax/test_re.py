@@ -12,7 +12,11 @@ import re
 # {}	Exactly the specified number of occurrences	"al{2}"
 # |	Either or	"falls|stays"
 # ()	Capture and group
+# ? match 0 or 1
+# {m} Specifies that exactly m copies of the previous RE should be matched;
+# {m,n} Causes the resulting RE to match from m to n repetitions of the preceding RE,
 
+# *? not greedy and match first one
 
 # Special Sequences
 # A special sequence is a \ followed by one of the characters in the list below, and has a special meaning:
@@ -91,17 +95,97 @@ def test_regex():
     x = re.sub("\s", "-", "The rain in Spain", 2)
     print(x)
 
-
-
+    r = re.match("\d+\.?", "16.04.6 LTS")
+    print(r)
 
     # Example
     x = re.findall("\d+\.?", "Ubuntu 16.04.6 LTS")
     print(''.join(x))
+
+
+    # compile
+    prog = re.compile("\d+\.?")
+    result = prog.match("Ubuntu 16.04.6 LTS")
+
     pass
 
 
+def test_match():
+    # match(pattern, string, flags=0)
+    # If zero or more characters at the beginning of string match the regular expression pattern, return a corresponding match object.
+    # Return None if the string does not match the pattern; note that this is different from a zero-length match.
+    #
+    # Note that even in MULTILINE mode, re.match() will only match at the beginning of the string and not at the beginning of each line.
+    m = re.match(r"(\w+) (\w+)", "Isaac Newton, physicist")
+
+    # is equal to
+    prog = re.compile(r"(\w+) (\w+)")
+    result = prog.match("Isaac Newton, physicist")
+
+    # Match objects support the following methods and attributes:
+    print(m.group(0))
+    print(m.group(1))
+
+    print(m.group(1, 2))
+
+    # If the regular expression uses the (?P<name>...) syntax, the groupN arguments may also be strings identifying groups by their group name.
+    # If a string argument is not used as a group name in the pattern, an IndexError exception is raised.
+    m = re.match(r"(?P<first_name>\w+) (?P<last_name>\w+)", "Malcolm Reynolds")
+    m.group('first_name')
+    m.group('last_name')
+
+    # If a group matches multiple times, only the last match is accessible:
+    m = re.match(r"(..)+", "a1b2c3")  # Matches 3 times.
+    m.group(1) # c3  # Returns only the last match.
+
+    # groups(default=None)
+    # Return a tuple containing all the subgroups of the match, from 1 up to however many groups are in the pattern.
+    # The default argument is used for groups that did not participate in the match; it defaults to None.
+    m = re.match(r"(\d+)\.(\d+)", "24.1632")
+    m.groups() # ('24', '1632')
+
+    # If we make the decimal place and everything after it optional, not all groups might participate in the match.
+    # These groups will default to None unless the default argument is given:
+    m = re.match(r"(\d+)\.?(\d+)?", "24")
+    m.groups()      # Second group defaults to None.
+    m.groups('0')   # Now, the second group defaults to '0'.
+
+    #  groupdict(default=None)
+    # Return a dictionary containing all the named subgroups of the match, keyed by the subgroup name.
+    # The default argument is used for groups that did not participate in the match; it defaults to None
+    m = re.match(r"(?P<first_name>\w+) (?P<last_name>\w+)", "Malcolm Reynolds")
+    m.groupdict() # {'first_name': 'Malcolm', 'last_name': 'Reynolds'}
+
+    # start([group])
+    # end([group])
+    # Return the indices of the start and end of the substring matched by group; group defaults to zero (meaning the whole matched substring).
+    # Return -1 if group exists but did not contribute to the match. For a match object m, and a group g that did contribute to the match,
+    # the substring matched by group g (equivalent to m.group(g)) is
+    email = "tony@tiremove_thisger.net"
+    m = re.search("remove_this", email)
+    print(email[:m.start()] + email[m.end():]) # 'tony@tiger.net'
+
+
+def test_case():
+
+    version = "18.04"
+    re_ver = re.compile(r'(?P<version>' + version + r'\.\d)')
+    m = re.search(re_ver, 'Ubuntu 18.04.4 LTS')
+    if m:
+        print(m.groupdict())
+
+    re_ver = r'(?P<month>[A-Za-z]+)\s+(?P<day>\d{1,2}), (?P<year>\d{4})'
+    m = re.search(re_ver, "August 2, 2018")
+    if m:
+        print(m.groupdict())
+
+    pass
 
 
 if __name__ == '__main__':
 
-    test_regex()
+    test_case()
+
+    # test_match()
+
+    # test_regex()

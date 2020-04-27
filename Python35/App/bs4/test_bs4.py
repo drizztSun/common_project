@@ -48,13 +48,77 @@ def test_bs4_fetch():
         print(f'{version}, {code_name}, {docs}, {release_date}, {end_of_support}, {end_of_life}, {version_num}')
 
 
+def test_fetch_ubuntu():
 
+    url = "https://wiki.ubuntu.com/Releases"
+
+    res = requests.get(url)
+    text = res.text
+
+    doc_root = BeautifulSoup(res.text, 'lxml')
+
+
+    version = "18.04"
+    re_ver = re.compile(r'^(?P<version>' + version + r'\\.\\d)$')
+
+    tds = doc_root.find_all('td')
+    for td in tds:
+        m = re.search(re_ver, td.get_text())
+        if m:
+            print(m.groupdict())
+
+
+
+
+def test_bs4_fetch_macos():
+
+    url = "https://developer.apple.com/news/releases/rss/releases.rss"
+
+    res = requests.get(url)
+
+    doc_root = BeautifulSoup(res.text, 'lxml')
+
+    items = doc_root.find_all('item')
+
+    item = doc_root.find('item')
 
     pass
 
 
+def test_bs4_fetch_firefox():
+
+    url = 'http://ftp.mozilla.org/pub/firefox/releases/'
+
+    res = requests.get(url)
+
+    doc_root = BeautifulSoup(res.text, 'lxml')
+
+    items = doc_root.find_all(name='a')
+
+    print(items.__dir__)
+
+    re_text = re.compile(r'^(?P<version>[\d]+[\d\.]*)/$')
+    nodes = []
+
+    for n in items:
+
+        res = re.search(re_text, n.get_text())
+
+        if res:
+            d = res.groupdict()
+            d['node'] = n
+            nodes.append(d)
+
+    print(nodes)
+    pass
 
 
 if __name__ == '__main__':
 
-    test_bs4_fetch()
+    # test_bs4_fetch()
+
+    test_fetch_ubuntu()
+
+    test_bs4_fetch_firefox()
+
+    # test_bs4_fetch_macos()
