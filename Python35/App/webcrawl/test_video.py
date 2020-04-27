@@ -138,13 +138,57 @@
 
 """
 
+import requests
+import time
+import hashlib
+import json
+import tkinter
+import re
+from lxml import etree
+import json
+import ffmpeg
+import random
+
 
 def test_vip_video():
 
     pass
 
 
-if __name__ == '__main__':
+def test_video_website():
 
+    url = ''
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36'
+    }
+
+    mp4 = requests.get(url, header= headers).content
+
+    with open('text.mp4', sb) as file:
+        file.write(mp4)
+
+    res = requests.get(url, header=headers).content.decode()
+
+    print(res)
+
+    dom = etree.HTML(res)
+
+    mv_names = dom.xpath('//h4[@class="video-name one-line"]/a[@href]/text()')
+    mv_urls = dom.xpath("//h4[]")
+
+    for mv_name, mv_url in zip(mv_names, mv_urls):
+        mv_id = requests.get(mv_url).text
+
+        print(mv_id)
+
+        url = re.search(r'source src"(.*?)"',mv_id).group(1)
+
+        res = requests.get(url).content
+
+        with open('%smv.mp4'%mv_id, 'sb') as file:
+            file.save(res)
+
+
+if __name__ == '__main__':
 
     test_vip_video()
