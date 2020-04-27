@@ -3,66 +3,66 @@ package main
 import (
 	"fmt"
 
-	"./leetcodeE"
 	"./leetcodeH"
-	"./leetcodem"
 )
 
 func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodeH.Test_913_CatAndMouse()
+	leetcodeH.Test_928_MinimizeMalwareSpreadII()
 
-	leetcodeH.Test_1012_NumbersWithRepeatDigits()
+	//leetcodeH.Test_913_CatAndMouse()
 
-	leetcodeH.Test_1028_RecoverATreeFromPreorderTraversal()
+	//leetcodeH.Test_1012_NumbersWithRepeatDigits()
 
-	leetcodeH.Test_1044_LongestDuplicateSubstring()
+	//leetcodeH.Test_1028_RecoverATreeFromPreorderTraversal()
 
-	leetcodem.Test_1049_LastStoneWeightII()
+	//leetcodeH.Test_1044_LongestDuplicateSubstring()
 
-	leetcodem.Test_1048_LongestStringChain()
+	//leetcodem.Test_1049_LastStoneWeightII()
 
-	leetcodem.Test_1041_RobotBoundledInCircle()
+	//leetcodem.Test_1048_LongestStringChain()
 
-	leetcodem.Test_1034_ColoringABorder()
+	//leetcodem.Test_1041_RobotBoundledInCircle()
 
-	leetcodem.Test_1039_MinimumScoreTriangulationOfPolygon()
+	//leetcodem.Test_1034_ColoringABorder()
 
-	leetcodem.Test_1035_UncrossedLines()
+	//leetcodem.Test_1039_MinimumScoreTriangulationOfPolygon()
 
-	leetcodem.Test_1031_MaximumSumOfTwoNonOverlappingSubarray()
+	//leetcodem.Test_1035_UncrossedLines()
 
-	leetcodem.Test_1027_LongestArithmeticSequence()
+	//leetcodem.Test_1031_MaximumSumOfTwoNonOverlappingSubarray()
 
-	leetcodem.Test_1024_VideoStiching()
+	//leetcodem.Test_1027_LongestArithmeticSequence()
 
-	leetcodem.Test_1023_CamelcaseMatching()
+	//leetcodem.Test_1024_VideoStiching()
 
-	leetcodem.Test_1020_NumberOfEnclaves()
+	//leetcodem.Test_1023_CamelcaseMatching()
 
-	leetcodem.Test_1017_ConvertToBase2()
+	//leetcodem.Test_1020_NumberOfEnclaves()
 
-	leetcodem.Test_1011_CapacityToShipPackagesWithDDays()
+	//leetcodem.Test_1017_ConvertToBase2()
 
-	leetcodem.Test_1008_ConstructBinarySearchTreeFromPreorderTraversal()
+	//leetcodem.Test_1011_CapacityToShipPackagesWithDDays()
 
-	leetcodem.Test_1003_Check_if_WordIsValidAfterSub()
+	//leetcodem.Test_1008_ConstructBinarySearchTreeFromPreorderTraversal()
 
-	leetcodem.Test_981_time_based_key_value_store()
+	//leetcodem.Test_1003_Check_if_WordIsValidAfterSub()
 
-	leetcodem.Test_990_satifiability_of_equality_equation()
+	//leetcodem.Test_981_time_based_key_value_store()
 
-	leetcodeH.Test_982_TripleWithBitwiseAndEqualToZero()
+	//leetcodem.Test_990_satifiability_of_equality_equation()
 
-	leetcodeH.Test_992_SubarrayWithKDistinct()
+	//leetcodeH.Test_982_TripleWithBitwiseAndEqualToZero()
 
-	leetcodeH.Test_996_NumberOfSquarefulArrays()
+	//leetcodeH.Test_992_SubarrayWithKDistinct()
 
-	leetcodem.Test_1040_MovingStonesUntilConsecutive()
+	//leetcodeH.Test_996_NumberOfSquarefulArrays()
 
-	leetcodeE.Test_744_OrderOfLargestPlusSign()
+	//leetcodem.Test_1040_MovingStonesUntilConsecutive()
+
+	//leetcodeE.Test_744_OrderOfLargestPlusSign()
 
 	// leetcodeE.Test_46_permutations()
 

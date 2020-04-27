@@ -2,14 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ab05469-9df4-43c3-8e24-c1a77c947ab3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/cppLeetcode/leetcode/927_ThreeEqualParts.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/cppLeetcode/leetcode/928_MinimizeMalwareSpreadII.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python35/PythonSyntax/enums.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/PythonSyntax/enums.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GO/leetcode/leetcode.go" beforeDir="false" afterPath="$PROJECT_DIR$/GO/leetcode/leetcode.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python35/App/bs4/test_bs4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/App/bs4/test_bs4.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python35/App/webcrawl/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/App/webcrawl/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python35/App/webcrawl/test_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/App/webcrawl/test_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python35/PythonSyntax/test_re.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/PythonSyntax/test_re.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonLeetcode/Leetcode/924_MinimizeMalwareSpread.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonLeetcode/Leetcode/924_MinimizeMalwareSpread.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/LICENSE-APACHE" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/LICENSE-MIT" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/xcuserdata/yusun.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/xcuserdata/yusun.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cppLeetcode/leetcode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/leetcode.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,13 +37,14 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.enums">
-    <configuration name="943_FindtheShortestSuperstring" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.928_MinimizeMalwareSpreadII">
+    <configuration name="928_MinimizeMalwareSpreadII" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="common_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -44,7 +56,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonLeetcode/Leetcode/943_FindtheShortestSuperstring.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonLeetcode/Leetcode/928_MinimizeMalwareSpreadII.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -53,7 +65,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="enums" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="common_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -61,32 +73,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/PythonSyntax" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/App/webcrawl" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/PythonSyntax/enums.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_asyncio" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="common_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/Concurrent Execution/async" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/Concurrent Execution/async/test_asyncio.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/App/webcrawl/test.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -108,6 +99,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/App/bs4/test_bs4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_json" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="common_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/PythonSyntax/objects" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/PythonSyntax/objects/test_json.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -139,11 +151,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.enums" />
-        <item itemvalue="Python.test_bs4" />
+        <item itemvalue="Python.928_MinimizeMalwareSpreadII" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.test_json" />
         <item itemvalue="Python.test_re" />
-        <item itemvalue="Python.943_FindtheShortestSuperstring" />
-        <item itemvalue="Python.test_asyncio" />
+        <item itemvalue="Python.test_bs4" />
       </list>
     </recent_temporary>
   </component>
@@ -165,10 +177,10 @@
       <screen x="-2560" y="23" width="2560" height="1417" />
     </state>
     <state x="-1552" y="506" key="#com.intellij.fileTypes.FileTypeChooser/-2560.23.2560.1417/0.23.1680.964@-2560.23.2560.1417" timestamp="1586886432113" />
-    <state x="5864" y="-99" key="#test_bs4" timestamp="1587411392478">
+    <state x="5864" y="-99" key="#test_bs4" timestamp="1587767375291">
       <screen x="4240" y="-794" width="3840" height="2160" />
     </state>
-    <state x="5864" y="-99" key="#test_bs4/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587411392478" />
+    <state x="5864" y="-99" key="#test_bs4/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587767375291" />
     <state x="-1668" y="304" key="CommitChangelistDialog2" timestamp="1586797536292">
       <screen x="-2560" y="0" width="2560" height="1440" />
     </state>
@@ -197,8 +209,8 @@
       <screen x="-2560" y="0" width="2560" height="1440" />
     </state>
     <state width="2539" height="659" key="GridCell.Tab.-1.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586174124535" />
-    <state width="3798" height="660" key="GridCell.Tab.0.bottom" timestamp="1587509627607">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="729" height="952" key="GridCell.Tab.0.bottom" timestamp="1587938732335">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.bottom/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974864" />
     <state width="769" height="952" key="GridCell.Tab.0.bottom/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259918" />
@@ -209,11 +221,13 @@
     <state width="826" height="1342" key="GridCell.Tab.0.bottom/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247872239" />
     <state width="1016" height="952" key="GridCell.Tab.0.bottom/0.23.1680.959@0.23.1680.959" timestamp="1587264047050" />
     <state width="1631" height="2017" key="GridCell.Tab.0.bottom/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489103328" />
+    <state width="1638" height="294" key="GridCell.Tab.0.bottom/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282690" />
     <state width="3798" height="660" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627607" />
+    <state width="729" height="952" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732335" />
     <state width="1143" height="1342" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721955" />
-    <state width="3798" height="660" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587505765954" />
-    <state width="3798" height="660" key="GridCell.Tab.0.center" timestamp="1587509627605">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="1775" height="2062" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938208391" />
+    <state width="729" height="952" key="GridCell.Tab.0.center" timestamp="1587938732334">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.center/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974862" />
     <state width="769" height="952" key="GridCell.Tab.0.center/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259916" />
@@ -224,11 +238,13 @@
     <state width="826" height="1342" key="GridCell.Tab.0.center/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247872237" />
     <state width="1016" height="952" key="GridCell.Tab.0.center/0.23.1680.959@0.23.1680.959" timestamp="1587264047049" />
     <state width="1631" height="2017" key="GridCell.Tab.0.center/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489103327" />
+    <state width="1638" height="294" key="GridCell.Tab.0.center/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282690" />
     <state width="3798" height="660" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627605" />
+    <state width="729" height="952" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732334" />
     <state width="1143" height="1342" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721954" />
-    <state width="3798" height="660" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587505765952" />
-    <state width="3798" height="660" key="GridCell.Tab.0.left" timestamp="1587509627604">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="1775" height="2062" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938208390" />
+    <state width="729" height="952" key="GridCell.Tab.0.left" timestamp="1587938732333">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.left/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974861" />
     <state width="769" height="952" key="GridCell.Tab.0.left/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259915" />
@@ -239,11 +255,13 @@
     <state width="826" height="1342" key="GridCell.Tab.0.left/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247872236" />
     <state width="1016" height="952" key="GridCell.Tab.0.left/0.23.1680.959@0.23.1680.959" timestamp="1587264047049" />
     <state width="1631" height="2017" key="GridCell.Tab.0.left/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489103326" />
+    <state width="1638" height="294" key="GridCell.Tab.0.left/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282689" />
     <state width="3798" height="660" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627604" />
+    <state width="729" height="952" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732333" />
     <state width="1143" height="1342" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721953" />
-    <state width="3798" height="660" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587505765951" />
-    <state width="3798" height="660" key="GridCell.Tab.0.right" timestamp="1587509627606">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="1775" height="2062" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938208389" />
+    <state width="729" height="952" key="GridCell.Tab.0.right" timestamp="1587938732335">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974863" />
     <state width="769" height="952" key="GridCell.Tab.0.right/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259917" />
@@ -254,11 +272,13 @@
     <state width="826" height="1342" key="GridCell.Tab.0.right/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247872238" />
     <state width="1016" height="952" key="GridCell.Tab.0.right/0.23.1680.959@0.23.1680.959" timestamp="1587264047050" />
     <state width="1631" height="2017" key="GridCell.Tab.0.right/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489103328" />
+    <state width="1638" height="294" key="GridCell.Tab.0.right/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282690" />
     <state width="3798" height="660" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627606" />
+    <state width="729" height="952" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732335" />
     <state width="1143" height="1342" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721955" />
-    <state width="3798" height="660" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587505765953" />
-    <state width="1321" height="2062" key="GridCell.Tab.1.bottom" timestamp="1587509627596">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="1775" height="2062" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938208391" />
+    <state width="729" height="952" key="GridCell.Tab.1.bottom" timestamp="1587938732332">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.bottom/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975353" />
     <state width="769" height="952" key="GridCell.Tab.1.bottom/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259920" />
@@ -267,11 +287,13 @@
     <state width="826" height="1342" key="GridCell.Tab.1.bottom/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247871532" />
     <state width="1016" height="952" key="GridCell.Tab.1.bottom/0.23.1680.959@0.23.1680.959" timestamp="1587264047048" />
     <state width="1631" height="2017" key="GridCell.Tab.1.bottom/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489102490" />
+    <state width="745" height="839" key="GridCell.Tab.1.bottom/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282682" />
     <state width="1321" height="2062" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627596" />
+    <state width="729" height="952" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732332" />
     <state width="1143" height="1342" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721952" />
-    <state width="1321" height="1374" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587503368107" />
-    <state width="1321" height="2062" key="GridCell.Tab.1.center" timestamp="1587509627595">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="1775" height="2062" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938207931" />
+    <state width="729" height="952" key="GridCell.Tab.1.center" timestamp="1587938732331">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.center/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975352" />
     <state width="769" height="952" key="GridCell.Tab.1.center/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259919" />
@@ -280,11 +302,13 @@
     <state width="826" height="1342" key="GridCell.Tab.1.center/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247871530" />
     <state width="1016" height="952" key="GridCell.Tab.1.center/0.23.1680.959@0.23.1680.959" timestamp="1587264047047" />
     <state width="1631" height="2017" key="GridCell.Tab.1.center/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489102489" />
+    <state width="745" height="839" key="GridCell.Tab.1.center/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282682" />
     <state width="1321" height="2062" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627595" />
+    <state width="729" height="952" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732331" />
     <state width="1143" height="1342" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721950" />
-    <state width="1321" height="1374" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587503368105" />
-    <state width="1321" height="2062" key="GridCell.Tab.1.left" timestamp="1587509627594">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="1775" height="2062" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938207929" />
+    <state width="729" height="952" key="GridCell.Tab.1.left" timestamp="1587938732330">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.left/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975351" />
     <state width="769" height="952" key="GridCell.Tab.1.left/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259919" />
@@ -293,11 +317,13 @@
     <state width="826" height="1342" key="GridCell.Tab.1.left/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247871530" />
     <state width="1016" height="952" key="GridCell.Tab.1.left/0.23.1680.959@0.23.1680.959" timestamp="1587264047046" />
     <state width="1631" height="2017" key="GridCell.Tab.1.left/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489102489" />
+    <state width="745" height="839" key="GridCell.Tab.1.left/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282681" />
     <state width="1321" height="2062" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627594" />
+    <state width="729" height="952" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732330" />
     <state width="1143" height="1342" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721949" />
-    <state width="1321" height="1374" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587503368104" />
-    <state width="1321" height="2062" key="GridCell.Tab.1.right" timestamp="1587509627596">
-      <screen x="4240" y="-794" width="3840" height="2160" />
+    <state width="1775" height="2062" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938207929" />
+    <state width="729" height="952" key="GridCell.Tab.1.right" timestamp="1587938732331">
+      <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975353" />
     <state width="769" height="952" key="GridCell.Tab.1.right/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259920" />
@@ -306,18 +332,22 @@
     <state width="826" height="1342" key="GridCell.Tab.1.right/-6400.-268.2560.1440/-3840.-823.3840.2137/0.23.1680.959@-6400.-268.2560.1440" timestamp="1587247871531" />
     <state width="1016" height="952" key="GridCell.Tab.1.right/0.23.1680.959@0.23.1680.959" timestamp="1587264047048" />
     <state width="1631" height="2017" key="GridCell.Tab.1.right/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587489102489" />
+    <state width="745" height="839" key="GridCell.Tab.1.right/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.961@0.23.1680.961" timestamp="1587691282682" />
     <state width="1321" height="2062" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.1027@4240.-794.3840.2160" timestamp="1587509627596" />
+    <state width="729" height="952" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587938732331" />
     <state width="1143" height="1342" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721952" />
-    <state width="1321" height="1374" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587503368106" />
+    <state width="1775" height="2062" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587938207930" />
     <state x="5424" y="-255" width="1466" height="959" key="SettingsEditor" timestamp="1587411374907">
       <screen x="4240" y="-794" width="3840" height="2160" />
     </state>
     <state x="2469" y="143" key="SettingsEditor/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587346106686" />
     <state x="5424" y="-255" width="1466" height="959" key="SettingsEditor/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587411374907" />
-    <state width="1920" height="1080" key="XDebugger.FullValuePopup" timestamp="1587415986395">
+    <state width="1920" height="1080" key="XDebugger.FullValuePopup" timestamp="1587767524885">
       <screen x="4240" y="-794" width="3840" height="2160" />
     </state>
-    <state width="1920" height="1080" key="XDebugger.FullValuePopup/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587415986395" />
+    <state width="1920" height="1080" key="XDebugger.FullValuePopup/4240.-771.3840.2137/1680.-193.2560.1417/0.23.1680.959@4240.-771.3840.2137" timestamp="1587664146903" />
+    <state width="840" height="525" key="XDebugger.FullValuePopup/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1587675826231" />
+    <state width="1920" height="1080" key="XDebugger.FullValuePopup/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587767524885" />
     <state x="653" y="383" key="com.intellij.ide.util.TipDialog" timestamp="1585085850117">
       <screen x="0" y="23" width="1920" height="1057" />
     </state>
@@ -326,10 +356,11 @@
       <screen x="4240" y="-794" width="3840" height="2160" />
     </state>
     <state x="5866" y="-79" width="588" height="729" key="find.popup/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1587410950428" />
-    <state x="2625" y="115" width="670" height="676" key="search.everywhere.popup" timestamp="1587336481654">
-      <screen x="1680" y="-216" width="2560" height="1440" />
+    <state x="5658" y="-297" width="1005" height="1014" key="search.everywhere.popup" timestamp="1587732947310">
+      <screen x="4240" y="-794" width="3840" height="2160" />
     </state>
     <state x="2625" y="115" width="670" height="676" key="search.everywhere.popup/4240.-771.3840.2137/1680.-216.2560.1440/0.23.1680.959@1680.-216.2560.1440" timestamp="1587336481654" />
+    <state x="5658" y="-297" width="1005" height="1014" key="search.everywhere.popup/4240.-794.3840.2160/1680.-193.2560.1417/0.23.1680.959@4240.-794.3840.2160" timestamp="1587732947310" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -371,18 +402,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Python35/PythonSyntax/test_re.py</url>
-          <line>97</line>
+          <line>101</line>
           <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Python35/PythonSyntax/test_re.py</url>
-          <line>51</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Python35/App/bs4/test_bs4.py</url>
-          <line>52</line>
-          <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Python35/PythonSyntax/enums.py</url>
@@ -398,6 +419,76 @@
           <url>file://$PROJECT_DIR$/Python35/PythonSyntax/enums.py</url>
           <line>108</line>
           <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/webcrawl/test_2.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/webcrawl/test_2.py</url>
+          <line>13</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/bs4/test_bs4.py</url>
+          <line>121</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/PythonSyntax/test_re.py</url>
+          <line>97</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/bs4/test_bs4.py</url>
+          <line>65</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/PythonSyntax/test_re.py</url>
+          <line>181</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/PythonSyntax/test_re.py</url>
+          <line>170</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/webcrawl/test.py</url>
+          <line>94</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/PythonSyntax/objects/test_json.py</url>
+          <line>6</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/webcrawl/test.py</url>
+          <line>47</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/webcrawl/test.py</url>
+          <line>49</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/webcrawl/test.py</url>
+          <line>45</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/App/webcrawl/test.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PythonLeetcode/Leetcode/928_MinimizeMalwareSpreadII.py</url>
+          <line>213</line>
+          <option name="timeStamp" value="57" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

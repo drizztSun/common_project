@@ -285,9 +285,17 @@ void test_943_find_shortest_superstring();
 
 void test_936_stamping_the_sequence();
 
+void test_927_three_equal_parts();
+
+void test_928_MinimizeMalwareSpreadII();
+
 void leetcode() {
     
-    test_936_stamping_the_sequence();
+    test_928_MinimizeMalwareSpreadII();
+    
+    // test_927_three_equal_parts();
+    
+    // test_936_stamping_the_sequence();
     
     // test_943_find_shortest_superstring();
     
