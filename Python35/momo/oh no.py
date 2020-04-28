@@ -1,18 +1,18 @@
 
 
 
-
-i = 1
-while i<10000:
-    print('error error error error error error error error error error error error error error error error error error error error error ')
-    i+=1
-for g in range(4):
-    print()
-print('***********************************************')
-print('MINECRAFT HAS CRASHED')  
-print('***********************************************')  
-for r in range(4):
-    print()
+def ohno():
+    i = 1
+    while i<10000:
+        print('error error error error error error error error error error error error error error error error error error error error error ')
+        i+=1
+    for g in range(4):
+        print()
+    print('***********************************************')
+    print('MINECRAFT HAS CRASHED')  
+    print('***********************************************')  
+    for r in range(4):
+        print()
 '''
 error error error error error error error error error error error error error error error error error error error error error
 error error error error error error error error error error error error error error error error error error error error error

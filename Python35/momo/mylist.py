@@ -8,8 +8,6 @@ class magicNumber(int):
 
     def magic(self):
         pass
-
-
 class mylist(list):
 
     def __init__(self):
@@ -17,3 +15,7 @@ class mylist(list):
 
     def count(self,a):
         pass
+
+
+print(chr(144359))
+print(chr(956698))
