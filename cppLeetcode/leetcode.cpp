@@ -289,9 +289,13 @@ void test_927_three_equal_parts();
 
 void test_928_MinimizeMalwareSpreadII();
 
+void test_932_beautiful_array();
+
 void leetcode() {
     
-    test_928_MinimizeMalwareSpreadII();
+    test_932_beautiful_array();
+    
+    // test_928_MinimizeMalwareSpreadII();
     
     // test_927_three_equal_parts();
     
