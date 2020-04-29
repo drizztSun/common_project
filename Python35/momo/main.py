@@ -4,13 +4,13 @@ import random
 def jackpot_1999(a, b, c):
     i = 0
     while i < 10:
-        secret = random.randint(1, 1000)
+        secret = random.randint(1, 100)
 
         print("GOLD RUSH", i)
         temp = input("guess")
         guess = int(temp)
         while guess != secret:
-            temp = input("NOPE")
+            temp = input("NO. why?")
             guess = int(temp)
             if guess == secret:
                 print("+999999 golds")
@@ -43,9 +43,10 @@ def jackpot_1999(a, b, c):
 # !, &&, ||
 
 def cal(a, b, c):
+    
     print(type(a), type(b))
     if (type(a) != int and type(a) != float) or (type(b) != int and type(b) != float):
-        print("ERROR")
+        print()
         return
 
     if c == "+":

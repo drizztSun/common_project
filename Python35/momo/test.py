@@ -1,14 +1,7 @@
 
+'''
+x = [_, _, ...]
+y = [_, _, ...]
+zip(x, y) = ((x[0], y[0]), (x[1], y[1]).....(x[len(x)-1], y[len(x)-1]))
 
-
-
-items = [1, 2, 3, 4, 5]
-squared = []
-for i in items:
-    squared.append(i**2)
-print(squared)
-
-
-
-squared = list(map(lambda x: x**2, items)) 
-print(squared)   
+'''
