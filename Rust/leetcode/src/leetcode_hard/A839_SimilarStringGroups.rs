@@ -95,9 +95,8 @@ mod num_similar_groups {
             }
         }
 
-        return a.len() - d.size_ as i32;
+        return (a.len() - d.size_) as i32;
     }
-
 }
 
 pub fn test_839_similar_string_groups() {

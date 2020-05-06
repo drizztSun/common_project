@@ -54,8 +54,7 @@ fn ownership_and_function() {
 fn takes_ownership(some_string: String) {
     // some_string comes into scope
     println!("{}", some_string);
-} // Here, some_string goes out of scope and `drop` is called. The backing
-  // memory is freed.
+} // Here, some_string goes out of scope and `drop` is called. The backing memory is freed.
 
 fn makes_copy(some_integer: i32) {
     // some_integer comes into scope
@@ -128,8 +127,12 @@ fn reference_borrow() {
 }
 
 fn calculate_length_ref(s: &String) -> usize {
+    // s is a reference to a String
     s.len()
-}
+} // Here, s goes out of scope. But because it does not have ownership of what
+  // it refers to, nothing happens.
+  // The scope in which the variable s is valid is the same as any function parameter’s scope,
+  // but we don’t drop what the reference points to when it goes out of scope because we don’t have ownership.
 
 // Reference and Borrowing
 fn reference_borrow_mut() {
@@ -287,7 +290,7 @@ fn first_word(s: &str) -> &str {
 }
 
 fn test_slice() {
-    // *** Slice
+    // *** Slice   s[n..m] starts from n and ends up to m-1
     // Another data type that does not have ownership is the slice.
     // Slices let you reference a contiguous sequence of elements in a collection rather than the whole collection.
 
@@ -317,10 +320,34 @@ fn test_slice() {
     // Because string literals *are* string slices already,
     // this works too, without the slice syntax!
     let word = first_word(my_string_literal);
+
+    {
+        let s = String::from("hello");
+
+        // take start of string, to 2
+        let slice1 = &s[0..2];
+        let slice2 = &s[..2];
+
+        println!("1:{}, 2:{}", slice1, slice2);
+
+        let len = s.len();
+
+        // take n to end of string
+        let slice1 = &s[3..len];
+        let slice2 = &s[3..];
+        println!("1:{}, 2:{}", slice1, slice2);
+
+        // take the entire string
+        let slice1 = &s[0..len];
+        let slice2 = &s[..];
+        println!("1:{}, 2:{}", slice1, slice2);
+    }
 }
 
 pub fn test_owenership() {
     ownership();
 
     ownership_and_function();
+
+    test_slice()
 }

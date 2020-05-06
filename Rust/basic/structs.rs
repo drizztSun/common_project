@@ -5,6 +5,26 @@ struct User {
     active: bool,
 }
 
+fn build_user(email: String, username: String) -> User {
+    User {
+        name: username,
+        email: email,
+        sign_in: 1,
+        active: true,
+    }
+}
+
+// or
+// Using Field Init Shorthand
+fn build_user_field_init_shorthand(email: String, name: String) -> User {
+    User {
+        name,
+        email,
+        sign_in: 1,
+        active: true,
+    }
+}
+
 // tuple structs
 /*
 Using Tuple Structs without Named Fields to Create Different Types
@@ -29,6 +49,8 @@ Rust does include functionality to print out debugging information,
 but we have to explicitly opt in to make that functionality available for our struct.
 To do that, we add the annotation #[derive(Debug)] just before the struct definition,
 */
+
+// Rust does include functionality to print out debugging information, but we have to explicitly opt in to make that functionality available for our struct.
 #[derive(Debug)]
 struct Rectangle {
     width: u32,
@@ -71,6 +93,7 @@ pub fn test_structs() {
         user1.name, user1.email, user1.sign_in, user1.active
     );
 
+    // Creating Instances From Other Instances With Struct Update Syntax
     let user2 = User {
         name: String::from("Jeff"),
         email: String::from("jeff@outlook.com"),
@@ -107,4 +130,7 @@ pub fn test_structs() {
     println!("m's aera = {}", m.area());
     println!("m can_hold = {}", m.can_hold(&m));
     println!("m square width = {}", Rectangle::square(20).area());
+
+    //  When we have larger structs, it’s useful to have output that’s a bit easier to read; in those cases, we can use {:#?} instead of {:?} in the println! string.
+    println!("rect1 is {:?} ", m)
 }

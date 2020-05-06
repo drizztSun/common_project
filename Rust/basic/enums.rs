@@ -1,4 +1,4 @@
-use std::net::Ipv4Addr;
+use std::net::{IpAddr, Ipv4Addr, Ipv6Addr};
 
 /*
 old-style way has to use enum and struct to represent IP
@@ -29,6 +29,18 @@ enum IpAddrStr {
 enum IpAddrInt {
     V4(u8, u8, u8, u8),
     V6(String),
+}
+
+fn test_ipaddr_enum() {
+    let localhost_v4 = IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1));
+
+    let localhost_v6 = IpAddr::V6(Ipv6Addr::new(0, 0, 0, 0, 0, 0, 0, 1));
+
+    assert_eq!("127.0.0.1".parse(), Ok(localhost_v4));
+    assert_eq!("::1".parse(), Ok(localhost_v6));
+
+    assert_eq!(localhost_v4.is_ipv6(), false);
+    assert_eq!(localhost_v6.is_ipv4(), false);
 }
 
 /*
@@ -114,7 +126,7 @@ fn value_in_cents(coin: Coin) -> u8 {
     }
 }
 
-pub fn test_enums() {
+fn test_enums_baisc() {
     // old style code
     let home = IpAddrStruct {
         kind: IpAddrKind::V4,
@@ -160,8 +172,6 @@ pub fn test_enums() {
         7 => println!("seven"),
         _ => (), // default
     }
-
-    C_like_enum();
 }
 
 fn iflet_vs_match() {
@@ -209,6 +219,17 @@ fn iflet_vs_match() {
 
 /*
 Option<T>
+
+The Option Enum and Its Advantages Over Null Values
+
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+The Option<T> enum is so useful that it’s even included in the prelude; you don’t need to bring it into scope explicitly.
+In addition, so are its variants: you can use Some and None directly without the Option:: prefix.
+The Option<T> enum is still just a regular enum, and Some(T) and None are still variants of type Option<T>.
  */
 fn plus_one(a: Option<i32>) -> Option<i32> {
     match a {
@@ -228,4 +249,67 @@ fn test_options() {
     let five = Some(5);
     let Six = plus_one(five);
     let none = plus_one(None);
+}
+
+/*
+enum Result<T, E> {
+   Ok(T),
+   Err(E),
+}
+
+Error handling with the Result type.
+
+Result<T, E> is the type used for returning and propagating errors. It is an enum with the variants, Ok(T), representing success and containing a value,
+and Err(E), representing error and containing an error value.
+
+*/
+#[derive(Debug)]
+enum Version {
+    Version1,
+    Version2,
+}
+
+fn parse_version(header: &[u8]) -> Result<Version, &'static str> {
+    match header.get(0) {
+        None => Err("invalid header length"),
+        Some(&1) => Ok(Version::Version1),
+        Some(&2) => Ok(Version::Version2),
+        Some(_) => Err("invalid version"),
+    }
+}
+
+fn test_result() {
+    let version = parse_version(&[1, 2, 3, 4]);
+    match version {
+        Ok(v) => println!("working with version: {:?}", v),
+        Err(e) => println!("error parsing header: {:?}", e),
+    }
+
+    let good_result: Result<i32, i32> = Ok(10);
+    let bad_result: Result<i32, i32> = Err(10);
+
+    // The `is_ok` and `is_err` methods do what they say.
+    assert!(good_result.is_ok() && !good_result.is_err());
+    assert!(bad_result.is_err() && !bad_result.is_ok());
+
+    // `map` consumes the `Result` and produces another.
+    let good_result: Result<i32, i32> = good_result.map(|i| i + 1);
+    let bad_result: Result<i32, i32> = bad_result.map(|i| i - 1);
+
+    // Use `and_then` to continue the computation.
+    let good_result: Result<bool, i32> = good_result.and_then(|i| Ok(i == 11));
+
+    // Use `or_else` to handle the error.
+    let bad_result: Result<i32, i32> = bad_result.or_else(|i| Ok(i + 20));
+
+    // Consume the result and return the contents with `unwrap`.
+    let final_awesome_result = good_result.unwrap();
+}
+
+pub fn test_enums() {
+    test_enums_baisc();
+
+    test_options();
+
+    C_like_enum();
 }

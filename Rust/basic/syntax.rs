@@ -1,4 +1,56 @@
-use std::io;
+// Suppress all warnings from casts which overflow. must be put in the very begining
+#![allow(overflowing_literals)]
+
+fn test_casting() {
+    // Casting
+    // Rust provides no implicit type conversion (coercion) between primitive types. But, explicit type conversion (casting) can be performed using the as keyword.
+
+    // Rules for converting between integral types follow C conventions generally, except in cases where C has undefined behavior.
+    // The behavior of all casts between integral types is well defined in Rust.
+    let decimal = 65.4321_f32;
+
+    // Error! No implicit conversion
+    // let integer: u8 = decimal;
+    // FIXME ^ Comment out this line
+
+    // Explicit conversion
+    let integer = decimal as u8;
+    let character = integer as char;
+
+    println!("Casting: {} -> {} -> {}", decimal, integer, character);
+
+    // when casting any value to an unsigned type, T,
+    // std::T::MAX + 1 is added or subtracted until the value
+    // fits into the new type
+
+    // 1000 already fits in a u16
+    println!("1000 as a u16 is: {}", 1000 as u16);
+
+    // 1000 - 256 - 256 - 256 = 232
+    // Under the hood, the first 8 least significant bits (LSB) are kept,
+    // while the rest towards the most significant bit (MSB) get truncated.
+    println!("1000 as a u8 is : {}", 1000 as u8);
+    // -1 + 256 = 255
+    println!("  -1 as a u8 is : {}", (-1i8) as u8);
+
+    // For positive numbers, this is the same as the modulus
+    println!("1000 mod 256 is : {}", 1000 % 256);
+
+    // When casting to a signed type, the (bitwise) result is the same as
+    // first casting to the corresponding unsigned type. If the most significant
+    // bit of that value is 1, then the value is negative.
+
+    // Unless it already fits, of course.
+    println!(" 128 as a i16 is: {}", 128 as i16);
+    // 128 as u8 -> 128, whose two's complement in eight bits is:
+    println!(" 128 as a i8 is : {}", 128 as i8);
+
+    // repeating the example above
+    // 1000 as u8 -> 232
+    println!("1000 as a u8 is : {}", 1000 as u8);
+    // and the two's complement of 232 is -24
+    println!(" 232 as a i8 is : {}", 232 as i8);
+}
 
 fn test_if(number: i32) {
     if number % 4 == 0 {
@@ -78,15 +130,33 @@ fn test_data_type() {
     const NUMI128: i128 = 700;
     const NUMU128: u128 = 800;
 
+    println!("i8 min:{}, max:{}", std::i8::MIN, std::i8::MAX);
+    println!("u8 min:{}, max:{}", std::u8::MIN, std::u8::MAX);
+
+    println!("i16 min:{}, max:{}", std::i16::MIN, std::i16::MAX);
+    println!("u16 min:{}, max:{}", std::u16::MIN, std::u16::MAX);
+
+    println!("i32 min:{}, max:{}", std::i32::MIN, std::i32::MAX);
+    println!("u32 min:{}, max:{}", std::u32::MIN, std::u32::MAX);
+
+    println!("i64 min:{}, max:{}", std::i64::MIN, std::i64::MAX);
+    println!("u64 min:{}, max:{}", std::u64::MIN, std::u64::MAX);
+
+    println!("i128 min:{}, max:{}", std::i128::MIN, std::i128::MAX);
+    println!("u128 min:{}, max:{}", std::u128::MIN, std::u128::MAX);
+
+    println!("f32 min:{}, max:{}", std::f32::MIN, std::f32::MAX);
+    println!("f64 min:{}, max:{}", std::f64::MIN, std::f64::MAX);
+
     //
-    // Decimal	98_222
-    // Hex	0xff
-    // Octal	0o77
-    // Binary	0b1111_0000
+    // Decimal	        98_222
+    // Hex	            0xff
+    // Octal	        0o77
+    // Binary	        0b1111_0000
     // Byte (u8 only)	b'A'
 
     println!(
-        "NUMI8 = {} \n, NUMU8 = {}, \n, NUMI16 = {} \n, NUMU16 = {} \n, NUMI32 = {} \n, 
+        "NUMI8 = {} \n, NUMU8 = {}, \n, NUMI16 = {} \n, NUMU16 = {} \n, NUMI32 = {} \n,
         NUMU32 = {} \n, NUMI64 = {},\n NUMU64 = {},\n NUMI128 = {}, \n NUMU128 = {}\n",
         NUMI8, NUMU8, NUMI16, NUMU16, NUMI32, NUMU32, NUMI64, NUMU64, NUMI128, NUMU128
     );
@@ -189,6 +259,12 @@ fn test_data_type() {
     for c in a.iter() {
         println!("a : {}", c)
     }
+
+    let d = [3; 5];
+    for c in d.iter() {
+        println!("c : {}", c)
+    }
+
     println!("")
 }
 
@@ -241,4 +317,6 @@ pub fn test_syntax() {
     test_loop();
 
     test_ownership();
+
+    test_casting()
 }
