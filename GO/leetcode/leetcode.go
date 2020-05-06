@@ -10,7 +10,9 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodeH.Test_928_MinimizeMalwareSpreadII()
+	leetcodeH.Test_902_NumbersAtMostNGivenDigits()
+
+	// leetcodeH.Test_928_MinimizeMalwareSpreadII()
 
 	//leetcodeH.Test_913_CatAndMouse()
 

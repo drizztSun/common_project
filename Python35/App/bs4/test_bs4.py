@@ -236,9 +236,9 @@ def test_bs4_fetch_ubuntu_new():
 
     root_doc = BeautifulSoup(resp.text, 'lxml')
 
-    version = "18.04"
+    version = "20.04"
 
-    re_exp = r'(?P<version>' + version + r'\.\d)'
+    re_exp = r'(?P<version>' + version + r'[\.\d]*)'
     text = re.compile(re_exp)
 
     all_tds = root_doc.find_all(name='td')
@@ -260,9 +260,6 @@ def test_bs4_fetch_ubuntu_new():
     ret.update(m.groupdict())
 
     print(ret)
-
-
-
 
 
 if __name__ == '__main__':

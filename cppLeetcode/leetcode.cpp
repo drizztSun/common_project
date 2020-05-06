@@ -291,9 +291,13 @@ void test_928_MinimizeMalwareSpreadII();
 
 void test_932_beautiful_array();
 
+void test_962_maximum_width_range();
+
 void leetcode() {
     
-    test_932_beautiful_array();
+    test_962_maximum_width_range();
+    
+    // test_932_beautiful_array();
     
     // test_928_MinimizeMalwareSpreadII();
     

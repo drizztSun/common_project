@@ -58,10 +58,11 @@ class AtMostNGivenDigitSet:
 
     Complexity Analysis
 
-    Time Complexity: O(\log N)O(logN), and assuming D\text{.length}D.length is constant. (We could make this better by pre-calculating the number of d < S[i] for all possible digits S[i], but this isn't necessary.)
-    Space Complexity: O(\log N)O(logN), the space used by S and dp. (Actually, we could store only the last 2 entries of dp, but this isn't necessary.)
+    Time Complexity: O(logN), and assuming D\text{.length}D.length is constant. (We could make this better by pre-calculating the number of d < S[i] for all possible digits S[i], but this isn't necessary.)
+    Space Complexity: O(logN), the space used by S and dp. (Actually, we could store only the last 2 entries of dp, but this isn't necessary.)
 
     """
+
 
     def doit(self, D, N):
 
@@ -83,7 +84,7 @@ class AtMostNGivenDigitSet:
         return dp[0] + sum(len(D)**i for i in range(1, L))
 
 
-    def doit(self, D, N):
+    def doit1(self, D, N):
 
         a = [int(x) for x in str(N)]
         n = len(a)
@@ -92,7 +93,7 @@ class AtMostNGivenDigitSet:
         ret += sum([m ** i for i in range(1, n)])  # [1..n-1] digits numbers
 
         # n digits numbers:
-        for i in range(n):
+        for i in range(n): # from highest level first.
             eq = False
             for d in D:
                 if int(d) < a[i]:
@@ -101,10 +102,10 @@ class AtMostNGivenDigitSet:
                     eq = True
             if eq:
                 if i == n - 1:
-                    ret += 1
+                    ret += 1 # if it is last one, it just match the result, then plus 1
                 continue
             else:
-                break
+                break # if there is no equal element, there is no possible to make it match to result.
         return ret
 
 
@@ -114,32 +115,38 @@ class AtMostNGivenDigitSet:
     
     As in Approach #1, call a positive integer X valid if X <= N and X only consists of digits from D.
     
-    Now let B = D.length. There is a bijection between valid integers and so called "bijective-base-B" numbers. For example, if D = ['1', '3', '5', '7'], then we could write the numbers '1', '3', '5', '7', '11', '13', '15', '17', '31', ... as (bijective-base-B) numbers '1', '2', '3', '4', '11', '12', '13', '14', '21', ....
+    Now let B = D.length. There is a bijection between valid integers and so called "bijective-base-B" numbers. For example, if D = ['1', '3', '5', '7'], 
+    then we could write the numbers '1', '3', '5', '7', '11', '13', '15', '17', '31', ... as (bijective-base-B) numbers '1', '2', '3', '4', '11', '12', '13', '14', '21', ....
     
     It is clear that both of these sequences are increasing, which means that the first sequence is a contiguous block of valid numbers, followed by invalid numbers.
     
-    Our approach is to find the largest valid integer, and convert it into bijective-base-B from which it is easy to find its rank (position in the sequence.) Because of the bijection, the rank of this element must be the number of valid integers.
+    Our approach is to find the largest valid integer, and convert it into bijective-base-B from which it is easy to find its rank (position in the sequence.) 
+    Because of the bijection, the rank of this element must be the number of valid integers.
     
-    Continuing our example, if N = 64, then the valid numbers are '1', '3', ..., '55', '57', which can be written as bijective-base-4 numbers '1', '2', ..., '33', '34'. Converting this last entry '34' to decimal, the answer is 16 (3 * 4 + 4).
+    Continuing our example, if N = 64, then the valid numbers are '1', '3', ..., '55', '57', 
+    which can be written as bijective-base-4 numbers '1', '2', ..., '33', '34'. Converting this last entry '34' to decimal, the answer is 16 (3 * 4 + 4).
     
     Algorithm
     
-    Let's convert N into the largest possible valid integer X, convert X to bijective-base-B, then convert that result to a decimal answer. The last two conversions are relatively straightforward, so let's focus on the first part of the task.
+    Let's convert N into the largest possible valid integer X, convert X to bijective-base-B, then convert that result to a decimal answer. 
+    The last two conversions are relatively straightforward, so let's focus on the first part of the task.
     
     Let's try to write X one digit at a time. Let's walk through an example where D = ['2', '4', '6', '8']. There are some cases:
     
     If the first digit of N is in D, we write that digit and continue. For example, if N = 25123, then we will write 2 and continue.
     
-    If the first digit of N is larger than min(D), then we write the largest possible number from D less than that digit, and the rest of the numbers will be big. For example, if N = 5123, then we will write 4888 (4 then 888).
+    If the first digit of N is larger than min(D), then we write the largest possible number from D less than that digit, and the rest of the numbers will be big. 
+    For example, if N = 5123, then we will write 4888 (4 then 888).
     
     If the first digit of N is smaller than min(D), then we must "subtract 1" (in terms of X's bijective-base-B representation), and the rest of the numbers will be big.
     
     For example, if N = 123, we will write 88. If N = 4123, we will write 2888. And if N = 22123, we will write 8888. This is because "subtracting 1" from '', '4', '22' yields '', '2', '8' (can't go below 0).
     
-    Actually, in our solution, it is easier to write in bijective-base-B, so instead of writing digits of D, we'll write the index of those digits (1-indexed). For example, X = 24888 will be A = [1, 2, 4, 4, 4]. Afterwards, we convert this to decimal.
+    Actually, in our solution, it is easier to write in bijective-base-B, so instead of writing digits of D, we'll write the index of those digits (1-indexed). 
+    For example, X = 24888 will be A = [1, 2, 4, 4, 4]. Afterwards, we convert this to decimal.
     """
 
-    def doit(self, D, N):
+    def doit2(self, D, N):
         import bisect
 
         B = len(D)  # bijective-base B

@@ -1,9 +1,67 @@
-//
-//  962_MaximumWidthRamp.cpp
-//  cppleetcode
-//
-//  Created by Yuxin Sun on 5/2/20.
-//  Copyright © 2020 Yuxin Sun. All rights reserved.
-//
+/*
+ 
+ 
+ # 962. Maximum Width Ramp
 
-#include <stdio.h>
+ # Given an array A of integers, a ramp is a tuple (i, j) for which i < j and A[i] <= A[j].
+ # The width of such a ramp is j - i.
+
+ # Find the maximum width of a ramp in A.  If one doesn't exist, return 0.
+
+
+ # Example 1:
+
+ # Input: [6,0,8,2,1,5]
+ # Output: 4
+ # Explanation:
+ # The maximum width ramp is achieved at (i, j) = (1, 5): A[1] = 0 and A[5] = 5.
+
+ # Example 2:
+
+ # Input: [9,8,1,0,1,9,4,0,4,1]
+ # Output: 7
+ # Explanation:
+ # The maximum width ramp is achieved at (i, j) = (2, 9): A[2] = 1 and A[9] = 1.
+
+
+ # Note:
+
+ # 2 <= A.length <= 50000
+ # 0 <= A[i] <= 50000
+ 
+ 
+ */
+
+#include <vector>
+using std::vector;
+
+class MaxWidthRamp {
+public:
+    int doit(vector<int>&& A) {
+        
+        vector<std::pair<int, int>> B;
+        for (int i = 0; i < A.size(); i++) {
+            B.push_back({A[i], i});
+        }
+        std::sort(B.begin(), B.end(), [](auto& a, auto& b) {
+            return a.first < b.first;
+        });
+        
+        int min_index = A.size();
+        int res = 0;
+        for (auto& c : B) {
+            
+            res = std::max(res, c.second - min_index);
+            min_index = std::min(min_index, c.second);
+        }
+        
+        return res;
+    }
+};
+
+void test_962_maximum_width_range() {
+    
+    auto res = MaxWidthRamp().doit(vector<int>{3,28,15,1,4,12,6,19,8,15,3,9,6,4,13,12,6,12,10,1,2,1,4,1,4,0,0,1,1,0});
+    
+    return;
+}
