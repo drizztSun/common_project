@@ -8,5 +8,7 @@ func main() {
 
 	fmt.Println("-- set signal verification --")
 
-	GetBrowsers()
+	// GetBrowsers()
+
+	GetStatusOfService()
 }
