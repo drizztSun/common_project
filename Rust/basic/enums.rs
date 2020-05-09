@@ -209,12 +209,17 @@ fn iflet_vs_match() {
         Coin::Quarter(state) => println!("State quator from {:?}", state),
         _ => count += 1,
     }
+
     /*
-    if let Coin::Quarter(state1) = coin {
+    We can include an else with an if let. The block of code that goes with the else is the same as the block of code
+    that would go with the _ case in the match expression that is equivalent to the if let and else.
+    */
+    let coin1 = Coin::Penny;
+    if let Coin::Quarter(state1) = coin1 {
         println!("State quator from {:?}", state1);
     } else {
         count += 1;
-    }*/
+    }
 }
 
 /*

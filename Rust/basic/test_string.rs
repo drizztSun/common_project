@@ -1,3 +1,5 @@
+use std::string;
+
 fn test_string_basic() {
     {
         let data = "initial strings";
@@ -131,4 +133,33 @@ fn test_string_basic() {
     }
 }
 
-pub fn test_string() {}
+fn test_string_to_int() {
+    let s = String::from("123");
+
+    // s is parsed to 32-bits signed integer here (change number type if needed).
+    // -1 is used here as a fallback value, but any error handling instructions can be used.
+    let i = match s.parse::<i32>() {
+        Ok(i) => i,
+        Err(_e) => -1,
+    };
+    println!("what is in s {} ", i);
+
+    // This explicitly sets the value to 0 if it can't be parsed to an integer.
+    let i: i32 = s.parse().unwrap_or(0);
+    println!("what is in s {} ", i);
+
+    //
+    // This panics if s is not a valid number.
+    // s is parsed to 32-bits signed integer here (change number type if needed).
+    let i = s.parse::<i32>().unwrap();
+    println!("what is in s {} ", i);
+    //
+    let num: i32 = s.trim().parse().expect("Except error happened");
+    println!("What is in s {}", num);
+}
+
+pub fn test_string() {
+    test_string_basic();
+
+    test_string_to_int();
+}

@@ -15,6 +15,12 @@ However, if the vector's length is increased to 11, it will have to reallocate, 
 For this reason, it is recommended to use Vec::with_capacity whenever possible to specify how big the vector is expected to get.
 */
 fn test_vec_basic() {
+    // constructor
+    let mut vec: Vec<i32> = Vec::new();
+    let mut vec: Vec<i32> = Vec::with_capacity(10);
+    let mut vec: Vec<i32> = vec![0; 100]; // init vec 100 elements, all are 0
+    let mut vec: Vec<i32> = vec![1, 2, 3];
+
     // A contiguous growable array type, written Vec<T> but pronounced 'vector'.
     let mut vec = Vec::new();
 
@@ -364,6 +370,27 @@ fn test_max_range(a: Vec<i32>) -> i32 {
     return ans;
 }
 
+fn test_2d_array() {
+    let N = 10;
+    let M = 20;
+    let mut array = vec![vec![0.0f64; N]; M];
+    for i in (0..M) {
+        for j in (0..N) {
+            array[i][j] = (i * N + j) as f64;
+        }
+    }
+
+    const CN: usize = 10;
+    const CM: usize = 100;
+    let mut x = [[0.0; CN]; CM]; // This works only when M and N are constant. Elements have type f64
+
+    for i in (0..CM) {
+        for j in (0..CN) {
+            x[i][j] = (i * CN + j) as f64;
+        }
+    }
+}
+
 pub fn test_vec() {
     test_vec_basic();
 
@@ -374,4 +401,6 @@ pub fn test_vec() {
     test_vec_funcs_from_raw_ptrs();
 
     test_vec_add_remove_iter();
+
+    test_2d_array();
 }

@@ -21,5 +21,8 @@ fn main() {
 
     // leetcode_media::A962_MaximumWidthRamp::test_962_maximum_width_ramp();
 
-    leetcode_hard::A902_NumbersAtMostNGivenDigitSet::test_902_nmbers_at_most_ngiven_digits_set();
+    // leetcode_hard::A902_NumbersAtMostNGivenDigitSet::test_902_nmbers_at_most_ngiven_digits_set();
+
+    leetcode_hard::A903_ValidPermutationsforDISequence::test_903_valid_permutation_for_Di_sequence(
+    );
 }
