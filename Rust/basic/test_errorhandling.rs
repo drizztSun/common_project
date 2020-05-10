@@ -89,7 +89,8 @@ fn read_username_from_file() -> Result<String, io::Error> {
 pub fn test_errorhandling() {
     // In these cases, Rust has the panic! macro. When the panic! macro executes, your program will print a failure message,
     // unwind and clean up the stack, and then quit.
-    panic!("cash and burn");
+
+    // panic!("cash and burn");
 
     // Unwinding the Stack or Aborting in Response to a Panic
     // By default, when a panic occurs, the program starts unwinding, which means Rust walks back up the stack and cleans up the data

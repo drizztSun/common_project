@@ -2,6 +2,7 @@ use std::string;
 
 fn test_string_basic() {
     {
+        // str => String
         let data = "initial strings";
         let s = data.to_string(); // anything with 'Display' function has this
 
@@ -9,7 +10,7 @@ fn test_string_basic() {
         let s2 = String::from("initial strings");
     }
 
-    // Remember that strings are UTF-8 encoded, so we can include any properly encoded data in them,
+    // Remember that st rings are UTF-8 encoded, so we can include any properly encoded data in them,
     /*
     let hello = String::from("السلام عليكم");
     let hello = String::from("Dobrý den");
@@ -25,6 +26,7 @@ fn test_string_basic() {
      */
 
     {
+        // Appending to a String with push_str and push
         let mut s = String::new();
         s.push_str("hello ");
         s.push_str("world");

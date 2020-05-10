@@ -39,7 +39,7 @@ fn test_vec_basic() {
         println!("{}", x);
     }
 
-    assert_eq!(vec, [7, 1, 2, 3]);
+    assert_eq!(vec, [7, 2, 1, 2, 3]);
 
     {
         // insert
@@ -75,7 +75,7 @@ fn test_vec_basic() {
         // Removes the first instance of item from the vector if the item exists.
         let mut vec = vec![1, 2, 3, 1];
         // vec.remove_item(&1);  # remove_item is a function from unstable version
-        assert_eq!(vec, vec![2, 3, 1]);
+        assert_eq!(vec, vec![1, 2, 3, 1]);
     }
 
     {
@@ -92,16 +92,16 @@ fn test_vec_basic() {
         assert_eq!(stack.is_empty(), true)
     }
 
-    // indexing
     {
+        // indexing
         let v = vec![1, 2, 3, 4];
         println!("{}", v[0]);
 
         // println!("{}", v[6]); //panic
     }
 
-    // slicing
     {
+        // slicing
         // A Vec can be mutable. Slices, on the other hand, are read-only objects. To get a slice, use &. Exampl
         let v = vec![0, 1, 2];
 
@@ -113,8 +113,8 @@ fn test_vec_basic() {
         // The same goes for String and &str.
     }
 
-    // append
     {
+        // append
         let mut vec = vec![1, 2, 3];
         let mut vec2 = vec![4, 5, 6];
         vec.append(&mut vec2);
@@ -122,6 +122,19 @@ fn test_vec_basic() {
         assert_eq!(vec2.is_empty(), true);
 
         vec.clear();
+    }
+
+    {
+        // iterating
+        let v = vec![100, 32, 57];
+        for i in &v {
+            println!("{}", i);
+        }
+
+        let mut v1 = vec![100, 32, 57];
+        for i in &mut v1 {
+            *i += 50;
+        }
     }
 }
 
@@ -176,9 +189,10 @@ fn test_vec_funcs_capacity() {
     let mut v = Vec::with_capacity(5);
 
     assert_eq!(v.capacity(), 5);
-    assert_eq!(v, [0, 0, 0, 0, 0]);
 
     v.resize(5, 0);
+    assert_eq!(v, [0, 0, 0, 0, 0]);
+
     v.reserve(10);
     assert!(v.capacity() >= 11);
 }
