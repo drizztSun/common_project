@@ -43,6 +43,9 @@ fn test_string_basic() {
         let s3 = String::from("toe");
 
         let s = s1 + "-" + &s2 + "-" + &s3;
+        // note s1 has been moved here and can no longer be used
+        // let s = s1.clone() + "-" + &s2 + "-" + &s3;
+        // println!("s1 = {}", s1);
         println!("s = {}", s);
 
         let mut s4 = String::from("tic");
@@ -100,25 +103,62 @@ fn test_string_basic() {
     }
 
     {
-        // internal representation
-        // A String is a wrapper over a Vec<u8>. Let’s look at some of our properly encoded UTF-8 example strings from Listing 8-14. First, this one:
+        // *** internal representation
+        // A String is a wrapper over a Vec<u8>.
+        // Let’s look at some of our properly encoded UTF-8 example strings from Listing 8-14. First, this one:
         let len = String::from("Hola").len();
+        assert_eq!(len, 4);
         /*
         In this case, len will be 4, which means the vector storing the string “Hola” is 4 bytes long.
         Each of these letters takes 1 byte when encoded in UTF-8. But what about the following line?
         (Note that this string begins with the capital Cyrillic letter Ze, not the Arabic number 3.)
         */
         let len1 = String::from("Здравствуйте").len();
+        assert_eq!(len1, 24);
         /*
         Asked how long the string is, you might say 12. However, Rust’s answer is 24:
         that’s the number of bytes it takes to encode “Здравствуйте” in UTF-8, because each Unicode scalar value in that string takes 2 bytes of storage.
         Therefore, an index into the string’s bytes will not always correlate to a valid Unicode scalar value. To demonstrate, consider this invalid Rust code:
         */
+        let hello = "Здравствуйте";
+        // let answer = &hello[0];
+        // To avoid returning an unexpected value and causing bugs that might not be discovered immediately,
+        // Rust doesn’t compile this code at all and prevents misunderstandings early in the development process.
+
+        // *** Bytes and Scalar Values and Grapheme Clusters! Oh My!
+        // Another point about UTF-8 is that there are actually three relevant ways to look at strings
+        // from Rust’s perspective:
+        //              as bytes,
+        //              scalar values, and
+        //              grapheme clusters (the closest thing to what we would call letters).
+
+        // If we look at the Hindi word “नमस्ते” written in the Devanagari script, it is stored as a vector of u8 values that looks like this:
+        // [224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164, 224, 165, 135]
+        // That’s 18 bytes and is how computers ultimately store this data.
+
+        //If we look at them as Unicode scalar values, which are what Rust’s char type is, those bytes look like this:
+        // ['न', 'म', 'स', '्', 'त', 'े']
+        // There are six char values here, but the fourth and sixth are not letters: they’re diacritics that don’t make sense on their own.
+
+        // Finally, if we look at them as grapheme clusters, we’d get what a person would call the four letters that make up the Hindi word:
+        // ["न", "म", "स्", "ते"]
+
+        // Rust provides different ways of interpreting the raw string data that computers store so that each program can choose the interpretation it needs,
+        // no matter what human language the data is in.
+
+        // A final reason Rust doesn’t allow us to index into a String to get a character is that indexing operations are expected to always take constant time (O(1)).
+        // But it isn’t possible to guarantee that performance with a String, because Rust would have to walk through the contents from the beginning to the index to determine how many valid characters there were.
+
+        let s = &hello[0..4]; // s will be &str
+        println!("{}", s);
+        // What would happen if we used &hello[0..1]? The answer: Rust would panic at runtime in the same way as if an invalid index were accessed in a vector:
+        // s = &hello[0..5] // it caused panic because it is not char boundary.
     }
 
     {
         /*
-        Methods for Iterating Over Strings Fortunately, you can access elements in a string in other ways.
+        *** Methods for Iterating Over Strings
+        Fortunately, you can access elements in a string in other ways.
         If you need to perform operations on individual Unicode scalar values, the best way to do so is to use the chars method.
         Calling chars on “नमस्ते” separates out and returns six values of type char, and you can iterate over the result to access each element:
          */
