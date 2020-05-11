@@ -65,32 +65,29 @@ func GetStatusOfService(serviceName string) (status string) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
-	err := run(stdout, stderr, "", "systemctl", "is-active", serviceName)
-	if err != nil {
+	if err := run(stdout, stderr, "", "systemctl", "is-active", serviceName); err != nil {
 		fmt.Printf("Unable to get status of %s, error: %s, err detail: %s, out: %s", serviceName, err.Error(), stderr, stdout)
-		return statusPoor
-	} else {
-		lines := strings.TrimSpace(stdout.String())
-		if lines == "active" {
-			return statusGood
-		} else {
-			// This command returns inactive for s/w that's not installed too.
-			stdout.Reset()
-			stderr.Reset()
-			err = run(stdout, stderr, "", "systemctl", "status", serviceName)
-			if err != nil {
-				fmt.Printf("Unable to get status of service %s, error: %s", serviceName, err.Error())
-				return statusPoor
-			} else {
-				lines := strings.TrimSpace(stdout.String())
-				if strings.Contains(lines, "could not be found") {
-					return statusNone
-				} else {
-					return statusPoor
-				}
-			}
+		if stdout.String() != "inactive\n" {
+			return statusPoor
 		}
 	}
+
+	lines := strings.TrimSpace(stdout.String())
+	if lines == "active" { // active or activating, inactive.
+		return statusGood
+	}
+
+	// This command returns inactive for s/w that's not installed too.
+	stdout.Reset()
+	stderr.Reset()
+	if err := run(stdout, stderr, "", "systemctl", "status", serviceName); err != nil {
+		fmt.Printf("Unable to get status of service %s, error: %s, err detail: %s, out: %s", serviceName, err.Error(), stderr, stdout)
+		if strings.Contains(stderr.String(), "could not be found.") {
+			return statusNone
+		}
+	}
+
+	return statusPoor
 }
 
 var antimalwareFailCounter int
