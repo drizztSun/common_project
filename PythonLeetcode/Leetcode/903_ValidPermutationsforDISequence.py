@@ -65,7 +65,7 @@ class NumPermsDISequence:
     
     Actually, we can do better than this. For any given i, let's look at how the sum of D_k = dp(i-1, k) is queried. 
     Assuming S[i-1] == 'I', we query D_0, D_0 + D_1, D_0 + D_1 + D_2, ... etc. The case for S[i-1] == 'D' is similar.
-    
+
     Thus, we don't need to query the sum every time. 
     Instead, we could use (for S[i-1] == 'I') the fact that dp(i, j) = dp(i, j-1) + dp(i-1, j-1). 
     For S[i-1] == 'D', we have the similar fact that dp(i, j) = dp(i, j+1) + dp(i-1, j).
@@ -133,11 +133,16 @@ class NumPermsDISequence:
 
         @lru_cache(None)
         def dp(i, j):
-            if i >= j: return 1
+            if i >= j:
+                return 1
+
             ans = 0
             n = j - i + 2
-            if S[i] == 'I': ans += dp(i + 1, j)
-            if S[j] == 'D': ans += dp(i, j - 1)
+            if S[i] == 'I':
+                ans += dp(i + 1, j)
+
+            if S[j] == 'D':
+                ans += dp(i, j - 1)
 
             for k in range(i + 1, j + 1):
                 if S[k - 1:k + 1] == 'DI':

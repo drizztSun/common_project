@@ -10,7 +10,9 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodeH.Test_902_NumbersAtMostNGivenDigits()
+	leetcodeH.Test_903_ValidPermutationsforDiSequence()
+
+	// leetcodeH.Test_902_NumbersAtMostNGivenDigits()
 
 	// leetcodeH.Test_928_MinimizeMalwareSpreadII()
 
