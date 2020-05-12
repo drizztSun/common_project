@@ -42,28 +42,85 @@ fn test_linkedlist_basic() {
 
         assert_eq!(list.is_empty(), true);
 
-        // front and back
-        assert_eq!(list1.front(), Some(&'a'));
+        {
+            // front and back
+            assert_eq!(list1.front(), Some(&'a'));
 
-        assert_eq!(list1.back(), Some(&'c'));
+            assert_eq!(list1.back(), Some(&'c'));
 
-        // front
-        match list1.front_mut() {
-            None => {}
-            Some(m) => *m = 'f',
+            // front
+            match list1.front_mut() {
+                None => {}
+                Some(m) => *m = 'f',
+            }
+            assert_eq!(list1.front(), Some(&'f'));
+
+            match list1.back_mut() {
+                None => {}
+                Some(m) => *m = 'e',
+            }
+            assert_eq!(list1.back(), Some(&'e'));
         }
-        assert_eq!(list1.front(), Some(&'f'));
 
-        match list1.back_mut() {
-            None => {}
-            Some(m) => *m = 'e',
+        {
+            // append
+            let mut list1 = LinkedList::new();
+            list1.push_back('a');
+
+            let mut list2 = LinkedList::new();
+            list2.push_back('b');
+            list2.push_back('c');
+
+            list1.append(&mut list2);
+
+            let mut iter = list1.iter();
+            assert_eq!(iter.next(), Some(&'a'));
+            assert_eq!(iter.next(), Some(&'b'));
+            assert_eq!(iter.next(), Some(&'c'));
+            assert!(iter.next().is_none());
+
+            assert!(list2.is_empty());
         }
-        assert_eq!(list1.back(), Some(&'f'));
+
+        {
+            // push_front, pop_front
+            let mut dl = LinkedList::new();
+            assert_eq!(dl.pop_front(), None);
+
+            dl.push_front(2);
+            assert_eq!(dl.front().unwrap(), &2);
+
+            dl.push_front(1);
+            assert_eq!(dl.front().unwrap(), &1);
+
+            dl.clear();
+
+            dl.push_front(1);
+            dl.push_front(3);
+
+            assert_eq!(dl.pop_front(), Some(3));
+            assert_eq!(dl.pop_front(), Some(1));
+            assert_eq!(dl.pop_front(), None);
+        }
+
+        {
+            // push_back, pop_back
+            let mut d = LinkedList::new();
+            assert_eq!(d.pop_back(), None);
+
+            d.push_back(1);
+            d.push_back(3);
+            assert_eq!(3, *d.back().unwrap());
+
+            assert_eq!(d.pop_back(), Some(3));
+            assert_eq!(d.pop_back(), Some(1));
+            assert_eq!(d.pop_back(), None);
+        }
 
         // clear
         list1.clear();
 
-        assert_eq!(list.is_empty(), false);
+        assert_eq!(list.is_empty(), true);
     }
 
     {
@@ -73,6 +130,10 @@ fn test_linkedlist_basic() {
         list.push_back(0);
         list.push_back(1);
         list.push_back(2);
+
+        // contain
+        assert_eq!(list.contains(&0), true);
+        assert_eq!(list.contains(&100), false);
 
         let mut iter = list.iter();
         assert_eq!(iter.next(), Some(&0));
@@ -91,10 +152,6 @@ fn test_linkedlist_basic() {
         assert_eq!(iter.next(), Some(&11));
         assert_eq!(iter.next(), Some(&12));
         assert_eq!(iter.next(), None);
-
-        // contain
-        assert_eq!(list.contains(&0), true);
-        assert_eq!(list.contains(&100), false);
     }
 
     {
@@ -112,18 +169,20 @@ fn test_linkedlist_basic() {
     }
 
     {
-        // drain
+        // drain unstable build
+        /*
         let mut numbers: LinkedList<u32> = LinkedList::new();
         numbers.extend(&[1, 2, 3, 4, 5, 6, 8, 9, 11, 13, 14, 15]);
 
-        // let evens = numbers.drain_filter(|x| *x % 2 == 0).collect::<LinkedList<_>>();
+        let evens = numbers.drain_filter(|x| *x % 2 == 0).collect::<LinkedList<_>>();
         let odds = numbers;
 
-        // assert_eq!(evens.into_iter().collect::<Vec<_>>(), vec![2, 4, 6, 8, 14]);
+        assert_eq!(evens.into_iter().collect::<Vec<_>>(), vec![2, 4, 6, 8, 14]);
         assert_eq!(
             odds.into_iter().collect::<Vec<_>>(),
             vec![1, 3, 5, 9, 11, 13, 15]
         );
+        */
     }
 }
 

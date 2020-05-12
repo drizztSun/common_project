@@ -4,16 +4,10 @@
     <list default="true" id="5ab05469-9df4-43c3-8e24-c1a77c947ab3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GO/leetcode/leetcode.go" beforeDir="false" afterPath="$PROJECT_DIR$/GO/leetcode/leetcode.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python35/App/bs4/test_bs4.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/App/bs4/test_bs4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonLeetcode/Leetcode/902_NumbersAtMostNGivenDigitSet.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonLeetcode/Leetcode/902_NumbersAtMostNGivenDigitSet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/basic/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/basic/owenership.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/owenership.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/basic/structs.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/structs.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/basic/syntax.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/syntax.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/basic/test_vec.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/test_vec.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/leetcode/src/leetcode_hard/A839_SimilarStringGroups.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/leetcode/src/leetcode_hard/A839_SimilarStringGroups.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/leetcode/src/leetcode_media/A962_MaximumWidthRamp.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/leetcode/src/leetcode_media/A962_MaximumWidthRamp.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/leetcode/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/leetcode/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonLeetcode/Leetcode/903_ValidPermutationsforDISequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonLeetcode/Leetcode/903_ValidPermutationsforDISequence.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PythonLeetcode/leetcodeM/962_MaximumWidthRamp.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonLeetcode/leetcodeM/962_MaximumWidthRamp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rust/basic/test_hashmap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/test_hashmap.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rust/basic/test_string.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/test_string.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/LICENSE-APACHE" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/LICENSE-MIT" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/package.json" afterDir="false" />
@@ -24,7 +18,7 @@
       <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/xcuserdata/yusun.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/xcuserdata/yusun.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cppLeetcode/leetcode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/leetcode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cppLeetcode/leetcodeM/962_MaximumWidthRamp.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/leetcodeM/962_MaximumWidthRamp.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cppLeetcode/leetcode/903_ValidPermutationsForDISequence.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/leetcode/903_ValidPermutationsForDISequence.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

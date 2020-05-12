@@ -1,8 +1,10 @@
 //use mod::result;
 
+use std::fmt;
 use std::fs::File;
 use std::io;
 use std::io::prelude::*;
+// use std::process::ExitCode;
 
 /*
 Result<T, E> is the type used for returning and propagating errors.
@@ -177,6 +179,59 @@ fn write_info_with_question(info: &Info) -> io::Result<()> {
     Ok(())
 }
 
+fn read_username_from_file() -> Result<String, io::Error> {
+    let f = File::open("username.txt");
+
+    let mut f = match f {
+        Ok(file) => file,
+        Err(e) => return Err(e),
+    };
+
+    let mut s = String::new();
+
+    match f.read_to_string(&mut s) {
+        Ok(_) => Ok(s),
+        Err(e) => Err(e),
+    }
+}
+//
+// The ? operator for easier error handling
+// Rust has gained a new operator, ?, that makes error handling more pleasant by reducing the visual noise involved.
+
+// This code has two paths that can fail, opening the file and reading the data from it.
+// If either of these fail to work, we'd like to return an error from read_username_from_file.
+// Doing so involves matching on the result of the I/O operations. In simple cases like this though, where we are only propagating errors up the call stack,
+// the matching is just boilerplate - seeing it written out, in the same pattern every time, doesn't provide the reader with a great deal of useful information.
+
+// With ?, the above code looks like this:
+fn test_question_operator() -> Result<String, io::Error> {
+    let mut f = File::open("username.txt")?;
+    let mut s = String::new();
+
+    f.read_to_string(&mut s)?;
+
+    Ok(s)
+}
+
+// The ? is shorthand for the entire match statements we wrote earlier.
+// In other words, ? applies to a Result value, and if it was an Ok, it unwraps it and gives the inner value.
+// If it was an Err, it returns from the function you're currently in. Visually, it is much more straightforward.
+// Instead of an entire match statement, now we are just using the single "?" character to indicate that here we are handling errors in the standard way, by passing them up the call stack.
+
+// Seasoned Rustaceans may recognize that this is the same as the try! macro that's been available since Rust 1.0.
+// And indeed, they are the same. Previously, read_username_from_file could have been implemented like this:
+
+// The ? operator was added to replace try! and should be used instead.
+// Furthermore, try is a reserved word in Rust 2018, so if you must use it, you will need to use the raw-identifier syntax: r#try.
+fn read_username_from_file_try() -> Result<String, io::Error> {
+    let mut f = r#try!(File::open("username.txt"));
+
+    let mut s = String::new();
+    r#try!(f.read_to_string(&mut s));
+
+    Ok(s)
+}
+
 // Results must be used
 
 /*
@@ -192,6 +247,48 @@ trait Write {
 }
 Note: The actual definition of Write uses io::Result, which is just a synonym for Result<T, io::Error>.
 */
+
+// In Rust 2018 you can instead let your #[test]s and main functions return a Result:
+/*
+
+// Rust 2018
+
+use std::fs::File;
+
+fn main() -> Result<(), std::io::Error> {
+    let f = File::open("bar.txt")?;
+
+    Ok(())
+}
+*/
+
+// More details
+// Getting -> Result<..> to work in the context of main and #[test]s is not magic.
+// It is all backed up by a Termination trait which all valid return types of main and testing functions must implement. The trait is defined as:
+
+pub trait Termination {
+    fn report(self) -> i32;
+}
+
+impl Termination for () {
+    fn report(self) -> i32 {
+        //ExitCode::success.report();
+        return 1;
+    }
+}
+
+impl<E: fmt::Debug> Termination for Result<(), E> {
+    fn report(self) -> i32 {
+        match self {
+            Ok(()) => ().report(),
+            Err(err) => {
+                eprintln!("Error: {:?}", err);
+                // ExitCode::FAILURE.report()
+                2
+            }
+        }
+    }
+}
 
 fn test_basic_result_question() {
     let mut file = File::create("valuable_data.txt").unwrap();

@@ -13,6 +13,7 @@ mod test_binaryheap;
 mod test_box;
 mod test_btree;
 mod test_collectors;
+mod test_crate_model;
 mod test_errorhandling;
 mod test_hashmap;
 mod test_hashset;
@@ -45,6 +46,8 @@ fn main() {
     test_hashset::test_hashset();
 
     test_linkedlist::test_linkedlist();
+
+    test_crate_model::test_crate_model();
 
     test_vecdeque::test_vecdeque();
 

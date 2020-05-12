@@ -1,6 +1,13 @@
 // Suppress all warnings from casts which overflow. must be put in the very begining
 #![allow(overflowing_literals)]
 
+pub mod test_mod{
+
+    pub fn test_func() {
+
+    }
+}
+
 fn test_casting() {
     // Casting
     // Rust provides no implicit type conversion (coercion) between primitive types. But, explicit type conversion (casting) can be performed using the as keyword.

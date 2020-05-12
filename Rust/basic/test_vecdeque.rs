@@ -13,7 +13,7 @@ fn test_deque_basic() {
     dp_vec.push_back(4);
     dp_vec.push_back(5);
 
-    assert_eq!(dp_vec.get(1), Some(&2));
+    assert_eq!(dp_vec.get(1), Some(&100));
 
     if let Some(elem) = dp_vec.get_mut(1) {
         *elem = 2;
@@ -46,7 +46,7 @@ fn test_deque_basic() {
     assert!(dp_vec.capacity() >= 18);
 
     // len
-    assert!(dp_vec.len() == 6);
+    assert_eq!(dp_vec.len(), 9);
 
     // contains
     assert_eq!(dp_vec.contains(&0), true);
@@ -59,7 +59,7 @@ fn test_deque_basic() {
     dp_vec.push_front(100);
     if let Some(front) = dp_vec.remove(0) {
         assert_eq!(front, 100);
-        assert_eq!(dp_vec, &[0, 1, 2, 3, 4, 5]);
+        assert_eq!(dp_vec, &[0, 1, 2, 3, 4, 5, 10, 20, 30]);
     }
 
     // front
@@ -105,8 +105,8 @@ fn test_deque_basic() {
 
     // swap
     dp_vec.swap(0, 1);
-    assert_eq!(dp_vec.get(0), Some(&100));
-    assert_eq!(dp_vec.get(1), Some(&1));
+    assert_eq!(dp_vec.get(0), Some(&1));
+    assert_eq!(dp_vec.get(1), Some(&0));
 
     // iterate
     for n in dp_vec.iter() {
@@ -134,7 +134,7 @@ fn test_deque_slice() {
     buff1.push_front(9);
     assert_eq!(buff1.as_slices(), (&[9, 10][..], &[0, 1, 2][..]));
 
-    assert_eq!(buff1, &[0, 1, 2, 9, 10]);
+    assert_eq!(buff1, &[9, 10, 0, 1, 2]);
 
     let mut buff2 = VecDeque::new();
 
@@ -147,7 +147,7 @@ fn test_deque_slice() {
     buff2.as_mut_slices().0[0] = 42;
     buff2.as_mut_slices().1[0] = 21;
 
-    assert_eq!(buff2.as_slices(), (&[9, 10][..], &[42, 1][..]));
+    assert_eq!(buff2.as_slices(), (&[42, 9][..], &[21, 1][..]));
 }
 
 pub fn test_vecdeque() {

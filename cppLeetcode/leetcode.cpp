@@ -293,9 +293,13 @@ void test_932_beautiful_array();
 
 void test_962_maximum_width_range();
 
+void test_903_valid_permutations_for_di_sequence();
+
 void leetcode() {
     
-    test_962_maximum_width_range();
+    test_903_valid_permutations_for_di_sequence();
+    
+    // test_962_maximum_width_range();
     
     // test_932_beautiful_array();
     

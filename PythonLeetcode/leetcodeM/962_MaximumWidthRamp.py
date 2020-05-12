@@ -96,6 +96,8 @@ class MaxWidthRamp:
         return ans
 
 
+
+
 if __name__ == '__main__':
 
     res = MaxWidthRamp().doit([7, 2, 5, 4])
