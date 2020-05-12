@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
     print(list(range( 6)))  # built-in fucntion, range(start, end, step), range(1, 6) [1, 2, 3, 4, 5] no ending value. start is 0 by default, step is 1 by default
 
-    for i in range(len(a) + 1):  # i will be index
+    for i in range(len(a)):  # i will be index
 
         print(i)
 
