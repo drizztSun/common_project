@@ -60,7 +60,7 @@ struct student_grade{
 };
 
 // global variable
-student_grade stua = { "owen", 20150402391, 97.5, 100, 'A', 'A', false, true };
+student_grade stua = { "owen", 20150402391, 97.5, 100, 'A', 'A', false, false };
 
 struct point {
 	int x, y;
