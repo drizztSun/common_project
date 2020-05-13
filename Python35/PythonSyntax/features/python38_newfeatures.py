@@ -1,3 +1,4 @@
+import re
 
 def assingment_expressions():
 
@@ -5,31 +6,42 @@ def assingment_expressions():
     # There is new syntax := that assigns values to variables as part of a larger expression. 
     # It is affectionately known as “the walrus operator” due to its resemblance to the eyes and tusks of a walrus.
     a = [i for i in range(10)]
-
-    if (n := len(a)) > 0:
+    if (n := len(a)) > 0: # := makes 'n' declare and assignment in one line
         print("current array size > 10 is : ", n)
 
-    # Handle a matched regex
-    if (match := pattern.search(data)) is not None:
-        # Do something with match
+    # A similar benefit arises during regular expression matching where match objects are needed twice,
+    # once to test whether a match occurred and another to extract a subgroup:
+    discount = 0.0
+    advertisement = '1230.0'
+    if (mo := re.search(r'(\d+)% discount', advertisement)):
+        discount = float(mo.group(1)) / 100.0
 
-    # A loop that can't be trivially rewritten using 2-arg iter()
-    while chunk := file.read(8192):
-        process(chunk)
+    # The operator is also useful with while-loops that compute a value to test loop termination and then need that same value again in the body of the loop:
+    # Loop over fixed length blocks
+    f = open('./python38_newfeatures.py', 'r')Positional-only parameters
+    while (block := f.read(256)) != '':
+        print(block)
 
     # Reuse a value that's expensive to compute
-    [y := f(x), y**2, y**3]
+    a = [y := 2, y**2, y**3]
 
     # Share a subexpression between a comprehension filter clause and its output
+    data = range(10)
+    def f(x):
+        return x % 2
     filtered_data = [y for x in data if (y := f(x)) is not None]
 
 
 def positional_only_parameters():
 
     # Positional-only parameters
-    # There is a new function parameter syntax / to indicate that some function parameters must be specified positionally and cannot be used as keyword arguments. 
+    # There is a new function parameter syntax '/' to indicate that some function parameters must be specified positionally
+    # and cannot be used as keyword arguments.
     # This is the same notation shown by help() for C functions annotated with Larry Hastings’ Argument Clinic tool.
-    
+
+    # a, b ahead '/' is no keyword argument
+    # c, d between '/' and '*' is with or without keyword argument
+    # e, f after '*' must be keyword argument
     def f(a, b, /, c, d, *, e, f):
         print(a, b, c, d, e, f)
 
@@ -37,12 +49,12 @@ def positional_only_parameters():
 
     f(10, 20, 30, d=40, e=50, f=60)
     # However, these are invalid calls:
+    # f(10, b=20, c=30, d=40, e=50, f=60)   # b cannot be a keyword argument
+    # f(10, 20, 30, 40, 50, f=60)           # e must be a keyword argument
+    # A further benefit of marking a parameter as positional-only is that it allows the parameter name to be changed in the future without risk of breaking client code.
 
-    f(10, b=20, c=30, d=40, e=50, f=60)   # b cannot be a keyword argument
-    f(10, 20, 30, 40, 50, f=60)           # e must be a keyword argument
-
-
-    One use case for this notation is that it allows pure Python functions to fully emulate behaviors of existing C coded functions. For example, the built-in pow() function does not accept keyword arguments:
+    # One use case for this notation is that it allows pure Python functions to fully emulate behaviors of existing C coded functions.
+    # For example, the built-in pow() function does not accept keyword arguments:
 
     def pow(x, y, z=None, /):
         "Emulate the built in pow() function"
@@ -70,6 +82,18 @@ class Counter(dict):
 
     def __init__(self, iterable=None, /, **kwds):
         # Note "iterable" is a possible keyword argument
+        pass
+
+
+def more_precise_types():
+    '''
+    Python’s typing system is quite mature at this point. However, in Python 3.8, some new features have been added to typing to allow more precise typing:
+        1. Literal types
+        2. Typed dictionaries
+        3. Final objects
+        4. Protocols
+    Python supports optional type hints, typically as annotations on your code:
+    '''
 
 def main():
 

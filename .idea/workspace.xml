@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ab05469-9df4-43c3-8e24-c1a77c947ab3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/GO/app/go-linux/go-linux" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python35/momo/leetcode/single_number.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GO/leetcode/leetcode.go" beforeDir="false" afterPath="$PROJECT_DIR$/GO/leetcode/leetcode.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonLeetcode/Leetcode/903_ValidPermutationsforDISequence.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonLeetcode/Leetcode/903_ValidPermutationsforDISequence.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PythonLeetcode/leetcodeM/962_MaximumWidthRamp.py" beforeDir="false" afterPath="$PROJECT_DIR$/PythonLeetcode/leetcodeM/962_MaximumWidthRamp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/basic/test_hashmap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/test_hashmap.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rust/basic/test_string.rs" beforeDir="false" afterPath="$PROJECT_DIR$/Rust/basic/test_string.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/LICENSE-APACHE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/LICENSE-MIT" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/common_wasm/site/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/WebAssembly/testRust/wasm-game-of-life/www/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/xcuserdata/yusun.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/cppleetcode.xcodeproj/xcuserdata/yusun.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cppLeetcode/leetcode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/leetcode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cppLeetcode/leetcode/903_ValidPermutationsForDISequence.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/cppLeetcode/leetcode/903_ValidPermutationsForDISequence.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python35/PythonSyntax/features/python38_newfeatures.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/PythonSyntax/features/python38_newfeatures.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python35/momo/C/TestC/TestC/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/momo/C/TestC/TestC/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +29,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.test_bs4">
+  <component name="RunManager" selected="Python.single_number">
     <configuration name="903_ValidPermutationsforDISequence" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="common_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -55,27 +43,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonLeetcode/Leetcode/903_ValidPermutationsforDISequence.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="928_MinimizeMalwareSpreadII" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="common_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PythonLeetcode/Leetcode" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PythonLeetcode/Leetcode/928_MinimizeMalwareSpreadII.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -105,6 +72,48 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="single_number" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="common_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/momo/leetcode" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/momo/leetcode/single_number.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="single_number.py" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="common_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/App/bs4" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/App/bs4/test_bs4.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="common_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,34 +135,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_bs4" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="common_project" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/App/bs4" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/App/bs4/test_bs4.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+    <list>
+      <item itemvalue="Python.903_ValidPermutationsforDISequence" />
+      <item itemvalue="Python.932_BeautifulArray" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.single_number.py" />
+      <item itemvalue="Python.single_number" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test_bs4" />
+        <item itemvalue="Python.single_number" />
+        <item itemvalue="Python.single_number.py" />
         <item itemvalue="Python.903_ValidPermutationsforDISequence" />
         <item itemvalue="Python.932_BeautifulArray" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.928_MinimizeMalwareSpreadII" />
       </list>
     </recent_temporary>
   </component>
@@ -171,6 +166,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="454" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589379611702">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="454" y="211" key="#com.intellij.execution.impl.EditConfigurationsDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1589379611702" />
     <state x="-1552" y="506" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586886432113">
       <screen x="-2560" y="23" width="2560" height="1417" />
     </state>
@@ -207,8 +206,8 @@
       <screen x="-2560" y="0" width="2560" height="1440" />
     </state>
     <state width="2539" height="659" key="GridCell.Tab.-1.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586174124535" />
-    <state width="1429" height="2062" key="GridCell.Tab.0.bottom" timestamp="1588210613318">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.0.bottom" timestamp="1589379974089">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.bottom/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974864" />
     <state width="769" height="952" key="GridCell.Tab.0.bottom/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259918" />
@@ -226,8 +225,9 @@
     <state width="616" height="952" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573175" />
     <state width="1143" height="1342" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721955" />
     <state width="1429" height="2062" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704611" />
-    <state width="1429" height="2062" key="GridCell.Tab.0.center" timestamp="1588210613315">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
+    <state width="1825" height="340" key="GridCell.Tab.0.center" timestamp="1589379974088">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.center/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974862" />
     <state width="769" height="952" key="GridCell.Tab.0.center/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259916" />
@@ -245,8 +245,9 @@
     <state width="616" height="952" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573173" />
     <state width="1143" height="1342" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721954" />
     <state width="1429" height="2062" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704610" />
-    <state width="1429" height="2062" key="GridCell.Tab.0.left" timestamp="1588210613314">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974088" />
+    <state width="1825" height="340" key="GridCell.Tab.0.left" timestamp="1589379974088">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.left/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974861" />
     <state width="769" height="952" key="GridCell.Tab.0.left/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259915" />
@@ -264,8 +265,9 @@
     <state width="616" height="952" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573173" />
     <state width="1143" height="1342" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721953" />
     <state width="1429" height="2062" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704609" />
-    <state width="1429" height="2062" key="GridCell.Tab.0.right" timestamp="1588210613316">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974088" />
+    <state width="1825" height="340" key="GridCell.Tab.0.right" timestamp="1589379974088">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974863" />
     <state width="769" height="952" key="GridCell.Tab.0.right/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259917" />
@@ -283,8 +285,9 @@
     <state width="616" height="952" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573174" />
     <state width="1143" height="1342" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721955" />
     <state width="1429" height="2062" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704610" />
-    <state width="1429" height="2062" key="GridCell.Tab.1.bottom" timestamp="1588210613312">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974088" />
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom" timestamp="1589379974089">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.bottom/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975353" />
     <state width="769" height="952" key="GridCell.Tab.1.bottom/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259920" />
@@ -300,8 +303,9 @@
     <state width="616" height="952" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573172" />
     <state width="1143" height="1342" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721952" />
     <state width="1429" height="2062" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703966" />
-    <state width="1429" height="2062" key="GridCell.Tab.1.center" timestamp="1588210613310">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
+    <state width="1825" height="340" key="GridCell.Tab.1.center" timestamp="1589379974089">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.center/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975352" />
     <state width="769" height="952" key="GridCell.Tab.1.center/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259919" />
@@ -317,8 +321,9 @@
     <state width="616" height="952" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573170" />
     <state width="1143" height="1342" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721950" />
     <state width="1429" height="2062" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703964" />
-    <state width="1429" height="2062" key="GridCell.Tab.1.left" timestamp="1588210613308">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.1.center/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
+    <state width="1825" height="340" key="GridCell.Tab.1.left" timestamp="1589379974089">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.left/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975351" />
     <state width="769" height="952" key="GridCell.Tab.1.left/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259919" />
@@ -334,8 +339,9 @@
     <state width="616" height="952" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573169" />
     <state width="1143" height="1342" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721949" />
     <state width="1429" height="2062" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703963" />
-    <state width="1429" height="2062" key="GridCell.Tab.1.right" timestamp="1588210613311">
-      <screen x="4240" y="-771" width="3840" height="2137" />
+    <state width="1825" height="340" key="GridCell.Tab.1.left/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
+    <state width="1825" height="340" key="GridCell.Tab.1.right" timestamp="1589379974089">
+      <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975353" />
     <state width="769" height="952" key="GridCell.Tab.1.right/-2560.0.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1586797259920" />
@@ -351,6 +357,7 @@
     <state width="616" height="952" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573171" />
     <state width="1143" height="1342" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721952" />
     <state width="1429" height="2062" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703965" />
+    <state width="1825" height="340" key="GridCell.Tab.1.right/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
     <state x="5424" y="-255" width="1466" height="959" key="SettingsEditor" timestamp="1588034336910">
       <screen x="4240" y="-794" width="3840" height="2160" />
     </state>
@@ -479,6 +486,11 @@
           <url>file://$PROJECT_DIR$/Python35/App/bs4/test_bs4.py</url>
           <line>266</line>
           <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/momo/leetcode/single_number.py</url>
+          <line>95</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
