@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ab05469-9df4-43c3-8e24-c1a77c947ab3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/GO/app/go-linux/go-linux" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python35/momo/leetcode/single_number.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python35/PythonSyntax/features/python38_newfeatures.py" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/PythonSyntax/features/python38_newfeatures.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Python35/momo/C/TestC/TestC/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Python35/momo/C/TestC/TestC/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +25,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.single_number">
+  <component name="RunManager" selected="Python.test_class">
     <configuration name="903_ValidPermutationsforDISequence" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="common_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -114,7 +110,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="test_class" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="common_project" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -122,11 +118,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/App/webcrawl" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Python35/momo" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/App/webcrawl/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Python35/momo/test_class.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -138,17 +134,17 @@
     <list>
       <item itemvalue="Python.903_ValidPermutationsforDISequence" />
       <item itemvalue="Python.932_BeautifulArray" />
-      <item itemvalue="Python.test" />
-      <item itemvalue="Python.single_number.py" />
       <item itemvalue="Python.single_number" />
+      <item itemvalue="Python.single_number.py" />
+      <item itemvalue="Python.test_class" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_class" />
         <item itemvalue="Python.single_number" />
         <item itemvalue="Python.single_number.py" />
         <item itemvalue="Python.903_ValidPermutationsforDISequence" />
         <item itemvalue="Python.932_BeautifulArray" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -206,7 +202,7 @@
       <screen x="-2560" y="0" width="2560" height="1440" />
     </state>
     <state width="2539" height="659" key="GridCell.Tab.-1.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586174124535" />
-    <state width="1825" height="340" key="GridCell.Tab.0.bottom" timestamp="1589379974089">
+    <state width="1825" height="340" key="GridCell.Tab.0.bottom" timestamp="1589482659313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.bottom/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974864" />
@@ -225,8 +221,8 @@
     <state width="616" height="952" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573175" />
     <state width="1143" height="1342" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721955" />
     <state width="1429" height="2062" key="GridCell.Tab.0.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704611" />
-    <state width="1825" height="340" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
-    <state width="1825" height="340" key="GridCell.Tab.0.center" timestamp="1589379974088">
+    <state width="1825" height="340" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659313" />
+    <state width="1825" height="340" key="GridCell.Tab.0.center" timestamp="1589482659313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.center/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974862" />
@@ -245,8 +241,8 @@
     <state width="616" height="952" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573173" />
     <state width="1143" height="1342" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721954" />
     <state width="1429" height="2062" key="GridCell.Tab.0.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704610" />
-    <state width="1825" height="340" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974088" />
-    <state width="1825" height="340" key="GridCell.Tab.0.left" timestamp="1589379974088">
+    <state width="1825" height="340" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659313" />
+    <state width="1825" height="340" key="GridCell.Tab.0.left" timestamp="1589482659313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.left/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974861" />
@@ -265,8 +261,8 @@
     <state width="616" height="952" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573173" />
     <state width="1143" height="1342" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721953" />
     <state width="1429" height="2062" key="GridCell.Tab.0.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704609" />
-    <state width="1825" height="340" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974088" />
-    <state width="1825" height="340" key="GridCell.Tab.0.right" timestamp="1589379974088">
+    <state width="1825" height="340" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659313" />
+    <state width="1825" height="340" key="GridCell.Tab.0.right" timestamp="1589482659313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.0.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799974863" />
@@ -285,8 +281,8 @@
     <state width="616" height="952" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573174" />
     <state width="1143" height="1342" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721955" />
     <state width="1429" height="2062" key="GridCell.Tab.0.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195704610" />
-    <state width="1825" height="340" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974088" />
-    <state width="1825" height="340" key="GridCell.Tab.1.bottom" timestamp="1589379974089">
+    <state width="1825" height="340" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659313" />
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom" timestamp="1589482659314">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.bottom/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975353" />
@@ -303,8 +299,8 @@
     <state width="616" height="952" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573172" />
     <state width="1143" height="1342" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721952" />
     <state width="1429" height="2062" key="GridCell.Tab.1.bottom/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703966" />
-    <state width="1825" height="340" key="GridCell.Tab.1.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
-    <state width="1825" height="340" key="GridCell.Tab.1.center" timestamp="1589379974089">
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659314" />
+    <state width="1825" height="340" key="GridCell.Tab.1.center" timestamp="1589482659314">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.center/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975352" />
@@ -321,8 +317,8 @@
     <state width="616" height="952" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573170" />
     <state width="1143" height="1342" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721950" />
     <state width="1429" height="2062" key="GridCell.Tab.1.center/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703964" />
-    <state width="1825" height="340" key="GridCell.Tab.1.center/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
-    <state width="1825" height="340" key="GridCell.Tab.1.left" timestamp="1589379974089">
+    <state width="1825" height="340" key="GridCell.Tab.1.center/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659314" />
+    <state width="1825" height="340" key="GridCell.Tab.1.left" timestamp="1589482659313">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.left/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975351" />
@@ -339,8 +335,8 @@
     <state width="616" height="952" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573169" />
     <state width="1143" height="1342" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721949" />
     <state width="1429" height="2062" key="GridCell.Tab.1.left/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703963" />
-    <state width="1825" height="340" key="GridCell.Tab.1.left/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
-    <state width="1825" height="340" key="GridCell.Tab.1.right" timestamp="1589379974089">
+    <state width="1825" height="340" key="GridCell.Tab.1.left/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659313" />
+    <state width="1825" height="340" key="GridCell.Tab.1.right" timestamp="1589482659314">
       <screen x="72" y="27" width="1848" height="1053" />
     </state>
     <state width="1066" height="1342" key="GridCell.Tab.1.right/-2560.0.2560.1440/0.0.1680.1050@-2560.0.2560.1440" timestamp="1586799975353" />
@@ -357,7 +353,7 @@
     <state width="616" height="952" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@0.0.1680.1050" timestamp="1588193573171" />
     <state width="1143" height="1342" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@1680.-216.2560.1440" timestamp="1587490721952" />
     <state width="1429" height="2062" key="GridCell.Tab.1.right/4240.-794.3840.2160/1680.-216.2560.1440/0.0.1680.1050@4240.-794.3840.2160" timestamp="1588195703965" />
-    <state width="1825" height="340" key="GridCell.Tab.1.right/72.27.1848.1053@72.27.1848.1053" timestamp="1589379974089" />
+    <state width="1825" height="340" key="GridCell.Tab.1.right/72.27.1848.1053@72.27.1848.1053" timestamp="1589482659314" />
     <state x="5424" y="-255" width="1466" height="959" key="SettingsEditor" timestamp="1588034336910">
       <screen x="4240" y="-794" width="3840" height="2160" />
     </state>
@@ -491,6 +487,21 @@
           <url>file://$PROJECT_DIR$/Python35/momo/leetcode/single_number.py</url>
           <line>95</line>
           <option name="timeStamp" value="69" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/momo/test_class.py</url>
+          <line>60</line>
+          <option name="timeStamp" value="71" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/momo/test_class.py</url>
+          <line>44</line>
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Python35/momo/test_class.py</url>
+          <line>54</line>
+          <option name="timeStamp" value="73" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
