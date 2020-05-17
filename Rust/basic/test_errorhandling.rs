@@ -3,6 +3,21 @@ use std::io;
 use std::io::ErrorKind;
 use std::io::Read;
 
+/*
+
+Unwinding the Stack or Aborting in Response to a Panic
+By default, when a panic occurs, the program starts unwinding, which means Rust walks back up the stack and cleans up the data from each function it encounters.
+But this walking back and cleanup is a lot of work. The alternative is to immediately abort, which ends the program without cleaning up.
+Memory that the program was using will then need to be cleaned up by the operating system. If in your project you need to make the resulting binary as small as possible,
+you can switch from unwinding to aborting upon a panic by adding panic = 'abort' to the appropriate [profile] sections in your Cargo.toml file. For example,
+if you want to abort on panic in release mode, add this:
+
+
+[profile.release]
+panic = 'abort'
+
+*/
+
 fn test_result_enum() -> Result<String, io::Error> {
     let f = File::open("hello.txt"); // Result<std::fs::File, std::io::Error>
 

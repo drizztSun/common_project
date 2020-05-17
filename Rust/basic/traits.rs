@@ -90,32 +90,91 @@ This parameter accepts any type that implements the specified trait.
 In the body of notify, we can call any methods on item that come from the Summary trait, such as summarize.
 We can call notify and pass in any instance of NewsArticle or Tweet.
 Code that calls the function with any other type, such as a String or an i32, won’t compile because those types don’t implement Summary.
+
+Instead of a concrete type for the item parameter, we specify the impl keyword and the trait name. This parameter accepts any type that implements the specified trait.
  */
 pub fn notify(item: impl Summary) {
     println!("Breaking news ! {}", item.summarize());
 }
 
-// Trait Bound Syntax
+// *** Trait Bound Syntax ***
 /*
 The impl Trait syntax works for straightforward cases but is actually syntax sugar for a longer form,
 which is called a trait bound; it looks like this:
+
+This longer form is equivalent to the example in the previous section but is more verbose.
+We place trait bounds with the declaration of the generic type parameter after a colon and inside angle brackets.
+
+The impl Trait syntax is convenient and makes for more concise code in simple cases. The trait bound syntax can express more complexity in other cases.
+For example, we can have two parameters that implement Summary. Using the impl Trait syntax looks like this:
+
+
+pub fn notify(item1: impl Summary, item2: impl Summary) {
+If we wanted this function to allow item1 and item2 to have different types, using impl Trait would be appropriate (as long as both types implement Summary).
+If we wanted to force both parameters to have the same type, that’s only possible to express using a trait bound, like this:
+
+
+pub fn notify<T: Summary>(item1: T, item2: T) {
+The generic type T specified as the type of the item1 and item2 parameters constrains the function such that the concrete type of the value passed as an argument for item1 and item2 must be the same.
 */
 pub fn notifyTemp<T: Summary>(item: &T) {
     println!("Breaking news !{}", item.summarize());
 }
 
-// Specifing multiple trait bounds with the + syntax
 /*
+
+*** Specifing multiple trait bounds with the + syntax ***
+
 We can also specify more than one trait bound.
 Say we wanted notify to use display formatting on item as well as the summarize method:
-we specify in the notify definition that item must implement both Display and Summary
+    *** we specify in the notify definition that item must implement both Display and Summary
 */
 pub fn notify2(item: impl Summary + DefaultSummary) {
     println!("notify2 : {}, {}", item.summarize(), item.summarizing());
 }
 
-pub fn notify2Temp<T: Summary + DefaultSummary>(item: &T) {
+pub fn notify2Temp<T: Summary + DefaultSummary>(item: T) {
     println!("notify2Temp : {}, {}", item.summarize(), item.summarizing());
+}
+
+trait Display {}
+trait Debug {}
+/*
+
+*** Clearer Trait Bounds with where Clauses
+
+Using too many trait bounds has its downsides.
+Each generic has its own trait bounds, so functions with multiple generic type parameters can contain lots of trait bound information between the function’s name and its parameter list,
+making the function signature hard to read. For this reason, Rust has alternate syntax for specifying trait bounds inside a where clause after the function signature.
+
+like:
+fn some_function<T: Display + Clone, U: Clone + Debug>(t: T, u: U) -> i32 {
+*/
+fn some_function<T, U>(t: T, u: U) -> i32
+where
+    T: Display + Clone,
+    U: Clone + Debug,
+{
+    return 0;
+}
+
+/*
+
+Returning Types that Implement Traits
+We can also use the impl Trait syntax in the return position to return a value of some type that implements a trait, as shown here:
+
+The ability to return a type that is only specified by the trait it implements is especially useful in the context of closures and iterators,
+
+Closures and iterators create types that only the compiler knows or types that are very long to specify.
+The impl Trait syntax lets you concisely specify that a function returns some type that implements the Iterator trait without needing to write out a very long type.
+*/
+fn returns_summarizable() -> impl Summary {
+    Tweet {
+        username: String::from("horse_ebooks"),
+        content: String::from("of course, as you probably already know, people"),
+        reply: false,
+        retweet: false,
+    }
 }
 
 pub fn test_traits() {
@@ -158,3 +217,16 @@ pub fn test_traits() {
 
     //notifyTemp(tweet);
 }
+
+/*
+
+Traits and trait bounds let us write code that uses generic type parameters to reduce duplication but also specify to the compiler that we want the generic type to have particular behavior.
+The compiler can then use the trait bound information to check that all the concrete types used with our code provide the correct behavior.
+In dynamically typed languages, we would get an error at runtime if we called a method on a type which didn’t implement the type which defines the method.
+But Rust moves these errors to compile time so we’re forced to fix the problems before our code is even able to run.
+Additionally, we don’t have to write code that checks for behavior at runtime because we’ve already checked at compile time.
+Doing so improves performance without having to give up the flexibility of generics.
+
+Another kind of generic that we’ve already been using is called lifetimes.
+Rather than ensuring that a type has the behavior we want, lifetimes ensure that references are valid as long as we need them to be. Let’s look at how lifetimes do that.
+*/

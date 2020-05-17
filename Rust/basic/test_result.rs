@@ -2,8 +2,8 @@
 
 use std::fmt;
 use std::fs::File;
-use std::io;
 use std::io::prelude::*;
+use std::io::{self, ErrorKind};
 // use std::process::ExitCode;
 
 /*
@@ -14,6 +14,8 @@ enum Result<T, E> {
    Ok(T),
    Err(E),
 }
+The T and E are generic type parameters:
+ß
 Functions return Result whenever errors are expected and recoverable. In the std crate, Result is most prominently used for I/O.
 */
 
@@ -30,6 +32,66 @@ fn parse_version(header: &[u8]) -> Result<Version, &'static str> {
         Some(&1) => Ok(Version::Version1),
         Some(&2) => Ok(Version::Version2),
         Some(_) => Err("invalid version"),
+    }
+}
+
+fn handle_operation_result() -> Result<String, io::Error> {
+    {
+        let f = File::open("hello.txt");
+
+        let f = match f {
+            Ok(file) => file,
+            Err(error) => match error.kind() {
+                ErrorKind::NotFound => match File::create("hello.txt") {
+                    Ok(fc) => fc,
+                    Err(e) => panic!("Problem creating the file: {:?}", e),
+                },
+                other_error => panic!("Problem opening the file: {:?}", other_error),
+            },
+        };
+    }
+
+    {
+        let f = File::open("hello.txt").unwrap_or_else(|error| {
+            if error.kind() == ErrorKind::NotFound {
+                File::create("hello.txt").unwrap_or_else(|error| {
+                    panic!("Problem creating the file: {:?}", error);
+                })
+            } else {
+                panic!("Problem opening the file: {:?}", error);
+            }
+        });
+    }
+
+    {
+        // Shortcuts for Panic on Error: unwrap and expect
+
+        // The Result<T, E> type has many helper methods defined on it to do various tasks.
+        // One of those methods, called unwrap, is a shortcut method that is implemented just like the match
+        // If the Result value is the Ok variant, unwrap will return the value inside the Ok. If the Result is the Err variant, unwrap will call the panic! macro for us.
+        let f = File::open("hello.txt").unwrap();
+
+        // Another method, expect, which is similar to unwrap, lets us also choose the panic! error message.
+        // Using expect instead of unwrap and providing good error messages can convey your intent and make tracking down the source of a panic easier.
+        let f = File::open("hello.txt").expect("Failed to open hello.txt");
+        // We use expect in the same way as unwrap: to return the file handle or call the panic! macro.
+        // The error message used by expect in its call to panic! will be the parameter that we pass to expect, rather than the default panic! message that unwrap uses.
+    }
+
+    {
+        // This pattern of propagating errors is so common in Rust that Rust provides the question mark operator ? to make this easier.
+        // The ? Operator Can Be Used in Functions That Return Result
+        // The ? operator can be used in functions that have a return type of Result, because it is defined to work in the same way as the match expression we defined in Listing 9-6.
+        // The part of the match that requires a return type of Result is return Err(e), so the return type of the function can be a Result to be compatible with this return.
+        let mut f = File::open("hello.txt")?;
+        let mut s = String::new();
+        f.read_to_string(&mut s)?;
+        Ok(s)
+        // File::open("hello.txt")?.read_to_string(&mut s)?;
+
+        // The ? placed after a Result value is defined to work in almost the same way as the match expressions we defined to handle the Result values in Listing 9-6.
+        // If the value of the Result is an Ok, the value inside the Ok will get returned from this expression, and the program will continue.
+        // If the value is an Err, the Err will be returned from the whole function as if we had used the return keyword so the error value gets propagated to the calling code.
     }
 }
 
