@@ -1,7 +1,6 @@
+use minigrep::Config;
 use std::env;
 use std::process;
-
-use minigrep::Config;
 
 fn main() {
     /*
@@ -12,9 +11,11 @@ fn main() {
     because OsString values differ per platform and are more complex to work with than String values.
     */
 
-    let args: Vec<String> = env::args().collect(); // only unicode inpit, env::args_os for invalid unicode
+    // let args: Vec<String> = env::args().collect(); // only unicode inpit, env::args_os for invalid unicode
 
-    let config = Config::new(&args).unwrap_or_else(|err| {
+    // The env::args function returns an iterator! Rather than collecting the iterator values into a vector and then passing a slice to Config::new,
+    // now we’re passing ownership of the iterator returned from env::args to Config::new directly.
+    let config = Config::new(std::env::args()).unwrap_or_else(|err| {
         eprintln!("Problem parsing the args {}", err);
         process::exit(1);
     });
