@@ -14,12 +14,13 @@ use List::{Cons, Nil};
 
 // Use recusive memory, no way to figure out the size
 enum List {
-    // Cons(i32, List),  Cons
+    // Cons(i32, List),  Cons # error, because its size is not decidable. It is infinite size
     Cons(i32, Box<List>),
     Nil,
 }
 
 // user-defined smart-pointer
+// The Box<T> type is ultimately defined as a tuple struct with one element, so Listing 15-8 defines a MyBox<T> type in the same way.
 struct MyBox<T>(T);
 
 impl<T> MyBox<T> {
@@ -27,7 +28,7 @@ impl<T> MyBox<T> {
         MyBox(x)
     }
 }
-// *** Treating Smart Pointers Like Regular References with the Deref Trait
+// *** Treating Smart Pointers Like Regular References with the Deref Trait ***
 impl<T> Deref for MyBox<T> {
     // The type Target = T; syntax defines an associated type for the Deref trait to use.
     // Associated types are a slightly different way of declaring a generic parameter
@@ -44,18 +45,32 @@ fn hello(name: &str) {
 }
 
 fn test_box() {
-    // *** A pointer type for heap allocation
+    // *** Using Box<T> to Point to Data on the Heap ***
+
+    // The most straightforward smart pointer is a box, whose type is written Box<T>. Boxes allow you to store data on the heap rather than the stack.
+    // What remains on the stack is the pointer to the heap data.
 
     // Boxes don’t have performance overhead, other than storing their data on the heap instead of on the stack.
     // But they don’t have many extra capabilities either. You’ll use them most often in these situations:
+
+    // Boxes provide only the indirection and heap allocation; they don’t have any other special capabilities, like those we’ll see with the other smart pointer types.
+    // The Box<T> type is a smart pointer because it implements the Deref trait, which allows Box<T> values to be treated like references.
+    // When a Box<T> value goes out of scope, the heap data that the box is pointing to is cleaned up as well because of the Drop trait implementation.
 
     // When you have a type whose size can’t be known at compile time and you want to use a value of that type in a context that requires an exact size
     // When you have a large amount of data and you want to transfer ownership but ensure the data won’t be copied when you do so
     // When you want to own a value and you care only that it’s a type that implements a particular trait rather than being of a specific type
     let b = Box::new(5);
     println!("b = {}", b);
-
+    // We define the variable b to have the value of a Box that points to the value 5, which is allocated on the heap.
     // it will be deallocated. The deallocation happens for the box (stored on the stack) and the data it points to (stored on the heap)
+
+    // *** Enabling Recursive Types with Boxes ***
+
+    // At compile time, Rust needs to know how much space a type takes up.
+    // One type whose size can’t be known at compile time is a recursive type, where a value can have as part of itself another value of the same type.
+    // Because this nesting of values could theoretically continue infinitely, Rust doesn’t know how much space a value of a recursive type needs.
+    // However, boxes have a known size, so by inserting a box in a recursive type definition, you can have recursive types.
 
     // let list = Cons(1, Cons(2, Cons(3, Nil))); // error
     //  Cons(i32, List), List is a structure, no way to find out the size
@@ -66,7 +81,15 @@ fn test_box() {
     // To figure out how much memory the List type needs, the compiler looks at the variants, starting with the Cons variant.
     // The Cons variant holds a value of type i32 and a value of type List, and this process continues infinitely
 
-    // Using Box<T> to Get a Recursive Type with a Known Size
+    // *** Using Box<T> to Get a Recursive Type with a Known Size ***
+
+    // Rust can’t figure out how much space to allocate for recursively defined types, so the compiler gives the error
+    // In this suggestion, “indirection” means that instead of storing a value directly, we’ll change the data structure to store the value indirectly by storing a pointer to the value instead.
+
+    // Because a Box<T> is a pointer, Rust always knows how much space a Box<T> needs: a pointer’s size doesn’t change based on the amount of data it’s pointing to.
+    // This means we can put a Box<T> inside the Cons variant instead of another List value directly.
+    // The Box<T> will point to the next List value that will be on the heap rather than inside the Cons variant.
+    // Conceptually, we still have a list, created with lists “holding” other lists, but this implementation is now more like placing the items next to one another rather than inside one another.
     let mut list = Box::new(Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil)))))));
 
     while let Cons(node, next) = *list {
@@ -75,7 +98,7 @@ fn test_box() {
     }
 
     {
-        // Using Box<T> Like a Reference
+        // *** Using Box<T> Like a Reference ***
         // A regular reference is a type of pointer, and one way to think of a pointer is as an arrow to a value stored somewhere else.
         let x = 5;
         let z = &x;
@@ -107,7 +130,7 @@ fn test_box() {
     }
 
     {
-        // Implicit Deref Coercions with Functions and Methods
+        // *** Implicit Deref Coercions with Functions and Methods ***
         // Deref coercion is a convenience that Rust performs on arguments to functions and methods.
         // Deref coercion converts a reference to a type that implements Deref into a reference to a type that Deref can convert the original type into.
         // Deref coercion happens automatically when we pass a reference to a particular type’s value as an argument to a function or method that doesn’t match the parameter type in the function or method definition. A sequence of calls to the deref method converts the type we provided into the type the parameter needs.
