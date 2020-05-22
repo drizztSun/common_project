@@ -190,10 +190,16 @@ def test_bs4_fetch_windows():
     print(',\n'.join(str(v) for v in versions))
 
 
-def test_bs4_fetch_chrome(self, *args, **options):
+def test_bs4_fetch_chrome(*args, **options):
 
-    url = 'https://chromereleases.googleblog.com/{year}/{month:02d}/stable-channel-update-for-desktop.html' # 'https://chromereleases.googleblog.com'
+    # url = 'https://chromereleases.googleblog.com/{year}/{month:02d}/stable-channel-update-for-desktop.html' # 'https://chromereleases.googleblog.com'
 
+    '''
+    :param args:
+    :param options:
+    :return:
+
+    url = 'https://chromereleases.googleblog.com/search/label/Stable%20updates'
     today = datetime.date.today().replace(day=1)
     start = today - datetime.timedelta(days=365*2)
 
@@ -224,6 +230,20 @@ def test_bs4_fetch_chrome(self, *args, **options):
 
     versions.sort(key=lambda x: get_version(x[1]))
     print(',\n'.join(str(v) for v in versions))
+    '''
+
+    url = 'https://chromereleases.googleblog.com/search/label/Stable%20updates'
+    res = requests.get(url)
+    res.raise_for_status()
+
+    root = BeautifulSoup(res.text, 'lxml')
+    build_re = r'Stable Channel Update for Desktop'
+
+    for post in root.find_all('div', class_='post'):
+
+        date = post.find('span', class_='publishdate').get_text().strip()
+
+
 
 
 def test_bs4_fetch_ubuntu_new():
@@ -263,6 +283,9 @@ def test_bs4_fetch_ubuntu_new():
 
 
 if __name__ == '__main__':
+
+
+    test_bs4_fetch_chrome()
 
     test_bs4_fetch_ubuntu_new()
 
