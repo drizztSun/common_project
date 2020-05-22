@@ -242,7 +242,7 @@ fn ownership() {
     }
 
     {
-        // Stack-Only Data: Copy
+        // *** Stack-Only Data: Copy ***
         // But this code seems to contradict what we just learned: we don’t have a call to clone,
         // but x is still valid and wasn’t moved into y.
         let x = 5;
@@ -267,11 +267,11 @@ fn ownership() {
         and nothing that requires allocation or is some form of resource is Copy.
         Here are some of the types that are Copy:
 
-        All the integer types, such as u32.
-        The Boolean type, bool, with values true and false.
-        All the floating point types, such as f64.
-        The character type, char.
-        Tuples, if they only contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
+        1) All the integer types, such as u32.
+        2) The Boolean type, bool, with values true and false.
+        3) All the floating point types, such as f64.
+        4) The character type, char.
+        5) Tuples, if they only contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
 
         */
     }

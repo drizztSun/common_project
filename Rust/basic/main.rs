@@ -28,11 +28,13 @@ mod test_option;
 mod test_refcell;
 mod test_result;
 mod test_smart_pointer;
+mod test_smart_pointer_refer_cycle;
 mod test_string;
 mod test_thread;
 mod test_vec;
 mod test_vecdeque;
 mod traits;
+mod test_rc;
 
 fn main() {
     println!("--- Starting RUST syntax ---");
@@ -104,4 +106,8 @@ fn main() {
     test_list::test_list();
 
     test_thread::test_thread();
+
+    test_smart_pointer_refer_cycle::test_reference_cycle();
+
+    test_rc::test_rc();
 }

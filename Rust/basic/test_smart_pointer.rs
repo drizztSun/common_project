@@ -12,12 +12,24 @@ use List::{Cons, Nil};
 // Also discussed were the Deref and Drop traits, which enable a lot of the functionality of smart pointers.
 // We explored reference cycles that can cause memory leaks and how to prevent them using Weak<T>.
 
+// *** Here is a recap of the reasons to choose Box<T>, Rc<T>, or RefCell<T> *** :
+
+// 1) Rc<T> enables multiple owners of the same data; Box<T> and RefCell<T> have single owners.
+// 2) Box<T> allows immutable or mutable borrows checked at compile time; Rc<T> allows only immutable borrows checked at compile time;
+//    RefCell<T> allows immutable or mutable borrows checked at runtime.
+// 3) Because RefCell<T> allows mutable borrows checked at runtime, you can mutate the value inside the RefCell<T> even when the RefCell<T> is immutable.
+
 // Use recusive memory, no way to figure out the size
 enum List {
     // Cons(i32, List),  Cons # error, because its size is not decidable. It is infinite size
     Cons(i32, Box<List>),
     Nil,
 }
+
+/*
+Note: there’s one big difference between the MyBox<T> type we’re about to build and the real Box<T>: our version will not store its data on the heap.
+We are focusing this example on Deref, so where the data is actually stored is less important than the pointer-like behavior.
+*/
 
 // user-defined smart-pointer
 // The Box<T> type is ultimately defined as a tuple struct with one element, so Listing 15-8 defines a MyBox<T> type in the same way.
@@ -163,6 +175,22 @@ fn test_box() {
     // Converting an immutable reference to a mutable reference would require that there is only one immutable reference to that data, and the borrowing rules don’t guarantee that. Therefore, Rust can’t make the assumption that converting an immutable reference to a mutable reference is possible.
 }
 
+/*
+
+*** Running Code on Cleanup with the Drop Trait ***
+
+The second trait important to the smart pointer pattern is Drop, which lets you customize what happens when a value is about to go out of scope.
+You can provide an implementation for the Drop trait on any type, and the code you specify can be used to release resources like files or network connections.
+We’re introducing Drop in the context of smart pointers because the functionality of the Drop trait is almost always used when implementing a smart pointer.
+For example, Box<T> customizes Drop to deallocate the space on the heap that the box points to.
+
+In some languages, the programmer must call code to free memory or resources every time they finish using an instance of a smart pointer.
+If they forget, the system might become overloaded and crash.
+In Rust, you can specify that a particular bit of code be run whenever a value goes out of scope, and the compiler will insert this code automatically.
+As a result, you don’t need to be careful about placing cleanup code everywhere in a program that an instance of a particular type is finished with—you still won’t leak resources!
+
+*/
+
 struct exam {
     i: i32,
 }
@@ -181,6 +209,9 @@ fn test_drop() {
         let b = exam { i: 32 };
         println!("Instances of Example type are created");
         // Dropping a Value Early with std::mem::drop
+        // We can’t disable the automatic insertion of drop when a value goes out of scope, and we can’t call the drop method explicitly.
+        // So, if we need to force a value to be cleaned up early, we can use the std::mem::drop function.
+        // The std::mem::drop function is different from the drop method in the Drop trait. We call it by passing the value we want to force to be dropped early as an argument.
         drop(a);
         // a.drop() // error, can't call drop explicit
     }
@@ -193,15 +224,29 @@ enum list {
     Nil,
 }
 
+/*
+
+*** Rc<T>, the Reference Counted Smart Pointer ***
+In the majority of cases, ownership is clear: you know exactly which variable owns a given value.
+However, there are cases when a single value might have multiple owners. For example, in graph data structures, multiple edges might point to the same node,
+and that node is conceptually owned by all of the edges that point to it. A node shouldn’t be cleaned up unless it doesn’t have any edges pointing to it.
+
+To enable multiple ownership, Rust has a type called Rc<T>, which is an abbreviation for reference counting.
+The Rc<T> type keeps track of the number of references to a value which determines whether or not a value is still in use.
+If there are zero references to a value, the value can be cleaned up without any references becoming invalid.
+*/
+
 fn test_rc_t() {
-    // To enable multiple ownership, Rust has a type called Rc<T>, which is an abbreviation for reference counting.
-    // The Rc<T> type keeps track of the number of references to a value which determines whether or not a value is still in use.
-    // If there are zero references to a value, the value can be cleaned up without any references becoming invalid.
     {
         let a = Cons(5, Box::new(Cons(10, Box::new(Nil))));
 
         //let b = Cons(3, Box::new(a)); // - value moved here
         //let c = Cons(4, Box::new(a)); //  ^ value used here after move
+
+        // We could change the definition of Cons to hold references instead, but then we would have to specify lifetime parameters.
+        // By specifying lifetime parameters, we would be specifying that every element in the list will live at least as long as the entire list.
+        // The borrow checker wouldn’t let us compile let a = Cons(10, &Nil);
+        // for example, because the temporary Nil value would be dropped before a could take a reference to it.
     }
 
     {
@@ -241,6 +286,10 @@ fn test_rc_t() {
 use std::cell::RefCell;
 use std::rc::Weak;
 
+// *** RefCell<T> and the Interior Mutability Pattern ***
+// Interior mutability is a design pattern in Rust that allows you to mutate data even when there are immutable references to that data; normally, this action is disallowed by the borrowing rules.
+// To mutate data, the pattern uses unsafe code inside a data structure to bend Rust’s usual rules that govern mutation and borrowing.
+
 #[derive(Debug)]
 enum List1 {
     Cons(i32, RefCell<Rc<List1>>),
@@ -264,18 +313,18 @@ struct Node {
 }
 
 fn test_ref_cell() {
-    // Interior mutability is a design pattern in Rust that allows you to mutate data even when there are immutable references to that data; normally, this action is disallowed by the borrowing rules.
-    // To mutate data, the pattern uses unsafe code inside a data structure to bend Rust’s usual rules that govern mutation and borrowing.
-
+    // *** Enforcing Borrowing Rules at Runtime with RefCell<T> ***
     // Unlike Rc<T>, the RefCell<T> type represents single ownership over the data it holds. So, what makes RefCell<T> different from a type like Box<T>?
     // Recall the borrowing rules you learned in Chapter 4:
 
-    // At any given time, you can have either (but not both of) one mutable reference or any number of immutable references.
-    // References must always be valid.
-    // With references and Box<T>, the borrowing rules’ invariants are enforced at compile time.
-    // With RefCell<T>, these invariants are enforced at runtime.
-    // With references, if you break these rules, you’ll get a compiler error.
-    // With RefCell<T>, if you break these rules, your program will panic and exit.
+    // 1) At any given time, you can have either (but not both of) one mutable reference or any number of immutable references.
+    // 2) References must always be valid.
+
+    // 1) With references and Box<T>, the borrowing rules’ invariants are enforced at compile time.
+    // 2) With RefCell<T>, these invariants are enforced at runtime.
+
+    // 1) With references, if you break these rules, you’ll get a compiler error.
+    // 2) With RefCell<T>, if you break these rules, your program will panic and exit.
 
     // The advantages of checking the borrowing rules at compile time are that errors will be caught sooner in the development process,
     // and there is no impact on runtime performance because all the analysis is completed beforehand.
@@ -284,26 +333,29 @@ fn test_ref_cell() {
     // Because some analysis is impossible, if the Rust compiler can’t be sure the code complies with the ownership rules, it might reject a correct program;
     // in this way, it’s conservative. If Rust accepted an incorrect program, users wouldn’t be able to trust in the guarantees Rust makes.
     // However, if Rust rejects a correct program, the programmer will be inconvenienced, but nothing catastrophic can occur.
+
     //  The RefCell<T> type is useful when you’re sure your code follows the borrowing rules but the compiler is unable to understand and guarantee that.
 
     // Similar to Rc<T>, RefCell<T> is only for use in single-threaded scenarios and will give you a compile-time error if you try using it in a multithreaded context.
     // We’ll talk about how to get the functionality of RefCell<T> in a multithreaded program in Chapter 16.
 
-    // Here is a recap of the reasons to choose Box<T>, Rc<T>, or RefCell<T>:
+    // *** Here is a recap of the reasons to choose Box<T>, Rc<T>, or RefCell<T> *** :
 
-    // Rc<T> enables multiple owners of the same data; Box<T> and RefCell<T> have single owners.
-    // Box<T> allows immutable or mutable borrows checked at compile time; Rc<T> allows only immutable borrows checked at compile time; RefCell<T> allows immutable or mutable borrows checked at runtime.
-    // Because RefCell<T> allows mutable borrows checked at runtime, you can mutate the value inside the RefCell<T> even when the RefCell<T> is immutable.
+    // 1) Rc<T> enables multiple owners of the same data; Box<T> and RefCell<T> have single owners.
+    // 2) Box<T> allows immutable or mutable borrows checked at compile time; Rc<T> allows only immutable borrows checked at compile time;
+    //    RefCell<T> allows immutable or mutable borrows checked at runtime.
+    // 3) Because RefCell<T> allows mutable borrows checked at runtime, you can mutate the value inside the RefCell<T> even when the RefCell<T> is immutable.
+
     // Mutating the value inside an immutable value is the interior mutability pattern. Let’s look at a situation in which interior mutability is useful and examine how it’s possible.
 
-    // Interior Mutability: A Mutable Borrow to an Immutable Value
+    // *** Interior Mutability: A Mutable Borrow to an Immutable Value ***
 
     // However, there are situations in which it would be useful for a value to mutate itself in its methods but appear immutable to other code.
     // Code outside the value’s methods would not be able to mutate the value. Using RefCell<T> is one way to get the ability to have interior mutability.
     // But RefCell<T> doesn’t get around the borrowing rules completely: the borrow checker in the compiler allows this interior mutability, and the borrowing rules are checked at runtime instead.
     // If you violate the rules, you’ll get a panic! instead of a compiler error.
 
-    // Keeping Track of Borrows at Runtime with RefCell<T>
+    // *** Keeping Track of Borrows at Runtime with RefCell<T> ***
 
     // When creating immutable and mutable references, we use the & and &mut syntax, respectively.
     // With RefCell<T>, we use the borrow and borrow_mut methods, which are part of the safe API that belongs to RefCell<T>.
@@ -423,11 +475,11 @@ enum list_2r {
     Nil,
 }
 
+// *** Having Multiple Owners of Mutable Data by Combining Rc<T> and RefCell<T> ***
+// A common way to use RefCell<T> is in combination with Rc<T>.
+// Recall that Rc<T> lets you have multiple owners of some data, but it only gives immutable access to that data.
+// If you have an Rc<T> that holds a RefCell<T>, you can get a value that can have multiple owners and that you can mutate!
 fn test_combile_refcell_and_refcount() {
-    // Having Multiple Owners of Mutable Data by Combining Rc<T> and RefCell<T>
-    // A common way to use RefCell<T> is in combination with Rc<T>. Recall that Rc<T> lets you have multiple owners of some data, but it only gives immutable access to that data.
-    // If you have an Rc<T> that holds a RefCell<T>, you can get a value that can have multiple owners and that you can mutate!
-
     let val = Rc::new(RefCell::new(5));
 
     let a = Rc::new(list_2r::Cons(Rc::clone(&val), Rc::new(list_2r::Nil)));
@@ -441,13 +493,10 @@ fn test_combile_refcell_and_refcount() {
     println!("c = {:?}", c);
 }
 
-// Reference Cycles Can Leak Memory
-// Rust’s memory safety guarantees make it difficult, but not impossible, to accidentally create memory that is never cleaned up (known as a memory leak).
-// Preventing memory leaks entirely is not one of Rust’s guarantees in the same way that disallowing data races at compile time is, meaning memory leaks are memory safe in Rust.
-// We can see that Rust allows memory leaks by using Rc<T> and RefCell<T>: it’s possible to create references where items refer to each other in a cycle. This creates memory leaks because the reference count of each item in the cycle will never reach 0, and the values will never be dropped.
-
 pub fn test_smart_pointer() {
     test_box();
 
     test_ref_cell();
+
+    test_combile_refcell_and_refcount();
 }
