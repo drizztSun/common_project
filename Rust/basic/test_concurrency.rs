@@ -117,6 +117,10 @@ What we need is a type exactly like Rc<T> but one that makes changes to the refe
 // Atomics are an additional kind of concurrency primitive that we won’t cover in detail here: see the standard library documentation for std::sync::atomic for more details.
 // At this point, you just need to know that atomics work like primitive types but are safe to share across threads.
 
+// You might then wonder why all primitive types aren’t atomic and why standard library types aren’t implemented to use Arc<T> by default.
+// The reason is that thread safety comes with a performance penalty that you only want to pay when you really need to.
+// If you’re just performing operations on values within a single thread, your code can run faster if it doesn’t have to enforce the guarantees atomics provide.
+
 fn test_mutex_between_threads() {
 
     let counter = Arc::new(Mutex.new(0)); // if we use Rc<T>, it will get problem because of Multithread.
@@ -145,6 +149,10 @@ fn test_mutex_between_threads() {
     println!("Result: {}", *counter.lock().unwrap());
 }
 
+use std::marker::{Send, Sync};
+use std::sync::{atomic};
+
+
 // *** Similarities Between RefCell<T>/Rc<T> and Mutex<T>/Arc<T> ***
 // You might have noticed that counter is immutable but we could get a mutable reference to the value inside it; 
 // this means Mutex<T> provides interior mutability, as the Cell family does.
@@ -153,7 +161,7 @@ fn test_mutex_between_threads() {
 // Another detail to note is that Rust can’t protect you from all kinds of logic errors when you use Mutex<T>. 
 // Recall in Chapter 15 that using Rc<T> came with the risk of creating reference cycles, where two Rc<T> values refer to each other,
 // causing memory leaks. Similarly, Mutex<T> comes with the risk of creating deadlocks.
-// These occur when an operation needs to lock two resources and two threads have each acquired one of the locks,  
+// These occur when an operation needs to lock two resources and two threads have each acquired one of the locks,
 // causing them to wait for each other forever. If you’re interested in deadlocks, try creating a Rust program that has a deadlock;
 // then research deadlock mitigation strategies for mutexes in any language and have a go at implementing them in Rust. 
 // The standard library API documentation for Mutex<T> and MutexGuard offers useful information.
@@ -165,11 +173,13 @@ fn test_mutex_between_threads() {
 // Almost every concurrency feature we’ve talked about so far in this chapter has been part of the standard library, not the language. 
 // Your options for handling concurrency are not limited to the language or the standard library; you can write your own concurrency features or use those written by others.
 
-// However, two concurrency concepts are embedded in the language: the std::marker traits Sync and Send.
+// *** However, two concurrency concepts are embedded in the language: the std::marker traits Sync and Send ***.
 
 // *** Allowing Transference of Ownership Between Threads with Send
-// The Send marker trait indicates that ownership of the type implementing Send can be transferred between threads. Almost every Rust type is Send, but there are some exceptions, including Rc<T>: this cannot be Send because if you cloned an Rc<T> value and tried to transfer ownership of the clone to another thread, both threads might update the reference count at the same time.
+// The Send marker trait indicates that ownership of the type implementing Send can be transferred between threads.
+// Almost every Rust type is Send, but there are some exceptions, including Rc<T>: this cannot be Send because if you cloned an Rc<T> value and tried to transfer ownership of the clone to another thread, both threads might update the reference count at the same time.
 // For this reason, Rc<T> is implemented for use in single-threaded situations where you don’t want to pay the thread-safe performance penalty.
+
 // Therefore, Rust’s type system and trait bounds ensure that you can never accidentally send an Rc<T> value across threads unsafely. When we tried to do this in Listing 16-14, we got the error the trait Send is not implemented for Rc<Mutex<i32>>. When we switched to Arc<T>, which is Send, the code compiled.
 // Any type composed entirely of Send types is automatically marked as Send as well. Almost all primitive types are Send, aside from raw pointers, which we’ll discuss in Chapter 19.
 

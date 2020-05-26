@@ -25,16 +25,18 @@ mod test_macro;
 mod test_module;
 mod test_network;
 mod test_option;
+mod test_pattern_matching;
+mod test_rc;
 mod test_refcell;
 mod test_result;
 mod test_smart_pointer;
 mod test_smart_pointer_refer_cycle;
 mod test_string;
 mod test_thread;
+mod test_unsafe;
 mod test_vec;
 mod test_vecdeque;
 mod traits;
-mod test_rc;
 
 fn main() {
     println!("--- Starting RUST syntax ---");
@@ -110,4 +112,8 @@ fn main() {
     test_smart_pointer_refer_cycle::test_reference_cycle();
 
     test_rc::test_rc();
+
+    test_pattern_matching::test_pattern_match();
+
+    test_unsafe::test_unsafe();
 }
