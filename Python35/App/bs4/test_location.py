@@ -51,16 +51,16 @@ class Command:
                 robots_url = '%s://%s/robots.txt' % (url_parsed.scheme, url_parsed.netloc)
 
 
-                rp = urllib.robotparser.RobotFileParser()
-                rp.set_url(robots_url)
+                #rp = urllib.robotparser.RobotFileParser()
+                #rp.set_url(robots_url)
                 #rp.set_url('https://chromereleases.googleblog.com/robots.txt')
-                rp.read()
+                #rp.read()
 
-                if not rp.can_fetch(self.USER_AGENT, url):
-                    if 'link' in ret and ret['link'] == url:
-                        ret.pop('link')
-                    # logger.error('%s: no robots allowed for %s', url, self.USER_AGENT)
-                    continue                
+                #if not rp.can_fetch(self.USER_AGENT, url):
+                #if 'link' in ret and ret['link'] == url:
+                #    ret.pop('link')
+                # logger.error('%s: no robots allowed for %s', url, self.USER_AGENT)
+                #continue
 
 
 
@@ -163,14 +163,14 @@ class Command:
                     node = node.parent
 
                 # print('---- parent -- %s\n%s\n\n', method, node)
-                logger.debug('---- parent -- %s\n%s\n\n', method, node)
+                #logger.debug('---- parent -- %s\n%s\n\n', method, node)
 
             elif 'next_sibling' in method:
                 for _ in method.split('.'):
                     node = node.find_next_sibling(loc.get('name', node.name))
 
                 # print('---- next sibling node: %s' % node.text)
-                logger.debug('---- next sibling --- %s\n%s\n\n', method, node)
+                #logger.debug('---- next sibling --- %s\n%s\n\n', method, node)
 
             elif method == 'split':
                 sep = kwargs.get('sep', '\n')
@@ -233,6 +233,9 @@ class Command:
 
 def test_crawl():
 
+
+    osversion = '12'
+
     loc = [
         [
             {'url': 'http://ftp.mozilla.org/pub/firefox/releases/'},
@@ -252,6 +255,12 @@ def test_crawl():
             {'method': 'find_parent', 'kwargs': {'name': 'div', 'class_': 'post'}},
             {'method': 'find', 'kwargs': {'name': 'div', 'class_': 'post-body'}},
             {'method': 're.search', 're': r'(?P<version>[0-9]+.[0-9]+.[0-9]+.[0-9]+)'}
+        ],
+        [
+            {'url': 'https://developer.apple.com/news/releases/rss/releases.rss'},
+            {'method': 'find', 're': r'^\s*iOS (?P<version>' + osversion + r'.[\d\.]+)\s+\((?P<build>.+)\)\s*$', 'kwargs': {'name': 'title'}},
+            {'method': 'parent'},
+            {'method': 'find', 're': r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})', 'kwargs': {'name': 'pubdate'}},
         ]
     ]
 
@@ -282,9 +291,9 @@ if __name__ == '__main__':
 
     test_crawl()
 
-    test_robotic('http://ftp.mozilla.org/pub/firefox/releases/')
+    #test_robotic('http://ftp.mozilla.org/pub/firefox/releases/')
 
-    test_robotic('https://chromereleases.googleblog.com/search/label/Stable%20updates')
+    #test_robotic('https://chromereleases.googleblog.com/search/label/Stable%20updates')
 
 
 

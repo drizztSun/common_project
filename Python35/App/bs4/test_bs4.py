@@ -282,8 +282,39 @@ def test_bs4_fetch_ubuntu_new():
     print(ret)
 
 
+def test_ios_version():
+
+    url = 'https://developer.apple.com/news/releases/rss/releases.rss'
+    response = requests.get(url)
+    response.raise_for_status()
+
+    root_doc = BeautifulSoup(response.text, 'lxml')
+
+    version = '13'
+    text = re.compile(r'^iOS 13.(?P<version>[\d\.]+)\s+\((?P<build>.+)\)\s*$')
+    res = {}
+
+    for a in root_doc.find_all(name='title'):
+
+        m = re.search(text, a.get_text())
+        if m and m.groupdict():
+            res.update(m.groupdict())
+            print(a.get_text())
+            parent = a.parent
+
+            parent.find_all(name='pubdate')
+            m = re.search(r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})', parent.get_text())
+
+            if m and m.groupdict():
+
+                res.update(m.groupdict())
+
+    print(res)
+
+
 if __name__ == '__main__':
 
+    test_ios_version()
 
     test_bs4_fetch_chrome()
 
