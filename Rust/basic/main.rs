@@ -33,6 +33,7 @@ mod test_smart_pointer;
 mod test_smart_pointer_refer_cycle;
 mod test_string;
 mod test_thread;
+mod test_trait;
 mod test_unsafe;
 mod test_vec;
 mod test_vecdeque;
@@ -42,6 +43,8 @@ fn main() {
     println!("--- Starting RUST syntax ---");
 
     test_binaryheap::test_binaryheap();
+
+    test_trait::test_traits_basic();
 
     test_option::test_option();
 

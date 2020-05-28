@@ -22,6 +22,7 @@ type Job = Box<dyn FnBox + Send + 'static>;
 
 enum Message{
     NewJob(Job),
+
     Quit,
 }
 
@@ -35,18 +36,18 @@ impl ThreadWorker {
         let thread = thread::spawn(move|| {
             loop {
                 let message = receiver.lock().unwrap().recv().unwrap();
-                
+
                 match message {
                     Message::NewJob(job) => {
                         println!("Woker {} got a job to execute", id);
-                        job.call_box();            
+                        job.call_box();
                     }
                     Message::Quit => {
                         println!("Worker {} starts to quit!", id);
                         break;
                     }
                 }
-                
+
             }
         });
         ThreadWorker{
