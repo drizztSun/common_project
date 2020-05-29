@@ -64,7 +64,7 @@ func fetch(repo string) error {
 
 func work(repo string, wg *sync.WaitGroup, sem chan int, errChan chan error) {
 	defer wg.Done()
-	sem <- 1
+	sem <- 1 // using buffer chan as semphore. it blocked when approaching the max size.
 	if err := fetch(repo); err != nil {
 
 		select {
