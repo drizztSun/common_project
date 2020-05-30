@@ -98,6 +98,15 @@ macro_rules! calculate{
             println!("{} == {}", stringify!{$e}, val);
         }
     }};
+
+    // *** Variadic Interfaces ***
+    // A variadic interface takes an arbitrary number of arguments. For example, println! can take an arbitrary number of arguments, as determined by the format string.
+    // We can extend our calculate! macro from the previous section to be variadic:
+    // Decompose multiple `eval`s recursively
+    (eval $e:expr, $(eval $es:expr),+) => {{
+        calculate! { eval $e }
+        calculate! { $(eval $es),+ }
+    }};
 }
 
 // Implement `add_assign`, `mul_assign`, and `sub_assign` functions.
@@ -191,6 +200,12 @@ fn test_calculate_DSLS() {
 
     calculate! {
         eval (1+2) * (3/4)
+    }
+
+    calculate! {
+        eval 1 + 2,
+        eval 3 + 4,
+        eval (2 * 3) + 1
     }
 }
 
