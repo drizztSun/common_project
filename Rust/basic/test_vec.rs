@@ -18,7 +18,7 @@ fn test_vec_basic() {
     // constructor
     let mut vec: Vec<i32> = Vec::new();
     let mut vec: Vec<i32> = Vec::with_capacity(10);
-    let mut vec: Vec<i32> = vec![0; 100]; // init vec 100 elements, all are 0
+    let mut vec: Vec<i32> = vec![0; 100]; // init vec 100 elements, all are 0, internal func  Vec::from_elem(0, 100);
     let mut vec: Vec<i32> = vec![1, 2, 3];
 
     // A contiguous growable array type, written Vec<T> but pronounced 'vector'.
