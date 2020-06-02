@@ -39,6 +39,9 @@ mod test_unsafe;
 mod test_vec;
 mod test_vecdeque;
 mod traits;
+mod test_primitives;
+mod test_type;
+mod test_conversion;
 
 fn main() {
     println!("--- Starting RUST syntax ---");
@@ -122,4 +125,10 @@ fn main() {
     test_unsafe::test_unsafe();
 
     test_format_print::test_format_print();
+
+    test_primitives::test_primitive();
+
+    test_type::test_type();
+
+    test_conversion::test_conversions();
 }
