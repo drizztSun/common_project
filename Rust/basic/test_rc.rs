@@ -1,5 +1,12 @@
 /*
 
+Rc
+When multiple ownership is needed, Rc(Reference Counting) can be used. Rc keeps track of the number of the references which means the number of owners of the value wrapped inside an Rc.
+
+Reference count of an Rc increases by 1 whenever an Rc is cloned, and decreases by 1 whenever one cloned Rc is dropped out of the scope.
+When an Rc's reference count becomes zero, which means there are no owners remained, both the Rc and the value are all dropped.
+
+Cloning an Rc never do a deep copy. Cloning creates just another pointer to the wrapped value, and increments the count.
 
 
 *** Module std::rc ***
@@ -34,9 +41,8 @@ Weak	Weak is a version of Rc that holds a non-owning reference to the managed al
 
 */
 
-use std::rc::{self, Rc, Weak};
 use std::cell::RefCell;
-
+use std::rc::{self, Rc, Weak};
 
 struct Owner {
     name: String,
@@ -55,17 +61,14 @@ We can't do this with unique ownership, because more than one gadget may belong 
 Rc allows us to share an Owner between multiple Gadgets, and have the Owner remain allocated as long as any Gadget points at it.
 */
 fn test_basic_rc() {
-
-    let gadget_owner: Rc<Owner> = Rc::new(
-        Owner{
-            name: "Gadget Man".to_string(),
-        }
-    );
+    let gadget_owner: Rc<Owner> = Rc::new(Owner {
+        name: "Gadget Man".to_string(),
+    });
 
     // Create `Gadget`s belonging to `gadget_owner`. Cloning the `Rc<Owner>`
     // gives us a new pointer to the same `Owner` allocation, incrementing
     // the reference count in the process.
-    let gadget1 = Gadget{
+    let gadget1 = Gadget {
         id: 2,
         owner: Rc::clone(&gadget_owner),
     };
@@ -92,7 +95,6 @@ fn test_basic_rc() {
     // gets destroyed as well.
 }
 
-
 /*
 If our requirements change, and we also need to be able to traverse from Owner to Gadget, we will run into problems. An Rc pointer from Owner to Gadget introduces a cycle.
 This means that their reference counts can never reach 0, and the allocation will never be destroyed: a memory leak. In order to get around this, we can use Weak pointers.
@@ -102,42 +104,33 @@ This is difficult because Rc enforces memory safety by only giving out shared re
 We need to wrap the part of the value we wish to mutate in a RefCell, which provides interior mutability: a method to achieve mutability through a shared reference. RefCell enforces Rust's borrowing rules at runtime.
 */
 
-
 struct Gadget2 {
     id: i32,
     owner: Rc<Owen2>,
     // ...other fields
 }
 
-struct Owen2{
+struct Owen2 {
     name: String,
     gadgets: RefCell<Vec<Weak<Gadget2>>>,
 }
 
-
 fn test_basic_weak() {
+    let gadget_owners = Rc::new(Owen2 {
+        name: "gadget_owner".to_string(),
+        gadgets: RefCell::new(Vec::<Weak<Gadget2>>::new()),
+        //gadgets: RefCell::new(vec![]),
+    });
 
-    let gadget_owners = Rc::new(
-        Owen2{
-            name: "gadget_owner".to_string(),
-            gadgets: RefCell::new(Vec::<Weak<Gadget2>>::new()),
-            //gadgets: RefCell::new(vec![]),
-        }
-    );
+    let gadget1 = Rc::new(Gadget2 {
+        id: 1,
+        owner: Rc::clone(&gadget_owners),
+    });
 
-    let gadget1 = Rc::new(
-        Gadget2 {
-            id: 1,
-            owner: Rc::clone(&gadget_owners),
-        }
-    );
-
-    let gadget2 = Rc::new(
-        Gadget2 {
-            id: 2,
-            owner: Rc::clone(&gadget_owners),
-        }
-    );
+    let gadget2 = Rc::new(Gadget2 {
+        id: 2,
+        owner: Rc::clone(&gadget_owners),
+    });
 
     // Add the `Gadget`s to their `Owner`.
     {
@@ -150,7 +143,6 @@ fn test_basic_weak() {
 
     // Iterate over our `Gadget`s, printing their details out.
     for gadget_weak in gadget_owners.gadgets.borrow().iter() {
-
         // `gadget_weak` is a `Weak<Gadget>`. Since `Weak` pointers can't
         // guarantee the allocation still exists, we need to call
         // `upgrade`, which returns an `Option<Rc<Gadget>>`.
@@ -169,11 +161,8 @@ fn test_basic_weak() {
     // Gadget Man, so he gets destroyed as well.
 }
 
-
 pub fn test_rc() {
-
     test_basic_rc();
 
     test_basic_weak();
-
 }
