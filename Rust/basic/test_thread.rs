@@ -68,7 +68,6 @@ Now that we’ve defined threads in Rust, let’s explore how to use the thread-
 use std::thread;
 use std::time::Duration;
 
-
 // *** Creating a New Thread with spawn ***
 // To create a new thread, we call the thread::spawn function and pass it a closure (we talked about closures in Chapter 13) containing the code we want to run in the new thread.
 
@@ -98,9 +97,7 @@ fn test_thread_basic() {
 // *** Using move Closures with Threads ***
 // The move closure is often used alongside thread::spawn because it allows you to use data from one thread in another thread.
 
-
 fn test_thread_basic2() {
-
     let v = vec![1, 2, 3];
 
     // we can use the move keyword before the parameter list of a closure to force the closure to take ownership of the values it uses in the environment.
@@ -142,8 +139,6 @@ fn test_thread_basic2() {
 // The mpsc::channel function returns a tuple, the first element of which is the sending end and the second element is the receiving end.
 // The abbreviations tx and rx are traditionally used in many fields for transmitter and receiver respectively, so we name our variables as such to indicate each end.
 
-
-
 use std::sync::mpsc;
 
 fn test_thread_channel() {
@@ -155,7 +150,7 @@ fn test_thread_channel() {
 
         // The transmitting end has a send method that takes the value we want to send. The send method returns a Result<T, E> type,
         tx.send(info).unwrap(); // Here, info has been Move. Channels and Ownership Transference
-        // println!("slave thread send : {}", info); // Compile Error: value borrowed here after move, Info is None now.
+                                // println!("slave thread send : {}", info); // Compile Error: value borrowed here after move, Info is None now.
     });
 
     let info = rv.recv().unwrap();
@@ -187,7 +182,8 @@ fn test_thread_channel_multiple_info() {
         }
     });
 
-    for v in rv { // treating rx as an iterator
+    for v in rv {
+        // treating rx as an iterator
         println!("Rv : {}", v);
     }
 }
@@ -196,7 +192,7 @@ fn test_thread_channel_multiple_info() {
 // Earlier we mentioned that mpsc was an acronym for multiple producer, single consumer.
 fn test_thread_multiple_producer() {
     let (tx, rv) = mpsc::channel();
-    let tx1 = mpsc::Sender::clone(&tx);
+    let tx1 = mpsc::Sender::clone(&tx); // clone for multiple thread using
 
     let slave1 = thread::spawn(move || {
         let vals = vec![

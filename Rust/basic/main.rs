@@ -15,6 +15,7 @@ mod test_btree;
 mod test_collectors;
 mod test_crate_model;
 mod test_errorhandling;
+mod test_format_print;
 mod test_hashmap;
 mod test_hashset;
 mod test_json;
@@ -119,4 +120,6 @@ fn main() {
     test_pattern_matching::test_pattern_match();
 
     test_unsafe::test_unsafe();
+
+    test_format_print::test_format_print();
 }

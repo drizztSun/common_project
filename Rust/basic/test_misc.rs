@@ -52,7 +52,7 @@ fn test_channels() {
         // `recv` will block the current thread if there are no messages available
         ids.push(rx.recv());
     }
-    
+
     // Wait for the threads to complete any remaining work
     for child in children {
         child.join().expect("oops! the child thread panicked");
