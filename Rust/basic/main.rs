@@ -44,6 +44,10 @@ mod test_type;
 mod test_conversion;
 mod test_flow_control;
 mod test_function;
+mod test_extern_crate;
+mod test_rary;
+
+// mod. will import each one into the main.rs and be compiled. if not doing this, it could not be compiled and use by others.
 
 
 fn main() {
@@ -138,4 +142,6 @@ fn main() {
     test_flow_control::test_flow_control();
 
     test_function::test_functions();
+
+    test_extern_crate::test_extern_crate();
 }

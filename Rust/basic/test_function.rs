@@ -219,7 +219,7 @@ They preferentially capture variables by reference and only go lower when requir
 */
 
 fn test_closure_capturing() {
-    use std::mem;
+    // use std::mem;
 
     let color = "green";
 
