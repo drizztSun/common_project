@@ -1,19 +1,58 @@
-// *** use declaration
-// The use declaration can be used to bind a full path to a new name, for easier access. It is often used like this:
 
-// extern crate deeply; // normally, this would exist and not be commented out!
 /*
+        *** use declaration ***
+
+The use declaration can be used to bind a full path to a new name, for easier access. It is often used like this:
+extern crate deeply; // normally, this would exist and not be commented out!
+
 use crate::deeply::nested::{
     my_first_function,
     my_second_function,
     AndATraitType
 };
+
+You can use the as keyword to bind imports to a different name:
+
+// Bind the `deeply::nested::function` path to `other_function`.
+use deeply::nested::function as other_function;
+
+fn function() {
+    println!("called `function()`");
+}
+
+mod deeply {
+    pub mod nested {
+        pub fn function() {
+            println!("called `deeply::nested::function()`");
+        }
+    }
+}
+
+fn main() {
+    // Easier access to `deeply::nested::function`
+    other_function();
+
+    println!("Entering block");
+    {
+        // This is equivalent to `use deeply::nested::function as function`.
+        // This `function()` will shadow the outer one.
+        use crate::deeply::nested::function;
+        function();
+
+        // `use` bindings have a local scope. In this case, the
+        // shadowing of `function()` is only in this block.
+        println!("Leaving block");
+    }
+
+    function();
+}
 */
 
-// *** Visibility
-// By default, the items in a module have private visibility, but this can be overridden with the pub modifier.
-// Only the public items of a module can be accessed from outside the module scope.
-
+/*
+        *** Visibility ***
+By default, the items in a module have private visibility, but this can be overridden with the pub modifier.
+Only the public items of a module can be accessed from outside the module scope.
+*/
 // A mod named "my_mod"
 mod my_mod {
 
@@ -99,12 +138,13 @@ fn function() {
     println!("Calling 'function()");
 }
 
-// *** Structv Visibility
-// Structs have an extra level of visibility with their fields.
-// The visibility defaults to private, and can be overridden with the pub modifier.
-// This visibility only matters when a struct is accessed from outside the module where it is defined,
-// and has the goal of hiding information (encapsulation).
-
+/*
+    *** Structv Visibility ***
+Structs have an extra level of visibility with their fields.
+The visibility defaults to private, and can be overridden with the pub modifier.
+This visibility only matters when a struct is accessed from outside the module where it is defined,
+and has the goal of hiding information (encapsulation).
+*/
 mod my {
 
     // A public struct with a public filed of generic type 'T'
@@ -192,8 +232,11 @@ fn test_visibility() {
     // TODO ^ Try uncommenting this line
 }
 
-// *** super and self
-// The super and self keywords can be used in the path to remove ambiguity when accessing items and to prevent unnecessary hardcoding of paths.
+/*
+    *** super and self ***
+The super and self keywords can be used in the path to remove ambiguity when accessing items and to prevent unnecessary hardcoding of paths.
+*/
+
 mod cool {
     pub fn function() {
         println!("called `cool::function()`");

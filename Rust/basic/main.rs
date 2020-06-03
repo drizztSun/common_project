@@ -42,6 +42,9 @@ mod traits;
 mod test_primitives;
 mod test_type;
 mod test_conversion;
+mod test_flow_control;
+mod test_function;
+
 
 fn main() {
     println!("--- Starting RUST syntax ---");
@@ -131,4 +134,8 @@ fn main() {
     test_type::test_type();
 
     test_conversion::test_conversions();
+
+    test_flow_control::test_flow_control();
+
+    test_function::test_functions();
 }
