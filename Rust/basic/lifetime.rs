@@ -31,6 +31,15 @@ For example, let’s say we have a function with the parameter first that is a r
 The function also has another parameter named second that is another reference to an i32 that also has the lifetime 'a.
 The lifetime annotations indicate that the references first and second must both live as long as that generic lifetime.
 
+
+    *** Functions ***
+Ignoring elision, function signatures with lifetimes have a few constraints:
+
+1) any reference must have an annotated lifetime.
+2) any reference being returned must have the same lifetime as an input or be static.
+Additionally, note that returning references without input is banned if it would result in returning references to invalid data.
+The following example shows off some valid forms of functions with lifetimes:
+
 fn largestStr(x: &str, y: &str) -> &str {
     if x.len() > y.len() {
         x
@@ -106,7 +115,8 @@ fn longest<'a>(x: &str, y: &str) -> &'a str {
     let result = String::from("really long string");
     result.as_str()
 }
-Here, even though we’ve specified a lifetime parameter 'a for the return type, this implementation will fail to compile because the return value lifetime is not related to the lifetime of the parameters at all. Here is the error message we get:
+Here, even though we’ve specified a lifetime parameter 'a for the return type, this implementation will fail to compile
+because the return value lifetime is not related to the lifetime of the parameters at all. Here is the error message we get:
 
 
 $ cargo run
@@ -154,13 +164,19 @@ The compiler uses three rules to figure out what lifetimes references have when 
 If the compiler gets to the end of the three rules and there are still references for which it can’t figure out lifetimes,
 the compiler will stop with an error. These rules apply to fn definitions as well as impl blocks.
 
-*** The first rule is that each parameter that is a reference gets its own lifetime parameter. In other words, a function with one parameter gets one lifetime parameter:
-fn foo<'a>(x: &'a i32); a function with two parameters gets two separate lifetime parameters: fn foo<'a, 'b>(x: &'a i32, y: &'b i32); and so on.
+1) *** The first rule is that each parameter that is a reference gets its own lifetime parameter In other words,
+a function with one parameter gets one lifetime parameter:
+fn foo<'a>(x: &'a i32);
 
-*** The second rule is if there is exactly one input lifetime parameter, that lifetime is assigned to all output lifetime parameters: fn foo<'a>(x: &'a i32) -> &'a i32.
+a function with two parameters gets two separate lifetime parameters:
+fn foo<'a, 'b>(x: &'a i32, y: &'b i32); and so on.
 
-*** The third rule is if there are multiple input lifetime parameters, but one of them is &self or &mut self because this is a method, the lifetime of self is assigned
-to all output lifetime parameters. This third rule makes methods much nicer to read and write because fewer symbols are necessary.
+2) *** The second rule is if there is exactly one input lifetime parameter, that lifetime is assigned to all output lifetime parameters:
+fn foo<'a>(x: &'a i32) -> &'a i32.
+
+3) *** The third rule is if there are multiple input lifetime parameters, but one of them is &self or &mut self because this is a method, the lifetime of self is assigned
+to all output lifetime parameters.
+This third rule makes methods much nicer to read and write because fewer symbols are necessary.
 
 
 Let’s pretend we’re the compiler. We’ll apply these rules to figure out what the lifetimes of the references in the signature of the first_word function in Listing 10-26 are.

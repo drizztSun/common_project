@@ -15,8 +15,11 @@ By default, rustc will produce a binary from a crate. This behavior can be overr
 To link a crate to this new library, the extern crate declaration must be used.
 This will not only link the library, but also import all its items under a module named the same as the library.
 The visibility rules that apply to modules also apply to libraries.
+like:
 
+extern crate json
 
+in Cargo.lock, there will be a new json package installing.
 
 # Where library.rlib is the path to the compiled library, assumed that it's
 # in the same directory here:
