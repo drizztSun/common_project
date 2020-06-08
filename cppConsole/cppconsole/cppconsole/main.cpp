@@ -23,23 +23,35 @@ void test_deque();
 
 void test_stack();
 
+void Test_move_forward();
+
+void Test_value_categories();
+
+void Test_fold_expression();
+
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
-
-    TestUnorderMap();
-
-    Test_Unordered_set();
-
-    test_vector_morden_cpp();
-
-    Test_share_ptr();
     
-    test_constrexpr();
+    Test_fold_expression();
     
-    test_deque();
+    Test_value_categories();
     
-    test_stack();
+    Test_move_forward();
+
+    // TestUnorderMap();
+
+    // Test_Unordered_set();
+
+    // test_vector_morden_cpp();
+
+    // Test_share_ptr();
+    
+    // test_constrexpr();
+    
+    // test_deque();
+    
+    // test_stack();
 
     return 1;
 }

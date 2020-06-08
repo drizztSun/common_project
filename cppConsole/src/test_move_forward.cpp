@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include <array>
+using namespace std;
+using std::string;
 
 /*
 
@@ -40,6 +42,7 @@ which is why move constructors and move assignment operators typically use std::
 // Simple move constructor
 A(A&& arg) : member(std::move(arg.member)) // the expression "arg.member" is lvalue
 {}
+ 
 // Simple move assignment operator
 A& operator=(A&& other) {
 	 member = std::move(other.member);
@@ -213,6 +216,7 @@ std::unique_ptr<T> make_unique2(U&& ... u) {
 	return std::unique_ptr<T>(new T(std::forward<U>(u)...));
 }
 
+
 void test_forward() {
 	auto p1 = make_unique1<A>(2);
 	int i = 2;
@@ -220,4 +224,209 @@ void test_forward() {
 
 	std::cout << "B\n";
 	auto t = make_unique2<B>(2, i, 3);
+}
+
+
+class Atype {
+    
+public:
+    Atype() {}
+    ~Atype() {}
+    
+    // copy constructor
+    Atype(const Atype&) {
+        std::cout << "Copy constructor calling : Atype" << std::endl;
+    }
+    
+    // move constructor
+    Atype(Atype&&) {
+        std::cout << "Move constructor calling : Atype" << std::endl;
+    }
+    
+    // copy assignment operator
+    Atype& operator= (const Atype&) {
+        std::cout << "Copy assignment operator calling: Atype" << std::endl;
+        return *this;
+    }
+    
+    // move assignment operator
+    Atype& operator= (Atype&&) {
+        std::cout << "Move assignment operator calling: Atype" << std::endl;
+        return *this;
+    }
+};
+
+Atype get_atype() {
+    return Atype();
+}
+
+/*
+
+template <typename T>
+typename remove_reference<T>::type&& move(T&& t)
+{
+    return static_cast<typename remove_reference<T>::type&&>(t);
+}
+ 
+ //original
+ template <typename T> struct remove_reference{
+     typedef T type;  //定义T的类型别名为type
+ };
+  
+ //partial specification，for lvalue-reference, rvalue-reference
+ template <class T> struct remove_reference<T&> //lvalue-reference
+ { typedef T type; }
+  
+ template <class T> struct remove_reference<T&&> //rvalue-reference
+ { typedef T type; }
+
+*/
+
+void test_lvalue_rvalue_reference() {
+    
+    Atype a;
+    Atype a1(a);
+
+    
+    Atype a6(std::move(a)); // move
+    // a is lvalue, function is T&&, so 'a' becomes Atype& T& + && => T&.
+    // std::move(a) => std::move(string& &&) => std::move(string& ) (after reference fold)
+    // Here T is Atype&
+    // typename std::remove_reference<T>::type is Atype
+    // std::move is below
+    // Atype&& move(Atype& t) { // t is lvalue, can't use it after move
+    //
+    //      // by static_cast<Atype&&> Atype& becomes Atype&&
+    //      retturn static_cast<Atype&&>(t);
+    // }
+    
+    Atype a3(std::move(Atype())); // move
+    // a is rvalue, function is T&&, std::move(Atype()) => std::move(Atype&&)
+    // so, T is Atype
+    //      remove_reference<T>::type is Atype
+    // std::move is below
+    // Atype&& move(Atype&& t) { // t is rvalue
+    //
+    //      retyrn static_cast<Atype&&>(t);
+    // }
+    
+    Atype a2(std::move(get_atype())); // move
+    
+    Atype a4(Atype());
+    Atype a5(get_atype());
+    
+}
+
+
+
+
+// Type reference fold
+template<typename T>
+struct Name;
+
+template<>
+struct Name<string> {
+    static const char* get() {
+        return "string";
+    }
+};
+
+template<>
+struct Name<const string> {
+    static const char* get() {
+        return "const string";
+    }
+};
+
+template<>
+struct Name<string&> {
+    static const char* get() {
+        return "string&";
+    }
+};
+
+template<>
+struct Name<const string&> {
+    static const char* get() {
+        return "const string&";
+    }
+};
+
+template<>
+struct Name<string&&> {
+    static const char* get() {
+        return "string&&";
+    }
+};
+
+template<>
+struct Name<const string&&> {
+    static const char* get() {
+        return "const string&&";
+    }
+};
+
+string strange() {
+    return "strange()";
+}
+
+const string charm() {
+    return "charm()";
+}
+
+template<typename T>
+void quark(T&& t) {
+    std::cout << "*****************" << std::endl;
+    std::cout << "t: " << t << std::endl;
+    std::cout << "T: " << Name<T>::get() << std::endl;
+    std::cout << "T&&: " << Name<T&&>::get() << std::endl;
+}
+
+void test_reference_fold() {
+    
+    string up("Up");
+    const string down("Down");
+
+    quark(up); // Name<string&>
+    quark(down); // Name<const string&>
+    
+    quark(strange()); // Name<string>
+    quark(charm()); // Name<const string>
+    
+    /*
+     t: up
+     T: string&
+     T&&: string&
+
+     t: down
+     T: const string&
+     T&&: const string&
+
+     t: strange()
+     T: string
+     T&&: string&&
+
+     t: charm()
+     T: const string
+     T&&: const string&&
+     */
+}
+
+
+
+void Test_move_forward() {
+    
+    std::cout << "*** Start Test_move_forward ***" << endl;
+    
+    test_lvalue_rvalue_reference();
+    
+    test_forward();
+    
+    test_stdmove();
+    
+    test_move_if_noexcept();
+    
+    test_reference_fold();
+    
+    std::cout << "*** End Test_move_forward ***" << endl;
 }
