@@ -29,9 +29,13 @@ void Test_value_categories();
 
 void Test_fold_expression();
 
+void Test_type_deduce();
+
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
+    
+    Test_type_deduce();
     
     Test_fold_expression();
     

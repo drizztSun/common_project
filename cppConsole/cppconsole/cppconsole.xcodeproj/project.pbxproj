@@ -41,6 +41,7 @@
 		08B587322441FC6A002F2F40 /* test_tuple_pair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */; };
 		08CF339C248D083E005F4FD3 /* test_value_categories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CF339A248D083E005F4FD3 /* test_value_categories.cpp */; };
 		08CF339F248DB5A8005F4FD3 /* test_fold_expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CF339D248DB5A7005F4FD3 /* test_fold_expression.cpp */; };
+		1261021E248E6A8400A01CF3 /* test_type_deduce.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1261021D248E6A8400A01CF3 /* test_type_deduce.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +92,7 @@
 		08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_tuple_pair.cpp; sourceTree = "<group>"; };
 		08CF339A248D083E005F4FD3 /* test_value_categories.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_value_categories.cpp; sourceTree = "<group>"; };
 		08CF339D248DB5A7005F4FD3 /* test_fold_expression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_fold_expression.cpp; sourceTree = "<group>"; };
+		1261021D248E6A8400A01CF3 /* test_type_deduce.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_type_deduce.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				0894CC90241EE0D6003DF4A6 /* test_any.cpp */,
 				0894CC85241EE0D6003DF4A6 /* test_array.cpp */,
 				0894CC9B241EE0D6003DF4A6 /* test_asynchronized.cpp */,
+				1261021D248E6A8400A01CF3 /* test_type_deduce.cpp */,
 				08CF339D248DB5A7005F4FD3 /* test_fold_expression.cpp */,
 				0894CC91241EE0D6003DF4A6 /* test_atomic.cpp */,
 				0894CC9D241EE0D6003DF4A6 /* test_condition_variable.cpp */,
@@ -244,6 +247,7 @@
 				0894CCAB241EE0D6003DF4A6 /* test_set.cpp in Sources */,
 				0894CCAC241EE0D6003DF4A6 /* share_ptr.cpp in Sources */,
 				08CF339F248DB5A8005F4FD3 /* test_fold_expression.cpp in Sources */,
+				1261021E248E6A8400A01CF3 /* test_type_deduce.cpp in Sources */,
 				0894CCB2241EE0D6003DF4A6 /* test_vector.cpp in Sources */,
 				0894CCB7241EE0D6003DF4A6 /* test_move_forward.cpp in Sources */,
 				0894CCB0241EE0D6003DF4A6 /* smart_ptr.cpp in Sources */,
