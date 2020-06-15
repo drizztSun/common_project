@@ -31,9 +31,13 @@ void Test_fold_expression();
 
 void Test_type_deduce();
 
+void test_basic();
+
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
+    
+    test_basic();
     
     Test_type_deduce();
     

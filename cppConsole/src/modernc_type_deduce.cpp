@@ -3,6 +3,7 @@
 #include <utility>
 #include <iostream>
 #include <typeinfo>
+#include <vector>
 
 using namespace std;
 
@@ -421,6 +422,75 @@ void test_type_output() {
     std::cout << typeid(*pb).name() << '\n';
 }
 
+/*
+    *** auto ***
+    In concept, auto is as simple as simple can be, but it’s more subtle than it looks. Using it saves typing, sure,
+    but it also prevents correctness and performance issues that can bedevil manual type declarations.
+    Furthermore, some of auto’s type deduc‐ tion results, while dutifully conforming to the prescribed algorithm, are, from the perspective of a programmer, just wrong.
+    When that’s the case, it’s important to know how to guide auto to the right answer, because falling back on manual type declarations is an alternative that’s often best avoided.
+ 
+    *** Item 5: Prefer auto to explicit type declarations. ***
+ 
+    auto variables have their type deduced from their initializer, so they must be initial‐ ized. That means you can wave goodbye to a host of uninitialized variable problems
+ 
+    Things to Remember
+    • auto variables must be initialized, are generally immune to type mismatches that can lead to portability or efficiency problems,
+      can ease the process of refactoring, and typically require less typing than variables with explicitly specified types.
+    • auto-typed variables are subject to the pitfalls described in Items 2 and 6.
+ 
+ 
+    *** Item 6: Use the explicitly typed initializer idiom when auto deduces undesired types.  ***
+ 
+ 
+    Things to Remember
+    • “Invisible” proxy types can cause auto to deduce the “wrong” type for an ini‐ tializing expression.
+    • The explicitly typed initializer idiom forces auto to deduce the type you want it to have.
+ */
+
+vector<bool> feature() {
+    return vector<bool>(100);
+}
+
+void test_auto_vs_explicit_type() {
+    
+    // Though std::vector<bool> conceptually holds bools, operator[] for std::vector<bool> doesn’t return a reference to an element of the container
+    // (which is what std::vector::operator[] returns for every type except bool).
+    // Instead, it returns an object of type std::vector<bool>::reference (a class nested inside std::vector<bool>).
+    
+    // std::vector<bool>::reference exists because std::vector<bool> is specified to represent its bools in packed form, one bit per bool.
+    // That creates a problem for std::vector<bool>’s operator[], because operator[] for std::vector<T> is supposed to return a T&, but C++ forbids references to bits.
+    // Not being able to return a bool&, operator[] for std::vector<bool> returns an object that acts like a bool&.
+    // For this act to succeed, std::vector<bool>::reference objects must be usable in essentially all contexts where bool&s can be.
+    
+    // Among the features in std::vec tor<bool>::reference that make this work is an implicit conversion to bool. (Not to bool&, to bool.
+    {
+        // explicit specified type
+        bool high = feature()[5];
+        
+        // Here, features returns a std::vector<bool> object, on which operator[] is invoked. operator[] returns a std::vector<bool>::reference object,
+        // which is then implicitly converted to the bool that is needed to initialize highPriority.
+        // high Priority thus ends up with the value of bit 5 in the std::vector<bool> returned by features, just like it’s supposed to.
+    }
+    
+    {
+        auto high = feature()[5];
+        // Again, features returns a std::vector<bool> object, and, again, operator[] is invoked on it.
+        // operator[] continues to return a std::vector<bool>::reference object,
+        // but now there’s a change, because auto deduces that as the type of highPriority.
+        // highPriority doesn’t have the value of bit 5 of the std::vector<bool> returned by features at all.
+        
+        // *** fix it, by explicit cast
+        
+        auto high1 = static_cast<bool>(feature()[5]);
+    }
+    
+    // Some proxy classes are designed to be apparent to clients. That’s the case for std::shared_ptr and std::unique_ptr, for example.
+    // Other proxy classes are designed to act more or less invisibly.
+    // std::vector<bool>::reference is an exam‐ ple of such “invisible” proxies, as is its std::bitset compatriot, std::bitset::ref erence.
+    
+    
+    
+}
 
 void Test_type_deduce() {
     
@@ -431,6 +501,8 @@ void Test_type_deduce() {
     test_type_auto();
     
     test_type_template();
+    
+    test_auto_vs_explicit_type();
     
     std::cout << "*** end type deduce ***" << std::endl;
 }
