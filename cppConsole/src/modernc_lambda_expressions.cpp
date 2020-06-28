@@ -411,7 +411,7 @@ class PolyWidget {
 public:
     
     template<typename T>
-    void operator()(const T& param) {};
+    void operator()(const T& param) {}
 };
 
 void test_lambdas_to_std_bind() {
