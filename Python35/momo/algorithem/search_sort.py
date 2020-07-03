@@ -172,7 +172,7 @@ def merge2(a, b):
 
     return c
 
-def merge(a :list, i :int, j :int, k :int):
+def merge(a :list, i :int, j :int, k :int):     
 
     s1, s2 = i, j
     c = []
@@ -251,7 +251,7 @@ def quick_sort(arr, i, j):
 
 
 def QuickSort(arr):
-    quick_sort(arr, 0, len(arr))
+    quick_sort(arr, 0, len(arr)) 
 
 
 if __name__ == '__main__':
@@ -299,5 +299,5 @@ if __name__ == '__main__':
     print(bottom_up_sort(array))
 
     print(select_sort(array=[6, 4, 5, 3, 1, 2]))
-    pas
+  
 
