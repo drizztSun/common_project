@@ -1,3 +1,9 @@
+use std::pin::Pin;
+use std::marker::PhantomPinned;
+use std::ptr::NonNull;
+use std::mem;
+
+
 // *** Summary
 // The concepts of ownership, borrowing, and slices ensure memory safety in Rust programs at compile time.
 // The Rust language gives you control over your memory usage in the same way as other systems programming languages,
@@ -342,6 +348,106 @@ fn test_slice() {
         let slice2 = &s[..];
         println!("1:{}, 2:{}", slice1, slice2);
     }
+}
+
+// Module std::pin
+// Types that pin data to its location in memory.
+
+// It is sometimes useful to have objects that are guaranteed not to move, in the sense that their placement in memory does not change, and can thus be relied upon.
+// A prime example of such a scenario would be building self-referential structs, as moving an object with pointers to itself will invalidate them, which could cause undefined behavior.
+
+// A Pin<P> ensures that the pointee of any pointer type P has a stable location in memory, meaning it cannot be moved elsewhere and its memory cannot be deallocated until it gets dropped.
+// We say that the pointee is "pinned".
+
+// By default, all types in Rust are movable. Rust allows passing all types by-value, and common smart-pointer types such as Box<T> and &mut T allow replacing and moving the values they contain: you can move out of a Box<T>, or you can use mem::swap.
+/// Pin<P> wraps a pointer type P, so Pin<Box<T>> functions much like a regular Box<T>: when a Pin<Box<T>> gets dropped, so do its contents, and the memory gets deallocated.
+// Similarly, Pin<&mut T> is a lot like &mut T. However, Pin<P> does not let clients actually obtain a Box<T> or &mut T to pinned data, which implies that you cannot use operations such as mem::swap:
+fn swap_pins<T>(x: Pin<&mut T>, y: Pin<&mut T>) {
+    // `mem::swap` needs `&mut T`, but we cannot get it.
+    // We are stuck, we cannot swap the contents of these references.
+    // We could use `Pin::get_unchecked_mut`, but that is unsafe for a reason:
+    // we are not allowed to use it for moving things out of the `Pin`.
+
+
+}
+
+// It is worth reiterating that Pin<P> does not change the fact that a Rust compiler considers all types movable. mem::swap remains callable for any T.
+// Instead, Pin<P> prevents certain values (pointed to by pointers wrapped in Pin<P>) from being moved by making it impossible to call methods that require &mut T on them (like mem::swap).
+
+// Pin<P> can be used to wrap any pointer type P, and as such it interacts with Deref and DerefMut.
+// A Pin<P> where P: Deref should be considered as a "P-style pointer" to a pinned P::Target -- so, a Pin<Box<T>> is an owned pointer to a pinned T, and a Pin<Rc<T>> is a reference-counted pointer to a pinned T.
+// For correctness, Pin<P> relies on the implementations of Deref and DerefMut not to move out of their self parameter, and only ever to return a pointer to pinned data when they are called on a pinned pointer.
+
+fn test_pin() {
+
+    let unmoved = Unmovable::new("hello".to_string());
+    // The pointer should point to the correct location,
+    // so long as the struct hasn't moved.
+    // Meanwhile, we are free to move the pointer around.
+    let mut still_unmoved = unmoved;
+    assert_eq!(still_unmoved.slice, NonNull::from(&still_unmoved.data));
+
+    // Since our type doesn't implement Unpin, this will fail to compile:
+    // let mut new_unmoved = Unmovable::new("world".to_string());
+    // std::mem::swap(&mut *still_unmoved, &mut *new_unmoved);
+}
+
+// This is a self-referential struct because the slice field points to the data field.
+// We cannot inform the compiler about that with a normal reference,
+// as this pattern cannot be described with the usual borrowing rules.
+// Instead we use a raw pointer, though one which is known not to be null,
+// as we know it's pointing at the string.
+struct Unmovable {
+    data: String,
+    slice: NonNull<String>,
+    _pin: PhantomPinned,
+}
+
+impl Unmovable {
+    // To ensure the data doesn't move when the function returns,
+    // we place it in the heap where it will stay for the lifetime of the object,
+    // and the only way to access it would be through a pointer to it.
+    fn new(data: String) -> Pin<Box<Self>> {
+        let res = Unmovable {
+            data,
+            // we only create the pointer once the data is in place
+            // otherwise it will have already moved before we even started
+            slice: NonNull::dangling(),
+            _pin: PhantomPinned,
+        };
+        let mut boxed = Box::pin(res);
+
+        let slice = NonNull::from(&boxed.data);
+        // we know this is safe because modifying a field doesn't move the whole struct
+        unsafe {
+            let mut_ref: Pin<&mut Self> = Pin::as_mut(&mut boxed);
+            Pin::get_unchecked_mut(mut_ref).slice = slice;
+        }
+        boxed
+    }
+}
+
+
+// *** Unpin ***
+// Many types are always freely movable, even when pinned, because they do not rely on having a stable address.
+// This includes all the basic types (like bool, i32, and references) as well as types consisting solely of these types.
+// Types that do not care about pinning implement the Unpin auto-trait, which cancels the effect of Pin<P>.
+// For T: Unpin, Pin<Box<T>> and Box<T> function identically, as do Pin<&mut T> and &mut T.
+
+// Note that pinning and Unpin only affect the pointed-to type P::Target, not the pointer type P itself that got wrapped in Pin<P>.
+// For example, whether or not Box<T> is Unpin has no effect on the behavior of Pin<Box<T>> (here, T is the pointed-to type).
+fn test_unpin() {
+
+    // string is unpin object,
+    let mut string = "this".to_string();
+    let mut pinned_string = Pin::new(&mut string);
+
+    // We need a mutable reference to call `mem::replace`.
+    // We can obtain such a reference by (implicitly) invoking `Pin::deref_mut`,
+    // but that is only possible because `String` implements `Unpin`.
+    mem::replace(&mut *pinned_string, "other".to_string());
+
+    println!("{}", *pinned_string); // "other"
 }
 
 pub fn test_owenership() {

@@ -119,7 +119,7 @@ fn test_dynamically_size() {
     fn generic<T: ?Sized>(t: &T) {
         // --snip--
     }
-    // A trait bound on ?Sized is the opposite of a trait bound on Sized: we would read this as “T may or may not be Sized.” This syntax is only available for Sized, not any other traits.
+    // *** A trait bound on ?Sized is the opposite of a trait bound on Sized: we would read this as “T may or may not be Sized.” This syntax is only available for Sized, not any other traits. ***
 
     // Also note that we switched the type of the t parameter from T to &T. Because the type might not be Sized, we need to use it behind some kind of pointer.
     // In this case, we’ve chosen a reference.

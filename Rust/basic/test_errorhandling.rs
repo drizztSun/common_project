@@ -3,6 +3,8 @@ use std::io;
 use std::io::ErrorKind;
 use std::io::Read;
 
+
+#[allow(unused_variables)]
 //#![allow(dead_code)]
 /*
 
