@@ -37,15 +37,15 @@ int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
     
-    test_basic();
+    // test_basic();
     
-    Test_type_deduce();
+    // Test_type_deduce();
     
-    Test_fold_expression();
+    // Test_fold_expression();
     
-    Test_value_categories();
+    // Test_value_categories();
     
-    Test_move_forward();
+    // Test_move_forward();
 
     // TestUnorderMap();
 
