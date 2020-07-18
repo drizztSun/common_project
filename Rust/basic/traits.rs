@@ -83,6 +83,77 @@ impl Summary for Tweet {
 
 impl DefaultSummary for Tweet {}
 
+// trait inherit
+
+// Trait inheritance in Rust differs from OOP inheritance.
+// Trait inheritance is just a way to specify requirements. trait B: A does not imply that if a type implements B it will automatically implement A;
+// it means that if a type implements B it must implement A. This also means that you will have to implement A separately if B is implemented.
+
+trait A {}
+trait B: A {}
+
+struct S;
+
+impl B for S {}
+
+// Commenting this line will result in a "trait bound unsatisfied" error
+impl A for S {}
+
+
+
+trait OnOff{
+    fn set_onoff(&self, b :bool){
+       println!("OnOff Default");
+    }
+}
+
+trait Brightness{
+    fn set_brightness(&self, brightness: i32){
+        println!("Brightness Default");
+    }
+}
+
+//Now any type which implements 'Light' should implement 'OnOff' 
+//& 'Brightness' as well 
+trait Light: OnOff + Brightness{ }
+      
+struct MyLight{
+    state: bool
+}
+
+//impl <MyLight: OnOff + Brightness>Light for MyLight{}
+impl Light for MyLight{}
+
+impl OnOff for MyLight{}
+
+impl Brightness for MyLight{
+    fn set_brightness(&self, brightness: i32){
+        println!("Brightness = {}", brightness);
+    }
+}
+
+fn test_trait_inheritance() {
+    let _x: &B = &S;
+
+    let my_light = MyLight{state: false};
+    
+    my_light.set_onoff(true);
+    my_light.set_brightness(100);
+}
+
+// #[stable(feature = "rust1", since = "1.0.0")]
+// #[lang = "copy"]
+// pub trait Copy: Clone {
+    // Empty.
+// }
+
+
+// However, if want a type to automatically implement C if it implements A and B (and thereby avoiding manually implementing C for that type), then you can use a generic impl:
+// impl<T: A + B> C for T {}
+
+
+
+
 // trait as parameters
 /*
 Instead of a concrete type for the item parameter, we specify the impl keyword and the trait name.

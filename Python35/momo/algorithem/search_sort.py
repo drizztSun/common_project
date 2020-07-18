@@ -190,6 +190,10 @@ def merge2(a, b):
 
     return c
 
+<<<<<<< HEAD
+=======
+def merge(a :list, i :int, j :int, k :int):     
+>>>>>>> 75670c8348969555da269eb4d77e8ff029bc7b0c
 
 def merge(a: list, i: int, j: int, k: int):
     s1, s2 = i, j
@@ -270,7 +274,7 @@ def quick_sort(arr, i, j):
 
 
 def QuickSort(arr):
-    quick_sort(arr, 0, len(arr))
+    quick_sort(arr, 0, len(arr)) 
 
 
 if __name__ == '__main__':
@@ -318,7 +322,12 @@ if __name__ == '__main__':
     array = [9, 5, 2, 7, 1, 0, -4, 57, 12345]
     print(bottom_up_sort(array))
 
+<<<<<<< HEAD
     print(select_sort(ar=[6, 4, 5, 3, 1, 2]))
     '''
+=======
+    print(select_sort(array=[6, 4, 5, 3, 1, 2]))
+  
+>>>>>>> 75670c8348969555da269eb4d77e8ff029bc7b0c
 
     print(bubble_sort2(arr=[5, 4, 3, 2, 1]))

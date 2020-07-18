@@ -1,0 +1,1 @@
+pub test_async;

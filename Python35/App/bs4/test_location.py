@@ -44,8 +44,6 @@ class Command:
                 if cache and url in cache:
                     node = root = cache[url]
                     continue
-
-
                 
                 url_parsed = urllib.parse.urlparse(url)
                 robots_url = '%s://%s/robots.txt' % (url_parsed.scheme, url_parsed.netloc)
@@ -61,8 +59,6 @@ class Command:
                 #    ret.pop('link')
                 # logger.error('%s: no robots allowed for %s', url, self.USER_AGENT)
                 #continue
-
-
 
                 res = requests.get(url, headers={'User-Agent': self.USER_AGENT})
                 res.raise_for_status()
@@ -258,17 +254,28 @@ def test_crawl():
         ],
         [
             {'url': 'https://developer.apple.com/news/releases/rss/releases.rss'},
-            {'method': 'find', 're': r'^\s*iOS (?P<version>' + osversion + r'.[\d\.]+)\s+\((?P<build>.+)\)\s*$', 'kwargs': {'name': 'title'}},
+            {'method': 'find', 're': r'^\s*iOS (?P<version>' + '13' + r'.[\d\.]+)\s+\((?P<build>.+)\)\s*$', 'kwargs': {'name': 'title'}},
             {'method': 'parent'},
             {'method': 'find', 're': r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})', 'kwargs': {'name': 'pubdate'}},
         ],
         [
+<<<<<<< HEAD
             {'url': 'https://developer.apple.com/news/releases/rss/releases.rss'},
             {'method': 'find', 're': r'^\s*iPadOS (?P<version>' + osversion + r'.[\d\.]+)\s+\((?P<build>.+)\)\s*$',
              'kwargs': {'name': 'title'}},
             {'method': 'parent'},
             {'method': 'find', 're': r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})',
              'kwargs': {'name': 'pubdate'}},
+=======
+            {'url': 'https://en.wikipedia.org/wiki/Microsoft_Edge'},
+            {'method': 'find', 'kwargs': {'name': 'a', 'text': 'Stable release(s)'}},
+            {'method': 'find_parent', 'kwargs': {'name': 'tbody'}},
+            {'method': 'find', 'kwargs': {'name': 'th', 'text': 'Windows'}},
+            {'method': 'parent'},
+            {'method': 'find', 'kwargs': {'name': 'td'}},
+            {'method': 're.search', 're': r'(?P<version>[0-9\.]+)'},
+            {'method': 're.search', 're': r'(?P<date>\d\d\d\d-\d+-\d+)'}
+>>>>>>> 75670c8348969555da269eb4d77e8ff029bc7b0c
         ]
     ]
 

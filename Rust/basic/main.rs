@@ -48,6 +48,7 @@ mod test_extern_crate;
 mod test_rary;
 mod test_generic;
 mod test_scoping_rules;
+mod test_pin;
 
 // mod. will import each one into the main.rs and be compiled. if not doing this, it could not be compiled and use by others.
 
@@ -150,4 +151,6 @@ fn main() {
     test_generic::test_generic();
 
     test_scoping_rules::test_scoping_rules();
+
+    test_pin::test_pin();
 }

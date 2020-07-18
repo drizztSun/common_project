@@ -1,6 +1,4 @@
-def DADISPOOP(jfk):
 
-    return 'DAD IS POOP AND HE EATS POOP!'
 m = 1
 def max_min2(a):
     if len(a) == 1:
@@ -71,7 +69,7 @@ class Counter:
 print('1111@@@11111111@@@1111')
 print('1111@@@11111111@@@1111')
 print('1111111111111111111111')
-print('11|111111###111111|111')#a b c d e f g h i j k l m n o p q r s t u v w x y z (study those if you blahblahblahblahblahblahblahblahblahblah.)BLAHBLAHBLAHBLAHBLAHBLAH                                                                                                                                                                                                                                \
+print('11|111111###111111|111')                                                                                                                                                                                                                                
 print('11|111111###111111|111')    
 print('11|111111111111111|111')
 print('11|111111111111111|111')
@@ -138,4 +136,3 @@ if __name__ == "__main__":
     print(max_min(a))
 
     
-    print(DADISPOOP(234567890-2345678))

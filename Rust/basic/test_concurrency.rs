@@ -129,7 +129,7 @@ fn test_mutex_between_threads() {
 
     // We create a counter variable to hold an i32 inside a Mutex<T>, as we did in Listing 16-12. 
     // Next, we create 10 threads by iterating over a range of numbers.
-    // We use thread::spawn and give all the threads the same closure, one that moves the counter into the thread, 
+    // We use thread::spawn and give all the threads the same closure, one that moves the counter into the thread,
     // acquires a lock on the Mutex<T> by calling the lock method, and then adds 1 to the value in the mutex. 
     // When a thread finishes running its closure, num will go out of scope and release the lock so another thread can acquire it.
     for i in 0..10 {

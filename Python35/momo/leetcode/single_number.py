@@ -1,16 +1,22 @@
+
 from collections import defaultdict
-# my solution
 
-class SingleNumberslootion:
-
+class SingleNumber:
+    # my solution
     def singleNumber(a) -> int:
-        l = {a[j]: 0 for j in range(len(a))}
-        for i in range(len(a)):
-            l[a[i]] = l[a[i]] + 1
-            if l[a[i]] > 1:
-                del l[a[i]]
-        m = l.keys()
-        return list(m)[0]
+        l  = {}
+        for k in a:
+            l[k] = l.get(k, 0) + 1
+            '''
+            if k not in l:
+                l[k] = 0
+            l[k]+=1
+            '''
+            if l[k] > 1:
+                del l[k]
+                
+        return list(l.keys())[0]
+    
     '''
     Approach 1: List operation
     Algorithm
@@ -55,7 +61,8 @@ class SingleNumberslootion:
     Approach 3: Math
     Concept
 
-    2 * (a + b + c) - (a + a + b + b + c) = c2∗(a+b+c)−(a+a+b+b+c)=c
+    2 * (a + b + c) - (a + a + b + b + c) = c
+    2∗(a+b+c)−(a+a+b+b+c)=c
     '''
 
     def singleNumber3(self, nums):
@@ -69,7 +76,8 @@ class SingleNumberslootion:
     Concept
 
     If we take XOR of zero and some bit, it will return that bit
-    a \oplus 0 = aa⊕0=a
+    a ⊕ 0 = a
+    a⊕0=a
     If we take XOR of two same bits, it will return 0
     a ⊕ = 0
     a⊕a=0
@@ -77,17 +85,13 @@ class SingleNumberslootion:
     a⊕b⊕a=(a⊕a)⊕b=0⊕b=b
     So we can XOR all bits together to find the unique number.
     '''
-
-
-
-
-    def singleNumber4(self, a):
+    def singleNumber4(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
         a = 0
-        for i in a:
+        for i in nums:
             a ^= i
         return a
 
@@ -96,4 +100,5 @@ class SingleNumberslootion:
 if __name__ == '__main__':
 
 
-   pass
+    d = SingleNumber.singleNumber([2, 2, 1])
+    print(d)

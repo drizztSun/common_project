@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		087D31E024A384EC003EB412 /* modernc_concurrency_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */; };
 		0894CC2B241ED15E003DF4A6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC2A241ED15E003DF4A6 /* main.cpp */; };
 		0894CCA0241EE0D6003DF4A6 /* test_userdefined_conversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC83241EE0D6003DF4A6 /* test_userdefined_conversion.cpp */; };
 		0894CCA1241EE0D6003DF4A6 /* test_unordered_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC84241EE0D6003DF4A6 /* test_unordered_map.cpp */; };
@@ -38,7 +39,10 @@
 		0894CCBB241EE0D6003DF4A6 /* test_stack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC9E241EE0D6003DF4A6 /* test_stack.cpp */; };
 		0894CCBC241EE0D6003DF4A6 /* test_deque.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC9F241EE0D6003DF4A6 /* test_deque.cpp */; };
 		08B3CBB3242B7B4400DD00DB /* test_stl_algorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */; };
+		08B5052B24A76AB9003C17DF /* modernc_tweaks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B5052A24A76AB9003C17DF /* modernc_tweaks.cpp */; };
 		08B587322441FC6A002F2F40 /* test_tuple_pair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */; };
+		08B9945C249A8AED0059D42D /* modernc_rval_ref_move_perfect_forward.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B9945B249A8AED0059D42D /* modernc_rval_ref_move_perfect_forward.cpp */; };
+		08BA14E624A0CE5A007CA582 /* modernc_lambda_expressions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08BA14E524A0CE5A007CA582 /* modernc_lambda_expressions.cpp */; };
 		08CF339C248D083E005F4FD3 /* test_value_categories.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CF339A248D083E005F4FD3 /* test_value_categories.cpp */; };
 		08CF339F248DB5A8005F4FD3 /* test_fold_expression.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CF339D248DB5A7005F4FD3 /* test_fold_expression.cpp */; };
 		120826142491058500EDC045 /* modernc_feature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 120826132491058500EDC045 /* modernc_feature.cpp */; };
@@ -59,6 +63,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_concurrency_api.cpp; sourceTree = "<group>"; };
 		0894CC27241ED15E003DF4A6 /* cppconsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppconsole; sourceTree = BUILT_PRODUCTS_DIR; };
 		0894CC2A241ED15E003DF4A6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		0894CC83241EE0D6003DF4A6 /* test_userdefined_conversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_userdefined_conversion.cpp; sourceTree = "<group>"; };
@@ -91,7 +96,10 @@
 		0894CC9E241EE0D6003DF4A6 /* test_stack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_stack.cpp; sourceTree = "<group>"; };
 		0894CC9F241EE0D6003DF4A6 /* test_deque.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_deque.cpp; sourceTree = "<group>"; };
 		08B3CBB2242B7B4400DD00DB /* test_stl_algorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_stl_algorithm.cpp; sourceTree = "<group>"; };
+		08B5052A24A76AB9003C17DF /* modernc_tweaks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_tweaks.cpp; sourceTree = "<group>"; };
 		08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_tuple_pair.cpp; sourceTree = "<group>"; };
+		08B9945B249A8AED0059D42D /* modernc_rval_ref_move_perfect_forward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_rval_ref_move_perfect_forward.cpp; sourceTree = "<group>"; };
+		08BA14E524A0CE5A007CA582 /* modernc_lambda_expressions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_lambda_expressions.cpp; sourceTree = "<group>"; };
 		08CF339A248D083E005F4FD3 /* test_value_categories.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_value_categories.cpp; sourceTree = "<group>"; };
 		08CF339D248DB5A7005F4FD3 /* test_fold_expression.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_fold_expression.cpp; sourceTree = "<group>"; };
 		120826132491058500EDC045 /* modernc_feature.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_feature.cpp; sourceTree = "<group>"; };
@@ -145,6 +153,7 @@
 				0894CC8F241EE0D6003DF4A6 /* share_ptr.cpp */,
 				0894CC93241EE0D6003DF4A6 /* smart_ptr.cpp */,
 				0894CC90241EE0D6003DF4A6 /* test_any.cpp */,
+				08BA14E524A0CE5A007CA582 /* modernc_lambda_expressions.cpp */,
 				0894CC85241EE0D6003DF4A6 /* test_array.cpp */,
 				0894CC9B241EE0D6003DF4A6 /* test_asynchronized.cpp */,
 				1261021D248E6A8400A01CF3 /* modernc_type_deduce.cpp */,
@@ -153,6 +162,7 @@
 				0894CC9D241EE0D6003DF4A6 /* test_condition_variable.cpp */,
 				0894CC99241EE0D6003DF4A6 /* test_constexpr.cpp */,
 				0894CC9F241EE0D6003DF4A6 /* test_deque.cpp */,
+				08B5052A24A76AB9003C17DF /* modernc_tweaks.cpp */,
 				0894CC8C241EE0D6003DF4A6 /* test_forwardlist.cpp */,
 				0894CC9C241EE0D6003DF4A6 /* test_future.cpp */,
 				0894CC8A241EE0D6003DF4A6 /* test_lambda.cpp */,
@@ -174,6 +184,8 @@
 				08B587312441FC6A002F2F40 /* test_tuple_pair.cpp */,
 				08CF339A248D083E005F4FD3 /* test_value_categories.cpp */,
 				120826132491058500EDC045 /* modernc_feature.cpp */,
+				08B9945B249A8AED0059D42D /* modernc_rval_ref_move_perfect_forward.cpp */,
+				087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */,
 			);
 			name = src;
 			path = ../../src;
@@ -238,16 +250,19 @@
 			files = (
 				0894CCA5241EE0D6003DF4A6 /* test_shared_ptr.cpp in Sources */,
 				0894CCAF241EE0D6003DF4A6 /* test_mutex.cpp in Sources */,
+				08BA14E624A0CE5A007CA582 /* modernc_lambda_expressions.cpp in Sources */,
 				0894CCB4241EE0D6003DF4A6 /* Functional.cpp in Sources */,
 				0894CCA9241EE0D6003DF4A6 /* test_forwardlist.cpp in Sources */,
 				0894CCA3241EE0D6003DF4A6 /* test_list.cpp in Sources */,
 				0894CCB8241EE0D6003DF4A6 /* test_asynchronized.cpp in Sources */,
+				087D31E024A384EC003EB412 /* modernc_concurrency_api.cpp in Sources */,
 				0894CCB5241EE0D6003DF4A6 /* test_unordered_set.cpp in Sources */,
 				0894CCA6241EE0D6003DF4A6 /* cpp14.cpp in Sources */,
 				120826142491058500EDC045 /* modernc_feature.cpp in Sources */,
 				0894CCA8241EE0D6003DF4A6 /* utf_str.cpp in Sources */,
 				0894CCA0241EE0D6003DF4A6 /* test_userdefined_conversion.cpp in Sources */,
 				08CF339C248D083E005F4FD3 /* test_value_categories.cpp in Sources */,
+				08B9945C249A8AED0059D42D /* modernc_rval_ref_move_perfect_forward.cpp in Sources */,
 				0894CCBC241EE0D6003DF4A6 /* test_deque.cpp in Sources */,
 				0894CCB3241EE0D6003DF4A6 /* test_variadic_template.cpp in Sources */,
 				0894CCA7241EE0D6003DF4A6 /* test_lambda.cpp in Sources */,
@@ -262,6 +277,7 @@
 				0894CCAD241EE0D6003DF4A6 /* test_any.cpp in Sources */,
 				0894CCB6241EE0D6003DF4A6 /* test_constexpr.cpp in Sources */,
 				0894CCA2241EE0D6003DF4A6 /* test_array.cpp in Sources */,
+				08B5052B24A76AB9003C17DF /* modernc_tweaks.cpp in Sources */,
 				0894CC2B241ED15E003DF4A6 /* main.cpp in Sources */,
 				0894CCAE241EE0D6003DF4A6 /* test_atomic.cpp in Sources */,
 				0894CCAA241EE0D6003DF4A6 /* Precessor_define.cpp in Sources */,
