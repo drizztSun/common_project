@@ -1,5 +1,14 @@
-
 import turtle as t  # create window.
+
+
+class ball:
+    pass
+
+
+class bat:
+    pass
+
+
 wn = t.Screen()
 wn.title(' PING PONG')
 wn.bgcolor('gray')
@@ -16,7 +25,6 @@ pad1.color('blue')
 pad1.penup()
 pad1.goto(-450, 0)
 pad1.shapesize(stretch_wid=5, stretch_len=1)
-
 
 # PAD2
 pad2 = t.Turtle()
@@ -42,8 +50,10 @@ ball.speed(0)
 ball.color('orange')
 ball.penup()
 ball.goto(0, 0)
-ball.dx = 0.2
-ball.dy = 0.2
+ball.dx = 2
+ball.dy = 2
+
+
 # func
 
 
@@ -79,34 +89,36 @@ def pad2_dwn():
 wn.listen()
 wn.onkeypress(pad2_up, 'i')
 wn.onkeypress(pad2_dwn, 'k')
-while True:
-    wn.update()
-    ball.setx(ball.xcor() + ball.dx)
-    ball.sety(ball.ycor() + ball.dy)
-    if ball.ycor() > 260:
-        ball.sety(260)
-        ball.dy *= -1
 
-    if ball.ycor() < -290:
-        ball.sety(-290)
-        ball.dy *= -1
-    if ball.xcor() > 490:
-        ball.goto(0, 0)
-        ball.dx *= -1
-        score1 += 1
-        pen.clear()
-        pen.write('PLAYER 1 : {} , PLAYER 2 : {},SINGLE PLAER FAILS: {}'.format(
-            score1, score2, score2+score1), align='center', font=('Impact', 20, 'normal'))
-    if ball.xcor() < -490:
-        ball.goto(0, 0)
-        ball.dx *= -1
-        score2 += 1
-        pen.clear()
-        pen.write('PLAYER 1 : {} , PLAYER 2 : {},SINGLE PLAYER FAILS: {}'.format(
-            score1, score2, score1+score2), align='center', font=('Impact', 20, 'normal'))
-    if (ball.xcor() > 440 and ball.xcor() < 450) and (ball.ycor() < pad2.ycor() + 50 and ball.ycor() > pad2.ycor() - 50):
-        ball.setx(440)
-        ball.dx *= -1
-    if (ball.xcor() < -440 and ball.xcor() > -450) and (ball.ycor() < pad1.ycor() + 50 and ball.ycor() > pad1.ycor() - 50):
-        ball.setx(-440)
-        ball.dx *= -1
+if __name__ == '__main__':
+    while True:
+        wn.update()
+        ball.setx(ball.xcor() + ball.dx)
+        ball.sety(ball.ycor() + ball.dy)
+        if ball.ycor() > 260:
+            ball.sety(260)
+            ball.dy *= -1
+
+        if ball.ycor() < -290:
+            ball.sety(-290)
+            ball.dy *= -1
+        if ball.xcor() > 490:
+            ball.goto(0, 0)
+            ball.dx *= -1
+            score1 += 1
+            pen.clear()
+            pen.write('PLAYER 1 : {} , PLAYER 2 : {},SINGLE PLAER FAILS: {}'.format(
+                score1, score2, score2 + score1), align='center', font=('Impact', 20, 'normal'))
+        if ball.xcor() < -490:
+            ball.goto(0, 0)
+            ball.dx *= -1
+            score2 += 1
+            pen.clear()
+            pen.write('PLAYER 1 : {} , PLAYER 2 : {},SINGLE PLAYER FAILS: {}'.format(
+                score1, score2, score1 + score2), align='center', font=('Impact', 20, 'normal'))
+        if (440 < ball.xcor() < 450) and (pad2.ycor() + 50 > ball.ycor() > pad2.ycor() - 50):
+            ball.setx(440)
+            ball.dx *= -1
+        if (-440 > ball.xcor() > -450) and (pad1.ycor() + 50 > ball.ycor() > pad1.ycor() - 50):
+            ball.setx(-440)
+            ball.dx *= -1

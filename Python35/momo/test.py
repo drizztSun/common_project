@@ -1,7 +1,10 @@
+def fibon(n):
+    a = b = 1
+    for i in range(n):
+        yield a
+        a, b = b, a + b
 
-'''
-x = [_, _, ...]
-y = [_, _, ...]
-zip(x, y) = ((x[0], y[0]), (x[1], y[1]).....(x[len(x)-1], y[len(x)-1]))
+if __name__ == '__main__':
 
-'''
+    for x in fibon(10):
+        print(x)

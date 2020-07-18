@@ -261,6 +261,14 @@ def test_crawl():
             {'method': 'find', 're': r'^\s*iOS (?P<version>' + osversion + r'.[\d\.]+)\s+\((?P<build>.+)\)\s*$', 'kwargs': {'name': 'title'}},
             {'method': 'parent'},
             {'method': 'find', 're': r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})', 'kwargs': {'name': 'pubdate'}},
+        ],
+        [
+            {'url': 'https://developer.apple.com/news/releases/rss/releases.rss'},
+            {'method': 'find', 're': r'^\s*iPadOS (?P<version>' + osversion + r'.[\d\.]+)\s+\((?P<build>.+)\)\s*$',
+             'kwargs': {'name': 'title'}},
+            {'method': 'parent'},
+            {'method': 'find', 're': r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})',
+             'kwargs': {'name': 'pubdate'}},
         ]
     ]
 

@@ -156,10 +156,11 @@ class OrderedCounter(Counter, OrderedDict):
         return self.__class__, (OrderedDict(self),)
 
 
-# It is also straight-forward to create an ordered dictionary variant that remembers the order the keys were last inserted.
-# If a new entry overwrites an existing entry, the original insertion position is changed and moved to the end:
+# It is also straight-forward to create an ordered dictionary variant that remembers the order the keys were last
+# inserted. If a new entry overwrites an existing entry, the original insertion position is changed and moved to the
+# end:
 class LastUpdatedOrderedDict(OrderedDict):
-    'Store items in the order the keys were last added'
+    """Store items in the order the keys were last added"""
 
     def __setitem__(self, key, value):
         if key in self:
@@ -169,7 +170,7 @@ class LastUpdatedOrderedDict(OrderedDict):
 
 # An OrderedDict would also be useful for implementing variants of functools.lru_cache():
 class LRU(OrderedDict):
-    'Limit size, evicting the least recently looked-up key when full'
+    """Limit size, evicting the least recently looked-up key when full"""
 
     def __init__(self, maxsize=128, *args, **kwds):
         self.maxsize = maxsize
@@ -203,10 +204,12 @@ def test_userdict():
     # class collections.UserDict([initialdata])
 
     # Class that simulates a dictionary. The instance’s contents are kept in a regular dictionary,
-    # which is accessible via the data attribute of UserDict instances.
-    # If initialdata is provided, data is initialized with its contents; note that a reference to initialdata will not be kept, allowing it be used for other purposes.
+    # which is accessible via the data attribute of UserDict instances. If initialdata is provided,
+    # data is initialized with its contents; note that a reference to initialdata will not be kept, allowing it be
+    # used for other purposes.
 
-    # In addition to supporting the methods and operations of mappings, UserDict instances provide the following attribute:
+    # In addition to supporting the methods and operations of mappings, UserDict instances provide the following
+    # attribute:
 
     # data
     # A real dictionary used to store the contents of the UserDict class.

@@ -13,8 +13,8 @@ def test_all_any():
     # int, float: 0 == False, nonzero == True
     # str: len(string) == 0 is False
     # list, tuple, dict:  len(a) == 0 is False  
-    print(any([[], 0, '', None, False])) 
-    #Return True if any element of the iterable is true. If the iterable is empty, return False. Equivalent to:
+    print(any([[], 0, '', None, False]))
+    # Return True if any element of the iterable is true. If the iterable is empty, return False. Equivalent to:
     '''
     def any(iterable):
         for element in iterable:
@@ -22,11 +22,12 @@ def test_all_any():
                 return True
         return False
     '''
-   
+
+
 def test_filter_map_reduce():
     from functools import reduce
     a = [1, 2, 3, 4, 5, 6]
-    b = filter(lambda x: x%2 == 0 , a)
+    b = filter(lambda x: x % 2 == 0, a)
     print(list(b))
     '''
     Construct an iterator from those elements of iterable for which function returns true. iterable may be either 
@@ -39,12 +40,9 @@ def test_filter_map_reduce():
     of iterable for which 0function returns false.
     '''
 
-
-
-
     a = [1, 2, 3, 4, 5, 6, 7, 8]
 
-    c = map(lambda x:x**3, a)
+    c = map(lambda x: x ** 3, a)
     print(list(c))
     '''
     Return an iterator that applies function to every item of iterable, yielding the results. If additional 
@@ -52,12 +50,11 @@ def test_filter_map_reduce():
     all iterables in parallel. With multiple iterables, the iterator stops when the shortest iterable is 
     exhausted. For cases where the function inputs are already arranged into argument tuples, see itertools.starmap().
     '''
-    d = reduce(lambda x, y: x*y, a)
-    print(int(d))#d=(((((((1*2)*3)*4)*5)*6)*7)*8)
+    d = reduce(lambda x, y: x * y, a)
+    print(int(d))  # d=(((((((1*2)*3)*4)*5)*6)*7)*8)
 
 
 def test_split_join():
-
     a = "This is a test for split string"
     print(a.split())
     print(' '.join(a.split()))
@@ -65,23 +62,25 @@ def test_split_join():
     a = "This-is-a-test-for-split-string"
     print(a.split('-'))
     print('%'.join(a.split('-')))
+
+
 def split1(s, tar):
     c = []
     h = 0
     if type(s) != str:
-        raise ValueError 
+        raise ValueError
     for i in range(len(s)):
-        
-        if s[i] == tar and h==0:
-            
+
+        if s[i] == tar and h == 0:
+
             c.append(s[:i])
             y = i
-            h +=1
+            h += 1
         elif s[i] == tar:
-            c.append(s[y+1:i])
-            h +=1
+            c.append(s[y + 1:i])
+            h += 1
 
-    return c   
+    return c
 
 
 def test_zip():
@@ -137,22 +136,20 @@ True
 
 
 def test_binary():
-
     # & | ^
-    
-    print( 1 & 2)
 
-    print(1|2)
+    print(1 & 2)
+
+    print(1 | 2)
 
 
 if __name__ == "__main__":
-
     test_all_any()
-    
+
     test_filter_map_reduce()
-    
+
     test_zip()
-    
+
     test_split_join()
-    
-    print(split1('hello im python',' '))
+
+    print(split1('hello im python', ' '))
