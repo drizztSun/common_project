@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		087D31E024A384EC003EB412 /* modernc_concurrency_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */; };
+		088FB86D24C4BEC700F7C9AE /* test_async.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 088FB86C24C4BEC700F7C9AE /* test_async.cpp */; };
 		0894CC2B241ED15E003DF4A6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC2A241ED15E003DF4A6 /* main.cpp */; };
 		0894CCA0241EE0D6003DF4A6 /* test_userdefined_conversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC83241EE0D6003DF4A6 /* test_userdefined_conversion.cpp */; };
 		0894CCA1241EE0D6003DF4A6 /* test_unordered_map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC84241EE0D6003DF4A6 /* test_unordered_map.cpp */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_concurrency_api.cpp; sourceTree = "<group>"; };
+		088FB86C24C4BEC700F7C9AE /* test_async.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_async.cpp; sourceTree = "<group>"; };
 		0894CC27241ED15E003DF4A6 /* cppconsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppconsole; sourceTree = BUILT_PRODUCTS_DIR; };
 		0894CC2A241ED15E003DF4A6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		0894CC83241EE0D6003DF4A6 /* test_userdefined_conversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_userdefined_conversion.cpp; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				120826132491058500EDC045 /* modernc_feature.cpp */,
 				08B9945B249A8AED0059D42D /* modernc_rval_ref_move_perfect_forward.cpp */,
 				087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */,
+				088FB86C24C4BEC700F7C9AE /* test_async.cpp */,
 			);
 			name = src;
 			path = ../../src;
@@ -252,6 +255,7 @@
 				0894CCAF241EE0D6003DF4A6 /* test_mutex.cpp in Sources */,
 				08BA14E624A0CE5A007CA582 /* modernc_lambda_expressions.cpp in Sources */,
 				0894CCB4241EE0D6003DF4A6 /* Functional.cpp in Sources */,
+				088FB86D24C4BEC700F7C9AE /* test_async.cpp in Sources */,
 				0894CCA9241EE0D6003DF4A6 /* test_forwardlist.cpp in Sources */,
 				0894CCA3241EE0D6003DF4A6 /* test_list.cpp in Sources */,
 				0894CCB8241EE0D6003DF4A6 /* test_asynchronized.cpp in Sources */,

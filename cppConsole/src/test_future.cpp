@@ -33,6 +33,38 @@ it can do so by modifying shared state (e.g. std::promise::set_value) that is li
 
 Note that std::future references shared state that is not shared with any other asynchronous return objects (as opposed to std::shared_future).
 
+ 
+ class template
+ <future>
+ std::future
+ template <class T>  future;
+ template <class R&> future<R&>;     // specialization : T is a reference type (R&)
+ template <>         future<void>;   // specialization : T is void
+ Future
+ A future is an object that can retrieve a value from some provider object or function, properly synchronizing this access if in different threads.
+
+ "Valid" futures are future objects associated to a shared state, and are constructed by calling one of the following functions:
+ async
+ promise::get_future
+ packaged_task::get_future
+
+ future objects are only useful when they are valid. Default-constructed future objects are not valid (unless move-assigned a valid future).
+
+ Calling future::get on a valid future blocks the thread until the provider makes the shared state ready (either by setting a value or an exception to it). This way, two threads can be synchronized by one waiting for the other to set a value.
+
+ The lifetime of the shared state lasts at least until the last object with which it is associated releases it or is destroyed. Therefore, if associated to a future, the shared state can survive the object from which it was obtained in the first place (if any).
+
+ Member functions
+ (constructor)      Construct future (public member function )
+ (destructor)        Destroy future (public member function )
+ operator=          Move-assign future (public member function )
+ share                  Get shared future (public member function )
+ get                        Get value (public member function )
+ valid                      Check for valid shared state (public member function )
+ wait                       Wait for ready (public member function )
+ wait_for               Wait for ready during time span (public member function )
+ wait_until             Wait for ready until time point (public member function )
+ 
 */
 
 void test_future() {
@@ -195,4 +227,110 @@ void test_future3()
 		std::cout << "Exception : " << e.what() << '\n';
 	}
 
+}
+
+
+/*
+ 
+ std::shared_future
+  C++ Thread support library std::shared_future
+ 
+ Defined in header <future>
+ template< class T > class shared_future;
+ (1)    (since C++11)
+ template< class T > class shared_future<T&>;
+ (2)    (since C++11)
+ template<>          class shared_future<void>;
+ (3)    (since C++11)
+ The class template std::shared_future provides a mechanism to access the result of asynchronous operations,
+ similar to std::future, except that multiple threads are allowed to wait for the same shared state. Unlike std::future, which is only moveable (so only one instance can refer to any particular asynchronous result),
+ std::shared_future is copyable and multiple shared future objects may refer to the same shared state.
+
+ Access to the same shared state from multiple threads is safe if each thread does it through its own copy of a shared_future object.
+
+ Member functions
+ (constructor)
+  
+                     constructs the future object
+                     (public member function)
+ (destructor)
+  
+                     destructs the future object
+                     (public member function)
+ operator=
+  
+                     assigns the contents
+                     (public member function)
+ 
+ Getting the result
+ get
+  
+                     returns the result
+                     (public member function)
+ 
+ State
+ valid
+  
+                         checks if the future has a shared state
+                         (public member function)
+ wait
+  
+                         waits for the result to become available
+                         (public member function)
+ wait_for
+  
+                         waits for the result, returns if it is not available for the specified timeout duration
+                         (public member function)
+ wait_until
+  
+                         waits for the result, returns if it is not available until specified time point has been reached
+                         (public member function)
+ Example
+ A shared_future may be used to signal multiple threads simultaneously, similar to std::condition_variable::notify_all()
+ 
+ */
+
+
+void test_share_future()
+{
+    std::promise<void> ready_promise, t1_ready_promise, t2_ready_promise;
+    std::shared_future<void> ready_future(ready_promise.get_future());
+ 
+    std::chrono::time_point<std::chrono::high_resolution_clock> start;
+ 
+    auto fun1 = [&, ready_future]() -> std::chrono::duration<double, std::milli>
+    {
+        t1_ready_promise.set_value();
+        ready_future.wait(); // waits for the signal from main()
+        return std::chrono::high_resolution_clock::now() - start;
+    };
+ 
+ 
+    auto fun2 = [&, ready_future]() -> std::chrono::duration<double, std::milli>
+    {
+        t2_ready_promise.set_value();
+        ready_future.wait(); // waits for the signal from main()
+        return std::chrono::high_resolution_clock::now() - start;
+    };
+ 
+    auto fut1 = t1_ready_promise.get_future();
+    auto fut2 = t2_ready_promise.get_future();
+ 
+    auto result1 = std::async(std::launch::async, fun1);
+    auto result2 = std::async(std::launch::async, fun2);
+ 
+    // wait for the threads to become ready
+    fut1.wait();
+    fut2.wait();
+ 
+    // the threads are ready, start the clock
+    start = std::chrono::high_resolution_clock::now();
+ 
+    // signal the threads to go
+    ready_promise.set_value();
+ 
+    std::cout << "Thread 1 received the signal "
+              << result1.get().count() << " ms after start\n"
+              << "Thread 2 received the signal "
+              << result2.get().count() << " ms after start\n";
 }

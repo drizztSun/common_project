@@ -33,6 +33,8 @@ void Test_type_deduce();
 
 void test_basic();
 
+void test_async();
+
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
@@ -60,6 +62,8 @@ int main(int argc, const char * argv[]) {
     // test_deque();
     
     // test_stack();
+    
+    test_async();
 
     return 1;
 }
