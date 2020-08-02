@@ -1,6 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+void swap(int* x, int* y);
+
 void insert_sort(int* a, int length) {
 
 	for (int i = 1; i < length; i++) {
@@ -174,8 +176,6 @@ void test_bit_operator() {
 
 
 
-
-
 int main(){
 
 	ctest_pointer();
@@ -263,7 +263,6 @@ int main(){
 	return 1;
 
 }
-
 
 
 
