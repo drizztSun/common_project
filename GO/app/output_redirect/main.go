@@ -6,6 +6,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"runtime"
 	"time"
 )
 
@@ -16,6 +17,7 @@ var (
 
 func test_redirect() {
 
+	fmt.Println("Output test_redirect")
 	old := os.Stdout // keep backup of the real stdout
 	r, w, _ := os.Pipe()
 	os.Stdout = w
@@ -184,7 +186,10 @@ func main() {
 
 	fmt.Println("--- start --- ")
 
-	// test_redirect()
+	a := runtime.GOOS
+	fmt.Printf("Current OS version: %s\n", a)
+
+	test_redirect()
 
 	// test_redirect_to_file()
 
