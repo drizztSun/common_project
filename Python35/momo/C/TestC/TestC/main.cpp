@@ -1,6 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+<<<<<<< Updated upstream
+void swap(int* x, int* y);
+=======
+#define _CRT_SECURE_NO_WARNINGS
+>>>>>>> Stashed changes
+
 void insert_sort(int* a, int length) {
 
 	for (int i = 1; i < length; i++) {
@@ -111,6 +117,10 @@ void swap(int* x, int* y) {
 	*y = r;
 }
 
+// stack or heap (memory allocation)
+
+
+// program, process, thread
 
 void ctest_pointer() {
 	//You can use a pointer for a class, if we have a pointer to a structure, members
@@ -149,6 +159,58 @@ void ctest_pointer() {
 	return;
 }
 
+void test_swich_case(){
+	/* Syntax of switch...case
+	 switch (expression)
+	​ {
+		 case constant1:
+		 statements
+		 break;
+
+		 case constant2:
+		 statements
+		 break;
+		 .
+		 .
+		 .
+		 default:
+		 default statements
+	 }
+
+	*/
+
+	//example
+	
+	char a;
+    double n1, n2;
+
+    printf("Enter an operator (+, -, *, /).");
+    scanf("%c", &a);
+    printf("Enter two numbers(this calcutator is sensitive to commas(,) entering will cause a error):\n ");
+    scanf("%lf %lf",&n1, &n2);
+
+    switch(a){
+        case '+':
+            printf("%lf\n",n1+n2);
+            break;
+
+        case '-':
+            printf("%lf\n", n1-n2);
+            break;
+
+        case '*':
+            printf("%lf\n", n1*n2);
+            break;
+
+        case '/':
+            printf("%lf\n", n1/n2);
+            break;
+
+        default:
+            printf("Error:unown operator\n");
+    }
+
+}
 
 
 void test_bit_operator() {
@@ -174,9 +236,8 @@ void test_bit_operator() {
 
 
 
-
-
 int main(){
+	test_swich_case();
 
 	ctest_pointer();
 
@@ -263,7 +324,6 @@ int main(){
 	return 1;
 
 }
-
 
 
 
