@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0809234C24DC8B460008C675 /* ep231_multiple_destructor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0809234B24DC8B460008C675 /* ep231_multiple_destructor.cpp */; };
 		087D31E024A384EC003EB412 /* modernc_concurrency_api.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */; };
 		088FB86D24C4BEC700F7C9AE /* test_async.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 088FB86C24C4BEC700F7C9AE /* test_async.cpp */; };
 		0894CC2B241ED15E003DF4A6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0894CC2A241ED15E003DF4A6 /* main.cpp */; };
@@ -64,6 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0809234B24DC8B460008C675 /* ep231_multiple_destructor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ep231_multiple_destructor.cpp; sourceTree = "<group>"; };
 		087D31DF24A384EC003EB412 /* modernc_concurrency_api.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_concurrency_api.cpp; sourceTree = "<group>"; };
 		088FB86C24C4BEC700F7C9AE /* test_async.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_async.cpp; sourceTree = "<group>"; };
 		0894CC27241ED15E003DF4A6 /* cppconsole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppconsole; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +122,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0809234A24DC8B020008C675 /* jasonturner */ = {
+			isa = PBXGroup;
+			children = (
+				0809234B24DC8B460008C675 /* ep231_multiple_destructor.cpp */,
+			);
+			path = jasonturner;
+			sourceTree = "<group>";
+		};
 		0894CC1E241ED15E003DF4A6 = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +158,7 @@
 		0894CC82241EE0D6003DF4A6 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				0809234A24DC8B020008C675 /* jasonturner */,
 				0894CC89241EE0D6003DF4A6 /* cpp14.cpp */,
 				0894CC97241EE0D6003DF4A6 /* Functional.cpp */,
 				0894CC8D241EE0D6003DF4A6 /* Precessor_define.cpp */,
@@ -286,6 +297,7 @@
 				0894CCAE241EE0D6003DF4A6 /* test_atomic.cpp in Sources */,
 				0894CCAA241EE0D6003DF4A6 /* Precessor_define.cpp in Sources */,
 				08B587322441FC6A002F2F40 /* test_tuple_pair.cpp in Sources */,
+				0809234C24DC8B460008C675 /* ep231_multiple_destructor.cpp in Sources */,
 				0894CCBA241EE0D6003DF4A6 /* test_condition_variable.cpp in Sources */,
 				08B3CBB3242B7B4400DD00DB /* test_stl_algorithm.cpp in Sources */,
 				0894CCBB241EE0D6003DF4A6 /* test_stack.cpp in Sources */,
