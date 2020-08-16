@@ -1,4 +1,4 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
@@ -265,7 +265,7 @@ int xc()
 //////////////////////////////////////////////
 void read_file() //读取最高记录
 {
-    FILE *fp;
+    FILE* fp;
     fp = fopen("俄罗斯方块记录.txt", "r+");
     if (fp == NULL)
     {
@@ -279,7 +279,7 @@ void read_file() //读取最高记录
 
 void write_file() //保存最高记录
 {
-    FILE *fp;
+    FILE* fp;
     fp = fopen("俄罗斯方块记录.txt", "r+");
     fwrite(&grade, sizeof(int), 1, fp);
     fclose(fp);
