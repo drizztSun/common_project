@@ -26,7 +26,7 @@ We can write 3 one digit numbers, 9 two digit numbers, 27 three digit numbers,
 In total, this is 29523 integers that can be written using the digits of D.
 
 */
-use std::vec::Vec;
+//use std::vec::Vec;
 
 mod at_most_n_given_digit_set {
 
@@ -51,11 +51,11 @@ mod at_most_n_given_digit_set {
         let m = nums.len() as u32;
 
         let mut base: u32 = 0;
-        for i in (1..bits.len()) {
+        for i in 1..bits.len() {
             base += m.pow(i as u32)
         }
 
-        for i in (0..bits.len()) {
+        for i in 0..bits.len() {
             for c in nums.iter() {
                 if *c < bits[i] {
                     dp[i + 1] += m.pow(i as u32);
@@ -70,7 +70,7 @@ mod at_most_n_given_digit_set {
 }
 
 pub fn test_902_nmbers_at_most_ngiven_digits_set() {
-    let res = at_most_n_given_digit_set::doit(vec![String::from("3"), String::from("5")], 4);
+    let _res = at_most_n_given_digit_set::doit(vec![String::from("3"), String::from("5")], 4);
 
     let _res = at_most_n_given_digit_set::doit(
         vec![

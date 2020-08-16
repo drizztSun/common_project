@@ -92,11 +92,11 @@ mod simplify_path {
 
 pub fn test_71_simplify_path() {
 
-    let res1 = simplify_path::doit("/home/".to_string());
+    let _res1 = simplify_path::doit("/home/".to_string());
 
-    let res2 = simplify_path::doit("/../".to_string());
+    let _res2 = simplify_path::doit("/../".to_string());
 
-    let res3 = simplify_path::doit("/home//foo/".to_string());
+    let _res3 = simplify_path::doit("/home//foo/".to_string());
 
-    let res4 = simplify_path::doit("/a/./b/../../c/".to_string());
+    let _res4 = simplify_path::doit("/a/./b/../../c/".to_string());
 }

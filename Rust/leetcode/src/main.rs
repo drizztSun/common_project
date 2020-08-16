@@ -23,6 +23,7 @@ fn main() {
 
     // leetcode_hard::A902_NumbersAtMostNGivenDigitSet::test_902_nmbers_at_most_ngiven_digits_set();
 
-    leetcode_hard::A903_ValidPermutationsforDISequence::test_903_valid_permutation_for_Di_sequence(
-    );
+    // leetcode_hard::A903_ValidPermutationsforDISequence::test_903_valid_permutation_for_Di_sequence();
+
+    leetcode_media::A114_FlattenBinaryTreetoLinkedList::test_114_Flatten_binary_tree_to_linked_list();
 }

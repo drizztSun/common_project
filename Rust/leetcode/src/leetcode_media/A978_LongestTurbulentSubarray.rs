@@ -1,7 +1,7 @@
 
 mod max_turbulence_size {
 
-    use std::vec;
+    //use std::vec;
     use std::cmp::max;
 
     pub fn doit1(a: Vec<i32>) -> i32 {
@@ -34,7 +34,7 @@ mod max_turbulence_size {
 
         for i in 1..a.len() {
             
-            if (i > 1 && ((a[i-1] > a[i] && a[i-1] > a[i-2]) || (a[i-1] < a[i] && a[i-1] < a[i-2]))) {
+            if i > 1 && ((a[i-1] > a[i] && a[i-1] > a[i-2]) || (a[i-1] < a[i] && a[i-1] < a[i-2])) {
                 length += 1;
             } else if a[i] != a[i-1] {
                 length = 2;
@@ -50,5 +50,5 @@ mod max_turbulence_size {
 
 pub fn test_978_max_turbulence_size() {
 
-    let res = max_turbulence_size::doit1(vec![1, 2, 3]);
+    let _res = max_turbulence_size::doit1(vec![1, 2, 3]);
 }

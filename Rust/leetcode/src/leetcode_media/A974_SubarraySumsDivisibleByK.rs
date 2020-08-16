@@ -47,9 +47,9 @@ mod subarrays_div_by_k {
 }
 
 pub fn test_974_subarray_sums_divisible_by_k() {
-    let res = subarrays_div_by_k::doit(vec![4, 5, 0, -2, -3, 1], 5);
+    let _res = subarrays_div_by_k::doit(vec![4, 5, 0, -2, -3, 1], 5);
 
-    let res1 = subarrays_div_by_k::doit(vec![-1, 2, 9], 2);
+    let _res1 = subarrays_div_by_k::doit(vec![-1, 2, 9], 2);
 
-    let res2 = subarrays_div_by_k::doit(vec![2, -2, 2, -4], 6);
+    let _res2 = subarrays_div_by_k::doit(vec![2, -2, 2, -4], 6);
 }

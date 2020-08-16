@@ -120,6 +120,6 @@ pub fn test_binary_tree() {
     root.borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(2))));
     root.borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(3))));
 
-    let res = inorder_traversal(Some(root));
+    let _res = inorder_traversal(Some(root));
 
 }

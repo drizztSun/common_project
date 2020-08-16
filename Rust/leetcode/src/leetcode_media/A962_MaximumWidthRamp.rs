@@ -25,7 +25,7 @@ The maximum width ramp is achieved at (i, j) = (2, 9): A[2] = 1 and A[9] = 1.
 mod max_width_ramp {
 
     use std::cmp;
-    use std::vec;
+    //use std::vec;
 
     pub fn doit(a: Vec<i32>) -> i32 {
         let mut B: Vec<usize> = (0..a.len()).collect();
@@ -76,11 +76,11 @@ mod max_width_ramp {
 }
 
 pub fn test_962_maximum_width_ramp() {
-    let res1 = max_width_ramp::doit(vec![6, 0, 8, 2, 1, 5]);
+    let _res1 = max_width_ramp::doit(vec![6, 0, 8, 2, 1, 5]);
 
-    let res2 = max_width_ramp::doit(vec![9, 8, 1, 0, 1, 9, 4, 0, 4, 1]);
+    let _res2 = max_width_ramp::doit(vec![9, 8, 1, 0, 1, 9, 4, 0, 4, 1]);
 
-    let res3 = max_width_ramp::doit(vec![0, 1]);
+    let _res3 = max_width_ramp::doit(vec![0, 1]);
 
     return;
 }

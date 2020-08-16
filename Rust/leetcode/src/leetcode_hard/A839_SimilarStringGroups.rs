@@ -33,16 +33,16 @@
 
 mod num_similar_groups {
 
-    use std::vec;
+    //use std::vec;
 
-    struct dsu {
+    struct Dsu {
         parent_: Vec<usize>,
         size_: usize,
     }
 
-    impl dsu {
-        fn new(n: usize) -> dsu {
-            dsu {
+    impl Dsu {
+        fn new(n: usize) -> Dsu {
+            Dsu {
                 size_: n,
                 parent_: Vec::with_capacity(n),
             }
@@ -68,7 +68,7 @@ mod num_similar_groups {
     }
 
     pub fn doit(a: Vec<String>) -> i32 {
-        let mut d = dsu::new(a.len());
+        let mut d = Dsu::new(a.len());
 
         let similar = |A: &String, B: &String| {
             let pa: Vec<_> = A.chars().collect();
@@ -78,8 +78,8 @@ mod num_similar_groups {
                 return false;
             }
 
-            for i in (1..pa.len() - 1) {
-                if (pa[i] != pb[i]) {
+            for i in 1..pa.len() - 1 {
+                if pa[i] != pb[i] {
                     res += 1;
                 }
             }
@@ -87,8 +87,8 @@ mod num_similar_groups {
             return res == 2;
         };
 
-        for i in (1..a.len() - 1) {
-            for j in (i + 1..a.len() - 1) {
+        for i in 1..a.len() - 1 {
+            for j in i + 1..a.len() - 1 {
                 if similar(&a[i], &a[j]) {
                     d.union(i, j);
                 }
@@ -100,7 +100,7 @@ mod num_similar_groups {
 }
 
 pub fn test_839_similar_string_groups() {
-    let res = num_similar_groups::doit(vec![
+    let _res = num_similar_groups::doit(vec![
         "tars".to_string(),
         "rats".to_string(),
         "arts".to_string(),

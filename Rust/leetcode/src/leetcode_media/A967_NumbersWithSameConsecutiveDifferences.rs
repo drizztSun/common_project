@@ -25,7 +25,6 @@ Output: [10,12,21,23,32,34,43,45,54,56,65,67,76,78,87,89,98]
 mod nums_same_consec_diff {
 
     use std::collections::HashSet;
-    use std::vec;
 
     pub fn doit(n: i32, k: i32) -> Vec<i32> {
         let mut ans: HashSet<i32> = [1, 2, 3, 4, 5, 6, 7, 8, 9].iter().cloned().collect();
@@ -66,5 +65,5 @@ mod nums_same_consec_diff {
 }
 
 pub fn test_967_NumbersWithSameConsecutiveDifference() {
-    let res = nums_same_consec_diff::doit(3, 7);
+    let _res = nums_same_consec_diff::doit(3, 7);
 }
