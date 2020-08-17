@@ -24,26 +24,34 @@ struct FlattenBinaryTreeToLinkedList (u8);
 
 impl FlattenBinaryTreeToLinkedList {
 
-    //use std::rc::Rc;
-    //use std::cell::RefCell; 
-    //use parent::TreeNode;
-
     pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
-        /*
-        while root.is_some() {
 
-            if root.as_mut().left.is_none() {
-                root = root.as_mut().right;
+        let mut node = root.clone();
+
+        while node.is_some() {
+
+            println!("{}, ", node.as_ref().unwrap().borrow().val);
+
+            if node.as_ref().unwrap().borrow().left.is_none() {
+                let m = node.as_ref().unwrap().borrow().right.clone();
+                node = m;
                 continue;
             }
 
-            let mut pre: Option<Rc<RefCell<TreeNode>>> = Rc::clone(root.as_mut().left);
-            while pre.right.is_some() {
+            let mut pre = node.as_ref().unwrap().borrow().left.clone();
 
+            while pre.as_ref().unwrap().borrow().right.is_some() {
+                let m = pre.as_ref().unwrap().borrow().right.clone();
+                pre = m;
             }
 
+            pre.as_mut().unwrap().borrow_mut().right = node.as_ref().unwrap().borrow().right.clone();
+            let left_child = node.as_ref().unwrap().borrow().left.clone();
+            node.as_mut().unwrap().borrow_mut().right = left_child;
+            node.as_mut().unwrap().borrow_mut().left = None;
+            let m = node.as_mut().unwrap().borrow_mut().right.clone();
+            node = m;
         }
-         */
     }
 
 
@@ -75,7 +83,8 @@ impl FlattenBinaryTreeToLinkedList {
 
             let left = node.borrow().left.clone();
             n.borrow_mut().right = node.borrow().right.clone();
-
+            node.borrow_mut().right = left;
+            node.borrow_mut().left = None;
         }
 
     }
@@ -83,15 +92,24 @@ impl FlattenBinaryTreeToLinkedList {
 
 pub fn test_114_Flatten_binary_tree_to_linked_list() {
 
-    let root = Rc::new(RefCell::new(TreeNode::new(1)));
+    let mut root = Some(Rc::new(RefCell::new(TreeNode::new(1))));
 
-    root.borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(2))));
-    root.borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(5))));
+    root.as_mut().unwrap().borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(2))));
+    root.as_mut().unwrap().borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(5))));
 
-    root.borrow_mut().left.as_mut().unwrap().borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(3))));
-    root.borrow_mut().left.as_mut().unwrap().borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(4))));
+    root.as_mut().unwrap().borrow_mut().left.as_mut().unwrap().borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(3))));
+    root.as_mut().unwrap().borrow_mut().left.as_mut().unwrap().borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(4))));
 
-    root.borrow_mut().right.as_mut().unwrap().borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(6))));
+    root.as_mut().unwrap().borrow_mut().right.as_mut().unwrap().borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(6))));
 
-    FlattenBinaryTreeToLinkedList::flatten(&mut Some(root));
+    FlattenBinaryTreeToLinkedList::flatten(&mut root);
+    // FlattenBinaryTreeToLinkedList::flatten_cur(&mut root);
+
+    while root.is_some() {
+
+        println!("{}, ", root.as_ref().unwrap().borrow().val);
+
+        let m = root.as_ref().unwrap().borrow().right.clone();
+        root = m;
+    }
 }

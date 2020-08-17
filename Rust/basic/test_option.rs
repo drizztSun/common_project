@@ -63,6 +63,187 @@ fn test_options_basic() {
 
     // Unwrapping a `None` variant will `panic!`
     println!("{:?} unwraps to {:?}", none, none.unwrap());
+
+
+    {
+        let x: Option<u32> = Some(2);
+        assert_eq!(x.is_some(), true);
+
+        let x: Option<u32> = None;
+        assert_eq!(x.is_some(), false);
+    }
+
+
+    {
+        let x: Option<u32> = Some(2);
+        assert_eq!(x.is_none(), false);
+
+        let x: Option<u32> = None;
+        assert_eq!(x.is_none(), true);
+    }
+
+    {
+        #![feature(option_result_contains)]
+        let x: Option<u32> = Some(2);
+        assert_eq!(x.contains(&2), true);
+        
+        let x: Option<u32> = Some(3);
+        assert_eq!(x.contains(&2), false);
+        
+        let x: Option<u32> = None;
+        assert_eq!(x.contains(&2), false);
+    }
+
+    {
+        let text: Option<String> = Some("Hello, world!".to_string());
+        // First, cast `Option<String>` to `Option<&String>` with `as_ref`,
+        // then consume *that* with `map`, leaving `text` on the stack.
+        let text_length: Option<usize> = text.as_ref().map(|s| s.len());
+        println!("still can print text: {:?}", text);
+    }
+
+    {
+        let mut x = Some(2);
+        match x.as_mut() {
+            Some(v) => *v = 42,
+            None => {},
+        }
+        assert_eq!(x, Some(42));
+    }
+
+    {
+        /*
+        pub fn unwrap(self) -> T
+
+        Returns the contained Some value, consuming the self value.
+        Because this function may panic, its use is generally discouraged. Instead, prefer to use pattern matching and handle the None case explicitly, or call unwrap_or, unwrap_or_else, or unwrap_or_default.
+        Panics if the self value equals None.
+        */
+        let x = Some("air");
+        assert_eq!(x.unwrap(), "air");
+    }
+
+    {
+        // pub fn unwrap_or(self, default: T) -> T
+        assert_eq!(Some("car").unwrap_or("bike"), "car");
+        assert_eq!(None.unwrap_or("bike"), "bike");
+    }
+
+    {
+        // pub fn unwrap_or_else<F>(self, f: F) -> T
+        let k = 10;
+        assert_eq!(Some(4).unwrap_or_else(|| 2 * k), 4);
+        assert_eq!(None.unwrap_or_else(|| 2 * k), 20);
+    }
+
+    {
+        // pub fn map<U, F>(self, f: F) -> Option<U>
+        let maybe_some_string = Some(String::from("Hello, World!"));
+        // `Option::map` takes self *by value*, consuming `maybe_some_string`
+        let maybe_some_len = maybe_some_string.map(|s| s.len());
+
+        assert_eq!(maybe_some_len, Some(13));
+    }
+
+    {
+        // pub fn map_or<U, F>(self, default: U, f: F) -> U
+
+        // Applies a function to the contained value (if any), or returns the provided default (if not).
+        // Arguments passed to map_or are eagerly evaluated; if you are passing the result of a function call, it is recommended to use map_or_else, which is lazily evaluated.
+        let x = Some("foo");
+        assert_eq!(x.map_or(42, |v| v.len()), 3);
+
+        let x: Option<&str> = None;
+        assert_eq!(x.map_or(42, |v| v.len()), 42);
+    }
+
+    {
+        // pub fn map_or_else<U, D, F>(self, default: D, f: F) -> U
+        let k = 21;
+        let x = Some("foo");
+        assert_eq!(x.map_or_else(|| 2 * k, |v| v.len()), 3);
+
+        let x: Option<&str> = None;
+        assert_eq!(x.map_or_else(|| 2 * k, |v| v.len()), 42);
+    }
+
+    {
+        // pub fn take(&mut self) -> Option<T>
+        let mut x = Some(2);
+        let y = x.take();
+        assert_eq!(x, None);
+        assert_eq!(y, Some(2));
+
+        let mut x: Option<u32> = None;
+        let y = x.take();
+        assert_eq!(x, None);
+        assert_eq!(y, None);
+    }
+
+    {
+        // pub fn replace(&mut self, value: T) -> Option<T>
+        let mut x = Some(2);
+        let old = x.replace(5);
+        assert_eq!(x, Some(5));
+        assert_eq!(old, Some(2));
+
+        let mut x = None;
+        let old = x.replace(3);
+        assert_eq!(x, Some(3));
+        assert_eq!(old, None);
+    }
+
+    {
+        // pub fn get_or_insert(&mut self, v: T) -> &mut T
+        // Inserts v into the option if it is None, then returns a mutable reference to the contained value.
+        let mut x = None;
+
+        {
+            let y: &mut u32 = x.get_or_insert(5);
+            assert_eq!(y, &5);
+
+            *y = 7;
+        }
+
+        assert_eq!(x, Some(7));
+    }
+
+    {
+        // pub fn get_or_insert_with<F>(&mut self, f: F) -> &mut T
+        // Inserts a value computed from f into the option if it is None, then returns a mutable reference to the contained value.
+        let mut x = None;
+
+        {
+            let y: &mut u32 = x.get_or_insert_with(|| 5);
+            assert_eq!(y, &5);
+
+            *y = 7;
+        }
+
+        assert_eq!(x, Some(7));
+    }
+
+    {
+        // pub fn ok_or<E>(self, err: E) -> Result<T, E>
+        // Transforms the Option<T> into a Result<T, E>, mapping Some(v) to Ok(v) and None to Err(err).
+        let x = Some("foo");
+        assert_eq!(x.ok_or(0), Ok("foo"));
+        
+        let x: Option<&str> = None;
+        assert_eq!(x.ok_or(0), Err(0));
+    }
+
+    {
+        #![feature(option_zip)]
+        let x = Some(1);
+        let y = Some("hi");
+        let z = None::<u8>;
+
+        assert_eq!(x.zip(y), Some((1, "hi")));
+        assert_eq!(x.zip(z), None);
+    }
+
+
 }
 
 fn devide(numerator: f64, denominator: f64) -> Option<f64> {

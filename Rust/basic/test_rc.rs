@@ -78,6 +78,8 @@ fn test_basic_rc() {
         owner: Rc::clone(&gadget_owner),
     };
 
+    println!("Ref Count {}", Rc::strong_count(&gadget2.owner));
+
     // Dispose of our local variable `gadget_owner`.
     drop(gadget_owner);
 

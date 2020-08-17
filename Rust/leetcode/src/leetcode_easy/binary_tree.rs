@@ -114,6 +114,17 @@ fn inorder_traversal(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
     }    
 }
 
+fn dfs(root: Option<Rc<RefCell<TreeNode>>>) {
+
+    if let Some(root) = root {
+        let root = root.borrow();
+
+        dfs(root.left.clone());
+
+        dfs(root.right.clone());
+    }
+}
+
 pub fn test_binary_tree() {
 
     let root = Rc::new(RefCell::new(TreeNode::new(1)));
