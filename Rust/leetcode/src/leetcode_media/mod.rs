@@ -4,3 +4,4 @@ pub mod A974_SubarraySumsDivisibleByK;
 pub mod A71_SimplifyPath;
 pub mod A962_MaximumWidthRamp;
 pub mod A114_FlattenBinaryTreetoLinkedList;
+pub mod A94_BinaryTreeInorderTraversal;
