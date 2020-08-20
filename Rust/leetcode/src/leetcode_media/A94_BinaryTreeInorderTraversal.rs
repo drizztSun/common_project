@@ -83,6 +83,70 @@ impl Tree_inorder_travel {
 
         res
     }
+
+    fn inorder_three(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+
+        fn recur(node: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+            match node {
+                Some(n) => {
+                    let mut left = recur(n.borrow().left.clone());
+                    left.push(n.borrow().val);
+                    left.append(&mut recur(n.borrow().right.clone()));
+                    left
+                },
+                None => {
+                    vec![]
+                }
+            }
+        }
+
+        recur(root)
+    }
+
+    fn inorder_four(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+
+        let mut res = vec![];
+        let mut buf = vec![];
+        let mut cur = root;
+
+        while ! buf.is_empty() || cur.is_some() {
+
+            if cur.is_some() {
+                buf.push(cur.clone());
+                let m = cur.as_mut().unwrap().borrow_mut().left.clone();
+                cur = m;
+            } else {
+                cur = buf.pop().unwrap();
+                res.push(cur.as_ref().unwrap().borrow().val);
+                let m = cur.as_mut().unwrap().borrow_mut().right.clone();
+                cur = m;
+            }
+        }
+        res
+    }
+
+    fn inorder_four(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+
+        let mut res = vec![];
+        let mut buf = vec![];
+        let mut cur = root;
+
+        while ! buf.is_empty() || cur.is_some() {
+
+            match cur {
+                Some(node) => {
+                    buf.push(node.clone());
+                    cur = node.borrow().left.clone();
+                },
+                None => {
+                    let node = buf.pop().unwrap();
+                    res.push(node.borrow().val);
+                    cur = node.borrow().right.clone();
+                }
+            }
+        }
+        res
+    }
 }
 
 pub fn test_94_binary_tree_inorder_travels() {
@@ -92,5 +156,5 @@ pub fn test_94_binary_tree_inorder_travels() {
     root.as_mut().unwrap().borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(2))));
     root.as_mut().unwrap().borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(5))));
 
-    Tree_inorder_travel::inorder_two(root);
+    Tree_inorder_travel::inorder_four(root);
 }
