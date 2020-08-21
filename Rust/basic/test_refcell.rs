@@ -42,7 +42,7 @@
 mod cell_test {
 
 
-use std::cell::{RefCell, RefMut};
+use std::cell::{RefCell, RefMut, Ref};
 use std::collections::HashMap;
 use std::rc::Rc;
 use std::vec;
@@ -455,13 +455,396 @@ Run
 
 */
 
+
+
+pub fn test_refcell_basic() {
+
+    /*
+    pub struct RefCell<T>
+    where
+        T: ?Sized,
+    { /* fields omitted */ }
+
+    [−]
+    A mutable memory location with dynamically checked borrow rules
+
+    use std::cell::RefCell;
+
+    */
+
+    {
+
+        let c = RefCell::new(5);
+        let five = c.into_inner(); // `c` moved due to this method call
+
+        assert_eq!(five, 5);
+        // assert_eq!(c, RefCell::new(5));
+    }
+
+    {
+        // pub fn replace(&self, t: T) -> T
+        // Replaces the wrapped value with a new one, returning the old value, without deinitializing either one.
+        // Panics
+        // Panics if the value is currently borrowed.
+        let cell = RefCell::new(5);
+        let old_value = cell.replace(6);
+
+        assert_eq!(old_value, 5);
+        assert_eq!(cell, RefCell::new(6));
+    }
+
+    {
+
+        // pub fn replace_with<F>(&self, f: F) -> T
+        // where
+        //    F: FnOnce(&mut T) -> T,
+
+        // Replaces the wrapped value with a new one computed from f, returning the old value, without deinitializing either one.
+
+        // Panics
+        // Panics if the value is currently borrowed.
+        let cell = RefCell::new(5);
+        let old_value = cell.replace_with(|&mut old| old + 1);
+        assert_eq!(old_value, 5);
+        assert_eq!(cell, RefCell::new(6));
+    }
+
+    {
+        // pub fn swap(&self, other: &RefCell<T>)
+
+        // Swaps the wrapped value of self with the wrapped value of other, without deinitializing either one.
+
+        // This function corresponds to std::mem::swap.
+
+        // Panics
+        // Panics if the value in either RefCell is currently borrowed.
+        let c = RefCell::new(5);
+        let d = RefCell::new(6);
+        c.swap(&d);
+        assert_eq!(c, RefCell::new(6));
+        assert_eq!(d, RefCell::new(5));
+    }
+
+    {
+        // pub fn borrow(&self) -> Ref<T>
+
+        // Immutably borrows the wrapped value.
+
+        // The borrow lasts until the returned Ref exits scope. Multiple immutable borrows can be taken out at the same time.
+
+        // Panics
+        // Panics if the value is currently mutably borrowed. For a non-panicking variant, use try_borrow.
+        let c = RefCell::new(5);
+
+        let borrowed_five = c.borrow();
+        let borrowed_five2 = c.borrow();
+
+        let c = RefCell::new(5);
+
+        let m = c.borrow_mut();
+        // let b = c.borrow(); // this causes a panic  ***
+    }
+
+    {
+        // pub fn try_borrow(&self) -> Result<Ref<T>, BorrowError>
+
+        // Immutably borrows the wrapped value, returning an error if the value is currently mutably borrowed.
+
+        // The borrow lasts until the returned Ref exits scope. Multiple immutable borrows can be taken out at the same time.
+
+        // This is the non-panicking variant of borrow.
+        let c = RefCell::new(5);
+
+        {
+            let m = c.borrow_mut();
+            assert!(c.try_borrow().is_err());
+        }
+
+        {
+            let m = c.borrow();
+            assert!(c.try_borrow().is_ok());
+        }
+    }
+
+    {
+        // pub fn borrow_mut(&self) -> RefMut<T>
+        // Mutably borrows the wrapped value.
+
+        // The borrow lasts until the returned RefMut or all RefMuts derived from it exit scope. The value cannot be borrowed while this borrow is active.
+
+        // Panics
+        // Panics if the value is currently borrowed. For a non-panicking variant, use try_borrow_mut.
+        let c = RefCell::new("hello".to_owned());
+
+        *c.borrow_mut() = "bonjour".to_owned();
+
+        assert_eq!(&*c.borrow(), "bonjour");
+
+        // let c = RefCell::new(5);
+        // let m = c.borrow();
+
+        // let b = c.borrow_mut(); // this causes a panic
+    }
+
+    {
+        // pub fn try_borrow_mut(&self) -> Result<RefMut<T>, BorrowMutError>
+
+        // Mutably borrows the wrapped value, returning an error if the value is currently borrowed.
+
+        // The borrow lasts until the returned RefMut or all RefMuts derived from it exit scope. The value cannot be borrowed while this borrow is active.
+
+        // This is the non-panicking variant of borrow_mut.
+        let c = RefCell::new(5);
+
+        {
+            let m = c.borrow();
+            assert!(c.try_borrow_mut().is_err());
+        }
+        
+        assert!(c.try_borrow_mut().is_ok());
+    }
+
+    {
+        // pub fn as_ptr(&self) -> *mut T
+        // Returns a raw pointer to the underlying data in this cell.
+        let c = RefCell::new(5);
+
+        let ptr = c.as_ptr();
+        unsafe {
+            *ptr = 100;
+        }
+        assert_eq!(c, RefCell::new(100));
+    }
+
+    {
+        // pub fn get_mut(&mut self) -> &mut T
+
+        // Returns a mutable reference to the underlying data.
+
+        // This call borrows RefCell mutably (at compile-time) so there is no need for dynamic checks.
+
+        // However be cautious: this method expects self to be mutable, which is generally not the case when using a RefCell. Take a look at the borrow_mut method instead if self isn't mutable.
+
+        // Also, please be aware that this method is only for special circumstances and is usually not what you want. In case of doubt, use borrow_mut instead.
+        {
+            let mut c = RefCell::new(5);
+            *c.get_mut() += 1;
+
+            assert_eq!(c, RefCell::new(6));
+        }
+    }
+
+    {
+        // pub unsafe fn try_borrow_unguarded(&self) -> Result<&T, BorrowError>
+        // Immutably borrows the wrapped value, returning an error if the value is currently mutably borrowed.
+
+        // Safety
+        // Unlike RefCell::borrow, this method is unsafe because it does not return a Ref, thus leaving the borrow flag untouched.
+        // Mutably borrowing the RefCell while the reference returned by this method is alive is undefined behaviour.
+
+        let c = RefCell::new(5);
+
+        {
+            let m = c.borrow_mut();
+            assert!(unsafe { c.try_borrow_unguarded() }.is_err());
+        }
+        
+        {
+            let m = c.borrow();
+            assert!(unsafe { c.try_borrow_unguarded() }.is_ok());
+        }
+    }
+}
+
+
+fn test_ref_basic() {
+
+    /*
+        pub struct Ref<'b, T>
+        where
+            T: 'b + ?Sized,
+        { /* fields omitted */ }
+        [−]
+        Wraps a borrowed reference to a value in a RefCell box. A wrapper type for an immutably borrowed value from a RefCell<T>.
+
+        See the module-level documentation for more.
+    */
+    {
+        /*
+            pub fn clone(orig: &Ref<'b, T>) -> Ref<'b, T>
+            Copies a Ref.
+            The RefCell is already immutably borrowed, so this cannot fail.
+            This is an associated function that needs to be used as Ref::clone(...). A Clone implementation or a method would interfere with the widespread use of r.borrow().clone() to clone the contents of a RefCell.
+        */
+    }
+
+    {
+        /*
+            pub fn map<U, F>(orig: Ref<'b, T>, f: F) -> Ref<'b, U>
+            where
+                F: FnOnce(&T) -> &U,
+                U: ?Sized,
+
+            Makes a new Ref for a component of the borrowed data.
+            The RefCell is already immutably borrowed, so this cannot fail.
+            This is an associated function that needs to be used as Ref::map(...).
+            A method would interfere with methods of the same name on the contents of a RefCell used through Deref.
+
+        */
+
+        let c = RefCell::new((5, 'b'));
+        let b1: Ref<(u32, char)> = c.borrow();
+        let b2: Ref<u32> = Ref::map(b1, |t| &t.0);
+        assert_eq!(*b2, 5)
+    }
+
+    {
+        /*
+            pub fn map_split<U, V, F>(orig: Ref<'b, T>, f: F) -> (Ref<'b, U>, Ref<'b, V>)
+            where
+                F: FnOnce(&T) -> (&U, &V),
+                U: ?Sized,
+                V: ?Sized,
+
+            Splits a Ref into multiple Refs for different components of the borrowed data.
+
+            The RefCell is already immutably borrowed, so this cannot fail.
+
+            This is an associated function that needs to be used as Ref::map_split(...). A method would interfere with methods of the same name on the contents of a RefCell used through Deref.
+        */
+        let cell = RefCell::new([1, 2, 3, 4]);
+        let borrow = cell.borrow();
+        let (begin, end) = Ref::map_split(borrow, |slice| slice.split_at(2));
+        assert_eq!(*begin, [1, 2]);
+        assert_eq!(*end, [3, 4]);
+    }
+
+    {
+        /*
+            pub fn leak(orig: Ref<'b, T>) -> &'b T
+
+            Convert into a reference to the underlying data.
+            The underlying RefCell can never be mutably borrowed from again and will always appear already immutably borrowed.
+            It is not a good idea to leak more than a constant number of references. The RefCell can be immutably borrowed again if only a smaller number of leaks have occurred in total.
+
+            This is an associated function that needs to be used as Ref::leak(...).
+            A method would interfere with methods of the same name on the contents of a RefCell used through Deref.
+
+        #![feature(cell_leak)]
+        use std::cell::{RefCell, Ref};
+        let cell = RefCell::new(0);
+
+        let value = Ref::leak(cell.borrow());
+        assert_eq!(*value, 0);
+
+        assert!(cell.try_borrow().is_ok());
+        assert!(cell.try_borrow_mut().is_err());
+        */
+    }
+}
+
+fn test_refmut_basic() {
+
+    /*
+        pub struct RefMut<'b, T>
+        where
+            T: 'b + ?Sized,
+        { /* fields omitted */ }
+        [−]
+        A wrapper type for a mutably borrowed value from a RefCell<T>.
+
+        See the module-level documentation for more.
+    */
+
+    {
+        /*
+            pub fn map<U, F>(orig: RefMut<'b, T>, f: F) -> RefMut<'b, U>
+            where
+                F: FnOnce(&mut T) -> &mut U,
+                U: ?Sized,
+
+            Makes a new RefMut for a component of the borrowed data, e.g., an enum variant.
+
+            The RefCell is already mutably borrowed, so this cannot fail.
+
+            This is an associated function that needs to be used as RefMut::map(...). A method would interfere with methods of the same name on the contents of a RefCell used through Deref.
+        */
+        let c = RefCell::new((5, 'b'));
+        {
+            let b1: RefMut<(u32, char)> = c.borrow_mut();
+            let mut b2: RefMut<u32> = RefMut::map(b1, |t| &mut t.0);
+            assert_eq!(*b2, 5);
+            *b2 = 42;
+        }
+        assert_eq!(*c.borrow(), (42, 'b'));
+    }
+
+    {
+        /*
+            pub fn map_split<U, V, F>(
+                orig: RefMut<'b, T>,
+                f: F
+            ) -> (RefMut<'b, U>, RefMut<'b, V>)
+            where
+                F: FnOnce(&mut T) -> (&mut U, &mut V),
+                U: ?Sized,
+                V: ?Sized,
+
+            Splits a RefMut into multiple RefMuts for different components of the borrowed data.
+
+            The underlying RefCell will remain mutably borrowed until both returned RefMuts go out of scope.
+
+            The RefCell is already mutably borrowed, so this cannot fail.
+
+            This is an associated function that needs to be used as RefMut::map_split(...). A method would interfere with methods of the same name on the contents of a RefCell used through Deref.
+        */
+        let cell = RefCell::new([1, 2, 3, 4]);
+        let borrow = cell.borrow_mut();
+        let (mut begin, mut end) = RefMut::map_split(borrow, |slice| slice.split_at_mut(2));
+        assert_eq!(*begin, [1, 2]);
+        assert_eq!(*end, [3, 4]);
+        begin.copy_from_slice(&[4, 3]);
+        end.copy_from_slice(&[2, 1]);
+    }
+
+    {
+        /*
+            pub fn leak(orig: RefMut<'b, T>) -> &'b mut T
+            [src][−]
+            This is a nightly-only experimental API. (cell_leak #69099)
+            Convert into a mutable reference to the underlying data.
+
+            The underlying RefCell can not be borrowed from again and will always appear already mutably borrowed, making the returned reference the only to the interior.
+
+            This is an associated function that needs to be used as RefMut::leak(...). A method would interfere with methods of the same name on the contents of a RefCell used through Deref.
+
+            Examples
+            #![feature(cell_leak)]
+            use std::cell::{RefCell, RefMut};
+            let cell = RefCell::new(0);
+
+            let value = RefMut::leak(cell.borrow_mut());
+            assert_eq!(*value, 0);
+            *value = 1;
+
+            assert!(cell.try_borrow_mut().is_err());
+        */
+    }
+}
+
+
+
+
 }
 
 
 pub fn test_ref_cell() {
+
     cell_test::test_ref_cell_basic();
 
     // test_rc_refcell();
+
+    cell_test::test_refcell_basic();
 
     cell_test::test_refcell_leak();
 }
