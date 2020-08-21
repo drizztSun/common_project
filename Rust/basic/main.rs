@@ -49,12 +49,15 @@ mod test_rary;
 mod test_generic;
 mod test_scoping_rules;
 mod test_pin;
+mod test_ops;
 
 // mod. will import each one into the main.rs and be compiled. if not doing this, it could not be compiled and use by others.
 
 
 fn main() {
     println!("--- Starting RUST syntax ---");
+
+    test_ops::test_ops();
 
     test_binaryheap::test_binaryheap();
 
