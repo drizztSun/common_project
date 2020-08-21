@@ -18,7 +18,7 @@ This example shows some of the syntax in action:
 
 */
 
-use std::fmt::{Display, Debug};
+// use std::fmt::{Display, Debug};
 
 // A concrete type `A`.
 struct A;
@@ -334,7 +334,7 @@ Some cases that a where clause is useful:
 
 */
 mod test_where_clauses{
-    use std::fmt::{Display, Debug};
+    use std::fmt::Debug;
     // impl <A: TraitB + TraitC, D: TraitE + TraitF> MyTrait<A, D> for YourType {}
 
     // Expressing bounds with a `where` clause

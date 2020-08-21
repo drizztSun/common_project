@@ -448,12 +448,12 @@ fn test_max_range(a: Vec<i32>) -> i32 {
 }
 
 fn test_2d_array() {
-    let N = 10;
-    let M = 20;
-    let mut array = vec![vec![0.0f64; N]; M];
-    for i in (0..M) {
-        for j in (0..N) {
-            array[i][j] = (i * N + j) as f64;
+    let n = 10;
+    let m = 20;
+    let mut array = vec![vec![0.0f64; n]; m];
+    for i in 0..n {
+        for j in 0..m {
+            array[i][j] = (i * n + j) as f64;
         }
     }
 
@@ -461,8 +461,8 @@ fn test_2d_array() {
     const CM: usize = 100;
     let mut x = [[0.0; CN]; CM]; // This works only when M and N are constant. Elements have type f64
 
-    for i in (0..CM) {
-        for j in (0..CN) {
+    for i in 0..CM {
+        for j in 0..CN {
             x[i][j] = (i * CN + j) as f64;
         }
     }

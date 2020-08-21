@@ -464,7 +464,7 @@ fn test_trait_sizes() {
     println!("======== The size of different pointers in Rust: ========");
     println!("&dyn Trait:-----{}", size_of::<&dyn SomeTrait>());
     println!("&[&dyn Trait]:--{}", size_of::<&[&dyn SomeTrait]>());
-    println!("Box<Trait>:-----{}", size_of::<Box<SomeTrait>>());
+    println!("Box<Trait>:-----{}", size_of::<Box<dyn SomeTrait>>());
     println!("&i32:-----------{}", size_of::<&i32>());
     println!("&[i32]:---------{}", size_of::<&[i32]>());
     println!("Box<i32>:-------{}", size_of::<Box<i32>>());

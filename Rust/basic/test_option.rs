@@ -1,3 +1,4 @@
+//#![feature(option_result_contains)]
 use std::option;
 
 /*
@@ -83,6 +84,7 @@ fn test_options_basic() {
     }
 
     {
+        /*
         #![feature(option_result_contains)]
         let x: Option<u32> = Some(2);
         assert_eq!(x.contains(&2), true);
@@ -92,6 +94,7 @@ fn test_options_basic() {
         
         let x: Option<u32> = None;
         assert_eq!(x.contains(&2), false);
+        */
     }
 
     {

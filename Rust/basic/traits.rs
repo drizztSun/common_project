@@ -12,7 +12,7 @@ This restriction is part of a property of programs called coherence, and more sp
 This rule ensures that other people’s code can’t break your code and vice versa.
 Without the rule, two crates could implement the same trait for the same type, and Rust wouldn’t know which implementation to use.
  */
-use std::fmt;
+// use std::fmt;
 
 // trait with abstract method
 pub trait Summary {
@@ -133,7 +133,7 @@ impl Brightness for MyLight{
 }
 
 fn test_trait_inheritance() {
-    let _x: &B = &S;
+    let _x: &dyn B = &S;
 
     let my_light = MyLight{state: false};
     

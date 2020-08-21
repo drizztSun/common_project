@@ -1,5 +1,6 @@
 #![feature(optin_builtin_traits, negative_impls)] // needed to implement `!Unpin`
-use std::pin::{Pin, Unpin};
+use std::pin::Pin;
+use std::marker::Unpin;
 use std::marker::PhantomPinned;
 use std::mem;
 
@@ -239,7 +240,8 @@ impl GeneratorA {
 // to enable the feature flag ` #![feature(optin_builtin_traits)]` and use the
 // nightly compiler to implement `!Unpin`. Normally, you would use
 // `std::marker::PhantomPinned` to indicate that the struct is `!Unpin`.
-impl !Unpin for GeneratorA { }
+
+// impl !Unpin for GeneratorA {}
 
 impl Generator for GeneratorA {
     type Yield = usize;

@@ -16,7 +16,7 @@ fn test_pattern_basic() {
     match x {
         1 | 2 => println!("one or two"),
         3 => println!("three"),
-        4...10 => println!("four ... ten"),
+        4..=10 => println!("four ... ten"), // 4....10 is deprecated, using 4..=10 instead
         _ => println!("others"),
     }
 
@@ -25,8 +25,8 @@ fn test_pattern_basic() {
 
     let x = 'c';
     match x {
-        'a'...'j' => println!("early ASCII letter"),
-        'k'...'z' => println!("late ASCII letter"),
+        'a'..='j' => println!("early ASCII letter"),
+        'k'..='z' => println!("late ASCII letter"),
         _ => println!("something else"),
     }
 
@@ -123,7 +123,7 @@ fn test_pattern_syntax() {
         1 | 2 => println!("one or two"),
         3 => println!("three"),
         // Matching Ranges of Values with ...
-        4...10 => println!("four ... ten"),
+        4..=10 => println!("four ... ten"),
         _ => println!("others"),
     }
 

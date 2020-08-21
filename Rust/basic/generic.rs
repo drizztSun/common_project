@@ -1,4 +1,4 @@
-use std::fmt::{self, Display};
+// use std::fmt::{self, Display}; // self means fmt itself
 /*
 In the body of largest we wanted to compare two values of type T using the greater than (>) operator.
 Because that operator is defined as a default method on the standard library trait std::cmp::PartialOrd,
@@ -38,6 +38,8 @@ The good news is that Rust implements generics in such a way that your code does
 Rust accomplishes this by performing monomorphization of the code that is using generics at compile time.
 Monomorphization is the process of turning generic code into specific code by filling in the concrete types that are used when compiled.
 */
+use std::fmt::Display;
+
 fn largest<T: PartialOrd + Copy>(list: &[T]) -> T {
     let mut largest = list[0];
 
