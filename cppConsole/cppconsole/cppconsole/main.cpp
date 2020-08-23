@@ -35,9 +35,13 @@ void test_basic();
 
 void test_async();
 
+void test_function_able();
+
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
+    
+    test_function_able();
     
     // test_basic();
     
@@ -63,7 +67,7 @@ int main(int argc, const char * argv[]) {
     
     // test_stack();
     
-    test_async();
+    // test_async();
 
     return 1;
 }
