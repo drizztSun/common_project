@@ -5,6 +5,51 @@
 #include <array>
 #include <map>
 
+/*
+ 
+ C++ attribute: nodiscard (since C++17)
+ If a function declared nodiscard or a function returning an enumeration or class declared nodiscard by value is called from a discarded-value expression other than a cast to void, the compiler is encouraged to issue a warning.
+ 
+ Syntax
+ [[nodiscard]]    (1)
+ [[nodiscard( string-literal )]]    (2)    (since C++20)
+ string-literal    -    text that could be used to explain the rationale for why the result should not be discarded
+ Explanation
+ Appears in a function declaration, enumeration declaration, or class declaration.
+
+ If, from a discarded-value expression other than a cast to void,
+
+ a function declared nodiscard is called, or
+ a function returning an enumeration or class declared nodiscard by value is called, or
+ a constructor declared nodiscard is called by explicit type conversion or static_cast, or
+ an object of an enumeration or class type declared nodiscard is initialized by explicit type conversion or static_cast,
+ the compiler is encouraged to issue a warning.
+
+ The string-literal, if specified, is usually included in the warnings.
+
+ 
+ (since C++20)
+ Example
+ Run this code
+ 
+ struct [[nodiscard]] error_info { };
+ 
+ error_info enable_missile_safety_mode();
+ 
+ void launch_missiles();
+ 
+ void test_missiles() {
+    enable_missile_safety_mode(); // compiler may warn on discarding a nodiscard value
+    launch_missiles();
+ }
+ 
+ error_info& foo();
+ void f1() {
+     foo(); // nodiscard type is not returned by value, no warning
+ }
+
+ */
+
 template <typename Key, typename Value, std::size_t Size>
 struct Map {
     std::array<std::pair<Key, Value>, Size> data;
@@ -46,6 +91,8 @@ int lookup_value(const std::string_view sv) { // sv will be to pass by value by 
     
     // flat map way,
     // auto map = Map<std::string_view, int, color_values.size()>{{color_values}};
+    
+    // map.at(sv); discard return value and error reports
     
     return map.at(sv);
 }
