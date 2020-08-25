@@ -218,3 +218,65 @@ void test_string_view() {
             << '\n';
     }
 }
+
+/*
+ 
+ std::literals::string_view_literals::operator""sv
+  C++ Strings library std::basic_string_view
+ Defined in header <string_view>
+ constexpr std::string_view
+     operator "" sv(const char* str, std::size_t len) noexcept;
+ (1)    (since C++17)
+ constexpr std::u8string_view
+     operator "" sv(const char8_t* str, std::size_t len) noexcept;
+ (2)    (since C++20)
+ constexpr std::u16string_view
+     operator "" sv(const char16_t* str, std::size_t len) noexcept;
+ (3)    (since C++17)
+ constexpr std::u32string_view
+     operator "" sv(const char32_t* str, std::size_t len) noexcept;
+ (4)    (since C++17)
+ constexpr std::wstring_view
+     operator "" sv(const wchar_t* str, std::size_t len) noexcept;
+ (5)    (since C++17)
+ Forms a string view of a character literal.
+
+ 1) returns std::string_view{str, len}
+ 2) returns std::u8string_view{str, len}
+ 3) returns std::u16string_view{str, len}
+ 4) returns std::u32string_view{str, len}
+ 5) returns std::wstring_view{str, len}
+ Parameters
+ str    -    pointer to the beginning of the raw character array literal
+ len    -    length of the raw character array literal
+ Return value
+ The string_view literal.
+
+ Notes
+ These operators are declared in the namespace std::literals::string_view_literals, where both literals and string_view_literals are inline namespaces.
+ Access to these operators can be gained with using namespace std::literals, using namespace std::string_view_literals, and using namespace std::literals::string_view_literals.
+ 
+ 
+ */
+
+void test_string_view_literals()
+{
+    using namespace std::literals;
+ 
+    std::string_view s1 = "abc\0\0def";
+    std::string_view s2 = "abc\0\0def"sv; // string view literals
+    std::cout << "s1: " << s1.size() << " \"" << s1 << "\"\n";
+    std::cout << "s2: " << s2.size() << " \"" << s2 << "\"\n";
+ 
+    std::cout
+        << "narrow string literal"sv.size() << '\n'
+        << L"wide string literal"sv.size() << '\n'
+        << R"(raw string literal)"sv.size() << '\n';
+    
+    // s1: 3 "abc"
+    // s2: 8 "abc^@^@def"
+    // 21
+    // 19
+    // 18
+    
+}
