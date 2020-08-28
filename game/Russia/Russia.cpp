@@ -15,6 +15,8 @@
 #define FACE_X 29
 #define FACE_Y 20 //界面尺寸
 
+#define Max(a, b) a > b ? a : b;
+
 void gotoxy(int x, int y);                           //移动光标
 int color(int c);                                    //颜色
 void hidden_cursor();                                //隐藏光标
@@ -31,11 +33,12 @@ void write_file();                                   //写最高纪录
 int grade = 0; //当前分数
 int max = 0;   //最高记录
 int nn = 0;
+int a[16];  // int[16]
 
 struct Face
 {
-    int data[FACE_X][FACE_Y + 10];  //数值，为1是方块，为0是空格
-    int color[FACE_X][FACE_Y + 10]; //对应方块的颜色
+    int data[FACE_X][FACE_Y + 10];  //数值，为1是方块，为0是空格  int[29][30] int** data1 = &data[0][0], data1 + 1 == data[1][0]
+    int color[FACE_X][FACE_Y + 10]; //对应方块的颜色 int[29][30]
 } face;
 
 typedef struct Diamonds

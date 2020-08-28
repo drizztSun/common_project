@@ -1,11 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-<<<<<<< Updated upstream
 void swap(int* x, int* y);
-=======
+
+int tbtree();
+
 #define _CRT_SECURE_NO_WARNINGS
->>>>>>> Stashed changes
+
 
 void insert_sort(int* a, int length) {
 
@@ -234,9 +235,66 @@ void test_bit_operator() {
 	return;
 }
 
+// global variable
+int i = 99;
+const int ci = 100;
 
+void varaible_left_scope() {
+
+
+	// int i = 100;
+	int b = 20;
+
+	{
+		char b = 'a';
+
+		{
+			int b = 2;
+
+			printf("%d", i);
+			
+			{
+				i = 1; // three b are avaiable, minor scope is being used
+				printf("%d", b);
+			}
+
+			i = 1;
+			printf("%d", b);
+		}
+
+		printf("%c", b);
+	}
+
+	printf("%d", b);
+	b = 100;
+}
+
+
+int func(int** pRes)
+{
+	if (pRes != NULL && *pRes == NULL)
+		*pRes = new int(12); // int*
+	return 0;
+}
+
+void mi(int* a) {
+	*a = *a * *a;
+}
+
+void test_point1()
+{
+	int a = 10;
+	mi(&a);
+
+	int* pInt = NULL;
+	int val = func(&pInt);
+	printf("%d\n", *pInt);
+}
 
 int main(){
+	tbtree();
+
+
 	test_swich_case();
 
 	ctest_pointer();

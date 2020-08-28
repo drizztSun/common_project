@@ -10,7 +10,7 @@ typedef struct node {
 
 int test_clink() {
 
-    node_t* head = (node_t*)malloc(sizeof(node_t));;
+    node_t* head = (node_t*)malloc(sizeof(node_t));
     if (head == NULL) {
         return 1;
     }
@@ -22,11 +22,14 @@ int test_clink() {
 
     //To add a variable to the end of the list, we can just continue advancing to the next pointer :
 
-    node_t* head = NULL;
+    head = NULL;
     head = (node_t*)malloc(sizeof(node_t));
     head->val = 1;
     head->next = (node_t*)malloc(sizeof(node_t));
     head->next->val = 2;
     head->next->next = NULL;
+
+    free(head);
+    free(head->next);
 }
 
