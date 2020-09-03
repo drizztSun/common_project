@@ -93,6 +93,18 @@
     <ClCompile Include="src\utf_str.cpp">
       <Filter>morden C</Filter>
     </ClCompile>
+    <ClCompile Include="src\jasonturner\ep218_std_to_array.cpp">
+      <Filter>jason_turner</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jasonturner\ep220_likely_unlikely.cpp">
+      <Filter>jason_turner</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jasonturner\ep231_multiple_destructor.cpp">
+      <Filter>jason_turner</Filter>
+    </ClCompile>
+    <ClCompile Include="src\jasonturner\ep233_stdmap_vs_constexprmap.cpp">
+      <Filter>jason_turner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -117,6 +129,9 @@
     </Filter>
     <Filter Include="morden C\container">
       <UniqueIdentifier>{a4657af0-d9c8-4225-ad8b-ca6cc89d5aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jason_turner">
+      <UniqueIdentifier>{a0279827-57f3-4a75-a07a-ec081f061621}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

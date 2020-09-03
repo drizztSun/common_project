@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\language\boost170\include\boost-1_70;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\language\boost170\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\language\boost1.73\include\boost-1_73;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\language\boost1.73\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -94,6 +94,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <EnableModules>true</EnableModules>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +158,10 @@
     <ClCompile Include="Leetcode.cpp" />
     <ClCompile Include="src\cpp14.cpp" />
     <ClCompile Include="src\Functional.cpp" />
+    <ClCompile Include="src\jasonturner\ep218_std_to_array.cpp" />
+    <ClCompile Include="src\jasonturner\ep220_likely_unlikely.cpp" />
+    <ClCompile Include="src\jasonturner\ep231_multiple_destructor.cpp" />
+    <ClCompile Include="src\jasonturner\ep233_stdmap_vs_constexprmap.cpp" />
     <ClCompile Include="src\Precessor_define.cpp" />
     <ClCompile Include="src\share_ptr.cpp" />
     <ClCompile Include="src\smart_ptr.cpp" />
