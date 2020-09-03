@@ -2,15 +2,19 @@ package main
 
 import (
 	"fmt"
-
-	"./leetcodeH"
 )
 
 func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodeH.Test_903_ValidPermutationsforDiSequence()
+	leetcodem.Test_1306_JumpGameIII()
+
+	// leetcodeH.Test_45_jumpgameII()
+
+	// leetcodeH.Test_980_UniquePathsIII()
+
+	// leetcodeH.Test_903_ValidPermutationsforDiSequence()
 
 	// leetcodeH.Test_902_NumbersAtMostNGivenDigits()
 

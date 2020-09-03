@@ -189,7 +189,7 @@ func main() {
 	a := runtime.GOOS
 	fmt.Printf("Current OS version: %s\n", a)
 
-	test_redirect()
+	// test_redirect()
 
 	// test_redirect_to_file()
 
