@@ -27,5 +27,9 @@ fn main() {
 
     // leetcode_media::A114_FlattenBinaryTreetoLinkedList::test_114_Flatten_binary_tree_to_linked_list();
 
-    leetcode_media::A94_BinaryTreeInorderTraversal::test_94_binary_tree_inorder_travels();
+    // leetcode_media::A94_BinaryTreeInorderTraversal::test_94_binary_tree_inorder_travels();
+
+    // leetcode_hard::A10_RegularExpressionMatching::test_10_regular_expressing_matching();
+
+    leetcode_hard::A44_WildcardMatching::test_44_wild_card_matching();
 }

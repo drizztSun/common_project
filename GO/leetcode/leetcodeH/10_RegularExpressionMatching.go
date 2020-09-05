@@ -88,7 +88,7 @@ func isMatchDP(s, p string) bool {
 
 	dp[0][0] = true
 	for j := 1; j < N; j++ {
-		dp[0][j] = p[j-1] == '*' && dp[0][j-2]
+		dp[0][j] = p[j-1] == '*' && j > 1 && dp[0][j-2]
 	}
 
 	for i := 1; i < M; i++ {

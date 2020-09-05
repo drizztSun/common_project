@@ -44,11 +44,12 @@ class Command:
                 if cache and url in cache:
                     node = root = cache[url]
                     continue
+
+                print(f"url: going to {url}")
                 
                 url_parsed = urllib.parse.urlparse(url)
-                robots_url = '%s://%s/robots.txt' % (url_parsed.scheme, url_parsed.netloc)
 
-
+                #robots_url = '%s://%s/robots.txt' % (url_parsed.scheme, url_parsed.netloc)
                 #rp = urllib.robotparser.RobotFileParser()
                 #rp.set_url(robots_url)
                 #rp.set_url('https://chromereleases.googleblog.com/robots.txt')
@@ -63,15 +64,19 @@ class Command:
                 res = requests.get(url, headers={'User-Agent': self.USER_AGENT})
                 res.raise_for_status()
 
+                print(f"url: get response from {url}")
+
                 node = root = BeautifulSoup(res.text, 'lxml')
                 if cache is not None:
                     cache[url] = node
 
+                print(f"url: build DOM tree node")
                 continue
 
             method = loc['method']
             if method == 'return':
                 if 'version' in ret and ('date' in ret or ('day' in ret and 'month' in ret and 'year' in ret)):
+                    print(f"return: {ret['version']}, {ret['date']}")
                     break
 
             if not node:
@@ -79,6 +84,7 @@ class Command:
 
             args, kwargs = loc.get('args', []), loc.get('kwargs', {})
             if method == 'find_parent':
+                print(f"find_parent: to find parent")
                 node = node.find_parent(*args, **kwargs)
             elif method == 'find':
                 if 're' in loc:
@@ -104,9 +110,9 @@ class Command:
                     if 'text' in kwargs and 'build' in ret and '{{ build }}' in kwargs['text']:
                         kwargs['text'] = kwargs['text'].replace('{{ build }}', ret['build'])
 
-                    # print(node)
                     node = node.find(*args, **kwargs)
-                    # print('******************------ find ---- %s' % node.text)
+                    print(f"find wo re: {node}")
+                    #print('******************------ find ---- %s' % node.text)
 
 
 
@@ -202,9 +208,15 @@ class Command:
                     if 'version' in ret and ret['version'].endswith('.'):
                         ret['version'] = ret['version'][0:-1]
 
-        if 'month' in ret and 'year' in ret:
+        if 'date' in ret:
+            ret['date'] = datetime.datetime.strptime('%s' % ret['date'], '%Y-%m-%d').date()
+
+        elif 'month' in ret:
             if 'day' not in ret:
                 ret['day'] = '1'
+
+            if 'year' not in ret:
+                ret['year'] = datetime.datetime.now().year
 
             month = ret['month']
             for i, m in enumerate(calendar.month_abbr):
@@ -219,10 +231,7 @@ class Command:
 
             ret['date'] = datetime.datetime.strptime('%s-%s-%s' % (ret.pop('year'),
                                                                    ret.pop('month'),
-                                                                   ret.pop('day')),
-                                                     '%Y-%m-%d').date()
-        elif 'date' in ret:
-            ret['date'] = datetime.datetime.strptime('%s' % ret['date'], '%Y-%m-%d').date()
+                                                                   ret.pop('day')), '%Y-%m-%d').date()
 
         return ret
 
@@ -259,14 +268,6 @@ def test_crawl():
             {'method': 'find', 're': r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})', 'kwargs': {'name': 'pubdate'}},
         ],
         [
-<<<<<<< HEAD
-            {'url': 'https://developer.apple.com/news/releases/rss/releases.rss'},
-            {'method': 'find', 're': r'^\s*iPadOS (?P<version>' + osversion + r'.[\d\.]+)\s+\((?P<build>.+)\)\s*$',
-             'kwargs': {'name': 'title'}},
-            {'method': 'parent'},
-            {'method': 'find', 're': r'(?P<day>\d{1,2})\s+(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})',
-             'kwargs': {'name': 'pubdate'}},
-=======
             {'url': 'https://en.wikipedia.org/wiki/Microsoft_Edge'},
             {'method': 'find', 'kwargs': {'name': 'a', 'text': 'Stable release(s)'}},
             {'method': 'find_parent', 'kwargs': {'name': 'tbody'}},
@@ -275,10 +276,33 @@ def test_crawl():
             {'method': 'find', 'kwargs': {'name': 'td'}},
             {'method': 're.search', 're': r'(?P<version>[0-9\.]+)'},
             {'method': 're.search', 're': r'(?P<date>\d\d\d\d-\d+-\d+)'}
->>>>>>> 75670c8348969555da269eb4d77e8ff029bc7b0c
+        ],
+        [
+            {'url': 'https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel'},
+            {'method': 'find', 'kwargs': {'name': 'main', 'id': 'main'}},
+            #{'method': 'find_parent', 'kwargs': {'name': 'tbody'}},
+            {'method': 'find', 'kwargs': {'name': 'h2', 'class': 'heading-anchor'}},
+            {'method': 'parent'},
+            {'method': 'find', 'kwargs': {'name': 'td'}},
+            {'method': 're.search', 're': r'(?P<version>[0-9\.]+)'},
+            {'method': 're.search', 're': r'(?P<date>\d\d\d\d-\d+-\d+)'}
+        ],
+        [
+            {'url': 'https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel'},
+            {'method': 'find', 'kwargs': {'name': 'main', 'id': 'main'}},
+            {'method': 'find', 'kwargs': {'name': 'h2'}},
+            {'method': 're.search', 're': r'(?P<version>[0-9\.]+): (?P<month>[a-zA-Z]+) (?P<day>[\d]{1,2})'},
         ]
     ]
 
+    loc1 = [
+        [
+            {'url': 'https://docs.microsoft.com/en-us/deployedge/microsoft-edge-relnote-stable-channel'},
+            {'method': 'find', 'kwargs': {'name': 'main', 'id': 'main'}},
+            {'method': 'find', 'kwargs': {'name': 'h2'}},
+            {'method': 're.search', 're': r'(?P<version>[0-9\.]+): (?P<month>[a-zA-Z]+) (?P<day>[\d]{1,2})'},
+        ]
+    ]
 
     for c in loc:
         ret = Command().locate(c)

@@ -1,6 +1,4 @@
-import os
-
-
+"""
 # leetcode 5.Longest Palindromic Substring
 
 # Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
@@ -16,9 +14,11 @@ import os
 # Output: "bb"
 
 
+"""
+
 class longestPalindrome:
 
-    # 
+    #
     def doit1(self, s):
         """
         :type s: str
@@ -69,7 +69,7 @@ class longestPalindrome:
             if s[i-maxlen-1:i+1] == s[i-maxlen-1:i+1][::-1] and i-maxlen-1 >= 0:
                 start = i-maxlen-1
                 maxlen += 2
-               
+
         return s[start: start + maxlen]
             
             

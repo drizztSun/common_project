@@ -8,7 +8,9 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodem.Test_1306_JumpGameIII()
+	// leetcodem.Test_1306_JumpGameIII()
+
+	// leetcodem.Test_1306_JumpGameIII()
 
 	// leetcodeH.Test_45_jumpgameII()
 

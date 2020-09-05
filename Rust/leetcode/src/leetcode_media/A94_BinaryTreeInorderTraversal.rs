@@ -125,7 +125,7 @@ impl Tree_inorder_travel {
         res
     }
 
-    fn inorder_four(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
+    fn inorder_five(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
 
         let mut res = vec![];
         let mut buf = vec![];

@@ -1,6 +1,5 @@
-import os
 
-
+"""
 # leetcode  44. Wildcard Matching
 # Implement wildcard pattern matching with support for '?' and '*'.
 
@@ -20,6 +19,9 @@ import os
 # isMatch("aa", "a*") ? true
 # isMatch("ab", "?*") ? true
 # isMatch("aab", "c*a*b") ? false
+
+"""
+
 
 
 class isMatch:
@@ -58,7 +60,7 @@ class isMatch:
         return pi == len(p)
 
     # DP good way
-    def doit1(self, s, p):
+    def doit_dp(self, s, p):
         """
         :type s: str
         :type p: str
@@ -75,9 +77,10 @@ class isMatch:
                     D[j] = D[j-1] and (p[i-1] == s[j-1] or p[i-1] == '?')  
             else:
                 for n in range(1, len(s)+1):
-                    # D[i,j] = D[i-1, j] or D[i, j-1]
+                    # j - 1 is that * matchs 0, dp[i][j] = dp[i][j - 1]
+                    # j is that * match 1, dp[i][j] = dp[i - 1][j]
                     D[n] = D[n] or D[n-1]
-
+            # init dp[0] is s[0:] if match p[:i-1]
             D[0] = D[0] and p[i-1] == '*'
 
         return D[len(s)]
