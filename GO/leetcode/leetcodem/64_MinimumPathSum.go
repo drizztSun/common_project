@@ -40,10 +40,10 @@ func minPathSum(grid [][]int) int {
 			} else if j == 0 {
 				dp[i][j] += dp[i-1][j]
 			} else {
-				if dp[i-1][j] < dp[i][j] {
+				if dp[i-1][j] < dp[i][j-1] {
 					dp[i][j] += dp[i-1][j]
 				} else {
-					dp[i][j] += dp[i][j]
+					dp[i][j] += dp[i][j-1]
 				}
 			}
 		}
