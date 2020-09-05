@@ -8,6 +8,8 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
+	leetcodem.Test_64_MinimumPathSum()
+
 	// leetcodem.Test_1306_JumpGameIII()
 
 	// leetcodem.Test_1306_JumpGameIII()

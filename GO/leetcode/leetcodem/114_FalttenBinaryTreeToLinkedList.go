@@ -7,33 +7,34 @@ package leetcodem
  *     Left *TreeNode
  *     Right *TreeNode
  * }
- */
 
-type TreeNode struct {
+ type TreeNode struct {
 	Val int
 	Left *TreeNode
 	Right *TreeNode
 }
 
-func flatten(root *TreeNode)  {
-	
+*/
+
+func flatten(root *TreeNode) {
+
 	for root != nil {
-        
-        if root.Left == nil {
-            root = root.Right
-            continue
-        }
-        
-        pre := root.Left
-        for pre.Right != nil{
-            pre = pre.Right
-        }
-            
-        pre.Right = root.Right
-        root.Right = root.Left
-        root.Left = nil
-        root = root.Right
-    }
+
+		if root.Left == nil {
+			root = root.Right
+			continue
+		}
+
+		pre := root.Left
+		for pre.Right != nil {
+			pre = pre.Right
+		}
+
+		pre.Right = root.Right
+		root.Right = root.Left
+		root.Left = nil
+		root = root.Right
+	}
 }
 
 func dfs(root *TreeNode, pre *TreeNode) {

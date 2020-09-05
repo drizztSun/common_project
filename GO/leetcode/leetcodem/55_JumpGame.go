@@ -68,7 +68,7 @@ func canJump(nums []int) bool {
 	return dp[len(nums)-1]
 }
 
-func canJumpz_greedy(nums []int) bool {
+func canJumpz_greedy1(nums []int) bool {
 
 	lastpos := len(nums) - 1
 	for i := len(nums) - 1; i >= 0; i-- {
@@ -80,12 +80,12 @@ func canJumpz_greedy(nums []int) bool {
 	return lastpos == 0
 }
 
-func camJump_greedy(nums []int) bool {
+func camJump_greedy2(nums []int) bool {
 
 	i, curMax := 0, 0
 
 	for ; i < len(nums) && i <= curMax; i++ {
-		if i + nums[i] > curMax {
+		if i+nums[i] > curMax {
 			curMax = i + nums[i]
 		}
 	}
@@ -93,7 +93,7 @@ func camJump_greedy(nums []int) bool {
 	return i >= len(nums)
 }
 
-func canJumpz_greedy(nums []int) bool {
+func canJumpz_greedy3(nums []int) bool {
 
 	if len(nums) < 2 {
 		return true
@@ -103,12 +103,12 @@ func canJumpz_greedy(nums []int) bool {
 
 	for i := 0; i <= curMax; {
 
-		for i <= curMax; i++ {
+		for ; i <= curMax; i++ {
 
-			if i + nums[i] > nextMax {
+			if i+nums[i] > nextMax {
 				nextMax = i + nums[i]
 
-				if nextMax >= len(nums) - 1 {
+				if nextMax >= len(nums)-1 {
 					return true
 				}
 			}
