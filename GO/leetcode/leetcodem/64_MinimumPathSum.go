@@ -20,7 +20,7 @@ Explanation: Because the path 1→3→1→1→1 minimizes the sum.
 
 */
 
-func minPathSum(grid [][]int) int {
+func minPathSum_dp(grid [][]int) int {
 
 	M, N := len(grid), len(grid[0])
 	dp := make([][]int, M)
@@ -54,7 +54,7 @@ func minPathSum(grid [][]int) int {
 
 func Test_64_MinimumPathSum() {
 
-	minPathSum([][]int{
+	minPathSum_dp([][]int{
 		[]int{1, 3, 1},
 		[]int{1, 5, 1},
 		[]int{4, 2, 1},

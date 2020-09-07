@@ -61,8 +61,7 @@ class minDistance(object):
                 #else:
                 #    D[j] = min(DL[j], D[j-1], DL[j-1]) + 1
 
-                D[j] = min(DL[j-1] + (1 if word2[i-1] != word1[j-1] else 0),
-                            min(D[j-1], DL[j-1]) + 1)
+                D[j] = min(DL[j-1] + (1 if word2[i-1] != word1[j-1] else 0), min(D[j-1], DL[j]) + 1)
 
             DL = D[:]
 

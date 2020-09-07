@@ -7,7 +7,9 @@ import (
 func main() {
 	fmt.Println("--- basic main function ---")
 
-	Test_null_interface()
+	Test_85_MaximalRectangle()
+
+	// Test_null_interface()
 
 	// Test_set()
 
