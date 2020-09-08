@@ -1,11 +1,9 @@
-
-import os
-
-
+"""
 # 87. Scramble String
 
     #Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
     #Below is one possible representation of s1 = "great":
+"""
 
 
 
@@ -41,57 +39,45 @@ class isScramble(object):
         return False
 
     # best one 
-    def doit2(self, s1, s2):
+    def doit2(self, x, y):
         """
         :type s1: str
         :type s2: str
         :rtype: bool
         """
-        if len(s1) != len(s2):
+
+        def search(s1, s2):
+
+            if len(s1) != len(s2):
+                return False
+
+            if s1 == s2:
+                return True
+
+            if len(s1) == 1:
+                return s1 == s2
+
+            d, d1, d2 = {}, {}, {}
+
+            for i, s in enumerate(s1[:-1], 1):
+
+                d[s] = d.get(s, 0) + 1
+
+                d1[s2[i - 1]] = d1.get(s2[i - 1], 0) + 1
+
+                d2[s2[-i]] = d2.get(s2[-i], 0) + 1
+
+                # two Counter should be same, before verify next level.
+                if d == d1 and search(s1[:i], s2[:i]) and search(s1[i:], s2[i:]):
+                    return True
+
+                if d == d2 and search(s1[:i], s2[-i:]) and search(s1[i:], s2[:len(s2) - i]):
+                    return True
+
             return False
 
-        if len(s1) == 1:
-            return s1 == s2
+        return search(x, y)
 
-        d, d1, d2 = {}, {}, {}
-
-        for i, s in enumerate(s1[:-1], 1):
-
-            d[s] = d.get(s, 0) + 1
-
-            d1[s2[i - 1]] = d1.get(s2[i - 1], 0) + 1
-
-            d2[s2[-i]] = d2.get(s2[-i], 0) + 1
-
-            if d == d1 and self.doit2(s1[:i], s2[:i]) and self.doit2(s1[i:], s2[i:]):
-                return True
-
-            if d == d2 and self.doit2(s1[:i], s2[-i:]) and self.doit2(s1[i:], s2[:len(s1) - i]):
-                return True
-
-        return False
-
-    def doit3(self, s1, s2):
-        if len(s1) != len(s2):
-            return False
-
-        if len(s1) == 1:
-            return s1 == s2
-
-        d, d1, d2 = {}, {}, {}
-        for i, s in enumerate(s1[:-1], 1):
-
-            d[s] = d.get(s, 0) + 1
-            d1[s2[i - 1]] = d1.get(s2[i - 1], 0) + 1
-            d2[s2[-i]] = d2.get(s2[-i], 0) + 1
-
-            if d == d1 and self.isScramble(s1[:i], s2[:i]) and self.isScramble(s1[i:], s2[i:]):
-                return True
-
-            if d == d2 and self.isScramble(s1[:i], s2[-i:]) and self.isScramble(s1[i:], s2[:len(s1) - i]):
-                return True
-
-        return False
 
 if __name__=="__main__":
     
