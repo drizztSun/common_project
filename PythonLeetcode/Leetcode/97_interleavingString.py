@@ -1,25 +1,28 @@
-import os
-
-try:
-    from Queue import Queue
-except:
-    from multiprocessing import Queue
+"""
 
 #97. Interleaving String
 
 #Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
 
-#For example,
-#Given:
-#s1 = "aabcc",
-#s2 = "dbbca",
+Example 1:
+Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbcbcac"
+Output: true
 
-#When s3 = "aadbbcbcac", return true.
-#When s3 = "aadbbbaccc", return false.
+Example 2:
+Input: s1 = "aabcc", s2 = "dbbca", s3 = "aadbbbaccc"
+Output: false
+
+Example 3:
+Input: s1 = "", s2 = "", s3 = ""
+Output: true
 
 
-class isInterleave(object):
-    def doit(self, s1, s2, s3):
+"""
+
+
+class IsInterleave(object):
+
+    def doit_dp(self, s1, s2, s3):
         """
         :type s1: str
         :type s2: str
@@ -27,7 +30,6 @@ class isInterleave(object):
         :rtype: bool
         """
         r1, r2, r3 = len(s1), len(s2), len(s3)
-
         if r1 + r2 != r3:
             return False
 
@@ -40,18 +42,12 @@ class isInterleave(object):
         for j in range(1, r2+1):
             D[j][0] = D[j-1][0] and s2[j-1] == s3[j-1]
 
-
         for j in range(1, r2+1):
-
             for i in range(1, r1+1):
-
                 D[j][i] = D[j-1][i] and s2[j-1] == s3[i+j-1] or D[j][i-1] and s1[i-1] == s3[i+j-1]
-
 
         return D[-1][-1]
 
-
-        
     def doit3(self, s1, s2, s3):
         """
         :type s1: str
@@ -80,7 +76,6 @@ class isInterleave(object):
                 dp[i+j] = (dp[i+j-1] and s2[i-1] == s3[i-1+j] ) or (tmp[i] and s1[j-1] == s3[i-1+j])
 
         return dp[-1]
-                    
 
     def doit2(self, s1, s2, s3):
         """
@@ -114,7 +109,7 @@ class isInterleave(object):
         return search(s1, 0, s2, 0, s3, 0, {})
 
     # DFS 
-    def doit4(self, s1, s2, s3):
+    def doit_dfs(self, s1, s2, s3):
         """
         :type s1: str
         :type s2: str
@@ -143,7 +138,7 @@ class isInterleave(object):
         return False
 
     # BFS
-    def doit5(self, s1, s2, s3):
+    def doit_bfs(self, s1, s2, s3):
         """
         :type s1: str
         :type s2: str
@@ -171,16 +166,17 @@ class isInterleave(object):
 
         return False
 
+
 if __name__=="__main__":
 
-    res = isInterleave().doit3("a", "b", "ab")
+    res = IsInterleave().doit_dfs("a", "b", "ab")
 
-    res = isInterleave().doit3("aabcc", "dbbca", "aadbbcbcac")
+    res = IsInterleave().doit_dfs("aabcc", "dbbca", "aadbbcbcac")
 
-    res = isInterleave().doit3("aabcc", "dbbca", "aadbbbaccc")
+    res = IsInterleave().doit_dp("aabcc", "dbbca", "aadbbbaccc")
 
-    res = isInterleave().doit5("", "b", "b")
+    res = IsInterleave().doit_dfs("", "b", "b")
 
-    res = isInterleave().doit3("aa", "ab", "aaba")
+    res = IsInterleave().doit_dfs("aa", "ab", "aaba")
 
     pass

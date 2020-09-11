@@ -1,19 +1,47 @@
+"""
+140. Word Break II
 
-import os
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words,
+add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences.
 
-# Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, 
-# add spaces in s to construct a sentence where each word is a valid dictionary word. 
-# You may assume the dictionary does not contain duplicate words.
-# Return all such possible sentences.
+Note:
 
-# For example, given
+The same word in the dictionary may be reused multiple times in the segmentation.
+You may assume the dictionary does not contain duplicate words.
+Example 1:
 
-# s = "catsanddog",
-# dict = ["cat", "cats", "and", "sand", "dog"].
+Input:
+s = "catsanddog"
+wordDict = ["cat", "cats", "and", "sand", "dog"]
+Output:
+[
+  "cats and dog",
+  "cat sand dog"
+]
+Example 2:
 
-# A solution is ["cats and dog", "cat sand dog"].
+Input:
+s = "pineapplepenapple"
+wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
+Output:
+[
+  "pine apple pen apple",
+  "pineapple pen apple",
+  "pine applepen apple"
+]
+Explanation: Note that you are allowed to reuse a dictionary word.
+Example 3:
 
-class wordBreak(object):
+Input:
+s = "catsandog"
+wordDict = ["cats", "dog", "sand", "and", "cat"]
+Output:
+[]
+
+"""
+
+
+class WordBreak(object):
 
     # There is an issue that code repeat doing some intermedia result
     # we have to cache the position in the middle
@@ -48,8 +76,6 @@ class wordBreak(object):
 
         buff = {}
         return searchContent(s, 0, wordDict, buff)
-                     
-
 
 
     def doit1(self, s, wordDict):
@@ -82,7 +108,6 @@ class wordBreak(object):
         
         buff = {} 
         return search(s, wordDict, buff)
-
 
 
     def doit2(self, s, wordDict):
@@ -141,11 +166,11 @@ class wordBreak(object):
 
 if __name__=="__main__":
 
-    res = wordBreak().doit4("catsanddog", ["cat","cats","and","sand","dog"])
+    res = WordBreak().doit4("catsanddog", ["cat","cats","and","sand","dog"])
 
-    res = wordBreak().doit("catsanddog", ["cat","cats","and","sand","dog"])
+    res = WordBreak().doit("catsanddog", ["cat","cats","and","sand","dog"])
 
-    res = wordBreak().doit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"])
+    res = WordBreak().doit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"])
 
 
     pass
