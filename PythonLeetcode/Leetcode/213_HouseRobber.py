@@ -1,45 +1,30 @@
+"""
+198. House Robber
+
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you
+from robbing each of them is that adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
+
+Example 1:
+
+Input: nums = [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+             Total amount you can rob = 1 + 3 = 4.
+Example 2:
+
+Input: nums = [2,7,9,3,1]
+Output: 12
+Explanation: Rob house 1 (money = 2), rob house 3 (money = 9) and rob house 5 (money = 1).
+             Total amount you can rob = 2 + 9 + 1 = 12.
+
+"""
 
 
-import os
+class Rob(object):
 
-
-
-# leetcode 198. House Robber
-# You are a professional robber planning to rob houses along a street. 
-# Each house has a certain amount of money stashed, the only constraint stopping you from 
-# robbing each of them is that adjacent houses have security system connected and 
-# it will automatically contact the police if two adjacent houses were broken into on the same night.
-
-# Given a list of non-negative integers representing the amount of money of each house, 
-# determine the maximum amount of money you can rob tonight without alerting the police.
-class rob(object):
-    def doit4(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        def search(nums, i, D):
-            if i == len(nums):
-                return 0
-
-            if i == len(nums) - 1:
-                return nums[-1]
-    
-            if D[i] != 0:
-                return D[i]
-
-            res = max(search(nums, i+1, D), search(nums, i+2, D) + nums[i])
-                
-            if D[i] == 0:
-                D[i] = res
-
-            return res
-
-
-        D = [0 for _ in range(len(nums))]
-        return search(nums, 0, D)
-
-    def doit(self, nums):
+    def doit_dp(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -52,8 +37,7 @@ class rob(object):
         
         return D[len(nums)+1]
 
-
-    def doit2(self, nums):
+    def doit_dp_2(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -64,8 +48,7 @@ class rob(object):
 
         return l1
 
-
-    def doit3(self, nums):
+    def doit_dp_3(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -73,24 +56,64 @@ class rob(object):
         robbed, not_robbed = 0, 0
 
         for i in nums:
-            robbed, not_robbed = not_robbed + i, max(not_robbed, robber)
+            robbed, not_robbed = not_robbed + i, max(not_robbed, robbed)
 
         return max(robbed, not_robbed)
-                    
+
+    def doit4(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+
+        def search(nums, i, D):
+            if i == len(nums):
+                return 0
+
+            if i == len(nums) - 1:
+                return nums[-1]
+
+            if D[i] != 0:
+                return D[i]
+
+            res = max(search(nums, i + 1, D), search(nums, i + 2, D) + nums[i])
+
+            if D[i] == 0:
+                D[i] = res
+
+            return res
+
+        D = [0 for _ in range(len(nums))]
+        return search(nums, 0, D)
+
+"""
+213. House Robber II
+
+You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. 
+All houses at this place are arranged in a circle. That means the first house is the neighbor of the last one. Meanwhile, 
+adjacent houses have security system connected and it will automatically contact the police if two adjacent houses were broken into on the same night.
+
+Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
+
+Example 1:
+
+Input: [2,3,2]
+Output: 3
+Explanation: You cannot rob house 1 (money = 2) and then rob house 3 (money = 2),
+             because they are adjacent houses.
+Example 2:
+
+Input: [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+             Total amount you can rob = 1 + 3 = 4.
+
+"""
 
 
+class RobII(object):
 
-# leetcode 213. House Robber II      
-# After robbing those houses on that street, the thief has found himself a new place 
-# for his thievery so that he will not get too much attention. 
-# This time, all houses at this place are arranged in a circle. 
-# That means the first house is the neighbor of the last one. Meanwhile, 
-# the security system for these houses remain the same as for those in the previous street.
-
-# Given a list of non-negative integers representing the amount of money of each house, 
-# determine the maximum amount of money you can rob tonight without alerting the police.        
-class robII(object):
-    def doit(self, nums):
+    def doit_dp(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -109,8 +132,7 @@ class robII(object):
 
         return max(res1, robbed, not_robbed)
 
-
-    def doit2(self, node):
+    def doit2(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -142,39 +164,56 @@ class robII(object):
 #      / \    \ 
 #     1   3    1
 
+"""
+337. House Robber III
+
+The thief has found himself a new place for his thievery again. There is only one entrance to this area, called the "root." 
+
+Besides the root, each house has one and only one parent house. After a tour, the smart thief realized that "all houses in this place forms a binary tree". 
+
+It will automatically contact the police if two directly-linked houses were broken into on the same night.
+
+Determine the maximum amount of money the thief can rob tonight without alerting the police.
+
+Example 1:
+
+Input: [3,2,3,null,3,null,1]
+
+     3
+    / \
+   2   3
+    \   \ 
+     3   1
+
+Output: 7 
+Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+Example 2:
+
+Input: [3,4,5,1,3,null,1]
+
+     3
+    / \
+   4   5
+  / \   \ 
+ 1   3   1
+
+Output: 9
+Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
+"""
 
 # Definition for a binary tree node.
-class TreeNode(object):
+
+
+class TreeNode:
     def __init__(self, x):
         self.val = x
         self.left = None
         self.right = None
 
-class robIII(object):
-    def doit2(self, root):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        buff = [root]
-        robbed, not_robbed = 0, 0
-        while buff:
 
-            tmp, amount = [], 0
-            for node in buff:
-                amount +=  node.val
-                if node.left:
-                    tmp.push(node.left)
-                if node.right:
-                    tmp.push(node.right)
-                
-            robbed, not_robbed = not_robbed +amount, max(not_robbed, robbed)
-            buff = tmp
-        
-        return max(robbed, not_robbed)
+class RobIII:
 
-
-    def doit(self, root):
+    def doit_dfs(self, root):
         """
         :type nums: List[int]
         :rtype: int
@@ -190,8 +229,7 @@ class robIII(object):
 
         return max(search(root))
 
-
-    def doit3(self, root):
+    def doit_dfs_1(self, root):
         """
         :type nums: List[int]
         :rtype: int
@@ -224,14 +262,10 @@ class robIII(object):
         return search(root, D)
 
 
-
-
-
 if __name__=="__main__":
 
-
-    res = rob().doit2([1])
+    res = RobIII().doit2([1])
     
-    res = robII().doit([1])
+    res = RobIII().doit([1])
 
     pass

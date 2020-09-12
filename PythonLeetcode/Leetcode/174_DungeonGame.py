@@ -1,6 +1,6 @@
 
 
-
+"""
 # 174. Dungeon Game
 
 # The demons had captured the princess (P) and imprisoned her in the bottom-right corner of a dungeon.
@@ -18,7 +18,7 @@
 
 # Write a function to determine the knight's minimum initial health so that he is able to rescue the princess.
 
-# For example, given the dungeon below, the initial health of the knight must be at least 7 
+# For example, given the dungeon below, the initial health of the knight must be at least 7
 # if he follows the optimal path RIGHT-> RIGHT -> DOWN -> DOWN.
 
 # -2 (K)  -3	3
@@ -30,35 +30,37 @@
 # The knight's health has no upper bound.
 # Any room can contain threats or power-ups, even the first room the knight enters and the bottom-right room
 # where the princess is imprisoned.
+"""
 
 
 class CalculateMinimumHP:
 
+    """
+    # seems pretty simple� and easy to understand explanations�
 
-# seems pretty simple� and easy to understand explanations�
+    # It is easy to know that at grid P, since " at any point his health point drops to 0 or below,
+    # he dies immediately", the remaining health value should be at least 1, that is, initialHealth + dungeon >= 1,
+    # we have initialHealth = max(1, 1 - dungeon[i][j]). (Notice, at any grid, the initial health should be at least 1
+    # (for example, test case [1,0,0] require initial health 1 even though it has positive remaining health at grid[0][1] and grid[0][2])
 
-# It is easy to know that at grid P, since " at any point his health point drops to 0 or below,
-# he dies immediately", the remaining health value should be at least 1, that is, initialHealth + dungeon >= 1,
-# we have initialHealth = max(1, 1 - dungeon[i][j]). (Notice, at any grid, the initial health should be at least 1
-# (for example, test case [1,0,0] require initial health 1 even though it has positive remaining health at grid[0][1] and grid[0][2])
+    # Similarly, to satisfy the initial health of dungeon[i][j], the initial health of dungeon[i-1][j]
+    #(or dungeon[i][j-1]) should be at least initialHealth[i-1][j] + dungeon[i-1][j] = initialHealth[i][j], that is,
+    # initialHealth[i][j] = initialHealth[i][j] - dungeon[i-1][j].
 
-# Similarly, to satisfy the initial health of dungeon[i][j], the initial health of dungeon[i-1][j] 
-#(or dungeon[i][j-1]) should be at least initialHealth[i-1][j] + dungeon[i-1][j] = initialHealth[i][j], that is,
-# initialHealth[i][j] = initialHealth[i][j] - dungeon[i-1][j].
-
-# In addition, if grid[i][j] can go both grid[i+1][j] and grid[i][j+1] to P,
-# we should choose a path with less initial health between grid[i+1][j] and grid[i][j+1] since it require less initial health of grid[i][j].
-# We can simply code the solution by having the dynamic programming equations.
+    # In addition, if grid[i][j] can go both grid[i+1][j] and grid[i][j+1] to P,
+    # we should choose a path with less initial health between grid[i+1][j] and grid[i][j+1] since it require less initial health of grid[i][j].
+    # We can simply code the solution by having the dynamic programming equations.
+    """
 
     # <DP>
-    def doit(self, dungeon):
+    def doit_dp(self, dungeon):
         """
         :type dungeon: List[List[int]]
         :rtype: int
         """
         m, n = len(dungeon), len(dungeon[0])
 
-        DP = [ [ [0] for j in range(n)] for i in range(m)]
+        DP = [ [ 0 for j in range(n)] for i in range(m)]
 
         for i in reversed(range(m)):
 
@@ -82,8 +84,27 @@ class CalculateMinimumHP:
                         
         return DP[0][0]
 
+    def doit_dp(self, dungeon):
+        # dp
+        # every Cell initial value for entering
+        # therefore buttom up
+        # if top dowm, since initial value updated when cur < 0
+        # need one more information
+        # m*n matrix
+        m = len(dungeon)
+        n = len(dungeon[0])
+        if m <= 0 or n <= 0:
+            return 0
 
-    def doit(self, dungeon):
+        min_enter = [[float('inf')] * (n + 1) for _ in range(m + 1)]
+        min_enter[m][n - 1], min_enter[m - 1][n] = 1, 1
+
+        for i in range(m - 1, -1, -1):
+            for j in range(n - 1, -1, -1):
+                min_enter[i][j] = max(min(min_enter[i + 1][j], min_enter[i][j + 1]) - dungeon[i][j], 1)
+        return min_enter[0][0]
+
+    def doit_dp(self, dungeon):
         """
         :type dungeon: List[List[int]]
         :rtype: int
@@ -97,15 +118,13 @@ class CalculateMinimumHP:
 
         return needed[0]
 
-
-
     def doit1(self, dungeon):
         """
         :type dungeon: List[List[int]]
         :rtype: int
         """
         m, n = len(dungeon), len(dungeon[0])
-        DP = [ [ [ [0, 0] ] for j in range(n)] for i in range(m)]
+        DP = [ [ 0 for j in range(n)] for i in range(m)]
         
         for i in range(m):
             for j in range(n):
@@ -125,13 +144,15 @@ class CalculateMinimumHP:
 
         return DP[-1][-1]
 
-if __name__=="__main__":
 
+if __name__ == "__main__":
 
-    A = [ [-2,  -3,  3], 
+    A = [
+          [-2,  -3,  3],
           [-5, -10,  1],
-          [10,  30, -5]]
+          [10,  30, -5]
+        ]
 
     res = CalculateMinimumHP().doit(A)
 
-    pass    
+    pass
