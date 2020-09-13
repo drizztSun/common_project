@@ -1,6 +1,4 @@
-
-
-
+"""
 # 321. Create Maximum Number
 
 # Given two arrays of length m and n with digits 0-9 representing two numbers.
@@ -25,12 +23,13 @@
 # nums2 = [8, 9]
 # k = 3
 # return [9, 8, 9]
+"""
+
 
 # <important> <hard>
-class maxNumber(object):
+class MaxNumber(object):
 
-    # 
-    def doit(self, a, b, k):
+    def doit_dp(self, a, b, k):
         """
         :type nums1: List[int]
         :type nums2: List[int]
@@ -145,12 +144,7 @@ class maxNumber(object):
             return out[:k]
 
 
-        return max([ merge(prepare(nums1, i), prepare(nums2, k-i)) for i in range(k+1)
-                        if i <= len(nums1) and k-i <= len(nums2)])           
-            
-                
-
-
+        return max([ merge(prepare(nums1, i), prepare(nums2, k-i)) for i in range(k+1) if i <= len(nums1) and k-i <= len(nums2)])
 
     # <myown>
     def doit(self, nums1, nums2, k):

@@ -1,7 +1,4 @@
-
-
-
-
+"""
 # 312. Burst Balloons
 
 # Given n balloons, indexed from 0 to n-1. Each balloon is painted with a number on it represented by array nums.
@@ -23,6 +20,7 @@
 
 #    nums = [3,1,5,8] --> [3,5,8] -->   [3,8]   -->  [8]  --> []
 #   coins =  3*1*5      +  3*5*8    +  1*3*8      + 1*8*1   = 167
+"""
 
 
 class maxCoins:
@@ -37,6 +35,7 @@ class maxCoins:
             return 0
 
         nums = [1] + nums + [1]
+
         def search(nums):
             if len(nums) <= 3:
                 res = 1
@@ -52,9 +51,9 @@ class maxCoins:
 
         return search(nums)
 
-
     # O(n**3)
-    def doit(self, nums):
+
+    def doit_dp(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -63,7 +62,7 @@ class maxCoins:
             return 0
 
         nums = [1] + nums + [1]
-        
+
         D = [[-1 for _ in range(len(nums))] for j in range(len(nums))]
 
         def search(nums, s, e, D):
@@ -72,7 +71,6 @@ class maxCoins:
 
             if D[s][e] != -1:
                 return D[s][e]
-
 
             for i in range(s, e + 1):
                 accu = nums[s-1] * nums[i] * nums[e+1]
@@ -83,9 +81,9 @@ class maxCoins:
 
         return search(nums, 1, len(nums) - 2, D)
 
-
     #  O(n**3)
     # <DP>
+
     def doit1(self, nums):
         """
         :type nums: List[int]
@@ -106,39 +104,33 @@ class maxCoins:
                 BestGain[i][j] = maxGain
 
         return BestGain[0][lenth + 1]
-             
-
 
     # O(n**3)
+
     def doit(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
         nums = [1] + nums + [1]
-        D = [ [ 0 for _ in range(len(nums))] for _ in range(len(nums))]
-        
+        D = [[0 for _ in range(len(nums))] for _ in range(len(nums))]
+
         for l in range(1, len(nums)-1):
             for s in range(1, len(nums) - l):
-                
                 for k in range(s, s+l):
                     accu = nums[s-1] * nums[k] * nums[s+l]
                     accu += D[s][k-1] + D[k+1][s+l-1]
-                    
+
                     if accu > D[s][s+l-1]:
                         D[s][s+l-1] = accu
-                        
+
         return D[1][len(nums) - 2]
 
 
-
-
-if __name__=="__main__":
-
-    
+if __name__ == "__main__":
 
     res = maxCoins().doit([3, 1, 5, 8])
 
-    res = maxCoins().doit([35,16,83,87,84,59,48,41,20,54])
+    res = maxCoins().doit([35, 16, 83, 87, 84, 59, 48, 41, 20, 54])
 
     pass
