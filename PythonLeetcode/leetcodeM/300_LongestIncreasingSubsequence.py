@@ -89,7 +89,7 @@ class LengthOfLIS:
             else:
                 # D is a sequence of element from low to high, same order in array.
                 # replace the most left value bigger then current one, but not drop current one.
-                # because if we drop 4, not replace the one in sequence, like 8, it will  7 can't find a place to stay.
+                # because if we drop 4, not replace the one in sequence like 8, it will  7 can't find a place to stay.
                 # 8, 7 is not working, but 4, 7 is working.
                 # we need a asc sequence, we just need to support the greater-less relationship
                 D[helper(D, c)] = c

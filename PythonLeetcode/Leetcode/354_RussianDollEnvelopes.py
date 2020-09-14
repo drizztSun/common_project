@@ -1,10 +1,8 @@
-
-
-
+"""
 # 354. Russian Doll Envelopes
 
 # You have a number of envelopes with widths and heights given as a pair of integers (w, h).
-# One envelope can fit into another if and only if both the width and height of one envelope 
+# One envelope can fit into another if and only if both the width and height of one envelope
 # is greater than the width and height of the other envelope.
 
 # What is the maximum number of envelopes can you Russian doll? (put one inside other)
@@ -12,33 +10,37 @@
 # Example:
 # Given envelopes = [[5,4],[6,4],[6,7],[2,3]], the maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
 
-
-class maxEnvelopes(object):
-
-
-# The idea is to order the envelopes and then calculate the longest increasing subsequence (LISS).
-# We first sort the envelopes by width, and we also make sure that when the width is the same,
-# the envelope with greater height comes first.
-
-# 300. Longest Increasing Subsequence (reference)
-
-# Why? This makes sure that when we calculate the LISS, we don’t have a case such as [3, 4] [3, 5]
-# (we could increase the LISS but this would be wrong as the width is the same. It can’t happen when [3, 5] comes first in the ordering).
-
-# We could calculate the LISS using the standard DP algorithm (quadratic runtime),
-# but we can just use the tails array method with a twist: we store the index of the tail,
-# and we do leftmost insertion point as usual to find the right index in nlogn time.
-# Why not rightmost? Think about the case [1, 1], [1, 1], [1, 1].
+"""
+import bisect
 
 
-# Sort the array. Ascend on width and descend on height if width are same.
-# Find the longest increasing subsequence based on height.
-# Since the width is increasing, we only need to consider height.
-# [3, 4] cannot contains [3, 3], so we need to put [3, 4] before [3, 3] when sorting otherwise 
-# it will be counted as an increasing number if the order is [3, 3], [3, 4]
+class MaxEnvelopes:
+
+    """
+    # The idea is to order the envelopes and then calculate the longest increasing subsequence (LISS).
+    # We first sort the envelopes by width, and we also make sure that when the width is the same,
+    # the envelope with greater height comes first.
+
+    # 300. Longest Increasing Subsequence (reference)
+
+    # Why? This makes sure that when we calculate the LISS, we don’t have a case such as [3, 4] [3, 5]
+    # (we could increase the LISS but this would be wrong as the width is the same. It can’t happen when [3, 5] comes first in the ordering).
+
+    # We could calculate the LISS using the standard DP algorithm (quadratic runtime),
+    # but we can just use the tails array method with a twist: we store the index of the tail,
+    # and we do leftmost insertion point as usual to find the right index in nlogn time.
+    # Why not rightmost? Think about the case [1, 1], [1, 1], [1, 1].
 
 
-    def doit(self, envelopes):
+    # Sort the array. Ascend on width and descend on height if width are same.
+    # Find the longest increasing subsequence based on height.
+    # Since the width is increasing, we only need to consider height.
+    # [3, 4] cannot contains [3, 3], so we need to put [3, 4] before [3, 3] when sorting otherwise
+    # it will be counted as an increasing number if the order is [3, 3], [3, 4]
+    """
+
+    # <N*log(N)>
+    def doit_dp_binary_search(self, envelopes):
         """
         :type envelopes: List[List[int]]
         :rtype: int
@@ -51,7 +53,6 @@ class maxEnvelopes(object):
                     e = m-1
                 else:
                     s = m+1
-
             return s                
 
         envelopes.sort(key=lambda x: (x[0], -x[1]))        
@@ -60,6 +61,7 @@ class maxEnvelopes(object):
         for i, c in enumerate(envelopes):
 
             index = lmip(envelopes, tail, c)
+
             if index >= len(tail):
                 tail.append(index)
             else:
@@ -67,8 +69,8 @@ class maxEnvelopes(object):
 
         return len(tail)
     
-    # <DP>
-    def doit1(self, envelopes):
+    # <DP> <n2>
+    def doit_dp(self, envelopes):
         """
         :type envelopes: List[List[int]]
         :rtype: int
@@ -172,8 +174,8 @@ class Solution:
 if __name__=="__main__":
 
 
-    res = maxEnvelopes().doit([[5,4],[6,4],[6,7],[2,3]])
+    res = MaxEnvelopes().doit([[5,4],[6,4],[6,7],[2,3]])
 
-    res = maxEnvelopes().doit([[5,4],[6,4],[6,7],[2,3]])
+    res = MaxEnvelopes().doit([[5,4],[6,4],[6,7],[2,3]])
 
     pass
