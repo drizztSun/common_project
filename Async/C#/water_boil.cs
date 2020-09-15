@@ -64,6 +64,11 @@ async Task taskRunning() {
 
         func MoveNext() {
             if num != 0{
+                
+                TaskAwaiter<String> await;
+
+                <client>5_1 = new HttpClient()
+                await = <client>5__1.GetStringAsync("https://www.google/com").GetAwaiter();
                 if (!await.IsCompleted()) 
                 {
                     num = (<>1_state = 0)
