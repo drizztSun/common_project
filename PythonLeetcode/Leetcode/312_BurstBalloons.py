@@ -25,34 +25,7 @@
 
 class maxCoins:
 
-    # <TLE> O(2**n)
-    def doit100(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if not nums:
-            return 0
-
-        nums = [1] + nums + [1]
-
-        def search(nums):
-            if len(nums) <= 3:
-                res = 1
-                for c in nums:
-                    res *= c
-                return res
-
-            res = 1
-            for i in range(1, len(nums) - 1):
-                accu = nums[i] * nums[i-1] * nums[i+1]
-                res = max(res, search(nums[:i] + nums[i+1:]) + accu)
-            return res
-
-        return search(nums)
-
     # O(n**3)
-
     def doit_dp(self, nums):
         """
         :type nums: List[int]
@@ -83,7 +56,6 @@ class maxCoins:
 
     #  O(n**3)
     # <DP>
-
     def doit1(self, nums):
         """
         :type nums: List[int]
@@ -106,7 +78,6 @@ class maxCoins:
         return BestGain[0][lenth + 1]
 
     # O(n**3)
-
     def doit(self, nums):
         """
         :type nums: List[int]

@@ -4,47 +4,44 @@ import (
 	"fmt"
 )
 
-func maximalSquare_dp(matrix [][]byte) int {
+func search_beautiful_array(n int, memo map[int][]int) []int {
 
-	minInt := func(a, b int) int {
-		if a > b {
-			return b
-		}
-		return a
+	if c, ok := memo[n]; ok {
+		return c
 	}
 
-	m, n := len(matrix), len(matrix[0])
-	dp := make([][]int, m)
-	res := 0
+	odd := search_beautiful_array((n+1)/2, memo)
+	even := search_beautiful_array(n/2, memo)
 
-	for i := range dp {
-		dp[i] = make([]int, n)
+	res := make([]int, len(odd) + len(even))
+
+	b := 0
+	for i := range odd {
+		res[b] = 2 * odd[i] - 1
+		b++
 	}
 
-	for i := range dp {
-		for j := range dp[i] {
-
-			if (i == 0 || j == 0) && matrix[i][j] == '1' {
-				dp[i][j] = 1
-			} else if matrix[i][j] == '1' {
-				dp[i][j] = 1 + minInt(minInt(dp[i-1][j-1], dp[i-1][j]), minInt(dp[i-1][j-1], dp[i][j-1]))
-			} else {
-				dp[i][j] = 0
-			}
-
-			if res < dp[i][j] {
-				res = dp[i][j]
-			}
-		}
+	for j := range even {
+		res[b] = 2 * even[j]
+		b++
 	}
 
-	return res * res
+	memo[n] = res
+	return res
+}
+
+func beautifulArray(N int) []int {
+
+	memo := map[int][]int{1: []int{1}}
+
+	return search_beautiful_array(N, memo)
+
 }
 
 func main() {
 	fmt.Println("--- basic main function ---")
 
-	maximalSquare_dp([][]byte{{'1', '0', '1', '0', '0'}, {'1', '0', '1', '1', '1'}, {'1', '1', '1', '1', '1'}, {'1', '0', '0', '1', '0'}})
+	beautifulArray(4)
 
 	// Test_null_interface()
 

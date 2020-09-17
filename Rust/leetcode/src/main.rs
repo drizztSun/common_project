@@ -31,5 +31,7 @@ fn main() {
 
     // leetcode_hard::A10_RegularExpressionMatching::test_10_regular_expressing_matching();
 
-    leetcode_hard::A44_WildcardMatching::test_44_wild_card_matching();
+    // leetcode_hard::A44_WildcardMatching::test_44_wild_card_matching();
+
+    leetcode_hard::A4_MedianofTwoSortedArrays::test_4_MedianTwoSortedArrays();
 }

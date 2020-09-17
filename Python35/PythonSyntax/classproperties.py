@@ -130,4 +130,3 @@ if __name__ == "__main__":
         self.assertEqual(1, len(history))
         self.assertEqual(TENANT_ID3 + '-devId3-username', history[0]["idp_username"])
 
-    

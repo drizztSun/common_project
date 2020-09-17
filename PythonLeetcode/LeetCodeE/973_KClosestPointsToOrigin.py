@@ -1,3 +1,4 @@
+"""
 # 973. K Closest Points to Origin
 
 # We have a list of points on the plane.  Find the K closest points to the origin (0, 0).
@@ -8,7 +9,7 @@
 
 # Input: points = [[1,3],[-2,2]], K = 1
 # Output: [[-2,2]]
-# Explanation: 
+# Explanation:
 # The distance between (1, 3) and the origin is sqrt(10).
 # The distance between (-2, 2) and the origin is sqrt(8).
 # Since sqrt(8) < sqrt(10), (-2, 2) is closer to the origin.
@@ -19,52 +20,85 @@
 # Input: points = [[3,3],[5,-1],[-2,4]], K = 2
 # Output: [[3,3],[-2,4]]
 # (The answer [[-2,4],[3,3]] would also be accepted.)
- 
+
 # Note:
 
 # 1 <= K <= points.length <= 10000
 # -10000 < points[i][0] < 10000
 # -10000 < points[i][1] < 10000
+"""
 
 
-class kClosest:
+class KClosest:
 
-    def doit(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
 
-        dis = []    
-        for c in points:
-            dis.append((c[0]**2 + c[1]**2, c))
+    """
+    Approach 2: Divide and Conquer
+    Intuition
 
-        def partition(low, high):
+    We want an algorithm faster than N \log NNlogN. Clearly, the only way to do this is to use the fact that the K elements returned can be in any order -- otherwise we would be sorting which is at least N \log NNlogN.
 
-            c, i, j = dis[high], low-1, low
-            
-            while j < high - 1:
-                
-                if dis[j] < c:
+    Say we choose some random element x = A[i] and split the array into two buckets: one bucket of all the elements less than x, and another bucket of all the elements greater than or equal to x. This is known as "quickselecting by a pivot x".
+
+    The idea is that if we quickselect by some pivot, on average in linear time we'll reduce the problem to a problem of half the size.
+
+    Algorithm
+
+    Let's do the work(i, j, K) of partially sorting the subarray (points[i], points[i+1], ..., points[j]) so that the smallest K elements of this subarray occur in the first K positions (i, i+1, ..., i+K-1).
+
+    First, we quickselect by a random pivot element from the subarray. To do this in place, we have two pointers i and j, and move these pointers to the elements that are in the wrong bucket -- then, we swap these elements.
+
+    After, we have two buckets [oi, i] and [i+1, oj], where (oi, oj) are the original (i, j) values when calling work(i, j, K).
+
+    Say the first bucket has 10 items and the second bucket has 15 items.
+    If we were trying to partially sort say, K = 5 items, then we only need to partially sort the first bucket: work(oi, i, 5).
+    Otherwise, if we were trying to partially sort say, K = 17 items, then the first 10 items are already partially sorted, and we only need to partially sort the next 7 items: work(i+1, oj, 7).
+    """
+
+    def doit_divide_and_conquer(self, points, K):
+        import random
+
+        dist = lambda i: points[i][0]**2 + points[i][1]**2
+
+        def sort(i, j, K):
+            # Partially sorts A[i:j+1] so the first K elements are
+            # the smallest K elements.
+            if i >= j:
+                return
+
+            # Put random element as A[i] - this is the pivot
+            k = random.randint(i, j)
+            points[i], points[k] = points[k], points[i]
+
+            mid = partition(i, j)
+            if K < mid - i + 1:
+                sort(i, mid - 1, K)
+            elif K > mid - i + 1:
+                sort(mid + 1, j, K - (mid - i + 1))
+
+        def partition(i, j):
+            # Partition by pivot A[i], returning an index mid
+            # such that A[i] <= A[mid] <= A[j] for i < mid < j.
+            oi = i
+            pivot = dist(i)
+            i += 1
+
+            while True:
+                while i < j and dist(i) < pivot:
                     i += 1
-                    dis[i], dis[j] = dis[j], dis[i]
+                while i <= j and dist(j) >= pivot:
+                    j -= 1
+                if i >= j:
+                    break
+                points[i], points[j] = points[j], points[i]
 
-                j += 1
+            points[oi], points[j] = points[j], points[oi]
+            return j
 
-            dis[i+1], dis[high] = dis[high], dis[i+1]
+        sort(0, len(points) - 1, K)
+        return points[:K]
 
-            return i + 1
-
-
-        low, high = 0, len(dis)-1
-        while True:
-            a = partition(low, high)
-            if a == K:
-                return dis[:K]
-
-            if a > K:
-                low, high = 0, a-1
-            else:
-                low, high = a+1, len(dis-1)                
-
-
-    def doit(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
+    def doit_map(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
         
         distance = {}
         for c in points:
@@ -86,8 +120,7 @@ class kClosest:
                 
         return ans
 
-
-    def doit1(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
+    def doit_heap_sort(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
         import heapq
         distance = []
         for c in points:
@@ -101,8 +134,7 @@ class kClosest:
 
         return ans
 
-
-    def doit2(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
+    def doit_sort(self, points: 'List[List[int]]', K: 'int') -> 'List[List[int]]':
 
         points.sort(key=lambda x: x[0] ** 2 + x[1] ** 2)
         return points[:K]
@@ -111,5 +143,5 @@ class kClosest:
 
 if __name__ == "__main__":
 
-    res = kClosest().doit([[1,3],[-2,2]], 1)
+    res = KClosest().doit([[1,3],[-2,2]], 1)
             

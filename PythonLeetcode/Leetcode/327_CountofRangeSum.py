@@ -1,5 +1,4 @@
-
-
+"""
 # 327. Count of Range Sum
 
 # Given an integer array nums, return the number of range sums that lie in [lower, upper] inclusive.
@@ -13,13 +12,18 @@
 # Return 3.
 # The three ranges are : [0, 0], [2, 2], [0, 2] and their respective sums are: -2, -1, 2.
 
-class segnode:
+"""
+
+
+class Segnode:
     def __init__(self, s, e, val=0):
         self.s_, self.e_ = s, e
         self.sum_ = val
         self.left_, self.right_ = None, None
 
-class segtree:
+
+class Segtree:
+
     def __init__(self, nums):
 
         self.root_ = self.buildTree(nums)
@@ -29,14 +33,13 @@ class segtree:
         def forge(s, e, nums) :
             
             if s == e:
-                return segnode(s, e, nums[s])
+                return Segnode(s, e, nums[s])
 
             mid = (s + e) // 2
 
-            root = segnode(s, e)
+            root = Segnode(s, e)
             root.left_ = forge(s, mid, nums)
             root.right_ = forge(mid+1, e, nums)
-
             root.sum_ = root.left_.sum_ + root.right_.sum_
 
             return root
@@ -66,7 +69,6 @@ class segtree:
             return res
 
         return search(self.root_, s, e)
-
     
     def searchSeg(self, lower, upper):
 
@@ -80,36 +82,32 @@ class segtree:
 
             mid = (node.s_ + node.e_) // 2
 
-            
-            
             res += search(node.left_, lower, upper) + search(node.right_, lower, upper)
             return res
        
         return search(self.root_, lower, upper)
 
 
-class countRangeSum:
+class CountRangeSum:
 
+    """
+    # First compute the prefix sums: first[m] is the sum of the first m numbers.
+    # Then the sum of any subarray nums[i:k] is simply first[k] - first[i].
+    # So we just need to count those where first[k] - first[i] is in [lower,upper].
 
+    # To find those pairs, I use mergesort with embedded counting.
+    # The pairs in the left half and the pairs in the right half get counted in the recursive calls.
+    # We just need to also count the pairs that use both halves.
 
-# First compute the prefix sums: first[m] is the sum of the first m numbers.
-# Then the sum of any subarray nums[i:k] is simply first[k] - first[i].
-# So we just need to count those where first[k] - first[i] is in [lower,upper].
+    # For each left in first[lo:mid], I find all right in first[mid:hi] so that right - left lies in [lower, upper].
+    # Because the halves are sorted, these fitting right values are a subarray first[i:j].
+    # With increasing left we must also increase right, meaning must we leave out first[i]
+    # if it’s too small and and we must include first[j] if it’s small enough.
 
-# To find those pairs, I use mergesort with embedded counting.
-# The pairs in the left half and the pairs in the right half get counted in the recursive calls.
-# We just need to also count the pairs that use both halves.
-
-# For each left in first[lo:mid] I find all right in first[mid:hi] so that right - left lies in [lower, upper].
-# Because the halves are sorted, these fitting right values are a subarray first[i:j].
-# With increasing left we must also increase right, meaning must we leave out first[i]
-# if it’s too small and and we must include first[j] if it’s small enough.
-
-# Besides the counting, I also need to actually merge the halves for the sorting.
-# I let sorted do that, which uses Timsort and takes linear time to recognize and merge the already sorted halves.
-
-
-    def doit(self, nums, lower, upper):
+    # Besides the counting, I also need to actually merge the halves for the sorting.
+    # I let sorted do that, which uses Timsort and takes linear time to recognize and merge the already sorted halves.
+    """
+    def doit_divide_and_conquer(self, nums, lower, upper):
         """
         :type nums: List[int]
         :type lower: int
@@ -149,15 +147,63 @@ class countRangeSum:
             return count            
                         
         return search(0, len(first))
-                        
-            
 
-if __name__=="__main__":
 
-    res = countRangeSum().doit([], 0, 0)
+# BIT Solution
+class BITRangeSum(object):
 
-    res = countRangeSum().doit([-2, 5, -1], -2, 2)
+    def countRangeSum(self, nums, lower, upper):
+        """
+        :type nums: List[int]
+        :type lower: int
+        :type upper: int
+        :rtype: int
+        """
+        cum_sum = [0]
+        for i, num in enumerate(nums):
+            cum_sum.append(cum_sum[-1] + num)
 
-    res = countRangeSum().doit([0,-3,-3,1,1,2], 3, 5)
+        min_sum = min(cum_sum)
+        add_on = max(0, 1 - min_sum, 1 - lower)
+        for i in range(len(cum_sum)):
+            cum_sum[i] += add_on
+            # can also distionary to map num to index
+
+        lower += add_on
+        upper += add_on
+        max_sum = max(cum_sum)
+        bit = [0 for _ in range(max_sum + 1)]
+        bit[add_on] = 1
+        res = 0
+
+        for i in range(1, len(cum_sum)):
+            res += self.query(bit, upper) - self.query(bit, lower - 1)
+            self.update(bit, cum_sum[i])
+
+        return res
+
+    def query(self, bit, num):
+        res = 0
+        while num > 0:
+            res += bit[num]
+            num -= self.lowbit(num)
+        return res
+
+    def lowbit(self, num):
+        return num & - num
+
+    def update(self, bit, num):
+        while num <= len(bit) - 1:
+            bit[num] += 1
+            num += self.lowbit(num)
+
+
+if __name__== "__main__":
+
+    # res = CountRangeSum().doit_divide_and_conquer([], 0, 0)
+
+    res = CountRangeSum().doit_divide_and_conquer([-2, 5, -1], -2, 2)
+
+    res = CountRangeSum().doit_divide_and_conquer([0,-3,-3,1,1,2], 3, 5)
 
     pass

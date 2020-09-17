@@ -1,6 +1,7 @@
+"""
 # 215. Kth Largest Element in an Array
 
-#Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, 
+#Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order,
 #not the kth distinct element.
 
 #Example 1:
@@ -11,16 +12,18 @@
 
 #Input: [3,2,3,1,2,4,5,5,6] and k = 4
 #Output: 4
-#Note: 
+#Note:
 #You may assume k is always valid, 1 ≤ k ≤ array's length.
-import heapq
+"""
+
 
 class FindKthLargest:
 
-    def doit(self, nums: 'List[int]', k: 'int') -> 'int':
+    def doit_heapq(self, nums: 'List[int]', k: 'int') -> 'int':
+        import heapq
         return heapq.nlargest(k,nums)[-1]
         
-    def doit1(self, nums: 'List[int]', k: 'int') -> 'int':
+    def doit_divide_and_conquer(self, nums: 'List[int]', k: 'int') -> 'int':
         A, B, k = nums[0], 0, k - 1
         min, max = 0, len(nums)
         while True:
