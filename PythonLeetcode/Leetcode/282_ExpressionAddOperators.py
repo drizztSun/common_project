@@ -123,32 +123,32 @@ class AddOperators:
         :type target: int
         :rtype: List[str]
         """
-        self.res = []
-        self.target = target
-        self.dfs(num, 0,0,0,'')
-        return self.res
+        def dfs(num, start, curSum, prevNum, path):
 
-    def dfs(self, num, start, curSum, prevNum,path):
+            if start == len(num):
+                if curSum == self.target:
+                    self.res.append(path)
+                return
 
-        if start == len(num):
-            if curSum == self.target:
-                self.res.append(path)
-            return
+            if max(1, abs(prevNum)) * int(num[start:]) < abs(self.target - curSum):
+                return
 
-        if max(1, abs(prevNum))*int(num[start:]) < abs(self.target-curSum):
-            return
+            for i in range(start + 1, len(num) + 1):
+                n = num[start:i]
+                if i - start > 1 and n[0] == '0':
+                    continue
+                nInt = int(n)
+                if start == 0:
+                    dfs(num, i, nInt, nInt, n)
+                else:
+                    dfs(num, i, curSum + nInt, nInt, path + '+' + n)
+                    dfs(num, i, curSum - nInt, -nInt, path + '-' + n)
+                    dfs(num, i, curSum - prevNum + prevNum * nInt, prevNum * nInt, path + '*' + n)
 
-        for i in range(start+1, len(num)+1):
-            n = num[start:i]
-            if i-start>1 and n[0] == '0':
-                continue
-            nInt = int(n)
-            if start == 0:
-                self.dfs(num, i, nInt, nInt, n)
-            else:
-                self.dfs(num, i, curSum+nInt, nInt, path + '+' + n)
-                self.dfs(num, i, curSum-nInt, -nInt, path + '-' + n)
-                self.dfs(num, i, curSum-prevNum + prevNum * nInt, prevNum * nInt, path + '*' + n)
+        res = []
+        target = target
+        dfs(num, 0,0,0,'')
+        return res
 
     # Best one
     def addOperators(self, num, target):
@@ -157,45 +157,44 @@ class AddOperators:
         :type target: int
         :rtype: List[str]
         """
-        self.listAnswer = []
-        self.target = target
-        # self.r(num, 0, len(num), 0, 0, "")
-        self.num = num
-        self.end = len(num)
-        self.r(0, 0, 0, "")
-        return self.listAnswer
 
-    def r(self, start, runningVal, prevOp, listString):
-        if start == self.end:
-            if runningVal == self.target:
-                self.listAnswer.append(listString)
-            return
+        def r(start, runningVal, prevOp, listString):
+            if start == end:
+                if runningVal == target:
+                    listAnswer.append(listString)
+                return
 
-        '''
-        THIS single "if" statement below is the optimizer -> UNDERSTAND IT
-
-        Before each recursion cycle -> do this check below:
-            -> if what was found * remaining values from num will be greater than or equal to target
-            -> then this cycle is worth checking, otherwise traversing down this path is worthless
-            -> since the remainder of that path won't have enough to form the target number
-        '''
-        if max(1, abs(prevOp)) * int(self.num[start:]) < abs(self.target - runningVal):
-            return
-
-        for index in range(start + 1, self.end + 1):
-            toEvalNumString = self.num[start:index]
-            if index - start > 1 and toEvalNumString[0] == "0":
-                continue
-            toEvalNumInt = int(toEvalNumString)
             '''
-            REMEMBER -> the new starting index for the next recursion will be:
-                     -> "index" from the for range loop, NOT original startIndex
-            "i" for a parameter name is not good - easily confused with loop indexes
+            THIS single "if" statement below is the optimizer -> UNDERSTAND IT
+
+            Before each recursion cycle -> do this check below:
+                -> if what was found * remaining values from num will be greater than or equal to target
+                -> then this cycle is worth checking, otherwise traversing down this path is worthless
+                -> since the remainder of that path won't have enough to form the target number
             '''
-            if start == 0:
-                self.r(index, toEvalNumInt, toEvalNumInt, toEvalNumString)
-            else:
-                self.r(index, runningVal + toEvalNumInt, toEvalNumInt, listString + "+" + toEvalNumString)
-                self.r(index, runningVal - toEvalNumInt, -toEvalNumInt, listString + "-" + toEvalNumString)
-                self.r(index, runningVal - prevOp + (prevOp * toEvalNumInt), prevOp * toEvalNumInt, listString + "*" + toEvalNumString)
-        return
+            if max(1, abs(prevOp)) * int(num[start:]) < abs(target - runningVal):
+                return
+
+            for index in range(start + 1, end + 1):
+                toEvalNumString = num[start:index]
+                if index - start > 1 and toEvalNumString[0] == "0":
+                    continue
+                toEvalNumInt = int(toEvalNumString)
+                '''
+                REMEMBER -> the new starting index for the next recursion will be:
+                         -> "index" from the for range loop, NOT original startIndex
+                "i" for a parameter name is not good - easily confused with loop indexes
+                '''
+                if start == 0:
+                    r(index, toEvalNumInt, toEvalNumInt, toEvalNumString)
+                else:
+                    r(index, runningVal + toEvalNumInt, toEvalNumInt, listString + "+" + toEvalNumString)
+                    r(index, runningVal - toEvalNumInt, -toEvalNumInt, listString + "-" + toEvalNumString)
+                    r(index, runningVal - prevOp + (prevOp * toEvalNumInt), prevOp * toEvalNumInt, listString + "*" + toEvalNumString)
+
+        listAnswer = []
+        target = target
+        end = len(num)
+        r(0, 0, 0, "")
+        return listAnswer
+

@@ -1,3 +1,5 @@
+"""
+
 # 903. Valid Permutations for DI Sequence
 
 # We are given S, a length n string of characters from the set {'D', 'I'}. (These letters stand for "decreasing" and "increasing".)
@@ -21,7 +23,73 @@
 # (3, 0, 2, 1)
 # (3, 1, 2, 0)
 
+
+
+Intuition
+dp[i][j] means the number of possible permutations of first i + 1 digits,
+where the i + 1th digit is j + 1th smallest in the rest of unused digits.
+
+Ok, may not make sense ... Let's see the following diagram.
+
+At the beginning, for N numbers, there is a rank (1, ... , N)
+
+Round i: have (N - i) number, if we pick j th smallest, there is j-1 smaller left, and n - i -j bigger one left.
+
+Then enter next round: we have (N- i - 1) left
+
+ if it is 'I', for each 'j', we need to sum last round,  from (i-1, 0) ... (i-1, j)
+ then dp(i, j) = dp(i,j-1) + dp(i-1, j)
+
+ if it is 'D', for each 'j', we need to sum last round, from (i-1, n-i-1) ... (i, j+1)
+ then dp(i, j) = dp(i-1, j+1) + dp(i, j+1)
+
+
+             'D'                'I'                         'D'
+dp(0, 3) = 1
+(4)
+dp(0, 2) = 1    dp(1, 2) = 1
+(3)             (4,3)           dp(2, 1) = 5
+dp(0, 1) = 1    dp(1, 1) = 2    (413, 314, 214, 423, 324)       dp(3, 0) = 5 (4132, 3142, 2143, 4231, 3241)
+(2)             (42, 32)        dp(2, 0) = 3
+dp(0, 1) = 1    dp(1, 0) = 3    (412, 312, 213)
+(1)             (41, 31, 21)
+
+
+
+
+
+I take the example of S = "DID".
+In the parenthesis, I list all possible permutations.
+
+The permutation can start from 1, 2, 3, 4.
+So dp[0][0] = dp[0][1] = dp[0][2] = dp[0][3] = 1.
+
+We decrese from the first digit to the second,
+the down arrow show the all possibile decresing pathes.
+
+The same, because we increase from the second digit to the third,
+the up arrow show the all possibile increasing pathes.
+
+dp[2][1] = 5, mean the number of permutations
+where the third digitis the second smallest of the rest.
+We have 413,314,214,423,324.
+Fow example 413, where 2,3 are left and 3 the second smallest of them.
+
+
+Explanation
+As shown in the diagram,
+for "I", we calculate prefix sum of the array,
+for "D", we calculate sufixsum of the array.
+
+
+Complexity
+Time O(N^2)
+Space O(N^2)
+"""
+
+
 from functools import lru_cache
+
 
 class NumPermsDISequence:
 
@@ -49,7 +117,7 @@ class NumPermsDISequence:
 
         @lru_cache(None)
         def dp(i, j):
-            # How many ways to place P_i with relative rank j?
+            # How many ways to place P_i with relative rank j
             if i == 0: # pos 0, stop
                 return 1
             elif S[i - 1] == 'D':
@@ -74,29 +142,78 @@ class NumPermsDISequence:
     
     Complexity Analysis
     
-    Time Complexity: O(N^3), where NN is the length of S, or O(N^2) with the optimized version.
+    Time Complexity: O(N^3), where N is the length of S, or O(N^2) with the optimized version.
     
     Space Complexity: O(N^2).
     """
-    def doit(self, S):
+    def doit_dp_dfs(self, S):
         MOD = 10 ** 9 + 7
         N = len(S)
 
-
         @lru_cache(None)
         def dp(i, j):
-            # How many ways to place P_i with relative rank j?
+            # How many ways to place P_i with relative rank j
             if not (0 <= j <= i):
                 return 0
             if i == 0:
                 return 1
             elif S[i - 1] == 'D':
+                # because dp(i, j) == dp(i-1, j) + dp(i-1, j+1) + .. + dp(j-1, i-1)
+                # and dp(i, j+1) = dp(i-1, j+1) + .. + dp(j-1, i-1)
+                # dp(i, j) = dp(i-1, j) + dp(i, j+1)
                 return (dp(i, j + 1) + dp(i - 1, j)) % MOD
             else:
                 return (dp(i, j - 1) + dp(i - 1, j - 1)) % MOD
 
-
         return sum(dp(N, j) for j in range(N + 1)) % MOD
+
+
+    def doit_dp_2(self, S):
+
+        mod = 10 ** 9 + 7
+        n = len(S)
+
+        dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
+        for i in range(n+1):
+            dp[0][i] = 1
+
+        # dp(i,j) if the length of S is i, since j -> i possible correct result.
+        for i, c in enumerate(S):
+
+            if c == 'I':
+                count = 0
+                for j in range(n-i):
+                    dp[i+1][j] = (count + dp[i][j]) % mod
+                    count = dp[i+1][j]
+            else:
+                count = 0
+                for j in range(n-i-1, -1, -1):
+                    dp[i+1][j] = (count + dp[i][j+1]) % mod
+                    count = dp[i+1][j]
+
+        return dp[n][0]
+
+
+    def doit_dp_1(self, S):
+        dp = [1 for _ in range(len(S)+1)]
+
+        for c in S:
+            if c == 'I':
+                dp = dp[:-1]
+                for i in range(1, len(dp)):
+                    dp[i] += dp[i-1]
+            else:
+                dp = dp[1:]
+                for i in reversed(range(len(dp)-1)):
+                    dp[i] += dp[i+1]
+        return dp[0] % (10**9+7)
+
+    def doit_dp(self, S):
+        import itertools
+        dp = [1] * (len(S) + 1)
+        for a, b in zip('I' + S, S):
+            dp = list(itertools.accumulate(dp[:-1] if a == b else dp[-1:0:-1]))
+        return dp[0] % (10**9 + 7)
 
 
     """
@@ -155,4 +272,6 @@ class NumPermsDISequence:
 
 if __name__ == '__main__':
 
-    res = NumPermsDISequence().doit("DID")
+    res = NumPermsDISequence().doit_dp_1("DID")
+
+    res = NumPermsDISequence().doit_dp_1("DIDI")

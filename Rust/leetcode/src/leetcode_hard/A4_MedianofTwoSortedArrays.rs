@@ -83,7 +83,7 @@ impl MedianTwoSortedArray {
                 }
 
                 if (m+n) % 2 == 1 {
-                    left as f64
+                    return left as f64;
                 }
 
                 if c1 == m {
@@ -97,7 +97,7 @@ impl MedianTwoSortedArray {
                     }
                 }
 
-                (left as f64 + right as f64) / 2
+                return (left as f64 + right as f64) / 2 as f64;
             }
         }
 

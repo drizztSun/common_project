@@ -1,3 +1,4 @@
+"""
 # 749. Contain Virus
 
 # A virus is spreading rapidly, and your task is to quarantine the infected area by installing walls.
@@ -57,12 +58,12 @@
 # Throughout the described process, there is always a contiguous viral region
 # that will infect strictly more uncontaminated squares in the next round.
 
-
+"""
 import collections
 
 
 class ContainVirus:
-    def doit(self, grid):
+    def doit_dfs(self, grid):
         """
         :type grid: List[List[int]]
         :rtype: int
@@ -133,26 +134,66 @@ class ContainVirus:
 
         return nwalls
 
+    def doit_bfs(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        row, col = len(grid), len(grid[0])
+
+        def bfs(node):
+            q = collections.deque()
+            xcells = set()
+            walls = []
+            virus = set()  # seen
+            virus.add(node)
+            q.append(node)
+            while q:
+                x, y = q.popleft()
+                for nx, ny in ((x, y + 1), (x, y - 1), (x + 1, y), (x - 1, y)):
+                    if 0 <= nx < row and 0 <= ny < col:
+                        if grid[nx][ny] == 0:
+                            walls.append((nx, ny))
+                            xcells.add((nx, ny))
+                        elif grid[nx][ny] == 1 and (nx, ny) not in virus:
+                            virus.add((nx, ny))
+                            q.append((nx, ny))
+            return [xcells, walls, virus]
+
+        res = 0
+        while True:
+            total = []
+            seen = set()
+            for i in range(row):
+                for j in range(col):
+                    if (i, j) not in seen and grid[i][j] == 1:
+                        tmp = bfs((i, j))
+                        total.append(tmp)
+                        seen |= tmp[2]
+            if not total or not any([n[1] for n in total]):
+                break
+            total.sort(key=lambda x: -len(x[0]))
+            for x, y in total[0][2]:
+                grid[x][y] = -1
+            for dead in total[1:]:
+                for x, y in dead[0]:
+                    grid[x][y] = 1
+            res += len(total[0][1])
+        return res
+
 
 if __name__ == "__main__":
 
-    grid = [[1, 1, 1],
-            [1, 0, 1],
-            [1, 1, 1]]
-
-    res = ContainVirus().doit(grid)
-
-    grid = [[0,1,0,0,0,0,0,1],
-            [0,1,0,0,0,0,0,1],
-            [0,0,0,0,0,0,0,1],
-            [0,0,0,0,0,0,0,0]]
-
-    res = ContainVirus().doit(grid)
-
-    grid = [[1,1,1,0,0,0,0,0,0],
-            [1,0,1,0,1,1,1,1,1],
-            [1,1,1,0,0,0,0,0,0]]
-
-    res = ContainVirus().doit(grid)
+    res = ContainVirus().doit_dfs([
+                               [0,1,0,1,1,1,1,1,1,0],
+                               [0,0,0,1,0,0,0,0,0,0],
+                               [0,0,1,1,1,0,0,0,1,0],
+                               [0,0,0,1,1,0,0,1,1,0],
+                               [0,1,0,0,1,0,1,1,0,1],
+                               [0,0,0,1,0,1,0,1,1,1],
+                               [0,1,0,0,1,0,0,1,1,0],
+                               [0,1,0,1,0,0,0,1,1,0],
+                               [0,1,1,0,0,1,1,0,0,1],
+                               [1,0,1,1,0,1,0,1,0,1]])
 
     pass

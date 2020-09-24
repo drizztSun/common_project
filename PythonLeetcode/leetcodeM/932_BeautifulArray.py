@@ -81,8 +81,8 @@ class BeautifulArray:
 
 if __name__ == '__main__':
 
-    res = BeautifulArray().doit(4)  # [2, 1, 4, 3]
+    res = BeautifulArray().doit_divid_and_conquer(4)  # [2, 1, 4, 3]
 
-    res = BeautifulArray().doit(5)  # [3, 1, 2, 5, 4]
+    res = BeautifulArray().doit_divid_and_conquer(5)  # [3, 1, 2, 5, 4]
 
     pass

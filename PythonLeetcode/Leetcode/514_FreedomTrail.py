@@ -1,6 +1,4 @@
-
-
-
+"""
 # 514. Freedom Trail
 
 # In the video game Fallout 4, the quest "Road to Freedom" requires players to reach a metal dial called the "Freedom Trail Ring",
@@ -10,7 +8,7 @@
 # which represents the keyword needs to be spelled. You need to find the minimum number of steps in order to spell all the characters in the keyword.
 
 # Initially, the first character of the ring is aligned at 12:00 direction.
-# You need to spell all the characters in the string key one by one by rotating the ring clockwise or anticlockwise to make each character of the string key aligned at 12:00 direction and then by pressing the center button. 
+# You need to spell all the characters in the string key one by one by rotating the ring clockwise or anticlockwise to make each character of the string key aligned at 12:00 direction and then by pressing the center button.
 # At the stage of rotating the ring to spell the key character key[i]:
 # You can rotate the ring clockwise or anticlockwise one place, which counts as 1 step.
 # The final purpose of the rotation is to align one of the string ring's characters at the 12:00 direction,
@@ -25,24 +23,45 @@
 # Input: ring = "godding", key = "gd"
 # Output: 4
 # Explanation:
-# For the first key character 'g', since it is already in place, we just need 1 step to spell this character. 
+# For the first key character 'g', since it is already in place, we just need 1 step to spell this character.
 # For the second key character 'd', we need to rotate the ring "godding" anticlockwise by two steps to make it become "ddinggo".
 # Also, we need 1 more step for spelling.
 # So the final output is 4.
+"""
 
-import collections
 
 class FindRotateSteps:
 
+    def doit_dp(self, ring: str, key: str) -> int:
+        from collections import defaultdict
+
+        char_positions = defaultdict(list)
+        n = len(ring)
+        k = len(key)
+        for pos, char in enumerate(ring):
+            char_positions[char].append(pos)
+
+        dp = [0] * n
+        for idx in reversed(range(k - 1)):
+            next_char = key[idx + 1]
+            char = key[idx]
+            for pos in char_positions[char]:
+                if char == next_char:
+                    dp[pos] += 1
+                else:
+                    dp[pos] = min(1 + min(abs(pos - next_pos), n - abs(pos - next_pos)) + dp[next_pos] for next_pos in char_positions[next_char])
+        return min(1 + min(pos, n - pos) + dp[pos] for pos in char_positions[key[0]])
 
     # <dfs> <DP>
-    def doit1(self, ring, key):
+    def doit_dp_recursive_dfs(self, ring, key):
         """
         :type ring: str
         :type key: str
         :rtype: int
         """
-        def search(rIndex, kIndex) :
+        import collections
+
+        def search(rIndex, kIndex):
 
             if kIndex == len(key):
                 return 0
@@ -52,7 +71,6 @@ class FindRotateSteps:
 
             res = float('inf')
             for pos in charDict[key[kIndex]]:
-
                 step = min(abs(pos - rIndex), len(ring) - abs(pos - rIndex))
                 res = min(res, step + search(pos, kIndex + 1))
             
@@ -65,7 +83,6 @@ class FindRotateSteps:
             charDict[c].append(i)
 
         return search(0, 0)
-
 
     # <DP>
     def doit(self, ring, key):

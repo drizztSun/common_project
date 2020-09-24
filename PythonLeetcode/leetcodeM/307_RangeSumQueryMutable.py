@@ -1,5 +1,4 @@
-
-
+"""
 # 307. Range Sum Query - Mutable
 
 # Given an integer array nums, find the sum of the elements between indices i and j (i ? j), inclusive.
@@ -11,17 +10,15 @@
 # sumRange(0, 2) -> 9
 # update(1, 2)
 # sumRange(0, 2) -> 8
+"""
 
 
 # <hard> <important>
 class SegmentTreeSumNode:
         
     def __init__(self, start, end, sum=0):
-
         self.start, self.end = start, end
-
         self.sum = sum
-    
         self.right, self.left = None, None
 
 
@@ -41,10 +38,8 @@ class SegementTreeSum:
                 return a
         
             mid = (s + e) // 2
-
             a.left = forge(A, s, mid)
             a.right = forge(A, mid+1, e)
-
             a.sum = a.left.sum + a.right.sum
             return a
 
@@ -120,12 +115,10 @@ class NumArray:
         :rtype: int
         """
         return self.sgmnTree.query(i, j)
-        
-
 
 
 # normal way, O(n)
-class NumArrayOn(object):
+class NumArrayOn:
     def __init__(self, nums):
         self.update = nums.__setitem__
         self.sumRange = lambda i, j: sum(nums[i:j+1])
@@ -239,7 +232,6 @@ class NumArrayBiTree:
             while k <= self.n: 
                 self.c[k] += nums[i]
                 k +=  k & (-k)
-                
 
     def update(self, i, val):
         diff = val - self.nums[i]
@@ -265,9 +257,6 @@ class NumArrayBiTree:
             i -= i & (-i)
 
         return res
-
-
-
 
 
 class NumArrayBiTree1:
@@ -321,7 +310,7 @@ class NumArrayBiTree1:
         return res
 
 
-if __name__=="__main__":
+if __name__== "__main__":
 
 
     obj = NumArrayBiTree([1, 3, 5])
