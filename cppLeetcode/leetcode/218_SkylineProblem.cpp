@@ -54,34 +54,49 @@ class SkylineProblem {
 
 public:
 
-	vector<pair<int, int>> doit(vector<vector<int>>& input) {
+	vector<vector<int>> doit_heap(vector<vector<int>>& buildings) {
 
-		vector<pair<int, int>> res;
+        priority_queue<pair<int, int>> rightNd;
+        vector<vector<int>> skyline;
+        size_t i = 0, x = 0;
+        
+        std::sort(buildings.begin(), buildings.end(), [](auto& a, auto& b) {
+            return a[0] < b[0];
+        });
 
-		priority_queue<pair<int, int>> buff;
+        while (i < buildings.size() || !rightNd.empty()) {
 
-		for (auto rect : input) {
+            if (rightNd.empty() || (i < buildings.size() && buildings[i][0] <= rightNd.top().second)) {
 
-			if (buff.empty() || rect[0] < buff.top().second) {
+                x = buildings[i][0];
+                while (i < buildings.size() && buildings[i][0] <= x) {
+                    rightNd.push(make_pair(buildings[i][2], buildings[i][1]));
+                    i++;
+                }
+            }
+            else {
+
+                x = rightNd.top().second;
+                while (!rightNd.empty() && rightNd.top().second <= x)
+                    rightNd.pop();
+            }
 
 
-			}
-			else {
+            int height = rightNd.empty() ? 0 : rightNd.top().first;
 
+            if (skyline.empty() || height != skyline.back()[1]) {
+                skyline.push_back(vector<int>{int(x), height});
+            }
+        }
 
-			}
-		}
-
-		return res;
+        return skyline;
 	}
 };
 
 void Test_218_skylineProblem() {
 
 	vector<vector<int>> input{ {2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8} };
-
-	SkylineProblem skyline;
-	vector<pair<int, int>> res = skyline.doit(input);
-
+    
+	auto res = SkylineProblem().doit_heap(input);
 }
 

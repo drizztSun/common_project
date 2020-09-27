@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 /*
 
 # 295. Find Median from Data Stream
@@ -43,6 +41,7 @@ Update: These are pretty short already, but by now I wrote even shorter ones.
 
 */
 
+#include <stdlib.h>
 #include <queue>
 #include <vector>
 
@@ -74,17 +73,85 @@ public:
 		even_ = !even_;
 	}
 
-	int findMedian() {
-		if (even_) {
-			return (smaller_.top() - larger_.top()) / 2;
-		}
-		else {
-			return -larger_.top();
-		}
-	}
-
+    double findMedian() {
+        if (even_) {
+            return double(smaller_.top() - larger_.top()) / 2;
+        }
+        else {
+            return -larger_.top();
+        }
+    }
 };
 
+class MedianFinder3
+{
+public:
+    priority_queue<int> g;
+    priority_queue<int, vector<int>, greater<int>> l;
+
+    void addNum(int num)
+    {
+        if (g.empty() || g.top() > num)
+        {
+            g.push(num); //1
+        }
+        else
+        {
+            l.push(num); //2 3
+        }
+
+        if (g.size() > l.size() + 1)
+        {
+            l.push(g.top());
+            g.pop();
+        }
+        else if (l.size() > g.size() + 1)
+        {
+            g.push(l.top());
+            l.pop();
+        }
+    }
+
+    double findMedian()
+    {
+
+        if (g.size() == l.size())
+        {
+            return double((g.top() + l.top()) / 2.0);
+        }
+        if (g.size() > l.size())
+            return g.top();
+
+        return l.top();
+    }
+};
+
+
+class MedianFinder2 {
+public:
+    /** initialize your data structure here. */
+    MedianFinder2() {
+        
+    }
+    
+    void addNum(int num) {
+        auto it = std::lower_bound(_src.begin(), _src.end(), num);
+        _src.insert(it, num);
+    }
+    
+    double findMedian() {
+        size_t cnt = _src.size();
+        if (cnt % 2 == 0) {
+            return double(_src[(cnt-1)/2] + _src[(cnt-1)/2+1]) / 2;
+        } else {
+            return _src[(cnt-1)/2];
+        }
+    }
+private:
+    
+    vector<int> _src;
+
+};
 
 
 class MedianFinder1 {
@@ -156,7 +223,7 @@ private:
 
 void Test_295_FindMedianFromDataStream() {
 
-	MedianFinder A;
+	MedianFinder2 A;
 
 	A.addNum(1);
 	A.addNum(2);

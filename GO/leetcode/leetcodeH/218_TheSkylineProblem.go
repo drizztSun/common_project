@@ -37,6 +37,12 @@ func (i *HeightQueue) Pop() interface{} {
 	return x
 }
 
+type ByLeft [][]int
+
+func (a ByLeft) Len() int           { return len(a) }
+func (a ByLeft) Less(i, j int) bool { return a[i][0] < a[j][0] }
+func (a ByLeft) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+
 func getSkyline(buildings [][]int) [][]int {
 
 	skyline := make([][]int, 0)

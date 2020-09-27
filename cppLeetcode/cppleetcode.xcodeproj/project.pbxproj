@@ -23,6 +23,7 @@
 		081E87EB24070F10008932EA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081E87EA24070F10008932EA /* main.cpp */; };
 		081E87ED2407116F008932EA /* leetcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081E87EC2407116F008932EA /* leetcode.cpp */; };
 		08268B46242BDD34001A80DD /* 983_MinimumCostForTickets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08268B45242BDD34001A80DD /* 983_MinimumCostForTickets.cpp */; };
+		082C5AF7251EEB740061105C /* 239_SlidingWindowMaximum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082C5AF6251EEB740061105C /* 239_SlidingWindowMaximum.cpp */; };
 		082CD3B7245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082CD3B6245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp */; };
 		0837860F2456182700843389 /* 928_MinimizeMalwareSpreadII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0837860E2456182700843389 /* 928_MinimizeMalwareSpreadII.cpp */; };
 		08392D29242B8F6700643A17 /* 984_StringWithoutAAAorBBB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08392D28242B8F6700643A17 /* 984_StringWithoutAAAorBBB.cpp */; };
@@ -39,6 +40,7 @@
 		0848D0672428DBE700238DC9 /* 654_MaximumBinaryTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0848D0662428DBE700238DC9 /* 654_MaximumBinaryTree.cpp */; };
 		0848D06924291CFD00238DC9 /* 996_NumberOfSquarefulArrays.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0848D06824291CFD00238DC9 /* 996_NumberOfSquarefulArrays.cpp */; };
 		0848D06B24296D6500238DC9 /* 995_MinimumNumberOfKConsecutiveBitFlips.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0848D06A24296D6500238DC9 /* 995_MinimumNumberOfKConsecutiveBitFlips.cpp */; };
+		084D989125212A280093E741 /* 355_DesignTwitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 084D989025212A280093E741 /* 355_DesignTwitter.cpp */; };
 		085D768E2422ED700032D93E /* 939_MinimumAreaRectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 085D768D2422ED700032D93E /* 939_MinimumAreaRectangle.cpp */; };
 		08640D122416DC7500D72888 /* 1032_StreamOfCharacters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */; };
 		0864A89D24409BE2002BE5F0 /* 913_CatAndMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0864A89C24409BE2002BE5F0 /* 913_CatAndMouse.cpp */; };
@@ -155,6 +157,7 @@
 		08ADEC0F243E9A0C009F8AEB /* 906_SuperPalindromes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */; };
 		08B505B12417E87B001E19BE /* 1036_EscapeLargeMaze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */; };
 		08B505B32418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08B505B22418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp */; };
+		08C3AB8A252026DF00566069 /* 313_SuperUglyNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08C3AB89252026DF00566069 /* 313_SuperUglyNumber.cpp */; };
 		08CA26F32424596100450C6C /* 971_FlipBinaryTreeToMatchPreorderTraversal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CA26F22424596100450C6C /* 971_FlipBinaryTreeToMatchPreorderTraversal.cpp */; };
 		08CA46F324112DF20098CD5F /* 1020_NumberOfEnclaves.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CA46F224112DF20098CD5F /* 1020_NumberOfEnclaves.cpp */; };
 		08CA46F5241172E50098CD5F /* 1019_NextGreaterNodeInLinkedList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08CA46F4241172E50098CD5F /* 1019_NextGreaterNodeInLinkedList.cpp */; };
@@ -211,6 +214,7 @@
 		081E87EA24070F10008932EA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 		081E87EC2407116F008932EA /* leetcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = leetcode.cpp; sourceTree = SOURCE_ROOT; };
 		08268B45242BDD34001A80DD /* 983_MinimumCostForTickets.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 983_MinimumCostForTickets.cpp; sourceTree = "<group>"; };
+		082C5AF6251EEB740061105C /* 239_SlidingWindowMaximum.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 239_SlidingWindowMaximum.cpp; sourceTree = "<group>"; };
 		082CD3B6245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 962_MaximumWidthRamp.cpp; sourceTree = "<group>"; };
 		0837860E2456182700843389 /* 928_MinimizeMalwareSpreadII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 928_MinimizeMalwareSpreadII.cpp; sourceTree = "<group>"; };
 		08392D28242B8F6700643A17 /* 984_StringWithoutAAAorBBB.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 984_StringWithoutAAAorBBB.cpp; sourceTree = "<group>"; };
@@ -227,6 +231,7 @@
 		0848D0662428DBE700238DC9 /* 654_MaximumBinaryTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 654_MaximumBinaryTree.cpp; sourceTree = "<group>"; };
 		0848D06824291CFD00238DC9 /* 996_NumberOfSquarefulArrays.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 996_NumberOfSquarefulArrays.cpp; sourceTree = "<group>"; };
 		0848D06A24296D6500238DC9 /* 995_MinimumNumberOfKConsecutiveBitFlips.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 995_MinimumNumberOfKConsecutiveBitFlips.cpp; sourceTree = "<group>"; };
+		084D989025212A280093E741 /* 355_DesignTwitter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 355_DesignTwitter.cpp; sourceTree = "<group>"; };
 		085D768D2422ED700032D93E /* 939_MinimumAreaRectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 939_MinimumAreaRectangle.cpp; sourceTree = "<group>"; };
 		08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1032_StreamOfCharacters.cpp; sourceTree = "<group>"; };
 		0864A89C24409BE2002BE5F0 /* 913_CatAndMouse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 913_CatAndMouse.cpp; sourceTree = "<group>"; };
@@ -343,6 +348,7 @@
 		08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 906_SuperPalindromes.cpp; sourceTree = "<group>"; };
 		08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1036_EscapeLargeMaze.cpp; sourceTree = "<group>"; };
 		08B505B22418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 951_FlipEquivalentBinaryTrees.cpp; sourceTree = "<group>"; };
+		08C3AB89252026DF00566069 /* 313_SuperUglyNumber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 313_SuperUglyNumber.cpp; sourceTree = "<group>"; };
 		08CA26F22424596100450C6C /* 971_FlipBinaryTreeToMatchPreorderTraversal.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 971_FlipBinaryTreeToMatchPreorderTraversal.cpp; sourceTree = "<group>"; };
 		08CA46F224112DF20098CD5F /* 1020_NumberOfEnclaves.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1020_NumberOfEnclaves.cpp; sourceTree = "<group>"; };
 		08CA46F4241172E50098CD5F /* 1019_NextGreaterNodeInLinkedList.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1019_NextGreaterNodeInLinkedList.cpp; sourceTree = "<group>"; };
@@ -495,6 +501,7 @@
 				0877E46B2451064800BF2381 /* 927_ThreeEqualParts.cpp */,
 				0837860E2456182700843389 /* 928_MinimizeMalwareSpreadII.cpp */,
 				08A8F72A2466EEA000346C79 /* 903_ValidPermutationsForDISequence.cpp */,
+				082C5AF6251EEB740061105C /* 239_SlidingWindowMaximum.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -557,6 +564,8 @@
 				089A975E240D842200917010 /* 1049_LastStoneWeightII.cpp */,
 				08A9D7EB245878CC0058F560 /* 932_BeautifulArray.cpp */,
 				082CD3B6245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp */,
+				08C3AB89252026DF00566069 /* 313_SuperUglyNumber.cpp */,
+				084D989025212A280093E741 /* 355_DesignTwitter.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -786,6 +795,7 @@
 				08A9D7EC245878CC0058F560 /* 932_BeautifulArray.cpp in Sources */,
 				0864A89D24409BE2002BE5F0 /* 913_CatAndMouse.cpp in Sources */,
 				086A8AE224071C4A00CFAEED /* 591_TagValidator.cpp in Sources */,
+				084D989125212A280093E741 /* 355_DesignTwitter.cpp in Sources */,
 				086A8AEE24071C4A00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */,
 				08E76F24240EB3F200F1CC8F /* 1035_UncrossedLines.cpp in Sources */,
 				086A8AC924071C4A00CFAEED /* 37_SudokuSolver.cpp in Sources */,
@@ -793,6 +803,7 @@
 				086A8AC424071C4A00CFAEED /* 741_CherryPickup.cpp in Sources */,
 				086A8AC624071C4A00CFAEED /* 76_MinimumWindowSubstring.cpp in Sources */,
 				086A8AF924071C4A00CFAEED /* 731_MyCalendarII.cpp in Sources */,
+				08C3AB8A252026DF00566069 /* 313_SuperUglyNumber.cpp in Sources */,
 				086A8AC024071C4A00CFAEED /* 765_CouplesHoldingHands.cpp in Sources */,
 				081C69D3241E4BD9005CE99B /* 56_MergeIntervals.cpp in Sources */,
 				087C791F24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp in Sources */,
@@ -805,6 +816,7 @@
 				08D8ED6B242AD8BC00F8543D /* 982_TriplesWithBitwiseANDEqualToZero.cpp in Sources */,
 				086A8ABE24071C4A00CFAEED /* 514_FreedomTrail.cpp in Sources */,
 				08ADEC0F243E9A0C009F8AEB /* 906_SuperPalindromes.cpp in Sources */,
+				082C5AF7251EEB740061105C /* 239_SlidingWindowMaximum.cpp in Sources */,
 				086A8AD524071C4A00CFAEED /* 472_ConcatenatedWordscpp.cpp in Sources */,
 				08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */,
 				08AB629E2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp in Sources */,

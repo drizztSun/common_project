@@ -9,7 +9,7 @@ mod slice;
 mod structs;
 mod syntax;
 mod test_advance_trait;
-mod test_binaryheap;
+mod test_heap;
 mod test_box;
 mod test_btree;
 mod test_collectors;
@@ -58,8 +58,6 @@ fn main() {
     println!("--- Starting RUST syntax ---");
 
     test_ops::test_ops();
-
-    test_binaryheap::test_binaryheap();
 
     test_trait::test_traits_basic();
 
@@ -156,4 +154,6 @@ fn main() {
     test_scoping_rules::test_scoping_rules();
 
     test_pin::test_pin();
+
+    test_heap::test_heap();
 }

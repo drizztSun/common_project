@@ -35,5 +35,9 @@ fn main() {
 
     // leetcode_hard::A4_MedianofTwoSortedArrays::test_4_MedianTwoSortedArrays();
 
-    leetcode_media::A307_RangeSumQueryMutable::test_307_RangeSumQueryMutable();
+    // leetcode_media::A307_RangeSumQueryMutable::test_307_RangeSumQueryMutable();
+
+    // leetcode_hard::A218_TheSkylineProblem::test_218_skyline();
+
+    leetcode_media::A264_UglyNumberII::test_264_UglyNumberII();
 }

@@ -1,12 +1,10 @@
-
-
-
+"""
 # 295. Find Median from Data Stream
 
 # Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value.
 # So the median is the mean of the two middle value.
 
-# Examples: 
+# Examples:
 # [2,3,4] , the median is 3
 
 # [2,3], the median is (2 + 3) / 2 = 2.5
@@ -20,11 +18,13 @@
 # addNum(1)
 # addNum(2)
 # findMedian() -> 1.5
-# addNum(3) 
+# addNum(3)
 # findMedian() -> 2
 
-
+"""
 import bisect
+
+
 class MedianFinder1:
 
     def __init__(self):
@@ -50,8 +50,11 @@ class MedianFinder1:
             return self.array_[length // 2];
         else:
             return (self.array_[length//2] + self.array_[length//2 - 1]) / 2
-        
+
+
 from heapq import heappushpop, heappush, heappop, heapify
+
+
 class MedianFinder:
 
     def __init__(self):

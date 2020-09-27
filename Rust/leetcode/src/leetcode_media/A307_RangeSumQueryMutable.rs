@@ -24,7 +24,7 @@ use std::vec::Vec;
 use std::rc::Rc;
 use std::cell::RefCell;
 
-
+/*
 struct TreeNode<T> {
     value: T,
     left: Option<Rc<RefCell<TreeNode<T>>>>,
@@ -132,7 +132,7 @@ impl NumArray {
         return self.tree.as_ref().unwrap().borrow().sum(i, j);
     }
 }
-
+*/
 
 struct segmentNode {
     start: usize,
@@ -143,17 +143,22 @@ struct segmentNode {
     right: Option<Rc<RefCell<segmentNode>>>,
 }
 
-
 struct NumArraySeg {
     root: Option<Rc<RefCell<segmentNode>>>,
 }
 
+
+/** 
+ * `&self` means the method takes an immutable reference.
+ * If you need a mutable reference, change it to `&mut self` instead.
+ */
 impl NumArraySeg {
+    
 
-    fn build(nums: &Vec<i32>, s: usize, e: usize) -> Option<Rc<RefCell<Self>>> {
-
+    fn build(nums: &Vec<i32>, s: usize, e: usize) -> Option<Rc<RefCell<segmentNode>>> {
+        
         if nums.len() == 0 {
-            return None;
+            return None
         }
 
         let mut cur = Rc::new(RefCell::new(segmentNode{start:s,
@@ -166,14 +171,11 @@ impl NumArraySeg {
 
         let mid = (s + e) / 2;
 
-
-
         cur.borrow_mut().left = Self::build(nums, s, mid);
         cur.borrow_mut().right = Self::build(nums, mid+1, e);
+
         let sum = cur.borrow().left.as_ref().unwrap().borrow().sum + cur.borrow().right.as_ref().unwrap().borrow().sum;
         cur.borrow_mut().sum = sum;
-
-        //cur.borrow_mut().sum = cur.borrow_mut().left.as_ref().unwrap().borrow().sum + cur.borrow_mut().right.as_ref().unwrap().borrow().sum;
         return Some(cur);
     }
 
@@ -223,21 +225,18 @@ impl NumArraySeg {
     }
 
 
-    pub fn new(nums: Vec<i32>) -> Self {
-        NumArraySeg{root: Self::build(&nums, 0, nums.len()-1)}
+    fn new(nums: Vec<i32>) -> Self {
+        NumArraySeg{root: Self::build(&nums, 0, (nums.len()-1) as usize)}
     }
-
-
-
-    pub fn update(&mut self, i: usize, val: i32) {
-        Self::update_segment(self.root.clone(), i, val);
+    
+    fn update(&self, i: i32, val: i32) {
+        Self::update_segment(self.root.clone(), i as usize, val);
     }
-
-    pub fn sum_range(& self, s: usize, e: usize) -> i32 {
-        Self::sum_segment(self.root.clone(), s, e)
+    
+    fn sum_range(&self, i: i32, j: i32) -> i32 {
+        Self::sum_segment(self.root.clone(), i as usize, j as usize)
     }
 }
-
 
 // BIT solution
 struct NumArrBit {
@@ -292,14 +291,14 @@ impl NumArrBit {
 
 }
 
-struct NumArray {
+struct NumArrayBit {
     bitTree: NumArrBit,
 }
 
-impl NumArray {
+impl NumArrayBit {
 
     fn new(nums: Vec<i32>) -> Self {
-        return NumArray{bitTree: NumArrBit::new(nums)};
+        return NumArrayBit{bitTree: NumArrBit::new(nums)};
     }
 
     fn update(&mut self, i: i32, val: i32) {

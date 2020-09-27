@@ -1,11 +1,13 @@
-
-
+"""
 # 263. Ugly Number
 # Write a program to check whether a given number is an ugly number.
 # Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For example, 6, 8 are ugly while 14 is not ugly since it includes another prime factor 7.
 # Note that 1 is typically treated as an ugly number.
+"""
 
-class isUgly:
+
+class IsUgly:
+
     def doit(self, num):
         """
         :type num: int
@@ -19,7 +21,6 @@ class isUgly:
 
         while num % 3 == 0:
             num = num // 3
-
 
         while num % 2 == 0:
             num = num // 2
@@ -48,6 +49,7 @@ class isUgly:
         return True
 
 
+"""
 # 264. Ugly Number II
 # Write a program to find the n-th ugly number.
 
@@ -55,7 +57,11 @@ class isUgly:
 # For example, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
 
 # Note that 1 is typically treated as an ugly number, and n does not exceed 1690.
-class nthUglyNumber:
+"""
+
+
+class NthUglyNumber:
+
     def doit(self, n):
         """
         :type n: int
@@ -81,9 +87,8 @@ class nthUglyNumber:
 
         return ugly[n-1]
             
-
+"""
 # 313. Super Ugly Number
-
 
 # Write a program to find the nth super ugly number.
 
@@ -98,10 +103,14 @@ class nthUglyNumber:
 
 # Credits:
 # Special thanks to @dietpepsi for adding this problem and creating all test cases.
-import headq
 
-class nthSuperUglyNumber:
-    def doit(self, n, primes):
+"""
+from heapq import heappush, heappop
+
+
+class NthSuperUglyNumber:
+
+    def doit_array(self, n, primes):
         """
         :type n: int
         :type primes: List[int]
@@ -122,8 +131,7 @@ class nthSuperUglyNumber:
 
         return ugly[n-1]
 
-
-    def doit1(self, n, primes):
+    def doit_heap(self, n, primes):
         """
         :type n: int
         :type primes: List[int]
@@ -143,7 +151,6 @@ class nthSuperUglyNumber:
 
             # skip duplicates
             while que[0][0] == ugly[-1]:
-
                 val, idx, p = heappop(que)
                 heappush(que, (ugly[idx]*p, idx+1, p))
             
@@ -153,11 +160,11 @@ class nthSuperUglyNumber:
 
 if __name__=="__main__":
 
-    res = nthUglyNumber().doit(4)
+    res = NthUglyNumber().doit(4)
 
-    res = nthUglyNumber().doit(7)
+    res = NthUglyNumber().doit(7)
 
-    res = nthSuperUglyNumber().doit(13, [2, 7, 13, 19])
+    res = NthUglyNumber().doit_heap(13, [2, 7, 13, 19])
 
     pass
 

@@ -1,6 +1,4 @@
-
-import heapq
-
+"""
 # 347. Top K Frequent Elements
 
 # Given a non-empty array of integers, return the k most frequent elements.
@@ -8,13 +6,34 @@ import heapq
 # For example,
 # Given [1,1,1,2,2,3] and k = 2, return [1,2].
 
-# Note: 
+# Note:
 # You may assume k is always valid, 1 ? k ? number of unique elements.
 # Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 
+"""
+import heapq
 
 
-class topKFrequent(object):
+class TopKFrequent:
+
+    def doit_heap(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        from heapq import heapify, heappop
+        from collections import Counter
+
+        cnt = Counter(nums)
+        buf = [(-val, -key) for key, val in cnt.items()]
+
+        res = []
+        heapify(buf)
+        for i in range(k):
+            res.append(-heappop(buf)[1])
+        return res
+
     def doit(self, nums, k):
         """
         :type nums: List[int]

@@ -5,7 +5,7 @@ It is a logic error for an item to be modified in such a way that the item's ORD
 as determined by the Ord trait, changes while it is in the heap.
 This is normally only possible through Cell, RefCell, global state, I/O, or unsafe code.
 */
-
+use std::cmp::Ordering;
 use std::cmp::Reverse;
 use std::collections::BinaryHeap;
 
@@ -171,10 +171,80 @@ fn test_binaryheap_advanced() {
     {}
 }
 
-pub fn test_binaryheap() {
+#[derive(Copy, Clone, Eq, PartialEq)]
+struct skylinePos{
+    pos: i32,
+    height: i32,
+}
+
+// The priority queue depends on `Ord`.
+// Explicitly implement the trait so the queue becomes a min-heap
+// instead of a max-heap.
+impl Ord for skylinePos {
+
+    fn cmp(&self, other: &skylinePos) -> Ordering {
+        self.height.cmp(&other.height).then_with(|| self.pos.cmp(&other.pos))
+    }
+}
+
+impl PartialOrd for skylinePos {
+    fn partial_cmp(&self, other: &skylinePos) -> Option<Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+pub fn doit_heap(buildings: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+
+    let mut heap: BinaryHeap<skylinePos> = BinaryHeap::new();
+    let mut i = 0;
+    let mut skyline: Vec<Vec<i32>> = vec![];
+
+    let mut buildings = buildings;
+    buildings.sort_by(|a, b| a.partial_cmp(b).unwrap());
+
+
+    while i < buildings.len() || ! heap.is_empty() {
+
+        let mut x = 0;
+
+        if heap.is_empty() || i < buildings.len() && heap.peek().unwrap().pos >= buildings[i][0] {
+
+            x = buildings[i][0];
+            while i < buildings.len() &&  buildings[i][0] <= x {
+                heap.push(skylinePos{pos: buildings[i][1], height: buildings[i][2]});
+                i += 1;
+            }
+        } else {
+
+            x = heap.peek().unwrap().pos;
+            while !heap.is_empty() && heap.peek().unwrap().pos <= x {
+                heap.pop();
+            }
+        }
+
+        let mut height = 0;
+        if heap.len() > 0 {
+            height = heap.peek().unwrap().height;
+        }
+
+        if skyline.is_empty() || height != skyline[skyline.len() - 1][1] {
+            skyline.push(vec![x, height]);
+        }
+    }
+
+    skyline
+}
+
+fn test_user_defined_heap() {
+    doit_heap(vec![vec![2, 9, 10], vec![3, 7, 15], vec![5, 12, 12], vec![15, 20, 10], vec![19, 24, 8]]);
+}
+
+pub fn test_heap() {
     test_binaryheap_basic();
 
     test_mini_heap();
 
     test_binaryheap_advanced();
+
+    test_user_defined_heap();
 }

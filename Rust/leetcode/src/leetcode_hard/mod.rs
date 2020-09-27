@@ -5,3 +5,4 @@ pub mod A960_DeleteColumnsToMakeSortedIII;
 pub mod A10_RegularExpressionMatching;
 pub mod A44_WildcardMatching;
 pub mod A4_MedianofTwoSortedArrays;
+pub mod A218_TheSkylineProblem;
