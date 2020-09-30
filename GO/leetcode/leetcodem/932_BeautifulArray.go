@@ -28,25 +28,29 @@ func search_beautiful_array(n int, memo map[int][]int) []int {
 		return c
 	}
 
-	odd := search_beautiful_array((n+1)/2)
-	even := search_beautiful_array(n/2)
+	odd := search_beautiful_array((n+1)/2, memo)
+	even := search_beautiful_array(n/2, memo)
 
+	res := make([]int, len(odd)+len(even))
+
+	b := 0
 	for i := range odd {
-		odd[i] = 2 * odd[i] - 1
+		res[b] = 2*odd[i] - 1
+		b++
 	}
 
 	for j := range even {
-		even[j] = 2 * even[j]
+		res[b] = 2 * even[j]
+		b++
 	}
 
-	odd = append(odd, even...)
-	memo[n] = odd
-	return odd
+	memo[n] = res
+	return res
 }
 
-func beautifulArray_divide_and_conquer(N, int) []int {
+func beautifulArray_divide_and_conquer(N int) []int {
 
 	memo := map[int][]int{1: []int{1}}
 
-	return search_beautiful_array(N)
+	return search_beautiful_array(N, memo)
 }

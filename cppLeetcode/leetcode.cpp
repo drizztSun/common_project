@@ -297,9 +297,15 @@ void test_903_valid_permutations_for_di_sequence();
 
 void test_355_design_twitter();
 
+void test_373_find_Kpair_with_smallest_sum();
+
+void test_407_TrappingRainWaterII();
+
 void leetcode() {
     
-    test_355_design_twitter();
+    test_407_TrappingRainWaterII();
+    
+    // test_355_design_twitter();
     
     // test_903_valid_permutations_for_di_sequence();
     

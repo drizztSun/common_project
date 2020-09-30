@@ -1,3 +1,4 @@
+"""
 # 778. Swim in Rising Water
 
 # On an N x N grid, each square grid[i][j] represents the elevation at that point (i,j).
@@ -36,13 +37,14 @@
 
 # 2 <= N <= 50.
 # grid[i][j] is a permutation of [0, ..., N*N - 1].
-
+"""
 import heapq
+
 
 class SwimInWater:
 
     # <heap>
-    def doit(self, grid):
+    def doit_heap(self, grid):
         """
         :type grid: List[List[int]]
         :rtype: int
@@ -109,19 +111,18 @@ class SwimInWater:
                 return k
 
 
-class Solution:
     # # <union-find>
-    def swimInWater(self, grid):
-        
-        def findParent(x, y):
+    def doit_union_find(self, grid):
+
+        def parent(x, y):
             if parent[x][y] == (x, y):
                 return parent[x][y]
-            parent[x][y] = findParent(parent[x][y][0], parent[x][y][1])
+            parent[x][y] = parent(parent[x][y][0], parent[x][y][1])
             return parent[x][y]
 
         def union(a, b):
-            a = findParent(a[0], a[1])
-            b = findParent(b[0], b[1])
+            a = parent(a[0], a[1])
+            b = parent(b[0], b[1])
             if size[a[0]][a[1]] < size[b[0]][b[1]]:
                 parent[a[0]][a[1]] = b
                 size[b[0]][b[1]] += size[a[0]][a[1]]
@@ -130,10 +131,9 @@ class Solution:
                 size[a[0]][a[1]] += size[b[0]][b[1]]
             
         WAYS = [[-1, 0], [0, -1], [1, 0], [0, 1]]
-        
         pos = {}
-        m = len(grid)
-        n = len(grid[0])
+        m, n = len(grid), len(grid[0])
+
         for i in range(m):
             for j in range(n):
                 pos[grid[i][j]] = (i, j)
@@ -150,26 +150,24 @@ class Solution:
         for i in range(m * n):
             x, y = pos[i]
             for w in WAYS:
-                tx = x + w[0]
-                ty = y + w[1]
+                tx, ty = x + w[0], y + w[1]
                 if tx >= 0 and tx < m and ty >= 0 and ty < n:
                     if grid[tx][ty] <= i:
                         union((x, y), (tx, ty))
-                        if findParent(0, 0) == findParent(m - 1, n - 1):
+                        if parent(0, 0) == parent(m - 1, n - 1):
                             return i
 
 
 if __name__ == "__main__":
 
-    res = SwimInWater().doit([[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]])
+    res = SwimInWater().doit_heap([[0,1,2,3,4],[24,23,22,21,5],[12,13,14,15,16],[11,17,18,19,20],[10,9,8,7,6]])
 
-    res = SwimInWater().doit([[0, 2], [1, 3]])
+    res = SwimInWater().doit_heap([[0, 2], [1, 3]])
 
-    res = SwimInWater().doit([[7,  34, 16, 12, 15, 0],
-                              [10, 26, 4,  30, 1,  20],
-                              [28, 27, 33, 35, 3,  8],
-                              [29, 9,  13, 14, 11, 32],
-                              [31, 21, 23, 24, 19, 18],
-                              [22, 6,  17, 5,  2,  25]])
+    res = SwimInWater().doit_heap([[7,  34, 16, 12, 15, 0],
+                                  [10, 26, 4,  30, 1,  20],
+                                  [28, 27, 33, 35, 3,  8],
+                                  [29, 9,  13, 14, 11, 32],
+                                  [31, 21, 23, 24, 19, 18],
+                                  [22, 6,  17, 5,  2,  25]])
 
-    pass

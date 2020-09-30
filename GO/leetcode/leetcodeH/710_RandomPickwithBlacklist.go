@@ -42,6 +42,7 @@ Explanation of Input Syntax:
 The input is two lists: the subroutines called and their arguments. Solution's constructor has two arguments, N and the blacklist B. pick has no arguments. Arguments are always wrapped with a list, even if there aren't any.
 
 */
+
 import (
 	"math/rand"
 )
@@ -52,7 +53,7 @@ type RandomPickWithBlackList struct {
 	blacklist map[int]int
 }
 
-func Constructor(N int, blacklist []int) RandomPickWithBlackList {
+func ConstructorRandomPick(N int, blacklist []int) RandomPickWithBlackList {
 	a := RandomPickWithBlackList{N, len(blacklist), make(map[int]int)}
 	for _, b := range blacklist {
 		a.blacklist[b] = -1
@@ -82,4 +83,12 @@ func (this *RandomPickWithBlackList) Pick() int {
 	} else {
 		return k
 	}
+}
+
+func Test_710_random_pick_with_blacklist() {
+
+	obj := ConstructorRandomPick(4, []int{2})
+	obj.Pick()
+	obj.Pick()
+	obj.Pick()
 }

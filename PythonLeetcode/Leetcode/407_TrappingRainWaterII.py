@@ -1,6 +1,4 @@
-
-
-
+"""
 # 407. Trapping Rain Water II
 
 
@@ -20,19 +18,21 @@
 # ]
 
 # Return 4.
+"""
+import heapq
 
 
 # <important>
-class trapRainWater(object):
+class TrapRainWater(object):
 
-
-# The idea is that we maintain all the points of the current border in a min heap and always choose the point with the lowest length. 
-# This is actually an optimized searching strategy over the trivial brute force method: 
-# instead of dfs each point to find the lowest �border� of its connected component, 
-# we can always start a search from the lowest border and update the points adjacent to it.
-
+    """
+    # The idea is that we maintain all the points of the current border in a min heap and always choose the point with the lowest length.
+    # This is actually an optimized searching strategy over the trivial brute force method:
+    # instead of dfs each point to find the lowest �border� of its connected component,
+    # we can always start a search from the lowest border and update the points adjacent to it.
+    """
     # <heap>
-    def doit(self, heightMap):
+    def doit_heap(self, heightMap):
         """
         :type heightMap: List[List[int]]
         :rtype: int
@@ -64,11 +64,9 @@ class trapRainWater(object):
                     heapq.heappush(points, (max(height, heightMap[x][y]), x, y))
 
         return result
-                    
-
 
     # <dfs>
-    def doit1(self, heightMap):
+    def doit_dfs(self, heightMap):
         """
         :type heightMap: List[List[int]]
         :rtype: int

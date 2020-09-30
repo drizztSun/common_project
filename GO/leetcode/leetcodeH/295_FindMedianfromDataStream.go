@@ -15,41 +15,22 @@ Design a data structure that supports the following two operations:
 
 void addNum(int num) - Add a integer number from the data stream to the data structure.
 double findMedian() - Return the median of all elements so far.
- 
+
 
 Example:
 
 addNum(1)
 addNum(2)
 findMedian() -> 1.5
-addNum(3) 
+addNum(3)
 findMedian() -> 2
- 
+
 
 Follow up:
 
 If all integer numbers from the stream are between 0 and 100, how would you optimize it?
 If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
 
+
+
 */
-
-
-type MedianFinder struct {
-    
-}
-
-
-/** initialize your data structure here. */
-func Constructor() MedianFinder {
-    
-}
-
-
-func (this *MedianFinder) AddNum(num int)  {
-    
-}
-
-
-func (this *MedianFinder) FindMedian() float64 {
-    
-}

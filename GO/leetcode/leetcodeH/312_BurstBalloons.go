@@ -64,7 +64,7 @@ func maxCoins_dp_1(nums []int) int {
 	return search_max_coins(nums, 1, len(nums)-2, dp)
 }
 
-func maxCoins_dp_1(nums []int) int {
+func maxCoins_dp_2(nums []int) int {
 
 	nums = append(nums, 1)
 	nums = append([]int{1}, nums...)

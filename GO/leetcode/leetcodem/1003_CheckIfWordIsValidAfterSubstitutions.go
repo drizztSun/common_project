@@ -37,24 +37,23 @@ Output: false
 
 */
 
-
 func isValid(S string) bool {
-    
-    st := make([]byte, 0)
 
-    for i := 0; i < len(S); i++ {
+	st := make([]byte, 0)
 
-        if S[i] == byte('c') {
-            if len(st) > 1 && st[len(st)-1] == byte('b') && st[len(st) - 2] == byte('a') {
-                st = st[:len(st)-2]
-                continue
-            }
-            return false
+	for i := 0; i < len(S); i++ {
+
+		if S[i] == byte('c') {
+			if len(st) > 1 && st[len(st)-1] == byte('b') && st[len(st)-2] == byte('a') {
+				st = st[:len(st)-2]
+				continue
+			}
+			return false
 		}
 		st = append(st, byte(S[i]))
-    }
+	}
 
-    return len(st) == 0
+	return len(st) == 0
 }
 
 func Test_1003_Check_if_WordIsValidAfterSub() {

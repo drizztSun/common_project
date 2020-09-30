@@ -75,7 +75,7 @@ func find_generateNumTree(s, e int, memo [][][]*TreeNode) []*TreeNode {
 	return res
 }
 
-func generateTrees(n int) []*TreeNode {
+func generateTrees_dp(n int) []*TreeNode {
 	if n == 0 {
 		return make([]*TreeNode, 0)
 	}
@@ -90,5 +90,5 @@ func generateTrees(n int) []*TreeNode {
 
 func Test_95_UniqueBinarySearchTreeII() {
 
-	generateNumTreesII_dp(3)
+	generateTrees_dp(3)
 }

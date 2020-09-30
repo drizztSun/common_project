@@ -1,4 +1,4 @@
-package leetcodeM
+package leetcodem
 
 /*
 343. Integer Break
@@ -21,7 +21,6 @@ Note: You may assume that n is not less than 2 and not larger than 58.
 
 func integerBreak(n int) int {
 
-
 	maxint := func(s []int) int {
 		res := 0
 		for _, c := range s {
@@ -39,7 +38,7 @@ func integerBreak(n int) int {
 
 		for j := 1; j < i; j++ {
 
-			dp[i] = maxint([]int{dp[i], j * (i- j), dp[j] * (i - j)})
+			dp[i] = maxint([]int{dp[i], j * (i - j), dp[j] * (i - j)})
 
 		}
 	}

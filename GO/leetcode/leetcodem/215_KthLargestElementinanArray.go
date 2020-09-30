@@ -122,9 +122,9 @@ func findKthLargest_2(nums []int, k int) int {
 	if k == len(nums)-pivot {
 		return nums[pivot]
 	} else if k < len(nums)-pivot {
-		return findKthLargest(nums[pivot+1:], k)
+		return findKthLargest_2(nums[pivot+1:], k)
 	} else {
-		return findKthLargest(nums[:pivot], k-len(nums)+pivot)
+		return findKthLargest_2(nums[:pivot], k-len(nums)+pivot)
 	}
 }
 

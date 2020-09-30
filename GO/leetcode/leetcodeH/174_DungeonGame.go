@@ -29,6 +29,21 @@ Any room can contain threats or power-ups, even the first room the knight enters
 */
 
 func calculateMinimumHP_dp(dungeon [][]int) int {
+
+	min := func(a, b int) int {
+		if a > b {
+			return b
+		}
+		return a
+	}
+
+	max := func(a, b int) int {
+		if a < b {
+			return b
+		}
+		return a
+	}
+
 	m, n := len(dungeon), len(dungeon[0])
 	dp := make([][]int, m)
 	for i := 0; i < m; i++ {
@@ -52,18 +67,4 @@ func calculateMinimumHP_dp(dungeon [][]int) int {
 	}
 
 	return dp[0][0]
-}
-
-func min(a, b int) int {
-	if a > b {
-		return b
-	}
-	return a
-}
-
-func max(a, b int) int {
-	if a < b {
-		return b
-	}
-	return a
 }

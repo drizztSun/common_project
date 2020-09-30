@@ -50,7 +50,7 @@ Output: false
 
 */
 
-func isWildCastMatch_dp2(s string, p string) bool {
+func isWildCastMatch_dp_2(s string, p string) bool {
 
 	M, N := len(s)+1, len(p)+1
 	dp := make([][]bool, M)
@@ -82,7 +82,7 @@ func isWildCastMatch_dp2(s string, p string) bool {
 	return dp[M-1][N-1]
 }
 
-func isWildCastMatch_dp1(s string, p string) bool {
+func isWildCastMatch_dp_1(s string, p string) bool {
 
 	M, N := len(s)+1, len(p)+1
 	dp := make([]bool, M)
@@ -114,5 +114,5 @@ func isWildCastMatch_dp1(s string, p string) bool {
 
 func Test_44_WildCastMatching() {
 
-	isWildCastMatch("acdcb", "a*c?b")
+	isWildCastMatch_dp_1("acdcb", "a*c?b")
 }

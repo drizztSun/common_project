@@ -25,7 +25,7 @@ func maximalRectangle(matrix [][]byte) int {
 	res := 0
 
 	for i := 0; i < M; i++ {
-		dp[i] = make([]int, N)
+		dp[i] = make([][]int, N)
 
 		for j := 0; j < N; j++ {
 			dp[i][j] = []int{0, 0}

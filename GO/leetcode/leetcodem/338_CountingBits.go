@@ -32,7 +32,7 @@ func countBits_dp(num int) []int {
 		dp[i] = dp[i/2] + i%2
 	}
 
-	return dp[num]
+	return dp
 }
 
 func countBits_dp_1(num int) []int {

@@ -2,13 +2,18 @@ package main
 
 import (
 	"fmt"
+
+	"./leetcodeH"
+	"./leetcodem"
 )
 
 func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodem.Test_95_UniqueBinarySearchTreeII()
+	leetcodeH.Test_778_SwimInRisingWater()
+
+	leetcodem.Test_378_kthSmallestElementinSortedMatrix()
 
 	// leetcodeH.Test_85_MaximalRectangle()
 

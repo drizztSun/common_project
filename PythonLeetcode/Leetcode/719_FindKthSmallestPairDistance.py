@@ -1,6 +1,4 @@
-
-
-
+"""
 # 719. Find K-th Smallest Pair Distance
 
 
@@ -11,7 +9,7 @@
 # Input:
 # nums = [1,3,1]
 # k = 1
-# Output: 0 
+# Output: 0
 # Explanation:
 # Here are all the pairs:
 # (1,3) -> 2
@@ -23,45 +21,121 @@
 # 2 <= len(nums) <= 10000.
 # 0 <= nums[i] < 1000000.
 # 1 <= k <= len(nums) * (len(nums) - 1) / 2.
-
-
-
+"""
 import bisect
 import heapq
-
-def kthSmallest(matrix, k):
-
-    A = []
-    def push(i, j):
-        if i < len(matrix) and j < len(matrix[i]):
-            heapq.heappush(A, [matrix[i][j], i, j])
-
-    val = -1
-    push(0, 0)
-    while k > 0:
-        val, i, j = heapq.heappop(A)
-        push(i, j+1)
-
-        if j == 0:
-            push(i+1, j)
-        k -= 1
-
-    return val
 
 
 class SmallestDistancePair:
 
+    """
+    Approach #2: Binary Search + Prefix Sum [Accepted]
+    Intuition
+
+    Let's binary search for the answer. It's definitely in the range [0, W], where W = max(nums) - min(nums)].
+
+    Let possible(guess) be true if and only if there are k or more pairs with distance less than or equal to guess. We will focus on evaluating our possible function quickly.
+
+    Algorithm
+
+    Let prefix[v] be the number of points in nums less than or equal to v. Also, let multiplicity[j] be the number of points i with i < j and nums[i] == nums[j].
+    We can record both of these with a simple linear scan.
+
+    Now, for every point i, the number of points j with i < j and nums[j] - nums[i] <= guess is prefix[x+guess] - prefix[x] + (count[i] - multiplicity[i]),
+    where count[i] is the number of ocurrences of nums[i] in nums. The sum of this over all i is the number of pairs with distance <= guess.
+
+    Finally, because the sum of count[i] - multiplicity[i] is the same as the sum of multiplicity[i], we could just replace that term with multiplicity[i] without affecting the answer.
+    (Actually, the sum of multiplicities in total will be a constant used in the answer, so we could precalculate it if we wanted.)
+
+    In our Java solution, we computed possible = count >= k directly in the binary search instead of using a helper function.
+
+    Complexity Analysis
+
+    Time Complexity: O(W+NlogW+NlogN), where NN is the length of nums, and WW is equal to nums[nums.length - 1] - nums[0].
+    We do O(W) work to calculate prefix initially. The logW factor comes from our binary search, and
+    we do O(N) work inside our call to possible (or to calculate count in Java). The final O(NlogN) factor comes from sorting.
+
+    Space Complexity: O(N+W), the space used to store multiplicity and prefix.
+    """
+    def doit_binary_search(self, nums, k):
+        def possible(guess):
+            #Is there k or more pairs with distance <= guess?
+            return sum(prefix[min(x + guess, W)] - prefix[x] + multiplicity[i] for i, x in enumerate(nums)) >= k
+
+        nums.sort()
+        W = nums[-1]
+
+        #multiplicity[i] = number of nums[j] == nums[i] (j < i)
+        multiplicity = [0] * len(nums)
+        for i, x in enumerate(nums):
+            if i and x == nums[i-1]:
+                multiplicity[i] = 1 + multiplicity[i - 1]
+
+        #prefix[v] = number of values <= v
+        prefix = [0] * (W + 1)
+        left = 0
+        for i in range(len(prefix)):
+            while left < len(nums) and nums[left] == i:
+                left += 1
+            prefix[i] = left
+
+        lo = 0
+        hi = nums[-1] - nums[0]
+        while lo < hi:
+            mi = (lo + hi) / 2
+            if possible(mi):
+                hi = mi
+            else:
+                lo = mi + 1
+
+        return lo
 
 
-    def doit(self, matrix, k):
+    """
+    Approach #3: Binary Search + Sliding Window [Accepted]
+    Intuition
+    
+    As in Approach #2, let's binary search for the answer, and we will focus on evaluating our possible function quickly.
+    
+    Algorithm
+    
+    We will use a sliding window approach to count the number of pairs with distance <= guess.
+    
+    For every possible right, we maintain the loop invariant: left is the smallest value such that nums[right] - nums[left] <= guess. 
+    Then, the number of pairs with right as it's right-most endpoint is right - left, and we add all of these up.
+    """
+    def doit_binary_search(self, nums, k):
+        def possible(guess):
+            #Is there k or more pairs with distance <= guess?
+            count = left = 0
+            for right, x in enumerate(nums):
+                while x - nums[left] > guess:
+                    left += 1
+                count += right - left
+            return count >= k
+
+        nums.sort()
+        lo = 0
+        hi = nums[-1] - nums[0]
+        while lo < hi:
+            mi = (lo + hi) / 2
+            if possible(mi):
+                hi = mi
+            else:
+                lo = mi + 1
+
+        return lo
+
+
+    def doit_binary_search(self, matrix, k):
         """
         :type nums: List[int]
         :type k: int
         :rtype: int
         """
         matrix.sort()
-        lo = 0; hi = matrix[-1] - matrix[0]
-        
+        lo = 0
+        hi = matrix[-1] - matrix[0]
 
         while lo < hi:
         
@@ -69,86 +143,15 @@ class SmallestDistancePair:
             cnt, j = 0, 0
 
             for i in range(len(matrix)):
-            
-                while j < len(matrix) and matrix[j] - maxtrix[i] <= mid:
+                while j < len(matrix) and matrix[j] - matrix[i] <= mid:
                     j += 1
-
                 cnt += j - i - 1
 
             if cnt < k:
                 lo = mid + 1
             else:
                 hi = mid
-
-        return lo            
-
-    def kthSmallest(self, matrix, k):
-
-        A = []
-        def push(i, j):
-            if i < len(matrix) and j < len(matrix[i]):
-                heapq.heappush(A, [matrix[i][j], i, j])
-
-        val = -1
-        push(0, 0)
-        while k > 0:
-            val, i, j = heapq.heappop(A)
-            push(i, j+1)
-
-            if j == 0:
-                push(i+1, j)
-            k -= 1
-
-        return val
-
-    
-    # <TLE>
-    def doit(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        nums.sort()
-        diff = []
-        for i in range(len(nums)-1):
-            diff.append([])
-            for j in range(i+1, len(nums)):
-                c = nums[j] - nums[i]
-                diff[i].append(c)
-        
-
-        A, val = [], -1
-        def push(i, j):
-            if i < len(diff) and j < len(diff[i]):    
-                heapq.heappush(A, [diff[i][j], i, j])
-
-        for i in range(len(diff)):
-            if diff[i]:
-                push(i, 0)
-
-        while k > 0:
-            val, i, j = heapq.heappop(A)
-            push(i, j+1)
-            k -= 1
-
-        return val
-
-    def doit(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        nums.sort()
-        
-        class Row(int):
-            def __getitem__(self, j):
-                return self - nums[~j]
-
-        n = len(nums)
-        return self.kthSmallest(map(Row, nums), k + n*(n+1)//2)
-
+        return lo
 
 
     def doit1(self, nums, k):
@@ -157,7 +160,7 @@ class SmallestDistancePair:
         :type k: int
         :rtype: int
         """
-        nums.sort();
+        nums.sort()
 
         diff = []
         maxv, minv = float('-inf'), float('inf')
@@ -179,7 +182,6 @@ class SmallestDistancePair:
                 if r > 0:
                     maxv = max(maxv, diff[i][r-1])
                 num += 0
-                
 
             if num == k:
                 return maxv
@@ -190,9 +192,6 @@ class SmallestDistancePair:
 
         return -1
             
-                        
-                
-        
 
 if __name__ == "__main__":
 
