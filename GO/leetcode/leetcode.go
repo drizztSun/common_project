@@ -11,9 +11,9 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodeH.Test_778_SwimInRisingWater()
+	leetcodeH.Test_786_KthSmallestPrimFraction()
 
-	leetcodem.Test_378_kthSmallestElementinSortedMatrix()
+	leetcodem.Test_787_CheapestFlightWithinKStops()
 
 	// leetcodeH.Test_85_MaximalRectangle()
 

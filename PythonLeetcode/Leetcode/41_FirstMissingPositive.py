@@ -1,8 +1,4 @@
-import os
-import math
-
-
-
+"""
 # 41. First Missing Positive
 
 # Given an unsorted integer array, find the first missing positive integer.
@@ -14,12 +10,27 @@ import math
 #Your algorithm should run in O(n) time and uses constant space.
 
 
-# The basic idea is for any k positive numbers (duplicates allowed), the first missing positive number must be within [1,k+1]. 
+# The basic idea is for any k positive numbers (duplicates allowed), the first missing positive number must be within [1,k+1].
 # The reason is like you put k balls into k+1 bins, there must be a bin empty, the empty bin can be viewed as the missing number.
 
+Follow up:
+
+Your algorithm should run in O(n) time and uses constant extra space.
+"""
 
 
-class firstMissingPositive:
+class FirstMissingPositive:
+
+    def doit(self, nums):
+        # space requirement
+        buf = set(nums)
+        for i in range(1, len(nums) + 1):
+            if i not in buf:
+                return i
+        else:
+            return len(nums) + 1
+
+
     def doit(self, nums):
         """
         :type nums: List[int]

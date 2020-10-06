@@ -1,3 +1,4 @@
+"""
 # 787. Cheapest Flights Within K Stops
 
 # There are n cities connected by m flights. Each fight starts from city u and arrives at v with a price w.
@@ -33,11 +34,13 @@
 # k is in the range of [0, n - 1].
 # There will not be any duplicated flights or self cycles.
 
+"""
 import heapq
+
 
 class FindCheapestPrice:
 
-    def doit(self, n, flights, src, dst, K):
+    def doit_heap(self, n, flights, src, dst, K):
         from collections import defaultdict
         adj_list = defaultdict(list)
         for u,v,w in flights:
@@ -62,7 +65,7 @@ class FindCheapestPrice:
         return -1
 
     #Dji-
-    def doit(self, n, flights, src, dst, K):
+    def doit_heap_dji(self, n, flights, src, dst, K):
 
         flightsMap = [[-1] * n for _ in range(n)]
         for c in flights:
@@ -84,27 +87,27 @@ class FindCheapestPrice:
 
         return -1
 
-    # bfs LTE
-    def doit1(self, n, flights, src, dst, K):
+    def doit_(self, n: int, flights, src: int, dst: int, K):
+        import collections
+        if src == dst: return 0
+        d, seen = collections.defaultdict(list), collections.defaultdict(lambda: float('inf'))
+        for u, v, p in flights:
+            d[u] += [(v, p)]
 
-        flightsMap = [[-1] * n for _ in range(n)]
-        for c in flights:
-            flightsMap[c[0]][c[1]] = c[2]
-        buff = [(src, 0)]
-        minv = float('inf')
+        q = collections.deque()
+        q.append((src, -1, 0))
 
-        while buff and K != -1:
-            nextbuff = []
-            for c in buff:
-                for i in range(n):
-                    if flightsMap[c[0]][i] != -1:
-                        nextbuff.append((i, c[1] + flightsMap[c[0]][i]))
-                        if i == dst and nextbuff[-1][1] < minv:
-                            minv = nextbuff[-1][1]
-            buff = nextbuff
-            K -= 1
+        while q:
+            pos, k, cost = q.popleft()
+            if pos == dst or k == K: continue
+            for nei, p in d[pos]:
+                if cost + p >= seen[nei]:
+                    continue
+                else:
+                    seen[nei] = cost + p
+                    q.append((nei, k + 1, cost + p))
 
-        return -1 if minv == float('inf') else minv
+        return seen[dst] if seen[dst] < float('inf') else -1
 
 
 if __name__ == '__main__':

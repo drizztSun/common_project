@@ -301,9 +301,13 @@ void test_373_find_Kpair_with_smallest_sum();
 
 void test_407_TrappingRainWaterII();
 
+void Test_857_MinimumCosttoHireKWorkers();
+
 void leetcode() {
     
-    test_407_TrappingRainWaterII();
+    Test_857_MinimumCosttoHireKWorkers();
+    
+    // test_407_TrappingRainWaterII();
     
     // test_355_design_twitter();
     
