@@ -53,6 +53,62 @@ using namespace std;
 class SkylineProblem {
 
 public:
+    
+    vector<vector<int>> doit_heap_1(vector<vector<int>>& buildings) {
+        
+        if (buildings.empty())
+            return {};
+     
+        vector<vector<int>> skyline;
+        priority_queue<tuple<int, int, int, int>> heap;
+        
+        for (auto& c : buildings) {
+            heap.push({-c[0], c[2], -c[1], c[2]});
+        }
+        
+        auto c = heap.top();
+        auto l = std::get<0>(c), h = std::get<1>(c), end = std::get<2>(c), cur = std::get<3>(c);
+        heap.pop();
+        l = -l, end = -end;
+        skyline.push_back({l, cur});
+        
+        while (!heap.empty()) {
+            
+            auto c = heap.top();
+            auto left = std::get<0>(c), right = std::get<2>(c), height = std::get<3>(c);
+            heap.pop();
+            left = -left, right = -right;
+            
+            if (left == end && height != cur) {
+                skyline.push_back({end, height});
+                
+            } else if (left > end) {
+                skyline.push_back({end, 0});
+                skyline.push_back({left, height});
+                
+            } else if (left < end) {
+                
+                if (height > cur) {
+                    
+                    skyline.push_back({left, height});
+                    
+                    if (end > right)
+                        heap.push({-right, cur, -end, cur});
+                    
+                } else {
+                    if (right > end)
+                        heap.push({-end, height, -right, height});
+                    continue;
+                }
+            }
+            cur = height;
+            end = right;
+        }
+        
+        
+        skyline.push_back({end, 0});
+        return skyline;
+    }
 
 	vector<vector<int>> doit_heap(vector<vector<int>>& buildings) {
 
@@ -95,8 +151,8 @@ public:
 
 void Test_218_skylineProblem() {
 
-	vector<vector<int>> input{ {2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8} };
+	vector<vector<int>> input{ {2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}};
     
-	auto res = SkylineProblem().doit_heap(input);
+	auto res = SkylineProblem().doit_heap_1(input);
 }
 

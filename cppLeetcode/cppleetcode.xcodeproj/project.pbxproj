@@ -190,6 +190,9 @@
 		08F4D6A0241987400057856A /* 206_ReverseLinkedList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F4D69F2419873F0057856A /* 206_ReverseLinkedList.cpp */; };
 		08F4D6A2241989C10057856A /* 25_ReverseNodesInk-Group.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F4D6A1241989C10057856A /* 25_ReverseNodesInk-Group.cpp */; };
 		08FAA2DA2415A9390002E430 /* 1001_GridIllumination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */; };
+		126E024A252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */; };
+		1271B823252F3D7B00EAFBD4 /* 818_racecars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */; };
+		12F17BDB252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -389,6 +392,9 @@
 		08F4D6A1241989C10057856A /* 25_ReverseNodesInk-Group.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "25_ReverseNodesInk-Group.cpp"; sourceTree = "<group>"; };
 		08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1001_GridIllumination.cpp; sourceTree = "<group>"; };
 		08FC0AD02403634500939CB4 /* cppleetcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppleetcode; sourceTree = BUILT_PRODUCTS_DIR; };
+		126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 882_ReachableNodesInSubdividedGraph.cpp; sourceTree = "<group>"; };
+		1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 818_racecars.cpp; sourceTree = "<group>"; };
+		12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -520,6 +526,9 @@
 				08224C1B252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp */,
 				08F2B709252A38C100325CBE /* 871_MinimumNumberOfRefuelingStops.cpp */,
 				08F2B70B252A53A800325CBE /* 864_ShortestPathtoGetAllKeys.cpp */,
+				12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */,
+				126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */,
+				1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -712,6 +721,7 @@
 				08268B46242BDD34001A80DD /* 983_MinimumCostForTickets.cpp in Sources */,
 				082CD3B7245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp in Sources */,
 				086A8AFA24071C4A00CFAEED /* 802_FindEventualSafeStates.cpp in Sources */,
+				1271B823252F3D7B00EAFBD4 /* 818_racecars.cpp in Sources */,
 				086A8AD824071C4A00CFAEED /* 639_DecodeWaysII.cpp in Sources */,
 				086A8ACC24071C4A00CFAEED /* 745_PrefixSuffixSearch.cpp in Sources */,
 				08741644242CD90600567406 /* 991_BrokenCalculator.cpp in Sources */,
@@ -812,6 +822,7 @@
 				086A8AEA24071C4A00CFAEED /* 719_FindKthSmallestPairDistance.cpp in Sources */,
 				08012E8424129AE8004D11A8 /* 1007_MinimumDominoRotationsForEqualRow.cpp in Sources */,
 				08B505B12417E87B001E19BE /* 1036_EscapeLargeMaze.cpp in Sources */,
+				126E024A252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp in Sources */,
 				08392D29242B8F6700643A17 /* 984_StringWithoutAAAorBBB.cpp in Sources */,
 				0840A3612423E96E00BB7143 /* 968_BinaryTreeCameras.cpp in Sources */,
 				086A8AF624071C4A00CFAEED /* 330_PatchingArray.cpp in Sources */,
@@ -819,6 +830,7 @@
 				086A8AE724071C4A00CFAEED /* 128_LongestConsecutiveSequence.cpp in Sources */,
 				08012E8624129D9B004D11A8 /* 1006_ClumsyFactorial.cpp in Sources */,
 				086A8AB324071C4A00CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp in Sources */,
+				12F17BDB252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp in Sources */,
 				08A9D7EC245878CC0058F560 /* 932_BeautifulArray.cpp in Sources */,
 				0864A89D24409BE2002BE5F0 /* 913_CatAndMouse.cpp in Sources */,
 				086A8AE224071C4A00CFAEED /* 591_TagValidator.cpp in Sources */,

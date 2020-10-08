@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <vector>
-#include <deque>
-using std::deque;
-using std::vector;
-
 /*
  239. Sliding Window Maximum
  
@@ -44,18 +38,46 @@ using std::vector;
  Output: [4]
   
  */
+#include <stdio.h>
+#include <vector>
+#include <deque>
+#include <queue>
+
+using std::priority_queue;
+using std::deque;
+using std::vector;
 
 
 class MaxSlidingWindow {
 public:
-    vector<int> doit_array(vector<int>& nums, int k) {
+    
+    vector<int> doit_heap(vector<int>& nums, int k) {
+        
+        std::priority_queue<std::pair<int, int>> que;
+        vector<int> res;
+        
+        for (int i = 0; i < nums.size(); i++) {
+         
+            while (!que.empty() && que.top().second <= i - k) {
+                que.pop();
+            }
+            
+            que.push({nums[i], i});
+            
+            if (i >= k - 1)
+                res.push_back(que.top().first);
+        }
+        return res;
+    }
+    
+    vector<int> doit_array_stack(vector<int>& nums, int k) {
         
         deque<int> buf;
         vector<int> res;
         
         for (int i = 0; i < nums.size(); i++) {
             
-            while (! buf.empty() && nums[buf.back()] < nums[i]) {
+            while (!buf.empty() && nums[buf.back()] < nums[i]) {
                 buf.pop_back();
             }
             
@@ -90,5 +112,5 @@ public:
            }
            
            return ans;
-       }
+    }
 };

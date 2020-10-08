@@ -40,6 +40,27 @@ from collections import deque
 
 class MaxSlidingWindow:
 
+    # heap is not a better way, because the heap size could be very long, like n.
+    def doit_heap(self, nums, k):
+        import heapq
+        heap = []
+        for i in range(k):
+            heapq.heappush(heap, (-nums[i], i))
+        start = 0
+        end = k - 1
+        res = []
+        while end < len(nums):
+            # removing elements before start index
+            while heap[0][1] < start:
+                heapq.heappop(heap)
+            # adding the max element to result set
+            res.append(-heap[0][0])
+            start += 1
+            end += 1
+            if end < len(nums):
+                heapq.heappush(heap, (-nums[end], end))
+        return res
+
     def doit_queue(self, nums, k: int):
         if len(nums) * k == 0:
             return []
@@ -60,7 +81,7 @@ class MaxSlidingWindow:
             results.append(nums[deq[0]])
         return results
 
-    def doit_queue(self, nums, k):
+    def doit_array_stack(self, nums, k):
         """
         :type nums: List[int]
         :type k: int

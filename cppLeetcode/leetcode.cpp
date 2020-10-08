@@ -303,9 +303,25 @@ void test_407_TrappingRainWaterII();
 
 void Test_857_MinimumCosttoHireKWorkers();
 
+void test_1439_find_the_kth_smallest_sum_of_matrix_with_sorted_rows();
+
+void test_882_ReachableNodeInSubdividedGraph();
+
+void test_818_racecar();
+
+void Test_218_skylineProblem();
+
 void leetcode() {
     
-    Test_857_MinimumCosttoHireKWorkers();
+    Test_218_skylineProblem();
+    
+    // test_818_racecar();
+    
+    // test_882_ReachableNodeInSubdividedGraph();
+    
+    // test_1439_find_the_kth_smallest_sum_of_matrix_with_sorted_rows();
+    
+    // Test_857_MinimumCosttoHireKWorkers();
     
     // test_407_TrappingRainWaterII();
     

@@ -37,11 +37,15 @@ void test_async();
 
 void test_function_able();
 
+void Test_priority_queue();
+
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
     
-    test_function_able();
+    Test_priority_queue();
+    
+    // test_function_able();
     
     // test_basic();
     

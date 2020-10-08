@@ -1,16 +1,9 @@
-
-
 #include <stdlib.h>
 #include <iostream>
 #include <unordered_map>
 #include <functional>
 
 using namespace std;
-
-
-
-
-
 
 
 typedef pair<int, int> CORD;

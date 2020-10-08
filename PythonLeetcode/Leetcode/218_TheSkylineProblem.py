@@ -29,11 +29,7 @@ Also, the ground in between any two adjacent buildings should be considered part
 # [...[2 3], [4 5], [12 7], ...]
 
 """
-
 import heapq
-
-
-
 
 
 class GetSkyline:

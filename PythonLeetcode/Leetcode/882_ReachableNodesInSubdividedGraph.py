@@ -1,3 +1,4 @@
+"""
 # 882. Reachable Nodes In Subdivided Graph
 
 # Starting with an undirected graph (the "original graph") with nodes from 0 to N-1, subdivisions are made to some of the edges.
@@ -37,6 +38,10 @@
 # 0 <= M <= 10^9
 # 1 <= N <= 3000
 # A reachable node is a node that can be travelled to using at most M moves starting from node 0.
+"""
+import collections
+import heapq
+
 
 class ReachableNodes:
 
@@ -51,7 +56,6 @@ class ReachableNodes:
     At the end, we want to know every node we reached in the original graph, plus the sum of the utilization of each edge.
 
     Algorithm
-
     We use Dijkstra's algorithm to find the shortest distance from our source to all targets.
     This is a textbook algorithm, refer to this link for more details. https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 
@@ -61,20 +65,13 @@ class ReachableNodes:
     Please see the inline comments for more details.
 
     Complexity Analysis
-
     Time Complexity: O(ElogN), where E is the length of edges.
-
     Space Complexity: O(N).
 
     """
-    import collections
-    import heapq
-
     # (Dijkstra)
-    def doit(self, edges, M, N):
-
+    def doit_heap_dijkstra(self, edges, M, N):
         graph = collections.defaultdict(dict)
-
         for u, v, w in edges:
             graph[u][v] = graph[v][u] = w
 
@@ -91,7 +88,7 @@ class ReachableNodes:
             # a node in our original graph.
             ans += 1
 
-            for nei, weight in graph[node].iteritems():
+            for nei, weight in graph[node].items():
                 # M - d is how much further we can walk from this node;
                 # weight is how many new nodes there are on this edge.
                 # v is the maximum utilization of this edge.
@@ -118,7 +115,7 @@ class ReachableNodes:
     Dijkstra + Fibonacci heap is O(N log N + E)
     '''
 
-    def doit1(self, edges, M, N):
+    def doit_dijkstra_1(self, edges, M, N):
         e = collections.defaultdict(dict)
         for i, j, l in edges:
             e[i][j] = e[j][i] = l
@@ -150,6 +147,7 @@ class ReachableNodes:
             '''
             res += min(seen.get(i, 0) + seen.get(j, 0), e[i][j])
         return res
+
     # This seems like a standard Dijkstra problem. Remember to calculate move even cannot reach the next node.
     # TLE
 
@@ -181,10 +179,10 @@ class ReachableNodes:
 
 if __name__ == '__main__':
 
-    res = ReachableNodes().doit(
-        edges=[[0, 1, 10], [0, 2, 1], [1, 2, 2]], M=6, N=3)  # 13
+    res = ReachableNodes().doit_heap_dijkstra([[3,4,8],[0,1,3],[1,4,0],[1,2,3],[0,3,2],[0,4,10],[1,3,3],[2,4,3],[2,3,3],[0,2,10]], 7, 5)
 
-    res = ReachableNodes().doit(edges=[[0, 1, 4], [1, 2, 6], [
-        0, 2, 8], [1, 3, 1]], M=10, N=4)  # 23
+    res = ReachableNodes().doit_heap_dijkstra([[2,4,2],[3,4,5],[2,3,1],[0,2,1],[0,3,5]], 14, 5) # 18
 
-    pass
+    res = ReachableNodes().doit_heap_dijkstra(edges=[[0, 1, 10], [0, 2, 1], [1, 2, 2]], M=6, N=3)  # 13
+
+    res = ReachableNodes().doit_heap_dijkstra(edges=[[0, 1, 4], [1, 2, 6], [0, 2, 8], [1, 3, 1]], M=10, N=4)  # 23

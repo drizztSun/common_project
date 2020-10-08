@@ -84,7 +84,7 @@ public:
         
         vector<vector<vector<bool>>> visited(m, vector<vector<bool>>(n, vector<bool>(64, false)));
         visited[x][y][0] = true;
-        queue<std::pair<int, pair<int, int>>> q;
+        queue<std::pair<int, std::pair<int, int>>> q;
         q.push({0, {x, y}});
         int count = 0;
         while(!q.empty()){

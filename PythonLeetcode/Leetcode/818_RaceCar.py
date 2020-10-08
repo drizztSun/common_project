@@ -40,8 +40,7 @@
 
 class Racecar:
 
-    # <BFS>
-    def doit(self, target):
+    def doit_dfs(self, target):
         """
         :type target: int
         :rtype: int
@@ -65,6 +64,45 @@ class Racecar:
 
         return -1
 
+    def doit_bfs(self, target):
+        from collections import deque
+        q = deque([(0, 1, 0)])
+        result = float("inf")
+
+        while q:
+            pos, vel, steps = q.popleft()
+            if pos == target:
+                result = min(result, steps)
+
+            if steps > result:
+                continue
+
+            q.append((pos + vel, vel * 2, steps + 1))
+
+            if (pos + vel > target and vel > 0) or (pos + vel < target and vel < 0):
+                q.append((pos, -1 if vel > 0 else 1, steps + 1))
+
+        return result
+
+    def doit_heap(self, target):
+        from collections import heapq
+        target *= -1
+        q, used = [(0, 0, -1)], {(0, -1)}
+        while q:
+            cnt, pos, speed = heapq.heappop(q)
+            if pos == target:
+                return cnt
+            elif pos > 20000 or -20000 > pos:
+                continue
+            if (pos + speed, speed * 2) not in used:
+                heapq.heappush(q, (cnt + 1, pos + speed, speed * 2))
+                used.add((pos + speed, speed * 2))
+            if speed < 0 and (pos, 1) not in used:
+                heapq.heappush(q, (cnt + 1, pos, 1))
+                used.add((pos, 1))
+            elif speed > 0 and (pos, -1) not in used:
+                heapq.heappush(q, (cnt + 1, pos, -1))
+                used.add((pos, -1))
 
     """
     Approach #1: Dijkstra's [Accepted]
@@ -80,12 +118,12 @@ class Racecar:
     Back to the problem, as described above, we have some barrier where we are guaranteed to never cross. 
     We will also handle negative targets; in total we will have 2 * barrier + 1 nodes.
     
-    After, we could move walk = 2**k - 1 steps for a cost of k + 1 (the 1 is to reverse). If we reach our destination exactly, we don't need the R, so it is just k steps.
+    After, we could move walk = 2**k - 1 steps for a cost of k + 1 (the 1 is to reverse). 
+    If we reach our destination exactly, we don't need the R, so it is just k steps.
     
     Complexity Analysis
 
     Time Complexity: O(TlogT). There are O(T) nodes, we process each one using O(logT) work (both popping from the heap and adding the edges).
-    
     Space Complexity: O(T).
     """
     def doit_dijstra(self, target):
@@ -118,11 +156,13 @@ class Racecar:
     Intuition and Algorithm
     
     As in our Approach Framework, we've framed the problem as a series of moves k[i]
-    Now say we have some target 2**(k-1) <= t < 2**k and we want to know the cost to go there, if we know all the other costs dp[u] (for u < t).
+    Now say we have some target 2**(k-1) <= t < 2**k and we want to know the cost to go there, 
+    if we know all the other costs dp[u] (for u < t).
     
     If t == 2**k - 1, the cost is just k: we use the command A**k, and clearly we can't do better.
     
-    Otherwise, we might drive without crossing the target for a position change of 2**{k-1} - 2**j, by the command A**{k-1} R A**{j}, for a total cost of k - 1 + j + 2k−1+j+2.
+    Otherwise, we might drive without crossing the target for a position change of 2**{k-1} - 2**j, 
+    by the command A**{k-1} R A**{j}, for a total cost of k - 1 + j + 2k−1+j+2.
     
     Finally, we might drive 2**k - 1 which crosses the target, by the command A**k R, for a total cost of k + 1.
     We can use dynamic programming together with the above recurrence to implement the code below.
@@ -138,32 +178,69 @@ class Racecar:
             if t == 2**k - 1:
                 dp[t] = k
                 continue
+
             for j in range(k - 1):
+                # if 2**(k-1) can't reach, the rest will be t - (2**k-1)
+                # we need trun R and speed down, to get a new distance to t.
+                # A**{k-1} R A**{j}R, so there are 2 R, A**j to get new poistion, k- 1 to get (2**(k-1)), so it is, k-1 + j + 2
+                # dp[t - 2**(k - 1) + 2**j] is finish the new distance t - 2**(k - 1) + 2**j, minimum value.
                 dp[t] = min(dp[t], dp[t - 2**(k - 1) + 2**j] + k - 1 + j + 2)
+
             if 2**k - 1 - t < t:
+                # if bypass target, turn back to finish (2**k - 1 -t).
+                # k is get the turn point A**k, 1 is R
                 dp[t] = min(dp[t], dp[2**k - 1 - t] + k + 1)
+
         return dp[target]
 
-
+    """
+    Example
+    For the input 5, we can reach with only 7 steps: AARARAA. Because we can step back.
+    
+    
+    Explanation
+    Let's say n is the length of target in binary and we have 2 ^ (n - 1) <= target < 2 ^ n
+    We have 2 strategies here:
+    
+    1. Go pass our target , stop and turn back
+    We take n instructions of A.
+    1 + 2 + 4 + ... + 2 ^ (n-1) = 2 ^ n - 1
+    Then we turn back by one R instruction.
+    In the end, we get closer by n + 1 instructions.
+    
+    2. Go as far as possible before pass target, stop and turn back
+    We take n - 1 instruction of A and one R.
+    Then we take m instructions of A, where m < n
+    
+    
+    Complexity
+    Time O(TlogT)
+    Space O(T)
+    """
     def doit_dp_1(self, target: int) -> int:
         dp = {0: 0}
         def search(t):
-            if t in self.dp:
-                return self.dp[t]
+            if t in dp:
+                return dp[t]
             n = t.bit_length()
             if 2 ** n - 1 == t:
-                self.dp[t] = n
+                dp[t] = n
             else:
-                self.dp[t] = search(2 ** n - 1 - t) + n + 1
+                dp[t] = search(2 ** n - 1 - t) + n + 1
                 for m in range(n - 1):
-                    self.dp[t] = min(self.dp[t], search(t - 2 ** (n - 1) + 2 ** m) + n + m + 1)
-        return self.dp[target]
+                    dp[t] = min(dp[t], search(t - 2 ** (n - 1) + 2 ** m) + n + m + 1)
+        search(target)
+        return dp[target]
 
 
 if __name__ == "__main__":
+
+    res = Racecar().doit_dp_1(3)
+
+    res = Racecar().doit_dp(5)
 
     res = Racecar().doit_dijstra(6)
 
     res = Racecar().doit_dp(3)
 
-    res = Racecar().doit(1)
+

@@ -55,6 +55,7 @@
 		120826142491058500EDC045 /* modernc_feature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 120826132491058500EDC045 /* modernc_feature.cpp */; };
 		1239B0B824966D5200BB0A66 /* modernc_smart_ptr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1239B0B724966D5200BB0A66 /* modernc_smart_ptr.cpp */; };
 		1261021E248E6A8400A01CF3 /* modernc_type_deduce.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1261021D248E6A8400A01CF3 /* modernc_type_deduce.cpp */; };
+		126E024D252E45110024520F /* test_priority_queue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126E024C252E45110024520F /* test_priority_queue.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -119,6 +120,7 @@
 		120826132491058500EDC045 /* modernc_feature.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_feature.cpp; sourceTree = "<group>"; };
 		1239B0B724966D5200BB0A66 /* modernc_smart_ptr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_smart_ptr.cpp; sourceTree = "<group>"; };
 		1261021D248E6A8400A01CF3 /* modernc_type_deduce.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modernc_type_deduce.cpp; sourceTree = "<group>"; };
+		126E024C252E45110024520F /* test_priority_queue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test_priority_queue.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 				088FB86C24C4BEC700F7C9AE /* test_async.cpp */,
 				08044A1424F28FD000578337 /* test_constructible_destructible_copy.cpp */,
 				08044A1624F35C0700578337 /* test_string_view.cpp */,
+				126E024C252E45110024520F /* test_priority_queue.cpp */,
 			);
 			name = src;
 			path = ../../src;
@@ -317,6 +320,7 @@
 				0894CCAA241EE0D6003DF4A6 /* Precessor_define.cpp in Sources */,
 				08B587322441FC6A002F2F40 /* test_tuple_pair.cpp in Sources */,
 				0809234C24DC8B460008C675 /* ep231_multiple_destructor.cpp in Sources */,
+				126E024D252E45110024520F /* test_priority_queue.cpp in Sources */,
 				0894CCBA241EE0D6003DF4A6 /* test_condition_variable.cpp in Sources */,
 				08B3CBB3242B7B4400DD00DB /* test_stl_algorithm.cpp in Sources */,
 				0894CCBB241EE0D6003DF4A6 /* test_stack.cpp in Sources */,

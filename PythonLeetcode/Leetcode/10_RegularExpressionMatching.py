@@ -1,7 +1,5 @@
-import os
-
-
-# leetcode 10. Regular Expression Matching
+"""
+10. Regular Expression Matching
 
 # Implement regular expression matching with support for '.' and '*'.
 # '.' Matches any single character.
@@ -20,10 +18,12 @@ import os
 # isMatch("aa", ".*") ? true
 # isMatch("ab", ".*") ? true
 # isMatch("aab", "c*a*b") ? true
+"""
 
 
 class isMatch:
-    def doit(self, s, p):
+
+    def doit_dp(self, s, p):
         """
         :type s: str
         :type p: str
@@ -35,17 +35,13 @@ class isMatch:
 
             if (i, j) in A:
                 return A[(i, j)]
-        
-            res = False
-            isstar = j+1 < len(p) and p[j+1] == '*'
 
-            if isstar:
-                res = search(s, i, p, j+2, A) or i < len(s) and (s[i] == p[j] or p[j] == '.') and search(s, i+1, p, j, A )
+            if j+1 < len(p) and p[j+1] == '*':
+                res = search(s, i, p, j+2, A) or i < len(s) and (s[i] == p[j] or p[j] == '.') and search(s, i+1, p, j, A)
             else:
                 res = i < len(s) and (s[i] == p[j] or p[j] == '.') and search(s, i+1, p, j+1, A)
 
             A[(i,j)] = res
-
             return res
         
         return search(s, 0, p, 0, {})
@@ -86,8 +82,6 @@ class isMatch:
                     # s[0..i-1] p[0..j] is matched, so '*' match one more time, 's[i-1]'
         return D[m][n]
 
-
-
     def doit3(self, s, p):
         """
         :type s: str
@@ -101,7 +95,6 @@ class isMatch:
             if p[i] == '*':
                 matching[i+1][0] = matching[i-1][0]
 
-
         for i in range(len(p)):
             for j in range(len(s)):
 
@@ -112,8 +105,8 @@ class isMatch:
 
         return matching[-1][-1]
 
-if __name__=="__main__":
 
+if __name__=="__main__":
 
     res = isMatch().doit("aa","a") # false
 
