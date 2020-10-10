@@ -45,7 +45,7 @@ class WordBreak(object):
 
     # There is an issue that code repeat doing some intermedia result
     # we have to cache the position in the middle
-    def doit(self, s, wordDict):
+    def doit_dp(self, s, wordDict):
         """
         :type s: str
         :type wordDict: List[str]

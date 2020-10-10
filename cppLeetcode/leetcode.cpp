@@ -311,9 +311,18 @@ void test_818_racecar();
 
 void Test_218_skylineProblem();
 
+void test_115_distinct_subsequence();
+
+void test_132_PalindromePartitional();
+
 void leetcode() {
     
-    Test_218_skylineProblem();
+    
+    test_132_PalindromePartitional();
+    
+    // test_115_distinct_subsequence();
+    
+    // Test_218_skylineProblem();
     
     // test_818_racecar();
     
