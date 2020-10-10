@@ -1,10 +1,12 @@
-
+"""
 # 20. Valid Parentheses
 # Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 # The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
 
 
-class isValidParentheses(object):
+"""
+
+class IsValidParentheses:
     def doit(self, s):
         """
         :type s: str
@@ -214,6 +216,23 @@ class LongestValidParentheses(object):
                 max_len = max(max_len, dp[i])
         return max_len
 
+    def doit_dp_1(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        dp, max_len = [0 for _ in range(len(s))], 0
+        for i in range(1, len(s)):
+            if s[i] == ')':
+                if s[i-1] == '(':
+                    dp[i] = 2 + (dp[i-2] if i - 2 >= 0 else 0)
+
+                elif dp[i-1] != 0 and i-dp[i-1]-1 >= 0 and s[i-dp[i-1]-1] == '(':
+                    dp[i] = dp[i-1] + 2 + (dp[i-dp[i-1]-2] if i-dp[i-1]-2 >= 0 else 0)
+
+                max_len = max(max_len, dp[i])
+        return max_len
+
     """
     Approach 3: Using Stack
     Algorithm
@@ -240,7 +259,7 @@ class LongestValidParentheses(object):
         :type s: str
         :rtype: int
         """
-        st, max_len = [-1], 0
+        st, max_len = [-1], 0 # must a boundary to init
 
         for i in range(len(s)):
             if s[i] == '(':
@@ -248,9 +267,9 @@ class LongestValidParentheses(object):
             else:
                 st.pop()
                 if not st:
-                    st.append(i)
+                    st.append(i) # if it is empty, we can't put ')' in as a left boundary
                 else:
-                    max_len = max(max_len, i - st[-1])
+                    max_len = max(max_len, i - st[-1]) # current - left boundary
         return max_len
 
     """
@@ -304,7 +323,7 @@ if __name__ == "__main__":
 
     res = generateParenthesis().doit1(3)
 
-    res = LongestValidParentheses().doit1(')(')
+    res = LongestValidParentheses().doit_dp_1('(()))())(')
 
     res = LongestValidParentheses().doit1('()(()))')
 

@@ -1,10 +1,8 @@
-
-
-
+"""
 # 72. Edit Distance
 
 
-# Given two words word1 and word2, find the minimum number of steps required 
+# Given two words word1 and word2, find the minimum number of steps required
 # to convert word1 to word2. (each operation is counted as 1 step.)
 
 # You have the following 3 operations permitted on a word:
@@ -13,18 +11,20 @@
 # b) Delete a character
 # c) Replace a character
 
+"""
 
-class minDistance(object):
+
+class MinDistance:
 
     # O(n**2) <DP>
-    def doit(self, word1, word2):
+    def doit_dp(self, word1, word2):
         """
         :type word1: str
         :type word2: str
         :rtype: int
         """
         m, n = len(word1), len(word2)
-        dp = [ [0 for _ in range(n+1)] for x in range(m+1)]
+        dp = [[0 for _ in range(n+1)] for x in range(m+1)]
 
         for x in range(m+1):
             dp[x][0] = x
@@ -32,15 +32,13 @@ class minDistance(object):
         for y in range(n+1):
             dp[0][y] = y
 
-
         for i in range(1, m+1):
             for j in range(1, n+1):
                 dp[i][j] = min( dp[i-1][j-1] + (1 if word1[i-1] != word2[j-1] else 0), min(dp[i-1][j], dp[i][j-1]) + 1)
 
         return dp[m][n]
-             
 
-    def doit1(self, word1, word2):
+    def doit_dp_1(self, word1, word2):
         """
         :type word1: str
         :type word2: str
@@ -54,6 +52,7 @@ class minDistance(object):
 
         for i in range(1, len(word2)+1):
             D[0] = i
+
             for j in range(1, len(word1)+1):
 
                 #if word2[i-1] == word1[j-1]:
@@ -67,10 +66,8 @@ class minDistance(object):
 
         return D[len(word1)]        
 
-        
-
     # <BFS>
-    def doit3(self, s, t):
+    def doit_bfs(self, word1, word2):
         """
         :type word1: str
         :type word2: str
@@ -111,14 +108,7 @@ class minDistance(object):
         
         return minDistanceRecurse(word1, word2, len(word1)-1, len(word2)-1, calcultedData)
 
- 
-        
-        
-
-        
-
 
 if __name__=="__main__":
-
     
-    res = minDistance().doit("", "a")
+    res = MinDistance().doit_dp("", "a")

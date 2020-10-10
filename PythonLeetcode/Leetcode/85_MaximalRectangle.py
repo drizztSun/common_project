@@ -34,6 +34,7 @@ class MaximalRectangle(object):
     0 1 1 1 1 1 0
     The vector "left" and "right" from row 0 to row 2 are as follows
 
+    left[i] is most left with 1, right[i] is first right with 0, under the height[i]
     row 0:
 
     l: 0 0 0 3 0 0 0
@@ -74,21 +75,19 @@ class MaximalRectangle(object):
             # scan left    
             for j in range(lines):
                 if matrix[i][j] == '1':
-                    left[j] = max(left[j], curleft)
+                    left[j] = max(left[j], curleft) # compare current and last time, near 1's
                 else:
                     left[j], curleft = 0, j+1
                     
             # scan right        
             for j in reversed(range(lines)):
                 if matrix[i][j] == '1':
-                    right[j] = min(right[j], curright)
+                    right[j] = min(right[j], curright) # compare current and last time, near 0's
                 else:
                     right[j], curright = lines, j
                     
             for i in range(lines):
                 maxV = max(maxV, (right[i]-left[i]) * high[i])
-
-            pass
                 
         return maxV
 
