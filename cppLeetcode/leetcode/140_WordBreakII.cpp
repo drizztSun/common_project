@@ -50,24 +50,41 @@ using std::unordered_map;
 class WordBreak {
 public:
     
-    void search(string s, int index, vector<string&> wordDict, unordered_map<int, vector<string>>& memo) {
+    void search(string s, int index, vector<string>& wordDict, unordered_map<int, vector<string>>& memo) {
         
         if (memo.count(index) != 0) {
             return;
         }
         
+        vector<string> ans;
         for (auto& word : wordDict) {
             
+            if (word == s.substr(index, word.length())) {
+                
+                if (index + word.length() == s.length()) {
+                    ans.push_back(word);
+                    continue;
+                }
+                search(s, index + word.length(), wordDict, memo);
+                for (auto c : memo[index+word.length()]) {
+                    ans.push_back(word + " " + c);
+                }
+            }
         }
         
+        memo[index] = ans;
+        return;
     }
     
-    vector<string> doit_dp(string s, vector<string>& wordDict) {
+    vector<string> doit_dp(string s, vector<string>&& wordDict) {
      
-        
-        
-        
-        return {};
+        unordered_map<int, vector<string>> memo;
+        memo[s.length()] = vector<string>{};
+        search(s, 0, wordDict, memo);
+        return memo[0];
     }
 };
 
+void test_140_word_break() {
+    WordBreak().doit_dp("catsanddog", vector<string>{"cat", "sand", "and", "cats", "dog"});
+}

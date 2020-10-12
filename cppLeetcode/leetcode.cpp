@@ -315,10 +315,19 @@ void test_115_distinct_subsequence();
 
 void test_132_PalindromePartitional();
 
+void test_403_frog_jump();
+
+void test_140_word_break();
+
+void test_403_frog_jump();
+
 void leetcode() {
     
+    // test_140_word_break();
     
-    test_132_PalindromePartitional();
+    test_403_frog_jump();
+    
+    // test_132_PalindromePartitional();
     
     // test_115_distinct_subsequence();
     

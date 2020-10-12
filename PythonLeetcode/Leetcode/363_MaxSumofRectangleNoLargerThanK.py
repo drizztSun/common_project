@@ -1,6 +1,4 @@
-
-
-
+"""
 
 # 363. Max Sum of Rectangle No Larger Than K
 
@@ -20,16 +18,19 @@
 # The rectangle inside the matrix must have an area > 0.
 # What if the number of rows is much larger than the number of columns
 
+
+"""
 import bisect
 
 
 class maxSumSubmatrix:
 
-# using two pointers to scan the column, Space is O(col)
-# left and right both start from the 0, and move right first when it reaches the end then move left
-# record the sum of the value and find the max sum less than k
-# the following code can also be used to solve Max Sum of Sub-Matrix, only need to replace the maxSubArraylessK with Kadane's algorithm
-
+    """
+    # using two pointers to scan the column, Space is O(col)
+    # left and right both start from the 0, and move right first when it reaches the end then move left
+    # record the sum of the value and find the max sum less than k
+    # the following code can also be used to solve Max Sum of Sub-Matrix, only need to replace the maxSubArraylessK with Kadane's algorithm
+    """
     def doit(self, matrix, k):
 
         def maxSubArraylessK(nums, k):
@@ -92,8 +93,6 @@ class maxSumSubmatrix:
                 right += 1
                 
         return res
-
-
 
     def doit2(self, matrix, k):
         """

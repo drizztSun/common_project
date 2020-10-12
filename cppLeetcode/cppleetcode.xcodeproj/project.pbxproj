@@ -192,6 +192,9 @@
 		08FAA2DA2415A9390002E430 /* 1001_GridIllumination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */; };
 		126E024A252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */; };
 		1271B823252F3D7B00EAFBD4 /* 818_racecars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */; };
+		12B728612533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B728602533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp */; };
+		12B7286525338FC70042374E /* 403_FrogJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B7286425338FC70042374E /* 403_FrogJump.cpp */; };
+		12B728692533C8250042374E /* 410_SplitArrayLargestSum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B728682533C8250042374E /* 410_SplitArrayLargestSum.cpp */; };
 		12C9008425309DEB0060B36D /* 115_Distinct Subsequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12C9008325309DEB0060B36D /* 115_Distinct Subsequences.cpp */; };
 		12C900872530E4D50060B36D /* 132_PalindromePartitioningII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12C900862530E4D50060B36D /* 132_PalindromePartitioningII.cpp */; };
 		12C9008A2530EF790060B36D /* 140_WordBreakII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12C900892530EF790060B36D /* 140_WordBreakII.cpp */; };
@@ -397,6 +400,9 @@
 		08FC0AD02403634500939CB4 /* cppleetcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppleetcode; sourceTree = BUILT_PRODUCTS_DIR; };
 		126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 882_ReachableNodesInSubdividedGraph.cpp; sourceTree = "<group>"; };
 		1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 818_racecars.cpp; sourceTree = "<group>"; };
+		12B728602533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 363_MaxSumOfRectangleNoLargeThanK.cpp; sourceTree = "<group>"; };
+		12B7286425338FC70042374E /* 403_FrogJump.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 403_FrogJump.cpp; sourceTree = "<group>"; };
+		12B728682533C8250042374E /* 410_SplitArrayLargestSum.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 410_SplitArrayLargestSum.cpp; sourceTree = "<group>"; };
 		12C9008325309DEB0060B36D /* 115_Distinct Subsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "115_Distinct Subsequences.cpp"; sourceTree = "<group>"; };
 		12C900862530E4D50060B36D /* 132_PalindromePartitioningII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 132_PalindromePartitioningII.cpp; sourceTree = "<group>"; };
 		12C900892530EF790060B36D /* 140_WordBreakII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 140_WordBreakII.cpp; sourceTree = "<group>"; };
@@ -434,12 +440,16 @@
 				086A8AAF24071C4800CFAEED /* 65_ValidNumber.cpp */,
 				086A8A6724071C4400CFAEED /* 68_TextJustification.cpp */,
 				086A8A7724071C4400CFAEED /* 76_MinimumWindowSubstring.cpp */,
+				12C9008325309DEB0060B36D /* 115_Distinct Subsequences.cpp */,
 				086A8AAE24071C4800CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp */,
 				086A8A9824071C4600CFAEED /* 128_LongestConsecutiveSequence.cpp */,
+				12C900862530E4D50060B36D /* 132_PalindromePartitioningII.cpp */,
+				12C900892530EF790060B36D /* 140_WordBreakII.cpp */,
 				086A8A7824071C4400CFAEED /* 188_BestTimeBuySellStockIV.cpp */,
 				086A8A9024071C4600CFAEED /* 215_KthLargestElementInArrat.cpp */,
 				086A8A9124071C4600CFAEED /* 218_SkylineProblem.cpp */,
 				086A8A6E24071C4400CFAEED /* 218_TheSkylinesProblem.cpp */,
+				082C5AF6251EEB740061105C /* 239_SlidingWindowMaximum.cpp */,
 				086A8A8E24071C4600CFAEED /* 295_FindMedianfromDataStream.cpp */,
 				086A8A9624071C4600CFAEED /* 305_NumberOfIslandII.cpp */,
 				086A8A8C24071C4600CFAEED /* 321_CreateMaximumNumber.cpp */,
@@ -448,6 +458,9 @@
 				086A8AA724071C4700CFAEED /* 330_PatchingArray.cpp */,
 				086A8AA024071C4700CFAEED /* 336_PalindromeParis.cpp */,
 				086A8AA524071C4700CFAEED /* 354_RussianDollEnvelopes.cpp */,
+				12B728602533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp */,
+				12B7286425338FC70042374E /* 403_FrogJump.cpp */,
+				080A5D442522C16300718AAA /* 407_TrappingRainWaterII.cpp */,
 				086A8A9A24071C4700CFAEED /* 420_StrongPasswordChecker.cpp */,
 				086A8A6524071C4400CFAEED /* 432_AllOneDataStructure.cpp */,
 				086A8A9D24071C4700CFAEED /* 466_CountRepetitions.cpp */,
@@ -494,10 +507,26 @@
 				086A8AAB24071C4800CFAEED /* 802_FindEventualSafeStates.cpp */,
 				086A8A8124071C4500CFAEED /* 803_BricksFallingWhenHit.cpp */,
 				086A8A7024071C4400CFAEED /* 805_SplitArrayWithSameAverage.cpp */,
+				1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */,
 				086A8A6D24071C4400CFAEED /* 839_SimilarStringGroups.cpp */,
 				086A8AAC24071C4800CFAEED /* 843_GuesstheWord.cpp */,
 				086A8AA824071C4800CFAEED /* 847_ShortestPathVisitingAllNodes.cpp */,
 				086A8A9C24071C4700CFAEED /* 854_KthSimilarString.cpp */,
+				08224C1B252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp */,
+				08F2B70B252A53A800325CBE /* 864_ShortestPathtoGetAllKeys.cpp */,
+				08F2B709252A38C100325CBE /* 871_MinimumNumberOfRefuelingStops.cpp */,
+				126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */,
+				089BB604243BC29400BB3A70 /* 902_NumbersAtMostNGivenDigitSet.cpp */,
+				08A8F72A2466EEA000346C79 /* 903_ValidPermutationsForDISequence.cpp */,
+				08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */,
+				0864A89C24409BE2002BE5F0 /* 913_CatAndMouse.cpp */,
+				08EA74902447BC5100B9D7E1 /* 920_NumberOfMusicPlaylists.cpp */,
+				089C6AB3244A301F00AB614B /* 924_MinimizeMalwareSpread.cpp */,
+				0877E46B2451064800BF2381 /* 927_ThreeEqualParts.cpp */,
+				0837860E2456182700843389 /* 928_MinimizeMalwareSpreadII.cpp */,
+				0877E4692450989800BF2381 /* 936_StampingTheSequence.cpp */,
+				08D8270A24493A4600652326 /* 940_DistinctSubsequencesII.cpp */,
+				089AB253244F27470093A912 /* 943_FindtheShortestSuperstring.cpp */,
 				083F7C36241BC26500D3D54A /* 952_LargestComponentSizebyCommonFactor.cpp */,
 				083F7C38241C17AC00D3D54A /* 956_TallestBillboard.cpp */,
 				083F7C3C241D030700D3D54A /* 960_DeleteColumnsToMakeSortedIII.cpp */,
@@ -516,28 +545,8 @@
 				08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */,
 				08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */,
 				087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */,
-				089BB604243BC29400BB3A70 /* 902_NumbersAtMostNGivenDigitSet.cpp */,
-				08ADEC0E243E9A0C009F8AEB /* 906_SuperPalindromes.cpp */,
-				0864A89C24409BE2002BE5F0 /* 913_CatAndMouse.cpp */,
-				08EA74902447BC5100B9D7E1 /* 920_NumberOfMusicPlaylists.cpp */,
-				08D8270A24493A4600652326 /* 940_DistinctSubsequencesII.cpp */,
-				089C6AB3244A301F00AB614B /* 924_MinimizeMalwareSpread.cpp */,
-				089AB253244F27470093A912 /* 943_FindtheShortestSuperstring.cpp */,
-				0877E4692450989800BF2381 /* 936_StampingTheSequence.cpp */,
-				0877E46B2451064800BF2381 /* 927_ThreeEqualParts.cpp */,
-				0837860E2456182700843389 /* 928_MinimizeMalwareSpreadII.cpp */,
-				08A8F72A2466EEA000346C79 /* 903_ValidPermutationsForDISequence.cpp */,
-				082C5AF6251EEB740061105C /* 239_SlidingWindowMaximum.cpp */,
-				080A5D442522C16300718AAA /* 407_TrappingRainWaterII.cpp */,
-				08224C1B252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp */,
-				08F2B709252A38C100325CBE /* 871_MinimumNumberOfRefuelingStops.cpp */,
-				08F2B70B252A53A800325CBE /* 864_ShortestPathtoGetAllKeys.cpp */,
 				12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */,
-				126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */,
-				1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */,
-				12C9008325309DEB0060B36D /* 115_Distinct Subsequences.cpp */,
-				12C900862530E4D50060B36D /* 132_PalindromePartitioningII.cpp */,
-				12C900892530EF790060B36D /* 140_WordBreakII.cpp */,
+				12B728682533C8250042374E /* 410_SplitArrayLargestSum.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -789,6 +798,8 @@
 				08F0D243241E8F3A00EBB167 /* 101_SymmetricTree.cpp in Sources */,
 				086A8ACF24071C4A00CFAEED /* 768_MaxChunksToMakeSortedII.cpp in Sources */,
 				086A8AF724071C4A00CFAEED /* 847_ShortestPathVisitingAllNodes.cpp in Sources */,
+				12B728612533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp in Sources */,
+				12B728692533C8250042374E /* 410_SplitArrayLargestSum.cpp in Sources */,
 				086A8AB424071C4A00CFAEED /* 432_AllOneDataStructure.cpp in Sources */,
 				0877E46C2451064800BF2381 /* 927_ThreeEqualParts.cpp in Sources */,
 				08F0D23F241E7B3600EBB167 /* 67_AddBinary.cpp in Sources */,
@@ -862,6 +873,7 @@
 				086A8AD324071C4A00CFAEED /* 41_FirstMissingPositive.cpp in Sources */,
 				086A8AB724071C4A00CFAEED /* 699_fallingSquare.cpp in Sources */,
 				081C69D7241E57D5005CE99B /* 636_ExclusiveTimeOfFunctions.cpp in Sources */,
+				12B7286525338FC70042374E /* 403_FrogJump.cpp in Sources */,
 				086A8AE924071C4A00CFAEED /* 420_StrongPasswordChecker.cpp in Sources */,
 				0840A363242413D300BB7143 /* 967_NumbersWithSameConsecutiveDifferences.cpp in Sources */,
 				08D8ED6B242AD8BC00F8543D /* 982_TriplesWithBitwiseANDEqualToZero.cpp in Sources */,
