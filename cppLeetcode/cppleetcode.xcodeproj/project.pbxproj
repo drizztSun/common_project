@@ -467,9 +467,11 @@
 				12B728602533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp */,
 				12B7286425338FC70042374E /* 403_FrogJump.cpp */,
 				080A5D442522C16300718AAA /* 407_TrappingRainWaterII.cpp */,
+				12B728682533C8250042374E /* 410_SplitArrayLargestSum.cpp */,
 				086A8A9A24071C4700CFAEED /* 420_StrongPasswordChecker.cpp */,
 				086A8A6524071C4400CFAEED /* 432_AllOneDataStructure.cpp */,
 				086A8A9D24071C4700CFAEED /* 466_CountRepetitions.cpp */,
+				12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */,
 				086A8A8624071C4500CFAEED /* 472_ConcatenatedWordscpp.cpp */,
 				086A8A8724071C4500CFAEED /* 480_SlidingWindowMedian.cpp */,
 				086A8A7B24071C4400CFAEED /* 502_IPO.cpp */,
@@ -480,6 +482,7 @@
 				086A8AA324071C4700CFAEED /* 546_removeBoxes.cpp */,
 				086A8AA124071C4700CFAEED /* 552_StudentAttendanceRecordII.cpp */,
 				086A8A8F24071C4600CFAEED /* 564_FindTheClosestPalindrome.cpp */,
+				12BAC8382534CDF200A243D8 /* 568_MaximumVacationDays.cpp */,
 				086A8AB024071C4900CFAEED /* 587_ErectTheFence.cpp */,
 				086A8A9324071C4600CFAEED /* 591_TagValidator.cpp */,
 				086A8A8824071C4500CFAEED /* 600_NonNegativeIntegerswithoutConsecutiveOnes.cpp */,
@@ -493,6 +496,7 @@
 				086A8A6824071C4400CFAEED /* 699_fallingSquare.cpp */,
 				086A8A9B24071C4700CFAEED /* 719_FindKthSmallestPairDistance.cpp */,
 				086A8AA924071C4800CFAEED /* 726_NumberofAtoms.cpp */,
+				12BAC83B2534F88400A243D8 /* 727_MinimumWindowSubsequence.cpp */,
 				086A8AB124071C4900CFAEED /* 729_MyCalendarI.cpp */,
 				086A8AAA24071C4800CFAEED /* 731_MyCalendarII.cpp */,
 				086A8A6324071C4400CFAEED /* 732_MyCalendarIII.cpp */,
@@ -552,10 +556,6 @@
 				08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */,
 				087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */,
 				12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */,
-				12B728682533C8250042374E /* 410_SplitArrayLargestSum.cpp */,
-				12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */,
-				12BAC8382534CDF200A243D8 /* 568_MaximumVacationDays.cpp */,
-				12BAC83B2534F88400A243D8 /* 727_MinimumWindowSubsequence.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
