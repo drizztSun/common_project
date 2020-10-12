@@ -321,11 +321,19 @@ void test_140_word_break();
 
 void test_403_frog_jump();
 
+void test_471_encoding_string_with_shortest_length();
+
+void test_727_minimum_windows_subsequence();
+
 void leetcode() {
+    
+    test_727_minimum_windows_subsequence();
+    
+    // test_471_encoding_string_with_shortest_length();
     
     // test_140_word_break();
     
-    test_403_frog_jump();
+    // test_403_frog_jump();
     
     // test_132_PalindromePartitional();
     
