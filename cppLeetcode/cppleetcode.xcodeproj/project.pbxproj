@@ -192,6 +192,8 @@
 		08FAA2DA2415A9390002E430 /* 1001_GridIllumination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */; };
 		126E024A252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */; };
 		1271B823252F3D7B00EAFBD4 /* 818_racecars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */; };
+		12745BE52536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */; };
+		12745BE82536177000545BC1 /* 1246_PalindromeRemoval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */; };
 		12B0390E2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */; };
 		12B728612533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B728602533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp */; };
 		12B7286525338FC70042374E /* 403_FrogJump.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B7286425338FC70042374E /* 403_FrogJump.cpp */; };
@@ -403,6 +405,8 @@
 		08FC0AD02403634500939CB4 /* cppleetcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppleetcode; sourceTree = BUILT_PRODUCTS_DIR; };
 		126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 882_ReachableNodesInSubdividedGraph.cpp; sourceTree = "<group>"; };
 		1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 818_racecars.cpp; sourceTree = "<group>"; };
+		12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1548_TheMostSimilarPathInGraph.cpp; sourceTree = "<group>"; };
+		12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1246_PalindromeRemoval.cpp; sourceTree = "<group>"; };
 		12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 471_EncodeStringWithShortestLength.cpp; sourceTree = "<group>"; };
 		12B728602533452A0042374E /* 363_MaxSumOfRectangleNoLargeThanK.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 363_MaxSumOfRectangleNoLargeThanK.cpp; sourceTree = "<group>"; };
 		12B7286425338FC70042374E /* 403_FrogJump.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 403_FrogJump.cpp; sourceTree = "<group>"; };
@@ -556,6 +560,8 @@
 				08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */,
 				087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */,
 				12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */,
+				12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */,
+				12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -736,6 +742,7 @@
 				086A8AF524071C4A00CFAEED /* 773_SlidingPuzzle.cpp in Sources */,
 				081C69D5241E5311005CE99B /* 283_MoveZeroes.cpp in Sources */,
 				086A8AF824071C4A00CFAEED /* 726_NumberofAtoms.cpp in Sources */,
+				12745BE52536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp in Sources */,
 				080A5D432522280B00718AAA /* 378_KthSmallestElementinSortedMatrix.cpp in Sources */,
 				081E87ED2407116F008932EA /* leetcode.cpp in Sources */,
 				080BDFF924106BAB00D46B59 /* 1023_CamelcaseMatching.cpp in Sources */,
@@ -892,6 +899,7 @@
 				086A8ABE24071C4A00CFAEED /* 514_FreedomTrail.cpp in Sources */,
 				08ADEC0F243E9A0C009F8AEB /* 906_SuperPalindromes.cpp in Sources */,
 				082C5AF7251EEB740061105C /* 239_SlidingWindowMaximum.cpp in Sources */,
+				12745BE82536177000545BC1 /* 1246_PalindromeRemoval.cpp in Sources */,
 				086A8AD524071C4A00CFAEED /* 472_ConcatenatedWordscpp.cpp in Sources */,
 				08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */,
 				08AB629E2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp in Sources */,

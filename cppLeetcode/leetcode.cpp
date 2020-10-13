@@ -325,9 +325,17 @@ void test_471_encoding_string_with_shortest_length();
 
 void test_727_minimum_windows_subsequence();
 
+void test_1548_most_similar_path_graph();
+
+void test_1246_palindrome_removal();
+
 void leetcode() {
     
-    test_727_minimum_windows_subsequence();
+    test_1246_palindrome_removal();
+    
+    // test_1548_most_similar_path_graph();
+    
+    // test_727_minimum_windows_subsequence();
     
     // test_471_encoding_string_with_shortest_length();
     
