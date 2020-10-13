@@ -311,9 +311,13 @@ void test_818_racecar();
 
 void Test_218_skylineProblem();
 
+void test_312_burst_balloons();
+
 void leetcode() {
     
-    Test_218_skylineProblem();
+    test_312_burst_balloons();
+    
+    // Test_218_skylineProblem();
     
     // test_818_racecar();
     
