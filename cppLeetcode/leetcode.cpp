@@ -1,6 +1,5 @@
 #include <stdlib.h>
 
-
 void test420();
 
 void minimum_window_substring();
@@ -311,321 +310,352 @@ void test_818_racecar();
 
 void Test_218_skylineProblem();
 
-void test_312_burst_balloons();
+void test_115_distinct_subsequence();
 
-void leetcode() {
-    
-    test_312_burst_balloons();
-    
+void test_132_PalindromePartitional();
+
+void test_403_frog_jump();
+
+void test_140_word_break();
+
+void test_403_frog_jump();
+
+void test_471_encoding_string_with_shortest_length();
+
+void test_727_minimum_windows_subsequence();
+
+void test_1548_most_similar_path_graph();
+
+void test_1246_palindrome_removal();
+
+void leetcode()
+{
+
+    test_1246_palindrome_removal();
+
+    // test_1548_most_similar_path_graph();
+
+    // test_727_minimum_windows_subsequence();
+
+    // test_471_encoding_string_with_shortest_length();
+
+    // test_140_word_break();
+
+    // test_403_frog_jump();
+
+    // test_132_PalindromePartitional();
+
+    // test_115_distinct_subsequence();
+
     // Test_218_skylineProblem();
-    
+
     // test_818_racecar();
-    
+
     // test_882_ReachableNodeInSubdividedGraph();
-    
+
     // test_1439_find_the_kth_smallest_sum_of_matrix_with_sorted_rows();
-    
+
     // Test_857_MinimumCosttoHireKWorkers();
-    
+
     // test_407_TrappingRainWaterII();
-    
+
     // test_355_design_twitter();
-    
+
     // test_903_valid_permutations_for_di_sequence();
-    
+
     // test_962_maximum_width_range();
-    
+
     // test_932_beautiful_array();
-    
+
     // test_928_MinimizeMalwareSpreadII();
-    
+
     // test_927_three_equal_parts();
-    
+
     // test_936_stamping_the_sequence();
-    
+
     // test_943_find_shortest_superstring();
-    
+
     // test_924_minimize_malware_spread();
-    
+
     // test_940_distinct_subsequences_II();
-    
+
     // test_920_number_of_music_playlist();
-    
+
     // test_939_CatAndMouse();
-    
+
     // test_906_SuperPalindromes();
-    
+
     // test_902_at_most_given_digits();
-    
+
     // test_1044_longest_duplicate_substring();
-    
+
     // test_981_time_based_key_value_store();
-    
+
     // test_987_vertical_order_traversal_of_binary_tree();
-    
+
     // test_988_smallest_from_leaf();
-    
+
     // test_991_broken_calculator();
-    
+
     // test_990_statifiability_of_equality_equations();
-    
+
     // test_983_minimum_cost_for_tickets();
-    
+
     // test_984_string_without_aaa_or_bbb();
-    
+
     // test_982_triple_with_bitwise_and_equal_to_zero();
-    
+
     // test_992_subarray_with_kdifferent_integer();
-    
+
     // test_995_minimum_number_of_consecutive_bit_flips();
-    
+
     // test_996_number_of_squareful_array();
-    
+
     // test_654_maximum_binary_tree();
-    
+
     // test_1000_mininum_cost_to_merge_stons();
-    
+
     // test_975_odd_even_jumo();
-    
+
     // test_978_longest_turbulent_subarrayIII();
-    
+
     // test_979_distribute_coins_binary_tree();
-    
+
     // test_978_longest_turbulent_subarray();
-    
+
     // test_976_largest_perimeter_triangle();
-    
+
     // test_973_kclosest_points_to_origin();
-    
+
     // test_971_flip_match_voyage();
-    
+
     // test_200_number_of_islands();
-    
+
     // test_969_pancake_sorting();
-    
+
     // test_967_numbers_with_same_consecutive_difference();
-    
+
     // test_968_binary_tree_camera();
-    
+
     // test_966_vowel_spellchecker();
-    
+
     // test_939_minimum_area_rectangle();
-    
+
     // test_963_minimum_area_rectangle_ii();
-    
+
     // test_962_maxium_width_ramp();
-    
+
     // test_959_region_cut_by_slashes();
-    
+
     // test_957_prison_cells_after_n_days();
-    
+
     // test_954_array_of_double_pairs();
-    
+
     // test_958_check_completeness_of_binary_tree();
-    
+
     // test_71_simplify_path();
-    
+
     // test_67_add_binary();
-    
+
     // test_636_exclusive_time_of_functions();
-    
+
     // test_283_move_zones();
-    
+
     // test_56_merge_intervals();
-    
+
     // test_560_subarray_sum_equalk();
-    
+
     // test_960_delete_columns_to_make_sorted_III();
-    
+
     // test_955_delete_columns_to_make_sortedII();
-    
+
     // test_956_Tallest_Billboards();
-    
+
     // test_974_subarray_sums_division_by_k();
-    
+
     // test_1036_escape_large_maze();
-    
+
     // test_1032_stream_of_characters();
-    
+
     // test_1028_recover_tree_from_preorder_travels();
-    
+
     // test_1001_grid_illumination();
-    
+
     // test_1012_Numbers_with_repeated_digits();
-    
+
     // test_1003_check_if_word_is_valid_after_substitution();
-    
+
     // test_1004_max_consecutive_ones_III();
-    
+
     // test_1007_minimum_domina_rotation_for_equal_row();
-    
+
     // test_1008_constrcut_binary_search_tree_from_preorder_traversal();
-    
+
     // test_1011_capacity_to_ship_package_within_d_days();
-    
+
     // test_1014_best_sight_seeing_pair();
-    
+
     // test_1016_binary_string_with_substrings_representing();
-    
+
     // test_1017_convert_to_base();
-    
+
     // test_1020_number_of_enclave();
-    
+
     // test_1023_CamlcaseMatching();
-    
+
     // test_1024_VideoStitching();
-    
+
     // test_1027_Longest_Arithmetic_Sequence();
-    
+
     // test_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays();
-    
+
     // test_1038_Binary_Search_Tree_Greater_Sum_Tree();
-    
+
     // test_1039_Minimum_Score_Triangulation_of_Polygon();
-    
+
     // test_1041_robot_bounded_in_circle();
 
     // test_1048_longest_string_chain();
-    
+
     // test_1040_moving_stones_until_consecutive();
-    
+
     // test_1034_Coloring_A_Border();
-    
-	//minimum_window_substring();
 
-	//substring_with_concatenation_of_all_words();
+    //minimum_window_substring();
 
-	// test420();
+    //substring_with_concatenation_of_all_words();
 
-	// Test_321_Create_Maximum_Number();
+    // test420();
 
-	// Test_305_Number_Of_Island_II();
+    // Test_321_Create_Maximum_Number();
 
-	// Test_329_longestIncreasingPath();
+    // Test_305_Number_Of_Island_II();
 
-	// Test_330_PatchingArray();
+    // Test_329_longestIncreasingPath();
 
-	// Test_327_CountOfRangeSum();
+    // Test_330_PatchingArray();
 
-	// Test_336_PalindromePairs();
+    // Test_327_CountOfRangeSum();
 
-	// Test_218_TheSKylinesProblem();
+    // Test_336_PalindromePairs();
 
-	// Test_188_BestTimeBuySellStockIV();
+    // Test_218_TheSKylinesProblem();
 
-	// Test_295_FindMedianFromDataStream();
+    // Test_188_BestTimeBuySellStockIV();
 
-	// Test_432_AllOneDataStructure();
+    // Test_295_FindMedianFromDataStream();
 
-	// Test_480_SildingWIndowMedian();
+    // Test_432_AllOneDataStructure();
 
-	// Test_472_ConcatenatedWords();
+    // Test_480_SildingWIndowMedian();
 
-	// Test_502_IPO();
+    // Test_472_ConcatenatedWords();
 
-	// Test_514_FreedomTrail();
+    // Test_502_IPO();
 
-	// Test_546_RemoveBoxes();
+    // Test_514_FreedomTrail();
 
-	// Test_587_ErectTheFence();
+    // Test_546_RemoveBoxes();
 
-	// Test_591_TagValidator();
+    // Test_587_ErectTheFence();
 
-	// Test_629_KthInversePairsArray();
+    // Test_591_TagValidator();
 
-	// Test_632_SmallestRange();
+    // Test_629_KthInversePairsArray();
 
-	// Test_639_DecodeWayII();
+    // Test_632_SmallestRange();
 
-	// Test_668_KthSmallestNunber();
+    // Test_639_DecodeWayII();
 
-	// Test_664_StangePrinter();
+    // Test_668_KthSmallestNunber();
 
-	// Test_719_FindSmallestPairDistance();
+    // Test_664_StangePrinter();
 
-	// Test_726_NumberofAtoms();
+    // Test_719_FindSmallestPairDistance();
 
-	// Test_732_MyCalendarThree();
+    // Test_726_NumberofAtoms();
 
-	// Test_736_ParseLispExpression();
+    // Test_732_MyCalendarThree();
 
-	// Test_741_CherryPickup();
+    // Test_736_ParseLispExpression();
 
-	// Test_745_PrefixSuffixSearch();
+    // Test_741_CherryPickup();
 
-	// Test_757_SetIntersectionsSizeAtLeastTwo();
+    // Test_745_PrefixSuffixSearch();
 
-	// Test_753_CrackingTheSafe();
+    // Test_757_SetIntersectionsSizeAtLeastTwo();
 
-	// Test_749_ContainVirus();
+    // Test_753_CrackingTheSafe();
 
-	// Test_741_CherryPickup();
+    // Test_749_ContainVirus();
 
-	// Test_761_SpecialBinaryString();
+    // Test_741_CherryPickup();
 
-	// Test_679_24Game();
+    // Test_761_SpecialBinaryString();
 
-	// Test_552_StudentAttendanceRecordII();
+    // Test_679_24Game();
 
-	// Test_773_SlidingPuzzle();
+    // Test_552_StudentAttendanceRecordII();
 
-	// Test_765_CouplesHoldingHands();
+    // Test_773_SlidingPuzzle();
 
-	// Test_768_MaxChunksToMakeSortedII();
+    // Test_765_CouplesHoldingHands();
 
-	// Test_778_SwimInRisingWater();
+    // Test_768_MaxChunksToMakeSortedII();
 
-	// Test_803_BricksFallingWhenHit();
+    // Test_778_SwimInRisingWater();
 
-	// Test_805_SplitArrayWithSameAverage();
+    // Test_803_BricksFallingWhenHit();
 
-	// Test_839_SimilarStringGroups();
+    // Test_805_SplitArrayWithSameAverage();
 
-	// Test_843_GuesstheWorld();
+    // Test_839_SimilarStringGroups();
 
-	// Test_782_TransformtoChessboard();
+    // Test_843_GuesstheWorld();
 
-	// Test_4_MedianofTwoSortedArrays();
+    // Test_782_TransformtoChessboard();
 
-	// Test_23_MergeSortedList();
+    // Test_4_MedianofTwoSortedArrays();
 
-	// Test_10_RegularExpressionMatching();
+    // Test_23_MergeSortedList();
 
-	// Test_847_ShortestPathVisitingAllNodes();
+    // Test_10_RegularExpressionMatching();
 
-	// Test_32_LongestValidParentheses();
+    // Test_847_ShortestPathVisitingAllNodes();
 
-	// Test_32_SudokuSolver();
+    // Test_32_LongestValidParentheses();
 
-	// Test_41_FirstMissingPositive();
+    // Test_32_SudokuSolver();
 
-	// Test_42_TrappingRainWater();
+    // Test_41_FirstMissingPositive();
 
-	// Test_44_WildcardMatching();
+    // Test_42_TrappingRainWater();
 
-	// Test_45_JumpGameII();
+    // Test_44_WildcardMatching();
 
-	// Test_65_ValidNumber();
+    // Test_45_JumpGameII();
 
-	// Test_68_TextJustification();
+    // Test_65_ValidNumber();
 
-	// Test_123_BestTimetoBuyandSellStock();
+    // Test_68_TextJustification();
 
-	// Test_689_MaxSumOfThreeSubarray();
+    // Test_123_BestTimetoBuyandSellStock();
 
-	// Test_218_TheSKylinesProblem();
+    // Test_689_MaxSumOfThreeSubarray();
 
-	// Test_854_KthSimilarString();
+    // Test_218_TheSKylinesProblem();
 
-	// Test_801_MinimumSwaps();
+    // Test_854_KthSimilarString();
 
-	// Test_802_FindEventualSafeStates();
+    // Test_801_MinimumSwaps();
 
-	// Test_787_CheapestFlights();
+    // Test_802_FindEventualSafeStates();
 
-	// Test_729_MyCalendarI();
+    // Test_787_CheapestFlights();
+
+    // Test_729_MyCalendarI();
 
     // Test_731_MyCalendarII();
 
-	// Test_731_MyCalendarII();
+    // Test_731_MyCalendarII();
 }

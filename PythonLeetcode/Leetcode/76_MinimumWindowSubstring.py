@@ -1,6 +1,4 @@
-import os
-import collections
-
+"""
 # 76. Minimum Window Substring
 # Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
 
@@ -12,10 +10,12 @@ import collections
 # Note:
 # If there is no such window in S that covers all characters in T, return the empty string "".
 # If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
+"""
+import collections
 
 
+class MinWindow(object):
 
-class minWindow(object):
     def doit(self, s, t):
         """
         :type s: str
@@ -38,7 +38,6 @@ class minWindow(object):
                     I, J = i, j
 
         return s[I:J]
-
 
     def doit1(self, s, t):
         """
@@ -153,22 +152,16 @@ class minWindow(object):
 
 if __name__=="__main__":
 
+    res = MinWindow().doit("ab", "b")
 
-    res = minWindow().doit("ab", "b")
+    res = MinWindow().doit("bdab", "ab")
 
+    res = MinWindow().doit1("bdab", "ab")
 
-    res = minWindow().doit("bdab", "ab")
+    res = MinWindow().doit1("ab", "b")
 
-    res = minWindow().doit1("bdab", "ab")
+    res = MinWindow().doit("a", "a")
 
-    res = minWindow().doit1("ab", "b")
-
-    res = minWindow().doit("a", "a")
-
-    res = minWindow().doit("a", "b")
+    res = MinWindow().doit("a", "b")
     
-    res = minWindow().doit("ADOBECODEBANC", "ABC")
-
-
-    pass   
-    
+    res = MinWindow().doit("ADOBECODEBANC", "ABC")

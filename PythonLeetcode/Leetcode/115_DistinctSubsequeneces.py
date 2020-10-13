@@ -1,5 +1,3 @@
-import collections
-
 """
 # leetcode 115. Distinct Subsequences
 
@@ -44,6 +42,7 @@ babgbag
 babgbag
     ^^^
 """
+import collections
 
 
 class NumDistinct(object):
@@ -103,10 +102,10 @@ class NumDistinct(object):
             return 0
         
         m, n = len(s), len(t)
-        D = [1 for _ in range(m+1)]
+        D = [1 for _ in range(m+1)] # t = '', s = '..' always has 1 common subsequence.
                 
         for i in range(1, n+1):
-            D[0], lastD = 0, D[:]
+            D[0], lastD = 0, D[:] # if t = '...' s = '', always has 0 common subsequence.
 
             for j in range(1, m+1):
                 # if we remove current one
@@ -217,6 +216,3 @@ if __name__=="__main__":
     res = NumDistinct().doit("ccc", "c") # 3
     
     res = NumDistinct().doit("rabbbit", "rabbit") # 3
-
-
-    pass

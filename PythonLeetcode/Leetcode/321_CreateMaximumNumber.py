@@ -29,7 +29,7 @@
 # <important> <hard>
 class MaxNumber(object):
 
-    def doit_dp(self, a, b, k):
+    def doit(self, a, b, k):
         """
         :type nums1: List[int]
         :type nums2: List[int]
@@ -38,7 +38,6 @@ class MaxNumber(object):
         """
         lena = len(a)
         lenb = len(b)
-
 
         def fill(a, c):
             last = [-1] * 10
@@ -143,7 +142,6 @@ class MaxNumber(object):
                 out.append(c)
             return out[:k]
 
-
         return max([ merge(prepare(nums1, i), prepare(nums2, k-i)) for i in range(k+1) if i <= len(nums1) and k-i <= len(nums2)])
 
     # <myown>
@@ -194,11 +192,10 @@ class MaxNumber(object):
 
 if __name__=="__main__":
 
+    res = MaxNumber().doit([3, 4, 6, 5], [9, 1, 2, 5, 8, 3], 5) # [9, 8, 6, 5, 3]
 
-    res = maxNumber().doit([3, 4, 6, 5], [9, 1, 2, 5, 8, 3], 5) # [9, 8, 6, 5, 3]
+    res = MaxNumber().doit([6, 7], [6, 0, 4], 5) # [6, 7, 6, 0, 4]
 
-    res = maxNumber().doit([6, 7], [6, 0, 4], 5) # [6, 7, 6, 0, 4]
-
-    res = maxNumber().doit([3, 9], [8, 9], 3) # [9, 8, 9]
+    res = MaxNumber().doit([3, 9], [8, 9], 3) # [9, 8, 9]
 
     pass

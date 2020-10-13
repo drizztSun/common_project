@@ -1,7 +1,4 @@
-
-
 /*
-
 	321. Create Maximum Number
 
 	Given two arrays of length m and n with digits 0-9 representing two numbers.
@@ -32,15 +29,164 @@
 #include <stdlib.h>
 #include <vector>
 #include <algorithm>
+#include <string>
 
 
-
+using std::string;
 using std::vector;
+
 
 class CreateMaximumNumber {
 
 public:
-	vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) {
+    
+    vector<int> doit_dp(vector<int>& nums1, vector<int>& nums2, int k) {
+        vector<int> ans;
+        if(!nums1.size() && !nums2.size() || !k)
+            return ans;
+        ans.resize(k);
+        int n = nums1.size(), m = nums2.size();
+        vector<string> dp1(std::min(k, n)), dp2(std::min(k, m));
+        vector<string> dpprev1(n), dpcur1(n), dpprev2(m), dpcur2(m);
+
+        for(int i = 0; i < dp1.size(); ++ i){
+            string tmpval(i + 1, 0);
+            dp1[i] = tmpval;
+            if(!i){
+                for(int j = 0; j < n; ++ j){
+                    dpprev1[j] = "";
+                    dpprev1[j] += (char)(nums1[j] + '0');
+                    dp1[i] = max(dp1[i], dpprev1[j]);
+                    if(j)
+                        dpprev1[j] = max(dpprev1[j], dpprev1[j - 1]);
+
+                }
+            }else{
+                for(int j = i; j < n; ++ j){
+                    dpcur1[j] = tmpval;
+
+                    dpcur1[j] = max(dpcur1[j], dpprev1[j - 1] + (char)(nums1[j] + '0'));
+
+                    dp1[i] = max(dp1[i], dpcur1[j]);
+                    if(j >= i)
+                        dpcur1[j] = max(dpcur1[j], dpcur1[j - 1]);
+                }
+                dpprev1 = dpcur1;
+            }
+
+        }
+
+
+
+        for(int i = 0; i < dp2.size(); ++ i){
+            string tmpval(i + 1, 0);
+            dp2[i] = tmpval;
+            if(!i){
+                for(int j = 0; j < m; ++ j){
+                    dpprev2[j] = "";
+                    dpprev2[j] += (char)(nums2[j] + '0');
+                    dp2[i] = max(dp2[i], dpprev2[j]);
+                    if(j)
+                        dpprev2[j] = max(dpprev2[j], dpprev2[j - 1]);
+                }
+            }else{
+                for(int j = i; j < m; ++ j){
+                    dpcur2[j] = tmpval;
+
+                    dpcur2[j] = max(dpcur2[j], dpprev2[j - 1] + (char)(nums2[j] + '0'));
+
+                    dp2[i] = max(dp2[i], dpcur2[j]);
+                    if(j >= i)
+                        dpcur2[j] = max(dpcur2[j], dpcur2[j - 1]);
+                }
+                dpprev2 = dpcur2;
+            }
+
+        }
+
+
+        string tmpans(k, 0), v = "";
+
+        if(!dp1.size()){
+            getAns(v, dp2[k - 1], ans, tmpans);
+        }else{
+            for(int i = 0; i <= std::min(k, (int)dp1.size()); ++ i){
+                if(i == 0){
+                    if(dp2.size() >= k)
+                        getAns(v, dp2[k - 1], ans, tmpans);
+                }else if(i < k){
+                    if(dp2.size() >= k - i)
+                        getAns(dp1[i - 1], dp2[k - i - 1], ans, tmpans);
+                }else{
+                    if(dp1.size() >= k)
+                        getAns(dp1[k - 1], v, ans, tmpans);
+                }
+            }
+
+        }
+
+        return ans;
+    }
+
+private:
+    void getAns(string &s1, string &s2, vector<int> &ans, string &tmpans){
+        string res;
+        if(!s1.size())
+            res = s2;
+        else if(!s2.size())
+            res = s1;
+        else{
+            int id1 = 0, id2 = 0;
+
+            while(id1 < s1.size() && id2 < s2.size()){
+                if(s1[id1] > s2[id2]){
+                    res += s1[id1 ++];
+                }else if(s1[id1] < s2[id2]){
+                    res += s2[id2 ++];
+                }else{
+                    if(s1.substr(id1) >= s2.substr(id2))
+                        res += s1[id1 ++];
+                    else
+                        res += s2[id2 ++];
+                }
+            }
+            while(id1 < s1.size())
+                res += s1[id1 ++];
+            while(id2 < s2.size())
+                res += s2[id2 ++];
+        }
+
+        if(res > tmpans){
+            tmpans = res;
+            for(int i = 0; i < res.size(); ++ i)
+                ans[i] = (res[i] - '0');
+        }
+    }
+    
+    vector<int> getSubMaximumArray(vector<int>& nums, int k) {
+
+        if (nums.size() < k) {
+            return vector<int>();
+        }
+
+        size_t needRemoved = nums.size() - k;
+        vector<int> result;
+        
+        for (size_t i = 0; i < nums.size(); i++) {
+
+            while (!result.empty() && needRemoved != 0 && result[result.size()-1] < nums[i]) {
+                needRemoved -= 1;
+                result.pop_back();
+            }
+
+            result.push_back(nums[i]);
+        }
+            
+        result.resize(k);
+        return result;
+    }
+    
+	vector<int> doit_bfs(vector<int>& nums1, vector<int>& nums2, int k) {
 
 		vector<int> best(k);
 		
@@ -100,28 +246,7 @@ public:
 		return best;
 	}
 
-	vector<int> getSubMaximumArray(vector<int>& nums, int k) {
 
-		if (nums.size() < k) {
-			return vector<int>();
-		}
-
-		size_t needRemoved = nums.size() - k;
-		vector<int> result;
-		
-		for (size_t i = 0; i < nums.size(); i++) {
-
-			while (!result.empty() && needRemoved != 0 && result[result.size()-1] < nums[i]) {
-				needRemoved -= 1;
-				result.pop_back();
-			}
-
-			result.push_back(nums[i]);
-		}
-			
-		result.resize(k);
-		return result;
-	}
 
 };
 
@@ -263,29 +388,27 @@ public:
 
 void Test_321_Create_Maximum_Number()
 {
-	CreateMaximumNumber A;
-	
 	// [3, 4, 6, 5], [9, 1, 2, 5, 8, 3], 5 
 	vector<int> nums1 = { 3, 4, 6, 5 };
 	vector<int> nums2 = { 9, 1, 2, 5, 8, 3 };
 
 	// [9, 8, 6, 5, 3]
-	vector<int> res = A.maxNumber(nums1, nums2, 5);
+	vector<int> res = CreateMaximumNumber().doit_dp(nums1, nums2, 5);
 
 	vector<int> a = { 6, 7 };
 	vector<int> b = { 6, 0, 4 };
 	// [6, 7, 6, 0, 4]
-	vector<int> res1 = A.maxNumber(a, b, 5);
+	vector<int> res1 = CreateMaximumNumber().doit_dp(a, b, 5);
 
 	vector<int> c = { 3, 9 };
 	vector<int> d = { 8, 9 };
 	// # [9, 8, 9]
-	vector<int> res2 = A.maxNumber(c, d, 3);
+	vector<int> res2 = CreateMaximumNumber().doit_dp(c, d, 3);
 
 
 	vector<int> e = { 1, 6, 5, 4, 7, 3, 9, 5, 3, 7, 8, 4, 1, 1, 4 };
 	vector<int> f = { 4, 3, 1, 3, 5, 9 };
-	vector<int> res4 = A.maxNumber(e, f, 21);
+	vector<int> res4 = CreateMaximumNumber().doit_dp(e, f, 21);
 	
 
 	return;

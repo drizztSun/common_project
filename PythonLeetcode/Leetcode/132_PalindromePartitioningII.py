@@ -42,7 +42,9 @@ class MinCut(object):
             return 0
 
         # double DP, D is the minimum Partitioning
+        # D[i] means for s[i:] minimum Partitioning
         D = [len(s) - x for x in range(len(s) + 1)]
+
         # dp for palindrome
         p = [[False for x in range(len(s))] for y in range(len(s))]
 
