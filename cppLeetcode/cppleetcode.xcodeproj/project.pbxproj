@@ -190,6 +190,7 @@
 		08F4D6A0241987400057856A /* 206_ReverseLinkedList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F4D69F2419873F0057856A /* 206_ReverseLinkedList.cpp */; };
 		08F4D6A2241989C10057856A /* 25_ReverseNodesInk-Group.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08F4D6A1241989C10057856A /* 25_ReverseNodesInk-Group.cpp */; };
 		08FAA2DA2415A9390002E430 /* 1001_GridIllumination.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */; };
+		124DCBCB25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */; };
 		126E024A252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */; };
 		1271B823252F3D7B00EAFBD4 /* 818_racecars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */; };
 		12745BE52536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */; };
@@ -403,6 +404,7 @@
 		08F4D6A1241989C10057856A /* 25_ReverseNodesInk-Group.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "25_ReverseNodesInk-Group.cpp"; sourceTree = "<group>"; };
 		08FAA2D92415A9390002E430 /* 1001_GridIllumination.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1001_GridIllumination.cpp; sourceTree = "<group>"; };
 		08FC0AD02403634500939CB4 /* cppleetcode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppleetcode; sourceTree = BUILT_PRODUCTS_DIR; };
+		124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1199_MinimumTimeToBuildBlocks.cpp; sourceTree = "<group>"; };
 		126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 882_ReachableNodesInSubdividedGraph.cpp; sourceTree = "<group>"; };
 		1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 818_racecars.cpp; sourceTree = "<group>"; };
 		12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1548_TheMostSimilarPathInGraph.cpp; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */,
 				12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */,
 				12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */,
+				124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				086A8AEC24071C4A00CFAEED /* 466_CountRepetitions.cpp in Sources */,
 				08D8270B24493A4600652326 /* 940_DistinctSubsequencesII.cpp in Sources */,
 				08CA26F32424596100450C6C /* 971_FlipBinaryTreeToMatchPreorderTraversal.cpp in Sources */,
+				124DCBCB25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp in Sources */,
 				081C69D1241E48AE005CE99B /* 560_SubarraySumEqualsK.cpp in Sources */,
 				08012E882412EDD6004D11A8 /* 1004_MaxConsecutiveOnesIII.cpp in Sources */,
 				08CA46F72411810A0098CD5F /* 1017_ConvertToBase.cpp in Sources */,
