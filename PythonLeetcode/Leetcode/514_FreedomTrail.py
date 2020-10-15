@@ -127,48 +127,28 @@ class FindRotateSteps:
         return len(key) + cmin
 
 
-# Simple dp idea
-
-# recording each index of characters in ring,beacuse each characters we have search in this time would be starting index in the next search
-# How could we solve the problem that rotate the ring to the left or right ?
-# My idea is min((tmp[j] + size -it)%size,(it + size - tmp[j])%size)
-# Suppose you want to rotate the ring to the right and search ‘k’, and the size is 5.
-# We could calculate it by this + size -k(index)%size
-# this -  -  -  -  k
-# If we want to rotate the ring to the left，what should we do? It is the same problem with above problem,move this to its right,and reach k
-# k -  -  -  -   this
-# So we could calculate it by k(index) + size -this%size
-# There are many people use abs() instead of %size,I think it’s faster than mine :)
-
-
+    """
+    # Simple dp idea
+    # recording each index of characters in ring,beacuse each characters we have search in this time would be starting index in the next search
+    # How could we solve the problem that rotate the ring to the left or right ?
+    # My idea is min((tmp[j] + size -it)%size,(it + size - tmp[j])%size)
+    # Suppose you want to rotate the ring to the right and search ‘k’, and the size is 5.
+    # We could calculate it by this + size -k(index)%size
+    # this -  -  -  -  k
+    # If we want to rotate the ring to the left，what should we do? It is the same problem with above problem,move this to its right,and reach k
+    # k -  -  -  -   this
+    # So we could calculate it by k(index) + size -this%size
+    # There are many people use abs() instead of %size,I think it’s faster than mine :)
+    """
     def doit(self, ring, key):
         """
         :type ring: str
         :type key: str
         :rtype: int
         """
-
         pass
-
-
-
-
-
-
-
-
-
-                        
-        
-
-
 
 
 if __name__=="__main__":
 
-    res = FindRotateSteps().doit("godding", "gd")
-
-
-
-    pass
-    
+    res = FindRotateSteps().doit_dp("godding", "gd")

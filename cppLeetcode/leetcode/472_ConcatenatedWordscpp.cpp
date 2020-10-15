@@ -1,5 +1,3 @@
-
-
 /*
 	472. Concatenated Words
 
@@ -30,7 +28,7 @@
 
 using namespace std;
 
-class findConcatedWords {
+class FindConcatedWords {
 public:
 	// <dfs>
 	bool helper(unordered_set<string>& wordsmap, const string& word, int cur, int length) {
@@ -71,7 +69,7 @@ public:
 	//	So, we can use a vector<int> dp(n + 1) to store if w.substr(0, i) can be formed by existing words.Once i reach to n and it is not the word itself, we put the word to results.
 
 
-	vector<string> doit1(vector<string>& words) {
+	vector<string> doit_dp(vector<string>& words) {
 		unordered_set<string> words_map(words.begin(), words.end());
 		vector<string> ans;
 
@@ -100,13 +98,13 @@ public:
 	}
 
 	// <DP>
-	vector<string> doit3(vector<string>& words) {
+	vector<string> doit_dp_1(vector<string>& words) {
 		unordered_set<string> s(words.begin(), words.end());
 		vector<string> res;
 
 		for (auto w : words) {
 
-			int n = w.size();
+			auto n = w.size();
 			vector<int> dp(n + 1);
 			dp[0] = 1;
 
@@ -115,7 +113,8 @@ public:
 					continue;
 
 				for (int j = i + 1; j <= n; j++) {
-					if (j - i < n && s.count(w.substr(i, j - i))) dp[j] = 1;
+					if (j - i < n && s.count(w.substr(i, j - i)))
+                        dp[j] = 1;
 				}
 
 				if (dp[n]) { 
@@ -128,11 +127,73 @@ public:
 	}
 
 
-};
+typedef struct _trie_node {
+    uint16_t child[26];
+    bool isWord;
+} TrieNode;
 
 
+public:
+    int tmp;
+    uint16_t num_node = 0;
+    TrieNode n[50000];
+    
+    int dfs(const char *s, int i) {
+        int node = 0, concat_num = 0, maxc = -1;
+        
+        while(s[i] != '\0') {
+            tmp = s[i] - 'a';
+            if(n[node].child[tmp] == 0)
+                goto exit;
 
-class Solution {
+            node = n[node].child[tmp];
+            if(n[node].isWord == true) {
+                if(s[i+1] != '\0')
+                    concat_num = dfs(s, i + 1);
+                else
+                    concat_num = 0;
+                
+                if(concat_num != -1) {
+                    ++concat_num;
+                    maxc = max(maxc, concat_num);
+                    // if rest parts are complete words,
+                    // we don't need to search again.
+                    goto exit;  // improvement of this line from TLE -> 172 ms
+                }
+            }
+            ++i;
+        }
+exit:
+        return maxc;
+    }
+    
+    vector<string> doit_dfs_trie(vector<string>& words) {
+        uint32_t node = 0;
+        vector<string> result;
+        
+        // build trie
+        for(auto &w: words) {
+            for(int i = 0; i < w.length(); ++i) {
+                tmp = w[i] - 'a';
+                if(n[node].child[tmp] == 0)
+                    n[node].child[tmp] = ++num_node;
+                node = n[node].child[tmp];
+            }
+            n[node].isWord = true;
+            node = 0;
+        }
+        
+        for(auto &w: words) {
+            if(w.length() == 0) continue;
+            
+            const char *cstr = w.c_str();
+
+            if(dfs(cstr, 0) >= 2)
+                result.push_back(w);
+        }
+        return result;
+    }
+
 
 	vector<string> results;
 	unordered_set<string> dict;
@@ -148,7 +209,7 @@ class Solution {
 	}
 
 public:
-	vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
+	vector<string> doit_dfs_3(vector<string>& words) {
 		std::sort(words.begin(), words.end(), [](const string &lhs, const string &rhs) {
 			return lhs.size() < rhs.size(); });
 
@@ -164,13 +225,6 @@ public:
 void Test_472_ConcatenatedWords() {
 
 	vector<string> input{ "cat","cats","catsdogcats","dog","dogcatsdog","hippopotamuses","rat","ratcatdogcat" };
-
-	findConcatedWords A;
-
-	auto res = A.doit1(input);
-
-    vector<string> a;
-	res = A.doit1(a);
-
+	auto res = FindConcatedWords().doit_dp(input);
 	return;
 }
