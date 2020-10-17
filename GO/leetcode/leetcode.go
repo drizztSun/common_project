@@ -11,7 +11,9 @@ func main() {
 
 	fmt.Println("leetcode hello world")
 
-	leetcodeH.Test_363_MaxSumOfRectangleNoLargerThank()
+	leetcodeH.Test_1067_digital_count_in_range()
+
+	// leetcodeH.Test_363_MaxSumOfRectangleNoLargerThank()
 
 	// leetcodeH.Test_786_KthSmallestPrimFraction()
 

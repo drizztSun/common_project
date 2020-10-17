@@ -63,7 +63,7 @@ class DigitsCount:
 
         return getCounts(high) - getCounts(low - 1)
 
-    def doit_math(self, d: int, low: int, high: int) -> int:
+    def doit_math_1(self, d: int, low: int, high: int) -> int:
 
         def countDigitD(d, low, high):
             # Q0233, count num of digit d appearance on all positive integer x, 1 <= x <= n.
@@ -86,6 +86,6 @@ class DigitsCount:
 
 if __name__ == '__main__':
 
-    DigitsCount().doit(d = 1, low = 1, high = 13)
+    DigitsCount().doit_math(d = 1, low = 1, high = 13)
 
-    DigitsCount().doit(d = 3, low = 100, high = 250)
+    DigitsCount().doit_math(d = 3, low = 100, high = 250)
