@@ -328,10 +328,18 @@ void test_1548_most_similar_path_graph();
 
 void test_1246_palindrome_removal();
 
+void Test_691_StickersToSpellWord();
+
+void test_730_count_different_palindorme_subsequence();
+
 void leetcode()
 {
 
-    test_1246_palindrome_removal();
+    test_730_count_different_palindorme_subsequence();
+    
+    // Test_691_StickersToSpellWord();
+    
+    // test_1246_palindrome_removal();
 
     // test_1548_most_similar_path_graph();
 

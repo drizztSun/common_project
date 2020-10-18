@@ -1,4 +1,5 @@
-# 940. Distinct Subsequences II
+"""
+940. Distinct Subsequences II
 
 # Given a string S, count the number of distinct, non-empty subsequences of S .
 
@@ -23,6 +24,7 @@
 # Input: "aaa"
 # Output: 3
 # Explanation: The 3 distinct subsequences are "a", "aa" and "aaa".
+"""
 
 
 class DistinctSubseqII:

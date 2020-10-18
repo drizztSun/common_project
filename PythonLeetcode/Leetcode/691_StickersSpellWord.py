@@ -1,3 +1,4 @@
+"""
 # 691. Stickers to Spell Word
 
 # We are given N different types of stickers. Each sticker has a lowercase English word on it.
@@ -41,13 +42,13 @@
 # and the target was chosen as a concatenation of two random words.
 # The time limit may be more challenging than usual.
 # It is expected that a 50 sticker test case can be solved within 35ms on average.
-
-
+"""
 import collections
 
 
 class MinStickers:
-    def doit(self, stickers, target):
+
+    def doit_dfs(self, stickers, target):
         """
         :type stickers: List[str]
         :type target: str
@@ -82,6 +83,35 @@ class MinStickers:
         dfs(collections.defaultdict(int), 0, 0)
 
         return -1 if res[0] == float('inf') else res[0]
+
+    def doit_dp(self, stickers, target):
+
+        t_count = collections.Counter(target)
+        A = [collections.Counter(sticker) & t_count
+             for sticker in stickers]
+
+        for i in range(len(A) - 1, -1, -1):
+            if any(A[i] == A[i] & A[j] for j in range(len(A)) if i != j):
+                A.pop(i)
+
+        stickers = ["".join(s_count.elements()) for s_count in A]
+        dp = [-1] * (1 << len(target))
+        dp[0] = 0
+        for state in range(1 << len(target)):
+            if dp[state] == -1: continue
+            for sticker in stickers:
+                now = state
+                for letter in sticker:
+                    for i, c in enumerate(target):
+                        if (now >> i) & 1: continue
+                        if c == letter:
+                            now |= 1 << i
+                            break
+                if dp[now] == -1 or dp[now] > dp[state] + 1:
+                    dp[now] = dp[state] + 1
+
+        return dp[-1]
+
 
 
 if __name__ == "__main__":

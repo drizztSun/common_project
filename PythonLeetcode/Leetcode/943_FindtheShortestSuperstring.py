@@ -1,4 +1,5 @@
-# 943. Find the Shortest Superstring
+"""
+943. Find the Shortest Superstring
 
 # Given an array A of strings, find any smallest string that contains each string in A as a substring.
 #
@@ -15,6 +16,8 @@
 # Input: ["catg","ctaagt","gcta","ttca","atgcatc"]
 # Output: "gctaagttcatgcatc"
 #
+"""
+
 
 """
 
@@ -125,6 +128,3 @@ if __name__ == '__main__':
     res = ShortestSuperstring().doit(["catg", "ctaagt", "gcta", "ttca", "atgcatc"])  # "gctaagttcatgcatc"
 
     res = ShortestSuperstring().doit(["alex", "loves", "leetcode"])
-
-    pass
-

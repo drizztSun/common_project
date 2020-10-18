@@ -1,3 +1,4 @@
+"""
 # 902. Numbers At Most N Given Digit Set
 
 # We have a sorted set of digits D, a non-empty subset of {'1','2','3','4','5','6','7','8','9'}.
@@ -26,6 +27,7 @@
 # 81 four digit numbers, 243 five digit numbers, 729 six digit numbers,
 # 2187 seven digit numbers, 6561 eight digit numbers, and 19683 nine digit numbers.
 # In total, this is 29523 integers that can be written using the digits of D.
+"""
 
 
 class AtMostNGivenDigitSet:
@@ -62,9 +64,7 @@ class AtMostNGivenDigitSet:
     Space Complexity: O(logN), the space used by S and dp. (Actually, we could store only the last 2 entries of dp, but this isn't necessary.)
 
     """
-
-
-    def doit(self, D, N):
+    def doit_dp(self, D, N):
 
         S = str(N)
         L = len(S)
@@ -83,8 +83,7 @@ class AtMostNGivenDigitSet:
 
         return dp[0] + sum(len(D)**i for i in range(1, L))
 
-
-    def doit1(self, D, N):
+    def doit_dp_1(self, D, N):
 
         a = [int(x) for x in str(N)]
         n = len(a)
@@ -164,7 +163,8 @@ class AtMostNGivenDigitSet:
                 if i == 0:
                     # subtract 1
                     for j in range(len(A) - 1, 0, -1):
-                        if A[j]: break
+                        if A[j]:
+                            break
                         A[j] += B
                         A[j - 1] -= 1
 

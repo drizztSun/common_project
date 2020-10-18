@@ -1,4 +1,5 @@
-# 887. Super Egg Drop
+"""
+887. Super Egg Drop
 
 # You are given K eggs, and you have access to a building with N floors from 1 to N.
 
@@ -39,8 +40,61 @@
 
 # 1 <= K <= 100
 # 1 <= N <= 10000
+"""
+
 
 class SuperEggDrop:
+
+    """
+    Explanation
+    Drop eggs is a very classical problem.
+    Some people may come up with idea O(KN^2)
+    where dp[K][N] = 1 + max(dp[K - 1][i - 1], dp[K][N - i]) for i in 1...N.
+    However this idea is very brute force, for the reason that you check all possiblity.
+
+    So I consider this problem in a different way:
+    dp[M][K]means that, given K eggs and M moves,
+    what is the maximum number of floor that we can check.
+
+    The dp equation is:
+    dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] + 1,
+    which means we take 1 move to a floor,
+    if egg breaks, then we can check dp[m - 1][k - 1] floors.
+    if egg doesn't breaks, then we can check dp[m - 1][k] floors.
+
+    dp[m][k] is the number of combinations and it increase exponentially to N
+
+
+    Complexity
+    For time, O(NK) decalre the space, O(KlogN) running,
+    For space, O(NK).
+
+    """
+    def doit_dp(self, K, N):
+        dp = [[0] * (K + 1) for i in range(N + 1)]
+        for m in range(1, N + 1):
+            for k in range(1, K + 1):
+                dp[m][k] = dp[m - 1][k - 1] + dp[m - 1][k] + 1
+            if dp[m][K] >= N:
+                return m
+
+    """
+    Optimized to 1D DP
+    Complexity:
+    C++/Java O(KlogN) Time, O(K) Space
+    Python O(min(K, logN)^2) Time, O(min(K, logN)) Space
+    """
+
+    def doit_dp(self, K, N):
+        dp = [0, 0]
+        m = 0
+        while dp[-1] < N:
+            for i in range(len(dp) - 1, 0, - 1):
+                dp[i] += dp[i - 1] + 1
+            if len(dp) < K + 1:
+                dp.append(dp[-1])
+            m += 1
+        return m
 
     """
     Approach 1: Dynamic Programming with Binary Search
@@ -74,8 +128,7 @@ class SuperEggDrop:
 
     Space Complexity: O(K * N).
     """
-
-    def doit(self, K, N):
+    def doit_dp(self, K, N):
         memo = {}
 
         def dp(k, n):

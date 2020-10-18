@@ -49,9 +49,23 @@ void UserDefinedKeyInMap() {
 	else {
 		cout << " found no element" << endl;
 	}
+
+
+  auto hash_cord = [](const std::pair<int, int>& c) {
+    return std::hash<int>()(c.first) ^ std::hash<int>()(c.second);
+  };
+
+  auto equal_cord = [](const std::pair<int, int>& a, const std::pair<int, int>& b){
+      return a.first == b.first && a.second == b.second;
+  };
+
+  using pointset =  unordered_map<std::pair<int, int>, int, decltype(hash_cord), decltype(equal_cord)>;
+
+  pointset memo(10, hash_cord, equal_cord);
+
+  memo[{1, 1}] = 2;
+  memo[{2, 3}] = 5;
 }
-
-
 
 
 class cord2 {

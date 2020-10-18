@@ -1,5 +1,4 @@
-
-
+"""
 # 600. Non-negative Integers without Consecutive Ones
 #    Given a positive integer n, find the number of non-negative integers less than or equal to n,
 #    whose binary representations do NOT contain consecutive ones.
@@ -20,8 +19,79 @@
 #
 # Among them, only integer 3 disobeys the rule (two consecutive ones) and the other 5 satisfy the rule.
 #   Note: 1 <= n <= 109
+"""
+
 
 class FindIntegers(object):
+
+    """
+    Approach #3 Using Bit Manipulation [Accepted]
+    Algorithm
+
+    Before we discuss the idea behind this approach, we consider another simple idea that will be used in the current approach.
+
+    Suppose, we need to find the count of binary numbers with nn bits such that these numbers don't contain consecutive 1's.
+    In order to do so, we can look at the problem in a recursive fashion. Suppose f[i] gives the count of such binary numbers with i bits.
+    In order to determine the value of f[n], which is the requirement, we can consider the cases shown below:
+
+    Now, we look at the case, where numnum contains some consecutive 1's. The idea will be the same as the last example, with the only exception taken when the two consecutive 1's are encountered. Let's say, num = \text{1011010}num=1011010(7 bit number). Now, as per the last discussion, we start with the MSB. We find a \text{1}1 at this position. Thus, we initially fix a \text{0}0 at this position to consider the numbers in the range \textbf{0}\text{000000} -> \textbf{0}\text{111111}0000000−>0111111, by varying the 6 LSB bits only. The count of the required numbers in this range is again given by f[6]f[6].
+
+    Now, we fix a \text{1}1 at the MSB and move on to the second bit. It is a \text{0}0, so we have no choice but to fix \text{0}0 at this position and to proceed with the third bit. It is a \text{1}1, so we fix a \text{0}0 here, considering the numbers in the range \textbf{100}\text{0000} -> \textbf{100}\text{1111}1000000−>1001111. This accounts for a factor of f[4]f[4]. Now, we fix a \text{1}1 at the third positon, and proceed with the fourth bit. It is a \text{1}1(consecutive to the previous \text{1}1). Now, initially we fix a \text{0}0 at the fourth position, considering the numbers in the range \textbf{1010}\text{000} -> \textbf{1010}\text{111}1010000−>1010111. This adds a factor of f[3]f[3] to the required count.
+
+    Now, we can see that till now the numbers in the range \textbf{0}\text{000000} -> \textbf{0}\text{111111}0000000−>0111111, \textbf{100}\text{0000} -> \textbf{100}\text{1111}1000000−>1001111, \textbf{1010}\text{000} -> \textbf{1010}\text{111}1010000−>1010111 have been considered. But, if we try to consider any number larger than \text{1010111}1010111, it leads to the presence of two consecutive 1's in the new number at the third and fourth position. Thus, all the valid numbers upto numnum have been considered with this, giving a resultant count of f[6] + f[4] + f[3]f[6]+f[4]+f[3].
+
+
+
+    """
+    def doit_dp(self, num: int) -> int:
+
+        fn = [0 for _ in range(32)]
+        fn[0] = 1
+        fn[1] = 2
+
+        for i in range(2, 32):
+            fn[i] = fn[i - 1] + fn[i - 2]
+
+        i = 30
+        total = 0
+        pre_bit = 0
+
+        while i >= 0:
+            # discard bit is 0, because it is consider as 1, it will exceed the num
+            if (num & (1 << i)) != 0:
+                total += fn[i]
+                if pre_bit == 1:
+                    # if it is first 11, cal and quit, because the rest number til to num, will have 10011xxx, that has consecutive 11.
+                    total -= 1
+                    break
+                pre_bit = 1
+            else:
+                pre_bit = 0
+
+            i -= 1
+
+        return total + 1
+
+    def doit_dp(self, num: int) -> int:
+        dp = [0] * 32
+        dp[0] = 2
+        dp[1] = 2
+        dp[2] = 3
+        s = '{0:b}'.format(num)
+        n = len(s)
+        for i in range(3, n + 2):
+            dp[i] = dp[i - 1] + dp[i - 2] - 1
+        res = 0
+        res += dp[n]
+        for i in range(1, n):
+            if s[i] == '1' and s[i - 1] == '1':
+                res += (dp[n - i] - 2)
+                break
+            elif s[i] == '1':
+                res += (dp[n - i] - 1)
+
+        return res
+
 
     # Say X is the given number, and A = a list of that number in binary. For example, if X = 1234 = 0b10011010010,
     # A = [1, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0].
@@ -40,7 +110,7 @@ class FindIntegers(object):
 
     # If our flag is up, then we can freely write ‘10’ or ‘0’.
 
-    def doit(self, num):
+    def doit_dp_1(self, num):
         """
         :type num: int
         :rtype: int
@@ -128,6 +198,6 @@ class FindIntegers(object):
 
 if __name__ == "__main__":
 
-    res = FindIntegers().doit(5)
+    res = FindIntegers().doit_dp(2)
 
     pass

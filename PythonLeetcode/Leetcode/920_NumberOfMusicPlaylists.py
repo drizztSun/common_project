@@ -1,4 +1,5 @@
-# 920. Number of Music Playlists
+"""
+920. Number of Music Playlists
 
 # Your music player contains N different songs and she wants to listen to L (not necessarily different) songs during your trip.  You create a playlist so that:
 
@@ -25,6 +26,7 @@
 # Output: 2
 # Explanation: There are 2 possible playlists. [1, 2, 1], [2, 1, 2]
 
+"""
 from functools import lru_cache
 
 
@@ -35,17 +37,18 @@ class NumMusicPlaylists:
     DP[i,j] means: the number of playlists that among j songs which have played, there are i different songs.
     The problem is to find DP[N, L], which means when L songs have played, there are N different songs.
     DP[i,j] = DP[i,j-1]*(i-K) + DP[i-1, j-1]*(N-(i-1))
+
     The first part DP[i,j-1]*(i-K) means among i song that have played at j-1, we can choose i-K songs to play as the jth song.
     This is because A song can only be played again only if K other songs have been played.
+
     The second part DP[i-1, j-1]*(N-(i-1)) means we can choose one of N-(i-1) songs that is different from the i-1 songs played.
+
     Because DP[,j] only require DP[,j-1] to calculate, we reuse a list to store the previous j-1 results.
     Init condition, DP[0, 0] = 1. There is only one case that you have not played any song.
     Time: O(N*L)
     Space: O(N)
     '''
-
-
-    def doit(self, N: int, L: int, K: int):
+    def doit_dp(self, N: int, L: int, K: int):
         if N > L:
             return 0
 
@@ -61,7 +64,7 @@ class NumMusicPlaylists:
                 if i > 0 and i -1 < N:
                     curDP[i] += preDP[i-1]*(N-(i-1))
             preDP = curDP
-        return preDP[N]%(10**9 + 7)
+        return preDP[N] % (10**9 + 7)
 
     """
     Approach 1: Dynamic Programming
