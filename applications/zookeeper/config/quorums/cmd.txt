@@ -1,0 +1,7 @@
+
+sudo /Users/yusun/apache-zookeeper-3.5.5-bin/bin/zkServer.sh start-foreground ./z1.cfg
+
+sudo /Users/yusun/apache-zookeeper-3.5.5-bin/bin/zkServer.sh start-foreground ./z2.cfg
+
+sudo /Users/yusun/apache-zookeeper-3.5.5-bin/bin/zkServer.sh start-foreground ./z3.cfg
+
