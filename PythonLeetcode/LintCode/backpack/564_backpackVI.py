@@ -1,4 +1,6 @@
-# 564 backpack VI
+"""
+564 backpack VI
+
 # Given a array, nums, all element are positive. and there are no same ones.
 # we need to find out all possible combination
 
@@ -15,6 +17,8 @@
 
 # return 6
 
+"""
+
 
 class BackPackVI:
     """
@@ -28,13 +32,9 @@ class BackPackVI:
         cnt[0] = 1
 
         for i in range(1, target+1):
-
             for j in range(len(nums)):
-
                 if i >= nums[j]:
-
                     cnt[i] += cnt[i - nums[j]]
-
         return cnt[-1]
 
     """
@@ -49,25 +49,14 @@ class BackPackVI:
         cnt[0] = 1
 
         for i in range(1, target+1):
-
             for j in range(len(nums)):
-
                 if i >= nums[j]:
                     cnt[i] += cnt[i - nums[j]]
-
                 else:
                     break
-
         return cnt[-1]
 
 
 if __name__ == "__main__":
 
     res = BackPackVI().doit([1, 2, 4], 4)
-
-    pass
-
-
-
-
-

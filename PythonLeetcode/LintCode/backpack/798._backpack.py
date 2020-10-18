@@ -1,7 +1,5 @@
-
-
-# 798. Backpack VII
-
+"""
+798. Backpack VII
 
 # Assume that you have n yuan. There are many kinds of rice in the supermarket.
 # Each kind of rice is bagged and must be purchased in the whole bag.
@@ -15,6 +13,8 @@
 # amounts = [4,2]
 
 # Return:400
+
+"""
 
 
 class BackPackVII:
@@ -47,5 +47,3 @@ if __name__ == "__main__":
     res = BackPackVII().doit(8, [2, 4], [100, 100], [4, 2]) #400
 
     res = BackPackVII().doit(8, [3,2], [300,160], [1,6]) #640
-
-    pass

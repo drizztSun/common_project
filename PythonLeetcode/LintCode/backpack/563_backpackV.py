@@ -1,5 +1,4 @@
-
-
+"""
 # 563 backpack V
 
 # Given n items with size nums[i] which an integer array and all positive numbers.
@@ -14,7 +13,7 @@
 # [7]
 # [1, 3, 3]
 # return 2
-
+"""
 
 
 class BackPackV:
@@ -24,7 +23,7 @@ class BackPackV:
     @param target: An integer
     @return: An integer
     """
-    def doit1(self, nums, target):
+    def doit_dp(self, nums, target):
 
         if target > sum(nums):
             return 0
@@ -76,7 +75,7 @@ class BackPackV:
         dp[0] = 1
 
         for c in nums:
-            for i in reversed(c, range(target + 1)):
+            for i in reversed(range(c, target + 1)):
                 dp[i] += dp[i - c]
 
         return dp[-1]

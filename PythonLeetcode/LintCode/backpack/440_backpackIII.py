@@ -1,4 +1,4 @@
-
+"""
 # 440 BackPack III
 
 # Given n kind of items with size Ai and value Vi( each item has an infinite number available)
@@ -9,11 +9,10 @@
 
 # Example
 # Given 4 items with size [2, 3, 5, 7] and value [1, 5, 2, 4], and a backpack with size 10. The maximum value is 15.
-
+"""
 
 
 class BackPackIII:
-
 
     def doit(self, A, V, m):
         """
@@ -32,7 +31,6 @@ class BackPackIII:
                     dp[i][j] = max(dp[i][j], dp[i][j - c * A[i-1]] + c * V[i-1])
 
         return dp[-1][-1]
-
 
     def doit(self, A, V, m):
         """
@@ -62,5 +60,3 @@ if __name__ == "__main__":
     res = BackPackIII().doit([], [], 100) #0
 
     res = BackPackIII().doit([2, 3, 5, 7], [1, 5, 2, 4], 10) #15
-
-    pass

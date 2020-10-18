@@ -1,6 +1,5 @@
-
-
-# 799 Backpack VIII
+"""
+799 Backpack VIII
 
 # Given:
 # n = 10
@@ -9,6 +8,8 @@
 
 # Return: 8
 # They can combine all the values in 1 ~ 8
+"""
+
 
 class BackPackVIII:
     """
@@ -62,5 +63,3 @@ class BackPackVIII:
 if __name__ == "__main__":
 
     res = BackPackVIII().doit(10, [1, 2, 4], [2, 1, 1])
-
-    pass
