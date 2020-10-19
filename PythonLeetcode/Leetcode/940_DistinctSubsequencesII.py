@@ -59,19 +59,15 @@ class DistinctSubseqII:
     '''
 
     def doit(self, S):
-
         dp = [1]
         last = {}
         mod = 10**9 + 7
-        for i, x in enumerate(S):
 
+        for i, x in enumerate(S):
             dp.append(dp[-1] * 2)
             if x in last:
                 dp[-1] -= dp[last[x]]
             last[x] = i
-
-        print(dp)
-
         return (dp[-1] - 1) % mod
 
 

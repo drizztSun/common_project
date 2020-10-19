@@ -1,4 +1,5 @@
-# 956. Tallest Billboard
+"""
+956. Tallest Billboard
 
 # You are installing a billboard and want it to have the largest height.
 # The billboard will have two steel supports, one on each side.  Each steel support must be an equal height.
@@ -26,6 +27,9 @@
 # Input: [1, 2]
 # Output: 0
 # Explanation: The billboard cannot be supported, so we return 0.
+
+"""
+
 
 class TallestBillboard:
 
@@ -131,6 +135,56 @@ class TallestBillboard:
             return max(add_to_long, add_to_short, drop_it)
 
         return dfs(0, 0)
+
+    """
+    Approach 1: Dynamic Programming
+    Intuition
+    
+    For each rod x, we can write +x, -x, or 0. Our goal is to write 0 using the largest sum of positive terms. 
+    For writings that have a sum of 0, let's call the sum of the positive terms written the score. For example, +1 +2 +3 -6 has a score of 6.
+    
+    Since sum(rods) is bounded, it suggests to us to use that fact it in some way. 
+    Indeed, if we already wrote some sum in the first few terms, it doesn't matter how we got it. For example, with rods = [1,2,2,3], 
+    we could arrive at a sum of 3 in 3 different ways, but the effective score is 3. This upper-bounds the number of states we have to consider to 10001, 
+    as there are only this many possible sums in the interval [-5000, 5000].
+    
+    Algorithm
+    
+    Let dp[i][s] be the largest score we can get using rods[j] (j >= i), after previously writing a sum of s 
+    (that isn't included in the score). For example, with rods = [1,2,3,6], we might have dp[1][1] = 5, as after writing 1, 
+    we could write +2 +3 -6 with the remaining rods[i:] for a score of 5.
+    
+    In the base case, dp[rods.length][s] is 0 when s == 0, and -infinity everywhere else. 
+    The recursion is dp[i][s] = max(dp[i+1][s], dp[i+1][s-rods[i]], rods[i] + dp[i+1][s+rods[i]]).
+    """
+    def doit_dfs(self, rods) -> int:
+        @lru_cache(None)
+        def dp(i, s):
+            if i == len(rods):
+                return 0 if s == 0 else float('-inf')
+            return max(dp(i + 1, s),
+                       dp(i + 1, s - rods[i]),
+                       dp(i + 1, s + rods[i]) + rods[i])
+
+        return dp(0, 0)
+
+    def doit_dfs(self, rods):
+        rods = sorted(rods)[::-1]
+        n = len(rods)
+        psum = rods.copy()
+        for i in range(n-1)[::-1]:
+            psum[i] += psum[i+1]
+
+        @lru_cache(None)
+        def dfs(idx, diff):
+            if idx == n:
+                return 0 if diff == 0 else -float('inf')
+            if diff > psum[idx]:
+                return -float('inf')
+            return max(dfs(idx+1,diff),
+                       dfs(idx+1,diff+rods[idx]),
+                       dfs(idx+1,abs(diff-rods[idx]))+min(diff,rods[idx]))
+        return dfs(0,0)
 
     def doit(self, rods):
         import itertools
