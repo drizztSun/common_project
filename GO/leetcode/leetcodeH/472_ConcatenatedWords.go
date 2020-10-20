@@ -52,7 +52,7 @@ func findAllConcatenatedWordsInADict(words []string) []string {
 	for _, w := range words {
 		if len(w) >= 2*minLen {
 			wordlist[w] = false
-			if search(wordlist, w, 0, minLen, 0) {
+			if searchConcatenatedWords(wordlist, w, 0, minLen, 0) {
 				res = append(res, w)
 			}
 			wordlist[w] = true

@@ -16,7 +16,51 @@
 
 """
 
+
 class longestPalindrome:
+
+
+    """
+    Approach 3: Dynamic Programming
+    To improve over the brute force solution, we first observe how we can avoid unnecessary re-computation while validating palindromes. Consider the case "ababa".
+    If we already knew that "bab" is a palindrome, it is obvious that "ababa" must be a palindrome since the two left and right end letters are the same.
+
+    We define P(i,j)P(i,j) as following:
+
+    """
+    def doit_dp(self, s: str):
+        n = len(s)
+        dp = [[False for _ in range(n)] for _ in range(n)]
+        res = ''
+
+        for i in range(n):
+            for j in range(i, -1, -1):
+
+                if s[i] == s[j] and (i - j < 2 or dp[j + 1][i - 1]):
+
+                    dp[j][i] = True
+                    if i - j + 1 > len(res):
+                        res = s[j:i + 1]
+
+        return res
+
+    def doit(self, s: str) -> str:
+
+        ### Method 5: A single pass:
+        if s == s[::-1]:  # add this line is helpful to reduce the runtime
+            return s
+        max_len, i, left = 1, 0, 0
+        while i < len(s) - (max_len // 2):
+            j = i - 1
+            while i < len(s) - 1 and s[i] == s[i + 1]:
+                i += 1
+            i += 1
+            k = i
+            while j >= 0 and k < len(s) and s[k] == s[j]:
+                j, k = j - 1, k + 1
+            if k - j - 1 > max_len:
+                max_len, left = k - j - 1, j + 1
+        return s[left:left + max_len]
 
     #
     def doit1(self, s):
@@ -50,7 +94,6 @@ class longestPalindrome:
 
         return longestOne
 
-
     def doit(self, s):
         """
         :type s: str
@@ -72,9 +115,9 @@ class longestPalindrome:
 
         return s[start: start + maxlen]
             
-            
-        
-# 516. Longest Palindromic Subsequence
+
+"""
+516. Longest Palindromic Subsequence
 
 # Given a string s, find the longest palindromic subsequence's length in s.
 # You may assume that the maximum length of s is 1000.
@@ -91,6 +134,9 @@ class longestPalindrome:
 # "cbbd"
 # Output:
 # 2
+
+"""
+
 
 class longestPalindromeSubseq:
 
@@ -184,21 +230,16 @@ class longestPalindromeSubseq:
         return D[0][n-1] 
         
 
-
 if __name__=="__main__":
 
+    res = longestPalindrome().doit_dp('babcd')
 
     res = longestPalindrome().doit("cbbd")
-
 
     res = longestPalindrome().doit("ccd")
 
     res = longestPalindromeSubseq().doit("bbbab")
 
-
     res = longestPalindromeSubseq().doit("cbbd")
 
     res = longestPalindromeSubseq().doit("aaa")
-
-    pass
-        
