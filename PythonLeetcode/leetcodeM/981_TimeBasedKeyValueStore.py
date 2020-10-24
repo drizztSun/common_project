@@ -1,3 +1,4 @@
+"""
 # 981. Time Based Key-Value Store
 
 # Create a timebased key-value store class TimeMap, that supports two operations.
@@ -38,27 +39,26 @@
 # The timestamps for all TimeMap.set operations are strictly increasing.
 # 1 <= timestamp <= 10^7
 # TimeMap.set and TimeMap.get functions will be called a total of 120000 times (combined) per test case.
-
-
-"""
-Approach 1: HashMap + Binary Search
-Intuition and Algorithm
-
-For each key we get or set, we only care about the timestamps and values for that key.
-We can store this information in a HashMap.
-
-Now, for each key, we can binary search the sorted list of timestamps to find the relevant value for that key.
-
-Complexity Analysis
-
-Time Complexity: O(1)O(1) for each set operation, and O(\log N)O(logN) for each get operation, where NN is the number of entries in the TimeMap.
-
-Space Complexity: O(N)O(N).
 """
 import bisect
 
 
 class TimeMap:
+    """
+    Approach 1: HashMap + Binary Search
+    Intuition and Algorithm
+
+    For each key we get or set, we only care about the timestamps and values for that key.
+    We can store this information in a HashMap.
+
+    Now, for each key, we can binary search the sorted list of timestamps to find the relevant value for that key.
+
+    Complexity Analysis
+
+    Time Complexity: O(1)O(1) for each set operation, and O(\log N)O(logN) for each get operation, where NN is the number of entries in the TimeMap.
+
+    Space Complexity: O(N)O(N).
+    """
 
     def __init__(self):
         """

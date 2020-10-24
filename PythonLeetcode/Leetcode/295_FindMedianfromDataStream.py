@@ -68,7 +68,6 @@ class MedianFinder:
 
         self.even_ = True
 
-    
     def addNum(self, num):
         """
         :type num: int
@@ -80,7 +79,6 @@ class MedianFinder:
             heappush(self.small_, -heappushpop(self.large_, num))
 
         self.even_ = not self.even_
-         
 
     def findMedian(self):
         """

@@ -1,16 +1,27 @@
+"""
+42. Trapping Rain Water
 
-import os
+Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
+Example 1:
 
-# leetcode 42. Trapping Rain Water
-# Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
+Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
+Output: 6
+Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
+Example 2:
 
-# For example, 
-# Given [0,1,0,2,1,0,1,3,2,1,2,1], return 6.
+Input: height = [4,2,0,3,2,5]
+Output: 9
 
 
+Constraints:
+
+n == height.length
+0 <= n <= 3 * 104
+0 <= height[i] <= 105
+"""
 
 
-class trap:
+class TrapRainWater:
 
     # O(3n)
     def doit(self, height):
@@ -63,18 +74,14 @@ class trap:
 
             if left<=right:
                 while l<r and height[l]<=left:
-                    
                     ans += left-height[l]
                     l=l+1
             else:
                 while l<r and height[r]<=right:
-                    
                     ans += right-height[r]
                     r=r-1
         
         return ans
-
-
 
 
 # 407. Trapping Rain Water II
@@ -93,26 +100,9 @@ class trap:
 # ]
 # Return 4.
 
-class trapRainWater:
 
-    def doit(self, heightMap):
-        """
-        :type heightMap: List[List[int]]
-        :rtype: int
-        """
-        pass
-        
+if __name__ == "__main__":
 
+    res = TrapRainWater().doit([2,0,2])
 
-
-
-
-if __name__=="__main__":
-
-
-    res = trap().doit([2,0,2])
-
-    res = trap().doit([0,1,0,2,1,0,1,3,2,1,2,1])
-
-    pass
-        
+    res = TrapRainWater().doit([0,1,0,2,1,0,1,3,2,1,2,1])

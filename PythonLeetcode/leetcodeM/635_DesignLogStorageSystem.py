@@ -48,6 +48,25 @@ At most 500 calls will be made to put and retrieve.
 
 """
 import collections
+import bisect
+
+
+class LogSystemII:
+    def __init__(self):
+        self._buf = []
+        self.timekeys = {"Year": 4, "Month": 7, "Day": 10, "Hour": 13, "Minute": 16, "Second": 19}
+
+    def put(self, id, timestamp):
+        bisect.insort_right(self._buf, (timestamp, id))
+
+    def retrieve(self, s, e, gra):
+        i = self.timekeys[gra]
+        s = s[:i] + "0000:00:00:00:00:00"[i:]
+        e = e[:i] + "9999:99:99:99:99:99"[i:]
+        ret = []
+        for t in range(bisect.bisect_left(self._buf, (s, 0)), bisect.bisect_right(self._buf, (e, float('inf')))):
+            ret.append(self._buf[t][1])
+        return ret
 
 
 class LogSystem:
@@ -119,7 +138,7 @@ class LogSystemI:
 
 if __name__ == '__main__':
 
-    logSystem = LogSystem()
+    logSystem = LogSystemII()
 
     logSystem.put(1, "2017:01:01:23:59:59")
     logSystem.put(2, "2017:01:01:22:59:59")
@@ -128,7 +147,7 @@ if __name__ == '__main__':
     logSystem.retrieve("2016:01:01:01:01:01", "2017:01:01:23:00:00", "Year")
     logSystem.retrieve("2016:01:01:01:01:01", "2017:01:01:23:00:00", "Hour")
 
-    l2 = LogSystem()
+    l2 = LogSystemII()
 
     l2.put(1, "2017:01:01:23:59:59")
     l2.put(2, "2017:01:02:23:59:59")

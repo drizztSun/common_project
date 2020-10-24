@@ -1,4 +1,4 @@
-
+"""
 # 4 Median of Two Sorted Array
 
 # There are two sorted arrays nums1 and nums2 of size m and n respectively.
@@ -16,6 +16,8 @@
 # nums2 = [3, 4]
 
 # The median is (2 + 3)/2 = 2.5
+
+"""
 
 
 class FindMedianSortedArrays:
@@ -171,4 +173,3 @@ if __name__ == "__main__":
     res = FindMedianSortedArrays().doit([1, 3, 5, 7, 9], [0, 2, 4, 6, 8, 10])
 
     res = FindMedianSortedArrays().doit([1, 3, 5, 7], [2, 4, 6, 8])
-        

@@ -105,7 +105,7 @@ class WordBreak:
                 return False
 
     def wordBreak(self, s: str, wordDict) -> bool:
-        trie = Trie()
+        trie = WordBreak.Trie()
 
         for w in wordDict:
             trie.insert(w)

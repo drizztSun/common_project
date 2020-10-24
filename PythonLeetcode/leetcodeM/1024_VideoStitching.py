@@ -1,4 +1,5 @@
-# 1024. Video Stitching
+"""
+1024. Video Stitching
 
 # You are given a series of video clips from a sporting event that lasted T seconds.
 # These video clips can be overlapping with each other and have varied lengths.
@@ -40,8 +41,45 @@
 # Output: 2
 # Explanation:
 # Notice you can have extra video after the event ends.
+"""
+
 
 class VideoStitching:
+
+    """
+    Solution 2: Sort + DP
+    Sort clips first.
+    Then for each clip, update dp[clip[0]] ~ dp[clip[1]].
+
+    Time O(NlogN + NT), Space O(T)
+
+    """
+    def doit_dp(self, clips, T):
+        """
+        :param clips:
+        :param T:
+        :return:
+        """
+        clips.sort(key=lambda x: x[0])
+        dp = [float('inf') for _ in range(T+1)]
+        dp[0] = 0
+
+        for c in clips:
+            for i in range(c[0], min(T+1, c[1]+1)):
+                dp[i] = min(dp[i], dp[c[0]] + 1)
+
+        return -1 if dp[-1] == float('inf') else dp[-1]
+
+    def doit_sort(self, clips, T):
+        #
+        end, end2, res = -1, 0, 0
+        for i, j in sorted(clips):
+            if end2 >= T or i > end2:
+                break
+            elif end < i <= end2:
+                res, end = res + 1, end2
+            end2 = max(end2, j)
+        return res if end2 >= T else -1
 
     def doit(self, clips, T):
 
@@ -117,17 +155,12 @@ class VideoStitching:
 
 if __name__ == '__main__':
 
-    res = VideoStitching().doit(
-        clips=[[0, 2], [4, 6], [8, 10], [1, 9], [1, 5], [5, 9]], T=10)
+    res = VideoStitching().doit(clips=[[0, 2], [4, 6], [8, 10], [1, 9], [1, 5], [5, 9]], T=10)
 
     res = VideoStitching().doit(clips=[[0, 1], [1, 2]], T=5)
 
-    res = VideoStitching().doit(clips=[[0, 1], [6, 8], [0, 2], [5, 6], [0, 4], [0, 3], [
-        6, 7], [1, 3], [4, 7], [1, 4], [2, 5], [2, 6], [3, 4], [4, 5], [5, 7], [6, 9]], T=9)
+    res = VideoStitching().doit(clips=[[0, 1], [6, 8], [0, 2], [5, 6], [0, 4], [0, 3], [6, 7], [1, 3], [4, 7], [1, 4], [2, 5], [2, 6], [3, 4], [4, 5], [5, 7], [6, 9]], T=9)
 
     res = VideoStitching().doit(clips=[[0, 4], [2, 8]], T=5)
 
-    res = VideoStitching().doit([[5, 7], [1, 8], [0, 0], [2, 3], [
-        4, 5], [0, 6], [5, 10], [7, 10]], 5)
-
-    pass
+    res = VideoStitching().doit([[5, 7], [1, 8], [0, 0], [2, 3], [4, 5], [0, 6], [5, 10], [7, 10]], 5)
