@@ -23,8 +23,7 @@
 """
 
 
-
-class isMatch:
+class WildCardMatching:
 
     # Best way so far    
     def doit(self, s, p):
@@ -58,6 +57,26 @@ class isMatch:
             pi += 1
             
         return pi == len(p)
+
+    def doit_dp_1(self, s: str, p: str) -> bool:
+
+        m, n = len(s), len(p)
+        dp = [[False for _ in range(m + 1)] for _ in range(n + 1)]
+        dp[0][0] = True
+        for i in range(1, n + 1):
+            dp[i][0] = True if dp[i - 1][0] and p[i - 1] == '*' else False
+
+        for i in range(1, n + 1):
+
+            for j in range(1, m + 1):
+
+                if p[i - 1] == '*':
+                    dp[i][j] = dp[i - 1][j] or dp[i][j - 1]
+
+                elif p[i - 1] == '?' or p[i - 1] == s[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1]
+
+        return dp[n][m]
 
     # DP good way
     def doit_dp(self, s, p):
@@ -171,25 +190,25 @@ class isMatch:
 if __name__=="__main__":
 
 
-    res = isMatch().doit("abefcdgiescdfimde", "ab*cd?i*de") # True
+    res = WildCardMatching().doit_dp_1("abefcdgiescdfimde", "ab*cd?i*de") # True
 
-    res = isMatch().doit("a", "aa") #False
+    res = WildCardMatching().doit_dp_1("a", "aa") #False
 
-    res = isMatch().doit("", "*") #True
+    res = WildCardMatching().doit_dp_1("", "*") #True
 
-    res = isMatch().doit("aa", "a") #False
+    res = WildCardMatching().doit_dp_1("aa", "a") #False
 
-    res = isMatch().doit("aa", "aa") #True
+    res = WildCardMatching().doit_dp_1("aa", "aa") #True
 
-    res = isMatch().doit("aaa", "aa") #False
+    res = WildCardMatching().doit_dp_1("aaa", "aa") #False
     
-    res = isMatch().doit("aa", "*") #True
+    res = WildCardMatching().doit_dp_1("aa", "*") #True
 
-    res = isMatch().doit("aa", "a*") #True
+    res = WildCardMatching().doit_dp_1("aa", "a*") #True
 
-    res = isMatch().doit("aa", "?*") # True
+    res = WildCardMatching().doit_dp_1("aa", "?*") # True
 
-    res = isMatch().doit("aab", "c*a*b") # False
+    res = WildCardMatching().doit_dp_1("aab", "c*a*b") # False
 
     
 

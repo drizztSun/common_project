@@ -416,6 +416,7 @@
 		1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 818_racecars.cpp; sourceTree = "<group>"; };
 		12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1548_TheMostSimilarPathInGraph.cpp; sourceTree = "<group>"; };
 		12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1246_PalindromeRemoval.cpp; sourceTree = "<group>"; };
+		12759CF92545E26B0019A6C1 /* alg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = alg; sourceTree = "<group>"; };
 		129187C1253B299C00E71CCE /* 691_StickersToSpellWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 691_StickersToSpellWord.cpp; sourceTree = "<group>"; };
 		129187C4253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 730_CountDifferentPalindromicSubsequences.cpp; sourceTree = "<group>"; };
 		12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 471_EncodeStringWithShortestLength.cpp; sourceTree = "<group>"; };
@@ -670,6 +671,7 @@
 		08FC0AC72403634500939CB4 = {
 			isa = PBXGroup;
 			children = (
+				12759CF92545E26B0019A6C1 /* alg */,
 				086A8B0424071D2C00CFAEED /* leetcodeE */,
 				086A8B0124071CE700CFAEED /* leetcodeM */,
 				086A8A6024071B9900CFAEED /* leetcode */,

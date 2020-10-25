@@ -65,24 +65,23 @@ class LowestCommonAncestor:
     """
     def doit(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
 
-        self.ans = None
+        ans = None
 
         def dfs(n):
-
+            nonlocal ans
             if not n:
                 return 0
 
             left, right = dfs(n.left), dfs(n.right)
-
             mid = n == p or n == q
 
             if mid + right + left >= 2:
-                self.ans = n
+                ans = n
 
             return mid or left or right
 
         dfs(root)
-        return self.ans
+        return ans
 
     """
     Approach 2: Iterative using parent pointers
