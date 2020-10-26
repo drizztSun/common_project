@@ -66,7 +66,7 @@ class FindCourseScheduleII:
         is_possible = True
 
         # By default all vertces are WHITE
-        color = {k: Solution.WHITE for k in range(numCourses)}
+        color = {k: self.WHITE for k in range(numCourses)}
         def dfs(node):
             nonlocal is_possible
 
@@ -75,24 +75,24 @@ class FindCourseScheduleII:
                 return
 
             # Start the recursion
-            color[node] = Solution.GRAY
+            color[node] = self.GRAY
 
             # Traverse on neighboring vertices
             if node in adj_list:
                 for neighbor in adj_list[node]:
-                    if color[neighbor] == Solution.WHITE:
+                    if color[neighbor] == self.WHITE:
                         dfs(neighbor)
-                    elif color[neighbor] == Solution.GRAY:
+                    elif color[neighbor] == self.GRAY:
                          # An edge to a GRAY vertex represents a cycle
                         is_possible = False
 
             # Recursion ends. We mark it as black
-            color[node] = Solution.BLACK
+            color[node] = self.BLACK
             topological_sorted_order.append(node)
 
         for vertex in range(numCourses):
             # If the node is unprocessed, then call dfs on it.
-            if color[vertex] == Solution.WHITE:
+            if color[vertex] == self.WHITE:
                 dfs(vertex)
 
         return topological_sorted_order[::-1] if is_possible else []

@@ -57,6 +57,25 @@ pickIndex will be called at most 10000 times.
 
 """
 import random
+import bisect
+
+
+class RandomPickWithWeight:
+
+    def __init__(self, w):
+        """
+        :type w: List[int]
+        """
+        self.w = w
+        for i in range(1, len(w)):
+            self.w[i] += self.w[i - 1]
+
+    def pickIndex(self):
+        """
+        :rtype: int
+        """
+        r = random.randint(1, self.w[-1])
+        return bisect.bisect_left(self.w, r)
 
 
 class RandomPickWithWeight:

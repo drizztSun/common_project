@@ -33,15 +33,181 @@ You may assume that there are no duplicate edges in the input prerequisites.
 """
 
 
-class Solution:
+class CourseScheduleI:
 
+    def doit_backtracking(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        def isCyclic(currCourse, courseDict, path):
+            """
+            backtracking method to check that no cycle would be formed starting from currCourse
+            """
+            if path[currCourse]:
+                # come across a previously visited node, i.e. detect the cycle
+                return True
 
-    def canFinish(self, numCourses: int, prerequisites):
+            # before backtracking, mark the node in the path
+            path[currCourse] = True
 
-        pass
+            # backtracking
+            ret = False
+            for child in courseDict[currCourse]:
+                ret = isCyclic(child, courseDict, path)
+                if ret:
+                    break
+
+            # after backtracking, remove the node from the path
+            path[currCourse] = False
+            return ret
+
+        from collections import defaultdict
+        courseDict = defaultdict(list)
+
+        for relation in prerequisites:
+            nextCourse, prevCourse = relation[0], relation[1]
+            courseDict[prevCourse].append(nextCourse)
+
+        path = [False] * numCourses
+        for currCourse in range(numCourses):
+            if isCyclic(currCourse, courseDict, path):
+                return False
+
+        return True
+
+    def doit_dfs(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+
+        def isCyclic(currCourse, courseDict, checked, path):
+            """   """
+            # 1). bottom-cases
+            if checked[currCourse]:
+                # this node has been checked, no cycle would be formed with this node.
+                return False
+            if path[currCourse]:
+                # came across a marked node in the path, cyclic !
+                return True
+
+            # 2). postorder DFS on the children nodes
+            # mark the node in the path
+            path[currCourse] = True
+
+            ret = False
+            # postorder DFS, to visit all its children first.
+            for child in courseDict[currCourse]:
+                ret = isCyclic(child, courseDict, checked, path)
+                if ret:
+                    break
+
+            # 3). after the visits of children, we come back to process the node itself
+            # remove the node from the path
+            path[currCourse] = False
+
+            # Now that we've visited the nodes in the downstream,
+            #   we complete the check of this node.
+            checked[currCourse] = True
+            return ret
+
+        from collections import defaultdict
+        courseDict = defaultdict(list)
+
+        for relation in prerequisites:
+            nextCourse, prevCourse = relation[0], relation[1]
+            courseDict[prevCourse].append(nextCourse)
+
+        checked = [False] * numCourses
+        path = [False] * numCourses
+
+        for currCourse in range(numCourses):
+            if isCyclic(currCourse, courseDict, checked, path):
+                return False
+        return True
+
+    def doit_(self, numCourses: int, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        def cycled(i, G, path, visited):
+            if visited[i]:
+                return False
+
+            path[i] = True
+            visited[i] = True
+            for j in G[i]:
+                if path[j] or cycled(j, G, path, visited):
+                    return True
+
+            path[i] = False
+            return False
+
+        G = {x: [] for x in range(numCourses)}
+        for i in prerequisites:
+            G[i[1]].append(i[0])
+
+        onPath = [False for x in range(numCourses)]
+        visited = [False for x in range(numCourses)]
+
+        i = 0
+        while i < numCourses:
+            if not visited[i] and cycled(i, G, onPath, visited):
+                return False
+            i += 1
+
+        return True
+
+    def doit_dfs(self, numCourses, prerequisites):
+        """
+        :type numCourses: int
+        :type prerequisites: List[List[int]]
+        :rtype: bool
+        """
+        def search(i, c, d, buff):
+
+            if c[i]:
+                return True
+
+            if i in buff:
+                return False
+            buff.add(i)
+
+            res = True
+            for j in D[i]:
+                res &= search(j, c, d, buff)
+                if not res:
+                    break
+
+            if res:
+                c[i] = res
+                buff.remove(i)
+
+            return c[i]
+
+        D = [[] for _ in range(numCourses)]
+        for item in prerequisites:
+            D[item[0]].append(item[1])
+
+        C = [True if len(D[x]) == 0 else False for x in range(numCourses)]
+        i, res = 0, True
+
+        while i < numCourses and res:
+            C[i] = search(i, C, D, set())
+            res = C[i]
+            i += 1
+
+        return res
 
 
 if __name__ == '__main__':
+
+    CourseScheduleI().doit_dfs(numCourses = 2, prerequisites = [[1,0]])
 
 
 

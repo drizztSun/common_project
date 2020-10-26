@@ -144,6 +144,8 @@ class MaxStackII:
 
 import bisect
 
+
+
 class MaxStackIII:
 
     class node:
@@ -156,32 +158,34 @@ class MaxStackIII:
         """
         initialize your data structure here.
         """
-        self._elements = None
+        self._elements = MaxStackIII.node(float('inf'))
         self._max_v = []
         self._max_refer = []
 
     def push(self, x: int):
         n = MaxStackIII.node(x)
-        if not self._elements:
-            self._elements = n
+
+        if self._elements._next == None:
+            self._elements._next, n._pre = n, self._elements
         else:
-            self._elements, n._next, self._elements._pre = n, self._elements, n
+            n._next, n._pre = self._elements._next, self._elements
+            self._elements._next, self._elements._next._pre = n, n
+            #self._elements._next, n._next, self._elements._next._pre, n._pre = n, self._elements._next, n, self._elements
 
         i = bisect.bisect_right(self._max_v, x)
         self._max_v.insert(i, x)
         self._max_refer.insert(i, n)
 
     def pop(self) -> int:
-        n = self._elements._val
-        self._elements, self._elements._next._pre = self._elements._next, -1
-
+        n = self._elements._next._val
+        self._elements._next, self._elements._next._next._pre = self._elements._next._next, self._elements
         i = bisect.bisect_right(self._max_v, n)
         self._max_v.pop(i-1)
         self._max_refer.pop(i-1)
         return n
 
     def top(self) -> int:
-        return self._elements._val
+        return self._elements._next._val
 
     def peekMax(self) -> int:
         return self._max_v[-1]
@@ -189,11 +193,7 @@ class MaxStackIII:
     def popMax(self) -> int:
         c = self._max_v.pop()
         n = self._max_refer.pop()
-
-        if n._next == None:
-            n._pre._next = None
-        else:
-            n._pre._next, n.next._pre = n._next, n._pre
+        n._next._pre, n._pre._next = n._pre, n._next
         return c
 
 

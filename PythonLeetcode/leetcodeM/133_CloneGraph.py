@@ -58,3 +58,43 @@ There is no repeated edges and no self-loops in the graph.
 The Graph is connected and all nodes can be visited starting from the given node.
 
 """
+
+
+class CloneGraph:
+
+    class Node(object):
+        def __init__(self, val, neighbors):
+            self.val = val
+            self.neighbors = neighbors
+
+    def doit_dfs(self, node):
+        """
+        :type node: Node
+        :rtype: Node
+        """
+        visited = {}
+
+        def dfs(node):
+            if not node:
+                return node
+
+            # If the node was already visited before.
+            # Return the clone from the visited dictionary.
+            if node in visited:
+                return visited[node]
+
+            # Create a clone for the given node.
+            # Note that we don't have cloned neighbors as of now, hence [].
+            clone_node = CloneGraph.Node(node.val, [])
+
+            # The key is original node and value being the clone node.
+            visited[node] = clone_node
+
+            # Iterate through the neighbors to generate their clones
+            # and prepare a list of cloned neighbors to be added to the cloned node.
+            if node.neighbors:
+                clone_node.neighbors = [dfs(n) for n in node.neighbors]
+
+            return clone_node
+
+        return dfs(node)
