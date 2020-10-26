@@ -144,7 +144,6 @@ class MaxPoints(object):
         def GCD(a, b):
             return a if b == 0 else GCD(b, a%b)
 
-        lines = {}
         result = 0
 
         for i in range(len(points)):

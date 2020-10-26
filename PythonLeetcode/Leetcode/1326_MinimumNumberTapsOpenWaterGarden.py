@@ -45,6 +45,21 @@ Output: 1
 
 class MinTaps:
 
+    """
+    First let me explain why dp is very suitable for this problem. The idea is this, if we know the min number of taps to water from 0 to i, we can use this to extrapolate the min number of taps to water from 1 to i+j.
+    ok let me explain what i mean by this.
+
+    So we loop through every tap which is represented by the ranges array. Since the tap spouts water in the left and right directions,
+    it can water the garden from [left,right] of course the gardens limit should be taken into account, we cant water a negative length, neither can we water outside the garden length.
+    if we know the min number of taps needed to water from 0 to left then its easy to see that we can possiby water the garden from left to right using the minimum number of taps to water uptil left + 1 since we use the current tap.
+    We initialise dp[0] = 0 since no taps are needed to water a garden with 0 length.
+
+    dp is effective in storing previously known results and building up from these previously known results.
+    In this case, we want to store the min number of taps to water up from 0 to i where i < n. There, we broke down the requirement to get the min number of taps to water up from 0 to n to simpler sub problems.
+    The first one being to water up to a 0 length and building up incrementally to n.
+
+    """
+
     def doit_dp(self, n, ranges):
 
         dp = [0] + [n+2] * n
@@ -57,6 +72,48 @@ class MinTaps:
 
         return dp[n] if dp[n] < n + 2 else -1
 
+    def doit(self, n: int, ranges):
+
+        for i, r in enumerate(ranges):
+            l = max(0, i - r)
+            ranges[l] = max(i + r, ranges[l])
+
+        res = lo = hi = 0
+        while hi < n:
+            lo, hi = hi, max(ranges[lo:hi + 1])
+            if hi == lo:
+                return -1
+            res += 1
+        return res
+
+    def doit_heap(self, n: int, ranges):
+        from heapq import heappush, heappop
+        opens, closes, closed = [[] for _ in range(n)], [[] for _ in range(n)], set()
+        for i in range(len(ranges)):
+            idx = 0
+            if i - ranges[i] > 0:
+                idx = i - ranges[i]
+            if idx < len(opens):
+                opens[idx].append(i)
+            if i + ranges[i] < n:
+                closes[i + ranges[i]].append(i)
+        heap, cur_open_tap, res = [], None, 0
+        for i in range(n):
+            for op in opens[i]:
+                heappush(heap, [-(op + ranges[op]), op])
+            for cl in closes[i]:
+                closed.add(cl)
+                if cl == cur_open_tap:
+                    cur_open_tap = None
+            while cur_open_tap is None:
+                if not heap:
+                    return -1
+                if heap[0][1] in closed:
+                    heappop(heap)
+                else:
+                    cur_open_tap = heap[0][1]
+                    res += 1
+        return res
 
 if __name__ == '__main__':
 

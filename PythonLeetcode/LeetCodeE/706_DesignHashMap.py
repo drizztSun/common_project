@@ -135,6 +135,80 @@ class MyHashMap(object):
         self.hash_table[hash_key].remove(key)
 
 
+class MyHashMapSingleLinkedList:
+
+    class __listNode:
+        def __init__(self, key, val):
+            self.pair = (key, val)
+            self.next = None
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.m = 1000
+        self.h = [None] * self.m
+
+    def put(self, key, value):
+        """
+        value will always be non-negative.
+        :type key: int
+        :type value: int
+        :rtype: void
+        """
+        index = key % self.m
+        if not self.h[index]:
+            self.h[index] = MyHashMapSingleLinkedList.__listNode(key, value)
+            return
+
+        cur = self.h[index]
+        while cur:
+            if cur.pair[0] == key:
+                cur.pair = (key, value)  # update
+                break
+            elif not cur.next:
+                cur.next = MyHashMapSingleLinkedList.__listNode(key, value)
+                break
+            cur = cur.next
+
+        return
+
+    def get(self, key):
+        """
+        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+        :type key: int
+        :rtype: int
+        """
+        index = key % self.m
+        cur = self.h[index]
+        while cur:
+            if cur.pair[0] == key:
+                return cur.pair[1]
+            cur = cur.next
+        return -1
+
+    def remove(self, key):
+        """
+        Removes the mapping of the specified value key if this map contains a mapping for the key
+        :type key: int
+        :rtype: void
+        """
+        index = key % self.m
+        if not self.h[index]:
+            return
+
+        cur = prev = self.h[index]
+        if self.h[index].pair[0] == key:
+            self.h[index] = cur.next
+            return
+        else:
+            while cur:
+                if cur.pair[0] == key:
+                    prev.next = cur.next
+                    break
+                cur, prev = cur.next, cur
+
+
 class MyHashMap:
 
     class node:
@@ -149,47 +223,134 @@ class MyHashMap:
         Initialize your data structure here.
         """
         self._size = 1024
-        self._buket = [None] * self._size
+        self._buket = [MyHashMap.node(float('inf'), float('inf')) for _ in range(self._size)]
 
-    def _getitem(self, key):
-        n = self._buket[key % self._size]
+    def _get(self, key):
+        n = self._buket[key % self._size].next
         while n:
             if n.key == key:
                 break
             n = n.next
-
         return n
+
+    def _remove(self, c):
+        if not c.next:
+            c.pre.next, c.pre = None, None
+        else:
+            c.pre.next, c.next.pre = c.next, c.pre
+
+    def _put_on_head(self, key, c):
+
+        n = self._buket[key % self._size]
+        if not n.next:
+            n.next, c.pre = c, n
+        else:
+            n.next, n.next.pre, c.pre, c.next = c, c, n, n.next
 
     def put(self, key: int, value: int) -> None:
         """
         value will always be non-negative.
         """
-
-        if n := self._getitem(key):
+        if (n := self._get(key)) is not None:
             n.val = value
             return
 
-        c = key % self._size
         n = MyHashMap.node(key, value)
-
-        if not self._buket[c]:
-            n.pre == c
-            self._buket[c] = n
-        else:
-            n.next, n.pre, self._buket[c].pre = self._buket[c], c, n
+        self._put_on_head(key, n)
 
     def get(self, key: int) -> int:
         """
         Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
         """
-        n = self._getitem(key)
+        n = self._get(key)
         return -1 if not n else n.val
 
     def remove(self, key: int) -> None:
         """
         Removes the mapping of the specified value key if this map contains a mapping for the key
         """
-        self._buket[key % self._size] = None
+        n = self._get(key)
+        if n:
+            self._remove(n)
+
+
+class Node:
+    def __init__(self, key=None, val=None, prev=None, next=None):
+        self.key = key
+        self.val = val
+        self.prev = prev
+        self.next = next
+
+
+class DLinkedList:
+    def __init__(self):
+        self.head = Node()
+        self.tail = Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def get(self, key):
+        node = self.head.next
+        while (node):
+            if node.key == key:
+                return node
+            node = node.next
+        return None
+
+    def remove(self, key):
+        node = self.get(key)
+        if not node:
+            return None
+        prev = node.prev
+        next = node.next
+        prev.next = next
+        next.prev = prev
+        return node
+
+    def put(self, key, val):
+        node = self.get(key)
+        if node:
+            node.val = val
+        else:
+            node = Node(key, val)
+            prev = self.tail.prev
+            prev.next = node
+            node.prev = prev
+            node.next = self.tail
+            self.tail.prev = node
+
+
+class MyHashMap:
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.mod = 1024
+        self.bucket = [DLinkedList() for _ in range(self.mod)]
+
+    def put(self, key: int, value: int) -> None:
+        """
+        value will always be non-negative.
+        """
+        hash_key = key % self.mod
+        self.bucket[hash_key].put(key, value)
+
+    def get(self, key: int) -> int:
+        """
+        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+        """
+        hash_key = key % self.mod
+        node = self.bucket[hash_key].get(key)
+        if not node:
+            return -1
+        return node.val
+
+    def remove(self, key: int) -> None:
+        """
+        Removes the mapping of the specified value key if this map contains a mapping for the key
+        """
+        hash_key = key % self.mod
+        self.bucket[hash_key].remove(key)
 
 
 if __name__ == '__main__':

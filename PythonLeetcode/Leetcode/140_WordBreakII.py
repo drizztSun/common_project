@@ -86,7 +86,6 @@ class WordBreak(object):
         :rtype: List[str]
         """
         def searchContent(s, start, wordDict, buff):
-
             if start in buff:
                 return buff[start]
 
@@ -96,21 +95,38 @@ class WordBreak(object):
             res = []
             for word in wordDict:
                 if word == s[start : start + len(word)]:
-                     tmp = searchContent(s, start + len(word), wordDict, buff)
-                    
-                     for i in tmp:
+                     for i in searchContent(s, start + len(word), wordDict, buff):
                         if i:
-                            res.append( word + " " + i)
+                            res.append(word + " " + i)
                         else:
                             res.append(word)
-
-
             buff[start] = res
             return res
 
         buff = {}
         return searchContent(s, 0, wordDict, buff)
 
+    def wordBreak(self, s: str, wordDict):
+        from collections import defaultdict
+
+        d = set(wordDict)
+        mem = defaultdict(list)
+
+        def breakw(s):
+            if not s:
+                return [[]]
+
+            if s in mem:
+                return mem[s]
+
+            for i in range(1, len(s) + 1):
+                if s[:i] in d:
+                    for w in breakw(s[i:]):
+                        mem[s].append([s[:i]] + w)
+            return mem[s]
+
+        breakw(s)
+        return [" ".join(words) for words in mem[s]]
 
     def doit1(self, s, wordDict):
         """
@@ -162,7 +178,7 @@ class WordBreak(object):
                 return []
 
             result = []
-            for i in xrange(start, len(s)):
+            for i in range(start, len(s)):
                 if i - start > MaxLen: 
                     break
                 
@@ -205,6 +221,3 @@ if __name__=="__main__":
     res = WordBreak().doit("catsanddog", ["cat","cats","and","sand","dog"])
 
     res = WordBreak().doit("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"])
-
-
-    pass

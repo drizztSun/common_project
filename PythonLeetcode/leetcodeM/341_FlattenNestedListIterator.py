@@ -47,6 +47,56 @@ Explanation: By calling next repeatedly until hasNext returns false,
 class NestedIterator:
 
     def __init__(self, nestedList):
+        """
+        Initialize your data structure here.
+        :type nestedList: List[NestedInteger]
+        """
+        self.root_ = nestedList
+        self.stk_ = [iter(self.root_)]
+        self.current_ = None
+        self.curInteger_ = self.getNextOne_()
+
+    def getNextOne_(self):
+
+        while self.stk_ or self.current_:
+
+            if not self.current_:
+                # self.current_ = self.stk_[-1]
+                self.current_ = self.stk_.pop()
+
+            try:
+                node = next(self.current_)
+            except StopIteration:
+                self.current_ = None
+                continue
+
+            if node.isInteger():
+                return node
+            else:
+                self.stk_.append(self.current_)
+                self.current_ = iter(node.getList())
+
+        return None
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        val = self.curInteger_.getInteger()
+        self.curInteger_ = self.getNextOne_()
+
+        return val
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        return self.curInteger_
+
+
+class NestedIterator:
+
+    def __init__(self, nestedList):
         self._buf = []
         for i in reversed(range(len(nestedList))):
             self._buf.append(nestedList[i])
@@ -57,7 +107,6 @@ class NestedIterator:
     def hasNext(self):
 
         while self._buf:
-
             if self._buf[-1].isInteger():
                 return True
 

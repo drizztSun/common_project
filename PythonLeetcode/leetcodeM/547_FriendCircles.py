@@ -110,6 +110,51 @@ class FindCircleNum:
                             visited.add(j)
         return circles
 
+
+    """
+    Approach #2 Using Breadth First Search[Accepted]
+    Algorithm
+    
+    As discussed in the above method, if we view the given matrix as an adjacency matrix of a graph, we can use graph algorithms easily to find the number of connected components.
+    This approach makes use of Breadth First Search for a graph.
+    
+    In case of Breadth First Search, we start from a particular node and visit all its directly connected nodes first. 
+    After all the direct neighbours have been visited, we apply the same process to the neighbour nodes as well. 
+    Thus, we exhaust the nodes of a graph on a level by level basis. An example of Breadth First Search is shown below:
+    
+    Complexity Analysis
+
+    Time complexity : O(n^2). The complete matrix of size n^2 is traversed.
+    Space complexity : O(n). A queue and visitedvisited array of size nn is used.
+    """
+    def doit_dfs(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: int
+        """
+        from collections import deque
+
+        circles = 0
+        visited = set()
+        N = len(M)
+
+        for i in range(N):
+
+            if i not in visited:
+                visited.add(i)
+                qu = deque([i])
+
+                while qu:
+                    c = qu.popleft()
+                    for j in range(N):
+                        if M[c][j] == 1 and j not in visited:
+                            qu.append(j)
+                            visited.add(j)
+                circles += 1
+
+        return circles
+
+
     def doit_disjoint_2(self, M):
         """
         :type M: List[List[int]]
