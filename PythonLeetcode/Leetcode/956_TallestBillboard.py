@@ -75,7 +75,7 @@ class TallestBillboard:
     '''
 
     def doit(self, rods):
-
+    
         # key is difference of left - right, value is left side total
         DP = {0: 0}
 
