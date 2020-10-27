@@ -79,8 +79,6 @@ func findCheapestPrice_heap(n int, flights [][]int, src int, dst int, K int) int
 
 	buf := &Reachout{[3]int{0, src, -1}}
 	heap.Init(buf)
-	visited := make([]bool, n)
-	visited[src] = true
 
 	for buf.Len() > 0 {
 		cur := heap.Pop(buf).([3]int)
@@ -92,7 +90,7 @@ func findCheapestPrice_heap(n int, flights [][]int, src int, dst int, K int) int
 
 		if step+1 <= K {
 			for i, v := range graph[reachto] {
-				if v != 0 && !visited[i] {
+				if v != 0 {
 					heap.Push(buf, [3]int{distance + v, i, step + 1})
 				}
 			}
@@ -102,69 +100,72 @@ func findCheapestPrice_heap(n int, flights [][]int, src int, dst int, K int) int
 	return -1
 }
 
-func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
-    graph := createGraph(flights)
-    k++
-    queue := []*node{{city: src}}
-    costs := map[int]int{}
-    
-    for len(queue) > 0 {
-        curr := queue[0]
-        queue = queue[1:]
-        if curr.stops == k {
-            continue
-        }
-        
-        if curr.city == dst {
-            costs[dst] = min(costs[dst], curr.cost)
-            continue
-        }
-        
-        
-        for city, price := range graph[curr.city] {
-            nc := curr.cost + price
-            if v, ok := costs[city]; ok && v < nc {
-                continue
-            }
-            costs[city] = nc            
-            queue = append(queue, &node{
-                stops:  curr.stops + 1,
-                city:   city,
-                cost:   nc,
-            })
-        }
-    }
-    if costs[dst] == 0 {
-        return -1
-    }
-    return costs[dst]
+/*
+type node struct {
+	stops int
+	cost  int
+	city  int
 }
 
-type node struct {
-    stops       int
-    cost        int
-    city        int
+func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
+	graph := createGraph(flights)
+	k++
+	queue := []*node{{city: src}}
+	costs := map[int]int{}
+
+	for len(queue) > 0 {
+		curr := queue[0]
+		queue = queue[1:]
+		if curr.stops == k {
+			continue
+		}
+
+		if curr.city == dst {
+			costs[dst] = min(costs[dst], curr.cost)
+			continue
+		}
+
+		for city, price := range graph[curr.city] {
+			nc := curr.cost + price
+			if v, ok := costs[city]; ok && v < nc {
+				continue
+			}
+			costs[city] = nc
+			queue = append(queue, &node{
+				stops: curr.stops + 1,
+				city:  city,
+				cost:  nc,
+			})
+		}
+	}
+	if costs[dst] == 0 {
+		return -1
+	}
+	return costs[dst]
 }
 
 func min(a, b int) int {
-    if a == 0 || b < a {
-        return b
-    }
-    return a
+	if a == 0 || b < a {
+		return b
+	}
+	return a
 }
 
 func createGraph(flights [][]int) map[int]map[int]int {
-    graph := map[int]map[int]int{}
-    for _, f := range flights {
-        if graph[f[0]] == nil {
-            graph[f[0]] = map[int]int{}
-        }
-        graph[f[0]][f[1]] = f[2]
-    }
-    return graph
+	graph := map[int]map[int]int{}
+	for _, f := range flights {
+		if graph[f[0]] == nil {
+			graph[f[0]] = map[int]int{}
+		}
+		graph[f[0]][f[1]] = f[2]
+	}
+	return graph
 }
+*/
 
 func Test_787_CheapestFlightWithinKStops() {
 
-	findCheapestPrice_heap(3, [][]int{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}}, 0, 2, 1)
+	// findCheapestPrice_heap(3, [][]int{{0, 1, 100}, {1, 2, 100}, {0, 2, 500}}, 0, 2, 1)
+
+	findCheapestPrice_heap(11, [][]int{{0, 3, 3}, {3, 4, 3}, {4, 1, 3}, {0, 5, 1}, {5, 1, 100}, {0, 6, 2}, {6, 1, 100}, {0, 7, 1}, {7, 8, 1}, {8, 9, 1}, {9, 1, 1}, {1, 10, 1}, {10, 2, 1}, {1, 2, 100}}, 0, 2, 4)
 }

@@ -332,10 +332,14 @@ void Test_691_StickersToSpellWord();
 
 void test_730_count_different_palindorme_subsequence();
 
+void Test_787_CheapestFlights();
+
 void leetcode()
 {
 
-    test_730_count_different_palindorme_subsequence();
+    Test_787_CheapestFlights();
+    
+    // test_730_count_different_palindorme_subsequence();
     
     // Test_691_StickersToSpellWord();
     

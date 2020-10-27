@@ -22,7 +22,6 @@
 import heapq
 
 
-# <important>
 class TrapRainWater(object):
 
     """

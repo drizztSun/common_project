@@ -1,3 +1,4 @@
+"""
 # 945. Minimum Increment to Make Array Unique
 
 # Given an array of integers A, a move consists of choosing any A[i], and incrementing it by 1.
@@ -23,11 +24,39 @@
 
 # 0 <= A.length <= 40000
 # 0 <= A[i] < 40000
-
+"""
 from collections import Counter
 
 
 class MinIncrementForUnique:
+
+
+    def doit(self, A):
+        import collections
+        if not A:
+            return 0
+
+        cnt = collections.Counter(A)
+        keys = sorted(cnt.keys())
+        p = keys[0]
+        ans = 0
+
+        for c in keys:
+
+            if cnt[c] == 1:
+                continue
+
+            n = cnt[c]
+            while n > 1:
+
+                while p in cnt or p < c:
+                    p += 1
+
+                ans += p - c
+                cnt[p] = 1
+                n -= 1
+
+        return ans
 
     """
     Approach 1: Counting
@@ -56,9 +85,8 @@ class MinIncrementForUnique:
 
     Space Complexity: O(N).
     """
-
     def doit(self, A):
-        count = collections.Counter(A)
+        count = Counter(A)
         taken = []
 
         ans = 0
@@ -67,33 +95,6 @@ class MinIncrementForUnique:
                 taken.extend([x] * (count[x] - 1))
             elif taken and count[x] == 0:
                 ans += x - taken.pop()
-        return ans
-
-    def doit(self, A):
-
-        if not A:
-            return 0
-
-        cnt = collections.Counter(A)
-        keys = sorted(cnt.keys())
-        p = keys[0]
-        ans = 0
-
-        for c in keys:
-
-            if cnt[c] == 1:
-                continue
-
-            n = cnt[c]
-            while n > 1:
-
-                while p in cnt or p < c:
-                    p += 1
-
-                ans += p - c
-                cnt[p] = 1
-                n -= 1
-
         return ans
 
     """
@@ -131,7 +132,7 @@ class MinIncrementForUnique:
         A.append(100000)
         ans = taken = 0
 
-        for i in xrange(1, len(A)):
+        for i in range(1, len(A)):
             if A[i-1] == A[i]:
                 taken += 1
                 ans -= A[i]

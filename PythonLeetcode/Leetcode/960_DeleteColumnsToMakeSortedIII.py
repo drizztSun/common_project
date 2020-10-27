@@ -1,4 +1,5 @@
-# 960. Delete Columns to Make Sorted III
+"""
+960. Delete Columns to Make Sorted III
 
 # We are given an array A of N lowercase letter strings, all of the same length.
 
@@ -32,6 +33,7 @@
 # Input: ["ghi","def","abc"]
 # Output: 0
 # Explanation: All rows are already lexicographically sorted.
+"""
 
 
 class MinDeletionSize:
@@ -58,7 +60,7 @@ class MinDeletionSize:
     Space Complexity: O(W).
     """
 
-    def doit(self, A):
+    def doit_dp(self, A):
 
         dp = [1 for _ in range(len(A[0]))]
 
@@ -70,6 +72,26 @@ class MinDeletionSize:
                     dp[i] = max(dp[i], 1 + dp[j])
 
         return len(A[0]) - max(dp)
+
+    def doit_dp_1(self, A):
+        dp = [(1, 1)] * len(A[0])
+        for i in range(len(dp)):
+            if i > 0:
+                max_pre = None
+                for pre in range(i - 1, -1, -1):
+                    for word in A:
+                        if word[pre] > word[i]:
+                            pre -= 1
+                            break
+                    else:
+                        if max_pre is None or dp[pre][1] > dp[max_pre][1]:
+                            max_pre = pre
+
+                max_len = 1 if max_pre is None else max(1, dp[max_pre][1] + 1)
+                overall = max(dp[i - 1][0], max_len)
+                dp[i] = (overall, max_len)
+        # print(dp)
+        return len(dp) - dp[-1][0]
 
 
 if __name__ == "__main__":

@@ -34,7 +34,6 @@
 # Pop (from the front) the index i - k, if it’s still in the deque (it falls out of the window).
 # If our window has reached size k, append the current window maximum to the output.
 """
-
 from collections import deque
 
 

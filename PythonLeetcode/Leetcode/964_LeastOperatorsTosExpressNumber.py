@@ -1,3 +1,4 @@
+"""
 # 964. Least Operators to Express Number
 
 # Given a single positive integer x, we will write an expression of the form x (op1) x (op2) x (op3) x ... where each operator op1, op2, etc.
@@ -33,7 +34,9 @@
 
 # Input: x = 100, target = 100000000
 # Output: 3
-# Explanation: 100 * 100 * 100 * 100.  The expression contains 3 operations.
+# Explanation: 100 * 100 * 100 * 100.  The expression contains 3 oper
+"""
+
 
 class LeastOpsExpressTarget:
 
@@ -97,7 +100,7 @@ From here, the recursion is straightforward: r = \text{target} \pmod xr=target(m
 
     """
 
-    def doit(self, x, target):
+    def doit_dp(self, x, target):
         from functools import lru_cache
         cost = list(range(40))
         cost[0] = 2

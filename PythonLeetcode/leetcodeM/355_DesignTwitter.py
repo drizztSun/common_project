@@ -38,6 +38,7 @@ twitter.getNewsFeed(1);
 from collections import defaultdict, deque
 from heapq import heappush, heappop
 
+
 class Twitter:
 
     def __init__(self):
@@ -67,18 +68,17 @@ class Twitter:
 
         for c in set(followee):
             if self.post[c]:
-                heappush(buf, (self.post[c][0], 0, c))
+                heappush(buf, (-self.post[c][-1][0], len(self.post[c])-1, c))
 
         res = []
-        while buf:
+        while buf and len(res) < 10:
             t, i, c = heappop(buf)
-            res.append(t[1])
-
-            if i + 1 < len(self.post[c]):
-                i += 1
+            res.append(self.post[c][i][1])
+            i -= 1
+            if i > -1:
                 heappush(buf, (self.post[c][i], i, c))
 
-        return res[-1:-11:-1]
+        return res
 
     def follow(self, followerId: int, followeeId: int):
         """

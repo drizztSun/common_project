@@ -1,4 +1,5 @@
-# 975. Odd Even Jump
+"""
+975. Odd Even Jump
 
 # You are given an integer array A.  From some starting index, you can make a series of jumps.
 # The (1st, 3rd, 5th, ...) jumps in the series are called odd numbered jumps, and the (2nd, 4th, 6th, ...) jumps in the series are called even numbered jumps.
@@ -57,6 +58,7 @@
 # Output: 3
 # Explanation:
 # We can reach the end from starting indexes 1, 2, and 4.
+"""
 
 
 class OddEvenJumps:
@@ -186,4 +188,3 @@ if __name__ == "__main__":
     res = OddEvenJumps().doit([2, 3, 1, 1, 4])  # 3
 
     res = OddEvenJumps().doit([5, 1, 3, 4, 2])  # 3
-

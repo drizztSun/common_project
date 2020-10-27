@@ -31,7 +31,7 @@ class FirstMissingPositive:
             return len(nums) + 1
 
 
-    def doit(self, nums):
+    def doit_array(self, nums):
         """
         :type nums: List[int]
         :rtype: int
@@ -40,7 +40,11 @@ class FirstMissingPositive:
 
         while i < length:
             while 0 < nums[i] <= length and nums[i] != nums[nums[i]-1]:
-                nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]  
+                nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]
+                # nums[i], nums[nums[i] - 1] = nums[nums[i] - 1], nums[i]
+                # incorrect, Here is the tricky sting. the first assignment, nums[i] = nums[nums[i] - 1] already changed the nums[i]
+                # and then second assignment will be affect, nums[nums[i] - 1], using the new value.
+                # it seems it get all right value first, then assign to the left one by one.
             i += 1
 
         i = 0
@@ -107,13 +111,15 @@ class FirstMissingPositive:
 
 if __name__ == "__main__":
 
-    res = firstMissingPositive().doit([1, 1])
+    res = FirstMissingPositive().doit_array([3, 4, -1, -1])
 
-    res = firstMissingPositive().doit([1, 2, 0])
+    res = FirstMissingPositive().doit([1, 1])
 
-    res = firstMissingPositive().doit([3, 4, -1, 1])
+    res = FirstMissingPositive().doit([1, 2, 0])
 
-    res = firstMissingPositive().doit([-3,9,16,4,5,16,-4,9,26,2,1,19,-1,25,7,22,2,-7,14,2,5,-6,1,17,3,24,-4,17,15])
+    res = FirstMissingPositive().doit([3, 4, -1, 1])
+
+    res = FirstMissingPositive().doit([-3,9,16,4,5,16,-4,9,26,2,1,19,-1,25,7,22,2,-7,14,2,5,-6,1,17,3,24,-4,17,15])
 
 
 

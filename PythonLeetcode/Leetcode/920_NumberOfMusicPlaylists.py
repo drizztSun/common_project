@@ -32,6 +32,40 @@ from functools import lru_cache
 
 class NumMusicPlaylists:
 
+
+    """
+    """
+    def doit_dp(self, N: int, L: int, K: int) -> int:
+
+        dp = [[0 for _ in range(L + 1)] for _ in range(N + 1)]
+        dp[0][0] = 1
+        mod = 10 ** 9 + 7
+
+        for i in range(1, N + 1):
+            for j in range(1, L + 1):
+
+                if i > K:
+                    dp[i][j] += dp[i][j - 1] * (i - K)
+
+                dp[i][j] += dp[i - 1][j - 1] * (N - i + 1)
+                dp[i][j] %= mod
+
+        return dp[N][L]
+
+    def doit_dp(self, N: int, L: int, K: int) -> int:
+
+        dp = [[0 for _ in range(N + 1)] for _ in range(L + 1)]
+        dp[0][0] = 1
+        mod = 10 ** 9 + 7
+
+        for i in range(1, L + 1):
+            for j in range(1, N + 1):
+                dp[i][j] += dp[i-1][j] * max(j - K, 0)
+                dp[i][j] += dp[i - 1][j - 1] * (N - j + 1)
+                dp[i][j] %= mod
+
+        return dp[L][N]
+
     '''
     DP
     DP[i,j] means: the number of playlists that among j songs which have played, there are i different songs.
@@ -125,149 +159,8 @@ class NumMusicPlaylists:
     so that our final answer will be ∑#x.
 
     Doing a direct count,
-
-\#_x = N * (N-1) * \cdots * (N-K+1) 1^{x_{K+1} - x_K - 1} * (N-K+2) 2^{x_{K+2} - x_{K+1}} * \cdots#
-x
-​	
- =N∗(N−1)∗⋯∗(N−K+1)1 
-x 
-K+1
-​	
- −x 
-K
-​	
- −1
- ∗(N−K+2)2 
-x
-K+2
-​	
- −x 
-K+1
-​	
- 
- ∗⋯
-
-\Rightarrow \#_x = N! \prod_{j=1}^{N-K+1} j^{x_{K+j} - x_{K+j-1} - 1}⇒# 
-x
-​	
- =N!∏ 
-j=1
-N−K+1
-​	
- j 
-x 
-K+j
-​	
- −x 
-K+j−1
-​	
- −1
- 
-
-Now, let \delta_i = x_{K+i} - x_{K+i-1} - 1δ 
-i
-​	
- =x 
-K+i
-​	
- −x 
-K+i−1
-​	
- −1, so that \sum \delta_i = L-N∑δ 
-i
-​	
- =L−N. To recap, the final answer will be (for S = L-N, P = N-K+1S=L−N,P=N−K+1):
-
-N! \Big(\sum\limits_{\delta : \sum\limits_{0 \leq i \leq P} \delta_i = S} \prod\limits_{j=1}^P j^{\delta_j} \Big)N!( 
-δ: 
-0≤i≤P
-∑
-​	
- δ 
-i
-​	
- =S
-∑
-​	
-  
-j=1
-∏
-P
-​	
- j 
-δ 
-j
-​	
- 
- )
-
-For convenience, let's denote the stuff in the large brackets as \langle S, P\rangle⟨S,P⟩.
-
-Algorithm
-
-We can develop a recurrence for \langle S, P\rangle⟨S,P⟩ mathematically, by factoring out the P^{\delta_P}P 
-δ 
-P
-​	
- 
-  term.
-
-\langle S, P\rangle = \sum_{\delta_P = 0}^S P^{\delta_P} \sum_{\sum\limits_{0\leq i < P} \delta_i = S - \delta_P} \prod\limits_{j=1}^{P-1} j^{\delta_j}⟨S,P⟩=∑ 
-δ 
-P
-​	
- =0
-S
-​	
- P 
-δ 
-P
-​	
- 
- ∑ 
-0≤i<P
-∑
-​	
- δ 
-i
-​	
- =S−δ 
-P
-​	
- 
-​	
-  
-j=1
-∏
-P−1
-​	
- j 
-δ 
-j
-​	
- 
- 
-
-\Rightarrow \langle S, P\rangle = \sum_{\delta_P = 0}^S P^{\delta_P} \langle S - \delta_P, P-1\rangle⇒⟨S,P⟩=∑ 
-δ 
-P
-​	
- =0
-S
-​	
- P 
-δ 
-P
-​	
- 
- ⟨S−δ 
-P
-​	
- ,P−1⟩
-
-so that it can be shown through algebraic manipulation that: \langle S, P \rangle = P \langle S-1, P-1 \rangle + \langle S, P-1 \rangle⟨S,P⟩=P⟨S−1,P−1⟩+⟨S,P−1⟩
-
-With this recurrence, we can perform dynamic programming similar to Approach 1. The final answer is N! \langle L-N, N-K+1 \rangleN!⟨L−N,N−K+1⟩.
+    so that it can be shown through algebraic manipulation that: \langle S, P \rangle = P \langle S-1, P-1 \rangle + \langle S, P-1 \rangle⟨S,P⟩=P⟨S−1,P−1⟩+⟨S,P−1⟩
+    With this recurrence, we can perform dynamic programming similar to Approach 1. The final answer is N! \langle L-N, N-K+1 \rangleN!⟨L−N,N−K+1⟩.
 
     """
 
@@ -287,194 +180,10 @@ With this recurrence, we can perform dynamic programming similar to Approach 1. 
     """
     Approach 3: Generating Functions
     (Note: This solution is extremely challenging and not recommended for interviews, but is included here for completeness.)
-
     Analysis
-
     Following the terminology of Approach 2, we would like to compute \langle S, P \rangle⟨S,P⟩ quickly. We can use generating functions.
-
     For a fixed PP, consider the function:
-
-f(x) = (1^0x^0 + 1^1x^1 + 1^2x^2 + 1^3x^3 + \cdots) * (2^0x^0 + 2^1x^1 + 2^2x^2 + 2^3x^3 + \cdots)f(x)=(1 
-0
- x 
-0
- +1 
-1
- x 
-1
- +1 
-2
- x
-2
- +1 
-3
- x 
-3
- +⋯)∗(2 
-0
- x 
-0
- +2 
-1
- x 
-1
- +2 
-2
- x 
-2
- +2 
-3
- x 
-3
- +⋯) \cdots * (P^0x^0 + P^1x^1 + P^2x^2 + P^3x^3 + \cdots)⋯∗(P 
-0
- x 
-0
- +P 
-1
- x 
-1
- +P 
-2
- x 
-2
- +P 
-3
- x 
-3
- +⋯)
-
-\Leftrightarrow f(x) = \prod_{k=1}^{P} (\sum_{j \geq 0} k^j x^j) = \prod_{k=1}^P \frac{1}{1-kx}⇔f(x)=∏ 
-k=1
-P
-​	
- (∑ 
-j≥0
-​	
- k 
-j
- x 
-j
- )=∏ 
-k=1
-P
-​	
-  
-1−kx
-1
-​	
- 
-
-The coefficient of x^Sx 
-S
-  in ff (denoted [x^S]f[x 
-S
- ]f) is the desired \langle S, P \rangle⟨S,P⟩.
-
-By the Chinese Remainder theorem on polynomials, this product can be written as a partial fraction decomposition:
-
-\prod_{k=1}^P \frac{1}{1-kx} = \sum_{k=1}^P \frac{A_k}{1-kx}∏ 
-k=1
-P
-​	
-  
-1−kx
-1
-​	
- =∑ 
-k=1
-P
-​	
-  
-1−kx
-A 
-k
-​	
- 
-​	
- 
-
-for some rational coefficients A_kA 
-k
-​	
- . We can solve for these coefficients by clearing denominators and setting x = 1/mx=1/m for 1 \leq m \leq P1≤m≤P. Then for a given mm, all the terms except the mm-th vanish, and:
-
-A_m = \frac{1}{\prod\limits_{\substack{1 \leq j \leq P\\j \neq m}} 1 - j/m} = \prod_{j \neq m} \frac{m}{m-j}
-
-Since a geometric series has sum \sum_{j \geq 0} (kx)^j = \frac{1}{1-kx}∑ 
-j≥0
-​	
- (kx) 
-j
- = 
-1−kx
-1
-​	
- , altogether it implies:
-
-[x^S]f = \sum_{k=1}^P A_k * k^S[x 
-S
- ]f=∑ 
-k=1
-P
-​	
- A 
-k
-​	
- ∗k 
-S
- 
-
-so that the final answer is
-
-\text{answer} = N! \sum_{k=1}^{N-K} k^{L-N} \prod_{\substack{1 \leq j \leq N-K\\j \neq k}} \frac{k}{k-j}
-
-\Rightarrow \text{answer} = N! \sum_k k^{L-K-1} \prod_{j \neq k} \frac{1}{k-j}⇒answer=N!∑ 
-k
-​	
- k 
-L−K−1
- ∏ 
-j 
-
-​	
- =k
-​	
-  
-k−j
-1
-​	
- 
-
-We only need a quick way to compute C_k = \prod\limits_{j \neq k} \frac{1}{k-j}C 
-k
-​	
- = 
-j 
-
-​	
- =k
-∏
-​	
-  
-k−j
-1
-​	
- . Indeed,
-
-C_{k+1} = C_k * \frac{k - (N-K)}{k}C 
-k+1
-​	
- =C 
-k
-​	
- ∗ 
-k
-k−(N−K)
-​	
- 
-
-so that we now have everything we need to compute the answer quickly.
+    so that we now have everything we need to compute the answer quickly.
     """
 
     def doit(self, N, L, K):
@@ -497,6 +206,21 @@ so that we now have everything we need to compute the answer quickly.
         for k in range(1, N+1):
             ans = ans * k % MOD
         return ans
+
+    def numMusicPlaylists(self, N: int, L: int, K: int) -> int:
+        import math
+        s = 0
+        c = 0
+        r = 0
+        x = math.factorial(N)
+
+        while (True):
+            c = x * ((N - r - K) ** (L - K)) * (-1) ** (r) // (math.factorial(N - r - K) * math.factorial(r))
+            if (c != 0):
+                s = (s + c) % (10 ** 9 + 7)
+                r += 1
+            else:
+                return s
 
 
 if __name__ == '__main__':

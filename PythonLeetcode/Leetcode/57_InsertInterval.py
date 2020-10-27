@@ -1,6 +1,4 @@
-import os
-
-
+"""
 # 57. Insert Interval
 
 # Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
@@ -13,6 +11,8 @@ import os
 # Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].
 
 # This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10].
+"""
+
 
 # Definition for an interval.
 class Interval:
@@ -20,7 +20,9 @@ class Interval:
         self.start = s
         self.end = e
 
-class insertInterval:
+
+class InsertInterval:
+
     def doit(self, intervals, newInterval):
         """
         :type intervals: List[Interval]
@@ -45,8 +47,7 @@ class insertInterval:
             res.append(newInterval)
 
         return res
-                         
-        
+
     def doit1(self, intervals, newInterval):
         """
         :type intervals: List[Interval]
@@ -88,15 +89,6 @@ class insertInterval:
         return left_intervals + [Interval(start, end)] + right_intervals
 
 
+if __name__ == "__main__":
 
-
-if __name__=="__main__":
-
-
-    res = insertInterval().doit([Interval(1,3), Interval(6,9)], Interval(2,5))
-
-    pass
-
-
-        
-        
+    res = InsertInterval().doit([Interval(1,3), Interval(6,9)], Interval(2,5))

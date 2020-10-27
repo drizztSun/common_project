@@ -192,6 +192,7 @@
 		1222F9652539FE9400FA6CE4 /* 600_NonegativeIntegersWithoutConsecutiveOnes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1222F9642539FE9400FA6CE4 /* 600_NonegativeIntegersWithoutConsecutiveOnes.cpp */; };
 		1222F969253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1222F968253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp */; };
 		124DCBCB25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */; };
+		126BBCB92547BE3C00D0B4B4 /* 127_WordLadder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126BBCB82547BE3C00D0B4B4 /* 127_WordLadder.cpp */; };
 		126E024A252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */; };
 		1271B823252F3D7B00EAFBD4 /* 818_racecars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */; };
 		12745BE52536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */; };
@@ -412,10 +413,12 @@
 		1222F9642539FE9400FA6CE4 /* 600_NonegativeIntegersWithoutConsecutiveOnes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 600_NonegativeIntegersWithoutConsecutiveOnes.cpp; sourceTree = "<group>"; };
 		1222F968253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 527_Word_Abbreviation.cpp; sourceTree = "<group>"; };
 		124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1199_MinimumTimeToBuildBlocks.cpp; sourceTree = "<group>"; };
+		126BBCB82547BE3C00D0B4B4 /* 127_WordLadder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 127_WordLadder.cpp; sourceTree = "<group>"; };
 		126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 882_ReachableNodesInSubdividedGraph.cpp; sourceTree = "<group>"; };
 		1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 818_racecars.cpp; sourceTree = "<group>"; };
 		12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1548_TheMostSimilarPathInGraph.cpp; sourceTree = "<group>"; };
 		12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1246_PalindromeRemoval.cpp; sourceTree = "<group>"; };
+		12759CF92545E26B0019A6C1 /* alg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = alg; sourceTree = "<group>"; };
 		129187C1253B299C00E71CCE /* 691_StickersToSpellWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 691_StickersToSpellWord.cpp; sourceTree = "<group>"; };
 		129187C4253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 730_CountDifferentPalindromicSubsequences.cpp; sourceTree = "<group>"; };
 		12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 471_EncodeStringWithShortestLength.cpp; sourceTree = "<group>"; };
@@ -650,6 +653,7 @@
 				080A5D40252211DD00718AAA /* 373_FindKPairswithSmallestSums.cpp */,
 				080A5D422522280B00718AAA /* 378_KthSmallestElementinSortedMatrix.cpp */,
 				0898D9EC2523DBCD0071C616 /* 451_SortCharactersByFrequency.cpp */,
+				126BBCB82547BE3C00D0B4B4 /* 127_WordLadder.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -670,6 +674,7 @@
 		08FC0AC72403634500939CB4 = {
 			isa = PBXGroup;
 			children = (
+				12759CF92545E26B0019A6C1 /* alg */,
 				086A8B0424071D2C00CFAEED /* leetcodeE */,
 				086A8B0124071CE700CFAEED /* leetcodeM */,
 				086A8A6024071B9900CFAEED /* leetcode */,
@@ -832,6 +837,7 @@
 				08CA46F72411810A0098CD5F /* 1017_ConvertToBase.cpp in Sources */,
 				086A8ADB24071C4A00CFAEED /* 321_CreateMaximumNumber.cpp in Sources */,
 				0877E46A2450989800BF2381 /* 936_StampingTheSequence.cpp in Sources */,
+				126BBCB92547BE3C00D0B4B4 /* 127_WordLadder.cpp in Sources */,
 				086A8AD024071C4A00CFAEED /* 803_BricksFallingWhenHit.cpp in Sources */,
 				0840A3652424205000BB7143 /* 969_PancakeSorting.cpp in Sources */,
 				0898D9ED2523DBCD0071C616 /* 451_SortCharactersByFrequency.cpp in Sources */,
