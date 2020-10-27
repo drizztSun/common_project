@@ -76,11 +76,15 @@ class KthdiffPairs:
 
     Complexity Analysis
 
-    Time complexity : O(N \log N)O(NlogN) where NN is the size of nums. The time complexity for sorting is O(N \log N)O(NlogN) while the time complexity for going through nums is O(N)O(N). One might mistakenly think that it should be O(N^2)O(N
-    2
-     ) since there is another while loop inside the first while loop. The while loop inside is just incrementing the pointer to skip numbers which are the same as the previous number. The animation should explain this behavior clearer. Therefore, the final time complexity is O(N \log N) + O(N) \approx O(N \log N)O(NlogN)+O(N)≈O(NlogN).
+    Time complexity : O(NlogN) where NN is the size of nums. The time complexity for sorting is O(NlogN) while the time complexity for going through nums is O(N).
+    One might mistakenly think that it should be O(N^2) since there is another while loop inside the first while loop.
+    The while loop inside is just incrementing the pointer to skip numbers which are the same as the previous number. The animation should explain this behavior clearer.
+     Therefore, the final time complexity is O(N \log N) + O(N) \approx O(N \log N)O(NlogN)+O(N)≈O(NlogN).
 
-    Space complexity : O(N)O(N) where NN is the size of nums. Similar to approach 1, this space complexity is incurred by the sorting algorithm. Space complexity is bound to change depending on the sorting algorithm you use. There is no additional space required for the part where two pointers are being incremented, apart from a single variable result. Therefore, the final space complexity is O(N) + O(1) \approx O(N)O(N)+O(1)≈O(N).
+    Space complexity : O(N) where NN is the size of nums. Similar to approach 1, this space complexity is incurred by the sorting algorithm.
+    Space complexity is bound to change depending on the sorting algorithm you use.
+    There is no additional space required for the part where two pointers are being incremented, apart from a single variable result.
+    Therefore, the final space complexity is O(N) + O(1) \approx O(N)O(N)+O(1)≈O(N).
 
     """
     def doit_twopointer(self, nums, k):
