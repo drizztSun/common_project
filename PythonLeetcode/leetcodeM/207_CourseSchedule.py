@@ -35,6 +35,50 @@ You may assume that there are no duplicate edges in the input prerequisites.
 
 class CourseScheduleI:
 
+    def doit_topsort(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+
+        g = [set() for _ in range(numCourses)]
+        indegree = [0 for _ in range(numCourses)]
+
+        for c in prerequisites:
+            g[c[1]].add(c[0])
+            indegree[c[0]] += 1
+
+        q = deque([i for i in range(numCourses) if indegree[i] == 0])
+
+        while q:
+            c = q.popleft()
+
+            for n in g[c]:
+                indegree[n] -= 1
+                if indegree[n] == 0:
+                    q.append(n)
+
+        return all(indegree[i] == 0 for i in range(numCourses))
+
+    def doit_topsort_1(self, numCourses: int, prerequisites: list) -> bool:
+
+        #visited is not required, because it is top graph, when edge from zero.
+        from collections import deque
+        g = [set() for _ in range(numCourses)]
+        indegree = [0 for _ in range(numCourses)]
+
+        for c in prerequisites:
+            g[c[1]].add(c[0])
+            indegree[c[0]] += 1
+
+        q = deque([i for i in range(numCourses) if indegree[i] == 0])
+        visited = set(q)
+        while q:
+            c = q.popleft()
+            for n in g[c]:
+                indegree[n] -= 1
+                if indegree[n] == 0 and n not in visited:
+                    q.append(n)
+                    visited.add(n)
+
+        return len(visited) == numCourses
+
     def doit_backtracking(self, numCourses, prerequisites):
         """
         :type numCourses: int

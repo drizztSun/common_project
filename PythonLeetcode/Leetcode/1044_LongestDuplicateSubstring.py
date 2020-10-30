@@ -25,7 +25,7 @@
 
 
 class LongestDupSubstring:
-    def doit(self, S):
+    def doit(self, S):git
         def search(L: int, a: int, modulus: int, n, nums):
 
             h = 0
