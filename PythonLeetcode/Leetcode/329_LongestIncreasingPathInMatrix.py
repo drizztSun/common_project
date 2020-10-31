@@ -1,7 +1,5 @@
-
-
-
-# 329. Longest Increasing Path in a Matrix
+"""
+329. Longest Increasing Path in a Matrix
 
 
 # Given an integer matrix, find the length of the longest increasing path.
@@ -29,9 +27,10 @@
 # Return 4
 # The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
 
+"""
+
 
 class longestIncreasingPath:
-
 
     # <dfs>
     def doit(self, matrix):
@@ -65,11 +64,9 @@ class longestIncreasingPath:
                 ANS = max(ANS, dfs(matrix, i, j, path))
 
         return ANS
-                        
-
 
     # <dp>
-    def doit(self, matirx):
+    def doit_dp(self, matrix):
         """
         :type matrix: List[List[int]]
         :rtype: int
@@ -84,7 +81,6 @@ class longestIncreasingPath:
             if not dp[i][j]:
                 val = matrix[i][j]
                 dp[i][j] = 1 + max(
-    
                 dfs(i-1, j) if i-1 >= 0 and val > matrix[i-1][j] else 0,
                 dfs(i+1, j) if i+1 < m and val > matrix[i+1][j] else 0,
                 dfs(i, j-1) if j-1 >= 0 and val > matrix[i][j-1] else 0,

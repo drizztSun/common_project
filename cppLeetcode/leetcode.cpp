@@ -334,10 +334,14 @@ void test_730_count_different_palindorme_subsequence();
 
 void Test_787_CheapestFlights();
 
+void test_1284_minimum_number_of_flip();
+
 void leetcode()
 {
 
-    Test_787_CheapestFlights();
+    test_1284_minimum_number_of_flip();
+    
+    // Test_787_CheapestFlights();
     
     // test_730_count_different_palindorme_subsequence();
     

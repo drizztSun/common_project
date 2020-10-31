@@ -1,14 +1,22 @@
 """
 301 Remove Invalid Parentheses
 
-# Remove the minimum number of invalid parentheses in order to make the input string valid.
-# Return all possible results.
+Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
 
-# Note: The input string may contain letters other than the parentheses ( and ).
-# Examples:
-# "()())()" -> ["()()()", "(())()"]
-# "(a)())()" -> ["(a)()()", "(a())()"]
-# ")(" -> [""]
+Note: The input string may contain letters other than the parentheses ( and ).
+
+Example 1:
+
+Input: "()())()"
+Output: ["()()()", "(())()"]
+Example 2:
+
+Input: "(a)())()"
+Output: ["(a)()()", "(a())()"]
+Example 3:
+
+Input: ")("
+Output: [""]
 """
 
 
@@ -52,6 +60,7 @@ class RemoveInvalidParentheses:
                 left = left - 1 if left > 0 else left
 
         result = {}
+
         def recurse(s, index, left_count, right_count, left_rem, right_rem, expr):
             # If we reached the end of the string, just check if the resulting expression is
             # valid or not and also if we have removed the total number of left and right
@@ -103,6 +112,42 @@ class RemoveInvalidParentheses:
         recurse(s, 0, 0, 0, left, right, [])
         return list(result.keys())
 
+    def doit_dfs(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+
+        def removeParentheses(s, start, end, result, par):
+            i, stack = start, 0
+            while i < len(s):
+                if s[i] == par[1]:
+                    stack -= 1
+                elif s[i] == par[0]:
+                    stack += 1
+
+                if stack >= 0:
+                    i += 1
+                    continue
+
+                j = end
+                while j <= i:
+                    if s[j] == par[1] and (j == end or s[j - 1] != par[1]):
+                        removeParentheses(s[:j] + s[j + 1:], i, j, result, par)
+                    j += 1
+                return
+
+            reversedStr = s[::-1]
+            if par[0] == '(':
+                removeParentheses(reversedStr, 0, 0, result, [')', '('])
+            else:
+                result.append(reversedStr)
+
+        result, par = [], ['(', ')']
+        removeParentheses(s, 0, 0, result, par)
+        if len(result) == 0:
+            result.append("")
+        return result
 
 if __name__ == "__main__":
 

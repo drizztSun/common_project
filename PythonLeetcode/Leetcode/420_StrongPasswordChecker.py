@@ -1,8 +1,5 @@
-
-
-
-
-# 420. Strong Password Checker
+"""
+420. Strong Password Checker
 
 
 # A password is considered strong if below conditions are all met:
@@ -14,99 +11,40 @@
 
 # Insertion, deletion or replace of any one character are all considered as one change.
 
-
-
-# <important>
+"""
 
 
 class strongPasswordChecker:
-    def doit1(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        hLowerCase, hUpperCase, Digit = False, False, False
-        length = len(s)
-        repeated = []
-        buff = []
 
-        for i, c in enumerate(s):
-            
-            if c.isdigit():
-                Digit = True
-            if c.islower():
-                hLowerCase = True
-            if c.isupper():
-                hUpperCase = True
+    """
+    # I’ve separated the problem into three cases:
+    # (1) s.length() < 6
+    # (2) 6 <= s.length() <= 20
+    # (3) s.length() > 20
 
-            if buff:
-                if c == buff[-1]:
-                    buff.append(c)
-                    
-                if c != buff[-1] or i == len(s)-1:
-                    if len(buff) > 2:
-                        repeated.append(buff)
-                    buff = []
+    # Let’s look at case (1) first. If s.length() < 6, we know we have room to insert some more letters into s. Question is how to use the insertions effectively to reduce the number of potential replacements. I’m using a greedy approach for this one: I’m inserting one char between the second and third chars whenever I see a repetition of 3 letters as substring.
 
-            if not buff:
-                buff.append(c)
+    # e.g. Say we have room to insert some chars in string and we see a substring of "aaaa". I’ll insert a 'B' to make it "aaBaa" to break the 3-char repetition, thus reducing potential replacement by 1. And we’ll do this until we can’t insert any more chars into s. When we reach this point, we’ll start dealing with case (2)
 
-        if 6 <= len(s) <= 20 and hLowerCase and hUpperCase and Digit and not repeated:
-            return 0
+    # For case (2), I still follow a greedy approach. I’m simply searching for 3-char repetitions, and replacing one of the chars to break the repetition.
+    # e.g. If we see a substring of "aaaa", we’ll make it "aaBa".
 
-        added, removed, changed = 0, 0, 0
-        added = [hLowerCase, hUpperCase, Digit].count(False)
+    # My code deals with (1) and (2) together as s.length() <= 20.
 
-        for c in repeated:
-            changed += len(c) // 3
-            
-        if len(s) < 6:
-            added = max(6 - len(s) + changed, added)
-            changed = 0
+    # Case (3) is a little bit tricky because simple greedy doesn’t work any more.
+    # When s.length() > 20, we want to delete some chars instead of inserting chars to reduce potential replacements. Question is the same: how to do it effectively? Let’s do some observations here:
 
-        elif len(s) > 20:
-            delete = len(s) - 20
-            removed = max(delete, changed, added)
-            changed = 0
-            added = 0
-        else: 
-            added = max(changed, added)
-            changed = 0
-        
-        return added + removed + changed
+    # Say len is the length of each repetition.
+    # (a) len % 3 only has three possible values, namely 0, 1 and 2.
+    # (b) Minimum number of replacements needed to break each repetition is len / 3.
+    # © Based on (a) and (b), we know that deletion can reduce replacements only if the deletion can change the value of len / 3
+    # (d) Based on ©, we know if we want to reduce 1 replacement, we need 1 deletion for len % 3 == 0, and 2 deletions for len % 3 == 1, and 3 deletions for len % 3 == 2.
 
+    # Given above observations, I simply implemented the solution to do (d).
 
+    #Also note that missing of upper case char, lower case char, or digit can always be resolved by insertion or replacement.
 
-
-
-# I’ve separated the problem into three cases:
-# (1) s.length() < 6
-# (2) 6 <= s.length() <= 20
-# (3) s.length() > 20
-
-# Let’s look at case (1) first. If s.length() < 6, we know we have room to insert some more letters into s. Question is how to use the insertions effectively to reduce the number of potential replacements. I’m using a greedy approach for this one: I’m inserting one char between the second and third chars whenever I see a repetition of 3 letters as substring.
-
-# e.g. Say we have room to insert some chars in string and we see a substring of "aaaa". I’ll insert a 'B' to make it "aaBaa" to break the 3-char repetition, thus reducing potential replacement by 1. And we’ll do this until we can’t insert any more chars into s. When we reach this point, we’ll start dealing with case (2)
-
-# For case (2), I still follow a greedy approach. I’m simply searching for 3-char repetitions, and replacing one of the chars to break the repetition.
-# e.g. If we see a substring of "aaaa", we’ll make it "aaBa".
-
-# My code deals with (1) and (2) together as s.length() <= 20.
-
-# Case (3) is a little bit tricky because simple greedy doesn’t work any more.
-# When s.length() > 20, we want to delete some chars instead of inserting chars to reduce potential replacements. Question is the same: how to do it effectively? Let’s do some observations here:
-
-# Say len is the length of each repetition.
-# (a) len % 3 only has three possible values, namely 0, 1 and 2.
-# (b) Minimum number of replacements needed to break each repetition is len / 3.
-# © Based on (a) and (b), we know that deletion can reduce replacements only if the deletion can change the value of len / 3
-# (d) Based on ©, we know if we want to reduce 1 replacement, we need 1 deletion for len % 3 == 0, and 2 deletions for len % 3 == 1, and 3 deletions for len % 3 == 2.
-
-# Given above observations, I simply implemented the solution to do (d).
-
-#Also note that missing of upper case char, lower case char, or digit can always be resolved by insertion or replacement.
-
-
+    """
     def doit(self, s):
         """
         :type s: str
@@ -151,7 +89,7 @@ class strongPasswordChecker:
         toReplace, toDelete = 0, 0
         l = 0
         # reset toReplace
-        # to record repetitions with (length % 3) == 0, 1 or 2. record all repetion frequencies
+        # to record repetitions with (length % 3) == 0, 1 or 2. record all repetitions frequencies
         replaceLength = [{}, {}, {}]
         for r in range(len(s)+1):
             if r == len(s) or s[r] != s[l]:
@@ -191,9 +129,6 @@ class strongPasswordChecker:
         toDelete -= dec * 3
 
         return deleteTarget + max(toReplace, needDigit + needLower + needUpper)
-                    
-
-
 
     def doit1(self, s):
         """
@@ -279,7 +214,7 @@ class strongPasswordChecker:
             return repeatDel + max(repeatReplace,diverseChange)
         else:
             print('6~20:','repeatReplace',repeatReplace,'diverseChange',diverseChange)
-            return max(repeatReplace,diverseChange)   
+            return max(repeatReplace,diverseChange)
 
 
 if __name__=="__main__":
@@ -296,14 +231,10 @@ if __name__=="__main__":
 
     res = strongPasswordChecker().doit("aaabbb")
 
-
     res = strongPasswordChecker().doit("aaAA11")
 
     res = strongPasswordChecker().doit("aaaaaaaaaaaaaaaaaaaaa")
 
-
     res = strongPasswordChecker().doit("aaaaaaaaaaaaaaaaaaaaabbbccccdddddeeeeeeffffffff")
 
-    res = strongPasswordChecker().doit("ABABABABABABABABABAB1") #2
-
-    pass
+    res = strongPasswordChecker().doit("ABABABABABABABABABAB1")
