@@ -156,6 +156,23 @@ Explanation: The longest valid parentheses substring is "()()"
 
 class LongestValidParentheses(object):
 
+    def doit_stacj(self, s):
+
+        st = [-1]
+        max_len = 0
+
+        for i in range(len(s)):
+
+            if s[i] == '(':
+                st.append(i)
+            else:
+                st.pop()
+                if st:
+                    max_len = max(max_len, i - st[-1])
+                else:
+                    st.append(i)
+        return max_len
+
     def doit(self, s):
         """
         :type s: str

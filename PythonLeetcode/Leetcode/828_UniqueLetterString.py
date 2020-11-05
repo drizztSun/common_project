@@ -1,4 +1,5 @@
-# 828. Unique Letter String
+"""
+828. Unique Letter String
 
 # A character is unique in string S if it occurs exactly once in it.
 
@@ -14,7 +15,7 @@
 
 # Since the answer can be very large, retrun the answer modulo 10 ^ 9 + 7.
 
- 
+
 
 # Example 1:
 
@@ -28,11 +29,53 @@
 # Input: "ABA"
 # Output: 8
 # Explanation: The same as example 1, except uni("ABA") = 1.
- 
+
 
 # Note: 0 <= S.length <= 10000.
 
+"""
+
+
 class UniqueLetterString:
+
+
+    """
+    Approach #2: Split by Character [Accepted]
+    Intuition
+
+    As in Approach #1, we have U(x) = \sum_{c \in \mathcal{A}} U_c(x)U(x)=∑
+    c∈A
+    ​
+     U
+    c
+    ​
+     (x), where \mathcal{A} = \{ \text{"A"}, \text{"B"}, \dots \}A={"A","B",…} is the alphabet, and we only need to answer the following question (26 times, one for each character): how many substrings have exactly one \text{"A"}"A"?
+
+    Algorithm
+
+    Consider how many substrings have a specific \text{"A"}"A". For example, let's say S only has three "A"'s, at 'S[10] = S[14] = S[20] = "A"; and we want to know the number of substrings that contain S[14].
+    The answer is that there are 4 choices for the left boundary of the substring (11, 12, 13, 14), and 6 choices for the right boundary (14, 15, 16, 17, 18, 19).
+    So in total, there are 24 substrings that have S[14] as their unique "A".
+
+    Continuing our example, if we wanted to count the number of substrings that have S[10], this would be 10 * 4 - note that when there is no more "A" characters to the left of S[10],
+    we have to count up to the left edge of the string.
+
+    We can add up all these possibilities to get our final answer.
+    """
+    def doit_(self, S):
+        import collections
+
+        index = collections.defaultdict(list)
+        for i, c in enumerate(S):
+            index[c].append(i)
+
+        ans = 0
+        for A in index.values():
+            A = [-1] + A + [len(S)]
+            for i in range(1, len(A) - 1):
+                ans += (A[i] - A[i-1]) * (A[i+1] - A[i])
+        return ans % (10**9 + 7)
+
     def doit1(self, S):
         """
         :type S: str
@@ -50,10 +93,8 @@ class UniqueLetterString:
         
         return res
 
-
-
-    # In each loop, We caculate cur[i], which represent the sum of Uniq() for all substrings whose last char is S.charAt(i).
-
+    """
+    # In each loop, We calculate cur[i], which represent the sum of Uniq() for all substrings whose last char is S.charAt(i).
     # For example,
     # S = 'ABCBD'
     # When i = 2, cur[2] = Uniq('ABC') + Uniq('BC') + Uniq('C')
@@ -67,7 +108,7 @@ class UniqueLetterString:
     # Then the new contribution[S.charAt(i)] = i - showLastPosition[S.charAt(i)]
 
     # The final result is the sum of all cur[i].
-
+    """
     def doit(self, S):
         """
         :type S: str
@@ -96,14 +137,6 @@ class UniqueLetterString:
         return tsum % MOD
 
 
-                
-
-
-
-                
-
 if __name__ == "__main__":
 
     res = UniqueLetterString().doit("ABC")
-
-    pass

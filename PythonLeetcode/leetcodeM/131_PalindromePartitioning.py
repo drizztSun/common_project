@@ -1,5 +1,5 @@
-
 """"
+131. Palindrome Partitioning
 
 Given a string s, partition s such that every substring of the partition is a palindrome.
 
@@ -20,6 +20,28 @@ from collections import defaultdict
 
 
 class PalindromePartitioning:
+
+    def doit_dfs(self):
+
+        def search(i, memo):
+
+            if len(s) == i:
+                return [[]]
+
+            if i in memo:
+                return memo[i]
+
+            res = []
+            for j in range(i, len(s)):
+
+                if s[i: j + 1] == s[i:j + 1][::-1]:
+                    for c in search(j + 1, memo):
+                        res.append([s[i: j + 1]] + c)
+
+            memo[i] = res
+            return res
+
+        return search(0, {})
 
     def doit1(self, s):
         """

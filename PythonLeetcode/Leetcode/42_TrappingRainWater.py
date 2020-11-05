@@ -23,7 +23,7 @@ n == height.length
 
 class TrapRainWater:
 
-    # O(3n)
+    # O(n)
     def doit(self, height):
         """
         :type height: List[int]
@@ -49,6 +49,22 @@ class TrapRainWater:
 
         return res
 
+    def doit_1(self, height):
+
+        left = [0]
+        for i in range(1, len(height)):
+            left.append(max(left[-1], height[i - 1]))
+
+        right = [0]
+        for i in range(len(height) - 1, 0, -1):
+            right.append(max(right[-1], height[i]))
+
+        res = 0
+        for i in range(len(height)):
+            res += max(0, min(left[i], right[len(right) - 1 - i]) - height[i])
+
+        return res
+
     # O(n)
     def doit(self, height):
         """
@@ -58,47 +74,30 @@ class TrapRainWater:
         if len(height)<=2:
             return 0
 
-        l=0
-        r=len(height)-1
-        ans=0
+        l = 0
+        r = len(height)-1
+        ans = 0
 
-        while l<r and height[l]<=height[l+1]:
-            l+=1
+        while l < r and height[l] <= height[l+1]:
+            l += 1
 
-        while l<r and height[r]<=height[r-1]:
-            r-=1
+        while l < r and height[r] <= height[r-1]:
+            r -= 1
 
-        while l<r:
-            left=height[l]
-            right=height[r]
+        while l < r:
+            left = height[l]
+            right = height[r]
 
-            if left<=right:
-                while l<r and height[l]<=left:
+            if left <= right:
+                while l < r and height[l] <= left:
                     ans += left-height[l]
-                    l=l+1
+                    l += 1
             else:
-                while l<r and height[r]<=right:
+                while l < r and height[r] <= right:
                     ans += right-height[r]
-                    r=r-1
+                    r -= 1
         
         return ans
-
-
-# 407. Trapping Rain Water II
-# Given an m x n matrix of positive integers representing the height of each unit cell in a 2D elevation map, 
-# compute the volume of water it is able to trap after raining.
-
-# Note:
-# Both m and n are less than 110. The height of each unit cell is greater than 0 and is less than 20,000.
-
-# Example 
-# Given the following 3x6 height map:
-# [
-#  [1,4,3,1,3,2],
-#  [3,2,1,3,2,4],
-#  [2,3,3,2,3,1]
-# ]
-# Return 4.
 
 
 if __name__ == "__main__":

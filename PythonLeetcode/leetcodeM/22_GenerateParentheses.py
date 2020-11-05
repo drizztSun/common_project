@@ -18,9 +18,41 @@ Output: ["()"]
 
 class GenerateParenthesis:
 
+    def doit_dfs(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        left = right = n
+
+        def search(l, r, memo):
+
+            if l > r or l < 0 or r < 0:
+                return []
+
+            if l == r == 0:
+                return [""]
+
+            if (l, r) in memo:
+                return memo[(l, r)]
+
+            res = []
+
+            for c in search(l - 1, r, memo):
+                res.append('(' + c)
+
+            for c in search(l, r - 1, memo):
+                res.append(')' + c)
+
+            memo[(l, r)] = res
+            return res
+
+        return search(left, right, {})
+
     def doit(self, n: int):
 
         op = []
+
         def helper(open, closed, open_so_far, para):
             if open == 0 and closed == 0:
                 op.append(para)
@@ -43,7 +75,7 @@ class GenerateParenthesis:
     
     We can start an opening bracket if we still have one (of n) left to place. And we can start a closing bracket if it would not exceed the number of opening brackets
     """
-    def doit_backtrack(self, N):
+    def doit_backtracking(self, N):
         ans = []
         def backtrack(S = '', left = 0, right = 0):
             if len(S) == 2 * N:
@@ -70,11 +102,23 @@ class GenerateParenthesis:
     For each closure number c, we know the starting and ending brackets must be at index 0 and 2*c + 1. Then, the 2*c elements between must be a valid sequence, plus the rest of the elements must be a valid sequence.
     """
     def doit_closue_number(self, N):
-        if N == 0: return ['']
-        ans = []
-        for c in xrange(N):
-            for left in self.generateParenthesis(c):
-                for right in self.generateParenthesis(N-1-c):
-                    ans.append('({}){}'.format(left, right))
+
+        def search(N):
+            if N == 0:
+                return ['']
+
+            ans = []
+            for c in range(N):
+                for left in ssearch(c):
+                    for right in search(N-1-c):
+                        ans.append('({}){}'.format(left, right))
+        search(N)
         return ans
+
+
+
+
+if __name__ == '__main__':
+
+    GenerateParenthesis().doit_1(3)
 
