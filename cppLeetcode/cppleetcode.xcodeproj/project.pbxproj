@@ -193,9 +193,12 @@
 		1222F9652539FE9400FA6CE4 /* 600_NonegativeIntegersWithoutConsecutiveOnes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1222F9642539FE9400FA6CE4 /* 600_NonegativeIntegersWithoutConsecutiveOnes.cpp */; };
 		1222F969253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1222F968253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp */; };
 		124DCBCB25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */; };
+		125096EE2555A63700532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 125096ED2555A63600532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp */; };
+		125096F12555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 125096F02555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp */; };
 		126BBCB92547BE3C00D0B4B4 /* 127_WordLadder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126BBCB82547BE3C00D0B4B4 /* 127_WordLadder.cpp */; };
 		126E024A252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */; };
 		1271B823252F3D7B00EAFBD4 /* 818_racecars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */; };
+		1272F2422558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */; };
 		12745BE52536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */; };
 		12745BE82536177000545BC1 /* 1246_PalindromeRemoval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */; };
 		129187C2253B299C00E71CCE /* 691_StickersToSpellWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129187C1253B299C00E71CCE /* 691_StickersToSpellWord.cpp */; };
@@ -419,9 +422,12 @@
 		1222F9642539FE9400FA6CE4 /* 600_NonegativeIntegersWithoutConsecutiveOnes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 600_NonegativeIntegersWithoutConsecutiveOnes.cpp; sourceTree = "<group>"; };
 		1222F968253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 527_Word_Abbreviation.cpp; sourceTree = "<group>"; };
 		124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1199_MinimumTimeToBuildBlocks.cpp; sourceTree = "<group>"; };
+		125096ED2555A63600532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1335_MinimumDifficultyOfJobSchedule.cpp; sourceTree = "<group>"; };
+		125096F02555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1235_MaximumProfitInJobScheduling.cpp; sourceTree = "<group>"; };
 		126BBCB82547BE3C00D0B4B4 /* 127_WordLadder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 127_WordLadder.cpp; sourceTree = "<group>"; };
 		126E0249252DF8C80024520F /* 882_ReachableNodesInSubdividedGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 882_ReachableNodesInSubdividedGraph.cpp; sourceTree = "<group>"; };
 		1271B822252F3D7B00EAFBD4 /* 818_racecars.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 818_racecars.cpp; sourceTree = "<group>"; };
+		1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1559_DetectCyclesIn2DGrid.cpp; sourceTree = "<group>"; };
 		12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1548_TheMostSimilarPathInGraph.cpp; sourceTree = "<group>"; };
 		12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1246_PalindromeRemoval.cpp; sourceTree = "<group>"; };
 		12759CF92545E26B0019A6C1 /* alg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = alg; sourceTree = "<group>"; };
@@ -600,6 +606,9 @@
 				12B713E1254B17C6005E293E /* 460_LFUCache.cpp */,
 				12E4A9C8254C709300C6D4E8 /* 1284_MinimumNumberOfFlipsToConvertBinaryMatrixToZeroMatrix.cpp */,
 				08D714FA2550BDD7006DA48D /* 828_CountUniqueCharactersOfAllSubstringsOfGivenString.cpp */,
+				125096ED2555A63600532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp */,
+				125096F02555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp */,
+				1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -826,6 +835,7 @@
 				086A8AD924071C4A00CFAEED /* 757_SetIntersectionSizeAtLeastTwo.cpp in Sources */,
 				08E76F28240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp in Sources */,
 				086A8B0324071D0D00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */,
+				125096F12555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp in Sources */,
 				080A5D452522C16300718AAA /* 407_TrappingRainWaterII.cpp in Sources */,
 				0848D0672428DBE700238DC9 /* 654_MaximumBinaryTree.cpp in Sources */,
 				086A8AE424071C4A00CFAEED /* 632_SmallestRange.cpp in Sources */,
@@ -925,6 +935,7 @@
 				129EE6B3254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp in Sources */,
 				086A8AB324071C4A00CFAEED /* 26_RemoveDuplicateFromSortedArray.cpp in Sources */,
 				12F17BDB252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp in Sources */,
+				1272F2422558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp in Sources */,
 				12D3E8A3253CADB9004E49BD /* 887_SuperEggDrop.cpp in Sources */,
 				08A9D7EC245878CC0058F560 /* 932_BeautifulArray.cpp in Sources */,
 				0864A89D24409BE2002BE5F0 /* 913_CatAndMouse.cpp in Sources */,
@@ -979,6 +990,7 @@
 				086A8AB624071C4A00CFAEED /* 68_TextJustification.cpp in Sources */,
 				083F7C37241BC26500D3D54A /* 952_LargestComponentSizebyCommonFactor.cpp in Sources */,
 				086A8AD624071C4A00CFAEED /* 480_SlidingWindowMedian.cpp in Sources */,
+				125096EE2555A63700532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp in Sources */,
 				089BB605243BC29400BB3A70 /* 902_NumbersAtMostNGivenDigitSet.cpp in Sources */,
 				080A5D41252211DD00718AAA /* 373_FindKPairswithSmallestSums.cpp in Sources */,
 				086A8AF424071C4A00CFAEED /* 354_RussianDollEnvelopes.cpp in Sources */,

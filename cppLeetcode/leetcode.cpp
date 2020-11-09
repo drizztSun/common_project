@@ -336,10 +336,18 @@ void Test_787_CheapestFlights();
 
 void test_1284_minimum_number_of_flip();
 
+void test_1335_minimum_difficulty_jobschedule();
+
+void test_1559_detect_cycle();
+
 void leetcode()
 {
 
-    test_1284_minimum_number_of_flip();
+    test_1559_detect_cycle();
+    
+    //test_1335_minimum_difficulty_jobschedule();
+    
+    //test_1284_minimum_number_of_flip();
     
     // Test_787_CheapestFlights();
     

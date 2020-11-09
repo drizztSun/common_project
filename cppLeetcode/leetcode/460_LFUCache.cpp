@@ -39,10 +39,13 @@
  
  */
 
+#include <stdlib.h>
+#include <list>
+#include <climits>
 #include <unordered_map>
 
 using std::unordered_map;
-
+using std::list;
 
 
 
@@ -112,7 +115,7 @@ public:
     }
 };
 
-
+/*
 class LFUCache {
 
     
@@ -235,3 +238,4 @@ private:
     int _capacity;
 };
 
+*/

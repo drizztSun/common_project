@@ -320,8 +320,3 @@ void testCpp14()
 	// Compile time assert (C++ 11)
 	// static_assert(sizeof(int) == 4);
 }
-
-
-
-
-
