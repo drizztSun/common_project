@@ -41,7 +41,7 @@ class NumMatrixII:
         self._n = len(matrix[0])
         self._mRec = [[0 for x in range(self._n)] for y in range(self._m)]
 
-        self._mRec[0][0] =  matrix[0][0]
+        self._mRec[0][0] = matrix[0][0]
         for j in range(1, self._n):
             self._mRec[0][j] = matrix[0][j] + self._mRec[0][j - 1]
 
@@ -50,7 +50,6 @@ class NumMatrixII:
             for j in range(self._n):
                 sum += matrix[i][j]
                 self._mRec[i][j] = sum + self._mRec[i - 1][j]
-
 
     def sumRegion(self, row1, col1, row2, col2):
         """

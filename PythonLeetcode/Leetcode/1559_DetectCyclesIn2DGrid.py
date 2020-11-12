@@ -50,9 +50,61 @@ grid consists only of lowercase English letters.
 
 class ContainsCycle:
 
-    def doit_dp(self, grid: list) -> bool:
-        pass
+    def doit_dfs(self, grid: list) -> bool:
+
+        seen = set()
+
+        def search(i, j, lasti, lastj):
+
+            seen.add((i, j))
+
+            for delta in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                x, y = i + delta[0], j + delta[1]
+                if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] == grid[i][j] and (x, y) != (
+                lasti, lastj):
+                    if (x, y) in seen:
+                        return True
+
+                    if search(x, y, i, j):
+                        return True
+
+            return False
+
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if (i, j) not in seen and search(i, j, -1, -1):
+                    return True
+
+        return False
+
+    def doit_disjoint(self, grid: list) -> bool:
+
+        m, n = len(grid), len(grid[0])
+        parent = [i for i in range(n*m+1)]
+
+        def find(i):
+            while parent[i] != i:
+                parent[i] = parent[parent[i]]
+                i = parent[i]
+            return i
+
+        def union(i, j):
+            pa, pb = find(i), find(j)
+            parent[pa] = pb
+            return pa == pb
+
+        for i in range(m):
+            for j in range(n):
+                base = i * n + j
+                if i < m-1 and grid[i+1][j] == grid[i][j] and union(base, base+n):
+                    return True
+
+                if j < n-1 and grid[i][j+1] == grid[i][j] and union(base, base+1):
+                    return True
+
+        return False
+
 
 if __name__ == '__main__':
 
-    ContainsCycle().doit_
+    ContainsCycle().doit_dfs([["a","b","b"],["b","z","b"],["b","b","a"]])
