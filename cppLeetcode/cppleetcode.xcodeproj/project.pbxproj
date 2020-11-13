@@ -206,6 +206,7 @@
 		129187C2253B299C00E71CCE /* 691_StickersToSpellWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129187C1253B299C00E71CCE /* 691_StickersToSpellWord.cpp */; };
 		129187C5253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129187C4253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp */; };
 		129200E5255D84F100154EEC /* 1091_ShortestPathInBinaryMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129200E4255D84F100154EEC /* 1091_ShortestPathInBinaryMatrix.cpp */; };
+		1297B083255EDAB6003B500F /* 1206_DesignSkiplist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1297B082255EDAB6003B500F /* 1206_DesignSkiplist.cpp */; };
 		129EE6B02549BF73005E53F2 /* 305_numberOfIslandsII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129EE6AF2549BF73005E53F2 /* 305_numberOfIslandsII.cpp */; };
 		129EE6B3254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129EE6B2254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp */; };
 		12B0390E2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */; };
@@ -440,6 +441,7 @@
 		129187C1253B299C00E71CCE /* 691_StickersToSpellWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 691_StickersToSpellWord.cpp; sourceTree = "<group>"; };
 		129187C4253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 730_CountDifferentPalindromicSubsequences.cpp; sourceTree = "<group>"; };
 		129200E4255D84F100154EEC /* 1091_ShortestPathInBinaryMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1091_ShortestPathInBinaryMatrix.cpp; sourceTree = "<group>"; };
+		1297B082255EDAB6003B500F /* 1206_DesignSkiplist.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1206_DesignSkiplist.cpp; sourceTree = "<group>"; };
 		129EE6AF2549BF73005E53F2 /* 305_numberOfIslandsII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 305_numberOfIslandsII.cpp; sourceTree = "<group>"; };
 		129EE6B2254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1192_CriticalConnectionsNetwork.cpp; sourceTree = "<group>"; };
 		12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 471_EncodeStringWithShortestLength.cpp; sourceTree = "<group>"; };
@@ -619,6 +621,7 @@
 				1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */,
 				12E143CC255CD7780079E288 /* 1520_MaximumNumberOfNonOverlappingSubstrings.cpp */,
 				1224CAEB255DD61800C24351 /* 683_KEmptySlots.cpp */,
+				1297B082255EDAB6003B500F /* 1206_DesignSkiplist.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -982,6 +985,7 @@
 				08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */,
 				08AB629E2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp in Sources */,
 				08F0D241241E8B7700EBB167 /* 21_MergeTwoSortedLists.cpp in Sources */,
+				1297B083255EDAB6003B500F /* 1206_DesignSkiplist.cpp in Sources */,
 				088ED63924140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp in Sources */,
 				1224CAEC255DD61800C24351 /* 683_KEmptySlots.cpp in Sources */,
 				086A8AEF24071C4A00CFAEED /* 336_PalindromeParis.cpp in Sources */,

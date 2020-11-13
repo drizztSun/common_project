@@ -50,6 +50,7 @@ At most 50000 calls will be made to search, add, and erase.
 import random
 import math
 
+
 class SkiplistII(object):
 
     class Node:
@@ -105,6 +106,7 @@ class skipnode:
         self._val = val
         self._forward = [None] * level
 
+
 class Skiplist:
 
     def __init__(self, level = 8):
@@ -154,6 +156,96 @@ class Skiplist:
             forwards[i]._forward[i] = x._forward[i]
 
         self._size -= 1
+
+
+#interesting
+class Skiplist:
+    def __init__(self):
+        self.skip_list = {}
+
+    def search(self, target: int) -> bool:
+        if (target in self.skip_list):
+            if (self.skip_list[target] > 0):
+                return True
+        return False
+
+    def add(self, num: int) -> None:
+        if (num in self.skip_list):
+            self.skip_list[num] += 1
+        else:
+            self.skip_list[num] = 1
+
+    def erase(self, num: int) -> bool:
+        if (num in self.skip_list):
+            if (self.skip_list[num] > 0):
+                self.skip_list[num] -= 1
+                return True
+        return False
+
+
+class Node:
+    def __init__(self, val=-1, right=None, down=None):
+        self.val = val
+        self.right = right
+        self.down = down
+
+
+class Skiplist:
+    def __init__(self):
+        self.head = Node()  # Dummy head
+
+    def search(self, target: int) -> bool:
+        node = self.head
+        while node:
+            # Move to the right in the current level
+            while node.right and node.right.val < target:
+                node = node.right
+            if node.right and node.right.val == target:
+                return True
+            # Move to the the next level
+            node = node.down
+        return False
+
+    def add(self, num: int) -> None:
+        nodes = []
+        node = self.head
+        while node:
+            # Move to the right in the current level
+            while node.right and node.right.val < num:
+                node = node.right
+            nodes.append(node)
+            # Move to the next level
+            node = node.down
+
+        insert = True
+        down = None
+        while insert and nodes:
+            node = nodes.pop()
+            node.right = Node(num, node.right, down)
+            down = node.right
+            insert = (random.getrandbits(1) == 0)
+
+            # Create a new level with a dummy head.
+        # right = None
+        # down = current head
+        if insert:
+            self.head = Node(-1, None, self.head)
+
+    def erase(self, num: int) -> bool:
+        node = self.head
+        found = False
+        while node:
+            # Move to the right in the current level
+            while node.right and node.right.val < num:
+                node = node.right
+            # Find the target node
+            if node.right and node.right.val == num:
+                # Delete by skipping
+                node.right = node.right.right
+                found = True
+            # Move to the next level
+            node = node.down
+        return found
 
 
 if __name__ == '__main__':
