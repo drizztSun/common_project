@@ -2,7 +2,6 @@ package test.basic;
 
 import java.util.ArrayList;
 
-
 public class TestArrayList {
 
     public static void TestArrayList() {
@@ -15,7 +14,7 @@ public class TestArrayList {
         alist.add("Pat");
         alist.add("Angela");
 
-        //displayment
+        // displayment
         System.out.println(alist);
 
         // insert
@@ -32,7 +31,7 @@ public class TestArrayList {
 
         // change elements
         alist.set(2, "Tim2");
-        System.out.println("Index of Time 2 ： " + alist.indexOf("Tim2") );
+        System.out.println("Index of Time 2 ： " + alist.indexOf("Tim2"));
 
         System.out.println("Index of 2 val is : " + alist.get(2));
 
@@ -42,9 +41,6 @@ public class TestArrayList {
         for (String element : alist) {
             System.out.println(element);
         }
-
-
-
     }
 
 }

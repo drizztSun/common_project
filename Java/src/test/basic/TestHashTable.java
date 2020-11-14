@@ -12,7 +12,6 @@ In this tutorial we will see how to create a Hashtable, how to populate its entr
 how to display its key-value pairs using Enumeration. At the end of this article we will see Hashtable tutorials and methods of Hashtable class.
 * */
 
-
 public class TestHashTable {
 
     public static void TestHashTable() {
@@ -21,21 +20,19 @@ public class TestHashTable {
         String key;
 
         // Creating a Hashtable
-        Hashtable<String, String> hashtable =
-                new Hashtable<String, String>();
+        Hashtable<String, String> hashtable = new Hashtable<String, String>();
 
         // Adding Key and Value pairs to Hashtable
-        hashtable.put("Key1","Chaitanya");
-        hashtable.put("Key2","Ajeet");
-        hashtable.put("Key3","Peter");
-        hashtable.put("Key4","Ricky");
-        hashtable.put("Key5","Mona");
+        hashtable.put("Key1", "Chaitanya");
+        hashtable.put("Key2", "Ajeet");
+        hashtable.put("Key3", "Peter");
+        hashtable.put("Key4", "Ricky");
+        hashtable.put("Key5", "Mona");
 
         names = hashtable.keys();
-        while(names.hasMoreElements()) {
+        while (names.hasMoreElements()) {
             key = (String) names.nextElement();
-            System.out.println("Key: " +key+ " & Value: " +
-                    hashtable.get(key));
+            System.out.println("Key: " + key + " & Value: " + hashtable.get(key));
         }
 
     }
