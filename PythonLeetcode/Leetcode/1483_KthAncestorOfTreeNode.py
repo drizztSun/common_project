@@ -43,7 +43,7 @@ class TreeAncestor_binarylifting:
 
     def __init__(self, n: int, parent):
 
-        A = { i: c for i, c in enumerate(parent)}
+        A = {i: c for i, c in enumerate(parent)}
         self._step = 15
         self._jump = [A]
 
@@ -73,7 +73,7 @@ class TreeAncestor_dp_binarylifting:
 
     def __init__(self, n: int, parent):
         #根据数据范围可知，最大数据为50000,2^16大于50000，因此取0-15
-        self.dp = [[-1for _ in range(16)] for _ in range(n)]
+        self.dp = [[-1 for _ in range(16)] for _ in range(n)]
         #开始填写dp数组
         for i in range(n):
             self.dp[i][0] = parent[i]

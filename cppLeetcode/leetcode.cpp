@@ -340,10 +340,13 @@ void test_1335_minimum_difficulty_jobschedule();
 
 void test_1559_detect_cycle();
 
+void test_1463_cherry_pickupII();
+
 void leetcode()
 {
+    test_1463_cherry_pickupII();
 
-    test_1559_detect_cycle();
+    // test_1559_detect_cycle();
     
     //test_1335_minimum_difficulty_jobschedule();
     

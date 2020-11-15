@@ -66,10 +66,9 @@ class CherryPickup:
                     if grid[i][t-i] == -1 or grid[j][t-j] == -1:
                         continue
                     val = grid[i][t-i]
-                    if i != j: val += grid[j][t-j]
-                    dp2[i][j] = max(dp[pi][pj] + val
-                                    for pi in (i-1, i) for pj in (j-1, j)
-                                    if pi >= 0 and pj >= 0)
+                    if i != j:
+                        val += grid[j][t-j]
+                    dp2[i][j] = max(dp[pi][pj] + val for pi in (i-1, i) for pj in (j-1, j) if pi >= 0 and pj >= 0)
             dp = dp2
         return max(0, dp[N-1][N-1])
 
@@ -79,13 +78,15 @@ class CherryPickup:
 
     Instead of walking from end to beginning, let's reverse the second leg of the path, so we are only considering two paths from the beginning to the end.
 
-    Notice after t steps, each position (r, c) we could be, is on the line r + c = t. So if we have two people at positions (r1, c1) and (r2, c2), then r2 = r1 + c1 - c2. That means the variables r1, c1, c2 uniquely determine 2 people who have walked the same r1 + c1 number of steps. This sets us up for dynamic programming quite nicely.
+    Notice after t steps, each position (r, c) we could be, is on the line r + c = t. So if we have two people at positions (r1, c1) and (r2, c2), then r2 = r1 + c1 - c2. 
+    That means the variables r1, c1, c2 uniquely determine 2 people who have walked the same r1 + c1 number of steps. This sets us up for dynamic programming quite nicely.
 
     Algorithm
 
     Let dp[r1][c1][c2] be the most number of cherries obtained by two people starting at (r1, c1) and (r2, c2) and walking towards (N-1, N-1) picking up cherries, where r2 = r1+c1-c2.
 
-    If grid[r1][c1] and grid[r2][c2] are not thorns, then the value of dp[r1][c1][c2] is (grid[r1][c1] + grid[r2][c2]), plus the maximum of dp[r1+1][c1][c2], dp[r1][c1+1][c2], dp[r1+1][c1][c2+1], dp[r1][c1+1][c2+1] as appropriate. We should also be careful to not double count in case (r1, c1) == (r2, c2).
+    If grid[r1][c1] and grid[r2][c2] are not thorns, then the value of dp[r1][c1][c2] is (grid[r1][c1] + grid[r2][c2]), 
+    plus the maximum of dp[r1+1][c1][c2], dp[r1][c1+1][c2], dp[r1+1][c1][c2+1], dp[r1][c1+1][c2+1] as appropriate. We should also be careful to not double count in case (r1, c1) == (r2, c2).
 
     Why did we say it was the maximum of dp[r+1][c1][c2] etc.? It corresponds to the 4 possibilities for person 1 and 2 moving down and right:
 
@@ -101,6 +102,7 @@ class CherryPickup:
     def doit_dp(self, grid):
         N = len(grid)
         memo = [[[None] * N for _1 in range(N)] for _2 in range(N)]
+
         def dp(r1, c1, c2):
             r2 = r1 + c1 - c2
             if (N == r1 or N == r2 or N == c1 or N == c2 or
@@ -112,9 +114,7 @@ class CherryPickup:
                 return memo[r1][c1][c2]
             else:
                 ans = grid[r1][c1] + (c1 != c2) * grid[r2][c2]
-                ans += max(dp(r1, c1+1, c2+1), dp(r1+1, c1, c2+1),
-                           dp(r1, c1+1, c2), dp(r1+1, c1, c2))
-
+                ans += max(dp(r1, c1+1, c2+1), dp(r1+1, c1, c2+1), dp(r1, c1+1, c2), dp(r1+1, c1, c2))
             memo[r1][c1][c2] = ans
             return ans
 
