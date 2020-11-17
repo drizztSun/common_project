@@ -86,7 +86,7 @@ public:
 
 class NumSimilarGroups {
 public:
-	int doit(vector<string>&& A) {
+	int doit_disjoint(vector<string>&& A) {
 		disjoint_set ds(A.size());
 
 		for (auto i = 0; i < A.size(); i++)
@@ -97,15 +97,77 @@ public:
 		return ds.getSize();
 	}
 
+    int doit_dfs(vector<string>&& strs) {
+        
+        int n = strs.size();
+        vector<bool> visited(n, false);
+        vector<vector<int>> graph(n);
+        
+        auto is_similar = [](const string&a, const string& b) {
+            if (a.length() != b.length()) {
+                return false;
+            }
+            
+            int diff = 0, first = -1, second = -1;
+            for (auto i = 0; i < a.length(); i++) {
+                if (a[i] != b[i]) {
+                    diff++;
+                    if (diff > 2)
+                        return false;
+                    if (diff == 1)
+                        first = i;
+                    if (diff == 2)
+                        second = i;
+                }
+            }
+            
+            if (diff == 1)
+                return false;
+            
+            if (diff == 0)
+                return true;
+            
+            return a[first] == b[second] && a[second] == b[first];
+        };
+        
+        std::function<void(int)> dfs = [&](int a) {
+            
+            for(auto c : graph[a]) {
+                if (!visited[c]) {
+                    visited[c] = true;
+                    dfs(c);
+                }
+            }
+        };
+        
+
+        
+        for (auto i = 0; i < n; i++)
+            for (auto j = i+1; j < n; j++) {
+                if (is_similar(strs[i], strs[j])) {
+                    graph[i].push_back(j);
+                    graph[j].push_back(i);
+                }
+            }
+        
+        int cnt = 0;
+        for (auto i = 0; i < n; i++) {
+            if (!visited[i]) {
+                cnt++;
+                visited[i] = true;
+                dfs(i);
+            }
+        }
+        
+        return cnt;
+    }
 };
 
 
 void Test_839_SimilarStringGroups() {
 
-	NumSimilarGroups st;
-	int size = st.doit(vector<string>{"tars", "rats", "arts", "star"});
+	NumSimilarGroups().doit_dfs(vector<string>{"tars", "rats", "arts", "star"});
 
-	int res2 = st.doit(vector<string>{"koqnn", "knnqo", "noqnk", "nqkon"});
+	NumSimilarGroups().doit_dfs(vector<string>{"koqnn", "knnqo", "noqnk", "nqkon"});
 
-	return;
 }

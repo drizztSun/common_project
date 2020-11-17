@@ -342,9 +342,13 @@ void test_1559_detect_cycle();
 
 void test_1463_cherry_pickupII();
 
+void test_339_evaluate_division();
+
 void leetcode()
 {
-    test_1463_cherry_pickupII();
+    test_339_evaluate_division();
+    
+    // test_1463_cherry_pickupII();
 
     // test_1559_detect_cycle();
     

@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="24653179-92a4-489d-af04-63cc511903f9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../cppLeetcode/leetcode/1463_CherryPickupII.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../cppLeetcode/leetcode/1483_KthAncestorOfTreeNode.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/1483_KthAncestorOfTreeNode.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/1483_KthAncestorOfTreeNode.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/741_CherryPickup.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/741_CherryPickup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/1095_FindInMountainArray.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/1095_FindInMountainArray.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebAssembly/testRust/wasm-game-of-life/www" beforeDir="false" afterPath="$PROJECT_DIR$/../WebAssembly/testRust/wasm-game-of-life/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cppLeetcode/cppleetcode.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/../cppLeetcode/cppleetcode.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/../cppLeetcode/cppleetcode.xcodeproj/project.xcworkspace/xcuserdata/yusun.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
