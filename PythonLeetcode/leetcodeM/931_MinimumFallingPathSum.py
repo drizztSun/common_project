@@ -1,4 +1,5 @@
-# 931. Minimum Falling Path Sum
+"""
+931. Minimum Falling Path Sum
 
 # Given a square array of integers A, we want the minimum sum of a falling path through A.
 
@@ -23,10 +24,12 @@
 # 1 <= A.length == A[0].length <= 100
 # -100 <= A[i][j] <= 100
 
+"""
+
 
 class MinFallingPathSum:
 
-    def doit(self, A):
+    def doit_dp(self, A):
 
         path = [[float('inf') for _ in range(len(A))] for _ in range(len(A))]
         path[-1] = A[-1]
@@ -34,12 +37,12 @@ class MinFallingPathSum:
         for i in range(len(A)-2, -1, -1):
             for j in range(len(A)):
                 for c in (j-1, j, j+1):
-                    if c >= 0 and c < len(A):
+                    if 0 <= c < len(A):
                         path[i][j] = min(path[i][j], path[i+1][c] + A[i][j])
 
         return min(path[0])
 
-    def doit(self, A):
+    def doit_dp_1(self, A):
         # A is square
         if len(A) == 1:
             return A[0][0]
@@ -53,7 +56,7 @@ class MinFallingPathSum:
 
         return min(A[-1])
 
-    def doit(self, A):
+    def doit_dp_2(self, A):
         MAX = 101
         n = len(A)
 
@@ -62,8 +65,7 @@ class MinFallingPathSum:
 
         for i in range(1, n):
             for j in range(n):
-                dp[i][j] = min(dp[i - 1][k] if k >= 0 and k <
-                               n else MAX for k in range(j - 1, j + 2)) + A[i][j]
+                dp[i][j] = min(dp[i - 1][k] if k >= 0 and k <n else MAX for k in range(j - 1, j + 2)) + A[i][j]
 
         return min(dp[-1])
 
@@ -98,7 +100,7 @@ class MinFallingPathSum:
     Space Complexity: O(1) in additional space complexity.
     """
 
-    def doit(self, A):
+    def doit_dp_3(self, A):
 
         while len(A) >= 2:
             row = A.pop()

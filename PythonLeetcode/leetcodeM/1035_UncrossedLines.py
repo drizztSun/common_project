@@ -1,4 +1,5 @@
-# 1035. Uncrossed Lines
+"""
+1035. Uncrossed Lines
 
 # We write the integers of A and B (in the order they are given) on two separate horizontal lines.
 
@@ -36,11 +37,13 @@
 # 1 <= B.length <= 500
 # 1 <= A[i], B[i] <= 2000
 # Accepted
+"""
+
 
 class MaxUncrossedLines:
 
     # (DP)
-    def doit(self, A, B):
+    def doit_dp(self, A, B):
 
         nums = set(A) & set(B)
         def f(x): return x in nums
@@ -62,7 +65,7 @@ class MaxUncrossedLines:
         return dp[-1][-1]
 
     # (DP)
-    def doit(self, A, B):
+    def doit_dp_1(self, A, B):
 
         nums = set(A) & set(B)
         def f(x): return x in nums

@@ -1,4 +1,5 @@
-# 673. Number of Longest Increasing Subsequence
+"""
+673. Number of Longest Increasing Subsequence
 
 # Given an unsorted array of integers, find the number of longest increasing subsequence.
 
@@ -12,10 +13,16 @@
 # Output: 5
 # Explanation: The length of longest continuous increasing subsequence is 1, and there are 5 subsequences' length is 1, so output 5.
 
+"""
+
+
 class FindNumberOfLIS:
 
+    """
 
-    def doit(self, nums: 'List[int]') -> 'int':
+    """
+    def doit_binary_search(self, nums: list) -> int:
+        import bisect
         if not nums: 
             return 0
         
@@ -39,32 +46,27 @@ class FindNumberOfLIS:
             b[i + 1] = min(b[i + 1], x)
 
         return sum(a[-1].values())
-
-
     
+    """
+    Approach 1: Dynamic Programming
+    Intuition and Algorithm
+    
+    Suppose for sequences ending at nums[i], we knew the length length[i] of the longest sequence, and the number count[i] of such sequences with that length.
+    
+    For every i < j with A[i] < A[j], we might append A[j] to a longest subsequence ending at A[i]. It means that we have demonstrated count[i] subsequences of length length[i] + 1.
+    
+    Now, if those sequences are longer than length[j], then we know we have count[i] sequences of this length. If these sequences are equal in length to length[j], 
+    then we know that there are now count[i] additional sequences to be counted of that length (ie. count[j] += count[i]).
+    
+    Complexity Analysis
 
+    Time Complexity: O(N^2) where NN is the length of nums. There are two for-loops and the work inside is O(1)O(1).
+    
+    Space Complexity: O(N)O(N), the space used by lengths and counts.
+    """
 
-    # Suppose for sequences ending at nums[i], we knew the length length[i] of the longest sequence, 
-    # and the number count[i] of such sequences with that length.
-
-    # For every i < j with A[i] < A[j], we might append A[j] to a longest subsequence ending at A[i]. 
-    # It means that we have demonstrated count[i] subsequences of length length[i] + 1.
-
-    # Now, if those sequences are longer than length[j], then we know we have count[i] sequences of this length. 
-    # If these sequences are equal in length to length[j], then we know that there are now count[i] 
-    # additional sequences to be counted of that length (ie. count[j] += count[i]).
-
-
-    # Complexity Analysis
-    # Time Complexity: O(N^2)O(N 
-    # 2
-    # ) where NN is the length of nums. There are two for-loops and the work inside is O(1)O(1).
-
-    # Space Complexity: O(N)O(N), the space used by lengths and counts.
-
-    # <DP>
-    def doit(self, nums: 'List[int]') -> 'int':
-        if not num:
+    def doit_dp(self, nums: list) -> int:
+        if not nums:
             return 0
         
         dp = [[1, 1]]
@@ -75,7 +77,6 @@ class FindNumberOfLIS:
             for j in range(i):
                 
                 if nums[i] > nums[j]:
-                    
                     if maxv < dp[j][0]:
                         maxv, cnt = dp[j][0], dp[j][1]
                     elif maxv == dp[j][0]:
@@ -92,7 +93,7 @@ class FindNumberOfLIS:
         return ans
                         
 
-
+"""
 # Approach #2: Segment Tree [Accepted]
 # Intuition
 
@@ -131,6 +132,16 @@ class FindNumberOfLIS:
 
 # Finally, in our main algorithm, for each num in nums we query for the value length, count of the interval below num, 
 # and we know it will lead to count additional sequences of length length + 1. We then update our tree with that knowledge.
+
+
+# Complexity Analysis
+
+# Time Complexity: O(NlogN) where NN is the length of nums.
+# In our main for loop, we do O(logN) work to query and insert.
+# Space Complexity: O(N), the space used by the segment tree.
+
+"""
+
 
 class Node(object):
     def __init__(self, start, end):
@@ -176,8 +187,9 @@ def query(node, key):
     else:
         return merge(query(node.left, key), query(node.right, key))
 
-class Solution(object):
-    def findNumberOfLIS(self, nums):
+class FalseindNumberOfLIS(object):
+
+    def doit(self, nums):
         if not nums: return 0
         root = Node(min(nums), max(nums))
         for num in nums:
@@ -185,9 +197,3 @@ class Solution(object):
             insert(root, num, (length+1, count))
         return root.val[1]
 
-# Complexity Analysis
-
-# Time Complexity: O(N\log {N})O(NlogN) where NN is the length of nums.
-# In our main for loop, we do O(\log{N})O(logN) work to query and insert.
-
-# Space Complexity: O(N)O(N), the space used by the segment tree.

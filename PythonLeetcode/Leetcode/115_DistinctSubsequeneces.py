@@ -133,8 +133,6 @@ class NumDistinct(object):
                         count[0] += 1
                     else:
                         count[idx] += count[idx - 1]
-                # print(count)
-
         return count[-1]
 
     def doit1(self, s, t):

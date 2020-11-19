@@ -344,9 +344,13 @@ void test_1463_cherry_pickupII();
 
 void test_339_evaluate_division();
 
+void test_685_redundant_connection();
+
 void leetcode()
 {
-    test_339_evaluate_division();
+    test_685_redundant_connection();
+    
+    // test_339_evaluate_division();
     
     // test_1463_cherry_pickupII();
 

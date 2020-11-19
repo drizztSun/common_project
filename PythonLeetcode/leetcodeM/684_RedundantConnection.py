@@ -62,30 +62,6 @@ class FindRedundantConnection:
             graph[u].add(v)
             graph[v].add(u)
 
-    # disjoint
-    def doit_disjoint(self, edges: list) -> list:
-        parents = [i for i in range(len(edges) + 1)]
-
-        def find(i):
-            if parents[i] != i:
-                parents[i] = find(parents[i])
-            return parents[i]
-
-        def union(a, b):
-            parents[a] = find(a)
-            parents[b] = find(b)
-
-            if parents[a] != parents[b]:
-                parents[parents[a]] = parents[b]
-                return True
-            return False
-
-        for edge in edges:
-            if not union(edge[0], edge[1]):
-                return edge
-
-
-
     """
     Approach #2: Union-Find [Accepted]
     Intuition and Algorithm
@@ -118,6 +94,28 @@ class FindRedundantConnection:
     
     Space Complexity: O(N)O(N). The current construction of the graph (embedded in our dsu structure) has at most NN nodes.
     """
+
+    # disjoint
+    def doit_disjoint(self, edges: list) -> list:
+        parents = [i for i in range(len(edges) + 1)]
+
+        def find(i):
+            if parents[i] != i:
+                parents[i] = find(parents[i])
+            return parents[i]
+
+        def union(a, b):
+            parents[a] = find(a)
+            parents[b] = find(b)
+
+            if parents[a] != parents[b]:
+                parents[parents[a]] = parents[b]
+                return True
+            return False
+
+        for edge in edges:
+            if not union(edge[0], edge[1]):
+                return edge
 
     class DSU(object):
         def __init__(self):
