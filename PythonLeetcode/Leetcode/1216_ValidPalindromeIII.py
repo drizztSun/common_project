@@ -22,6 +22,7 @@ s has only lowercase English letters.
 
 """
 
+
 class IsValidPalindromeIII:
 
     def doit_dp(self, s, k):
@@ -34,9 +35,13 @@ class IsValidPalindromeIII:
         if n - k < 2:
             return True
 
-        lps = [ [0]*n for _ in range(n) ]
+        # letters could be saved for construct palindrome
+        # [i, j] maximum number of letters we can save to build this string.
+        lps = [[0]*n for _ in range(n)]
+
         for i in range(n):
             lps[i][i] = 1
+
         for l in range(2, n + 1):
             # n = 5
             # l = 2
@@ -48,6 +53,7 @@ class IsValidPalindromeIII:
                     lps[i][j] = max(lps[i+1][j-1]+2, lps[i+1][j], lps[i][j-1])
                 else:
                     lps[i][j] = max(lps[i+1][j], lps[i][j-1])
+
         return lps[0][n-1] >= n - k
 
     def doit_dp_min_move(self, s, k):

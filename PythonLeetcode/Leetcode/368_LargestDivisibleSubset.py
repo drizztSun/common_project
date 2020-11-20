@@ -153,7 +153,7 @@ class largestDivisibleSubset(object):
         return reversed(ret)
 
     #
-    def doit(self, nums):
+    def doit_dp_best(self, nums):
         """
         :type nums: List[int]
         :rtype: List[int]

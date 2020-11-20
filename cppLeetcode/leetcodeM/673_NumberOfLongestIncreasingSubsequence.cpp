@@ -41,7 +41,7 @@ public:
     
     int doit_binary_search(vector<int>& nums) {
         
-        
+        /*
         vector<int> keys;
         vector<unordered_map<int, int>> buff;
         
@@ -92,6 +92,8 @@ public:
             total += v;
         
         return total;
+         */
+        return 1;
     }
 };
 

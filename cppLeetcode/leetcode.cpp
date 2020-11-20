@@ -346,9 +346,13 @@ void test_339_evaluate_division();
 
 void test_685_redundant_connection();
 
+void test_1643_kth_smallest_path();
+
 void leetcode()
 {
-    test_685_redundant_connection();
+    test_1643_kth_smallest_path();
+    
+    // test_685_redundant_connection();
     
     // test_339_evaluate_division();
     
