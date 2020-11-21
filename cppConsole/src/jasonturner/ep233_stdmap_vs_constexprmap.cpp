@@ -99,7 +99,7 @@ int lookup_value(const std::string_view sv) { // sv will be to pass by value by 
 
 int test_main() {
     static constexpr auto map = Map<std::string_view, int, color_values.size()>{{color_values}};
-    constexpr auto value = map.at("green");
+    auto value = map.at("green");
     // with thie constexpr, the ASM code will be only one line, 'ret 2'
     // and if key 'green' has typo, it will report compile error, because of constexpr.
     // without this one, that will be a full function call to Map.at('green')

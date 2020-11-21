@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="24653179-92a4-489d-af04-63cc511903f9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/1095_FindInMountainArray.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PythonLeetcode/Leetcode/1095_FindInMountainArray.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebAssembly/testRust/wasm-game-of-life/www" beforeDir="false" afterPath="$PROJECT_DIR$/../WebAssembly/testRust/wasm-game-of-life/www" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +24,11 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectId" id="1kHSd3boX1Ig3AxO7UnJkRvT2Op" />
+=======
+  <component name="ProjectId" id="1jhCtDue8Ym6y5YeeXjxLs4vd4Q" />
+>>>>>>> Stashed changes
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -74,6 +81,7 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+<<<<<<< Updated upstream
   <component name="WindowStateProjectService">
     <state width="638" height="845" key="GridCell.Tab.0.bottom" timestamp="1605402574309">
       <screen x="0" y="25" width="2560" height="1361" />
@@ -116,10 +124,20 @@
     <state width="638" height="845" key="GridCell.Tab.1.right/-3840.-784.3840.2135/-5520.10.1680.1025/0.25.2560.1361@0.25.2560.1361" timestamp="1605402574310" />
     <state width="702" height="924" key="GridCell.Tab.1.right/0.0.1680.1050@0.0.1680.1050" timestamp="1605356186853" />
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
+<<<<<<< Updated upstream
+=======
+          <url>file://$PROJECT_DIR$/src/Main.java</url>
+          <line>8</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+>>>>>>> Stashed changes
           <url>file://$PROJECT_DIR$/src/test/basic/TestPriorityQueue.java</url>
           <line>18</line>
           <option name="timeStamp" value="3" />

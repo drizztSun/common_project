@@ -139,7 +139,13 @@ void test_bit_operator() {
 }
 
 
+void test_memory(int n) {
 
+	int array[n];
+
+	array[10] = 0;
+
+}
 
 
 int main() {
