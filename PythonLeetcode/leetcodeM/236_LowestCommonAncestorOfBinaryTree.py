@@ -63,7 +63,7 @@ class LowestCommonAncestor:
     Space Complexity: O(N)O(N). This is because the maximum amount of space utilized by the recursion stack would be NN since the height of a skewed binary tree could be NN.
 
     """
-    def doit(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+    def doit(self, root, p, q):
 
         ans = None
 
