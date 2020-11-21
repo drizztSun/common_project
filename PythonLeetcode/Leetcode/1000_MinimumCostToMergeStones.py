@@ -1,4 +1,5 @@
-# 1000. Minimum Cost to Merge Stones
+"""
+1000. Minimum Cost to Merge Stones
 
 # There are N piles of stones arranged in a row.  The i-th pile has stones[i] stones.
 
@@ -34,10 +35,12 @@
 # We merge [5, 1, 2] for a cost of 8, and we are left with [3, 8, 6].
 # We merge [3, 8, 6] for a cost of 17, and we are left with [17].
 # The total cost was 25, and this is the minimum possible.
+"""
 
 
 class MergeStones:
-    def doit(self, stones, K):
+
+    def doit_dp(self, stones, K):
 
         n = len(stones)
         if (n - 1) % (K - 1) != 0:
@@ -58,7 +61,6 @@ class MergeStones:
                 j = i + length - 1
                 dp[i][j] = float("inf")
 
-                #
                 for t in range(i, j, K - 1):
                     dp[i][j] = min(dp[i][j], dp[i][t] + dp[t + 1][j])
 

@@ -46,7 +46,7 @@ class TallestBillboard {
     
 public:
     
-    int doit(vector<int>&& rods) {
+    int doit_dp(vector<int>&& rods) {
         
         unordered_map<int, int> dp;
         dp[0] = 0;
@@ -71,6 +71,44 @@ public:
         }
         
         return dp[0];
+    }
+    
+    int doit_dfs(vector<int>&& rods) {
+        
+        auto hash_cord = [](const std::pair<int, int>& c) {
+          return std::hash<int>()(c.first) ^ std::hash<int>()(c.second);
+        };
+
+        auto equal_cord = [](const std::pair<int, int>& a, const std::pair<int, int>& b){
+            return a.first == b.first && a.second == b.second;
+        };
+
+        using pointset =  unordered_map<std::pair<int, int>, int, decltype(hash_cord), decltype(equal_cord)>;
+        
+        pointset memo(0, hash_cord, equal_cord);
+        
+        std::function<int(int, int)> search = [&](int i, int diff) {
+            
+            if (i == rods.size()) {
+                return diff == 0 ? 0 : INT_MIN;
+            }
+            
+            std::pair<int, int> key{i, diff};
+            
+            if (memo.count(key) > 0) {
+                return memo[key];
+            }
+            
+            
+            auto longer = search(i+1, diff + rods[i]);
+            auto shorter = search(i+1, abs(diff - rods[i])) + std::min(rods[i], diff);
+            auto equal = search(i+1, diff);
+            
+            memo[key] = std::max(longer, std::max(shorter, equal));
+            return memo[key];
+        };
+        
+        return search(0, 0);
     }
     
     /*
@@ -190,11 +228,11 @@ public:
 
 void test_956_Tallest_Billboards() {
     
-    auto res1 = TallestBillboard().doit(vector<int>{1, 2, 3, 6});
+    auto res1 = TallestBillboard().doit_dfs(vector<int>{1, 2, 3, 6});
     
-    auto res2 = TallestBillboard().doit(vector<int>{1, 2, 3, 4, 5, 6});
+    auto res2 = TallestBillboard().doit_dfs(vector<int>{1, 2, 3, 4, 5, 6});
     
-    auto res3 = TallestBillboard().doit(vector<int>{1, 2});
+    auto res3 = TallestBillboard().doit_dfs(vector<int>{1, 2});
     
     return;
 }

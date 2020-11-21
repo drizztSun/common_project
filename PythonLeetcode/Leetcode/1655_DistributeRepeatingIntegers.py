@@ -48,9 +48,6 @@ m == quantity.length
 1 <= quantity[i] <= 105
 There are at most 50 unique values in nums.
 
-
-
-
 """
 
 
@@ -103,13 +100,10 @@ class CanDistribute:
         return False
 
 
-
     def doit_backtracking_dfs(self, nums: list, quantity: list) -> bool:
         pass
 
-
-
-    def doit_dp_bitmask(self, nums:list, quantity: list) -> bool:
+    def doit_dp_bitmask(self, nums: list, quantity: list) -> bool:
         from functools import lru_cache
         from collections import Counter
 
@@ -121,16 +115,17 @@ class CanDistribute:
                 if mask & (1 << j):
                     sums[mask] += quantity[j]
 
-
         @lru_cache(None)
         def search(mask, i):
 
-            if not mask: return True
-            if i < 0: return False
+            if not mask:
+                return True
+
+            if i < 0:
+                return False
 
             cur = mask
             while cur:
-
                 if sums[cur] <= values[i] and search(cur, i-1):
                     return True
                 cur = (cur-1) & mask
@@ -140,15 +135,6 @@ class CanDistribute:
         return search((1<<m)-1, len(values)-1)
 
 
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
 
-
+    CanDistribute().doit_dp_bitmask([1, 1, 1, 1, 1], [2, 3])

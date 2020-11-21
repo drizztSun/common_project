@@ -1,6 +1,4 @@
-
-
-
+"""
 # 454. 4Sum II
 # Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l)
 # there are such that A[i] + B[j] + C[k] + D[l] is zero.
@@ -23,9 +21,12 @@
 # The two tuples are:
 # 1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
 # 2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
+"""
 
-class Solution:
-    def fourSumCount(self, A, B, C, D):
+
+class FourSumCount:
+
+    def doit1(self, A, B, C, D):
         """
         :type A: List[int]
         :type B: List[int]
@@ -46,7 +47,6 @@ class Solution:
                     amount += d34[index]
 
         return amount
-
 
     def doit2(self, A, B, C, D):
         """
@@ -76,13 +76,8 @@ class Solution:
                     count += A_B_sum_dic[neg_C_D_sum]
 
         return count
-                
 
 
 if __name__=="__main__":
 
-
     res = fourSumCount().doit([1,2], [-2,-1], [-1,2], [0,2])
-
-
-    pass

@@ -27,6 +27,8 @@
 		081E87ED2407116F008932EA /* leetcode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 081E87EC2407116F008932EA /* leetcode.cpp */; };
 		08224C1C252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08224C1B252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp */; };
 		08268B46242BDD34001A80DD /* 983_MinimumCostForTickets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08268B45242BDD34001A80DD /* 983_MinimumCostForTickets.cpp */; };
+		082B1F102567F43400AC95DB /* 1478_AllocateMailboxes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082B1F0F2567F43400AC95DB /* 1478_AllocateMailboxes.cpp */; };
+		082B1F152568866400AC95DB /* 474_OnesAndZeroes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082B1F142568866400AC95DB /* 474_OnesAndZeroes.cpp */; };
 		082C5AF7251EEB740061105C /* 239_SlidingWindowMaximum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082C5AF6251EEB740061105C /* 239_SlidingWindowMaximum.cpp */; };
 		082CD3B7245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 082CD3B6245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp */; };
 		0832DD6F2566D08F000C248D /* 1643_KthSmallestInstructions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0832DD6E2566D08F000C248D /* 1643_KthSmallestInstructions.cpp */; };
@@ -269,6 +271,8 @@
 		081E87EC2407116F008932EA /* leetcode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = leetcode.cpp; sourceTree = SOURCE_ROOT; };
 		08224C1B252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 857_MinimumCosttoHireKWorkers.cpp; sourceTree = "<group>"; };
 		08268B45242BDD34001A80DD /* 983_MinimumCostForTickets.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 983_MinimumCostForTickets.cpp; sourceTree = "<group>"; };
+		082B1F0F2567F43400AC95DB /* 1478_AllocateMailboxes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1478_AllocateMailboxes.cpp; sourceTree = "<group>"; };
+		082B1F142568866400AC95DB /* 474_OnesAndZeroes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 474_OnesAndZeroes.cpp; sourceTree = "<group>"; };
 		082C5AF6251EEB740061105C /* 239_SlidingWindowMaximum.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 239_SlidingWindowMaximum.cpp; sourceTree = "<group>"; };
 		082CD3B6245D9F6E00A09872 /* 962_MaximumWidthRamp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 962_MaximumWidthRamp.cpp; sourceTree = "<group>"; };
 		0832DD6E2566D08F000C248D /* 1643_KthSmallestInstructions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1643_KthSmallestInstructions.cpp; sourceTree = "<group>"; };
@@ -646,6 +650,7 @@
 				087B3DAA25640AE8007CF365 /* 685_RedundantConnectionII.cpp */,
 				0843059D2566AA2E0059EC1F /* 1216_ValidPalindromeIII.cpp */,
 				0832DD6E2566D08F000C248D /* 1643_KthSmallestInstructions.cpp */,
+				082B1F0F2567F43400AC95DB /* 1478_AllocateMailboxes.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -720,6 +725,7 @@
 				089A975E240D842200917010 /* 1049_LastStoneWeightII.cpp */,
 				129200E4255D84F100154EEC /* 1091_ShortestPathInBinaryMatrix.cpp */,
 				08EADCE82565AD69003CC35C /* 1105_FillingBookcaseShelves.cpp */,
+				082B1F142568866400AC95DB /* 474_OnesAndZeroes.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -1021,6 +1027,7 @@
 				08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */,
 				08AB629E2427B54E00C26A4C /* 972_EqualRationalNumbers.cpp in Sources */,
 				08F0D241241E8B7700EBB167 /* 21_MergeTwoSortedLists.cpp in Sources */,
+				082B1F152568866400AC95DB /* 474_OnesAndZeroes.cpp in Sources */,
 				1297B083255EDAB6003B500F /* 1206_DesignSkiplist.cpp in Sources */,
 				088ED63924140C4200131EA4 /* 1012_NumbersWithRepeatedDigits.cpp in Sources */,
 				1224CAEC255DD61800C24351 /* 683_KEmptySlots.cpp in Sources */,
@@ -1030,6 +1037,7 @@
 				089C6AB4244A301F00AB614B /* 924_MinimizeMalwareSpread.cpp in Sources */,
 				0873E6CB24167ED800F2530D /* 1028_RecoverTreeFromPreorderTraversal.cpp in Sources */,
 				08DC310E240C71C200577788 /* 1034_ColoringABorder.cpp in Sources */,
+				082B1F102567F43400AC95DB /* 1478_AllocateMailboxes.cpp in Sources */,
 				086A8ABC24071C4A00CFAEED /* 839_SimilarStringGroups.cpp in Sources */,
 				086A8B0624071E0700CFAEED /* 1048_LongestStringChain.cpp in Sources */,
 				08F4D6A2241989C10057856A /* 25_ReverseNodesInk-Group.cpp in Sources */,

@@ -66,6 +66,22 @@ class MinimumMoves:
                 dp[i][j] = r
         return dp[0][len(arr)-1]
 
+    def doit_dp(self, arr):
+
+        N = len(arr)
+        dp = [[0 for _ in range(N+)] for _ in range(N+1)]
+
+        for L in range(N+1):
+            for i in range(1, N - L):
+                j = i + L - 1
+                dp[i][j] = float('inf')
+                for k in range(i, j+1):
+                    # xxxxxkxxxxj if k == j, dp[k][j] == dp[k+1][j-1]
+                    if arr[k] == arr[j]:
+                        dp[i][j] = min(dp[i][j],  dp[i][k-1] + max(1, dp[k+1][j-1]))
+
+        return dp[1][N]
+
 
 if __name__ == '__main__':
 

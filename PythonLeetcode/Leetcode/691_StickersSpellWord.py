@@ -84,11 +84,31 @@ class MinStickers:
 
         return -1 if res[0] == float('inf') else res[0]
 
-    def doit_dp(self, stickers, target):
+
+    """
+    Approach 2: Dynamic Programming
+    
+    Intuition
+    
+    Suppose we need dp[state] stickers to satisfy all target[i]'s for which the i-th bit of state is set. We would like to know dp[(1 << len(target)) - 1].
+    
+    
+    Algorithm
+    
+    For each state, let's work with it as now and look at what happens to it after applying a sticker. For each letter in the sticker that can satisfy an unset bit of state, 
+    we set the bit (now |= 1 << i). At the end, we know now is the result of applying that sticker to state, and we update our dp appropriately.
+    
+    When using Python, we will need some extra techniques from Approach #1 to pass in time.
+    
+    Complexity Analysis
+
+    Time Complexity: O(2^T * S * T)  where SS be the total number of letters in all stickers, and TT be the number of letters in the target word. We can examine each loop carefully to arrive at this conclusion.
+    Space Complexity: O(2^T), the space used by dp.
+    """
+    def doit_dp_bitmask(self, stickers, target):
 
         t_count = collections.Counter(target)
-        A = [collections.Counter(sticker) & t_count
-             for sticker in stickers]
+        A = [collections.Counter(sticker) & t_count for sticker in stickers]
 
         for i in range(len(A) - 1, -1, -1):
             if any(A[i] == A[i] & A[j] for j in range(len(A)) if i != j):
@@ -98,12 +118,14 @@ class MinStickers:
         dp = [-1] * (1 << len(target))
         dp[0] = 0
         for state in range(1 << len(target)):
-            if dp[state] == -1: continue
+            if dp[state] == -1:
+                continue
             for sticker in stickers:
                 now = state
                 for letter in sticker:
                     for i, c in enumerate(target):
-                        if (now >> i) & 1: continue
+                        if (now >> i) & 1:
+                            continue
                         if c == letter:
                             now |= 1 << i
                             break
@@ -111,7 +133,6 @@ class MinStickers:
                     dp[now] = dp[state] + 1
 
         return dp[-1]
-
 
 
 if __name__ == "__main__":

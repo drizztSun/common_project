@@ -87,12 +87,13 @@ class GuessNumberHigherOrLower:
         dp = [[0 for _ in range(n+1)] for _ in range(n+1)]
 
         for L in range(n+1):
-            for i in range(n +1 - L):
+            for i in range(n + 1 - L):
                 j = i + L
                 if i == j:
-                    dp[i][j] = i
+                    dp[i][j] =
                 else:
-                    for k in range(i, j + 1):
+                    dp[i][j] = float('inf')
+                    for k in range(i, j):
                         dp[i][j] = min(dp[i][j], k + max(dp[i][k-1], dp[k+1][j]))
 
         return dp[1][n]

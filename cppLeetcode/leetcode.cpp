@@ -348,9 +348,21 @@ void test_685_redundant_connection();
 
 void test_1643_kth_smallest_path();
 
+void test_1478_AllocateMailbox();
+
+void test_956_Tallest_Billboards();
+
+void test_474_zeros_and_ones();
+
 void leetcode()
 {
-    test_1643_kth_smallest_path();
+    test_474_zeros_and_ones();
+    
+    // test_956_Tallest_Billboards();
+    
+    // test_1478_AllocateMailbox();
+    
+    // test_1643_kth_smallest_path();
     
     // test_685_redundant_connection();
     

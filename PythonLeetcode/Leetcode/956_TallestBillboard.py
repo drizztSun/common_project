@@ -78,7 +78,7 @@ class TallestBillboard:
     Space: O(3**N)
     '''
 
-    def doit(self, rods):
+    def doit_dp(self, rods):
     
         # key is difference of left - right, value is left side total
         DP = {0: 0}
@@ -120,6 +120,7 @@ class TallestBillboard:
 
     def doit(self, rods):
         import functools
+        import math
 
         @functools.lru_cache(None)
         def dfs(i, diff):
@@ -158,6 +159,7 @@ class TallestBillboard:
     The recursion is dp[i][s] = max(dp[i+1][s], dp[i+1][s-rods[i]], rods[i] + dp[i+1][s+rods[i]]).
     """
     def doit_dfs(self, rods) -> int:
+        from functools import lru_cache
         @lru_cache(None)
         def dp(i, s):
             if i == len(rods):

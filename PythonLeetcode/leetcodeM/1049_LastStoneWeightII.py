@@ -1,4 +1,5 @@
-# 1049. Last Stone Weight II
+"""
+1049. Last Stone Weight II
 
 # We have a collection of rocks, each rock has a positive integer weight.
 
@@ -19,6 +20,7 @@
 # we can combine 7 and 8 to get 1 so the array converts to [2,1,1,1] then,
 # we can combine 2 and 1 to get 1 so the array converts to [1,1,1] then,
 # we can combine 1 and 1 to get 0 so the array converts to [1] then that's the optimal value.
+"""
 
 
 class LastStoneWeightII:
