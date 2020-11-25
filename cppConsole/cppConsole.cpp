@@ -2,7 +2,11 @@
 //
 
 #include "stdafx.h"
+#include <stdio.h>
 
+#include <map>
+
+using std::map;
 
 
 void TestUnorderMap();
@@ -138,17 +142,27 @@ void test_bit_operator() {
 	return;
 }
 
+int main() {
 
-void test_memory(int n) {
 
-	int array[n];
+	map<int, int> dp;
 
-	array[10] = 0;
+	dp.insert({ 1, 2 });
+	dp.insert({ 2, 3 });
+	dp.insert({ 3, 4 });
+	dp.insert({ 4, 5 });
+	dp.insert({ 5, 6 });
+
+	for (auto it = begin(dp); it != dp.end(); it++) {
+
+		// std::cout << it->first << ":" << it->second << std::endl;
+
+		it = dp.erase(it);
+	}
 
 }
 
-
-int main() {
+/*
 
 	test_bit_operator();
 
@@ -234,7 +248,7 @@ int main() {
 
 }
 
-
+*/
 
 
 
