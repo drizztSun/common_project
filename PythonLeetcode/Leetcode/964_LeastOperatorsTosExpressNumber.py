@@ -96,7 +96,7 @@ From here, the recursion is straightforward: r = \text{target} \pmod xr=target(m
     ​
     target). We can prove that we only visit up to two states for each base-x digit of \text{target}target.
 
-    Space Complexity: O(\log \text{target})O(logtarget).
+    Space Complexity: O(logtarget).
 
     """
 
@@ -118,18 +118,46 @@ From here, the recursion is straightforward: r = \text{target} \pmod xr=target(m
                 return float('inf')
 
             t, r = divmod(targ, x)
-            return min(r * cost[i] + dp(i+1, t),
-                       (x-r) * cost[i] + dp(i+1, t+1))
+            return min(r * cost[i] + dp(i+1, t), (x-r) * cost[i] + dp(i+1, t+1))
 
         return dp(0, target) - 1
+
+    def doit_dfs(self, x, target):
+        import math
+        memo = {}
+
+        def dfs(x, t):
+
+            if t == 0:
+                return 0
+            if t < x:
+                return min(2 * t - 1, 2 * (x - t))
+
+            if t in memo:
+                return memo[t]
+
+            k = int(math.log(t, x))
+            p = x ** k
+            if p == t:
+                memo[t] = k - 1
+                return k - 1
+
+            ans = dfs(x, t - p) + k  # x^k + nexttarget
+
+            if p * x - t < t:
+                ans = min(ans, dfs(x, p*x - t) + k + 1) # x^(k+1) - nexttarget
+            memo[t] = ans
+            return ans
+
+        return dfs(x, target)
 
 
 if __name__ == '__main__':
 
-    res = LeastOpsExpressTarget().doit(x=3, target=19)
+    res = LeastOpsExpressTarget().doit_dp(x=3, target=19)
 
-    res = LeastOpsExpressTarget().doit(x=5, target=501)
+    res = LeastOpsExpressTarget().doit_dp(x=5, target=501)
 
-    res = LeastOpsExpressTarget().doit(x=100, target=100000000)
+    res = LeastOpsExpressTarget().doit_dp(x=100, target=100000000)
 
     pass

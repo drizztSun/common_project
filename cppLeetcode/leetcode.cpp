@@ -354,9 +354,16 @@ void test_956_Tallest_Billboards();
 
 void test_474_zeros_and_ones();
 
+void test_1125_smallest_sufficient_team();
+
+void test_673_number_longest_incresting_sequence();
+
 void leetcode()
 {
-    test_474_zeros_and_ones();
+    
+    test_673_number_longest_incresting_sequence();
+    
+    // test_1125_smallest_sufficient_team();
     
     // test_956_Tallest_Billboards();
     

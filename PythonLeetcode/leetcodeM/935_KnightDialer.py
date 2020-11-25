@@ -1,4 +1,5 @@
-# 935. Knight Dialer
+"""
+935. Knight Dialer
 
 # A chess knight can move as indicated in the chess diagram below:
 
@@ -31,6 +32,8 @@
 # Note:
 
 # 1 <= N <= 5000
+"""
+
 
 class KnightDialer:
 
@@ -60,29 +63,22 @@ class KnightDialer:
 
     def doit(self, N):
 
-        keys_hop = [[4, 6], [6, 8], [7, 9], [4, 8], [
-            0, 3, 9], [], [0, 1, 7], [2, 6], [1, 3], [2, 4]]
+        keys_hop = [[4, 6], [6, 8], [7, 9], [4, 8], [0, 3, 9], [], [0, 1, 7], [2, 6], [1, 3], [2, 4]]
         MOD = 10 ** 9 + 7
         dp = [1] * 10
 
         for _ in range(N-1):
-
             dp2 = [0] * 10
-
             for n, cnt in enumerate(dp):
-
                 for c in keys_hop[n]:
                     dp2[c] += cnt
                     dp2[c] %= MOD
-
             dp = dp2
-
         return sum(dp) % MOD
 
     def doit(self, N):
 
-        keys = {0: [4, 6], 1: [6, 8], 2: [7, 9], 3: [4, 8], 4: [
-            0, 3, 9], 5: [], 6: [0, 1, 7], 7: [2, 6], 8: [1, 3], 9: [2, 4]}
+        keys = {0: [4, 6], 1: [6, 8], 2: [7, 9], 3: [4, 8], 4: [0, 3, 9], 5: [], 6: [0, 1, 7], 7: [2, 6], 8: [1, 3], 9: [2, 4]}
         MOD = 10 ** 9 + 7
         memo = {}
 
@@ -115,5 +111,3 @@ if __name__ == '__main__':
     res = KnightDialer().doit(2)  # 20
 
     res = KnightDialer().doit(3)  # 46
-
-    pass

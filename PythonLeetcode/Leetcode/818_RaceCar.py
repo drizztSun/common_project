@@ -166,6 +166,11 @@ class Racecar:
     
     Finally, we might drive 2**k - 1 which crosses the target, by the command A**k R, for a total cost of k + 1.
     We can use dynamic programming together with the above recurrence to implement the code below.
+    
+    Complexity Analysis
+
+    Time Complexity: O(TlogT). Each node i does log(i) work.
+    Space Complexity: O(T).
     """
     def doit_dp(self, target):
         """

@@ -98,7 +98,7 @@ public:
                     }
                 }
             
-            dp.swap(tmp);
+            //dp.swap(tmp);
         }
         
         int res = 0;

@@ -1,4 +1,5 @@
-# 875. Koko Eating Bananas
+"""
+875. Koko Eating Bananas
 
 # Koko loves to eat bananas.  There are N piles of bananas, the i-th pile has piles[i] bananas.
 # The guards have gone and will come back in H hours.
@@ -26,6 +27,8 @@
 
 # Input: piles = [30,11,23,4,20], H = 6
 # Output: 23
+"""
+
 
 class MinEatingSpeed:
 
@@ -68,7 +71,6 @@ class MinEatingSpeed:
                 l = mid + 1
             else:
                 h = mid
-
         return l
 
     def doit(piles, H):

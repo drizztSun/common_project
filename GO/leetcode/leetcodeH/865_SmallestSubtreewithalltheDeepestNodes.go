@@ -46,7 +46,7 @@ import "math"
  * }
  */
 
-func search(depth map[*TreeNode]int, node, parent *TreeNode) {
+func search_deepernode(depth map[*TreeNode]int, node, parent *TreeNode) {
 
 	if node == nil {
 		return
@@ -54,8 +54,8 @@ func search(depth map[*TreeNode]int, node, parent *TreeNode) {
 
 	depth[node] = depth[parent] + 1
 
-	search(depth, node.Left, node)
-	search(depth, node.Right, node)
+	search_deepernode(depth, node.Left, node)
+	search_deepernode(depth, node.Right, node)
 }
 
 func find(node *TreeNode, maxdepth int, depth map[*TreeNode]int) *TreeNode {
@@ -80,7 +80,7 @@ func subtreeWithAllDeepest1(root *TreeNode) *TreeNode {
 	depth := make(map[*TreeNode]int)
 	depth[nil] = -1
 
-	search(depth, root, nil)
+	search_deepernode(depth, root, nil)
 	maxdepth := 0
 	for _, v := range depth {
 		if maxdepth < v {
@@ -96,12 +96,12 @@ type res struct {
 	Ans      *TreeNode
 }
 
-func (obj *res) Search(node *TreeNode, depth int) int {
+func (obj *res) search_deepernode(node *TreeNode, depth int) int {
 	if node == nil {
 		return depth
 	}
 
-	L, R := obj.Search(node.Left, depth+1), obj.Search(node.Right, depth+1)
+	L, R := obj.search_deepernode(node.Left, depth+1), obj.search_deepernode(node.Right, depth+1)
 
 	lvl := int(math.Max(float64(L), float64(R)))
 
@@ -120,7 +120,7 @@ func subtreeWithAllDeepest(root *TreeNode) *TreeNode {
 
 	obj := res{-1, nil}
 
-	obj.Search(root, 0)
+	obj.search_deepernode(root, 0)
 
 	return obj.Ans
 }

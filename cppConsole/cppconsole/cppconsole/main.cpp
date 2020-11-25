@@ -41,11 +41,16 @@ void Test_priority_queue();
 
 void TestUnorderMap();
 
+void Test_map();
+
+
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
     
-    TestUnorderMap();
+    Test_map();
+    
+    // TestUnorderMap();
     
     // Test_priority_queue();
     

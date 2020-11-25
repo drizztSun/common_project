@@ -5,7 +5,6 @@ class TreeNode(object):
         self.right = None
 
 
-
 # Leetcode 94. Binary Tree Inorder Traversal
 # Definition for a binary tree node.
 class inorderTraversal(object):
@@ -63,9 +62,6 @@ class inorderTraversal(object):
                
         return res
 
-        
-
-
 
 # Leetcode 144. Binary Tree Preorder Traversal            
 class preorderTraversal(object):
@@ -89,7 +85,6 @@ class preorderTraversal(object):
 
         return result
 
-
     def doit2(self, root):
         """
         :type root: TreeNode
@@ -102,12 +97,9 @@ class preorderTraversal(object):
             # LIFO, so left will gt out first
             if n :
                 res.append(n.val)
-
                 stack.append(n.right)
                 stack.append(n.left)
-
-        return res            
-                
+        return res
 
     def doit1(self, root):
         """
@@ -119,8 +111,7 @@ class preorderTraversal(object):
                 return []
             return [node.val] + search(node.left) + search(node.right)
 
-        return search(node)
-
+        return search(root)
 
     def doit(self, root):
         """
@@ -177,7 +168,7 @@ class postorderTraversal:
         
         while cur or buff:
 
-            while cur :
+            while cur:
                 res = [cur.val] + res
                 buff.append(cur)
                 cur = cur.right
@@ -195,7 +186,7 @@ class postorderTraversal:
         
         while cur or buff:
 
-            while cur :
+            while cur:
                 res = [cur.val] + res
                 buff.append(cur.left)
                 cur = cur.right
@@ -245,7 +236,7 @@ class postorderTraversal:
         
         return ret
 
-if __name__=="__main__":
 
+if __name__ == "__main__":
 
     pass

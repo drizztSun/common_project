@@ -71,15 +71,15 @@ class CountSmaller(object):
         :type nums: List[int]
         :rtype: List[int]
         """
-        from bisect import bisect_left as bLeft
+        from bisect import bisect_left
         A, result = sorted(nums), []
         for v in nums:
-            pos = bLeft(A, v)
+            pos = bisect_left(A, v)
             result.append(pos)
             del A[pos]
         return result
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
 
     res = CountSmaller().doit([5, 2, 6, 1])

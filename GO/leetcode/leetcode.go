@@ -13,13 +13,15 @@ func main() {
 
 	// leetcodem.Test_146_LRUCache()
 
+	leetcodem.Test_673_NumberOfLongestIncreasingSequence()
+
 	leetcodeH.Test_1067_digital_count_in_range()
 
 	// leetcodeH.Test_363_MaxSumOfRectangleNoLargerThank()
 
 	// leetcodeH.Test_786_KthSmallestPrimFraction()
 
-	leetcodem.Test_787_CheapestFlightWithinKStops()
+	// leetcodem.Test_787_CheapestFlightWithinKStops()
 
 	// leetcodeH.Test_321_create_maximum_number()
 

@@ -120,3 +120,31 @@ void test_map_modern_cpp() {
 	}
 
 }
+
+void test_map_basic() {
+    
+    map<int, int> base;
+    
+    base.insert({1, 2});
+    base.insert({2, 3});
+    base.insert({3, 4});
+    base.insert({4, 5});
+    base.insert({5, 6});
+    base.insert({6, 7});
+    
+    auto it = begin(base);
+    while (it != end(base)) {
+        std::cout << it->first << it->second << std::endl;
+        it = base.erase(it);
+    }
+    
+    return;
+}
+
+void Test_map() {
+    
+    test_map_basic();
+    
+    test_map_modern_cpp();
+    
+}

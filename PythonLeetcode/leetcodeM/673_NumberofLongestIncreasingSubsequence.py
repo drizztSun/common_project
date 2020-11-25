@@ -20,14 +20,16 @@ class FindNumberOfLIS:
 
     """
 
+    [1, 2, 6, 3, 4, 7]
+    o(n*logn)
     """
-    def doit_binary_search(self, nums: list) -> int:
+    def doit_dp_binary_search(self, nums: list) -> int:
         import bisect
         if not nums: 
             return 0
         
         m = min(nums)-1
-        a, b = [{m: 1}], [m]
+        a, b = [{m: 1}], [m] # build baseline
 
         for x in nums:
             i, t = bisect.bisect_left(b, x) - 1, 0
@@ -35,6 +37,11 @@ class FindNumberOfLIS:
             if i == len(a) - 1:
                 a.append({})
                 b.append(x)
+
+            # [1, 2, 6, 3, 4, 7]
+            # the sequence would be [1,2,6 ..], then [1, 2, 3 ...] then [1, 2, 3, 4]
+            # when we don't know 4, [1, 2, 6 ..] and [1, 2, 3 ..] all candidates, and being in index 3 of
+            # when we meet 4, it will be [1, 2, 3, 4], the number from [1, 2, 36 ..] became invalid and need to remove.
 
             for y in list(a[i].keys()):
                 if y < x: 
@@ -51,27 +58,29 @@ class FindNumberOfLIS:
     Approach 1: Dynamic Programming
     Intuition and Algorithm
     
-    Suppose for sequences ending at nums[i], we knew the length length[i] of the longest sequence, and the number count[i] of such sequences with that length.
+    Suppose for sequences ending at nums[i], we knew the length length[i] of the longest sequence, 
+    and the number count[i] of such sequences with that length.
     
-    For every i < j with A[i] < A[j], we might append A[j] to a longest subsequence ending at A[i]. It means that we have demonstrated count[i] subsequences of length length[i] + 1.
+    For every i < j with A[i] < A[j], we might append A[j] to a longest subsequence ending at A[i]. 
+    It means that we have demonstrated count[i] subsequences of length length[i] + 1.
     
-    Now, if those sequences are longer than length[j], then we know we have count[i] sequences of this length. If these sequences are equal in length to length[j], 
+    Now, if those sequences are longer than length[j], then we know we have count[i] sequences of this length. 
+    If these sequences are equal in length to length[j], 
     then we know that there are now count[i] additional sequences to be counted of that length (ie. count[j] += count[i]).
     
     Complexity Analysis
 
-    Time Complexity: O(N^2) where NN is the length of nums. There are two for-loops and the work inside is O(1)O(1).
-    
-    Space Complexity: O(N)O(N), the space used by lengths and counts.
+    Time Complexity: O(N^2) where NN is the length of nums. There are two for-loops and the work inside is O(1).
+    Space Complexity: O(N), the space used by lengths and counts.
     """
 
     def doit_dp(self, nums: list) -> int:
-        if not nums:
-            return 0
+
+        if not nums: return 0
         
         dp = [[1, 1]]
         gmax = 1
-        for i in range (1, len(nums)):
+        for i in range(1, len(nums)):
             
             maxv, cnt = 0, 1
             for j in range(i):
@@ -197,3 +206,11 @@ class FalseindNumberOfLIS(object):
             insert(root, num, (length+1, count))
         return root.val[1]
 
+
+if __name__ == '__main__':
+
+    #FindNumberOfLIS().doit_dp_binary_search([1,3,5,4,7])
+
+    #FindNumberOfLIS().doit_dp_binary_search([1, 3, 6, 4, 3, 7])
+
+    FindNumberOfLIS().doit_dp_binary_search([1, 2, 6, 3, 4, 7])
