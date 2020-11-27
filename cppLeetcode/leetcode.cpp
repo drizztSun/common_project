@@ -358,10 +358,14 @@ void test_1125_smallest_sufficient_team();
 
 void test_673_number_longest_incresting_sequence();
 
+void test_460_LFUCache();
+
 void leetcode()
 {
     
-    test_673_number_longest_incresting_sequence();
+    test_460_LFUCache();
+    
+    // test_673_number_longest_incresting_sequence();
     
     // test_1125_smallest_sufficient_team();
     

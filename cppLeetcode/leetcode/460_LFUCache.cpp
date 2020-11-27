@@ -7,8 +7,12 @@
 
  LFUCache(int capacity) Initializes the object with the capacity of the data structure.
  int get(int key) Gets the value of the key if the key exists in the cache. Otherwise, returns -1.
- void put(int key, int value) Sets or inserts the value if the key is not already present. When the cache reaches its capacity, it should invalidate the least frequently used item before inserting a new item. For this problem, when there is a tie (i.e., two or more keys with the same frequency), the least recently used key would be evicted.
- Notice that the number of times an item is used is the number of calls to the get and put functions for that item since it was inserted. This number is set to zero when the item is removed.
+ void put(int key, int value) Sets or inserts the value if the key is not already present. When the cache reaches its capacity,
+ it should invalidate the least frequently used item before inserting a new item. For this problem, when there is a tie
+ (i.e., two or more keys with the same frequency), the least recently used key would be evicted.
+ 
+ Notice that the number of times an item is used is the number of calls to the get and put functions for that item since it was inserted.
+ This number is set to zero when the item is removed.
 
  Follow up:
  Could you do both operations in O(1) time complexity?
@@ -38,7 +42,7 @@
 
  
  */
-
+#include <memory>
 #include <stdlib.h>
 #include <list>
 #include <climits>
@@ -115,127 +119,156 @@ public:
     }
 };
 
-/*
-class LFUCache {
 
+class LFUCache {
+    
     
     struct node {
-        int _key, _val;
-        node* _prev, _next;
+        
+        int _key, _value;
+        
+        node *_prev, *_next;
         
         node(int key, int val) {
-            _key = key, _val = val;
-            _prev = nullptr, _next = nullptr;
+            _key = key;
+            _value = val;
         }
         
-        void connect(node* next) {
-            if (next == nullptr)
-                return;
+        void connect(node* n) {
             
-            this._next = next;
-            p._prev = this
-            
+            this->_next = n;
+            n->_prev = this;
         }
-    }
+    };
     
+    
+    node *_head, *_tail;
+    int _capacity;
+    unordered_map<int, std::pair<node*, int>> _key;
+    unordered_map<int, node*> _counter;
+  
 public:
     
-    LFUCache(int capacity) {
-        this._capacity = capcacity;
-        this._head = new node(INT_MAX, 0);
-        this._tail = new node(INT_MIN, 0);
-        this._head.connect(this._tail);
-        this._frequency[0] = this._tail;
+    
+    LFUCache(int cap): _capacity(cap) {
+        
+        _head = new node(INT_MAX, INT_MAX);
+        _tail = new node(INT_MIN, INT_MIN);
+        
+        _head->connect(_tail);
+        
+        _key[INT_MIN] = {};
+        _counter.insert({0, _tail});
     }
     
     ~LFUCache() {
-        p = this._head;
-        while (p) {
-            n = p->_next;
-            delete p;
-            p = n;
-        }
+        delete _head;
+        delete _tail;
+        _head = nullptr;
+        _tail = nullptr;
     }
+ 
     
     int get(int key) {
-        if (this._keys.count(key) == 0)
-            retun -1;
-
-        auto& c = this._keys[key];
-        int value = c.second;
-        this.moveforward(key);
+        
+        if (_key.count(key) == 0)
+            return -1;
+        
+        int value = _key[key].first->_value;
+        int cnt = _key[key].second;
+        
+        moveforward(key);
+        
         return value;
     }
     
     void put(int key, int value) {
         
-        if (this._capacity == 0)
-            return -1;
-        
-        if (this._keys.count(key) > 0) {
-            auto& c = this._keys[key];
-            c.second = value;
-            this.moveforward(c.first);
-            return
-        }
-        
-        if (this._keys.size() == this._capacity) {
-            delete this.remove(this._tail._pre._key);
-        }
-        
-        node* p = node(key, value);
-        this.add(p, 0);
-    }
-    
-private:
-
-    void moveforward(int key) {
-        
-        if (this._keys.count(key) == 0)
+        if (_capacity == 0)
             return;
         
-        this.remove(key);
-        auto& c = this._keys[key];
-        c.first += 1;
-        
-        this.add(c.second, c.first);
-    }
-    
-    node* remove(int key) {
-        
-        auto& c = this._keys[key];
-        int cnt = c.first;
-        node* p = c.second;
-        
-        if (this._frequency[cnt] != p) {
-            this._frequency[cnt] = nullptr;
-            
-            if (this._frequency[p._next._key] == cnt) {
-                this._frequency[cnt] = p._next;
-            } else {
-                this._frequency.delete(cnt);
-            }
-        }
-        p._pre.connect(p._next);
-        return p;
-    }
-    
-    void add(node* p, int cnt) {
-        
-        node* pre = nullptr;
-        if (this._frequency.count(cnt) == 0) {
-            this._
+        if (_key.count(key) > 0) {
+            _key[key].first->_value = value;
+            moveforward(key);
+            return;
         }
         
+        if (_key.size() > _capacity) {
+            remove(_tail->_prev->_key);
+        }
+        
+        add(key, value, 0);
     }
     
-    unordered_map<int, node*> _frequency;
+    void moveforward(int key) {
+        
+        node* p = _key[key].first;
+        int cnt = _key[key].second;
+        
+        add(INT_MAX, p->_value, cnt + 1);
+        remove(key);
+        
+        _key[key] = _key[INT_MAX];
+        _key[key].first->_key = key;
+        _key.erase(INT_MAX);
+    }
     
-    unordered_map<int, std::pair<int, node*>> _keys;
+    void add(int key, int value, int cnt) {
+        
+        node * loc = _counter.count(cnt) ? _counter[cnt] : _counter[cnt - 1];
+        
+        node * p = new node(key, value);
+        
+        loc->_prev->connect(p);
+        p->connect(loc);
+        
+        _counter[cnt] = p;
+        _key[key] = {p, cnt};
+    }
     
-    node* _head, _tail;
+    void remove(int key) {
+        
+        node* p = _key[key].first;
+        int cnt = _key[key].second;
+        
+        if (_counter[cnt] != p) {
+            p->_prev->connect(p->_next);
+        } else if (_key[p->_next->_key].second == cnt) {
+            p->_prev->connect(p->_next);
+            _counter[cnt] = p->_next;
+        } else {
+            p->_prev->connect(p->_next);
+            _counter.erase(cnt);
+        }
+        
+        _key.erase(key);
+        delete p;
+    }
     
-    int _capacity;
 };
 
-*/
+
+void test_460_LFUCache() {
+    
+    LFUCache lfu(2);
+    
+    lfu.put(1, 1);
+    lfu.put(2, 2);
+    
+    lfu.get(1);
+    
+    lfu.put(3, 3);
+    
+    lfu.get(2);
+    
+    lfu.get(3);
+    
+    lfu.put(4, 4);
+    
+    lfu.get(3);
+    
+    lfu.get(4);
+    
+    
+    
+}

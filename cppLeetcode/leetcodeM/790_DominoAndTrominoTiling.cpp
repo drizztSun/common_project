@@ -58,7 +58,7 @@ public:
      
      */
     
-    int doit_dp(int n) {
+    int doit_dp(int N) {
         
         constexpr int kmod = 1e9 + 7;
         vector<vector<long>> dp(N+1, vector<long>(3, 0));
@@ -74,7 +74,7 @@ public:
         return dp[N][0];
     }
     
-    int doit_dp_1(int n) {
+    int doit_dp_1(int N) {
         
         // Since dp[i][1] always equals to dp[i][2], we can simplify a bit.
         
@@ -115,4 +115,4 @@ public:
         dp[i] = (dp[i - 3] + dp[i - 1] * 2) % kMod;
       return dp[N];
     }
-}
+};
