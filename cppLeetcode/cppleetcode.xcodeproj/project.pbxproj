@@ -207,6 +207,9 @@
 		1222F969253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1222F968253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp */; };
 		1224CAEC255DD61800C24351 /* 683_KEmptySlots.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1224CAEB255DD61800C24351 /* 683_KEmptySlots.cpp */; };
 		124DCBCB25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */; };
+		124E7075257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124E7074257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp */; };
+		124E70782571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124E70772571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp */; };
+		124E707B2571D0AA00AD389F /* 1568_MinimumNumberOfDaysToDisconnectIsland.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124E707A2571D0AA00AD389F /* 1568_MinimumNumberOfDaysToDisconnectIsland.cpp */; };
 		125096EE2555A63700532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 125096ED2555A63600532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp */; };
 		125096F12555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 125096F02555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp */; };
 		12520F7A256EA29900D33FD6 /* 1262_GreatestSumDivisibleByThree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12520F79256EA29900D33FD6 /* 1262_GreatestSumDivisibleByThree.cpp */; };
@@ -465,6 +468,9 @@
 		1222F968253A2FE800FA6CE4 /* 527_Word_Abbreviation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 527_Word_Abbreviation.cpp; sourceTree = "<group>"; };
 		1224CAEB255DD61800C24351 /* 683_KEmptySlots.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 683_KEmptySlots.cpp; sourceTree = "<group>"; };
 		124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1199_MinimumTimeToBuildBlocks.cpp; sourceTree = "<group>"; };
+		124E7074257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1401_CircleandRectangleOverlapping.cpp; sourceTree = "<group>"; };
+		124E70772571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1352_ProductOftheLastKNumbers.cpp; sourceTree = "<group>"; };
+		124E707A2571D0AA00AD389F /* 1568_MinimumNumberOfDaysToDisconnectIsland.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1568_MinimumNumberOfDaysToDisconnectIsland.cpp; sourceTree = "<group>"; };
 		125096ED2555A63600532B22 /* 1335_MinimumDifficultyOfJobSchedule.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1335_MinimumDifficultyOfJobSchedule.cpp; sourceTree = "<group>"; };
 		125096F02555F60200532B22 /* 1235_MaximumProfitInJobScheduling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1235_MaximumProfitInJobScheduling.cpp; sourceTree = "<group>"; };
 		12520F79256EA29900D33FD6 /* 1262_GreatestSumDivisibleByThree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1262_GreatestSumDivisibleByThree.cpp; sourceTree = "<group>"; };
@@ -684,6 +690,7 @@
 				1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */,
 				0832DD6E2566D08F000C248D /* 1643_KthSmallestInstructions.cpp */,
 				08E42E752561A8290079413D /* 1655_DistributeRepeatingIntegers.cpp */,
+				124E707A2571D0AA00AD389F /* 1568_MinimumNumberOfDaysToDisconnectIsland.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -765,6 +772,8 @@
 				12520F79256EA29900D33FD6 /* 1262_GreatestSumDivisibleByThree.cpp */,
 				12520F7F256ECB2500D33FD6 /* 1057_CampusBikes.cpp */,
 				12520F83256ED5B200D33FD6 /* 1066_CampusBikesII.cpp */,
+				124E7074257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp */,
+				124E70772571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -957,6 +966,7 @@
 				124DCBCB25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp in Sources */,
 				12520F7D256EA51100D33FD6 /* 1363_LargestMultipleOfThree.cpp in Sources */,
 				12B6C645256DB6DA002930F6 /* 1240_TilingRectanglewithTheFewestSquares.cpp in Sources */,
+				124E7075257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp in Sources */,
 				081C69D1241E48AE005CE99B /* 560_SubarraySumEqualsK.cpp in Sources */,
 				08012E882412EDD6004D11A8 /* 1004_MaxConsecutiveOnesIII.cpp in Sources */,
 				08CA46F72411810A0098CD5F /* 1017_ConvertToBase.cpp in Sources */,
@@ -1001,6 +1011,7 @@
 				086A8AE824071C4A00CFAEED /* 45_JumpGameII.cpp in Sources */,
 				08224C1C252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp in Sources */,
 				086A8AF024071C4A00CFAEED /* 552_StudentAttendanceRecordII.cpp in Sources */,
+				124E70782571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp in Sources */,
 				08CA46F324112DF20098CD5F /* 1020_NumberOfEnclaves.cpp in Sources */,
 				08A5BAAE242651EA003AAE9B /* 978_LongestTurbulentSubarray.cpp in Sources */,
 				08EADCE625657F91003CC35C /* 673_NumberOfLongestIncreasingSubsequence.cpp in Sources */,
@@ -1058,6 +1069,7 @@
 				08C3AB8A252026DF00566069 /* 313_SuperUglyNumber.cpp in Sources */,
 				086A8AC024071C4A00CFAEED /* 765_CouplesHoldingHands.cpp in Sources */,
 				081C69D3241E4BD9005CE99B /* 56_MergeIntervals.cpp in Sources */,
+				124E707B2571D0AA00AD389F /* 1568_MinimumNumberOfDaysToDisconnectIsland.cpp in Sources */,
 				087C791F24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp in Sources */,
 				086A8B0024071C4A00CFAEED /* 729_MyCalendarI.cpp in Sources */,
 				086A8AD324071C4A00CFAEED /* 41_FirstMissingPositive.cpp in Sources */,
