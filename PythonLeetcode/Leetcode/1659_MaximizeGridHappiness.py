@@ -141,7 +141,6 @@ class MaximumForGridHappiness:
 
         return dp(0, 0, introvertsCount, extrovertsCount, 0)
 
-
     def doit_dp_(self, m: int, n: int, introvertsCount: int, extrovertsCount: int) -> int:
         if m==5 and (n==4 or n==5) or m==4 and n==5:
             ex = [0, 40, 120, 200, 320, 400, 520]
