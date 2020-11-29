@@ -1,4 +1,5 @@
-# 877. Stone Game
+"""
+877. Stone Game
 
 # Alex and Lee play a game with piles of stones.  There are an even number of piles arranged in a row, and each pile has a positive integer number of stones piles[i].
 
@@ -55,12 +56,15 @@
 # Afterwards, the total score is either - piles[i] + dp(i+1, j), or -piles[j] + dp(i, j-1)
 # and we want the minimum possible score.
 
+"""
+
+
 from functools import lru_cache
 
 
 class StoneGame:
 
-    def doit1(self, piles):
+    def doit_dp(self, piles):
         dp = {}
         N = len(piles)
 
@@ -73,17 +77,15 @@ class StoneGame:
 
                 parity = (j - i + 1) % 2
                 if parity == 0:  # first player
-                    dp[(i, j)] = max(piles[i] + wins(i+1, j),
-                                     piles[j] + wins(i, j-1))
+                    dp[(i, j)] = max(piles[i] + wins(i+1, j), piles[j] + wins(i, j-1))
                 else:
-                    dp[(i, j)] = min(-piles[i] + wins(i+1, j), -
-                                     piles[j] + wins(i, j-1))
+                    dp[(i, j)] = min(-piles[i] + wins(i+1, j), -piles[j] + wins(i, j-1))
 
             return dp[(i, j)]
 
         return wins(0, N - 1) > 0
 
-    def doit(self, piles):
+    def doit_dp_1(self, piles):
 
         N = len(piles)
 
@@ -100,7 +102,7 @@ class StoneGame:
 
         return dp(0, N - 1) > 0
 
-    def doit(self, piles):
+    def doit_dp_1(self, piles):
 
         N = len(piles)
 
@@ -122,13 +124,14 @@ class StoneGame:
 
     Alex clearly always wins the 2 pile game. With some effort, we can see that she always wins the 4 pile game.
 
-    If Alex takes the first pile initially, she can always take the third pile. If she takes the fourth pile initially, she can always take the second pile. At least one of first + third, second + fourth is larger, so she can always win.
+    If Alex takes the first pile initially, she can always take the third pile. If she takes the fourth pile initially, 
+    she can always take the second pile. At least one of first + third, second + fourth is larger, so she can always win.
 
-    We can extend this idea to N piles. Say the first, third, fifth, seventh, etc. piles are white, and the second, fourth, sixth, eighth, etc. piles are black. Alex can always take either all white piles or all black piles, and one of the colors must have a sum number of stones larger than the other color.
+    We can extend this idea to N piles. Say the first, third, fifth, seventh, etc. piles are white, and the second, fourth, sixth, eighth, etc. 
+    piles are black. Alex can always take either all white piles or all black piles, and one of the colors must have a sum number of stones larger than the other color.
 
     Hence, Alex always wins the game.
     """
-
     def doit(self, piles):
         return True
 

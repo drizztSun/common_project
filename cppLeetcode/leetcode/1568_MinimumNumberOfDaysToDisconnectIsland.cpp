@@ -73,16 +73,16 @@ public:
             if (xx == px && yy == py)
                 continue;
             if (depth[xx][yy] != -1) {
-                res = min(res, depth[xx][yy]);
+                res = std::min(res, depth[xx][yy]);
             } else {
                 depth[xx][yy] = depth[x][y] + 1;
                 int ret = dfs(xx, yy, x, y);
                 if (ret == -1)
                     return -1;
-                res = min(res, ret);
+                res = std::min(res, ret);
             }
         }
-        return (res > depth[x][y]) ? -1 : min(depth[x][y], res);
+        return (res > depth[x][y]) ? -1 : std::min(depth[x][y], res);
     }
     
     int minDays(vector<vector<int>>& grid) {
@@ -100,7 +100,7 @@ public:
                     if (cnt)
                         return 0;
                     ax = i, ay = j;
-                    vector<pair<int, int>> bfs = {{i, j}};
+                    vector<std::pair<int, int>> bfs = {{i, j}};
                     vis[i][j] = true;
                     ++cnt;
                     while (!bfs.empty()) {
