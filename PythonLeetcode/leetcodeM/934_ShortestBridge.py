@@ -1,4 +1,5 @@
-# 934. Shortest Bridge
+"""
+934. Shortest Bridge
 
 # In a given 2D binary array A, there are two islands.  (An island is a 4-directionally connected group of 1s not connected to any other 1s.)
 
@@ -27,6 +28,8 @@
 # 1 <= A.length = A[0].length <= 100
 # A[i][j] == 0 or A[i][j] == 1
 
+"""
+
 
 class ShortestBridge:
 
@@ -52,11 +55,7 @@ class ShortestBridge:
 
     Space Complexity: O(A).
     """
-
-    def doit(self, A):
-        pass
-
-    def doit(self, A):
+    def doit_bfs(self, A):
 
         def get_n(x, y):
             r = []

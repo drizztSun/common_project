@@ -54,17 +54,20 @@ class KthSmallestPath:
         num, res = 0, ''
         v = 0
 
-        def steps(a, b): # step for each (i+1, j)
+        def steps(a, b):
+            # step for each (i+1, j), a How many steps left and b how many vertical way we left
             res = 1
-            for i in range(0, b): # each v step, how many can go to h
+            for i in range(0, b):
+                # each v step, how many can go to h
                 res *= (a-i)
                 # h / v will be the ways to go
                 res /= i
             return res
 
         for i in range(V+H):
-            s = steps(V + H -i - 1, V - v)
-            if num + s >= k: # if v-direct + s > k, we have to go H
+            s = steps(V + H - i - 1, V - v)
+            if num + s >= k:
+                # if v-direct + s > k, we have to go H
                 res += 'H'
             else:
                 res += 'V'
@@ -75,6 +78,7 @@ class KthSmallestPath:
 
     def doit_dp_1(self, destination: list, k: int) -> str:
         import math
+
         def combos(a, b):
             # a choose b
             return int(math.factorial(a) / (math.factorial(b) * math.factorial(a - b)))

@@ -53,7 +53,7 @@ There are at most 50 unique values in nums.
 
 class CanDistribute:
 
-    def canDistribute(self, nums: list, quantity: list) -> bool:
+    def doit_bfs_heap(self, nums: list, quantity: list) -> bool:
 
         from collections import Counter
         from heapq import heappop, heappush
@@ -99,7 +99,6 @@ class CanDistribute:
                         heappush(state, [nsum, nqt, j - 1])
         return False
 
-
     def doit_backtracking_dfs(self, nums: list, quantity: list) -> bool:
         pass
 
@@ -132,7 +131,7 @@ class CanDistribute:
 
             return search(mask, i - 1)
 
-        return search((1<<m)-1, len(values)-1)
+        return search((1 << m)-1, len(values)-1)
 
 
 if __name__ == '__main__':
