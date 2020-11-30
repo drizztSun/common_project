@@ -35,6 +35,44 @@ Output: 1
 
 
 class divide:
+
+    def doit(self, dividend: int, divisor: int) -> int:
+        positive = (dividend < 0) is (divisor < 0)
+        dividend, divisor = abs(dividend), abs(divisor)
+        res = 0
+        while dividend >= divisor:
+            curr_divisor, num_divisors = divisor, 1
+            while dividend >= curr_divisor:
+                dividend -= curr_divisor
+                res += num_divisors
+
+                curr_divisor += curr_divisor
+                num_divisors += num_divisors
+
+        if not positive:
+            res = -res
+
+        return min(max(-2147483648, res), 2147483647)
+
+    """
+    The best solution is to work with negative, instead of positive, numbers.
+    This is allows us to use the largest possible range of numbers, and it covers all the ones we need.
+
+    At the start of the algorithm, we'll instead convert both inputs to negative. Then, we'll need to modify the loop
+    so that it subtracts the negative divisor from the negative dividend. At the end, we'll need to convert the result back
+    to a positive if the number of negative signs in the input was not 1.
+
+    The code for this is our complete approach 1, and can be found in the code box below.
+
+    Algorithm
+
+    Remember that we're converting the inputs to negative numbers. This is because we don't want separate code
+    for all the possible combinations of positive/negative divisor and dividend. We converted them to negative instead of positive because the range of valid negative numbers is bigger, and therefore overflows can be cleanly avoided.
+
+    The looping condition is while (dividend - divisor <= 0) because the difference is moving towards zero from the negative side.
+    herefore, we want to continue while it is still under it. Once it goes over, we know we're done.
+
+    """
     def doit(self, dividend: int, divisor: int):
 
         # Constants.

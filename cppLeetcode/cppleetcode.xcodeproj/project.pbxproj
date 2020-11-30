@@ -254,6 +254,7 @@
 		12E52778256C2E7D0080A757 /* 1411_NumberOfWaystoPaintN×3Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E52777256C2E7D0080A757 /* 1411_NumberOfWaystoPaintN×3Grid.cpp */; };
 		12E5277B256C53570080A757 /* 935_KnightDialer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E5277A256C53570080A757 /* 935_KnightDialer.cpp */; };
 		12E5277E256C760B0080A757 /* 790_DominoAndTrominoTiling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E5277D256C760B0080A757 /* 790_DominoAndTrominoTiling.cpp */; };
+		12E7F23A257456700034DB37 /* 1670_DesignFrontMiddleBackQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E7F239257456700034DB37 /* 1670_DesignFrontMiddleBackQueue.cpp */; };
 		12F17BDB252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */; };
 /* End PBXBuildFile section */
 
@@ -519,6 +520,7 @@
 		12E52777256C2E7D0080A757 /* 1411_NumberOfWaystoPaintN×3Grid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "1411_NumberOfWaystoPaintN×3Grid.cpp"; sourceTree = "<group>"; };
 		12E5277A256C53570080A757 /* 935_KnightDialer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 935_KnightDialer.cpp; sourceTree = "<group>"; };
 		12E5277D256C760B0080A757 /* 790_DominoAndTrominoTiling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 790_DominoAndTrominoTiling.cpp; sourceTree = "<group>"; };
+		12E7F239257456700034DB37 /* 1670_DesignFrontMiddleBackQueue.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1670_DesignFrontMiddleBackQueue.cpp; sourceTree = "<group>"; };
 		12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -783,6 +785,7 @@
 				124E70772571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp */,
 				126F15CD25733C6E0049873F /* 877_StoneGame.cpp */,
 				126F15D0257348650049873F /* 1140_StoneGameII.cpp */,
+				12E7F239257456700034DB37 /* 1670_DesignFrontMiddleBackQueue.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				08927792240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp in Sources */,
 				12B0390E2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp in Sources */,
 				086A8AE124071C4A00CFAEED /* 329_LongestIncreasingPathInMatrix.cpp in Sources */,
+				12E7F23A257456700034DB37 /* 1670_DesignFrontMiddleBackQueue.cpp in Sources */,
 				086A8A6224071BCE00CFAEED /* 4_MedianofTwoSortedArrays.cpp in Sources */,
 				086A8AE024071C4A00CFAEED /* 218_SkylineProblem.cpp in Sources */,
 				086A8ADA24071C4A00CFAEED /* 44_WildcardMatching.cpp in Sources */,
