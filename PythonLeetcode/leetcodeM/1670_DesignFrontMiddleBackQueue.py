@@ -50,16 +50,102 @@ At most 1000 calls will be made to pushFront, pushMiddle, pushBack, popFront, po
 
 class FrontMiddleBackQueue:
 
+    class node:
+        def __init__(self, val):
+            self._val = val
+            self._prev = self._next = None
+
+        def connect(self, node):
+            self._next = node
+            node._prev = self
+
     def __init__(self):
+        self._head, self._tail = FloatingPointError.node(float('inf')), FloatingPointError.node(float('-inf'))
+        self._head.connect(self._tail)
+        self._length = 0
+        self._mid = None
 
     def pushFront(self, val: int) -> None:
 
+        s = FrontMiddleBackQueue.node(val)
+        s.connect(self._head._next)
+        self._head.connect(s)
+
+        if self._length == 0:
+            self._mid = self._head._next
+        elif self._length % 2 == 1:
+            self._mid = self._mid._prev
+        self._length += 1
+
+
     def pushMiddle(self, val: int) -> None:
+
+        s = FrontMiddleBackQueue.node(val)
+
+        if self._length == 0:
+            s.connect(self._head._next)
+            self._head.connect(s)
+            self._mid = s
+        elif self._length % 2 == 0:
+            s.connect(self._mid._next)
+            self._mid.connect(s)
+            self._mid = self._mid._next
+        else:
+            self._mid._prev.connect(s)
+            s.connect(self._mid)
+            self._mid = self._mid._prev
+
+        self._length += 1
 
     def pushBack(self, val: int) -> None:
 
+        s = FrontMiddleBackQueue.node(val)
+        self._tail._prev.connect(s)
+        s.connect(self._tail)
+
+        if self._length == 0:
+            self._mid = self._head._next
+        elif self._length % 2 == 0:
+            self._mid = self._mid._next
+
+        self._length += 1
+
     def popFront(self) -> int:
+        if self._length == 0:
+            return -1
+
+        ret = self._head._next._val
+        if self._length % 2 == 0:
+            self._mid = self._mid._next
+        self._head.connect(self._head._next._next)
+        self._length -= 1
+        return ret
 
     def popMiddle(self) -> int:
 
+        if self._length == 0:
+            return -1
+
+        ret = self._mid._val
+
+        tmp = self._mid
+        if self._length % 2 == 1:
+            self._mid = self._mid._prev
+        else:
+            self._mid = self._mid._next
+
+        tmp._prev.connect(tmp._next)
+        self._length -= 1
+        return ret
+
     def popBack(self) -> int:
+        if self._length == 0:
+            return -1
+        ret = self._tail._prev._val
+
+        if self._length % 2 == 1:
+            self._mid = self._mid._prev
+
+        self._tail._prev._prev.connect(self._tail)
+        self._length -= 1
+        return ret
