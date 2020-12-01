@@ -251,6 +251,7 @@
 		12D3E8A7253CFE30004E49BD /* 301_RemoveInvalidParentheses.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D3E8A6253CFE30004E49BD /* 301_RemoveInvalidParentheses.cpp */; };
 		12E143CD255CD7780079E288 /* 1520_MaximumNumberOfNonOverlappingSubstrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E143CC255CD7780079E288 /* 1520_MaximumNumberOfNonOverlappingSubstrings.cpp */; };
 		12E4A9C9254C709300C6D4E8 /* 1284_MinimumNumberOfFlipsToConvertBinaryMatrixToZeroMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E4A9C8254C709300C6D4E8 /* 1284_MinimumNumberOfFlipsToConvertBinaryMatrixToZeroMatrix.cpp */; };
+		12E503112575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E503102575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp */; };
 		12E52778256C2E7D0080A757 /* 1411_NumberOfWaystoPaintN×3Grid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E52777256C2E7D0080A757 /* 1411_NumberOfWaystoPaintN×3Grid.cpp */; };
 		12E5277B256C53570080A757 /* 935_KnightDialer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E5277A256C53570080A757 /* 935_KnightDialer.cpp */; };
 		12E5277E256C760B0080A757 /* 790_DominoAndTrominoTiling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E5277D256C760B0080A757 /* 790_DominoAndTrominoTiling.cpp */; };
@@ -517,6 +518,7 @@
 		12D3E8A6253CFE30004E49BD /* 301_RemoveInvalidParentheses.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 301_RemoveInvalidParentheses.cpp; sourceTree = "<group>"; };
 		12E143CC255CD7780079E288 /* 1520_MaximumNumberOfNonOverlappingSubstrings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1520_MaximumNumberOfNonOverlappingSubstrings.cpp; sourceTree = "<group>"; };
 		12E4A9C8254C709300C6D4E8 /* 1284_MinimumNumberOfFlipsToConvertBinaryMatrixToZeroMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1284_MinimumNumberOfFlipsToConvertBinaryMatrixToZeroMatrix.cpp; sourceTree = "<group>"; };
+		12E503102575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp; sourceTree = "<group>"; };
 		12E52777256C2E7D0080A757 /* 1411_NumberOfWaystoPaintN×3Grid.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "1411_NumberOfWaystoPaintN×3Grid.cpp"; sourceTree = "<group>"; };
 		12E5277A256C53570080A757 /* 935_KnightDialer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 935_KnightDialer.cpp; sourceTree = "<group>"; };
 		12E5277D256C760B0080A757 /* 790_DominoAndTrominoTiling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 790_DominoAndTrominoTiling.cpp; sourceTree = "<group>"; };
@@ -696,10 +698,11 @@
 				12E143CC255CD7780079E288 /* 1520_MaximumNumberOfNonOverlappingSubstrings.cpp */,
 				12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */,
 				1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */,
-				0832DD6E2566D08F000C248D /* 1643_KthSmallestInstructions.cpp */,
-				08E42E752561A8290079413D /* 1655_DistributeRepeatingIntegers.cpp */,
 				124E707A2571D0AA00AD389F /* 1568_MinimumNumberOfDaysToDisconnectIsland.cpp */,
 				126AA4E02572B36D0070EE7F /* 1585_CheckIfStringIsTransformableWithSubstringSortOperations.cpp */,
+				0832DD6E2566D08F000C248D /* 1643_KthSmallestInstructions.cpp */,
+				08E42E752561A8290079413D /* 1655_DistributeRepeatingIntegers.cpp */,
+				12E503102575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -957,6 +960,7 @@
 				086A8AE424071C4A00CFAEED /* 632_SmallestRange.cpp in Sources */,
 				08F2B70A252A38C100325CBE /* 871_MinimumNumberOfRefuelingStops.cpp in Sources */,
 				086A8ADD24071C4A00CFAEED /* 295_FindMedianfromDataStream.cpp in Sources */,
+				12E503112575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp in Sources */,
 				086A8AC224071C4A00CFAEED /* 57_InsertInterval.cpp in Sources */,
 				08CA46F924118C260098CD5F /* 1016_BinaryStringWithSubstringsRepresenting1ToN.cpp in Sources */,
 				12520F7A256EA29900D33FD6 /* 1262_GreatestSumDivisibleByThree.cpp in Sources */,

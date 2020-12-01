@@ -94,9 +94,9 @@ class NumDistinctIslands:
     def doit_1(self, grid):
 
         seen = set()
+
         def explore(r, c, di = 0):
-            if (0 <= r < len(grid) and 0 <= c < len(grid[0]) and
-                    grid[r][c] and (r, c) not in seen):
+            if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and grid[r][c] and (r, c) not in seen:
                 seen.add((r, c))
                 shape.append(di)
                 explore(r+1, c, 1)

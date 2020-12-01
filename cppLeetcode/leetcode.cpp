@@ -362,8 +362,12 @@ void test_460_LFUCache();
 
 void test_1401_circle_rectangle_overlapping();
 
+void test_1671_make_mountain_array();
+
 void leetcode()
 {
+    
+    test_1671_make_mountain_array();
     
     // test_1401_circle_rectangle_overlapping();
     

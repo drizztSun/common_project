@@ -76,13 +76,12 @@ class NextPermutation:
         if i > -1:
             larger = i + 1
             for j in range(i + 1, len(nums)):
-                if nums[j] > nums[i] and nums[j] <= nums[larger]:
+                if nums[i] < nums[j] <= nums[larger]:
                     larger = j
 
             nums[i], nums[larger] = nums[larger], nums[i]
 
         nums[i + 1:] = reversed(nums[i + 1:])
-        return nums
 
 
 if __name__ == '__main__':
