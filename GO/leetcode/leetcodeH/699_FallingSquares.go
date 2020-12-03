@@ -61,8 +61,8 @@ func fallingSquares(positions [][]int) []int {
 			pos = append(pos, []int{left, right}...)
 			height = append(height, []int{maxh, height[j-1]}...)
 		} else {
-			pos = append(pos[:i-1], append([]int{left, right}, pos[j:]...)...)
-			height = append(height[:i-1], append([]int{maxh, height[j-1]}, height[j:]...)...)
+			pos = append(pos[:i], append([]int{left, right}, pos[j:]...)...)
+			height = append(height[:i], append([]int{maxh, height[j-1]}, height[j:]...)...)
 		}
 
 		if maxh > currentHeight {
@@ -77,5 +77,7 @@ func fallingSquares(positions [][]int) []int {
 
 func Test_699_FallSquare() {
 
-	fallingSquares([][]int{[]int{1, 2}, []int{2, 3}, []int{6, 1}})
+	// fallingSquares([][]int{[]int{1, 2}, []int{2, 3}, []int{6, 1}})
+
+	fallingSquares([][]int{[]int{4, 9}, []int{8, 8}, []int{6, 8}, []int{8, 2}, []int{1, 2}})
 }

@@ -87,75 +87,32 @@ class FallingSquares {
 
 public:
 
-	vector<int> doit1(vector<pair<int, int>>& positions) {
+	vector<int> doit1(vector<vector<int>>&& positions) {
 
-		vector<int> res;
-		map<pair<int, int>, int> heights;
-		heights[{0, INT_MAX}] = 0;
+        vector<int> ret;
+        map<int, int> r2h; // right to height, this heigh until this right
+        r2h[INT_MAX] = 0;
+        int maxh = 0;
 
-
-
-		for (auto& c : positions) {
-
-			int left = c.first, right = c.first + c.second;
-			int high = c.second;
-			int max_height = 0;
-
-			auto it = heights.upper_bound(make_pair(left, left));
-
-			if (it != heights.begin() && (--it)->first.second <= left)
-				it++;
-
-			while (it != heights.end() && it->first.first > right) {
-
-				
-
-				max_height = std::max(max_height, it->second);
-
-				it = heights.erase(it);
-			}
-
-			heights[pair<int, int>(left, right)] = max_height;
-
-			max_height += max_height;
-
-			if (res.size() > 0)
-				max_height = std::max(max_height, res[res.size() - 1]);
-			
-			res.push_back(max_height);
-		}
-
-		return res;
-	}
-
-
-	vector<int> doit(vector<pair<int, int>>& positions) {
-
-		map<int, int> heights;
-		heights[0] = 0;
-		vector<int> res;
-
-		for (auto& c : positions) {
-
-			int left = c.first, right = c.first + c.second;
-
-			auto l = heights.lower_bound(left);
-			auto r = heights.upper_bound(right);
-			int height = 0, lastheight = 0;
-
-			while (l != r) {
-				height = std::max(height, l->second);
-				lastheight = l->second;
-				l = heights.erase(l);
-			}
-
-			heights[left] = height + c.second;
-			heights[right] = lastheight;
-
-			res.push_back(height);
-		}
-		
-		return res;
+        for(auto &position: positions){
+            int l=position[0], d=position[1];
+            int r = l + d;
+            auto iter = r2h.upper_bound(l);  // O(logn) operation for set
+            int wh = iter->second;
+            if(!r2h.count(l)) 
+				r2h[l] = wh;
+            
+			while(iter->first < r){
+                // Erase the interval that will be overlapped. Each interval will be erased at most once.
+                iter = r2h.erase(iter);
+                wh = max(wh, iter->second);
+            }
+            // update the height of current interval
+            r2h[r] = wh + d;
+            maxh = max(maxh, wh+d);
+            ret.push_back(maxh);
+        }
+        return ret;
 	}
 };
 
@@ -163,11 +120,5 @@ public:
 
 void Test_699_FallingSquare() {
 
-
-	vector<pair<int, int>> input{ { 1, 2 }, { 2, 3 },{ 6, 1 } };
-	
-	auto res = FallingSquares().doit(input);
-
-
-	return;
+	auto res = FallingSquares().doit(vector<pair<int, int>>{ { 1, 2 }, { 2, 3 },{ 6, 1 } });
 }

@@ -36,7 +36,7 @@ class RemoveBoxes:
         One natural approach is to consider dp(i, j) = the answer for A[i: j+1]. But this isn’t flexible enough for divide and conquer style strategies.
         For example, with [1,2,2,2,1], we don’t have enough information when investigating things like [1,2,2,2] and [1] separately.
         
-        Let dp(i, j, k) = the maximum value of removing boxes if we have k extra boxes of color A[i] to the left of A[i: j+1].
+        Let dp(i, j, k) = the maximum value of removing boxes if we have "k extra boxes" of color A[i] to the left of A[i: j+1].
         (We would have at most k < len(A) extra boxes.) 
         Let m <= j be the largest value so that A[i], A[i+1], … A[m] are all the same color. 
         Because *** a^2 + b^2 < (a+b)^2 ***, any block of contiguous boxes of the same color must be removed at the same time, 
@@ -105,7 +105,7 @@ class RemoveBoxes:
                 return ans + 2*k + 3
             return dp2(i, j) + 1 if i < j else 1
 
-        enum = collections.defaultdict(list)
+        enum = defaultdict(list)
         for i, box in enumerate(boxes):
             enum[box] += i,
         n = len(boxes)

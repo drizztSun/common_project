@@ -1,9 +1,3 @@
-
-
-
-
-
-
 /*
 # 546. Remove Boxes
 
@@ -31,87 +25,120 @@
 
 #include <algorithm>
 #include <vector>
+#include <unordered_map>
+
 using namespace std;
+using std::vector;
+using std::unordered_map;
 
-//
-//const int maxn = 105;
-//int memo_[maxn][maxn][maxn];
-//int c_[maxn];
-//int len_[maxn];
-//
-//class RemoveBoxes {
-//
-//
-//	/*
-//	We use danymic programming to solve this problem.
-//	step 1
-//	First, we merge the blocks with same color to one segment.
-//	for example, if we have 1 2 3 3 2 2 2 1, then we got 1 2 3 2 1. and at the same time 
-//	,we use c[i] and len[i] to maintain the color and number of blocks of the i_th segment.
-//	In the previous example, c[] is: 1 2 3 2 1, len[] is 1 1 2 3 1
-//	
-//	step 2
-//	danymic programming, and this step is based on step1.
-//	we use d[i, j, k] to show that: in [i, j], we got k blocks with same color of segment j after j.
-//	and we have 2 ways to do next:
-//
-//	merge segment j and the k blocks after j because the have the same color:
-//	d[i, j, k] = d[i, j - 1, 0] + (len[j] + k) * (len[j] + k)
-//	we accumulate segment j and the k blocks to segment pos(pos is before j) if segment j and segment pos has the same color:
-//
-//	if (c[pos] == c[j]): d[i, j, k] = d[i, pos,len[j] + k] + d[pos + 1, j - 1, 0] (i <= pos < j)
-//	
-//	time complexity: O(n^4)
-//	
-//	*/
-//	int dfs(int i, int j, int k) {
-//
-//		if (i > j)
-//			return 0;
-//
-//		if (memo_[i][j][k] > 0)
-//			return memo_[i][j][k];
-//
-//		memo_[i][j][k] = dfs(i, j - 1, 0) + (len_[j] + k) * (len_[j] + k);
-//
-//		for (int pos = i; pos < j; pos++) {
-//			if (c_[pos] == c_[j]) {
-//				memo_[i][j][k] = std::max(memo_[i][j][k], dfs(i, pos, len_[j] + k) + dfs(pos + 1, j - 1, 0));
-//			}
-//		}
-//
-//		return memo_[i][j][k];
-//	}
-//
-//public:
-//
-//	RemoveBoxes() {
-//
-//	}
-//
-//	int doit(vector<int>& boxes) {
-//
-//		int n = 0;
-//		memset(c_, 0, sizeof(c_));
-//		memset(len_, 0, sizeof(len_));
-//		memset(memo_, -1, sizeof(memo_));
-//
-//
-//		for (int i = 0; i < boxes.size(); i++)
-//			if (i == 0 || boxes[i] != boxes[i - 1]) {
-//				c_[++n] = boxes[i];
-//				len_[n] = 1;
-//			}
-//			else {
-//				len_[n]++;
-//			}
-//
-//		return dfs(1, n, 0);
-//	}
-//
-//};
+class RemoveBoxes {
 
+public:
+    
+    int removeBoxes(vector<int>& boxes) {
+        
+        vector<int> len_(boxes.size());
+        unordered_map<int, int> m_;
 
+        for (int i = 1; i < boxes.size(); ++i)
+            if (boxes[i] == boxes[i - 1])  len_[i] = len_[i - 1] + 1;
+        
+        std::function<int(int, int, int)> dfs = [&](int l, int r, int k) {
+          if (l > r)
+              return 0;
+          
+          k += len_[r];
+          r -= len_[r];
+
+          int key = (l * 100 + r) * 100 + k;
+          auto it = m_.find(key);
+          
+          if (it != m_.end())
+              return it->second;
+          
+          int& ans = m_[key];
+          ans = dfs(l, r - 1, 0) + (k + 1) * (k + 1);
+          
+            for (int i = l; i < r; ++i) {
+                if (boxes[i] == boxes[r])
+                    ans = max(ans, dfs(l, i, k + 1) + dfs(i + 1, r - 1, 0));
+            }
+
+          return ans;
+        };
+
+        return dfs(0, boxes.size() - 1, 0);
+     }
+    
+    
+    // O(n^4)
+    int doit_dp(vector<int>& boxes) {
+        
+        const int n = boxes.size();
+        
+        vector<vector<vector<int>>> dp(n, vector<vector<int>>(n, vector<int>(n)));
+        
+        std::function<int(int, int, int)> dfs = [&](int i, int j, int k) {
+        
+            if (i > j)
+                return 0;
+            
+            if (dp[i][j][k] > 0)
+                return dp[i][j][k];
+
+            int m = j;
+            while (m - 1 >= i and boxes[m-1] == boxes[j])
+                m--;
+            
+            k += j - m;
+            j = m;
+            
+            int ans = dfs(i, j-1, 0) + (k+1) * (k+1);
+            
+            for (int m = i; m < j; m++) {
+                if (boxes[m] == boxes[j]) {
+                    ans = std::max(ans, dfs(i, m, k+1) + dfs(m+1, j-1, 0));
+                }
+            }
+            
+            dp[i][j][k] = ans;
+            return dp[i][j][k];
+        };
+        
+        return dfs(0, n-1, 0);
+    }
+    
+    
+    int doit_dp_1(vector<int>& boxes) {
+        
+        const int n = boxes.size();
+        vector<vector<vector<int>>> dp(n, vector<vector<int>>(n, vector<int>(n)));
+        
+        std::function<int(int, int, int)> dfs = [&](int i, int j, int k) {
+        
+            if (i > j)
+                return 0;
+            
+            if (dp[i][j][k] > 0)
+                return dp[i][j][k];
+            
+            // AxxxxxAxxxxA|AAAAAAA|
+            // i.....m....j|   k   |
+            int ans = dfs(i, j-1, 0) + (k+1) * (k+1);
+            
+            for (int m = i; m < j; m++) {
+                if (boxes[m] == boxes[j]) {
+                    ans = std::max(ans, dfs(i, m, k+1) + dfs(m+1, j-1, 0));
+                }
+            }
+            
+            dp[i][j][k] = ans;
+            return dp[i][j][k];
+        };
+        
+        return dfs(0, n-1, 0);
+    }
+};
 
 
 	/*
@@ -165,7 +192,7 @@ The “i, k = m, k + m - i” part skips order (m-i)*(j-i) calls to dp, and is neces
 """
 
 */
-class RemoveBoxes {
+class RemoveBoxesII {
 
 	typedef vector<vector<vector<int>>> Map3D;
 
@@ -256,6 +283,7 @@ public:
 
 		if (i > j) 
 			return 0;
+        
 
 		if (p[i][j][k] != 0)
 			return p[i][j][k];
@@ -282,11 +310,11 @@ void Test_546_RemoveBoxes() {
 
 	RemoveBoxes A;
 	vector<int> input{ 1, 3, 2, 2, 2, 3, 4, 3, 1 }; // 23
-	auto res = A.doit( input );
+	auto res = A.doit_dp( input );
 
 	RemoveBoxes B;
 	input = { 3, 8, 8, 5, 3, 9, 2, 4, 4, 6, 5, 8, 4, 8, 6, 9, 6, 2, 8, 6, 4, 1, 9, 5, 3, 10, 5, 3, 3, 9, 8, 8, 6, 5, 3, 7, 4, 9, 6, 3, 9, 4, 3, 5, 10, 7, 6, 10, 7}; // 133
-	res = B.doit(input);
+	res = B.doit_dp(input);
 
 	return;
 }
