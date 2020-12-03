@@ -1,3 +1,4 @@
+"""
 # 699. Falling Squares
 
 # On an infinite number line (x-axis), we drop given squares in the order they are given.
@@ -63,10 +64,96 @@
 # 1 <= positions[i][0] <= 10^8.
 # 1 <= positions[i][1] <= 10^6.
 
-
+"""
 import bisect
 
+
 class FallingSquares:
+
+
+    """
+        Approach 3: Block (Square Root) Decomposition
+    Intuition
+
+    Whenever we perform operations (like update and query) on some interval in a domain, we could segment that domain with size WW into blocks of size \sqrt{W}
+    W
+    ​
+     .
+
+    Then, instead of a typical brute force where we update our array heights representing the board, we will also hold another array blocks, where blocks[i] represents the B = \lfloor \sqrt{W} \rfloorB=⌊
+    W
+    ​
+     ⌋ elements heights[B*i], heights[B*i + 1], ..., heights[B*i + B-1]. This allows us to write to the array in O(B)O(B) operations.
+
+    Algorithm
+
+    Let's get into the details. We actually need another array, blocks_read. When we update some element i in block b = i / B, we'll also update blocks_read[b]. If later we want to read the entire block, we can read from here (and stuff written to the whole block in blocks[b].)
+
+    When we write to a block, we'll write in blocks[b]. Later, when we want to read from an element i in block b = i / B, we'll read from heights[i] and blocks[b].
+
+    Our process for managing query and update will be similar. While left isn't a multiple of B, we'll proceed with a brute-force-like approach, and similarly for right. At the end, [left, right+1) will represent a series of contiguous blocks: the interval will have length which is a multiple of B, and left will also be a multiple of B.
+
+    Complexity Analysis
+
+    Time Complexity: O(N\sqrt{N})O(N
+    N
+    ​
+     ), where NN is the length of positions. Each query and update has complexity O(\sqrt{N})O(
+    N
+    ​
+     ).
+
+    Space Complexity: O(N)O(N), the space used by heights.
+
+    """
+    def doit_1(self, positions):
+        #Coordinate compression
+        #index = ...
+
+        W = len(index)
+        B = int(W**.5)
+        heights = [0] * W
+        blocks = [0] * (B+2)
+        blocks_read = [0] * (B+2)
+
+        def query(left, right):
+            ans = 0
+            while left % B and left <= right:
+                ans = max(ans, heights[left], blocks[left / B])
+                left += 1
+            while right % B != B-1 and left <= right:
+                ans = max(ans, heights[right], blocks[right / B])
+                right -= 1
+            while left <= right:
+                ans = max(ans, blocks[left / B], blocks_read[left / B])
+                left += B
+            return ans
+
+        def update(left, right, h):
+            while left % B and left <= right:
+                heights[left] = max(heights[left], h)
+                blocks_read[left / B] = max(blocks_read[left / B], h)
+                left += 1
+            while right % B != B-1 and left <= right:
+                heights[right] = max(heights[right], h)
+                blocks_read[right / B] = max(blocks_read[right / B], h)
+                right -= 1
+            while left <= right:
+                blocks[left / B] = max(blocks[left / B], h)
+                left += B
+
+        best = 0
+        ans = []
+        for left, size in positions:
+            L = index[left]
+            R = index[left + size - 1]
+            h = query(L, R) + size
+            update(L, R, h)
+            best = max(best, h)
+            ans.append(best)
+
+        return ans
+
 
     def doit1(self, positions):
         """

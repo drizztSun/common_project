@@ -13,6 +13,8 @@ func main() {
 
 	// leetcodem.Test_146_LRUCache()
 
+	leetcodeH.Test_699_FallSquare()
+
 	leetcodem.Test_673_NumberOfLongestIncreasingSequence()
 
 	leetcodeH.Test_1067_digital_count_in_range()
