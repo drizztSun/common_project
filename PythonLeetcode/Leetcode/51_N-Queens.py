@@ -1,7 +1,4 @@
-import os
-import math
-import cmath
-
+"""
 
 # 51. N-Queens
 # The n-queens puzzle is the problem of placing n queens on an n�n chessboard such that no two queens attack each other.
@@ -24,24 +21,47 @@ import cmath
 # ]
 
 
-class solveNQueens:
+"""
 
 
-    def doit(self, n):
+class SolveNQueens:
+
+    def doit_dfs(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+
+        def dfs(queens, xy_dif, xy_sum):
+            p = len(queens)
+            if p == n:
+                result.append(queens)
+                return
+
+            for q in range(n):
+                if q not in queens and p - q not in xy_dif and p + q not in xy_sum:
+                    dfs(queens + [q], xy_dif + [p - q], xy_sum + [p + q])
+
+        result = []
+        dfs([], [], [])
+
+        return [["." * i + "Q" + "." * (n - i - 1) for i in sol] for sol in result]
+
+    def doit_backtracking(self, n):
         """
         :type n: int
         :rtype: List[List[str]]
         """
         def checkPos(position, k):
-            i, pos, res = 0, position[k], 1
-            while i <= k - 1:
+            i, pos = 0, position[k]
+            while i < k:
                 if abs(position[i] - pos) == abs(i - k) or position[i] == pos:
-                    res = 0
+                    return -1
                 i += 1
 
-            return 2 if k == len(position)-1 else 1
-        
-        # 
+            return 2 if k == len(position) - 1 else 1
+
+        #
         position, result = [-1 for x in range(n)], []
         k = 0
 
@@ -55,18 +75,9 @@ class solveNQueens:
                 if res == 1:
                     k += 1
                     continue
-
                 elif res == 2:
-                    temp, j = [], 0
-                    while j < n:
-                        queen = ['.']*n
-                        queen[position[j]] = 'Q'
-                        temp.append(''.join(map(str, queen[:])))
-                        j += 1
-                    result.append(temp)
+                    result.append(['.' * position[i] + 'Q' + '.' * (n - position[i] - 1) for i in range(n)])
                     break
-                else:
-                    continue
 
             position[k] = -1
             k -= 1
@@ -149,72 +160,7 @@ class solveNQueens:
 
         return results 
 
-    def doit4(self, n):
-        """
-        :type n: int
-        :rtype: List[List[str]]
-        """
-        def DFS(queens, xy_dif, xy_sum):
-            p = len(queens)
-            if p==n:
-                result.append(queens)
-                return None
-
-            for q in range(n):
-                if q not in queens and p-q not in xy_dif and p+q not in xy_sum: 
-                    DFS(queens+[q], xy_dif+[p-q], xy_sum+[p+q])  
- 
-        result = []
-
-        DFS([],[],[])
-
-        return [ ["."*i + "Q" + "."*(n-i-1) for i in sol] for sol in result]
-
-         
-# 52. N-Queens II
-# Follow up for N-Queens problem.
-# Now, instead outputting board configurations, return the total number of distinct solutions.        
-class totalNQueens:
-    def doit(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        def isValid(D, n):
-            j = 0
-            while j < n:
-                if D[j] == D[n] or abs(D[j]- D[n]) == abs(j - n):
-                    return False
-                j += 1
-
-            return True
-
-        D = [-1] * n
-        i, D[0] = 0, -1
-        rtv = 0
-
-        while i >= 0:
-
-            while i < n and D[i] < n-1:
-                D[i] += 1
-
-                if isValid(D, i):
-                    i += 1
-                    continue
-
-            if i >= n:
-                rtv += 1
-            elif D[i] == n-1:
-                D[i] = -1
-
-            i -= 1
-
-        return rtv
 
 if __name__=="__main__":
-    
 
-    res = solveNQueens().doit(4)
-
-
-    pass
+    res = SolveNQueens().doit_backtracking(4)

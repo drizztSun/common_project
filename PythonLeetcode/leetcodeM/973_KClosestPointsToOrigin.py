@@ -69,7 +69,8 @@ class KClosestPointsToOrigin:
         def sort(i, j, K):
             # Partially sorts A[i:j+1] so the first K elements are
             # the smallest K elements.
-            if i >= j: return
+            if i >= j:
+                return
 
             # Put random element as A[i] - this is the pivot
             k = random.randint(i, j)

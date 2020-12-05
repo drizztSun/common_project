@@ -50,7 +50,9 @@ class CheckSubarraySumOfMultipleK:
         #   deal with them together:
         if any([x == y == 0 for x, y in zip(nums, nums[1:])]):
             return True
-        if k == 0: return False
+
+        if k == 0:
+            return False
 
         # Corner case 3  --> k can be negative
         k = abs(k)

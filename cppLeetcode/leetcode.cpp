@@ -364,8 +364,12 @@ void test_1401_circle_rectangle_overlapping();
 
 void test_1671_make_mountain_array();
 
+void test_1675_minimum_deviation();
+
 void leetcode()
 {
+    
+    test_1675_minimum_deviation();
     
     // test_1671_make_mountain_array();
     

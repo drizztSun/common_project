@@ -1,10 +1,8 @@
+"""
+ 632. Smallest Range
 
 
-
-# 632. Smallest Range
-
-
-# You have k lists of sorted integers in ascending order. 
+# You have k lists of sorted integers in ascending order.
 # Find the smallest range that includes at least one number from each of the k lists.
 
 # We define the range [a,b] is smaller than range [c,d] if b-a < d-c or a < c if b-a == d-c.
@@ -12,7 +10,7 @@
 # Example 1:
 # Input:[[4,10,15,24,26], [0,9,12,20], [5,18,22,30]]
 # Output: [20,24]
-# Explanation: 
+# Explanation:
 
 # List 1: [4, 10, 15, 24,26], 24 is in range [20,24].
 # List 2: [0, 9, 12, 20], 20 is in range [20,24].
@@ -24,6 +22,8 @@
 # -105 <= value of elements <= 105.
 # For Java users, please note that the input type has been changed to List<List<Integer>>.
 # And after you reset the code template, you'll see this point.
+
+"""
 
 
 class SmallestRange:
@@ -87,13 +87,9 @@ class SmallestRange:
             right = max(right, nums[i][j+1])
             heapq.heappush(buff, (nums[i][j+1], i, j+1))
             
-            
         return ans
 
 
 if __name__ == "__main__":
 
     res = SmallestRange().doit([[4,10,15,24,26], [0,9,12,20], [5,18,22,30]])
-
-    pass
-

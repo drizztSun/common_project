@@ -120,5 +120,5 @@ public:
 
 void Test_699_FallingSquare() {
 
-	auto res = FallingSquares().doit(vector<pair<int, int>>{ { 1, 2 }, { 2, 3 },{ 6, 1 } });
+	auto res = FallingSquares().doit1(vector<vector<int>>{ { 1, 2 }, { 2, 3 },{ 6, 1 } });
 }
