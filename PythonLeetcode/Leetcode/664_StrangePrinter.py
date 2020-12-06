@@ -123,7 +123,6 @@ class StrangePrinter:
         return search(0, len(s) - 1, {})
 
     def doit_dp(self, s):
-
         n = len(s)
         dp = [[0 for _ in range(n)] for _ in range(n)]
 

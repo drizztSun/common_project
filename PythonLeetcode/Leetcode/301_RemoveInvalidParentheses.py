@@ -117,7 +117,6 @@ class RemoveInvalidParentheses:
         :type s: str
         :rtype: List[str]
         """
-
         def removeParentheses(s, start, end, result, par):
             i, stack = start, 0
             while i < len(s):
@@ -149,6 +148,11 @@ class RemoveInvalidParentheses:
             result.append("")
         return result
 
+
 if __name__ == "__main__":
 
-    pass
+    RemoveInvalidParentheses().doit_dfs("()())()")
+
+    RemoveInvalidParentheses().doit_dfs("(a)())()")
+
+    RemoveInvalidParentheses().doit_dfs(")(")

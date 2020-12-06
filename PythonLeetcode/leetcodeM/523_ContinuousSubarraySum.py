@@ -39,8 +39,8 @@ class CheckSubarraySumOfMultipleK:
             if runningtotals in buff:
                 if i - buff[runningtotals] > 1:
                     return True
-            else:
-                buff[runningtotals] = i
+
+            buff[runningtotals] = i
 
         return False
 

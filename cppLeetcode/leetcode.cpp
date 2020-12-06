@@ -366,10 +366,14 @@ void test_1671_make_mountain_array();
 
 void test_1675_minimum_deviation();
 
+void test_1591_strange_printer();
+
 void leetcode()
 {
     
-    test_1675_minimum_deviation();
+    test_1591_strange_printer();
+    
+    // test_1675_minimum_deviation();
     
     // test_1671_make_mountain_array();
     

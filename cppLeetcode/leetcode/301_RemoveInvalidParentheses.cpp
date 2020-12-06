@@ -34,6 +34,63 @@ using std::string;
 class MinRemoveToMakeValid {
     
 public:
+    
+    vector<string> doit_backtracking(string str) {
+        
+        int left = 0, right = 0;
+        unordered_set<string> res;
+        
+        for (auto c : str ) {
+            
+            if (c == '(')
+                left++;
+            else if (c == ')') {
+                
+                if (left == 0)
+                    right++;
+                
+                if (left > 0)
+                    left--;
+            }
+        }
+        
+        string path;
+        
+        
+        std::function<void(int, int, int, int, int, string&)> dfs = [&](int index, int left, int right, int left_rem, int right_rem, string& path) {
+          
+            if (index == str.length()) {
+                if (left_rem == 0 && right_rem == 0 && res.count(path) == 0)
+                    res.insert(path);
+                return;
+            }
+            
+            // remove ( or )
+            if (str[index] == '(' && left_rem > 0 || str[index] == ')' && right_rem) {
+                dfs(index + 1, left, right, left_rem - (str[index] == '('), right_rem - (str[index] == ')'), path);
+            }
+            
+            // don't remove
+            path.push_back(str[index]);
+            
+            if (str[index] != '(' && str[index] != ')')
+                dfs(index + 1, left, right, left_rem, right_rem, path);
+            
+            else if (str[index] == '(')
+                dfs(index+1, left+1, right, left_rem, right_rem, path);
+            else if (str[index] == ')' && left > right)
+                dfs(index+1, left, right+1, left_rem, right_rem, path);
+            
+            path.pop_back();
+        };
+        
+        
+        dfs(0, 0, 0, left, right, path);
+        return vector<string>(res.begin(), res.end());
+    }
+
+    
+    
 
     bool check(string s)
     {

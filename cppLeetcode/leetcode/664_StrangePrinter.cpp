@@ -1,8 +1,4 @@
-
-
 /*
-
-
 # 664. Strange Printer
 
 
@@ -81,7 +77,7 @@ class StrangePrinter {
 
 public:
 
-	int doit(string s) {
+	int doit_dp_dfs(string s) {
 
 		int l = s.length();
 		vector<vector<int>> memo(l, vector<int>(l, 0));
@@ -89,16 +85,43 @@ public:
 
 		return helper(s, 0, s.size()-1, memo);
 	}
+    
+    int doit_dp(string s) {
+        
+        if (s.length() == 0)
+            return 0;
+        
+        int n = s.length();
+        vector<vector<int>> dp(n, vector<int>(n, n));
+        
+        for (int j = 0; j < n; j++) {
+            
+            for (int i = j; i > -1; i--) {
+                
+                if (i == j) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = 1 + dp[i+1][j];
+                    for (int k = i+1; k <= j; k++) {
+                        
+                        if (s[i] == s[k])
+                            dp[i][j] = std::min(dp[i][j], dp[i][k-1] + ((k+1 > j) ? 0 : dp[k+1][j]));
+                    }
+                }
+            }
+        }
+        
+        return dp[0][n-1];
+        
+    }
+    
 
 };
 
 
 void Test_664_StangePrinter() {
 
-	int res = StrangePrinter().doit("aaabbb");
+	int res = StrangePrinter().doit_dp("aaabbb");
 
-	int res1 = StrangePrinter().doit("aba");
-
-
-	return;
+	int res1 = StrangePrinter().doit_dp("aba");
 }
