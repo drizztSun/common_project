@@ -33,6 +33,7 @@ Output: [1,2]
 
 """
 from collections import defaultdict, deque
+import collections
 
 
 # Definition for a binary tree node.
@@ -43,7 +44,7 @@ class TreeNode(object):
         self.right = None
 
 
-class Codec:
+class CodecBFS:
 
     def serialize(self, root):
         """Encodes a tree to a single string.
@@ -101,7 +102,7 @@ class Codec:
         return root
 
 
-class Codec1:
+class CodecDFS:
 
     def serialize(self, root):
         def doit(node):
