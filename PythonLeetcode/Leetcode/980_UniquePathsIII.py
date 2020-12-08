@@ -1,4 +1,5 @@
-# 980. Unique Paths III
+"""
+980. Unique Paths III
 
 # On a 2-dimensional grid, there are 4 types of squares:
 
@@ -39,6 +40,9 @@
 # Explanation:
 # There is no path that walks over every empty square exactly once.
 # Note that the starting and ending square can be anywhere in the grid.
+
+
+"""
 
 
 class UniquePathsIII:
@@ -89,7 +93,7 @@ class UniquePathsIII:
         start = (0, 0)
         zeros = 0
         end = (0, 0)
-        self.ans = 0
+        ans = 0
 
         for i in range(len(grid)):
             for j in range(len(grid[0])):
@@ -100,26 +104,24 @@ class UniquePathsIII:
                 elif grid[i][j] == 2:
                     end = (i, j)
 
-        self.seen = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))]
-
+        seen = [[0 for _ in range(len(grid[0]))] for _ in range(len(grid))]
 
         def search(i, j, num):
-
+            nonlocal ans
             if (i, j) == end:
-                self.ans += 1 if num == 0 else 0
+                ans += 1 if num == 0 else 0
                 return
 
             for c in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
                 x, y = i + c[0], j + c[1]
-                base = x * len(grid[0]) + y
-                if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] != -1 and self.seen[x][y] == 0:
-                    self.seen[x][y] = 1
+                if 0 <= x < len(grid) and 0 <= y < len(grid[0]) and grid[x][y] != -1 and seen[x][y] == 0:
+                    seen[x][y] = 1
                     search(x, y, num - 1)
-                    self.seen[x][y] = 0
+                    seen[x][y] = 0
 
-        self.seen[start[0]][start[1]] = 1
+        seen[start[0]][start[1]] = 1
         search(start[0], start[1], zeros + 1)
-        return self.ans
+        return ans
 
 """
 

@@ -38,19 +38,7 @@ using std::unordered_map;
 
 class NumSquarefulPerms {
     
-    int search(unordered_map<int, vector<int>>& graph, unordered_map<int, int>& cnt, int x, int steps) {
-            
-        cnt[x]--;
-        int ans = 1;
-        if (steps != 0) {
-            ans = 0;
-            for (auto y : graph[x])
-                if (cnt[y])
-                    ans += search(graph, cnt, y, steps - 1);
-        }
-        cnt[x]++;
-        return ans;
-    }
+
     
 public:
     int doit(vector<int>&& A) {
@@ -67,9 +55,24 @@ public:
                     graph[x1].push_back(y1);
             }
         
+        
+        std::function<int(int, int)> search= [&](int x, int steps) {
+                
+            cnt[x]--;
+            int ans = 1;
+            if (steps != 0) {
+                ans = 0;
+                for (auto y : graph[x])
+                    if (cnt[y])
+                        ans += search(y, steps - 1);
+            }
+            cnt[x]++;
+            return ans;
+        };
+        
         int ans = 0;
         for (auto c : cnt) {
-            ans += search(graph, cnt, c.first, A.size() - 1);
+            ans += search(c.first, A.size() - 1);
         }
         
         return ans;

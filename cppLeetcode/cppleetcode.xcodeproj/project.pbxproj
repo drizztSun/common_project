@@ -233,6 +233,9 @@
 		1272F2422558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */; };
 		12745BE52536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */; };
 		12745BE82536177000545BC1 /* 1246_PalindromeRemoval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */; };
+		128C52AB257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 128C52AA257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp */; };
+		128C52AE257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */; };
+		128C52B1257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 128C52B0257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp */; };
 		129187C2253B299C00E71CCE /* 691_StickersToSpellWord.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129187C1253B299C00E71CCE /* 691_StickersToSpellWord.cpp */; };
 		129187C5253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129187C4253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp */; };
 		129200E5255D84F100154EEC /* 1091_ShortestPathInBinaryMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129200E4255D84F100154EEC /* 1091_ShortestPathInBinaryMatrix.cpp */; };
@@ -508,6 +511,9 @@
 		12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1548_TheMostSimilarPathInGraph.cpp; sourceTree = "<group>"; };
 		12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1246_PalindromeRemoval.cpp; sourceTree = "<group>"; };
 		12759CF92545E26B0019A6C1 /* alg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = alg; sourceTree = "<group>"; };
+		128C52AA257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp; sourceTree = "<group>"; };
+		128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1681_MinimumIncompatibility.cpp; sourceTree = "<group>"; };
+		128C52B0257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp; sourceTree = "<group>"; };
 		129187C1253B299C00E71CCE /* 691_StickersToSpellWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 691_StickersToSpellWord.cpp; sourceTree = "<group>"; };
 		129187C4253B6C7800E71CCE /* 730_CountDifferentPalindromicSubsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 730_CountDifferentPalindromicSubsequences.cpp; sourceTree = "<group>"; };
 		129200E4255D84F100154EEC /* 1091_ShortestPathInBinaryMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1091_ShortestPathInBinaryMatrix.cpp; sourceTree = "<group>"; };
@@ -723,6 +729,8 @@
 				123330802578393E00828E22 /* 1473_PaintHouseIII.cpp */,
 				126039D2257AFEB5001F8CD2 /* 1675_MinimizeDeviationInArray.cpp */,
 				126B98E2257C251700A6C237 /* 1591_StrangePrinterII.cpp */,
+				128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */,
+				128C52B0257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -813,6 +821,7 @@
 				12FCD1A32577373700E4B6BB /* 488_ZumaGame.cpp */,
 				1233307D2578148500828E22 /* 1162_AsFarFromLandAsPossible.cpp */,
 				126B98DF257BF7C000A6C237 /* 332_ReconstructItinerary.cpp */,
+				128C52AA257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -995,6 +1004,7 @@
 				12520F7A256EA29900D33FD6 /* 1262_GreatestSumDivisibleByThree.cpp in Sources */,
 				08F33EF82411DAC600E25377 /* 1014_BestSightseeingPair.cpp in Sources */,
 				087F2E2C2424D28D0006B29B /* 200_NumberOfIslands.cpp in Sources */,
+				128C52AB257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp in Sources */,
 				12C900872530E4D50060B36D /* 132_PalindromePartitioningII.cpp in Sources */,
 				086A8AF324071C4A00CFAEED /* 507_Perfect_Number.cpp in Sources */,
 				086A8AD424071C4A00CFAEED /* 10_RegularExpressionMatching.cpp in Sources */,
@@ -1022,11 +1032,13 @@
 				0877E46A2450989800BF2381 /* 936_StampingTheSequence.cpp in Sources */,
 				126BBCB92547BE3C00D0B4B4 /* 127_WordLadder.cpp in Sources */,
 				1217F3C92569632D0050A4D5 /* 1125_SmallestSufficientTeam.cpp in Sources */,
+				128C52B1257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp in Sources */,
 				086A8AD024071C4A00CFAEED /* 803_BricksFallingWhenHit.cpp in Sources */,
 				0840A3652424205000BB7143 /* 969_PancakeSorting.cpp in Sources */,
 				0898D9ED2523DBCD0071C616 /* 451_SortCharactersByFrequency.cpp in Sources */,
 				086A8AD224071C4A00CFAEED /* 629_KthInversePairsArray.cpp in Sources */,
 				1233307E2578148500828E22 /* 1162_AsFarFromLandAsPossible.cpp in Sources */,
+				128C52AE257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp in Sources */,
 				08F0D243241E8F3A00EBB167 /* 101_SymmetricTree.cpp in Sources */,
 				086A8ACF24071C4A00CFAEED /* 768_MaxChunksToMakeSortedII.cpp in Sources */,
 				129EE6B02549BF73005E53F2 /* 305_numberOfIslandsII.cpp in Sources */,

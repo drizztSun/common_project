@@ -70,9 +70,10 @@ class VideoStitching:
 
         return -1 if dp[-1] == float('inf') else dp[-1]
 
-    def doit_sort(self, clips, T):
+    def doit_greedy_sort_best(self, clips, T):
         #
         end, end2, res = -1, 0, 0
+
         for i, j in sorted(clips):
             if end2 >= T or i > end2:
                 break
@@ -81,7 +82,8 @@ class VideoStitching:
             end2 = max(end2, j)
         return res if end2 >= T else -1
 
-    def doit(self, clips, T):
+    # O(n*log(n))
+    def doit_greedy(self, clips, T):
 
         # Greedy
         # 类似的题目都是左端点排序，右端点比大小
@@ -97,7 +99,7 @@ class VideoStitching:
 
         return ans if aim_end >= T else -1
 
-    def doit(self, clips, T):
+    def doit_sort(self, clips, T):
 
         clips.sort(key=lambda x: (x[0], -x[1]))
 
@@ -148,9 +150,7 @@ class VideoStitching:
             for Limit in range(c[0], newLimit+1):
                 DP[newLimit] = min(DP[newLimit], DP[Limit] + 1)
 
-        if DP[-1] == float('inf'):
-            return -1
-        return DP[-1]
+        return -1 if DP[-1] == float('inf') else DP[-1]
 
 
 if __name__ == '__main__':

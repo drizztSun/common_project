@@ -15,7 +15,7 @@
 
 class JumpII:
 
-    def doit(self, nums: list[int]) -> bool:
+    def doit_greedy(self, nums: list[int]) -> bool:
         """
         :type nums: List[int]
         :rtype: bool

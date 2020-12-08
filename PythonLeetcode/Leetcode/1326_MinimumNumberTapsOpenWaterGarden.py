@@ -43,7 +43,72 @@ Output: 1
 """
 
 
-class MinTaps:
+class MinimumNumberTips:
+
+    def doit_dp_best(self, n, ranges):
+
+        jumps = [0]*(n+1)
+        for i, v in enumerate(ranges):
+            j = max(0, i-v)
+            jumps[j] = max(jumps[j], i + v)
+
+        c = l = r = 0
+        while r < n:
+            l, r = r+1, max(jumps[l:r+1])  # move right as far as possbile
+            if l > r:
+                return -1
+            c += 1
+        return c
+
+    def doit_dp(self, n, ranges):
+
+        dp = [0] * (n+1)
+
+        for i in range(len(ranges)):
+            if ranges[i] == 0:
+                continue
+            l, r = max(0, i - ranges[i]), min(n, i + ranges[i])
+            dp[l] = max(dp[l], r)
+
+        ans, i, l, e = 0, 0, 0, 0
+
+        while l < n:
+
+            while i <= l:
+                e = max(e, dp[i])
+                i += 1
+
+            if l == e:
+                return -1
+
+            l = e
+            ans += 1
+
+        return ans
+
+    """
+
+
+    """
+    def doit_greedy(self, n, ranges):
+
+        buff = sorted([(max(i - ranges[i], 0), min(i + ranges[i], n)) for i in range(n+1)])
+
+        ans, l, i, e = 0, 0, 0, 0
+
+        while e < n:
+
+            while i <= n and buff[i][0] <= l:
+                e = max(e, buff[i][1])
+                i += 1
+
+            if e == l:
+                return -1
+
+            ans += 1
+            l = e
+
+        return ans
 
     """
     First let me explain why dp is very suitable for this problem. The idea is this, if we know the min number of taps to water from 0 to i, we can use this to extrapolate the min number of taps to water from 1 to i+j.
@@ -59,8 +124,7 @@ class MinTaps:
     The first one being to water up to a 0 length and building up incrementally to n.
 
     """
-
-    def doit_dp(self, n, ranges):
+    def doit_dp_1(self, n, ranges):
 
         dp = [0] + [n+2] * n
 
@@ -115,14 +179,15 @@ class MinTaps:
                     res += 1
         return res
 
+
 if __name__ == '__main__':
 
-    MinTaps().doit_dp(n = 5, ranges = [3,4,1,1,0,0])
+    MinimumNumberTips().doit_dp(n = 5, ranges = [3,4,1,1,0,0])
 
-    MinTaps().doit_dp(n = 3, ranges = [0,0,0,0])
+    MinimumNumberTips().doit_dp(n = 3, ranges = [0,0,0,0])
 
-    MinTaps().doit_dp(n = 7, ranges = [1,2,1,0,2,1,0,1])
+    MinimumNumberTips().doit_dp(n = 7, ranges = [1,2,1,0,2,1,0,1])
 
-    MinTaps().doit_dp(n = 8, ranges = [4,0,0,0,0,0,0,0,4])
+    MinimumNumberTips().doit_dp(n = 8, ranges = [4,0,0,0,0,0,0,0,4])
 
-    MinTaps().doit_dp(n = 8, ranges = [4,0,0,0,4,0,0,0,4])
+    MinimumNumberTips().doit_dp(n = 8, ranges = [4,0,0,0,4,0,0,0,4])

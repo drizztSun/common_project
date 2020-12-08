@@ -1,4 +1,5 @@
-# 996. Number of Squareful Arrays
+"""
+996. Number of Squareful Arrays
 
 # Given an array A of non-negative integers, the array is squareful if for every pair of adjacent elements, their sum is a perfect square.
 
@@ -17,6 +18,7 @@
 
 # Input: [2,2,2]
 # Output: 1
+"""
 
 
 class NumSquarefulPerms:
@@ -41,8 +43,7 @@ class NumSquarefulPerms:
 
     Space Complexity: O(N).
     """
-
-    def doit(self, A):
+    def doit_backtracking(self, A):
 
         from collections import Counter
 
@@ -93,12 +94,15 @@ class NumSquarefulPerms:
     Space Complexity: O(N 2^N).
     """
 
-    def doit1(self, A):
+    def doit_dp_(self, A):
+        from collections import Counter
+        from math import factorial, sqrt
+        from functools import lru_cache
 
         N = len(A)
 
         def edge(x, y):
-            r = math.sqrt(x + y)
+            r = sqrt(x + y)
             return int(r + 0.5) ** 2 == x + y
 
         graph = [[] for _ in range(len(A))]
@@ -122,10 +126,40 @@ class NumSquarefulPerms:
             return ans
 
         ans = sum(dfs(i, 1 << i) for i in range(N))
-        count = collections.Counter(A)
+        count = Counter(A)
         for v in count.values():
-            ans //= math.factorial(v)
+            ans //= factorial(v)
         return ans
+
+    def doit_best(self, A) -> int:
+        from collections import defaultdict
+        d = defaultdict(set)
+        A.sort()
+        n = len(A)
+        cnt = 0
+
+        for i in range(n):
+            if i > 0 and A[i] == A[i - 1]:
+                continue
+            for j in range(i + 1, n):
+                cur = A[i] + A[j]
+                if int(cur ** 0.5) ** 2 == cur:
+                    d[A[i]].add(A[j])
+                    d[A[j]].add(A[i])
+
+        def permutation(A, path):
+            nonlocal cnt
+            if not A:
+                cnt += 1
+
+            for i in range(len(A)):
+                if i > 0 and A[i] == A[i - 1]:
+                    continue
+                if not path or A[i] in d[path[-1]]:
+                    permutation(A[:i] + A[i + 1:], path + [A[i]])
+
+        permutation(A, [])
+        return cnt
 
 
 if __name__ == "__main__":
