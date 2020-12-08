@@ -368,10 +368,14 @@ void test_1675_minimum_deviation();
 
 void test_1591_strange_printer();
 
+void test_1593_SplitStringIntoUniqueSubstrings();
+
 void leetcode()
 {
     
-    test_1591_strange_printer();
+    test_1593_SplitStringIntoUniqueSubstrings();
+    
+    // test_1591_strange_printer();
     
     // test_1675_minimum_deviation();
     

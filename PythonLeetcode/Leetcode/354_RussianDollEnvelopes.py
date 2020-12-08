@@ -16,6 +16,23 @@ import bisect
 
 class MaxEnvelopes:
 
+    def doit_bineary_search_LIS(self, envelopes):
+        """
+        :type envelopes: List[List[int]]
+        :rtype: int
+        """
+        def longestIncreasingSequence(A):
+            B = []
+            for n in A:
+                i = bisect.bisect_left(B, n)
+                if i == len(B):
+                    B.append(n)
+                else:
+                    B[i] = n
+            return len(B)
+
+        return longestIncreasingSequence([t[1] for t in sorted(envelopes, key=lambda t: (t[0], -t[1]))])
+
     """
     # The idea is to order the envelopes and then calculate the longest increasing subsequence (LISS).
     # We first sort the envelopes by width, and we also make sure that when the width is the same,
@@ -88,36 +105,6 @@ class MaxEnvelopes:
 
         return maxV
 
-    # <DFS> <DP> <TLE>
-    def doit1(self, envelopes):
-        """
-        :type envelopes: List[List[int]]
-        :rtype: int
-        """
-        NewOrderedArray = sorted(envelopes, key = lambda x: (x[1], x[0]), reverse = 1)
-        NewOrderedArray = [[float('inf'), float('inf')]] + NewOrderedArray
-        D = {}        
-
-        def search(A, i):
-
-            if (tuple(A[i]), i) in D:
-                return D[(tuple(A[i]), i)]
-
-            if i == len(NewOrderedArray):
-                return 0
-            
-            res = 0
-            for s in range(i+1, len(A)):
-               if A[s][0] < A[i][0] and A[s][1] < A[i][1]:
-                   res = max(res, search(A, s) + 1)
-
-            D[(tuple(A[i]), i)] = res
-
-            return res
-
-        return search(NewOrderedArray, 0)
-
-
     #
     def doit2(self, envs):
         """
@@ -151,28 +138,8 @@ class MaxEnvelopes:
         envs.sort(cmp=f)
         return liss(envs)
 
-# Best        
-class Solution:
-    def longestIncreasingSequence(self, A):
-        B = []
-        for n in A:
-            i = bisect.bisect_left(B, n)
-            if i == len(B):
-                B.append(n)
-            else:
-                B[i] = n
-        return len(B)
-        
-    def maxEnvelopes(self, envelopes):
-        """
-        :type envelopes: List[List[int]]
-        :rtype: int
-        """
-        return self.longestIncreasingSequence([t[1] for t in sorted(envelopes, key=lambda t: (t[0], -t[1]))])
 
-
-if __name__=="__main__":
-
+if __name__ == "__main__":
 
     res = MaxEnvelopes().doit([[5,4],[6,4],[6,7],[2,3]])
 

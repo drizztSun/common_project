@@ -1,7 +1,5 @@
-
-
-
-# 381. Insert Delete GetRandom O(1) - Duplicates allowed
+"""
+381. Insert Delete GetRandom O(1) - Duplicates allowed
 
 # Design a data structure that supports all following operations in average O(1) time.
 
@@ -33,6 +31,7 @@
 # // getRandom should return 1 and 2 both equally likely.
 # collection.getRandom();
 
+"""
 
 
 class RandomizedCollection(object):
@@ -50,13 +49,10 @@ class RandomizedCollection(object):
         :rtype: bool
         """
         self.data_.append(val)
-
-        res = val in self.pos_
-        if not res:
+        if val not in self.pos_:
             self.pos_[val] = []
 
         self.pos_[val].append(len(self.data_)-1)
-
         return res
 
     def remove(self, val):
@@ -82,7 +78,6 @@ class RandomizedCollection(object):
             self.pos_[self.data_.pop()].remove(len(self.data_))
 
         return True
-        
 
     def getRandom(self):
         """

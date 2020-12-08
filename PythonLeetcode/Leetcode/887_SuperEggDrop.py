@@ -132,30 +132,31 @@ class SuperEggDrop:
         memo = {}
 
         def dp(k, n):
-            if (k, n) not in memo:
-                if n == 0:
-                    ans = 0
-                elif k == 1:
-                    ans = n
-                else:
-                    lo, hi = 1, n
-                    # keep a gap of 2 X values to manually check later
-                    while lo + 1 < hi:
-                        x = (lo + hi) / 2
-                        t1 = dp(k-1, x-1)
-                        t2 = dp(k, n-x)
+            if (k, n) in memo:
+                return memo[(k, n)]
 
-                        if t1 < t2:
-                            lo = x
-                        elif t1 > t2:
-                            hi = x
-                        else:
-                            lo = hi = x
+            if n == 0:
+                ans = 0
+            elif k == 1:
+                ans = n
+            else:
+                lo, hi = 1, n
+                # keep a gap of 2 X values to manually check later
+                while lo + 1 < hi:
+                    x = (lo + hi) / 2
+                    t1 = dp(k-1, x-1)
+                    t2 = dp(k, n-x)
 
-                    ans = 1 + min(max(dp(k-1, x-1), dp(k, n-x))
-                                  for x in (lo, hi))
+                    if t1 < t2:
+                        lo = x
+                    elif t1 > t2:
+                        hi = x
+                    else:
+                        lo = hi = x
 
-                memo[k, n] = ans
+                ans = 1 + min(max(dp(k-1, x-1), dp(k, n-x)) for x in (lo, hi))
+
+            memo[k, n] = ans
             return memo[k, n]
 
         return dp(K, N)
@@ -323,8 +324,7 @@ Actually, (as illustrated by the diagram,) if ever the next X+1X+1 is worse than
     Time Complexity: O(K * \log N).
     Space Complexity: O(1).
     """
-
-    def doit2(self, K, N):
+    def doit_math_binary_search(self, K, N):
         def f(x):
             ans = 0
             r = 1
@@ -353,5 +353,3 @@ if __name__ == '__main__':
     res = SuperEggDrop().doit(K=2, N=6)  # 3
 
     res = SuperEggDrop().doit(K=3, N=14)  # 4
-
-    pass
