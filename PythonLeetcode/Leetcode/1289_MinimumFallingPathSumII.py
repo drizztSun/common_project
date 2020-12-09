@@ -1,7 +1,9 @@
 """
 1289. Minimum Falling Path Sum II
 
-Given a square grid of integers arr, a falling path with non-zero shifts is a choice of exactly one element from each row of arr, such that no two elements chosen in adjacent rows are in the same column.
+Given a square grid of integers arr,
+a falling path with non-zero shifts is a choice of exactly one element from each row of arr,
+such that no two elements chosen in adjacent rows are in the same column.
 
 Return the minimum sum of a falling path with non-zero shifts.
 

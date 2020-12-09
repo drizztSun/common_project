@@ -64,7 +64,7 @@ class MinDifficulty:
         dp = [[float('inf') for _ in range(m)] for _ in range(d)]
 
         for i in range(d):
-            for j in range(i, m):
+            for j in range(i, m): #
                 if i == 0:
                     dp[i][j] = maxv[i][j]
                 else:

@@ -95,8 +95,10 @@ public:
                         lastnode = last;
                     }
                 }
+                
                 if (targetPath[i] != names[node])
                     min_distance++;
+
                 distance_up[node] = min_distance;
                 path[i][node] = lastnode;
             }

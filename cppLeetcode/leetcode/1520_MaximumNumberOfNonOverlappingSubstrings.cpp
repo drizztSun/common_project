@@ -139,7 +139,7 @@ public:
         }
         
         
-        sort(v.begin(), v.end(), [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
+        std::sort(v.begin(), v.end(), [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
             return a.second-a.first < b.second-b.first;
         });
         

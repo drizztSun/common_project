@@ -84,8 +84,8 @@ class kthSmallest(object):
                 if (j:= n_idx[i]) < cols:
                     n_val = val + mat[i][j] - mat[i][j - 1]
                     heapq.heappush(heap, [n_val, n_idx, i])
-
         return res
+
     """
     Since 1 <= mat[i][j] <= 5000, m <= 40, we can do binary search for our target kth smallest sum in range [m, 5000*m]
     For each sum, we use backtracking to count the number of array whose sum is less than or equal to sum, prune when count > k
@@ -134,7 +134,7 @@ class kthSmallest(object):
 
             res = search(mid, 0, 0, k)
 
-            if res >= K:
+            if res >= k:
                 ans = mid
                 right = mid - 1
             else:

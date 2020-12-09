@@ -81,9 +81,11 @@ class IsTransformable:
             idx[int(c)].append(i)
         for c in t:
             d = int(c)
-            if not idx[d]: return False
+            if not idx[d]:
+                return False
             for i in range(d):
-                if idx[i] and idx[i][0] < idx[d][0]: return False
+                if idx[i] and idx[i][0] < idx[d][0]:
+                    return False
             idx[d].popleft()
         return True
 

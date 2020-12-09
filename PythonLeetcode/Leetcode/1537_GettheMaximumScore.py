@@ -86,7 +86,7 @@ class GetTheMaximumScore:
 
         return max(search(0, 0), search(0, 1)) % (10**9 + 7)
 
-        def doit_(self, nums1: list, nums2: list):
+        def doit_dfs_2(self, nums1: list, nums2: list):
 
             def arrSum(array, other):
                 ans = []
@@ -109,8 +109,6 @@ class GetTheMaximumScore:
                 ans += max(l1[idx], l2[idx])
 
             return ans % (10 ** 9 + 7)
-
-
 
 
 if __name__ == '__main__':

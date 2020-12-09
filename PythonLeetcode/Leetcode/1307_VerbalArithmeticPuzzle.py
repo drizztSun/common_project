@@ -74,7 +74,8 @@ class VerbalArithmeticPuzzle:
     Optimizations: (click to show)
     Optimizations:
 
-    Early Stopping is the biggest optimization so let's start there. The goal is to make the sum of the words on the left side of the equation equal the result word on the right side of the equation. In the example ["SEND", "MORE"] = "MONEY", this means that "D" + "E" - "Y" must have a zero in the ones place, because "D", "E", and "Y" are the only letters that affect the ones place.
+    Early Stopping is the biggest optimization so let's start there. The goal is to make the sum of the words on the left side of the equation equal the result word on the right side of the equation. In the example ["SEND", "MORE"] = "MONEY",
+    this means that "D" + "E" - "Y" must have a zero in the ones place, because "D", "E", and "Y" are the only letters that affect the ones place.
 
     Use a checkpoint list to make sure that the (ones / tens / hundreds / ...) digit of total is zero after a number has been assigned to all of the characters that affect the digit.
     Here is what the checkpoint list looks like:
