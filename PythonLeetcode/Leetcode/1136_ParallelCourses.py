@@ -54,8 +54,7 @@ class MinimumSemesters:
             graph[u].append(v)  # Build Graph.
             indegree[v] += 1  # Count Indegree of v for u -> v.
 
-        q = deque([(1, i) for i in range(1, N + 1) if
-                   indegree[i] == 0])  # Put all (level, vertex) in Q, whose indegree is 0. level = 1
+        q = deque([(1, i) for i in range(1, N + 1) if indegree[i] == 0])  # Put all (level, vertex) in Q, whose indegree is 0. level = 1
         visited = set()
         answer = 0
 

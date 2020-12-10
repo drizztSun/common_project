@@ -47,7 +47,6 @@ Constraints:
 
 class MinBuildTime:
 
-
     def doit_binary_search(self, blocks, split):
 
         def binary_search(time):
@@ -63,7 +62,7 @@ class MinBuildTime:
                         return True  # We have more workers than no. of blocks, so exit as possible
                     time -= split
                 worker -= 1
-                return True
+            return True
 
         low, high = 0, 2**31 - 1
         blocks.sort(reverse=True)

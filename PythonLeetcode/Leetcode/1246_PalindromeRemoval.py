@@ -69,7 +69,7 @@ class MinimumMoves:
     def doit_dp(self, arr):
 
         N = len(arr)
-        dp = [[0 for _ in range(N+)] for _ in range(N+1)]
+        dp = [[0 for _ in range(N+1)] for _ in range(N+1)]
 
         for L in range(N+1):
             for i in range(1, N - L):

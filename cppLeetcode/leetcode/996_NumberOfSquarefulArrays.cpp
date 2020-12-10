@@ -1,26 +1,29 @@
 /*
- 
- 
- 996. Number of Squareful Arrays
- 
- Given an array A of non-negative integers, the array is squareful if for every pair of adjacent elements, their sum is a perfect square.
 
- Return the number of permutations of A that are squareful.  Two permutations A1 and A2 differ if and only if there is some index i such that A1[i] != A2[i].
-
-  
-
- Example 1:
-
- Input: [1,17,8]
- Output: 2
- Explanation:
- [1,8,17] and [17,8,1] are the valid permutations.
- Example 2:
-
- Input: [2,2,2]
- Output: 1
+996. Number of Squareful Arrays
  
+Given an array A of non-negative integers, the array is squareful if for every pair of adjacent elements, their sum is a perfect square.
+
+Return the number of permutations of A that are squareful.  Two permutations A1 and A2 differ if and only if there is some index i such that A1[i] != A2[i].
+
  
+
+Example 1:
+
+Input: [1,17,8]
+Output: 2
+Explanation: 
+[1,8,17] and [17,8,1] are the valid permutations.
+Example 2:
+
+Input: [2,2,2]
+Output: 1
+ 
+
+Note:
+
+1 <= A.length <= 12
+0 <= A[i] <= 1e9
  
  */
 
@@ -37,11 +40,65 @@ using std::unordered_map;
 
 
 class NumSquarefulPerms {
-    
 
+
+
+public:
+
+    int doit_dfs_backtracking_2(vector<int>& A) 
+    {
+
+        vector<vector<int>>next;
+        vector<int>visited;
+        int n;
+        int ret = 0;
+
+        n = A.size();
+        next.resize(n);
+        visited.resize(n);
+        std::sort(A.begin(), A.end());
+
+        std::function<void(int, int)> dfs = [&](int cur, int count)
+        {
+            if (count==n)
+            {
+                ret++;
+                return;
+            }
+
+            int last = -1;
+            for (auto i: next[cur])
+            {
+                if (visited[i]==1) continue;
+                if (A[i]==last) continue;
+                visited[i] = 1;
+                last = A[i];
+                dfs(i, count+1);
+                visited[i] = 0;
+            }
+        };
+            
+        for (int i=0; i<n; i++)
+            for (int j=0; j<n; j++)
+            {
+                if (i==j) continue;
+                if (sqrt(A[i]+A[j])==(int)sqrt(A[i]+A[j]))
+                    next[i].push_back(j);
+            }
+
+        for (int i=0; i<n; i++)
+        {
+            if (i>0 && A[i]==A[i-1]) continue;
+            visited[i] = 1;
+            dfs(i, 1);
+            visited[i] = 0;
+        }
+
+        return ret;
+    }
     
 public:
-    int doit(vector<int>&& A) {
+    int doit_dfs_backtracking(vector<int>&& A) {
         
         unordered_map<int, int> cnt;
         for (auto c: A)
@@ -139,6 +196,7 @@ public:
         return res;
     }
 };
+
 void test_996_number_of_squareful_array() {
     
     auto res1 = NumSquarefulPerms().doit(vector<int>{1,17,8});
