@@ -38,7 +38,36 @@ n is odd.
 #         self.right = right
 class BtreeGameWinningMove:
 
-    def doit_(self, root, n: int, x: int) -> bool:
+    """
+    We need to count tree sizes of children of x node.
+    Then the tree size of the rest of the tree could be calculated directly from these findings.
+    x_parent = n - x_left - x_right - 1
+    If any of the tree sizes gets the majority, it's possible for us to win:
+    capacity > n - capacity
 
-        pass
+    """
+    def doit_search(self, root, n: int, x: int) -> bool:
 
+        left_cnt, right_cnt = 0, 0
+
+        def dfs(node):
+            nonlocal left_cnt, right_cnt
+            if not node:
+                return 0
+
+            l, r = dfs(node.left), dfs(node.right)
+
+            if node.val == x:
+                left_cnt, right_cnt = l, r
+
+            return l + r + 1
+
+        total = dfs(root)
+
+        parent = total - left_cnt - right_cnt - 1
+
+        for c in (left_cnt, right_cnt, parent):
+            if c > total - c:
+                return True
+
+        return False

@@ -199,10 +199,9 @@ public:
 
 void test_996_number_of_squareful_array() {
     
-    auto res1 = NumSquarefulPerms().doit(vector<int>{1,17,8});
+    auto res1 = NumSquarefulPerms().doit_dfs_backtracking(vector<int>{1,17,8});
     
-    auto res2 = NumSquarefulPerms().doit(vector<int>{2,2,2});
+    auto res2 = NumSquarefulPerms().doit_dfs_backtracking(vector<int>{2,2,2});
     
-    return;
 }
 

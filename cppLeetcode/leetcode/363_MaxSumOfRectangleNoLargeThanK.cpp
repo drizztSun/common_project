@@ -53,7 +53,7 @@ public:
         if (M==0) return 0;
         int N = matrix[0].size();
 
-        std::function<int(int)> helper = [&](int k)
+        std::function<int(vector<int>&, int)> helper = [](vector<int>& row,int k)
         {
             set<int>Set({0});
             int preSum = 0;
@@ -87,7 +87,7 @@ public:
             {
                 for (int k=0; k<N; k++)
                     row[k]+=matrix[j][k];
-                result = std::max(result,helper(row,k));
+                result = std::max(result, helper(row,k));
             }
         }        
         return result;
@@ -102,7 +102,7 @@ public:
         auto n = matrix[0].size();
         int res = INT_MIN;
         
-        std::function<int(int)> maxSumArray = [](vector<int> & arr, int k) {
+        std::function<int(vector<int> &, int)> maxSumArray = [](vector<int> & arr, int k) {
             int sum = 0, maxS = INT_MIN;
             for (int i = 0; i < arr.size(); i++) {  //it's a trick. Maybe O(n) to solve this problem
                 sum += arr[i];

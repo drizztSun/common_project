@@ -25,53 +25,17 @@ from collections import Counter
 
 class SubarraysWithKDistinct:
 
-    """
-    Approach 1: Sliding Window
-    Intuition
-
-    For convenience, let's denote subarrays by tuples: (i,j) = [A[i], A[i+1], ..., A[j]], and call a subarray valid if it has K different integers.
-
-    For each j, let's consider the set S_j of all i such that the subarray (i, j) is valid.
-
-    Firstly, S_j must be a contiguous interval. 
-    If i1 < i2 < i3, (i1,j) and (i3,j) are valid, but (i2,j) is not valid, this is a contradiction because (i2,j) must contain more than K different elements [as (i3,j) contains K], 
-    but (i1,j) [which is a superset of (i2,j)] only contains K different integers.
-
-    So now let's write S_j
-​	
-  as intervals: S_j = [\text{left1}_j, \text{left2}_j]S 
-j
-​	
- =[left1 
-j
-​	
- ,left2 
-j
-​	
- ].
-
-The second observation is that the endpoints of these intervals must be monotone increeasing - namely, \text{left1}_jleft1 
-j
-​	
-  and \text{left2}_jleft2 
-j
-​	
-  are monotone increasing. With similar logic to the above, we could construct a proof of this fact, but the intuition is that after adding an extra element to our subarrays, they are already valid, or we need to shrink them a bit to keep them valid.
-
-Algorithm
-
-We'll maintain two sliding windows, corresponding to \text{left1}_jleft1 
-j
-​	
-  and \text{left2}_jleft2 
-j
-
-
-​	
- . Each sliding window will be able to count how many different elements there are in the window, and add and remove elements in a queue-like fashion.
-    """
-
-    def subarraysWithKDistinct(self, A: List[int], K: int) -> int:
+    '''
+        Use two left pointers and one right pointer to maintain two sliding windows
+        A[left_L:right+1] is the longest subarray with K different int
+        A[left_S:right+1] is the shortest subarray with K different int
+        Move left_L right only if there are more than K distinct int
+        Move left_S right as long as there are K or more distinct int
+        Create two dicts for these two sliding windows
+        Time: O(n)
+        Space: O(n)
+    '''
+    def doit_slidingwindow(self, A: list, K: int) -> int:
 
         left_long, left_short = {}, {}
         cnt_long, cnt_short = 0, 0
@@ -104,18 +68,7 @@ j
 
         return ans
 
-    '''
-    Use two left pointers and one right pointer to maintain two sliding windows
-    A[left_L:right+1] is the longest subarray with K different int
-    A[left_S:right+1] is the shortest subarray with K different int
-    Move left_L right only if there are more than K distinct int
-    Move left_S right as long as there are K or more distinct int
-    Create two dicts for these two sliding windows
-    Time: O(n)
-    Space: O(n)
-    '''
-
-    def doit(self, A, K):
+    def doit_twopointers(self, A, K):
         res, len_A = 0, len(A)
         seen_L, seen_S = {}, {}
         left_L, left_S = 0, 0
@@ -147,6 +100,30 @@ j
             res += (left_S - left_L)
 
         return res
+
+
+"""
+Approach 1: Sliding Window
+Intuition
+
+For convenience, let's denote subarrays by tuples: (i,j) = [A[i], A[i+1], ..., A[j]], and call a subarray valid if it has K different integers.
+
+For each j, let's consider the set S_j of all i such that the subarray (i, j) is valid.
+
+Firstly, S_j must be a contiguous interval. 
+If i1 < i2 < i3, (i1,j) and (i3,j) are valid, but (i2,j) is not valid, this is a contradiction because (i2,j) must contain more than K different elements [as (i3,j) contains K], 
+but (i1,j) [which is a superset of (i2,j)] only contains K different integers.
+
+So now let's write S_j as intervals: S_j = [left1_j, left2_j]
+
+The second observation is that the endpoints of these intervals must be monotone increeasing - namely, left1j, left2j are monotone increasing.
+With similar logic to the above, we could construct a proof of this fact, but the intuition is that after adding an extra element to our subarrays, they are already valid, or we need to shrink them a bit to keep them valid.
+
+Algorithm
+
+We'll maintain two sliding windows, corresponding to left1j and left2j
+Each sliding window will be able to count how many different elements there are in the window, and add and remove elements in a queue-like fashion.
+"""
 
 
 class Window:
@@ -193,5 +170,3 @@ if __name__ == "__main__":
     res = SubarraysWithKDistinct().doit(A=[1, 2, 1, 2, 3], K=2)
 
     res = SubarraysWithKDistinct().doit(A=[1, 2, 1, 3, 4], K=3)
-
-    pass

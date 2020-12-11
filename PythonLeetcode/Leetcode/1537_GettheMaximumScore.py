@@ -7,7 +7,8 @@ A valid path is defined as follows:
 
 Choose array nums1 or nums2 to traverse (from index-0).
 Traverse the current array from left to right.
-If you are reading any value that is present in nums1 and nums2 you are allowed to change your path to the other array. (Only one repeated value is considered in the valid path).
+If you are reading any value that is present in nums1 and nums2 you are allowed to change your path to the other array.
+(Only one repeated value is considered in the valid path).
 Score is defined as the sum of uniques values in a valid path.
 
 Return the maximum score you can obtain of all possible valid paths.
@@ -56,6 +57,37 @@ nums1 and nums2 are strictly increasing.
 
 
 class GetTheMaximumScore:
+
+    def doit_twopointer(self, nums1: list, nums2: list) -> int:
+
+        m, n = len(nums1), len(nums2)
+        i, j = 0, 0
+        x, y = 0, 0
+
+        while i < m or j < n:
+
+            if i == m:
+                y += nums2[j]
+                j += 1
+            elif j == n:
+                x += nums1[i]
+                i += 1
+            elif nums1[i] < nums2[j]:
+                x += nums1[i]
+                i += 1
+            elif nums1[i] > nums2[j]:
+                y += nums2[j]
+                j += 1
+            elif nums1[i] == nums2[j]:
+                y = max(x, y) + nums1[i]
+                x = y
+                i += 1
+                j += 1
+
+        return max(x, y) % (10**9+7)
+
+
+
 
     def doit_dfs(self, nums1: list, nums2: list) -> int:
 

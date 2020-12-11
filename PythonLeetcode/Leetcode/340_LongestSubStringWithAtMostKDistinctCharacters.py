@@ -7,7 +7,7 @@
 """
 
 
-class KthDistinctChar :
+class KthDistinctChar:
 
     def doit(self, s, k):
         """

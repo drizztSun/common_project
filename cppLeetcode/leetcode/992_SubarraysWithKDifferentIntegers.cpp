@@ -1,5 +1,4 @@
 /*
- 
  992. Subarrays with K Different Integers
  
  
@@ -22,57 +21,98 @@
  Output: 3
  Explanation: Subarrays formed with exactly 3 different integers: [1,2,1,3], [2,1,3], [1,3,4].
   
+
+ Note:
+
+ 1 <= A.length <= 20000
+ 1 <= A[i] <= A.length
+ 1 <= K <= A.length
+ 
+ 
+ 992.Subarrays-with-K-Different-Integers
+ 此题的解法非常巧妙.它代表了一类思想:求关于K的解,是否可以化成求at most K的解减去求at most K-1的解.本题恰好就是用到这个方法.我们需要写一个helper函数,计算数组A里面最多含有K个不同数字的subarray的个数.于是最终答案就是helper(K)-helper(K-1).
+
+ 对于这个helper函数,标准答案很显然就是用双指针和滑动窗口的方法.遍历右指针,考察对应的最大的滑窗是多少.于是在该右边界固定的条件下,满足题意的subarray的个数就是count+=右指针-左指针+1
+ 
  
  */
-
 #include <vector>
-using std::vector;
-
 #include <unordered_map>
+
+
 using std::unordered_map;
 
+using std::vector;
+
+
 class SubarraysWithKDistinct {
+    
 public:
-    int doit(vector<int>&& A, int K) {
-        
-        unordered_map<int, int> long_wnd, short_wnd;
-        int left_long = 0;
-        int left_short = 0;
-        int cnt_long = 0;
-        int cnt_short = 0;
+    
+    int doit_threepointer(vector<int>& s, int k)
+    {
+        unordered_map<int, int> left_long, left_short;
+        int cnt_long = 0, cnt_short = 0;
+        int L = 0, S = 0;
         int ans = 0;
         
-        for (auto c: A) {
+        for (int i = 0; i < s.size(); i++) {
             
-            if (long_wnd[c]++ == 0)
+            int c = s[i];
+            
+            left_long[c]++;
+            left_short[c]++;
+            
+            if (left_long[c] == 1)
                 cnt_long++;
-            
-            if (short_wnd[c]++ == 0)
+            if (left_short[c] == 1)
                 cnt_short++;
             
-            while (cnt_long > K) {
-                if (long_wnd[A[left_long++]]-- == 1)
+            while (cnt_long > k) {
+                left_long[s[L]]--;
+                if (left_long[s[L]] == 0)
                     cnt_long--;
+                L++;
             }
             
-            while (cnt_short >= K) {
-                if (short_wnd[A[left_short++]]-- == 1)
+            while (cnt_short >= k) {
+                left_short[s[S]]--;
+                if (left_short[s[S]] == 0)
                     cnt_short--;
+                S++;
             }
             
-            ans += left_short - left_long;
+            ans += S - L;
         }
         
         return ans;
     }
+    
+    
+    int doit_iter(vector<int>& A, int K)
+    {
+        return atMostK(A,K) - atMostK(A,K-1);
+    }
+    
+    int atMostK(vector<int>& A, int K)
+    {
+        unordered_map<int,int>Map;
+        int count=0;
+        int i = 0;
+        
+        for (int j=0; j<A.size(); j++)
+        {
+            Map[A[j]]++;
+            
+            while (Map.size()>K)
+            {
+                Map[A[i]]--;
+                if (Map[A[i]]==0)
+                    Map.erase(A[i]);
+                i++;
+            }
+            count+= j-i+1;
+        }
+        return count;
+    }
 };
-
-
-void test_992_subarray_with_kdifferent_integer() {
-    
-    auto res1 = SubarraysWithKDistinct().doit(vector<int>{1,2,1,2,3}, 2);
-    
-    auto res2 = SubarraysWithKDistinct().doit(vector<int>{1,2,1,3,4}, 3);
-    
-    return;
-}
