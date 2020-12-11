@@ -74,3 +74,18 @@ class ThreeSumSmaller:
                 else:
                     high -= 1
         return res
+
+    def doit_twopointer(self, nums: list, target: int) -> int:
+        from bisect import bisect_right, insort
+        if len(nums) < 3:
+            return 0
+        ans = 0
+        sorted_left = [nums[0]]
+        for i in range(1, len(nums) - 1):
+            for j in range(i + 1, len(nums)):
+                ans += bisect_right(sorted_left, target - nums[i] - nums[j] - 1)
+                print(ans)
+
+            insort(sorted_left, nums[i])
+
+        return ans

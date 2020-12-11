@@ -38,7 +38,7 @@ What they are really expecting at this point is a kSum solution. Therefore, we w
 
 class FourSum:
 
-    def doit(self, nums, target):
+    def doit_twopointor(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
@@ -74,7 +74,7 @@ class FourSum:
 
     
     """
-    def doit(self, nums, target):
+    def doit_twopointor(self, nums, target):
         def kSum(nums, target, k):
             res = []
             if len(nums) == 0 or nums[0] * k > target or target > nums[-1] * k:

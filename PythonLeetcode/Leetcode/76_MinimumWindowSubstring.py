@@ -68,7 +68,6 @@ class MinWindow(object):
 
         return s[I:J]
 
-
     def doit3(self, s, t):
         """
         :type s: str
@@ -145,7 +144,6 @@ class MinWindow(object):
                     count += 1
                     
                 j += 1
-                
                 
         return "" if min_len == len(s) + 1 else s[imin: imin + min_len]
 
