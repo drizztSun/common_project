@@ -1,3 +1,4 @@
+"""
 # 1028. Recover a Tree From Preorder Traversal
 
 # We run a preorder depth first search on the root of a binary tree.
@@ -22,6 +23,8 @@
 # Example 3:
 # Input: "1-401--349---90--88"
 # Output: [1,401,null,349,88,90]
+"""
+
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -53,7 +56,6 @@ class RecoverFromPreorder:
     def doit(self, S):
 
         buf = defaultdict(list)
-        depth = 0
         i = 0
 
         while i < len(S):
@@ -79,8 +81,6 @@ class RecoverFromPreorder:
                     buf[depth - 1][-1].right = n
 
             buf[depth].append(n)
-            depth = 0
-            c = 0
 
         return buf[0][-1]
 

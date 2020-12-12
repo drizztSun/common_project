@@ -68,5 +68,31 @@ public:
     
     int doit_(vector<int>& boxes, vector<int>& warehouse) {
         
+        int n = boxes.size();
+        std::sort(begin(boxes), end(boxes), [](auto a, auto b) {
+            return a > b;
+        });
+        
+        int left = 0, right = warehouse.size() - 1;
+        int cnt = 0;
+        
+        for (auto box : boxes) {
+            
+            if (left > right)
+                break;
+            
+            if (box > warehouse[left] && box > warehouse[right])
+                continue;
+            
+            if (box > warehouse[right] || (warehouse[right] > warehouse[left] && warehouse[left] >= box)) {
+                left++;
+            } else {
+                right--;
+            }
+            
+            cnt++;
+        }
+        
+        return cnt;
     }
 };
