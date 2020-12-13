@@ -99,9 +99,6 @@ class CanDistribute:
                         heappush(state, [nsum, nqt, j - 1])
         return False
 
-    def doit_backtracking_dfs(self, nums: list, quantity: list) -> bool:
-        pass
-
     def doit_dp_bitmask(self, nums: list, quantity: list) -> bool:
         from functools import lru_cache
         from collections import Counter

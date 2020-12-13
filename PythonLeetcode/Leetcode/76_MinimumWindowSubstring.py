@@ -16,7 +16,7 @@ import collections
 
 class MinWindow(object):
 
-    def doit(self, s, t):
+    def doit_twopointer(self, s, t):
         """
         :type s: str
         :type t: str
@@ -39,7 +39,7 @@ class MinWindow(object):
 
         return s[I:J]
 
-    def doit1(self, s, t):
+    def doit(self, s, t):
         """
         :type s: str
         :type t: str
@@ -150,16 +150,18 @@ class MinWindow(object):
 
 if __name__=="__main__":
 
+    res = MinWindow().doit_twopointer("ADOBECODEABCBANC", "ABC")
+
     res = MinWindow().doit("ab", "b")
+
+    res = MinWindow().doit_twopointer("bdab", "ab")
 
     res = MinWindow().doit("bdab", "ab")
 
-    res = MinWindow().doit1("bdab", "ab")
-
-    res = MinWindow().doit1("ab", "b")
+    res = MinWindow().doit("ab", "b")
 
     res = MinWindow().doit("a", "a")
 
     res = MinWindow().doit("a", "b")
     
-    res = MinWindow().doit("ADOBECODEBANC", "ABC")
+    res = MinWindow().doit_twopointer("ADOBECODEBANC", "ABC")

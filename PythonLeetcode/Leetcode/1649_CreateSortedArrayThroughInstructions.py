@@ -5,12 +5,13 @@ Given an integer array instructions, you are asked to create a sorted array from
 You start with an empty container nums. For each element from left to right in instructions, insert it into nums.
 The cost of each insertion is the minimum of the following:
 
-The number of elements currently in nums that are strictly less than instructions[i].
-The number of elements currently in nums that are strictly greater than instructions[i].
+   1) The number of elements currently in nums that are strictly less than instructions[i].
+   2) The number of elements currently in nums that are strictly greater than instructions[i].
+
 For example, if inserting element 3 into nums = [1,2,3,5], the cost of insertion is min(2, 1)
 (elements 1 and 2 are less than 3, element 5 is greater than 3) and nums will become [1,2,3,3,5].
 
-Return the total cost to insert all elements from instructions into nums. Since the answer may be large, return it modulo 109 + 7
+Return the total cost to insert all elements from instructions into nums. Since the answer may be large, return it modulo 10**9 + 7
 
 
 
@@ -69,8 +70,8 @@ The problem is straightforward. We need to obtain the cost of inserting each ele
 How to determine the cost? According to the description, we need to find the number of elements on the left side strictly
 less/larger than the current element.
 
-One natural idea is to maintain a sorted array and search with Binary Search. However, the array insertion takes \mathcal{O}(M)O(M),
-given that MM is the length of the array, which is too slow. We need something quicker.
+One natural idea is to maintain a sorted array and search with Binary Search. However, the array insertion takes O(M),
+given that M is the length of the array, which is too slow. We need something quicker.
 
 Luckily, there are two helpful and fast data structures: Segment Tree and Binary Indexed Tree.
 
@@ -83,11 +84,14 @@ We leave that for interested readers.
 
 Complexity Analysis
 
-Let NN be the length of instructions and MM be the maximum value in instructions.
+Let N be the length of instructions and M be the maximum value in instructions.
 
-Time Complexity: \mathcal{O}(N\log(M))O(Nlog(M)). We need to iterate over instructions, and for each element, the time to find the left cost and right cost is \mathcal{O}(\log(M))O(log(M)), and we spend \mathcal{O}(\log(M))O(log(M)) inserting the current element into the Segment Tree. In total, we need \mathcal{O}(N \cdot \log(M)) = \mathcal{O}(N\log(M))O(N⋅log(M))=O(Nlog(M)).
+Time Complexity: O(Nlog(M)). We need to iterate over instructions, and for each element, the time to find the left cost and right cost is O(log(M)), 
+and we spend O(log(M)) inserting the current element into the Segment Tree. 
 
-Space Complexity: \mathcal{O}(M)O(M), since we need an array of size 2M2M to store Segment Tree.
+In total, we need O(N⋅log(M))=O(Nlog(M)).
+
+Space Complexity: O(M), since we need an array of size 2M to store Segment Tree.
 
 """
 

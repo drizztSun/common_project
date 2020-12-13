@@ -1,5 +1,5 @@
 """
-# leetcode 115. Distinct Subsequences
+ 115. Distinct Subsequences
 
 Given a string S and a string T, count the number of distinct subsequences of S which equals T.
 
@@ -45,7 +45,7 @@ babgbag
 import collections
 
 
-class NumDistinct(object):
+class NumDistinct:
 
     def doit_recursive(self, s: str, t: str) -> int:
         """

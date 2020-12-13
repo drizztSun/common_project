@@ -47,10 +47,9 @@ class LadderLength:
         :rtype: int
         """
         wl = set(wordList)
-        if endWord in wl:
-            wl.remove(endWord)
-        else:
+        if endWord not in wl:
             return 0
+        wl.remove(endWord)
 
         if beginWord in wl:
             wl.remove(beginWord)

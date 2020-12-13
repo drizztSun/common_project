@@ -12,6 +12,7 @@ All words have the same length.
 All words contain only lowercase alphabetic characters.
 You may assume no duplicates in the word list.
 You may assume beginWord and endWord are non-empty and are not the same.
+
 Example 1:
 
 Input:
@@ -24,6 +25,7 @@ Output:
   ["hit","hot","dot","dog","cog"],
   ["hit","hot","lot","log","cog"]
 ]
+
 Example 2:
 
 Input:
@@ -50,8 +52,7 @@ class WordLadderII:
         def construct_paths(source, dest, tree):
             if source == dest:
                 return [[source]]
-            return [[source] + path for succ in tree[source]
-                    for path in construct_paths(succ, dest, tree)]
+            return [[source] + path for succ in tree[source] for path in construct_paths(succ, dest, tree)]
 
         def add_path(tree, word, neigh, is_forw):
             if is_forw:

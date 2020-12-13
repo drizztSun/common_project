@@ -25,7 +25,9 @@ class LargestRectangleArea(object):
 
     (i-stack[top-1]-1) \times a\big[stack[top]\big].(i−stack[top−1]−1)×a[stack[top]].
 
-    Further, if we reach the end of the array, we pop all the elements of the stack and at every pop, this time we use the following equation to find the area: (stack[top]-stack[top-1]) \times a\big[stack[top]\big](stack[top]−stack[top−1])×a[stack[top]], where stack[top]stack[top] refers to the element just popped. Thus, we can get the area of the of the largest rectangle by comparing the new area found everytime.
+    Further, if we reach the end of the array, we pop all the elements of the stack and at every pop, this time we use the following equation to find the area:
+    (stack[top]-stack[top-1]) \times a\big[stack[top]\big](stack[top]−stack[top−1])×a[stack[top]], where stack[top]stack[top] refers to the element just popped.
+    Thus, we can get the area of the of the largest rectangle by comparing the new area found everytime.
 
     The following example will clarify the process further:
     """
@@ -47,7 +49,6 @@ class LargestRectangleArea(object):
             stack.append(i)
         height.pop()
         return ans
-
 
     # O(n2)
     def doit1(self, heights):
@@ -133,9 +134,7 @@ class LargestRectangleArea(object):
         return maxArea
 
 
-
-
-if __name__=="__main__":
+if __name__ == "__main__":
      
    res = LargestRectangleArea().doit([2,1,5,6,2,3])
 

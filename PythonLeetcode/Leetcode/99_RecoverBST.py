@@ -1,14 +1,34 @@
-import os
+"""
+99. Recover Binary Search Tree
+
+You are given the root of a binary search tree (BST), where exactly two nodes of the tree were swapped by mistake.
+Recover the tree without changing its structure.
+
+Follow up: A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
 
 
 
+Example 1:
 
-# 99. Recover Binary Search Tree
 
-# Two elements of a binary search tree (BST) are swapped by mistake.
-# Recover the tree without changing its structure.
-# Note:
-# A solution using O(n) space is pretty straight forward. Could you devise a constant space solution?
+Input: root = [1,3,null,null,2]
+Output: [3,1,null,null,2]
+Explanation: 3 cannot be a left child of 1 because 3 > 1. Swapping 1 and 3 makes the BST valid.
+Example 2:
+
+
+Input: root = [3,1,4,null,null,2]
+Output: [2,1,4,null,null,3]
+Explanation: 2 cannot be in the right subtree of 3 because 2 < 3. Swapping 2 and 3 makes the BST valid.
+
+
+Constraints:
+
+The number of nodes in the tree is in the range [2, 1000].
+-231 <= Node.val <= 231 - 1
+
+"""
+
 
 # Definition for a binary tree node.
 class TreeNode(object):
@@ -18,9 +38,8 @@ class TreeNode(object):
         self.right = None
 
 
+class RecoverTree(object):
 
-# Leetcode 99. Recover Binary Search Tree    
-class recoverTree(object):
     def doit(self, root):
         """
         :type root: TreeNode
@@ -33,12 +52,11 @@ class recoverTree(object):
             inorder(root.left, res)
             res.append(root)
             inorder(root.right, res)
-            
-        
+
         res = []
         inorder(root, res)
         iStart, iEnd = -1, -1
-        for i in xrange(1, len(res)):
+        for i in range(1, len(res)):
             if res[i].val <= res[i - 1].val:
                  if iStart == -1:
                     iStart = i -1
@@ -48,7 +66,6 @@ class recoverTree(object):
                     break
 
         res[iStart].val, res[iEnd].val = res[iEnd].val, res[iStart].val       
-              
 
     def doit1(self, root):
         """
@@ -82,7 +99,6 @@ class recoverTree(object):
                     break
                     
         buff[iStart].val, buff[iEnd].val = buff[iEnd].val, buff[iStart].val
-
 
     # 
     def doit(self, root):
@@ -129,15 +145,9 @@ if __name__=="__main__":
     a = TreeNode(2)
     a.right = TreeNode(1)
 
-    res = recoverTree().doit1(a)
+    res = RecoverTree().doit1(a)
 
     a = TreeNode(0)
     a.left = TreeNode(1)
 
-    res = recoverTree().doit1(a)
-
-
-
-
-
-    pass
+    res = RecoverTree().doit1(a)
