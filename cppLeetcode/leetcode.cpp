@@ -370,10 +370,22 @@ void test_1591_strange_printer();
 
 void test_1593_SplitStringIntoUniqueSubstrings();
 
+void test_1649_create_sorted_array_cost();
+
+void test_1136_parallel_course();
+
+void test_1157_only_majority();
+
 void leetcode()
 {
     
-    test_1593_SplitStringIntoUniqueSubstrings();
+    test_1157_only_majority();
+    
+    // test_1136_parallel_course();
+    
+    // test_1649_create_sorted_array_cost();
+    
+    // test_1593_SplitStringIntoUniqueSubstrings();
     
     // test_1591_strange_printer();
     

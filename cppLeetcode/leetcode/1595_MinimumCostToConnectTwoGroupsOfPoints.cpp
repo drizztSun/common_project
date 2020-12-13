@@ -169,7 +169,7 @@ struct hungarian {
         }
         while (v != -1) {
             matchy[v] = pre[v];
-            swap(v, matchx[pre[v]]);
+            std::swap(v, matchx[pre[v]]);
         }
         return true;
     }
@@ -201,7 +201,7 @@ struct hungarian {
             T a = inf;
             for (int j = 0; j < n; j++) {
                 if (!visy[j]) {
-                    a = min(a, slack[j]);
+                    a = std::min(a, slack[j]);
                 }
             }
             for (int j = 0; j < n; j++) {
@@ -225,7 +225,7 @@ struct hungarian {
     int solve() {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                lx[i] = max(lx[i], g[i][j]);
+                lx[i] = std::max(lx[i], g[i][j]);
             }
         }
 
