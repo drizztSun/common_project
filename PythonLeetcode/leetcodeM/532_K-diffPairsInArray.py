@@ -144,18 +144,18 @@ class KthdiffPairs:
 
     Let NN be the number of elements in the input list.
 
-    Time complexity : O(N)O(N).
+    Time complexity : O(N).
 
-    It takes O(N)O(N) to create an initial frequency hash map and another O(N)O(N) to traverse the keys of that hash map.
+    It takes O(N) to create an initial frequency hash map and another O(N) to traverse the keys of that hash map.
     One thing to note about is the hash key lookup. The time complexity for hash key lookup is O(1)O(1) but if there are hash key collisions,
-    the time complexity will become O(N)O(N). However those cases are rare and thus, the amortized time complexity is O(2N) \approx O(N)O(2N)≈O(N).
-    Space complexity : O(N)O(N)
+    the time complexity will become O(N). However those cases are rare and thus, the amortized time complexity is O(2N) \approx O(N)O(2N)≈O(N).
+    Space complexity : O(N)
 
     We keep a table to count the frequency of each unique number in the input. In the worst case, all numbers are unique in the array.
     As a result, the maximum size of our table would be O(N).
 
     """
-    def doit_hashmap(self, nums, k):
+    def doit_hashmap_best(self, nums, k):
 
         from collections import Counter
         cnt = Counter(nums)

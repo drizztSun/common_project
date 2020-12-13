@@ -40,7 +40,7 @@ There are no repeated relations in the input.
 
 class MinimumSemesters:
 
-    def doit_dp_dfs(self, N, relations):
+    def doit_dp_dfs_topsort(self, N, relations):
         """
         :type N: int
         :type relations: List[List[int]]

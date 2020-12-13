@@ -29,7 +29,7 @@ public:
         
         int best = 0;
         int j = 0;
-        int buff[256] = {0}
+        int buff[256] = {0};
         int cnt = 0;
         
         for (int i = 0; i < s.length(); i++) {
@@ -45,7 +45,7 @@ public:
                 j++;
             }
             
-            best = max(best, i - j + 1);
+            best = std::max(best, i - j + 1);
         }
         
         return best;

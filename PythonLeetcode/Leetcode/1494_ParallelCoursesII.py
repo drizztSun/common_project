@@ -52,14 +52,39 @@ The given graph is a directed acyclic graph.
 
 class MinNumberOfSemesters:
 
-    def doit(self, n: int, dependencies: list, k: int) -> int:
-        pass
+    def doit_dp_bitmask(self, n: int, dependencies: list, k: int) -> int:
+
+        total = 1 << n
+        precourses = [0 for _ in range(n)]
+        for c1, c2 in dependencies:
+            precourses[c2-1] |= 1 << (c1-1)
+
+        prestate = [0 for _ in range(total)]
+        for i in range(total):
+            for j in range(0, n):
+                if ((i >> j) & 1) == 1:
+                    prestate[i] |= precourses[j]
+
+        dp = [n for _ in range(total)]
+        dp[0] = 0
+
+        for state in range(total):
+
+            subset = state
+            while subset >= 0:
+                if bin(state).count("1") - bin(subset).count("1") <= k and (subset & prestate[state]) == prestate[state]:
+                    dp[state] = min(dp[state], dp[subset] + 1)
+                subset = ((subset - 1) & state)
+                if subset == 0:
+                    break
+
+        return dp[total-1]
 
 
 if __name__ == '__main__':
 
-    MinNumberOfSemesters().doit(n = 4, dependencies = [[2,1],[3,1],[1,4]], k = 2)
+    MinNumberOfSemesters().doit_dp_bitmask(n = 4, dependencies = [[2,1],[3,1],[1,4]], k = 2)
 
-    MinNumberOfSemesters().doit(n = 5, dependencies = [[2,1],[3,1],[4,1],[1,5]], k = 2)
+    MinNumberOfSemesters().doit_dp_bitmask(n = 5, dependencies = [[2,1],[3,1],[4,1],[1,5]], k = 2)
 
-    MinNumberOfSemesters().doit(n = 11, dependencies = [], k = 2)
+    MinNumberOfSemesters().doit_dp_bitmask(n = 11, dependencies = [], k = 2)
