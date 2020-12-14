@@ -78,10 +78,9 @@ class kthSmallest(object):
             for i in range(row, rows):
 
                 n_idx = list(n_idx)
-
                 n_idx[i] += 1
 
-                if (j:= n_idx[i]) < cols:
+                if (j := n_idx[i]) < cols:
                     n_val = val + mat[i][j] - mat[i][j - 1]
                     heapq.heappush(heap, [n_val, n_idx, i])
         return res
@@ -110,7 +109,8 @@ class kthSmallest(object):
             if target < total:
                 return 0
 
-            if i == m: # no more row, total > target, count 1
+            # no more row, total > target, count 1
+            if i == m:
                 return 1
 
             ans = 0
@@ -119,6 +119,7 @@ class kthSmallest(object):
                 cnt = search(target, i + 1, total + mat[i][j], k - ans)
                 if cnt == 0:
                     break
+
                 ans += cnt
                 if ans > k:
                     break

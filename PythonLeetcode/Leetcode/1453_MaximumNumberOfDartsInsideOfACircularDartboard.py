@@ -71,6 +71,9 @@ class MaximumNumberOfDartsInsideOfACircularDartBoard:
             res = max(res, sum((x - x0) ** 2 + (y - y0) ** 2 <= r * r + 0.00001 for x, y in points))
         return res
 
+    """
+    O(n^2 * log(n))
+    """
     def doit_math(self, points: list, r: int) -> int:
         # Angular Sweep (N^2 x logN)
         from math import sqrt, atan2, acos
