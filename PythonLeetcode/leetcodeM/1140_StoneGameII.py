@@ -43,6 +43,7 @@ class StoneGameII:
         dp = {}
         N = len(piles)
 
+        # return the score difference between Alice and Bob, a + b = T, a - b = r
         def build(i, m):
 
             if i == len(piles):
@@ -64,6 +65,7 @@ class StoneGameII:
             dp[(i, m)] = res
             return res
 
+        #  a + b = T, a - b = r, so (T + r) // 2 == a
         return (sum(piles) + build(0, 1)) // 2
 
     def stoneGameII(self, A):

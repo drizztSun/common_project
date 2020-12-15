@@ -376,10 +376,17 @@ void test_1136_parallel_course();
 
 void test_1157_only_majority();
 
+void test_126_wordladder();
+
+void test_1563_stone_game_v();
+
 void leetcode()
 {
+    test_1563_stone_game_v();
     
-    test_1157_only_majority();
+    // test_126_wordladder();
+    
+    // test_1157_only_majority();
     
     // test_1136_parallel_course();
     

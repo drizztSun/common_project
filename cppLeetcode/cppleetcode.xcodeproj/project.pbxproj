@@ -240,6 +240,7 @@
 		1272F2422558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */; };
 		12745BE52536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */; };
 		12745BE82536177000545BC1 /* 1246_PalindromeRemoval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */; };
+		1288738825865E8F0056BFE1 /* 126_WordLadderII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1288738725865E8F0056BFE1 /* 126_WordLadderII.cpp */; };
 		128C52AB257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 128C52AA257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp */; };
 		128C52AE257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */; };
 		128C52B1257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 128C52B0257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp */; };
@@ -250,6 +251,7 @@
 		1297B086255F48B7003B500F /* 372_SuperPow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1297B085255F48B7003B500F /* 372_SuperPow.cpp */; };
 		129EE6B02549BF73005E53F2 /* 305_numberOfIslandsII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129EE6AF2549BF73005E53F2 /* 305_numberOfIslandsII.cpp */; };
 		129EE6B3254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 129EE6B2254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp */; };
+		12A68DB02586E1CC00682D89 /* 1621_NumberofSetsofKNon-OverlappingLineSegments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12A68DAF2586E1CC00682D89 /* 1621_NumberofSetsofKNon-OverlappingLineSegments.cpp */; };
 		12B0390E2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */; };
 		12B6C645256DB6DA002930F6 /* 1240_TilingRectanglewithTheFewestSquares.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B6C644256DB6DA002930F6 /* 1240_TilingRectanglewithTheFewestSquares.cpp */; };
 		12B6C648256DD1A8002930F6 /* 964_LeastOperatorsToExpressNumber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B6C647256DD1A8002930F6 /* 964_LeastOperatorsToExpressNumber.cpp */; };
@@ -265,6 +267,8 @@
 		12BE1D8B2582E0A3001CD8C1 /* 159_LongestSubstringWithAtMostTwoDistinctCharacters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12BE1D8A2582E0A3001CD8C1 /* 159_LongestSubstringWithAtMostTwoDistinctCharacters.cpp */; };
 		12BE1D8E2582E304001CD8C1 /* 1537_GetTheMaximumScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12BE1D8D2582E304001CD8C1 /* 1537_GetTheMaximumScore.cpp */; };
 		12BE1D922582F6C9001CD8C1 /* 1580_PutBoxesIntoTheWarehouseII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12BE1D912582F6C9001CD8C1 /* 1580_PutBoxesIntoTheWarehouseII.cpp */; };
+		12BF86422587C342008FC198 /* 1563_StoneGameV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12BF86412587C342008FC198 /* 1563_StoneGameV.cpp */; };
+		12BF864625883DAA008FC198 /* 1686_StoneGameVI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12BF864525883DAA008FC198 /* 1686_StoneGameVI.cpp */; };
 		12C9008425309DEB0060B36D /* 115_Distinct Subsequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12C9008325309DEB0060B36D /* 115_Distinct Subsequences.cpp */; };
 		12C900872530E4D50060B36D /* 132_PalindromePartitioningII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12C900862530E4D50060B36D /* 132_PalindromePartitioningII.cpp */; };
 		12C9008A2530EF790060B36D /* 140_WordBreakII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12C900892530EF790060B36D /* 140_WordBreakII.cpp */; };
@@ -532,6 +536,7 @@
 		12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1548_TheMostSimilarPathInGraph.cpp; sourceTree = "<group>"; };
 		12745BE72536177000545BC1 /* 1246_PalindromeRemoval.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1246_PalindromeRemoval.cpp; sourceTree = "<group>"; };
 		12759CF92545E26B0019A6C1 /* alg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = alg; sourceTree = "<group>"; };
+		1288738725865E8F0056BFE1 /* 126_WordLadderII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 126_WordLadderII.cpp; sourceTree = "<group>"; };
 		128C52AA257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp; sourceTree = "<group>"; };
 		128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1681_MinimumIncompatibility.cpp; sourceTree = "<group>"; };
 		128C52B0257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp; sourceTree = "<group>"; };
@@ -542,6 +547,7 @@
 		1297B085255F48B7003B500F /* 372_SuperPow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 372_SuperPow.cpp; sourceTree = "<group>"; };
 		129EE6AF2549BF73005E53F2 /* 305_numberOfIslandsII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 305_numberOfIslandsII.cpp; sourceTree = "<group>"; };
 		129EE6B2254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1192_CriticalConnectionsNetwork.cpp; sourceTree = "<group>"; };
+		12A68DAF2586E1CC00682D89 /* 1621_NumberofSetsofKNon-OverlappingLineSegments.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "1621_NumberofSetsofKNon-OverlappingLineSegments.cpp"; sourceTree = "<group>"; };
 		12B0390D2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 471_EncodeStringWithShortestLength.cpp; sourceTree = "<group>"; };
 		12B6C644256DB6DA002930F6 /* 1240_TilingRectanglewithTheFewestSquares.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1240_TilingRectanglewithTheFewestSquares.cpp; sourceTree = "<group>"; };
 		12B6C647256DD1A8002930F6 /* 964_LeastOperatorsToExpressNumber.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 964_LeastOperatorsToExpressNumber.cpp; sourceTree = "<group>"; };
@@ -557,6 +563,8 @@
 		12BE1D8A2582E0A3001CD8C1 /* 159_LongestSubstringWithAtMostTwoDistinctCharacters.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 159_LongestSubstringWithAtMostTwoDistinctCharacters.cpp; sourceTree = "<group>"; };
 		12BE1D8D2582E304001CD8C1 /* 1537_GetTheMaximumScore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1537_GetTheMaximumScore.cpp; sourceTree = "<group>"; };
 		12BE1D912582F6C9001CD8C1 /* 1580_PutBoxesIntoTheWarehouseII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1580_PutBoxesIntoTheWarehouseII.cpp; sourceTree = "<group>"; };
+		12BF86412587C342008FC198 /* 1563_StoneGameV.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1563_StoneGameV.cpp; sourceTree = "<group>"; };
+		12BF864525883DAA008FC198 /* 1686_StoneGameVI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1686_StoneGameVI.cpp; sourceTree = "<group>"; };
 		12C9008325309DEB0060B36D /* 115_Distinct Subsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "115_Distinct Subsequences.cpp"; sourceTree = "<group>"; };
 		12C900862530E4D50060B36D /* 132_PalindromePartitioningII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 132_PalindromePartitioningII.cpp; sourceTree = "<group>"; };
 		12C900892530EF790060B36D /* 140_WordBreakII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 140_WordBreakII.cpp; sourceTree = "<group>"; };
@@ -609,6 +617,7 @@
 				086A8A7724071C4400CFAEED /* 76_MinimumWindowSubstring.cpp */,
 				12C9008325309DEB0060B36D /* 115_Distinct Subsequences.cpp */,
 				086A8AAE24071C4800CFAEED /* 123_BestTimetoBuyandSellStockIII.cpp */,
+				1288738725865E8F0056BFE1 /* 126_WordLadderII.cpp */,
 				086A8A9824071C4600CFAEED /* 128_LongestConsecutiveSequence.cpp */,
 				12C900862530E4D50060B36D /* 132_PalindromePartitioningII.cpp */,
 				12C900892530EF790060B36D /* 140_WordBreakII.cpp */,
@@ -730,7 +739,11 @@
 				08640D112416DC7500D72888 /* 1032_StreamOfCharacters.cpp */,
 				08B505B02417E87B001E19BE /* 1036_EscapeLargeMaze.cpp */,
 				087C791E24365A8D008BCEC5 /* 1044_LongestDuplicateSubstring.cpp */,
+				120BCCAC2585563200234082 /* 1074_NumberOfSubmatricesThatSunToTarget.cpp */,
+				120BCCAF2585736E00234082 /* 1106_ParsingABooleanExpression.cpp */,
 				1217F3C82569632D0050A4D5 /* 1125_SmallestSufficientTeam.cpp */,
+				120BCCA62585287800234082 /* 1136_ParallelCourses.cpp */,
+				120BCCB2258591A300234082 /* 1157_OnlineMajorityElementInSubarray.cpp */,
 				129EE6B2254A3533005E53F2 /* 1192_CriticalConnectionsNetwork.cpp */,
 				124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */,
 				1297B082255EDAB6003B500F /* 1206_DesignSkiplist.cpp */,
@@ -749,26 +762,23 @@
 				123330802578393E00828E22 /* 1473_PaintHouseIII.cpp */,
 				082B1F0F2567F43400AC95DB /* 1478_AllocateMailboxes.cpp */,
 				083571F225600515004B1BE3 /* 1483_KthAncestorOfTreeNode.cpp */,
+				120BCCA92585375800234082 /* 1494_ParallelCoursesII.cpp */,
 				12E143CC255CD7780079E288 /* 1520_MaximumNumberOfNonOverlappingSubstrings.cpp */,
+				12BE1D8D2582E304001CD8C1 /* 1537_GetTheMaximumScore.cpp */,
 				12745BE42536025600545BC1 /* 1548_TheMostSimilarPathInGraph.cpp */,
 				1272F2412558BBCB003629A5 /* 1559_DetectCyclesIn2DGrid.cpp */,
+				12BF86412587C342008FC198 /* 1563_StoneGameV.cpp */,
 				124E707A2571D0AA00AD389F /* 1568_MinimumNumberOfDaysToDisconnectIsland.cpp */,
+				12BE1D912582F6C9001CD8C1 /* 1580_PutBoxesIntoTheWarehouseII.cpp */,
 				126AA4E02572B36D0070EE7F /* 1585_CheckIfStringIsTransformableWithSubstringSortOperations.cpp */,
 				126B98E2257C251700A6C237 /* 1591_StrangePrinterII.cpp */,
 				12BE1D81258271B6001CD8C1 /* 1595_MinimumCostToConnectTwoGroupsOfPoints.cpp */,
 				0832DD6E2566D08F000C248D /* 1643_KthSmallestInstructions.cpp */,
+				120BCCA325851B5600234082 /* 1649_CreateSortedArraythroughInstructions.cpp */,
 				08E42E752561A8290079413D /* 1655_DistributeRepeatingIntegers.cpp */,
 				12E503102575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp */,
 				126039D2257AFEB5001F8CD2 /* 1675_MinimizeDeviationInArray.cpp */,
 				128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */,
-				12BE1D8D2582E304001CD8C1 /* 1537_GetTheMaximumScore.cpp */,
-				12BE1D912582F6C9001CD8C1 /* 1580_PutBoxesIntoTheWarehouseII.cpp */,
-				120BCCA325851B5600234082 /* 1649_CreateSortedArraythroughInstructions.cpp */,
-				120BCCA62585287800234082 /* 1136_ParallelCourses.cpp */,
-				120BCCA92585375800234082 /* 1494_ParallelCoursesII.cpp */,
-				120BCCAC2585563200234082 /* 1074_NumberOfSubmatricesThatSunToTarget.cpp */,
-				120BCCAF2585736E00234082 /* 1106_ParsingABooleanExpression.cpp */,
-				120BCCB2258591A300234082 /* 1157_OnlineMajorityElementInSubarray.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -864,6 +874,8 @@
 				1240CE16257FAB560062DBC8 /* 1593_SplitAStringIntoTheMaxNumberOfUniqueSubstrings.cpp */,
 				1240CE19257FC1B60062DBC8 /* 659_SplitArrayIntoConsecutiveSubsequences.cpp */,
 				12F072AC2581B90E00D06979 /* 1353_MaximumNumberOfEventsThatCanBeAttended.cpp */,
+				12A68DAF2586E1CC00682D89 /* 1621_NumberofSetsofKNon-OverlappingLineSegments.cpp */,
+				12BF864525883DAA008FC198 /* 1686_StoneGameVI.cpp */,
 			);
 			path = leetcodeM;
 			sourceTree = "<group>";
@@ -968,6 +980,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				083F7C3B241C3D5B00D3D54A /* 955_DeleteColumnsToMakeSortedII.cpp in Sources */,
+				12BF86422587C342008FC198 /* 1563_StoneGameV.cpp in Sources */,
 				08A5BAB024265EA4003AAE9B /* 979_DistributeCoinsInBinaryTree.cpp in Sources */,
 				086A8ACE24071C4A00CFAEED /* 42_TrappingRainWater.cpp in Sources */,
 				086A8AB224071C4A00CFAEED /* 732_MyCalendarIII.cpp in Sources */,
@@ -1034,6 +1047,7 @@
 				120BCCA72585287800234082 /* 1136_ParallelCourses.cpp in Sources */,
 				127165F8256AC307006EBEEE /* 673_Number)fLongestIncreasingSubsequence.cpp in Sources */,
 				086A8AB924071C4A00CFAEED /* 753_CrackingTheSafe.cpp in Sources */,
+				1288738825865E8F0056BFE1 /* 126_WordLadderII.cpp in Sources */,
 				086A8AD924071C4A00CFAEED /* 757_SetIntersectionSizeAtLeastTwo.cpp in Sources */,
 				08E76F28240EFFEC00F1CC8F /* 1031_MaximumSumOfTwoNonOverlappingSubarrays.cpp in Sources */,
 				0832DD6F2566D08F000C248D /* 1643_KthSmallestInstructions.cpp in Sources */,
@@ -1045,6 +1059,7 @@
 				12BE1D8B2582E0A3001CD8C1 /* 159_LongestSubstringWithAtMostTwoDistinctCharacters.cpp in Sources */,
 				12FCD1A42577373700E4B6BB /* 488_ZumaGame.cpp in Sources */,
 				08F2B70A252A38C100325CBE /* 871_MinimumNumberOfRefuelingStops.cpp in Sources */,
+				12BF864625883DAA008FC198 /* 1686_StoneGameVI.cpp in Sources */,
 				086A8ADD24071C4A00CFAEED /* 295_FindMedianfromDataStream.cpp in Sources */,
 				12E503112575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp in Sources */,
 				086A8AC224071C4A00CFAEED /* 57_InsertInterval.cpp in Sources */,
@@ -1091,6 +1106,7 @@
 				128C52AE257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp in Sources */,
 				08F0D243241E8F3A00EBB167 /* 101_SymmetricTree.cpp in Sources */,
 				086A8ACF24071C4A00CFAEED /* 768_MaxChunksToMakeSortedII.cpp in Sources */,
+				12A68DB02586E1CC00682D89 /* 1621_NumberofSetsofKNon-OverlappingLineSegments.cpp in Sources */,
 				129EE6B02549BF73005E53F2 /* 305_numberOfIslandsII.cpp in Sources */,
 				12E5277B256C53570080A757 /* 935_KnightDialer.cpp in Sources */,
 				120BCCB3258591A300234082 /* 1157_OnlineMajorityElementInSubarray.cpp in Sources */,

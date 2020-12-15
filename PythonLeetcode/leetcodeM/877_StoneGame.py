@@ -31,30 +31,6 @@
 # sum(piles) is odd.
 
 
-# Approach 1: Dynamic Programming
-# Intuition
-
-# Lets change the game so that whenever Lee scores points, it deducts from Alexs score instead.
-
-# Let dp(i, j) be the largest score Alex can achieve where the piles remaining are piles[i], piles[i+1], ..., piles[j].
-# This is natural in games with scoring: we want to know what the value of each position of the game is.
-
-# We can formulate a recursion for dp(i, j) in terms of dp(i+1, j) and dp(i, j-1), and we can use dynamic programming to not repeat work in this recursion.
-# (This approach can output the correct answer, because the states form a DAG(directed acyclic graph).)
-
-# Algorithm
-
-# When the piles remaining are piles[i], piles[i+1], ..., piles[j], the player who s turn it is has at most 2 moves.
-
-# The person whos turn it is can be found by comparing j-i to N modulo 2.
-
-# If the player is Alex, then she either takes piles[i] or piles[j], increasing her score by that amount.
-# Afterwards, the total score is either piles[i] + dp(i+1, j), or piles[j] + dp(i, j-1)
-# and we want the maximum possible score.
-
-# If the player is Lee, then he either takes piles[i] or piles[j], decreasing Alexs score by that amount.
-# Afterwards, the total score is either - piles[i] + dp(i+1, j), or -piles[j] + dp(i, j-1)
-# and we want the minimum possible score.
 
 """
 
@@ -64,7 +40,40 @@ from functools import lru_cache
 
 class StoneGame:
 
-    def doit_dp(self, piles):
+    """
+    # Approach 1: Dynamic Programming
+    # Intuition
+
+    # Lets change the game so that whenever Lee scores points, it deducts from Alexs score instead.
+
+    # Let dp(i, j) be the largest score Alex can achieve where the piles remaining are piles[i], piles[i+1], ..., piles[j].
+    # This is natural in games with scoring: we want to know what the value of each position of the game is.
+
+    # We can formulate a recursion for dp(i, j) in terms of dp(i+1, j) and dp(i, j-1), and we can use dynamic programming to not repeat work in this recursion.
+    # (This approach can output the correct answer, because the states form a DAG(directed acyclic graph).)
+
+    # Algorithm
+
+    # When the piles remaining are piles[i], piles[i+1], ..., piles[j], the player who s turn it is has at most 2 moves.
+
+    # The person whos turn it is can be found by comparing j-i to N modulo 2.
+
+    # If the player is Alex, then she either takes piles[i] or piles[j], increasing her score by that amount.
+    # Afterwards, the total score is either piles[i] + dp(i+1, j), or piles[j] + dp(i, j-1)
+    # and we want the maximum possible score.
+
+    # If the player is Lee, then he either takes piles[i] or piles[j], decreasing Alexs score by that amount.
+    # Afterwards, the total score is either - piles[i] + dp(i+1, j), or -piles[j] + dp(i, j-1)
+    # and we want the minimum possible score.
+
+    Complexity Analysis
+
+    Time Complexity: O(N^2) , where NN is the number of piles.
+
+    Space Complexity: O(N^2), the space used storing the intermediate results of each subgame.
+`
+    """
+    def doit_dp_dfs(self, piles):
         dp = {}
         N = len(piles)
 

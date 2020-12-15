@@ -42,7 +42,7 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 
 class WordLadderII:
 
-    def doit_bfs(self, beginWord, endWord, wordList):
+    def doit_bfs_bidirect(self, beginWord, endWord, wordList):
         import collections
         import string
 
@@ -119,7 +119,7 @@ class WordLadderII:
 
         return bt(beginWord)
 
-    def doit_bfs_1(self, beginWord, endWord, wordList):
+    def doit_bfs_bidirect(self, beginWord, endWord, wordList):
         """
         :type beginWord: str
         :type endWord: str
