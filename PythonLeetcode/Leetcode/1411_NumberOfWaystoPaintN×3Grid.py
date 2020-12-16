@@ -73,12 +73,47 @@ class NumOfWays:
     O( log(n) )
     
     Transform below
-         dp2[i] = 2 * dp3[i-1] + 3 * dp2[i-1]
+         dp2[i] = 3 * dp2[i-1] + 2 * dp3[i-1]
          dp3[i] = 2 * dp2[i-1] + 2 * dp3[i-1]
          
     into matrix multiple ops: vector V {dp2, dp3} * { {3, 2} {2, 2} }
          
+    We can see the colors ways between i-1, and i can be described as Matrix ops
+    
+    { X2[i], X3[i] } = {x2[i-1], x3[i-2]} * { {3, 2, {2, 2} }
+         
     """
-    def doit_dp(self, n: int) -> int:
-        pass
+    def doit_dp_fastpower(self, n: int) -> int:
 
+        def multiply(A, B):
+            m, n, p = len(A), len(B), len(B[0])
+            C = [[0 for _ in range(p)] for _ in range(m)]
+
+            for i in range(m):
+                for j in range(p):
+                    for k in range(n):
+                        C[i][j] = (C[i][j] + A[i][k] * B[k][j]) % kMod
+            return C
+
+        n -= 1
+        ans = [[6, 6]]
+        base = [[3, 2], [2, 2]]
+        kMod = 10 ** 9 + 7
+
+        while n > 0:
+
+            if n % 2 == 1:
+                ans = multiply(ans, base)
+            base = multiply(base, base)
+            n >>= 1
+
+        return (ans[0][0] + ans[0][1]) % kMod
+
+
+if __name__ == '__main__':
+
+    NumOfWays().doit_dp_fastpower(1)
+
+    NumOfWays().doit_dp_fastpower(2)
+
+    NumOfWays().doit_dp_fastpower(3)

@@ -40,7 +40,7 @@ mat[i] is a non decreasing array.
 """
 
 
-class kthSmallest(object):
+class KthSmallest(object):
 
     """
     Intuition:
@@ -146,8 +146,8 @@ class kthSmallest(object):
 
 if __name__ == '__main__':
 
-    #kthSmallest().doit_binary_search(mat = [[1,3,11],[2,4,6]], k=5)
+    #KthSmallest().doit_binary_search(mat = [[1,3,11],[2,4,6]], k=5)
 
-    #kthSmallest().doit_binary_search(mat = [[1,3,11],[2,4,6]], k=9)
+    #KthSmallest().doit_binary_search(mat = [[1,3,11],[2,4,6]], k=9)
 
-    kthSmallest().doit_heap(mat = [[1,10,10],[1,4,5],[2,3,6]], k=7)
+    KthSmallest().doit_heap(mat = [[1,10,10],[1,4,5],[2,3,6]], k=7)
