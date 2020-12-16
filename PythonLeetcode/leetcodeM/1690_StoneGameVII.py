@@ -45,7 +45,59 @@ n == stones.length
 
 class StoneGameVII:
 
-    def doit_sort(self, stones: list) -> int:
+    """
+        Play optimally =》 Game theory Min-Max
+    Always maxmize the relative score to matter who's playing the game（MaxMax)
 
-        
+        1) Max( my total score - opponent's total score) =>
+        2) Max(my current score - opponent's relative score of the remaining game)
+
+    game(l, r) := max relative score we can achieve given a sub-game of range [l, r]
+    Subproblems overlaps => Recursion with memorization or DP, otherwise (2^n)
+    Subproblems / Space complexity: O(n^2) / Time complexity: O(n^2)
+
+    """
+    def doit_dfs_dp_TopDown(self, stones: list) -> int:
+
+        n = len(stones)
+        dp = [[float('inf') for _ in range(n)] for _ in range(n)]
+
+        def search(l, r, s):
+
+            if l >= r:
+                return 0
+
+            if dp[l][r] != float('inf'):
+                return dp[l][r]
+
+            return max(s - stones[l] - search(l+1, r, s - stones[l]), s - stones[r] - search(l, r-1, s - stones[r]))
+
+        return search(0, len(stones) - 1, sum(stones))
+
+    """
+    O(n^2)
+    Bottomup: from smaller scope [i, i+1]  => larger one [j : j+1] 
+    """
+    def doit_dp_Bottomup(self, stones: list) -> int:
+        n = len(stones)
+        s = [0] * (n + 1)
+
+        for i in range(n):
+            s[i + 1] = s[i] + stones[i]
+
+        dp = [[0] * n for _ in range(n)]
+
+        for c in range(2, n + 1):
+            for l in range(0, n - c + 1):
+                r = l + c - 1
+                dp[l][r] = max(s[r + 1] - s[l + 1] - dp[l + 1][r], s[r] - s[l] - dp[l][r - 1])
+
+        return dp[0][n - 1]
+
+
+if __name__ == '__main__':
+
+    StoneGameVII().doit_dfs_dp_memo([5, 3, 1, 4, 2])
+
+    StoneGameVII().doit_dfs_dp_memo([7,90,5,1,100,10,10,2])
 
