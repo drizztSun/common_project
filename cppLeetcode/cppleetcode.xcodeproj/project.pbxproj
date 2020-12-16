@@ -216,6 +216,9 @@
 		123330812578393E00828E22 /* 1473_PaintHouseIII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 123330802578393E00828E22 /* 1473_PaintHouseIII.cpp */; };
 		1240CE17257FAB560062DBC8 /* 1593_SplitAStringIntoTheMaxNumberOfUniqueSubstrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1240CE16257FAB560062DBC8 /* 1593_SplitAStringIntoTheMaxNumberOfUniqueSubstrings.cpp */; };
 		1240CE1A257FC1B60062DBC8 /* 659_SplitArrayIntoConsecutiveSubsequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1240CE19257FC1B60062DBC8 /* 659_SplitArrayIntoConsecutiveSubsequences.cpp */; };
+		124433E22589178F00D0D204 /* 1444_NumberOfWaysOfCuttingPizza.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124433E12589178F00D0D204 /* 1444_NumberOfWaysOfCuttingPizza.cpp */; };
+		124433E52589444600D0D204 /* 1691_MaximumHeightByStackingCuboids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124433E42589444600D0D204 /* 1691_MaximumHeightByStackingCuboids.cpp */; };
+		124433E925895DEC00D0D204 /* 1340_JumpGameV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124433E825895DEC00D0D204 /* 1340_JumpGameV.cpp */; };
 		124DCBCB25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */; };
 		124E7075257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124E7074257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp */; };
 		124E70782571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 124E70772571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp */; };
@@ -511,6 +514,9 @@
 		123330802578393E00828E22 /* 1473_PaintHouseIII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1473_PaintHouseIII.cpp; sourceTree = "<group>"; };
 		1240CE16257FAB560062DBC8 /* 1593_SplitAStringIntoTheMaxNumberOfUniqueSubstrings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1593_SplitAStringIntoTheMaxNumberOfUniqueSubstrings.cpp; sourceTree = "<group>"; };
 		1240CE19257FC1B60062DBC8 /* 659_SplitArrayIntoConsecutiveSubsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 659_SplitArrayIntoConsecutiveSubsequences.cpp; sourceTree = "<group>"; };
+		124433E12589178F00D0D204 /* 1444_NumberOfWaysOfCuttingPizza.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1444_NumberOfWaysOfCuttingPizza.cpp; sourceTree = "<group>"; };
+		124433E42589444600D0D204 /* 1691_MaximumHeightByStackingCuboids.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1691_MaximumHeightByStackingCuboids.cpp; sourceTree = "<group>"; };
+		124433E825895DEC00D0D204 /* 1340_JumpGameV.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1340_JumpGameV.cpp; sourceTree = "<group>"; };
 		124DCBCA25372BBB00CB2532 /* 1199_MinimumTimeToBuildBlocks.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1199_MinimumTimeToBuildBlocks.cpp; sourceTree = "<group>"; };
 		124E7074257163DD00AD389F /* 1401_CircleandRectangleOverlapping.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1401_CircleandRectangleOverlapping.cpp; sourceTree = "<group>"; };
 		124E70772571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1352_ProductOftheLastKNumbers.cpp; sourceTree = "<group>"; };
@@ -758,6 +764,7 @@
 				12520F7C256EA51100D33FD6 /* 1363_LargestMultipleOfThree.cpp */,
 				12E52777256C2E7D0080A757 /* 1411_NumberOfWaystoPaintN×3Grid.cpp */,
 				12F17BDA252D333C007D817A /* 1439_FindtheKthSmallestSumOfMatrixWithSortedRows.cpp */,
+				124433E12589178F00D0D204 /* 1444_NumberOfWaysOfCuttingPizza.cpp */,
 				083571F525604FD2004B1BE3 /* 1463_CherryPickupII.cpp */,
 				123330802578393E00828E22 /* 1473_PaintHouseIII.cpp */,
 				082B1F0F2567F43400AC95DB /* 1478_AllocateMailboxes.cpp */,
@@ -779,6 +786,8 @@
 				12E503102575C1B700E0B1CD /* 1671_MinimumNumberOfRemovalsToMakeMountainArray.cpp */,
 				126039D2257AFEB5001F8CD2 /* 1675_MinimizeDeviationInArray.cpp */,
 				128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */,
+				124433E42589444600D0D204 /* 1691_MaximumHeightByStackingCuboids.cpp */,
+				124433E825895DEC00D0D204 /* 1340_JumpGameV.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -1070,6 +1079,7 @@
 				128C52AB257E623C00E49A0A /* 1680_ConcatenationOfConsecutiveBinaryNumbers.cpp in Sources */,
 				12C900872530E4D50060B36D /* 132_PalindromePartitioningII.cpp in Sources */,
 				086A8AF324071C4A00CFAEED /* 507_Perfect_Number.cpp in Sources */,
+				124433E22589178F00D0D204 /* 1444_NumberOfWaysOfCuttingPizza.cpp in Sources */,
 				086A8AD424071C4A00CFAEED /* 10_RegularExpressionMatching.cpp in Sources */,
 				08927792240FF6CA00F4ECAD /* 1027_LongestArithmeticSequence.cpp in Sources */,
 				12B0390E2534A17C00287BCD /* 471_EncodeStringWithShortestLength.cpp in Sources */,
@@ -1096,6 +1106,7 @@
 				120BCCAA2585375800234082 /* 1494_ParallelCoursesII.cpp in Sources */,
 				0877E46A2450989800BF2381 /* 936_StampingTheSequence.cpp in Sources */,
 				126BBCB92547BE3C00D0B4B4 /* 127_WordLadder.cpp in Sources */,
+				124433E52589444600D0D204 /* 1691_MaximumHeightByStackingCuboids.cpp in Sources */,
 				1217F3C92569632D0050A4D5 /* 1125_SmallestSufficientTeam.cpp in Sources */,
 				128C52B1257EAE1600E49A0A /* 1326_MinimumNumberOfTapsToOpenToWaterGarden.cpp in Sources */,
 				086A8AD024071C4A00CFAEED /* 803_BricksFallingWhenHit.cpp in Sources */,
@@ -1211,6 +1222,7 @@
 				12B7286525338FC70042374E /* 403_FrogJump.cpp in Sources */,
 				086A8AE924071C4A00CFAEED /* 420_StrongPasswordChecker.cpp in Sources */,
 				0840A363242413D300BB7143 /* 967_NumbersWithSameConsecutiveDifferences.cpp in Sources */,
+				124433E925895DEC00D0D204 /* 1340_JumpGameV.cpp in Sources */,
 				08D8ED6B242AD8BC00F8543D /* 982_TriplesWithBitwiseANDEqualToZero.cpp in Sources */,
 				086A8ABE24071C4A00CFAEED /* 514_FreedomTrail.cpp in Sources */,
 				08ADEC0F243E9A0C009F8AEB /* 906_SuperPalindromes.cpp in Sources */,

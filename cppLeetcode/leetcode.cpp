@@ -380,9 +380,13 @@ void test_126_wordladder();
 
 void test_1563_stone_game_v();
 
+void test_1444_number_of_cut_pizza();
+
 void leetcode()
 {
-    test_1563_stone_game_v();
+    test_1444_number_of_cut_pizza();
+    
+    // test_1563_stone_game_v();
     
     // test_126_wordladder();
     
