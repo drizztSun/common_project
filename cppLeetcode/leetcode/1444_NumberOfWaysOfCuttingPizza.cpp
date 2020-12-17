@@ -151,6 +151,4 @@ public:
 void test_1444_number_of_cut_pizza() {
     
     int num = NumberOfCuttingPizza().doit_dp(vector<string>{"A..","AAA","..."}, 3);
-    
-    return;
 }

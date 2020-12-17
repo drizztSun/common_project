@@ -229,6 +229,11 @@
 		12520F7D256EA51100D33FD6 /* 1363_LargestMultipleOfThree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12520F7C256EA51100D33FD6 /* 1363_LargestMultipleOfThree.cpp */; };
 		12520F80256ECB2500D33FD6 /* 1057_CampusBikes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12520F7F256ECB2500D33FD6 /* 1057_CampusBikes.cpp */; };
 		12520F84256ED5B200D33FD6 /* 1066_CampusBikesII.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12520F83256ED5B200D33FD6 /* 1066_CampusBikesII.cpp */; };
+		1253B91B258A598B006F39B6 /* 1449_FormLargestIntegerWithDigitsThatAddUptoTarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1253B91A258A598B006F39B6 /* 1449_FormLargestIntegerWithDigitsThatAddUptoTarget.cpp */; };
+		1253B91E258A7247006F39B6 /* 1606_FindServersThatHandledMostNumberOfRequests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1253B91D258A7247006F39B6 /* 1606_FindServersThatHandledMostNumberOfRequests.cpp */; };
+		1253B921258A9B81006F39B6 /* 1458_MaxDotProductOfTwoSubsequences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1253B920258A9B81006F39B6 /* 1458_MaxDotProductOfTwoSubsequences.cpp */; };
+		1253B924258AA455006F39B6 /* 1575_CountAllPossibleRoutes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1253B923258AA455006F39B6 /* 1575_CountAllPossibleRoutes.cpp */; };
+		1253B927258ACA5B006F39B6 /* 1301_NumberOfPathsWithMaxScore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1253B926258ACA5B006F39B6 /* 1301_NumberOfPathsWithMaxScore.cpp */; };
 		126039D3257AFEB5001F8CD2 /* 1675_MinimizeDeviationInArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126039D2257AFEB5001F8CD2 /* 1675_MinimizeDeviationInArray.cpp */; };
 		12634FAE255C3E2A0027FE05 /* 863_AllNodesDistanceKInBinaryTree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12634FAD255C3E2A0027FE05 /* 863_AllNodesDistanceKInBinaryTree.cpp */; };
 		126AA4E12572B36D0070EE7F /* 1585_CheckIfStringIsTransformableWithSubstringSortOperations.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 126AA4E02572B36D0070EE7F /* 1585_CheckIfStringIsTransformableWithSubstringSortOperations.cpp */; };
@@ -527,6 +532,11 @@
 		12520F7C256EA51100D33FD6 /* 1363_LargestMultipleOfThree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1363_LargestMultipleOfThree.cpp; sourceTree = "<group>"; };
 		12520F7F256ECB2500D33FD6 /* 1057_CampusBikes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1057_CampusBikes.cpp; sourceTree = "<group>"; };
 		12520F83256ED5B200D33FD6 /* 1066_CampusBikesII.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1066_CampusBikesII.cpp; sourceTree = "<group>"; };
+		1253B91A258A598B006F39B6 /* 1449_FormLargestIntegerWithDigitsThatAddUptoTarget.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1449_FormLargestIntegerWithDigitsThatAddUptoTarget.cpp; sourceTree = "<group>"; };
+		1253B91D258A7247006F39B6 /* 1606_FindServersThatHandledMostNumberOfRequests.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1606_FindServersThatHandledMostNumberOfRequests.cpp; sourceTree = "<group>"; };
+		1253B920258A9B81006F39B6 /* 1458_MaxDotProductOfTwoSubsequences.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1458_MaxDotProductOfTwoSubsequences.cpp; sourceTree = "<group>"; };
+		1253B923258AA455006F39B6 /* 1575_CountAllPossibleRoutes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1575_CountAllPossibleRoutes.cpp; sourceTree = "<group>"; };
+		1253B926258ACA5B006F39B6 /* 1301_NumberOfPathsWithMaxScore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1301_NumberOfPathsWithMaxScore.cpp; sourceTree = "<group>"; };
 		126039D2257AFEB5001F8CD2 /* 1675_MinimizeDeviationInArray.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1675_MinimizeDeviationInArray.cpp; sourceTree = "<group>"; };
 		12634FAD255C3E2A0027FE05 /* 863_AllNodesDistanceKInBinaryTree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 863_AllNodesDistanceKInBinaryTree.cpp; sourceTree = "<group>"; };
 		126AA4E02572B36D0070EE7F /* 1585_CheckIfStringIsTransformableWithSubstringSortOperations.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = 1585_CheckIfStringIsTransformableWithSubstringSortOperations.cpp; sourceTree = "<group>"; };
@@ -788,6 +798,11 @@
 				128C52AD257E9A1200E49A0A /* 1681_MinimumIncompatibility.cpp */,
 				124433E42589444600D0D204 /* 1691_MaximumHeightByStackingCuboids.cpp */,
 				124433E825895DEC00D0D204 /* 1340_JumpGameV.cpp */,
+				1253B91A258A598B006F39B6 /* 1449_FormLargestIntegerWithDigitsThatAddUptoTarget.cpp */,
+				1253B91D258A7247006F39B6 /* 1606_FindServersThatHandledMostNumberOfRequests.cpp */,
+				1253B920258A9B81006F39B6 /* 1458_MaxDotProductOfTwoSubsequences.cpp */,
+				1253B923258AA455006F39B6 /* 1575_CountAllPossibleRoutes.cpp */,
+				1253B926258ACA5B006F39B6 /* 1301_NumberOfPathsWithMaxScore.cpp */,
 			);
 			path = leetcode;
 			sourceTree = "<group>";
@@ -990,6 +1005,7 @@
 			files = (
 				083F7C3B241C3D5B00D3D54A /* 955_DeleteColumnsToMakeSortedII.cpp in Sources */,
 				12BF86422587C342008FC198 /* 1563_StoneGameV.cpp in Sources */,
+				1253B91B258A598B006F39B6 /* 1449_FormLargestIntegerWithDigitsThatAddUptoTarget.cpp in Sources */,
 				08A5BAB024265EA4003AAE9B /* 979_DistributeCoinsInBinaryTree.cpp in Sources */,
 				086A8ACE24071C4A00CFAEED /* 42_TrappingRainWater.cpp in Sources */,
 				086A8AB224071C4A00CFAEED /* 732_MyCalendarIII.cpp in Sources */,
@@ -1148,6 +1164,7 @@
 				0840A35D24239EE600BB7143 /* 963_MinimumAreaRectangleII.cpp in Sources */,
 				08F4D69E241972960057856A /* 429_NaryTreeLevelOrderTraversal.cpp in Sources */,
 				086A8AE824071C4A00CFAEED /* 45_JumpGameII.cpp in Sources */,
+				1253B921258A9B81006F39B6 /* 1458_MaxDotProductOfTwoSubsequences.cpp in Sources */,
 				08224C1C252689AC00C0CBF2 /* 857_MinimumCosttoHireKWorkers.cpp in Sources */,
 				086A8AF024071C4A00CFAEED /* 552_StudentAttendanceRecordII.cpp in Sources */,
 				124E70782571B12900AD389F /* 1352_ProductOftheLastKNumbers.cpp in Sources */,
@@ -1168,6 +1185,7 @@
 				08B505B32418192B001E19BE /* 951_FlipEquivalentBinaryTrees.cpp in Sources */,
 				08EA74912447BC5100B9D7E1 /* 920_NumberOfMusicPlaylists.cpp in Sources */,
 				086A8AFC24071C4A00CFAEED /* 30_SubstringWithConcatenationOfAllWords.cpp in Sources */,
+				1253B91E258A7247006F39B6 /* 1606_FindServersThatHandledMostNumberOfRequests.cpp in Sources */,
 				0881502F242D63A40089D46D /* 981_TimeBasedKeyValueStore.cpp in Sources */,
 				086A8AFB24071C4A00CFAEED /* 843_GuesstheWord.cpp in Sources */,
 				08077B4224186A79001EBED2 /* 974_SubarraySumsDivisibleByK.cpp in Sources */,
@@ -1198,6 +1216,7 @@
 				08A9D7EC245878CC0058F560 /* 932_BeautifulArray.cpp in Sources */,
 				0864A89D24409BE2002BE5F0 /* 913_CatAndMouse.cpp in Sources */,
 				086A8AE224071C4A00CFAEED /* 591_TagValidator.cpp in Sources */,
+				1253B927258ACA5B006F39B6 /* 1301_NumberOfPathsWithMaxScore.cpp in Sources */,
 				120BCCAD2585563200234082 /* 1074_NumberOfSubmatricesThatSunToTarget.cpp in Sources */,
 				084D989125212A280093E741 /* 355_DesignTwitter.cpp in Sources */,
 				086A8AEE24071C4A00CFAEED /* 801_MinimumSwapsToMakeSequencesIncreasing.cpp in Sources */,
@@ -1229,6 +1248,7 @@
 				082C5AF7251EEB740061105C /* 239_SlidingWindowMaximum.cpp in Sources */,
 				12745BE82536177000545BC1 /* 1246_PalindromeRemoval.cpp in Sources */,
 				086A8AD524071C4A00CFAEED /* 472_ConcatenatedWordscpp.cpp in Sources */,
+				1253B924258AA455006F39B6 /* 1575_CountAllPossibleRoutes.cpp in Sources */,
 				083A06D82562DC8C002945DF /* 399_EvaluateDivision.cpp in Sources */,
 				08D40853240D98BE004716AB /* 1039_MinimumScoreTriangulationOfPolygon.cpp in Sources */,
 				12BE1D922582F6C9001CD8C1 /* 1580_PutBoxesIntoTheWarehouseII.cpp in Sources */,

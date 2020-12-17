@@ -382,9 +382,21 @@ void test_1563_stone_game_v();
 
 void test_1444_number_of_cut_pizza();
 
+void test_1606_find_buiest_server();
+
+void test_1575_count_all_routes();
+
+void test_1301_number_of_paths();
+
 void leetcode()
 {
-    test_1444_number_of_cut_pizza();
+    test_1301_number_of_paths();
+    
+    // test_1575_count_all_routes();
+    
+    // test_1606_find_buiest_server();
+    
+    // test_1444_number_of_cut_pizza();
     
     // test_1563_stone_game_v();
     

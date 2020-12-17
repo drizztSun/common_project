@@ -487,17 +487,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FC9A0309-E813-41DC-88EE-0BBEB2196CE3"
+            uuid = "E8A04A0F-AF8D-4477-8740-6FE4CCC5AFFF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "leetcode/1444_NumberOfWaysOfCuttingPizza.cpp"
+            filePath = "leetcode/1301_NumberOfPathsWithMaxScore.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "test_1444_number_of_cut_pizza()"
-            landmarkType = "9">
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "doit_dp(board)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
