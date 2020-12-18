@@ -84,7 +84,6 @@ class VerbalArithmeticPuzzle {
 public:
 
     bool doit_dfs(vector<string>& words, string result) {
-        
         vector<int> letters(128, -1);
         vector<bool> visited(10, false);
     
@@ -120,13 +119,21 @@ public:
                     return dfs(0, j+1, accum);
                 } else {
                     
+                    if (visited[remainder])
+                        return false;
+                    
                     letters[rch] = remainder;
                     visited[remainder] = true;
                     if (dfs(0, j+1, accum))
                         return true;
+                    letters[rch] = -1;
                     visited[remainder] = false;
                     return false;
                 }
+            }
+            
+            if (j >= words[i].size()) {
+                return dfs(i+1, j, sums);
             }
             
             char c = words[i][j];
@@ -143,6 +150,9 @@ public:
                 for (int d = 0; d < 10; d++) {
                     
                     if (visited[d])
+                        continue;
+                    
+                    if (d == 0 && words[i].size() > 1 && j == words[i].size() - 1)
                         continue;
                     
                     letters[c] = d;

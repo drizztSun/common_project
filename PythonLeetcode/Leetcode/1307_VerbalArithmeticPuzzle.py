@@ -100,7 +100,6 @@ class VerbalArithmeticPuzzle:
 
 
     """
-
     def doit_(self, words: list, result: str) -> bool:
         import functools
         import collections
@@ -178,3 +177,74 @@ class VerbalArithmeticPuzzle:
                     checkpoints[i].append(g)
 
         return helper(0, 0, tuple(range(10)))
+
+    def doit_search(self, words: list, result: str) -> bool:
+
+        result = result[::-1]
+        words = [w[::-1] for w in words]
+
+        if len(max(words, key=lambda x: len(x))) > len(result):
+            return False
+
+        digits = [-1 for _ in range(10)]
+        letters = [-1 for _ in range(127)]
+
+        def search(i, j, sums):
+
+            if j == len(result):
+                if sums != 0:
+                    return False
+                if len(result) > 1 and letters[ord(result[-1])] == 0:
+                    return False
+                return True
+
+            if i == len(words):
+                ch = ord(result[j])
+                acc, rem = divmod(sums, 10)
+                if letters[ch] == -1:
+                    if digits[rem] != -1:
+                        return False
+                    letters[ch] = rem
+                    digits[rem] = ch
+                    if search(0, j+1, acc):
+                        return True
+                    letters[ch] = -1
+                    digits[rem] = -1
+                    return False
+                else:
+                    if letters[ch] != rem:
+                        return False
+                    return search(0, j+1, acc)
+
+            if j >= len(words[i]):
+                return search(i+1, j, sums)
+
+            ch = ord(words[i][j])
+            if letters[ch] == -1:
+                for d in range(10):
+                    if digits[d] != -1:
+                        continue
+
+                    if d == 0 and len(words[i]) > 1 and j == len(words[i])-1:
+                        continue
+
+                    letters[ch] = d
+                    digits[d] = ch
+                    if search(i+1, j, sums + letters[ch]):
+                        return True
+                    letters[ch] = -1
+                    digits[d] = -1
+                return False
+            else:
+                if len(words[i]) > 1 and j == len(words[i]) - 1 and letters[ch] == 0:
+                    return False
+                return search(i+1, j, sums + letters[ch])
+
+            return False
+
+        return search(0, 0, 0)
+
+
+if __name__ == '__main__':
+
+    VerbalArithmeticPuzzle().doit_search(["SEND","MORE"], "MONEY")

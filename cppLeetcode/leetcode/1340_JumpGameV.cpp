@@ -81,12 +81,15 @@ public:
      Space complexity: O(n)
      
      */
-    int doit_dp_recursive(vector<int>& arr, int d) {
-        
+    int doit_dp_recursive_Topdown(vector<int>& arr, int d) {
+
         int n = arr.size();
         vector<int> dp(n);
-        
+
         std::function<int(int)> search = [&](int i) {
+            
+            int n = arr.size();
+            vector<int> dp(n);
             
             if (dp[i] != 0)
                 return dp[i];
@@ -129,7 +132,7 @@ public:
      Space complexity: O(n)
      */
     
-    int doit_dp(vector<int>& arr, int d) {
+    int doit_dp_Bottomup(vector<int>& arr, int d) {
         
         const int N = arr.size();
         vector<std::pair<int, int>> heights;

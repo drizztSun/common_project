@@ -54,3 +54,51 @@ All strings in words have the same length.
 words[i] and target contain only lowercase English letters.
 
 """
+
+
+class NumberOfWays:
+
+    def doit(self, W, T) -> int:
+        from collections import Counter
+        from functools import lru_cache
+
+        n, m = len(W[0]), len(T)
+        counts = [Counter([w[i] for w in W]) for i in range(n)]
+
+        @lru_cache(None)
+        def help(i, j):
+            if n - i < m - j:
+                return 0
+
+            if j == m:
+                return 1
+
+            # if i == n: return 0
+            return (counts[i][T[j]] * help(i + 1, j + 1) + help(i + 1, j)) % (10 ** 9 + 7)
+
+        return help(0, 0)
+
+    def doit_dp(self, words: list, result: str) -> int:
+
+        M, N = len(words[0]), len(result)
+        wordCnt = [[0 for _ in range(27)] for _ in range(M)]
+        hMod = 10**9 + 7
+
+        for w in words:
+            for i, l in enumerate(w):
+                wordCnt[i][ord(l) - ord('a')] += 1
+
+        dp = [[0 for _ in range(N+1)] for _ in range(M+1)]
+        for i in range(M):
+            dp[i][0] = 1
+
+        for i in range(1, M+1):
+
+            for j in range(1, N+1):
+
+                dp[i][j] = max(dp[i][j-1], dp[i-1][j])
+
+                if wordCnt[i-1][ord(result[j-1]) - ord('a')] > 0:
+                    dp[i][j] = (dp[i][j] + wordCnt[i-1][ord(result[j-1]) - ord('a')] * dp[i-1][j-1]) % hMod
+
+        return dp[M][N]
