@@ -60,7 +60,9 @@ class MinFlips {
 
 public:
     
-    
+    /*
+        STATE COMPRESSION
+    */
     int doit_bfs(vector<vector<int>>&& mat) {
         
         

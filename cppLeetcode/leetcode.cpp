@@ -388,9 +388,13 @@ void test_1575_count_all_routes();
 
 void test_1301_number_of_paths();
 
+void test_1639_();
+
 void leetcode()
 {
-    test_1301_number_of_paths();
+    test_1639_();
+    
+    // test_1301_number_of_paths();
     
     // test_1575_count_all_routes();
     
