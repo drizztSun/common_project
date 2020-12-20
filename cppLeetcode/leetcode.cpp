@@ -390,9 +390,13 @@ void test_1301_number_of_paths();
 
 void test_1639_();
 
+void test_1202_smallest_swap_string();
+
 void leetcode()
 {
-    test_1639_();
+    test_1202_smallest_swap_string();
+    
+    // test_1639_();
     
     // test_1301_number_of_paths();
     

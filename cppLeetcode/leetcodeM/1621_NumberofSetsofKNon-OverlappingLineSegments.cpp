@@ -85,7 +85,7 @@ public:
         
         constexpr int kMod = 1e9 + 7;
         vector<vector<int>> cache(N + 1, vector<int>(K + 1));
-        
+        0000
         std::function<int(int, int)> dp = [&](int n, int k) {
             
           if (k >= n) return 0;
@@ -152,5 +152,27 @@ public:
         
         return dp[N][K];
     }
-    
+
+    /*
+    DP5: 
+
+    This problem can be reduced to: given n + k – 1 points, pick k segments (2*k points).
+    if two consecutive points were selected by two segments e.g. i for A and i+1 for B, then they share a point in the original space.
+    Answer C(n + k – 1, 2*k)
+
+    Time complexity: O((n+k)*2) Pascal’s triangle
+    Space complexity: O((n+k)*2)
+
+    */
+    int doit_dp5(int N, int K) {
+        constexpr int kMod = 1e9 + 7;
+        vector<vector<int>> dp(n + k , vector<int>(n + k));
+        for (int i = 0; i < n + k; ++i) {
+            dp[i][0] = dp[i][i] = 1;
+            for (int j = 1; j < i; ++j)
+                dp[i][j] = (dp[i - 1][j - 1] + dp[i - 1][j]) % kMod;
+        }
+        return dp[n + k - 1][2 * k];
+    }
+
 };

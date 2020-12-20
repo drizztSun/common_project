@@ -50,11 +50,40 @@ https://zxi.mytechroad.com/blog/dynamic-programming/leetcode-1621-number-of-sets
 
 class NumberofSetsOfKNonOverlappingLineSegements:
 
-
     def doit_math(self, n: int, k: int) -> int:
         import math
         return math.comb(n + k - 1, k * 2) % (10**9 + 7)
 
+    """
+        // TLE O(n^2*k)
+     
+    DP1: dp(n, k) := # of k segements s=using n points
+        
+        base case:
+        1) dp(n, 1) = C(n, 2) = n * (n - 1) / 2
+        2) dp(n, k) = 1 if k == n- 1
+        3) dp(n, k) = 0 if k >= n
+     
+     Transition:
+     Enumerate all possible split point i. Use first i points for one segment, the rest of n-i+1 points
+     for a sub-problem of (k-1) segments.
+       one      n-i+1 segments
+     1----i..i+1-----n
+     
+     point i must be the right node of one segment, to avoid duplicate. if don't, there will be duplicate.
+     for example, if one i is 5, one segment 2--3, then rest n-i+1 in k-1, starts to 5.
+     also if one is 4, one segment is 2--3, then the rest n-i+1 in k-1, can starts from 5 in the same time. 
+     
+     so for each i, the left side one segment, could be start from(0..i-1  => i), so it is (i-1) ways.
+     
+     dp(n, k) = sum((i-1) * dp(n - i + 1, k - 1)) (2 <= i <= n - k + 1)
+     
+     Ans = dp(N, K)
+     States: n*k, each state takes O(n) Time.
+     Time complexity: O(n^2 * k)
+     Space complexity: O(k)
+     
+    """
     def doit_dp_dfs_1_TLE(self, N, K):
 
         from functools import lru_cache
@@ -78,18 +107,16 @@ class NumberofSetsOfKNonOverlappingLineSegements:
         dp(n, 0) = 1
         
     Transition:
-    # case 1: k-1 segments in 1--i, put kth one segemnt from i--n, if we use n as most right pointts
-    # case 2: put k segment from 1 --> n-1, left n points useless. so recursive case 2, it means we left some points in right side free.
+    # case 1: k-1 segments in 1--i, put kth one segment from i--n, if we use n as most right point. Any i...i+j--n-p...n will be duplicate as below.
+    # case 2: put k segment from 1 --> n-1, left point n useless. so recursive case 2, it means we left some points in right side free.
     
     dp(n, k) = sum(dp(i, k-1)) + dp(n-1, k),  1 <= i < n - k
     Ans = dp(N, K)
     
-    Can use bottom up + prefix sum to reduce the time complexity from O(n**2 * k) + O(n, k)
+    Can use bottom-up + prefix-sum to reduce the time complexity from O(n**2 * k) + O(n, k)
     
     Time complexity: O(nk)
-    
     Space complexity: O(nk) 
-    
     """
     def doit_dp_2(self, N, K):
 
@@ -115,7 +142,25 @@ class NumberofSetsOfKNonOverlappingLineSegements:
         return dp[N][K] % kMod
 
     """
+    DP3: dp(n, k, ea) := # of k segments using n points and whether the n-th node could be an endpoint.
     
+    
+    Base case
+    1) dp(n, 0) = 1
+    2) dp(n, k) = 0 if k > n
+    
+    Transition:
+    e is boolean for i could be a endpoint of left side, 0 couldn't, 1 could .
+    
+    dp(i, k, e) =     dp(i-1, k, e) # case 1, skip i, k segments in 1 ~ i-1
+                    + dp(i, k-1, 0) if e else 0 # case 2,  e=1, take i as end, i~j, k-1 segments in dp[i-1][k-1][0]
+                    + dp(i-1, k, 1) if not e else 0 # case 3, e=0, i can't be endpoint, take i as start of next segment, i-1 can be endpoint
+                    
+    dp(i, k, e) = dp(i-1, k, e) + dp(i + e - 1, k - e, 1- e)  # what?
+    
+    Ans = dp(n, k, 0)
+    Time complexity: O(nk)
+    Space complexity: O(nk)
     """
     def doit_dp_3(self, n: int, k: int) -> int:
         from functools import lru_cache
@@ -152,8 +197,7 @@ class NumberofSetsOfKNonOverlappingLineSegements:
     Ans = dp(N, K)
     
     Time complexity: O(nk)
-    Space complexity: O(nk) 
-    
+    Space complexity: O(nk)
     """
     def doit_dp_4(self, n: int, k: int) -> int:
         from functools import lru_cache
@@ -168,6 +212,8 @@ class NumberofSetsOfKNonOverlappingLineSegements:
             return 2 * dp(n - 1, k) - dp(n - 2, k) + dp(n - 1, k - 1)
 
         return dp(n, k) % (10 ** 9 + 7)
+
+    
 
 
 
