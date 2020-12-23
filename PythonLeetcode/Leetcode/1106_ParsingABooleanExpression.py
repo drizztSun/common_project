@@ -75,7 +75,47 @@ class ParsingBooleanExpre:
 
         return stack[0]
 
+    def doit_recursive(self, expression: str) -> bool:
+
+        p = 0
+
+        def search():
+            nonlocal p
+            ch = expression[p]
+            p += 1
+
+            if ch == 't':
+                return True
+            elif ch == 'f':
+                return False
+            elif ch == '!':
+                p += 1
+                ans = not search()
+                p += 1
+                return ans
+
+            is_and = (ch == '&')
+            ans = is_and
+            p += 1
+            while True:
+
+                if is_and:
+                    ans &= search()
+                else:
+                    ans |= search()
+
+                if expression[p] == ')':
+                    p += 1
+                    break
+                p += 1
+
+            return ans
+
+        return search()
+
 
 if __name__ == '__main__':
+
+    ParsingBooleanExpre().doit_recursive("|(f, t)")
 
     ParsingBooleanExpre().doit_("|(&(t,f,t),!(t))")

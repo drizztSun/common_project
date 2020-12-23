@@ -1,6 +1,8 @@
-// 801. Minimum Swaps To Make Sequences Increasing
-
 /*
+
+ 801. Minimum Swaps To Make Sequences Increasing
+
+
  We have two integer sequences A and B of the same non-zero length.
 
  We are allowed to swap elements A[i] and B[i].  Note that both elements are in the same index position in their respective sequences.
@@ -20,6 +22,7 @@
 
  A, B are arrays with the same length, and that length will be in the range [1, 1000].
  A[i], B[i] are integer values in the range [0, 2000].
+
  */
 
 #include <algorithm>
@@ -29,6 +32,80 @@ using namespace std;
 
 class MinSwap {
 public:
+
+    /*
+
+    Solution 2: DP
+
+    Use swap[i]/keep[i] to denotes the min swaps to make A[0] ~ A[i] / B[0] ~ B[i] strictly increasing with / without swap A[i] and B[i]
+
+    if A[i] > A[i-1] and B[i] > B[i-1]:
+        keep[i] = keep[i-1]         # 1. no swap for both i-1, i 
+        swap[i] = swap[i-1] + 1     # 2. swap for both i-1, i
+
+    if A[i] > B[i-1] amd B[i] > A[i-1]:
+        swap[i] = min(swap[i], keep[i-1] + 1) # 3. swap i
+        keep[i] = min(keep[i], swap[i-1]) # 4. swap i - 1
+
+    Time complexity: O(n)
+    Space complexity: O(n) -> O(1)
+    */
+
+    int doit_dp(vector<int>& A, vector<int>& B) {
+
+        const int n = A.size();
+            
+        vector<int> keep(n, INT_MAX);
+        vector<int> swap(n, INT_MAX);
+        
+        keep[0] = 0;
+        swap[0] = 1;
+        
+        for (int i = 1; i < n; ++i) {
+            if (A[i] > A[i - 1] && B[i] > B[i - 1]) {
+                // Good case, no swapping needed.
+                keep[i] = keep[i - 1];
+            
+                // Swapped A[i - 1] / B[i - 1], swap A[i], B[i] as well
+                swap[i] = swap[i - 1] + 1;
+            }      
+            
+            if (B[i] > A[i - 1] && A[i] > B[i - 1]) {
+                // A[i - 1] / B[i - 1] weren't swapped.
+                swap[i] = min(swap[i], keep[i - 1] + 1);
+            
+                // Swapped A[i - 1] / B[i - 1], no swap needed for A[i] / B[i]      
+                keep[i] = min(keep[i], swap[i - 1]);
+            }
+        }
+        
+        return min(keep.back(), swap.back());
+    }
+
+    int doit_dp1(vector<int>& A, vector<int>& B) {
+
+        int s = 1, k = 0;
+
+        for (int i = 1; i < A.size(); i++) {
+            
+            int ns = INT_MAX, nk = INT_MAX;
+
+            if (A[i-1] < A[i] && B[i-1] < B[i]) {
+                nk = k;
+                ns = s + 1;
+            }
+
+            if (A[i-1] < B[i] && B[i-1] < A[i]) {
+                ns = std::min(ns, k + 1);
+                nk = std::min(nk, s);
+            }
+
+            k = nk, s = ns;
+        }
+
+        return min(s, k);
+    }
+
     int doit(vector<int>&& A, vector<int>&& B) {
         
         vector<vector<int>> dp(2);

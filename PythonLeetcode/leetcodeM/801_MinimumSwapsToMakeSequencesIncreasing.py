@@ -56,7 +56,6 @@ class MinimumSwapsToMakeSequencesIncreasing:
     At the end, the optimal solution must leave the last column either natural or swapped, so we take the minimum number of swaps between the two possibilities.
 
     """
-
     def doit_dp(self, A: list, B: list) -> int:
 
         n, s = 0, 1

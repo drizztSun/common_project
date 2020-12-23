@@ -392,9 +392,13 @@ void test_1639_();
 
 void test_1202_smallest_swap_string();
 
+void test_1210_minimum_moves_to_reach();
+
 void leetcode()
 {
-    test_1202_smallest_swap_string();
+    test_1210_minimum_moves_to_reach();
+    
+    // test_1202_smallest_swap_string();
     
     // test_1639_();
     
