@@ -1,3 +1,4 @@
+"""
 # 907. Sum of Subarray Minimums
 
 # Given an array of integers A, find the sum of min(B), where B ranges over every (contiguous) subarray of A.
@@ -17,6 +18,8 @@
 
 # 1 <= A.length <= 30000
 # 1 <= A[i] <= 30000
+
+"""
 
 
 class SumSubarrayMins:
@@ -55,9 +58,14 @@ class SumSubarrayMins:
     Note that this process is linear, since we do a linear amount of pushes and pops of the stack in total.
 
     This is quite difficult to figure out, but this type of technique occurs often in many other problems, so it is worth learning in detail.
-    """
 
-    def doit(self, A):
+    Complexity Analysis
+
+    Time Complexity: O(N), where NN is the length of A.
+
+    Space Complexity: O(N).
+    """
+    def doit_stack(self, A):
         MOD = 10**9 + 7
         N = len(A)
 
@@ -81,11 +89,24 @@ class SumSubarrayMins:
             next_[k] = stack[-1] if stack else N
             stack.append(k)
 
+        # Use prev/next array to count answer
+        return sum((i - prev[i]) * (next_[i] - i) * A[i] for i in range(N)) % MOD
+
+    def doit_stack1(self, A):
+        ans, st, n, hMod = 0, [], len(A), 10 ** 9 + 7
+
+        for i in range(n + 1):
+            while st and A[st[-1]] > (0 if i == n else A[i]):
+                j = st.pop()
+                k = st[-1] if st else -1
+                ans = (ans + A[j] * (i - j) * (j - k)) % hMod
+            st.append(i)
+        return ans
+
     # (DP) O(n^2) O(TLE)
-    def doit(self, A):
+    def doit_dp_tle(self, A):
         N = len(A)
-        dp = [[A[i] if i == j else float('inf')
-               for j in range(N)] for i in range(N)]
+        dp = [[A[i] if i == j else float('inf') for j in range(N)] for i in range(N)]
 
         ans = 0
         for i in range(N):
@@ -122,8 +143,7 @@ class SumSubarrayMins:
     Space Complexity: O(N).
 
     """
-
-    def doit(self, A):
+    def doit_stack(self, A):
         stack = []
         ans = dot = 0
 

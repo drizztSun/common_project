@@ -1,4 +1,5 @@
-# 901. Online Stock Span
+"""
+901. Online Stock Span
 
 # Write a class StockSpanner which collects daily price quotes for some stock, and returns the span of that stock's price for the current day.
 
@@ -34,6 +35,7 @@
 # There will be at most 10000 calls to StockSpanner.next per test case.
 # There will be at most 150000 calls to StockSpanner.next across all test cases.
 # The total time limit for this problem has been reduced by 75% for C++, and 50% for all other languages.
+"""
 
 
 # O(n) TLE
@@ -125,5 +127,3 @@ if __name__ == '__main__':
     res = obj.next(75)
 
     res = obj.next(86)
-
-    pass
