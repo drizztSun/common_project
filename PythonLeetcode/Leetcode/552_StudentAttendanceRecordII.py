@@ -229,7 +229,7 @@ class CheckRecord:
     # Interestingly, it is also equal to A^(n+1)[5][2] as the third column of A is just that vector. Credit to @StefanPochmann.
     #
     # https://leetcode.com/problems/student-attendance-record-ii/discuss/101633/Improving-the-runtime-from-O(n)-to-O(log-n)
-    def doit(self, n):
+    def doit_dp_fastpower(self, n):
         """
         :type n: int
         :rtype: int
@@ -283,7 +283,7 @@ class CheckRecord:
              [0, 1, 0, 0, 0, 0],
              [1, 1, 1, 1, 1, 1],
              [0, 0, 0, 1, 0, 0],
-             [0, 0, 0, 0, 1, 0]];
+             [0, 0, 0, 0, 1, 0]]
 
         return Pow(A, n + 1)[3][0]
 

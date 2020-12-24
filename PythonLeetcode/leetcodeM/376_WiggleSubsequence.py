@@ -1,11 +1,14 @@
 """
 376. Wiggle Subsequence
 
-A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative. The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
+A sequence of numbers is called a wiggle sequence if the differences between successive numbers strictly alternate between positive and negative.
+The first difference (if one exists) may be either positive or negative. A sequence with fewer than two elements is trivially a wiggle sequence.
 
-For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative. In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive and the second because its last difference is zero.
+For example, [1,7,4,9,2,5] is a wiggle sequence because the differences (6,-3,5,-7,3) are alternately positive and negative.
+In contrast, [1,4,7,2,5] and [1,7,4,5,5] are not wiggle sequences, the first because its first two differences are positive and the second because its last difference is zero.
 
-Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence. A subsequence is obtained by deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original order.
+Given a sequence of integers, return the length of the longest subsequence that is a wiggle sequence.
+A subsequence is obtained by deleting some number of elements (eventually, also zero) from the original sequence, leaving the remaining elements in their original order.
 
 Example 1:
 
@@ -53,7 +56,7 @@ class WiggleSequenceMaxLength:
 
     **Complexity Analysis**
     Time complexity : O(n^2). Loop inside a loop.
-    Space complexity : O(n)O(n). Two arrays of the same length are used for dp.
+    Space complexity : O(n). Two arrays of the same length are used for dp.
     """
 
     def doit_dp_slow(self, nums: list) -> int:
@@ -81,16 +84,23 @@ class WiggleSequenceMaxLength:
     
     Any element in the array could correspond to only one of the three possible states:
     
-    up position, it means nums[i] > nums[i-1]nums[i]>nums[i−1]
-    down position, it means nums[i] < nums[i-1]nums[i]<nums[i−1]
-    equals to position, nums[i] == nums[i-1]nums[i]==nums[i−1]
+    up position, it means nums[i] > nums[i-1]
+    down position, it means nums[i] < nums[i-1]
+    equals to position, nums[i] == nums[i-1]
+    
     The updates are done as:
     
-    If nums[i] > nums[i-1]nums[i]>nums[i−1], that means it wiggles up. The element before it must be a down position. So up[i] = down[i-1] + 1up[i]=down[i−1]+1, down[i]down[i] remains the same as down[i-1]down[i−1]. 
-    If nums[i] < nums[i-1]nums[i]<nums[i−1], that means it wiggles down. The element before it must be a up position. So down[i] = up[i-1] + 1down[i]=up[i−1]+1, up[i]up[i] remains the same as up[i-1]up[i−1]. 
-    If nums[i] == nums[i-1]nums[i]==nums[i−1], that means it will not change anything becaue it didn't wiggle at all. So both down[i]down[i] and up[i]up[i] remain the same as down[i-1]down[i−1] and up[i-1]up[i−1].
+    If nums[i] > nums[i-1], that means it wiggles up. The element before it must be a down position. 
+    So up[i] = down[i-1] + 1 and down[i] remains the same as down[i−1]. 
     
-    At the end, we can find the larger out of up[length-1]up[length−1] and down[length-1]down[length−1] to find the max. wiggle subsequence length, where lengthlength refers to the number of elements in the given array.
+    If nums[i] < nums[i-1], that means it wiggles down. 
+    The element before it must be a up position. So down[i] = up[i-1] + 1, up[i] remains the same as up[i-1]. 
+    
+    If nums[i] == nums[i-1], that means it will not change anything because it didn't wiggle at all. 
+    So both down[i] and up[i] remain the same as down[i-1] and up[i−1].
+    
+    At the end, we can find the larger out of up[length-1] and down[length-1] to find the max. 
+    wiggle subsequence length, where length refers to the number of elements in the given array.
     
     The process can be illustrated with the following example:
     """
