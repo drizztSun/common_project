@@ -237,7 +237,6 @@ class CountPalindromicSubsequences:
 
         return dp(0, N-1) - 1
 
-
     def doit1(self, S):
         """
         :type S: str

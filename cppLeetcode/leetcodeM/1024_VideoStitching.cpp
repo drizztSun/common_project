@@ -55,6 +55,50 @@ class VideoStitching {
 
 public:
 
+    /*
+    1024.Video-Stitching
+    此题非常类似 45.Jump Game II，整体就是一个贪心的策略。略微的差异就是我们需要预先将这些clips排序，排序的原则就是左端点靠前的优先，其次右端点靠后的优先。
+
+    我们从第一个区间[0,right]开始考虑，将之后所有左端点位于right之前的clips都查看一遍（意味着与之前的区间有overlap），考察他们各自的右端点，取最大值得到能够推进到最远的位置farReach。
+    这对应增加一个clip的操作（这个clip的右端点就是farReach）。然后更新right=farReach，再重复之前的操作，直到抵达target。
+
+    特别注意，如果更新farReach之后仍然等于right，就意味着没有其他clip与当前的区间能够overlap，应该及时返回-1，否则会死循环。
+    */
+    int videoStitching(vector<vector<int>>& clips, int T) 
+    {
+        if (T==0) return 0;
+
+        sort(clips.begin(),clips.end(), [](vector<int>&a, vector<int>&b) {
+            if (a[0]!=b[0])
+                return a[0]<b[0];
+            else
+                return a[1]>b[1];
+        });        
+        
+        int far = 0;
+        int i = 0;
+        int count = 0;
+                
+        while (i < clips.size())
+        {            
+            int nextFar = far;
+            while (i < clips.size() && clips[i][0] <= far)
+            {
+                nextFar = std::max(nextFar, clips[i][1]);
+                i++;
+            }
+            count++;
+
+            if (nextFar >= T)
+                return count;
+            else if (nextFar == far)
+                return -1;                            
+            far = nextFar;
+        }        
+
+        return -1;        
+    }
+
     int doit(vector<vector<int>>&& clips, int T) {
             
          std::sort(clips.begin(), clips.end(), [](auto& a, auto& b) ->bool {
@@ -78,6 +122,10 @@ public:
                  if (top[1] >= c[1])
                      continue;
                  else if (c[0] <= top[0] && top[1] < c[1]) {
+                    // B   5 -- 9
+                    // A   4 -- 7 
+                    // Tail   6
+                    // pick B not A
                      int t = top[0];
                      buf.pop_back();
                      buf.push_back(vector<int>{t, c[1]});
@@ -119,7 +167,7 @@ public:
             }
         }
         
-        return dp[T]==101 ? -1 : dp[T];
+        return dp[T] == 101 ? -1 : dp[T];
     }
 };
 

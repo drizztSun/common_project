@@ -46,6 +46,27 @@
 
 class VideoStitching:
 
+    def doit_greedy(self, clips, T):
+
+        clips.sort(key=lambda x: (x[0], -x[1]))
+        right, i, count = 0, 0, 0
+
+        while right < T:
+
+            nextright = right
+            while i < len(clips) and clips[i][0] <= right:
+                nextright = max(nextright, clips[i][1])
+                i += 1
+
+            count += 1
+
+            if right == nextright:
+                return -1
+
+            right = nextright
+
+        return count
+
     """
     Solution 2: Sort + DP
     Sort clips first.

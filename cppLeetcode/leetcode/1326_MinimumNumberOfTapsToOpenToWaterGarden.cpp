@@ -50,27 +50,113 @@
  
  */
 #include <vector>
+#include <array>
 
-
+using std::array;
 using std::vector;
 
 
 class MinimumNumberOfTapsToOpenToWaterGarden {
     
 public:
-    
+
+    /*
+    1326.Minimum-Number-of-Taps-to-Open-to-Water-a-Garden
+    此题的本质就是寻找数目最少的、互相重叠区间，使得最终能够覆盖[0,n]。这和1024.Video-Stitching非常类似。
+
+    我们将所有的区间按照左端点排列，如果左端点并列，那么优先选择范围大的区间。假设我们当前处理区间i，记作[a,b]，那么我们会查看i后面的、与i有交叠的区间，如果有多个，我们一定会从里面挑选右端点最远的那一个（记作区间j），因为j既能与i重叠、又能覆盖最远的地方，可以减少最终所选区间的数目。然后我们再考察区间j，重复之前的操作。
+
+    注意无解的情况有三种：1. 最右端的位置还没有推进到n，但是区间i之后已经没有任何其他区间能与之重叠；2. 如果考察完所有的区间，最右端的位置仍然无法推进到n，3. 第一个区间的左端点在0后面。
+    */
+    int minTaps(int n, vector<int>& ranges) 
+    {
+        vector<array<int,2>>intervals(n+1);
+        for (int i=0; i<=n; i++)
+            intervals[i] = {i-ranges[i], i+ranges[i]};
+
+        sort(intervals.begin(), intervals.end(), [](array<int,2>&a, array<int,2>&b){
+            if (a[0]!=b[0])
+                return a[0] < b[0];
+            else
+                return a[1] > b[1];
+        });
+
+        if (intervals[0][0]>0) return -1;
+
+        int i = 0;
+        int far = 0;
+        int count = 0;
+        while (i < intervals.size())
+        {                        
+            count += 1;
+            int nextFar = far;
+            while (i < intervals.size() && intervals[i][0]<=far)
+            {
+                nextFar = std::max(nextFar, intervals[i][1]);
+                i++;
+            }
+
+            if (nextFar >= n)
+                return count;
+            
+            if (nextFar == far)
+                return -1;
+            
+            far = nextFar;
+        }
+
+        return -1;
+    }
+
+    int doit_1(int n, vector<int>& nums) {
+
+        vector<int> maxRight(n+1); //maxRight[Left]=the farest index Left can reach
+        
+        // scan each tap, update the farest index each Left can reach.
+        for (int i =0;i<=n;i++){
+            int L = std::max(0,i-nums[i]);
+            int R = std::min(n,i+nums[i]);
+            maxRight[L] = std::max(maxRight[L],R);
+        }   
+
+        int next_right_most = maxRight[0];// the rightmost index which is accessible by one more tap
+        int cur_right_most = maxRight[0];// cur right most accessible index
+        int taps = 1;
+
+        for(int i = 1; i <= n; i++){
+            // i is the Left to scan.
+            // for each i, we find the next right most index to cover.
+            if(i > next_right_most){
+               //still can't find the next connected range
+               //this implies all indices in[0,next_right_most] cannot reach the rest part of the garden.
+               //because if they can, the next_right_most should have been updated to larger.(contradicted)
+               return -1;
+            }
+            
+            if (i > cur_right_most){
+                //this implies Left of current scan is disconnected from previous right_most index.
+                //It's time to add an additional tap to cover previous indices
+                taps++;
+                cur_right_most = next_right_most;
+            }
+            
+            //only update when i(which is the Left)<cur_right_most
+            //because only in this case, the tap is overlapped with the previous tap
+            next_right_most = std::max(next_right_most, maxRight[i]); //greedy. find the rightmost index
+        }
+        return taps; 
+    }
+
     int doit_dp(int n, vector<int>& ranges) {
         
         vector<int> dp(n+1);
         
         for (int i = 0; i <= n; ++i) {
+
             if (ranges[i] == 0) continue;
             int left = std::max(0, i - ranges[i]);
             dp[left] = std::max(dp[left], i + ranges[i]);
         }
-        
-        // for (auto c: dp) cout << c << " ";
-        // cout << endl;
         
         int res = 0, cur_end = 0, cur_far = 0;
         for (int i = 0; i <= n && cur_end < n; ++i) {
@@ -130,6 +216,7 @@ public:
           // Extend to the right most w.r.t t[i].first <= l
           while (i <= n && t[i].first <= l)
             e = std::max(e, t[i++].second);
+
           if (l == e) return -1; // Can not extend
           l = e;
           ++ans;
@@ -137,26 +224,27 @@ public:
         return ans;
     }
     
-    
+
     // O(n)
     int doit_greedy(int n, vector<int>& ranges) {
         
-       vector<int> nums(ranges.size());
-       
-        for (int i = 0; i <= n; ++i) {
-         int s = std::max(0, i - ranges[i]);
-         nums[s] = std::max(nums[s], i + ranges[i]);
-       }
+        vector<int> nums(ranges.size());
         
-       // 45. Jump Game II
-       int steps = 0;
-       int l = 0;
-       int e = 0;
-       for (int i = 0; i <= n; ++i) {
-         if (i > e) return -1;
-         if (i > l) { ++steps; l = e; }
-         e = std::max(e, nums[i]);
-       }
-       return steps;
+        for (int i = 0; i <= n; ++i) {
+          int s = std::max(0, i - ranges[i]);
+          nums[s] = std::max(nums[s], i + ranges[i]);
+        }
+          
+        // 45. Jump Game II
+        int steps = 0;
+        int l = 0;
+        int e = 0;
+
+        for (int i = 0; i <= n; ++i) {
+          if (i > e) return -1;
+          if (i > l) { ++steps; l = e; }
+          e = std::max(e, nums[i]);
+        }
+        return steps;
      }
 };

@@ -21,6 +21,38 @@ Return the same tree where every subtree (of the given tree) not containing a 1 
 
 class PruneTree:
 
+
+    """
+    Approach #1: Recursion [Accepted]
+    Intuition
+
+    Prune children of the tree recursively. The only decisions at each node are whether to prune the left child or the right child.
+
+    Algorithm
+
+    We'll use a function containsOne(node) that does two things: it tells us whether the subtree at this node contains a 1, and it also prunes all subtrees not containing 1.
+
+    If for example, node.left does not contain a one, then we should prune it via node.left = null.
+
+    Also, the parent needs to be checked. If for example the tree is a single node 0, the answer is an empty tree.
+
+    Complexity Analysis
+
+    Time Complexity: O(N)O(N), where NN is the number of nodes in the tree. We process each node once.
+
+    Space Complexity: O(H)O(H), where HH is the height of the tree. This represents the size of the implicit call stack in our recursion.
+    """
+    def doit_recursive(self, root):
+        def containsOne(node):
+            if not node: return False
+            a1 = containsOne(node.left)
+            a2 = containsOne(node.right)
+            if not a1: node.left = None
+            if not a2: node.right = None
+            return node.val == 1 or a1 or a2
+
+        return root if containsOne(root) else None
+
     def doit(self, root):
 
         def dfs(node):
@@ -44,8 +76,8 @@ class PruneTree:
 
         def recur(n):
 
-            if n.left == None and n.right == None:
-                return n.val == 0
+            if not n:
+                return True
 
             l, r = not n.left or recur(n.left), not n.right or recur(n.right)
 
