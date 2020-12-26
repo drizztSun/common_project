@@ -87,7 +87,7 @@ public:
     Space complexity: O(n)
 
     */
-    int findMaxValueOfEquation(vector<vector<int>>& points, int k) {    
+    int doit_monotonic_queue(vector<vector<int>>& points, int k) {    
         deque<std::pair<int, int>> q; // {y - x, x} Sort by y - x.
         int ans = INT_MIN;
 
