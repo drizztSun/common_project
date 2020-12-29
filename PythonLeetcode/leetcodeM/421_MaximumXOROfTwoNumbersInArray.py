@@ -124,10 +124,22 @@ class FindMaximumXOR:
     Compute all possible prefixes of length L - iL−i by iterating over nums.
     
     Put in the hashset prefixes the prefix of the current number of the length L - iL−i: num >> i.
-    Iterate over all prefixes and check if curr_xor could be done using two of them: p1^p2 == curr_xor. Using self-inverse property of XOR p1^p2^p2 = p1, one could rewrite it as p1 == curr_xor^p2 and simply check for each p if curr_xor^p is in prefixes. If so, set max_xor to be equal to curr_xor, i.e. set 1-bit in the rightmost bit. Otherwise, let max_xor keep 0-bit in the rightmost bit.
+    Iterate over all prefixes and check if curr_xor could be done using two of them: p1^p2 == curr_xor. Using self-inverse property of XOR p1^p2^p2 = p1, 
+    one could rewrite it as p1 == curr_xor^p2 and simply check for each p if curr_xor^p is in prefixes. If so, set max_xor to be equal to curr_xor, i.e. set 1-bit in the rightmost bit. Otherwise, let max_xor keep 0-bit in the rightmost bit.
     
     Return max_xor.
     """
+    def doit_(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        answer = 0
+        for i in range(32)[::-1]:
+            answer <<= 1
+            prefixes = {num >> i for num in nums}
+            answer += any(answer ^ 1 ^ p in prefixes for p in prefixes)
+        return answer
 
     def doit_greedy(self, nums: list) -> int:
 
@@ -135,13 +147,17 @@ class FindMaximumXOR:
         L = len(bin(max(nums))) - 2
         max_xor = 0
         for i in range(L)[::-1]:
+
             # go to the next bit by the left shift
             max_xor <<= 1
+
             # set 1 in the smallest bit
             curr_xor = max_xor | 1
+
             # compute all existing prefixes
             # of length (L - i) in binary representation
             prefixes = {num >> i for num in nums}
+
             # Update max_xor, if two of these prefixes could result in curr_xor.
             # Check if p1^p2 == curr_xor, i.e. p1 == curr_xor^p2
             max_xor |= any(curr_xor ^ p in prefixes for p in prefixes)
