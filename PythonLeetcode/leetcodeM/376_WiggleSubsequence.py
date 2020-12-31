@@ -51,7 +51,8 @@ class WiggleSequenceMaxLength:
 
     up[i]up[i] will be updated every time we find a rising wiggle ending with the i^{th}i
     th
-      element. Now, to find up[i]up[i], we need to consider the maximum out of all the previous wiggle subsequences ending with a falling wiggle i.e. down[j]down[j], for every j<i and nums[i]>nums[j]. Similarly, down[i]down[i] will be updated.
+      element. Now, to find up[i]up[i], we need to consider the maximum out of all the previous wiggle subsequences ending with a falling wiggle i.e.
+      down[j], for every j<i and nums[i]>nums[j]. Similarly, down[i]down[i] will be updated.
 
 
     **Complexity Analysis**
@@ -146,9 +147,6 @@ class WiggleSequenceMaxLength:
                 down = up + 1
 
         return max(down, up)
-
-
-
 
 
 if __name__ == '__main__':

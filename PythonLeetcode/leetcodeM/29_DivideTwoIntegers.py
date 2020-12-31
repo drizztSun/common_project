@@ -36,7 +36,7 @@ Output: 1
 
 class divide:
 
-    def doit(self, dividend: int, divisor: int) -> int:
+    def doit_fastpower(self, dividend: int, divisor: int) -> int:
         positive = (dividend < 0) is (divisor < 0)
         dividend, divisor = abs(dividend), abs(divisor)
         res = 0

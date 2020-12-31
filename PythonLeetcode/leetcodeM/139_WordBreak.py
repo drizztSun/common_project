@@ -98,13 +98,10 @@ class WordBreak:
                     return False
 
                 current = current[c]
-            if '*' in current:
-                return True
 
-            else:
-                return False
+            return '*' in current
 
-    def wordBreak(self, s: str, wordDict) -> bool:
+    def doit_trie(self, s: str, wordDict) -> bool:
         trie = WordBreak.Trie()
 
         for w in wordDict:

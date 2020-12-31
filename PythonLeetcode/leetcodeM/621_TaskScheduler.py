@@ -39,7 +39,7 @@ A -> B -> C -> A -> D -> E -> A -> F -> G -> A -> idle -> idle -> A -> idle -> i
 
 Constraints:
 
-1 <= task.length <= 104
+1 <= task.length <= 10^4
 tasks[i] is upper-case English letter.
 The integer n is in the range [0, 100].
 
@@ -81,6 +81,8 @@ class TaskScheduler:
 
         # max frequency
         f_max = frequencies.pop()
+
+        # max possible idle_time
         idle_time = (f_max - 1) * n
 
         while frequencies and idle_time > 0:

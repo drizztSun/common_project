@@ -74,9 +74,8 @@ class WordDictionary:
     def build_trie(self, word):
 
         node = self._trie
-        key = '#'
-        for w in word:
 
+        for w in word:
             if w not in node:
                 node[w] = {}
 

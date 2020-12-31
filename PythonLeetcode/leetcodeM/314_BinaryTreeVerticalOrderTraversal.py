@@ -96,7 +96,7 @@ class VerticalOrder:
         while queue:
             node, column = queue.popleft()
 
-            if node is not None:
+            if not node:
                 columnTable[column].append(node.val)
                 min_column = min(min_column, column)
                 max_column = max(max_column, column)

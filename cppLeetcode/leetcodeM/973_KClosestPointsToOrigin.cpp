@@ -1,6 +1,5 @@
 /*
  
- 
  973. K Closest Points to Origin
  
  
@@ -42,7 +41,72 @@ using std::priority_queue;
 class KClosest {
     
 public:
-    vector<vector<int>> doit(vector<vector<int>>&& points, int K) {
+
+
+    vector<vector<int>> doit_partition_1(vector<vector<int>>& points, int K) {
+
+        auto distance = [&](int i) {
+           return points[i][0] * points[i][0] + points[i][1] * points[i][1];   
+        };
+
+        auto swap = [&](int i, int j) {
+            if (i == j) return;
+            int a0 = points[i][0], a1 = points[i][1];
+            points[i][0] = points[j][0], points[i][1] = points[j][1];
+            points[j][0] = a0, points[j][1] = a1;
+        };
+
+        auto partition = [&](int i, int j) {
+
+            int kk = i;
+            int base = distance(kk);
+            for (int k = i; k <= j; k++) {
+
+                if (distance(k) < base) {
+                    kk += 1;
+                    swap(k, kk);
+                }
+            }
+
+            swap(i, kk);
+            return kk;
+        };
+
+        std::function<void(int, int, int)> partition_sort = [&](int i, int j, int nth) {
+
+            if (i >= j)
+                return;
+
+            int mid = partition(i, j);
+
+            if (nth > mid - i + 1) {
+                partition_sort(mid+1, j, nth - (mid - i + 1));
+            } else if (nth < mid - i + 1) {
+                partition_sort(i, mid-1, nth);
+            }
+        };
+
+        partition_sort(0, points.size()-1, K);
+        return vector<vector<int>>(begin(points), begin(points) + K);
+    }
+
+
+    /*
+     O(n)
+    */
+    vector<vector<int>> doit_partition(vector<vector<int>>&& points, int K) {
+        nth_element(points.begin(), points.begin()+K, points.end(), [](auto& a, auto& b) {
+            return (a[0] * a[0] + a[1] * a[1]) < (b[0] * b[0] + b[1] * b[1]);
+        });
+        
+        vector<vector<int>>::iterator st = points.begin();
+        vector<vector<int>>::iterator en = points.begin() + K;
+        return vector<vector<int>>(st,en);
+    }
+    /*
+        O(n*log(n))
+    */
+    vector<vector<int>> doit_heap(vector<vector<int>>&& points, int K) {
                 
         priority_queue<std::pair<int, vector<int>*>> pq;
         for (auto& c: points) {
@@ -82,25 +146,13 @@ public:
         vector<vector<int>> res(points.begin(), points.begin() + k);
         return res;
     }
-    
-    vector<vector<int>> doit2(vector<vector<int>>&& points, int K) {
-        nth_element(points.begin(), points.begin()+K, points.end(), [](auto& a, auto& b) {
-            return (a[0] * a[0] + a[1] * a[1]) < (b[0] * b[0] + b[1] * b[1]);
-        });
-        
-        vector<vector<int>>::iterator st = points.begin();
-        vector<vector<int>>::iterator en = points.begin() + K;
-        return vector<vector<int>>(st,en);
-    }
-    
-    
 };
 
 void test_973_kclosest_points_to_origin() {
     
-    auto res1 = KClosest().doit(vector<vector<int>>{{3, 3}, {5, -1}, {-2, 4}}, 2);
+    auto res1 = KClosest().doit_partition(vector<vector<int>>{{3, 3}, {5, -1}, {-2, 4}}, 2);
     
-    auto res2 = KClosest().doit(vector<vector<int>>{{1, 3}, {-2, 2}}, 1);
+    auto res2 = KClosest().doit_partition(vector<vector<int>>{{1, 3}, {-2, 2}}, 1);
     
     return;
 }

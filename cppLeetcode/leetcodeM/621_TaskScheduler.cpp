@@ -45,6 +45,9 @@ tasks[i] is upper-case English letter.
 The integer n is in the range [0, 100].
 
 */
+#include <vector>
+
+using std::vector;
 
 
 class TaskScheduler {

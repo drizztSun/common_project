@@ -39,7 +39,7 @@ Constraints:
 
 class SquareMatrixMultiply:
 
-    def doit(self, A: list, B: list) -> list:
+    def doit_math(self, A: list, B: list) -> list:
 
         def get_prod(A, B, r, c):
             cur = 0

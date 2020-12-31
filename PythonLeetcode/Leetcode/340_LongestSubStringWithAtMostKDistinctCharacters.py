@@ -1,15 +1,32 @@
 """
 340 Longest Sub String With At Most K Distinct Characters
 
-# Given a string, find the length of the longest substring T that contains at most k distinct characters.
-# For example, Given s = "eceba" and k = 2,
-# T is "ece" which its length is 3.
+Given a string s and an integer k, return the length of the longest substring of s that contains at most k distinct characters.
+
+
+Example 1:
+
+Input: s = "eceba", k = 2
+Output: 3
+Explanation: The substring is "ece" with length 3.
+Example 2:
+
+Input: s = "aa", k = 1
+Output: 2
+Explanation: The substring is "aa" with length 2.
+
+
+Constraints:
+
+1 <= s.length <= 5 * 104
+0 <= k <= 50
+
 """
 
 
 class KthDistinctChar:
 
-    def doit(self, s, k):
+    def doit_slidingwindow(self, s, k):
         """
         type: str
         type: int

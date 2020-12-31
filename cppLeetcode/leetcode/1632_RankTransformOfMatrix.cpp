@@ -71,16 +71,141 @@ class MatrixRankTransform {
 
     如果用拓扑排序来做，此题比较棘手的地方就是在于处理indegree。我们知道，拓扑排序的每个回合，我们剥离入度为0的点。在这里，我们需要将所有属于同一个group的点的入度要累加在一块儿计算。当整个group的入度为0的时候，我们才将其加入队列；当它弹出队列的时候，该group的所有点都赋予相同的rank。然后这些点的剥离会给各自next的点减少一个入度，但注意，这些入度的自减也必须都统计在整个group上。
 
-    解法2：贪心
+        解法2：贪心
     我们将所有的点从到大排个序。全局最小点自然rank是1，并且对于该点所在行和列的其他数字，它们的rank必然要从2开始。
 
     更general地，我们从小到大依次处理每个数字的时候，应该如何给它定rank呢？其实只要查看它所在的行、列各自已经赋值的rank。比如说，该行已经有其他数字被rank为3，该列已经有其他数字被rank为4，那么显然这个数字只能被rank为5.接下来，记得要把这个数字所在的行和列，都更新标记，因为它们已经赋值的rank变成了5. 根据这个规则我们就可以把所有数字都rank一遍。
 
     同样，有一种情况需要处理，就是前面所说的，可能有一批数字必须有相同的rank。所以如果想要rank某个数，必须考察所有同属一个group的数（的行与列），才能确定这个rank。然后给它们赋值相同的rank，然后更新它们的行/列的已rank信息。 
     */
+    
+    vector<int>Father;
+    int FindFather(int x)
+    {
+        if (Father[x]!=x)
+            Father[x] = FindFather(Father[x]);
+        return Father[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Father[x];
+        y = Father[y];
+        if (x<y)
+            Father[y] = x;
+        else
+            Father[x] = y;
+    }
 
 public:
+    
+    vector<vector<int>> doit_topsort_disjoint(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        int n = matrix[0].size();
+        Father.resize(m*n);
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+                Father[i*n+j] = i*n+j;
+                
+        vector<vector<int>>next(m*n);        
+        vector<int>inDegree(m*n,0);        
+        
+        for (int i=0; i<m; i++)
+        {
+            vector<pair<int,int>>temp;
+            for (int j=0; j<n; j++)
+                temp.push_back({matrix[i][j], i*n+j});
+            sort(temp.begin(), temp.end());
+            for (int j=1; j<n; j++)
+            {
+                if (temp[j].first>temp[j-1].first)
+                {
+                    next[temp[j-1].second].push_back(temp[j].second);
+                    inDegree[temp[j].second]++;
+                }                    
+                else
+                {
+                    if (FindFather(temp[j-1].second)!=FindFather(temp[j].second))
+                        Union(temp[j-1].second, temp[j].second);
+                }                    
+            }
+        }
+        
+        for (int j=0; j<n; j++)
+        {
+            vector<pair<int,int>>temp;
+            for (int i=0; i<m; i++)
+                temp.push_back({matrix[i][j], i*n+j});
+            sort(temp.begin(), temp.end());
+            for (int i=1; i<m; i++)
+            {
+                if (temp[i].first>temp[i-1].first)
+                {
+                    next[temp[i-1].second].push_back(temp[i].second);
+                    inDegree[temp[i].second]++;
+                }                    
+                else
+                {
+                    if (FindFather(temp[i-1].second)!=FindFather(temp[i].second))
+                        Union(temp[i-1].second, temp[i].second);
+                }                    
+            }
+        }
+                        
+        vector<vector<int>>group(m*n);
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+            {
+                int root = FindFather(i*n+j);
+                group[root].push_back(i*n+j);
+                if (root!=i*n+j)
+                    inDegree[root]+=inDegree[i*n+j];
+            }
+        
+        queue<int>q;
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+            {
+                if (Father[i*n+j]==i*n+j && inDegree[i*n+j]==0)
+                    q.push(i*n+j);
+            }
+        
+        int idx = 1;
+        auto rets = vector<vector<int>>(m,vector<int>(n,-1));
+        while (!q.empty())
+        {
+            int len = q.size();
+            while (len--)
+            {
+                int cur = q.front();
+                q.pop();
+                
+                for (auto connect: group[cur])
+                    rets[connect/n][connect%n] = idx;
+                                        
+                for (auto connect: group[cur])
+                    for (auto nxt: next[connect])
+                    {
+                        inDegree[Father[nxt]]--;
+                        if (inDegree[Father[nxt]]==0)
+                            q.push(Father[nxt]);
+                    }                        
+            }
+            idx++;            
+        }        
+        return rets;
+    }
 
+
+
+    /*
+    解法2：贪心
+    我们将所有的点从到大排个序。全局最小点自然rank是1，并且对于该点所在行和列的其他数字，它们的rank必然要从2开始。
+    
+    更general地，我们从小到大依次处理每个数字的时候，应该如何给它定rank呢？其实只要查看它所在的行、列各自已经赋值的rank。比如说，该行已经有其他数字被rank为3，该列已经有其他数字被rank为4，那么显然这个数字只能被rank为5.接下来，记得要把这个数字所在的行和列，都更新标记，因为它们已经赋值的rank变成了5. 根据这个规则我们就可以把所有数字都rank一遍。
+
+    同样，有一种情况需要处理，就是前面所说的，可能有一批数字必须有相同的rank。所以如果想要rank某个数，必须考察所有同属一个group的数（的行与列），才能确定这个rank。然后给它们赋值相同的rank，然后更新它们的行/列的已rank信息。
+    */
     vector<vector<int>> doit_topsort_disjoint(vector<vector<int>>& matrix) {
         
         int m = matrix.size(), n = matrix[0].size();
@@ -201,7 +326,7 @@ public:
     }
 };
 
-void main() {
+void test_1632_rank_transform() {
 
     vector<vector<int>> dl{{7, 7}, {7, 7}};
 

@@ -28,6 +28,9 @@
  */
 
 #include <vector>
+#include <queue>
+
+using std::queue;
 using std::vector;
 
 struct DSU {
@@ -58,7 +61,7 @@ struct DSU {
 
 class NumIslands {
 public:
-    int doit(vector<vector<char>>&& grid) {
+    int doit_disjoint(vector<vector<char>>&& grid) {
         if (grid.empty())
             return 0;
         
@@ -97,31 +100,72 @@ public:
         return res;
     }
     
-    
-    void dfs(vector<vector<char>>& grid, int i, int j, int n, int m){
-        if (i<0 || i==n || j<0 || j==m) return;
-        if (grid[i][j]=='0')
-            return;
-        grid[i][j]='0';
-        dfs(grid, i-1, j, n, m);
-        dfs(grid, i, j-1, n, m);
-        dfs(grid, i, j+1, n, m);
-        dfs(grid, i+1, j, n, m);
-    }
-    int numIslands(vector<vector<char>>& grid) {
-        int n=grid.size();
-        if (n==0)
-            return 0;
-        int m=grid[0].size();
-        if (m==0)
-            return 0;
-        // vector<vector<int>> v(n, vector<int>(m, 0));
-        int res=0;
-        for (int i=0; i<n; ++i){
-            for (int j=0; j<m; ++j){
-                if (grid[i][j]=='1')
+    int doit_dfs(vector<vector<char>>& grid) {
+        int n = grid.size();
+        if (n == 0) return 0;
+
+        int m = grid[0].size();
+        if (m == 0) return 0;
+
+        std::function<void(int, int)> dfs = [&](int i, int j){
+            if (i < 0 || i == n || j < 0 || j == m) return;
+
+            if (grid[i][j]=='0') return;
+
+            grid[i][j]='0';
+            dfs(i-1, j);
+            dfs(i, j-1);
+            dfs(i, j+1);
+            dfs(i+1, j);
+        };
+
+        int res = 0;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (grid[i][j] == '1')
                     res++;
-                dfs(grid, i, j, n, m);
+                dfs(i, j);
+            }
+        }
+
+        return res;
+    }
+
+    int doit_bfs(vector<vector<char>>&& grid) {
+
+        int m = grid.size();
+        if (m == 0) return 0;
+
+        int n = grid[0].size();
+        if (n == 0) return 0;
+
+        int res = 0;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+
+                if (grid[i][j] != '1') 
+                    continue;
+                
+                res++;
+                queue<int> buf;
+                buf.push(i*n+j);
+
+                while (!buf.empty()) {
+
+                    int cur = buf.front();
+                    buf.pop();
+
+                    int x = cur/n, y = cur%n;
+
+                    for (auto delta : vector<std::pair<int, int>>{{0, -1}, {0, 1}, {1, 0}, {-1, 0}}) {
+                        int x1 = x + delta.first, y1 = y + delta.second;
+                        if (x1 < 0 || x1 >= m || y1 < 0 || y1 >= n || grid[x1][y1] != '1')
+                            continue;
+                        buf.push(x1 * n + y1);
+                    }
+
+                    grid[x][y] = '2';
+                }
             }
         }
         return res;
@@ -132,21 +176,21 @@ public:
 void test_200_number_of_islands() {
     
     
-    auto res1 = NumIslands().doit(vector<vector<char>>{
+    auto res1 = NumIslands().doit_bfs(vector<vector<char>>{
         {'1','1','1','1','0'},
         {'1','1','0','1','0'},
         {'1','1','0','0','0'},
         {'0','0','0','0','0'}
     });
 
-    auto res2 = NumIslands().doit(vector<vector<char>>{
+    auto res2 = NumIslands().doit_bfs(vector<vector<char>>{
         {'1','1','0','0','0'},
         {'1','1','0','1','0'},
         {'0','0','1','0','0'},
         {'0','0','0','1','1'}
     });
     
-    auto res3 = NumIslands().doit(vector<vector<char>>{
+    auto res3 = NumIslands().doit_bfs(vector<vector<char>>{
         {'1'},
         {'1'}
     });

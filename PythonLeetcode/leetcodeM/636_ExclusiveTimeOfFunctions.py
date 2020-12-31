@@ -64,7 +64,6 @@ class ExclusiveTime:
                 if len(buff) > 0:
                     buff[-1][2] += total 
                 res[v[0]] += total - c[2]
-                
         return res
 
     def doit(self, n, logs):
@@ -94,8 +93,4 @@ class ExclusiveTime:
 
 if __name__ == "__main__":
 
-    res = ExclusiveTime().doit(n = 2, logs =["0:start:0", 
-                                             "1:start:2",
-                                             "1:end:5",
-                                             "0:end:6"])
-
+    res = ExclusiveTime().doit(n=2, logs=["0:start:0", "1:start:2", "1:end:5", "0:end:6"])

@@ -47,6 +47,7 @@ class NumDecodings:
 
 
 if __name__ == '__main__':
+
     NumDecodings().doit_dp("01")
 
     NumDecodings().doit_dp("27")

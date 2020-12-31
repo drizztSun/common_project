@@ -1,4 +1,39 @@
 """
+252. Meeting Rooms
+
+Given an array of meeting time intervals where intervals[i] = [starti, endi], determine if a person could attend all meetings.
+
+
+
+Example 1:
+
+Input: intervals = [[0,30],[5,10],[15,20]]
+Output: false
+Example 2:
+
+Input: intervals = [[7,10],[2,4]]
+Output: true
+
+
+Constraints:
+
+0 <= intervals.length <= 104
+intervals[i].length == 2
+0 <= starti < endi <= 106
+
+"""
+
+
+class MeetingRoomsI:
+
+    def doit_sort(self, intervals: list) -> bool:
+        intervals.sort()
+        for i in range(len(intervals)-1):
+            if intervals[i][1] > intervals[i+1][0]:
+                return False
+        return True
+
+"""
 253. Meeting Rooms II
 
 Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...]
@@ -18,7 +53,7 @@ Please reset to default code definition to get new method signature.
 """
 
 
-class MeettingRooms:
+class MeettingRoomsII:
 
     """
     Instead of manually iterating on every room that's been allocated and checking if the room is available or not, we can keep all the rooms in a min heap where the key for the min heap would be the ending time of meeting.

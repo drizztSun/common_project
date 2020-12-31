@@ -1,6 +1,4 @@
-
-
-
+"""
 # 732. My Calendar III
 
 # Implement a MyCalendarThree class to store your events. A new event can always be added.
@@ -26,7 +24,7 @@
 # MyCalendarThree.book(5, 10); // returns 3
 # MyCalendarThree.book(25, 55); // returns 3
 
-# Explanation: 
+# Explanation:
 # The first two events can be booked and are disjoint, so the maximum K-booking is a 1-booking.
 # The third event [10, 40) intersects the first event, and the maximum K-booking is a 2-booking.
 # The remaining events cause the maximum K-booking to be only a 3-booking.
@@ -36,19 +34,54 @@
 
 # The number of calls to MyCalendarThree.book per test case will be at most 400.
 # In calls to MyCalendarThree.book(start, end), start and end are integers in the range [0, 10^9].
+"""
+
+"""
+Approach #1: Boundary Count [Accepted]
+Intuition and Algorithm
+
+When booking a new event [start, end), count delta[start]++ and delta[end]--. 
+When processing the values of delta in sorted order of their keys, the largest such value is the answer.
+
+In Python, we sort the set each time instead, as there is no analog to TreeMap available.
+
+Complexity Analysis
+
+Time Complexity: O(N^2), where N is the number of events booked. For each new event, we traverse delta in O(N) time. 
+In Python, this is O(N^2*logN) owing to the extra sort step.
+
+Space Complexity: O(N), the size of delta.
+
+"""
+class MyCalendarThree(object):
+
+    def __init__(self):
+        import collections
+        self.delta = collections.Counter()
+
+    def book(self, start, end):
+        self.delta[start] += 1
+        self.delta[end] -= 1
+
+        active = ans = 0
+        for x in sorted(self.delta):
+            active += self.delta[x]
+            if active > ans:
+                ans = active
+        return ans
 
 
 class MyCalendarTree1:
 
+    """
+    # This is to find the maximum number of concurrent ongoing event at any time.
 
-# This is to find the maximum number of concurrent ongoing event at any time.
+    # We can log the start & end of each event on the timeline, each start add a new ongoing event at that time, each end terminate an ongoing event.
+    # Then we can scan the timeline to figure out the maximum number of ongoing event at any time.
 
-# We can log the start & end of each event on the timeline, each start add a new ongoing event at that time, each end terminate an ongoing event.
-# Then we can scan the timeline to figure out the maximum number of ongoing event at any time.
-
-# The most intuitive data structure for timeline would be array, but the time spot we have could be very sparse,
-# so we can use sorted map to simulate the time line to save space.
-
+    # The most intuitive data structure for timeline would be array, but the time spot we have could be very sparse,
+    # so we can use sorted map to simulate the time line to save space.
+    """
     def __init__(self):
         self.points_ = []
 
@@ -130,16 +163,6 @@ class MyCalendarThree:
                 root.left_ = node(root.s_, root.mid_, root.cnt_)
                 root.right_ = node(root.mid_, root.e_, root.cnt_ )
                 self.add(s, e, root.right_)
-            
-                
-
-
-# Your MyCalendarThree object will be instantiated and called as such:
-# obj = MyCalendarThree()
-# param_1 = obj.book(start,end)
-
-
-
 
 
 class MyCalendarThree:
@@ -170,7 +193,6 @@ def book(self, start, end):
         self.mxv = max(self.mxv, len(heap))
 
     return self.mxv
-
 
 
 if __name__ == "__main__":

@@ -88,6 +88,44 @@ public:
         
         return ans;
     }
+
+    /*
+    056.Merge-Intervals
+    和２５２类似的解题手法．
+
+    需要注意的是，此题中的有效区间长度可以为0，即[t,t]也是合法的，所以在数组ｑ中，我们除了按时间排序之外，第二指标应该按照先1后-１的次序．即如果遇到相同的时刻，{start，1}要比{end,-1}先进行处理，这样就能顺利地包容[t,t]这样的区间．
+    */
+    vector<vector<int>> merge(vector<vector<int>>& intervals) 
+    {
+        vector<vector<int>>q;
+        for (int i=0; i<intervals.size(); i++)
+        {
+            q.push_back({intervals[i][0],-1});
+            q.push_back({intervals[i][1],1});
+        }
+        
+        sort(q.begin(),q.end());
+        
+        int count=0;
+        int start, end;
+        
+        vector<vector<int>>results;
+        
+        for (int i=0; i<q.size(); i++)
+        {            
+            count+=-q[i][1];
+            
+            if (-q[i][1] ==1 && count==1)
+                start = q[i][0];
+            else if (-q[i][1] ==-1 && count==0)
+            {
+                end = q[i][0];
+                results.push_back({start,end});
+            }
+        }
+        
+        return results;
+    }
 };
 
 
