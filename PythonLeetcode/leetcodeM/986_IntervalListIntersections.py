@@ -28,6 +28,7 @@
 
 """
 
+
 class IntervalIntersection:
 
     def doit(self, A, B):
@@ -96,9 +97,9 @@ class IntervalIntersection:
         while i < len(A) or j < len(B):
 
             lo = max(A[i][0], B[j][0])
-            hi = max(A[i][1], B[j][1])
+            hi = min(A[i][1], B[j][1])
 
-            if lo < hi:
+            if lo <= hi:
                 ans.append([lo, hi])
 
             if A[i][1] > B[j][1]:
@@ -111,7 +112,6 @@ class IntervalIntersection:
 
 if __name__ == '__main__':
 
-    res = IntervalIntersection().doit(A=[[0, 2], [5, 10], [13, 23], [24, 25]], B=[
-        [1, 5], [8, 12], [15, 24], [25, 26]])  # [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
+    res = IntervalIntersection().doit(A=[[0, 2], [5, 10], [13, 23], [24, 25]], B=[[1, 5], [8, 12], [15, 24], [25, 26]])  # [[1,2],[5,5],[8,10],[15,23],[24,24],[25,25]]
 
     pass

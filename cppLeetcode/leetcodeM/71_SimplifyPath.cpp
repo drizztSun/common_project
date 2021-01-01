@@ -1,6 +1,4 @@
 /*
- 
- 
  71. Simplify Path
  Medium
 
@@ -61,7 +59,7 @@ class SimplifyPath {
     
 public:
     
-    string doit(string path) {
+    string doit_stack(string path) {
         
         vector<string> buf;
         int last = 0;
@@ -93,16 +91,16 @@ public:
 
 void test_71_simplify_path() {
     
-    auto res1 = SimplifyPath().doit("/home/");
+    auto res1 = SimplifyPath().doit_stack("/home/");
     
-    auto res2 = SimplifyPath().doit("/../");
+    auto res2 = SimplifyPath().doit_stack("/../");
     
-    auto res3 = SimplifyPath().doit("/home//foo/");
+    auto res3 = SimplifyPath().doit_stack("/home//foo/");
     
-    auto res4 = SimplifyPath().doit("/a/./b/../../c/");
+    auto res4 = SimplifyPath().doit_stack("/a/./b/../../c/");
     
-    auto res5 = SimplifyPath().doit("/a/../../b/../c//.//");
+    auto res5 = SimplifyPath().doit_stack("/a/../../b/../c//.//");
     
-    auto res6 = SimplifyPath().doit("/a//b////c/d//././/..");
+    auto res6 = SimplifyPath().doit_stack("/a//b////c/d//././/..");
     
 }

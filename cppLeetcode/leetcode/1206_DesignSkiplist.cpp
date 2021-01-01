@@ -105,13 +105,13 @@ public:
             
             auto cur = st.top(); st.pop();
             auto future = cur->right;
-            cur->right = make_shared<Node>(num, cur->right, down);
+            cur->right = std::make_shared<Node>(num, cur->right, down);
             down = cur->right;
             insert = rand() % 1;
         }
         
         if (insert)
-            _head = make_shared<Node>(-1, nullptr, _head);
+            _head = std::make_shared<Node>(-1, nullptr, _head);
     }
     
     bool erase(int num) {
