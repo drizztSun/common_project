@@ -129,16 +129,3 @@ class FindCelebrity:
                 return i
 
         return -1
-
-    """
-    
-    """
-
-
-
-
-
-
-
-
-

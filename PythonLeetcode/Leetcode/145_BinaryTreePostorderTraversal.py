@@ -32,13 +32,9 @@ class inorderTraversal(object):
         :rtype: List[int]
         """
         def search(node):
-            if not node:
-                return []
-
-            return search(node.left) + search(node.right) + [node.val]
-            
+            if not node: return []
+            return search(node.left) + [node.val] + search(node.right)
         return search(root)
-
 
     def doit2(self, root):
         """

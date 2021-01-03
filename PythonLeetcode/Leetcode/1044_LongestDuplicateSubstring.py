@@ -1,3 +1,4 @@
+"""
 # 1044. Longest Duplicate Substring
 
 # Given a string S, consider all duplicated substrings: (contiguous) substrings of S that occur 2 or more times.
@@ -22,30 +23,77 @@
 
 # 2 <= S.length <= 10^5
 # S consists of lowercase English letters.
+"""
 
 
 class LongestDupSubstring:
-    def doit(self, S):git
-        def search(L: int, a: int, modulus: int, n, nums):
 
+
+    """
+    Approach 1: Binary Search + Rabin-Karp
+    String Searching Algorithms
+
+    The problem is a follow-up of Longest Repeating Substring, and typically used to check if you're comfortable with string searching algortihms.
+
+    Best algorithms have a linear execution time in average. The most popular ones are Aho-Corasick, KMP and Rabin-Karp: Aho-Corasick is used by fgrep, KMP is used for chinese string searching,
+    and Rabin-Karp is used for plagiarism detection and in bioinformatics to look for similarities in two or more proteins.
+
+    The first two are optimised for a single pattern search, and Rabin-Karp for a multiple pattern search, that is exactly the case here.
+
+    Split into two subtasks
+
+    Here we have "two in one" problem :
+
+    Perform a search by a substring length in the interval from 1 to N.
+
+    Check if there is a duplicate substring of a given length L.
+
+    Subtask one : Binary search
+
+    A naive solution would be to check all possible string length one by one starting from N - 1: if there is a duplicate substring of length N - 1, then of length N - 2, etc.
+    Note that if there is a duplicate substring of length k, that means that there is a duplicate substring of length k - 1.
+    Hence one could use a binary search by string length here, and have the first problem solved in \mathcal{O}(\log N)O(logN) time.
+
+    Complexity Analysis
+
+    Time complexity : O(NlogN). O(logN) for the binary search and O(N) for Rabin-Karp algorithm.
+    Space complexity : O(N) to keep the hashset.
+    """
+    def doit_binary_search_rabin_karp_rollinghash(self, S: str) -> str:
+        n = len(S)
+        # convert string to array of integers
+        # to implement constant time slice
+        nums = [ord(S[i]) - ord('a') for i in range(n)]
+        # base value for the rolling hash function
+        a = 26
+        # modulus value for the rolling hash function to avoid overflow
+        modulus = 2 ** 32
+
+        def search(L: int, a: int, modulus: int, n: int, nums: list) -> str:
+            """
+            Rabin-Karp with polynomial rolling hash.
+            Search a substring of given length
+            that occurs at least 2 times.
+            @return start position if the substring exits and -1 otherwise.
+            """
+            # compute the hash of string S[:L]
             h = 0
             for i in range(L):
                 h = (h * a + nums[i]) % modulus
 
+            # already seen hashes of strings of length L
             seen = {h}
+            # const value to be used often : a**L % modulus
             aL = pow(a, L, modulus)
             for start in range(1, n - L + 1):
+                # compute rolling hash in O(1) time
                 h = (h * a - nums[start - 1] * aL + nums[start + L - 1]) % modulus
                 if h in seen:
                     return start
                 seen.add(h)
             return -1
 
-        n = len(S)
-        nums = [ord(S[i]) - ord("a") for i in range(n)]
-        a = 26
-        modulus = 2 ** 32
-
+        # binary search, L = repeating string length
         left, right = 1, n
         while left <= right:
             L = left + (right - left) // 2
@@ -55,7 +103,7 @@ class LongestDupSubstring:
                 right = L - 1
 
         start = search(left - 1, a, modulus, n, nums)
-        return S[start : start + left - 1]
+        return S[start: start + left - 1]
 
 
 if __name__ == "__main__":

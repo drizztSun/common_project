@@ -35,6 +35,11 @@ nums is a non-decreasing array.
 
 class SearchRange:
 
+    def doit_binary_search(self, nums, target):
+        import bisect
+        low = bisect.bisect_left(nums, target)
+        return [low, bisect.bisect(nums, target)-1] if target in nums[low:low+1] else [-1, -1]
+
     """
     Approach 2: Binary Search
     Intuition
@@ -50,10 +55,7 @@ class SearchRange:
     The first animation below shows the process for finding the leftmost index, and the second shows the process for finding the index right of the rightmost index.
 
     """
-
-
-
-    def searchRange(self, nums, target):
+    def doit_binary_search(self, nums, target):
 
         # returns leftmost (or rightmost) index at which `target` should be inserted in sorted
         # array `nums` via binary search.

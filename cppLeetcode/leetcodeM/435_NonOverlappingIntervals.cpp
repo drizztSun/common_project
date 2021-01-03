@@ -52,7 +52,7 @@ using std::vector;
 Interval questions
     Greedy
 
-    1. Sweeping line / diff
+    1. Sweepline / diff
     2. Sort
 
         sort by start points => the minimum number of intervals to cover the whole range.

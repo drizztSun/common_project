@@ -45,8 +45,7 @@ class longestDupSubstring {
     
 public:
     
-    string doit(string S) {
-        
+    string doit_hashtable(string S) {
         
         int N = S.length();
         vector<short> nums;
@@ -92,89 +91,59 @@ public:
         int s = search(left - 1, base, mod, nums);
         return S.substr(s, left - 1);
     }
-};
 
-class longestDupSubstring1
-{
-    public:
-    string result="";
-    long long int powmod(long long int a,long long int b,long long int m)
+    
+    string doit_rollinghash_binary_search(string S) 
     {
-        long long int result=1;
-        long long int base=a;
-        while(b)
-        {
-            if(b%2==1)
+        int left = 1, right = S.size()-1;
+        unordered_map<int,int> len2start;
+
+        auto found = [&](string&S, int len) {
+
+            unordered_set<long long>Set;
+            long long base = 26;
+            long long mod = (1l<<32);
+            long long hash = 0;
+
+            long long pow_base_len = 1;
+            for (int i=0; i<len; i++)        
+                pow_base_len = (pow_base_len * base) % mod;                    
+                
+            for (int i = 0; i < S.size(); i++)
             {
-                result=(result*base)%m;
-            }
-            base=(base*base)%m;
-            b>>=1;
-        }
-        return result;
-    }
-    bool check(string& S,long long int l)
-    {
-        long long int m=1000000007;
-        unordered_map<int,vector<int>> v;
-        long long int current=0;
-        for(int i=0;i<l;i++)
-        {
-            current=(current+powmod(26,l-i-1,m)*(S[i]-'a'))%m;
-            current=(current+2*m)%m;
-        }
-        v[current].push_back(0);
-        for(int i=0;i<(int)S.length()-l;i++)
-        {
-            current=(current-powmod(26,l-1,m)*(S[i]-'a')+m)%m;
-            current=(current*26)%m;
-            current=(current+(S[i+l]-'a'))%m;
-            current=(current+2*m)%m;
-            if(v.find(current)!=v.end())
-            {
-                for(int j=0;j<v[current].size();j++)
-                {
-                    if(S.substr(i+1,l)==S.substr(v[current][j],l))
+                hash = (hash * base + (S[i]-'a')) % mod;
+                if (i>=len)            
+                    hash = (hash - pow_base_len*(S[i-len]-'a') % mod + mod) % mod;
+
+                if (i>=len-1)
+                {                
+                    if (Set.find(hash)!=Set.end())
                     {
-                        if(l>result.length())
-                        {
-                            result=S.substr(i+1,l);
-                        }
+                        len2start[len] = i-len+1;
                         return true;
-                    }
-                }
+                    }                
+                    Set.insert(hash);
+                }          
             }
-            v[current].push_back(i+1);
-        }
-        return false;
-    }
-    string longestDupSubstring(string S)
-    {
-        int p1=1;
-        int p2=(int)S.length()-1;
-        while(p1<p2)
-        {
-            int middle=(p1+p2)/2;
-            if(check(S,(long long int)middle)==true)
-            {
-                p1=middle+1;
-            }
-            else
-            {
-                p2=middle-1;
-            }
-        }
-        bool r;
-        if(p1-1>0)
-        {
-            r=check(S,(long long int)p1-1);
-        }
-        r=check(S,(long long int)p1);
-        r=check(S,(long long int)p1+1);
-        return result;
-    }
-};
+            return false;
+        };
 
+        while (left < right) {
+            int mid = right - (right-left)/2;
+            if (found(S,mid))
+                left = mid;
+            else
+                right = mid - 1;
+        }
+
+        if (found(S, left)) // Maybe doesn't find target, so call found again.
+            return S.substr(len2start[left],left);
+        else
+            return "";        
+    }
+
+    
+};
 
 void test_1044_longest_duplicate_substring() {
  

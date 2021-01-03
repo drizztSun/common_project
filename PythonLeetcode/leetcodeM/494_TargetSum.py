@@ -63,13 +63,13 @@ class TargetSum:
         :type S: int
         :rtype: int
         """
-        def search(nums, i, res, visited):
+        def search(i, res, visited):
             if i == len(nums):
                 return 1 if res == S else 0
 
             if (i, res) not in visited:
-                visited[(i, res)] = search(nums, i + 1, res + nums[i], visited) + search(nums, i + 1, res - nums[i], visited)
+                visited[(i, res)] = search(i + 1, res + nums[i], visited) + search(i + 1, res - nums[i], visited)
 
             return visited[(i, res)]
 
-        return search(nums, 0, 0, {})
+        return search(0, 0, {})

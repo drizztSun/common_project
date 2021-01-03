@@ -1,3 +1,4 @@
+""" 
 # 958. Check Completeness of a Binary Tree
 
 # Given a binary tree, determine if it is a complete binary tree.
@@ -29,6 +30,7 @@ class TreeNode:
         self.val = x
         self.left = None
         self.right = None
+"""
 
 
 class IsCompleteTree:
@@ -55,7 +57,7 @@ class IsCompleteTree:
     """
 
     # O(bfs)
-    def doit(self, root):
+    def doit_bfs(self, root):
 
         buff = [(root, 1)]
         i = 0
@@ -70,7 +72,7 @@ class IsCompleteTree:
 
         return buff[-1][1] == len(buff)
 
-    def doit(self, root):
+    def doit_(self, root):
 
         from collections import deque
 

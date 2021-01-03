@@ -1,6 +1,4 @@
-
-
-
+"""
 # 391. Perfect Rectangle
 
 # Given N axis-aligned rectangles where N > 0, determine if they all together form an exact cover of a rectangular region.
@@ -26,14 +24,16 @@
 #  [3,1,4,2],
 #  [3,2,4,4]
 # ]
+"""
 
-class isRectangleCover(object):
 
+class PerfectRectangle:
 
     # Save area and all FOUR corners for each sub-rectangle:
     # sum of area of all sub-rectangle == area of maximum rectangle.
     # each corner should only appear either TWO or FOUR times, except four corners of big rectangle.
-    def doit(self, rectangles):
+    # if area == maxarea, but there are some overlapping, it means corners are not in 2 or 4 times
+    def doit_hashtable(self, rectangles):
         """
         :type rectangles: List[List[int]]
         :rtype: bool
@@ -49,10 +49,9 @@ class isRectangleCover(object):
 
             area += (T - B) * (R - L)
 
-            for i in [(L, B), (L , T), (R, B), (R, T)]:
+            for i in [(L, B), (L, T), (R, B), (R, T)]:
                 D[i] = D.get(i, 0) + 1
 
-        
         if area != (maxX - minX) * (maxY - minY):
             return False
         
@@ -63,6 +62,7 @@ class isRectangleCover(object):
                 return False
 
         for k in D:
+            # each corner should only appear either TWO or FOUR times, except four corners of big rectangle.
             if D[k] not in (2, 4) and k not in bigCorner:
                 return False
 
@@ -85,7 +85,7 @@ class isRectangleCover(object):
 
     #   Step2 
     #   visits 1 corner at a time with O(1) computations for at most 4n corners (actually much less because either corner overlap or early stopping occurs). So it’s also O(n).
-    def doit1(self, rectangles):
+    def doit_hashtable_1(self, rectangles):
         """
         :type rectangles: List[List[int]]
         :rtype: bool
@@ -224,11 +224,8 @@ class isRectangleCover(object):
         
         return len(rects) == 0
 
-        
-
 
 if __name__=="__main__":
-
 
     rectangles = [
       [1,1,3,3],
@@ -238,10 +235,8 @@ if __name__=="__main__":
       [2,3,3,4]
     ]
 
+    res = PerfectRectangle().doit(rectangles)
 
-    res = isRectangleCover().doit(rectangles)
-
-    
     rect = [
      [1,1,3,3],
      [3,1,4,2],
@@ -249,7 +244,7 @@ if __name__=="__main__":
      [2,2,4,4]
     ]
 
-    res = isRectangleCover().doit(rect)
+    res = PerfectRectangle().doit(rect)
 
 
     rect = [
@@ -258,7 +253,7 @@ if __name__=="__main__":
         [1,0,2,2]
     ]
 
-    res = isRectangleCover().doit(rect)
+    res = PerfectRectangle().doit(rect)
 
     pass
 

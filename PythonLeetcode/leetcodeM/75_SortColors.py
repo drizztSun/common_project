@@ -61,20 +61,20 @@ class SetColors:
     def doit_twopointer(self, nums: list) -> None:
 
         left, right = 0, len(nums) - 1
-        cur = 0
+        mid = 0
 
-        while cur <= right:
+        while mid <= right:
 
-            if nums[cur] == 0:
-                nums[left], nums[cur] = nums[cur], nums[left]
+            if nums[mid] == 0:
+                nums[left], nums[mid] = nums[mid], nums[left]
                 left += 1
 
-            if nums[cur] == 2:
-                nums[right], nums[cur] = nums[cur], nums[right]
+            if nums[mid] == 2:
+                nums[right], nums[mid] = nums[mid], nums[right]
                 right -= 1
                 continue
 
-            cur += 1
+            mid += 1
 
     def doit_copy(self, nums: list) -> None:
         """

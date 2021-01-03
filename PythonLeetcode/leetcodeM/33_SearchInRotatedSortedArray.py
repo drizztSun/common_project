@@ -37,6 +37,73 @@ nums is guranteed to be rotated at some pivot.
 class Search:
 
     """
+    Approach 1: Binary search
+    The problem is to implement a search in O(logN) time that gives an idea to use a binary search.
+
+    The algorithm is quite straightforward :
+
+    Find a rotation index rotation_index, i.e. index of the smallest element in the array. Binary search works just perfect here.
+
+    rotation_index splits array in two parts. Compare nums[0] and target to identify in which part one has to look for target.
+
+    Perform a binary search in the chosen part of the array.
+
+    """
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        def find_rotate_index(left, right):
+            if nums[left] < nums[right]:
+                return 0
+
+            while left <= right:
+                pivot = (left + right) // 2
+                if nums[pivot] > nums[pivot + 1]:
+                    return pivot + 1
+                else:
+                    if nums[pivot] < nums[left]:
+                        right = pivot - 1
+                    else:
+                        left = pivot + 1
+
+        def search(left, right):
+            """
+            Binary search
+            """
+            while left <= right:
+                pivot = (left + right) // 2
+                if nums[pivot] == target:
+                    return pivot
+                else:
+                    if target < nums[pivot]:
+                        right = pivot - 1
+                    else:
+                        left = pivot + 1
+            return -1
+
+        n = len(nums)
+
+        if n == 1:
+            return 0 if nums[0] == target else -1
+
+        rotate_index = find_rotate_index(0, n - 1)
+
+        # if target is the smallest element
+        if nums[rotate_index] == target:
+            return rotate_index
+        # if array is not rotated, search in the entire array
+        if rotate_index == 0:
+            return search(0, n - 1)
+        if target < nums[0]:
+            # search on the right side
+            return search(rotate_index, n - 1)
+        # search on the left side
+        return search(0, rotate_index)
+
+    """
     Approach 2: One-pass Binary Search
     Instead of going through the input array in two passes, we could achieve the goal in one pass with an revised binary search.
 
@@ -62,12 +129,10 @@ class Search:
 
     Complexity Analysis
 
-    Time complexity: \mathcal{O}(\log{N})O(logN).
-    Space complexity: \mathcal{O}(1)O(1).
+    Time complexity: O(logN).
+    Space complexity: O(1).
     """
-
-
-    def doit(self, nums, target):
+    def doit_binary_search(self, nums, target):
 
         start, end = 0, len(nums) - 1
         while start <= end:

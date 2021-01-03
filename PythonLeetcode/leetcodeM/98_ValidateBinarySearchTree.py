@@ -68,7 +68,7 @@ class ValidateBinarySearchTree:
 
         return True
 
-    def doit_search_1(self, root) -> bool:
+    def doit_search_recursive(self, root) -> bool:
         """
         :type root: TreeNode
         :rtype: bool
