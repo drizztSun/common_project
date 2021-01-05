@@ -103,8 +103,8 @@ public:
     */
 
     int doit_greedy(vector<vector<int>>& points) {
-        if (points.size() < 2)
-            return points.size();
+
+        if (points.size() < 2) return points.size();
         
         std::sort(begin(points), end(points), [](const auto& a, const auto& b){
            return a[1] < b[1]; 

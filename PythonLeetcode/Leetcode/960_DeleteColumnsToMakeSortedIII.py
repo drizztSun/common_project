@@ -59,38 +59,40 @@ class MinDeletionSize:
 
     Space Complexity: O(W).
     """
-
     def doit_dp(self, A):
 
-        dp = [1 for _ in range(len(A[0]))]
+        W = len(A[0])
+        dp = [1 for _ in range(W)]
 
-        for i in range(len(A[0]) - 2, -1, -1):
+        for i in range(W-2, -1, -1):
 
-            for j in range(i + 1, len(A[0])):
+            for j in range(i + 1, W):
 
                 if all(row[i] <= row[j] for row in A):
+
                     dp[i] = max(dp[i], 1 + dp[j])
 
         return len(A[0]) - max(dp)
 
     def doit_dp_1(self, A):
-        dp = [(1, 1)] * len(A[0])
-        for i in range(len(dp)):
-            if i > 0:
-                max_pre = None
-                for pre in range(i - 1, -1, -1):
-                    for word in A:
-                        if word[pre] > word[i]:
-                            pre -= 1
-                            break
-                    else:
-                        if max_pre is None or dp[pre][1] > dp[max_pre][1]:
-                            max_pre = pre
 
-                max_len = 1 if max_pre is None else max(1, dp[max_pre][1] + 1)
-                overall = max(dp[i - 1][0], max_len)
-                dp[i] = (overall, max_len)
-        # print(dp)
+        W = len(A[0])
+        dp = [(1, 1)] * W
+
+        for i in range(1, len(dp)):
+            max_pre = None
+            for pre in range(i - 1, -1, -1):
+                for word in A:
+                    if word[pre] > word[i]:
+                        pre -= 1
+                        break
+                else:
+                    if max_pre is None or dp[pre][1] > dp[max_pre][1]: max_pre = pre
+
+            max_len = 1 if max_pre is None else max(1, dp[max_pre][1] + 1)
+            overall = max(dp[i - 1][0], max_len)
+            dp[i] = (overall, max_len)
+
         return len(dp) - dp[-1][0]
 
 
