@@ -103,11 +103,7 @@ class InorderSuccessor:
             if node.val > p.val:
                 search(node.left)
 
-            elif node.val < p.val:
-                search(node.right)
-
-            else:
-                search(node.left)
+            elif node.val <= p.val:
                 search(node.right)
 
         search(root)

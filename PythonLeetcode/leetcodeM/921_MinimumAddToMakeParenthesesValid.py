@@ -55,7 +55,7 @@ class MinAddToMakeValid:
 
         ans = bal = 0
         for c in S:
-
+            
             bal += 1 if c == '(' else -1
             # It is guaranteed bal >= -1
             if bal == -1:

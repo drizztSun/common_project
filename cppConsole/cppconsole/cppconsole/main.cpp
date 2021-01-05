@@ -7,7 +7,11 @@
 //
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
 
+using std::vector;
 
 void TestUnorderMap();
 
@@ -43,12 +47,51 @@ void TestUnorderMap();
 
 void Test_map();
 
+bool canPartition(vector<int>&& nums) {
+    int sums = accumulate(begin(nums), end(nums), 0);
+    if (sums % 2 == 1) return false;
+    
+    int half = sums/2;
+    vector<int> dp(half+1, false);
+    dp[0] = true;
+    
+    for (auto c: nums) {
+        for (int i = 0; i <= half-c; i++) {
+            if (dp[i]) {
+                dp[i+c] = true;
+            }
+        }
+        
+        //if (dp[half]) return true;
+    }
+    
+    return dp[half];
+}
 
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
     
-    Test_map();
+    canPartition(vector<int>{1, 2, 5});
+    
+    vector<int> A{1,1,1,0,0,0,1,1,1,1,0};
+    int K = 2;
+    int left = 0, right = 0;
+    
+    for (; right < A.size(); right++) {
+        
+        K -= 1 - A[right];
+            
+        if (K < 0) {
+            K += 1 - A[left];
+            left++;
+        }
+    }
+    
+    return right - left + 1;
+    
+    
+    // Test_map();
     
     // TestUnorderMap();
     

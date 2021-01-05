@@ -32,6 +32,27 @@ using std::vector;
 class GroupShiftedStrings {
 
 public:
+
+    vector<vector<string>> doit_hashtable(vector<string>& strings) {
+        vector<vector<string>> res;
+        unordered_map<string, vector<string>> map;
+        for(string s : strings){
+            string str;
+            for(int i = 1; i < s.size(); i++){
+                int diff = s[i] - s[i - 1];
+                if(diff < 0) diff += 26; // NOTE: circular
+                str.push_back('a' + diff);                 
+            }
+            map[str].push_back(s);
+        }
+        
+        for(const auto& pair : map){
+            vector<string> vec = pair.second;
+            sort(vec.begin(), vec.end());
+            res.push_back(vec);
+        }
+        return res;
+    }
     
     vector<vector<string>> doit_(vector<string>& strings) {
         

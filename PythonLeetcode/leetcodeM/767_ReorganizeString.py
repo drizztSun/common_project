@@ -44,9 +44,9 @@ class ReorganizeString:
 
     Complexity Analysis
 
-    Time Complexity: O(\mathcal{A}(N + \log{\mathcal{A}}))O(A(N+logA)), where NN is the length of SS, and \mathcal{A}A is the size of the alphabet. In Java, our implementation is O(N + \mathcal{A} \log {\mathcal{A}})O(N+AlogA). If \mathcal{A}A is fixed, this complexity is O(N)O(N).
+    Time Complexity: O(A(N+logA)), where NN is the length of SS, and A is the size of the alphabet. In Java, our implementation is O(N+AlogA). If A is fixed, this complexity is O(N).
 
-    Space Complexity: O(N)O(N). In Java, our implementation is O(N + \mathcal{A})O(N+A).
+    Space Complexity: O(N). In Java, our implementation is O(N+A).
     """
     def doit_sort(self, S):
         N = len(S)
@@ -82,9 +82,9 @@ class ReorganizeString:
     
     Complexity Analysis
 
-    Time Complexity: O(N \log{\mathcal{A}}))O(NlogA)), where NN is the length of SS, and \mathcal{A}A is the size of the alphabet. If \mathcal{A}A is fixed, this complexity is O(N)O(N).
+    Time Complexity: O(NlogA)), where NN is the length of SS, and A is the size of the alphabet. If A is fixed, this complexity is O(N).
     
-    Space Complexity: O(\mathcal{A})O(A). If \mathcal{A}A is fixed, this complexity is O(1)O(1).
+    Space Complexity: O(A). If A is fixed, this complexity is O(1).
     """
     def doit_heap(self, S):
         pq = [(-S.count(x), x) for x in set(S)]
@@ -110,31 +110,30 @@ class ReorganizeString:
         return "".join(ans) + (pq[0][1] if pq else '')
 
     def doit_heap(self, S):
-        buff = {}
-        for c in S:
-            buff[c] = buff.get(c, 0) + 1
+        from collections import Counter
+        from heapq import heapify, heappop
 
-        items = list(buff.items())
-        pq = []
-        for c in items:
-            heapq.heappush(pq, (-c[1], c[0]))
+        buff = Counter(S)
+        pq = [(-v, k) for k, v in buff.items()]
+        heapify(pq)
 
         res = ''
         while pq:
-            c = heapq.heappop(pq)
+            c = heappop(pq)
 
             if not pq:
                 if c[0] < -1:
-                    return ''
-                else:
-                    res += c[1]
-                    continue
+                    return ''                               
 
-            s = heapq.heappop(pq)
+                res += c[1] 
+                continue
 
+            s = heappop(pq)
             res += c[1] + s[1]
+            
             if c[0] != -1:
                 heapq.heappush(pq, (c[0] + 1, c[1]))
+                
             if s[0] != -1:
                 heapq.heappush(pq, (s[0] + 1, s[1]))
 
