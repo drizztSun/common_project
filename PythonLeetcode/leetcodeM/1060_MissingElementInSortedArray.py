@@ -159,7 +159,7 @@ class MissingElementInSortedArray:
         if nums[0] + k >= nums[-1]:
             return nums[0] + k + len(nums) - 1
 
-        low, high = 0, len(nums)
+        low, high = 0, len(nums)-1
 
         while low < high:
 
@@ -169,12 +169,12 @@ class MissingElementInSortedArray:
                 return nums[mid] - 1
 
             if n > k:
-                high = mid
+                high = mid - 1
             else:
                 k -= n
-                low = mid + 1
+                low = mid
 
-        return nums[low-1] + k
+        return (nums[low-1] + k) if low > 1 else (nums[0] + k)
 
 
 if __name__ == '__main__':

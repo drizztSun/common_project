@@ -30,6 +30,8 @@ Your output answer is guaranteed to be fitted in a 32-bit integer.
 */
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 using std::vector;
 using std::unordered_map;
@@ -58,8 +60,8 @@ public:
         */
         long rows = nums.size(), cols = (total+target)/2+1;
         vector<long> curr(cols,0);
-        
         curr[0] = 1;
+
         for(int num: nums) {
             for(int j = cols-1; j >= num; j--)
                 curr[j] += curr[j-num];
@@ -155,6 +157,21 @@ public:
     }
 
     /*
+        分析：
+
+    这道题可以单纯的用暴力法解决，也就是对每个元素分别进行一次正负的累加，复杂度为2^n，因为n不超过20，故也就100w左右，但是在leetcode上同样的解法c++和java可以通过，python是无法通过的
+    这里介绍discuss里一位大神提出来的超帅的数学解法，这道题中我们加正负号无非是将nums分为两个子集p,n，p中元素全部加正号，n中元素全部加负号，使得sum(p) - sum(n) = S，而本身又有sum(p) + sum(n) = sum(nums)，故两式相加化简得sum(p) = (sum(nums)+S) / 2
+    
+    那么这个式子直接给出了一个信息，也就是如果能找到p，则必有sum(nums)+S % 2 == 0这个条件，这个条件可以帮我们快速判断是否有解。
+    那么此时题目就变成给定一个数组nums，求有多少组不同的p，使得sum(p) = target ((sum(nums) + S) / 2)，直接dp可解
+    
+    思路：
+
+    建立dp，dp[i] = j代表数组nums中有j组子集的和为i，初始dp[0] = 1
+    如nums = [1,1,1,1,1]，按照如下步骤分析
+    对nums[0]分析，则得dp[1] = 1(因为dp[0] = 1)
+    对nums[1]分析，则得dp[1] = 2,dp[2] = 1(因为dp[0] = 1,dp[1] = 1)
+    对nums[2]分析，则得dp[1] = 3,dp[2] = 2,d[3] = 1,依次类推
     
     */
     int doit_(vector<int>& nums, int S) {

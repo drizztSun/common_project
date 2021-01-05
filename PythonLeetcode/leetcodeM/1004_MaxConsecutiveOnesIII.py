@@ -65,7 +65,7 @@ class LongestOnes(object):
     Space Complexity: O(1). We do not use any extra space.
 
     """
-    def doit_twopointer(self, A: list, K: int) -> int:
+    def doit_twopointer_slidingwindow(self, A: list, K: int) -> int:
         left = 0
 
         # right to be side eat 0, left to be side out 0.

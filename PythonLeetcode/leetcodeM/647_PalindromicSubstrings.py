@@ -80,9 +80,9 @@ class CountSubstrings:
     
     Complexity Analysis
 
-    Time Complexity: O(N)O(N) where NN is the length of S. As discussed above, the complexity is linear.
+    Time Complexity: O(N) where NN is the length of S. As discussed above, the complexity is linear.
     
-    Space Complexity: O(N)O(N), the size of A and Z.
+    Space Complexity: O(N), the size of A and Z.
     """
     def doit(self, S):
         def manachers(S):
@@ -98,8 +98,11 @@ class CountSubstrings:
                     center, right = i, i + Z[i]
             return Z
 
-        return sum((v+1)/2 for v in manachers(S))
+        return sum((v+1)/2 for v in manachers(S))   
 
+    """
+        O(N^2)
+    """
     def doit_dp(self, s: str):
         n = len(s)
         dp = [[False for _ in range(n)] for _ in range(n)]
@@ -111,7 +114,7 @@ class CountSubstrings:
                 if s[i] == s[j] and (j - i < 2 or dp[i+1][j-1]):
                     dp[i][j] = True
 
-                if j == i:
+                if j == i:  
                     cnt[i][j] = 1
                 elif i + 1 == j:
                     cnt[i][j] = 3 if dp[i][j] else 2

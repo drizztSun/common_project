@@ -39,6 +39,25 @@ using std::vector;
 class LongestOnes {
     
 public:
+
+    int doit_slidingwindow(vector<int>& A, int K) {
+        int left = 0, right = 0;
+        int ans = 0;
+            
+        for (; right < A.size(); right++) {
+            
+            K -= 1 - A[right];
+                
+            if (K < 0) {
+                K += 1 - A[left];
+                left++;
+            } else {
+                ans = std::max(ans, right - left + 1);
+            }
+        }
+        
+        return ans;
+    }
     
     int doit(vector<int>&& A, int K) {
         

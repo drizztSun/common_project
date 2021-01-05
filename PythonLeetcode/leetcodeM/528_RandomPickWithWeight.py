@@ -101,6 +101,42 @@ class RandomPickWithWeight:
             if target < prefix_sum:
                 return i
 
+"""
+Approach 2: Prefix Sums with Binary Search
+Intuition
+
+As we promised before, we could improve the above approach by replacing the linear search with the binary search, which then can reduce the time complexity of the pickIndex() function from \mathcal{O}(N)O(N) to \mathcal{O}(\log{N})O(logN).
+
+As a reminder, the condition to apply binary search on a list is that the list should be sorted, either in ascending or descending order. For the list of prefix sums that we search on, this condition is guaranteed, as we discussed before.
+
+Algorithm
+
+We could base our implementation largely on the previous approach. In fact, the only place we need to modify is the pickIndex() function, where we replace the linear search with the binary search.
+
+As a reminder, there exist built-in functions of binary search in almost all programming languages. If one comes across this problem during the interview, it might be acceptable to use any of the built-in functions.
+
+On the other hand, the interviewers might insist on implementing a binary search by hand. It would be good to prepare for this request as well.
+
+There are several code patterns to implement a binary search algorithm, which we cover in the Explore card of Binary Search algorithm. One can refer to the card for more details.
+
+Complexity Analysis
+
+Let NN be the length of the input list.
+
+Time Complexity
+
+For the constructor function, the time complexity would be O(N), which is due to the construction of the prefix sums.
+
+For the pickIndex() function, this time its time complexity would be O(logN), since we did a binary search on the prefix sums.
+
+Space Complexity
+
+For the constructor function, the space complexity remains \mathcal{O}(N)O(N), which is again due to the construction of the prefix sums.
+
+For the pickIndex() function, its space complexity would be \mathcal{O}(1)O(1), since it uses constant memory. Note, here we consider the prefix sums that it operates on, as the input of the function.
+
+
+"""
 
 class RandomPickWithWeight:
 

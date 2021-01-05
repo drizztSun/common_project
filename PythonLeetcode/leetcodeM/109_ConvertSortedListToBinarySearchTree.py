@@ -223,7 +223,10 @@ class SortedListToBST:
 
     Before looking at the algorithm, let us look at how the inorder traversal actually leads to a sorted order of nodes' values.
 
+    Complexity Analysis
 
+    Time Complexity: The time complexity is still O(N)O(N) since we still have to process each of the nodes in the linked list once and form corresponding BST nodes.
+    Space Complexity: O(\log N)O(logN) since now the only extra space is used by the recursion stack and since we are building a height balanced BST, the height is bounded by \log NlogN.
 
     """
     def sortedListToBST(self, head):
@@ -266,5 +269,5 @@ class SortedListToBST:
             # Recurse on the right hand side and form BST out of them
             node.right = convert(mid + 1, r)
             return node
-            
+
         return convert(0, size - 1)
