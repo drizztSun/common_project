@@ -74,6 +74,16 @@ class GenerateParenthesis:
     Instead of adding '(' or ')' every time as in Approach 1, let's only add them when we know it will remain a valid sequence. We can do this by keeping track of the number of opening and closing brackets we have placed so far.
     
     We can start an opening bracket if we still have one (of n) left to place. And we can start a closing bracket if it would not exceed the number of opening brackets
+
+
+    Complexity Analysis
+
+    Our complexity analysis rests on understanding how many elements there are in generateParenthesis(n). This analysis is outside the scope of this article, but it turns out this is the n-th Catalan number (n+1)^-1 * C(2n, n), 
+    which is bounded asymptotically by 4^n(n*n^0.5)^-1
+
+    Time Complexity : 4^n(n*n^0.5)^-1. Each valid sequence has at most n steps during the backtracking procedure.
+
+    Space Complexity : 4^n(n*n^0.5)^-1 , as described above, and using O(n)O(n) space to store the sequence.
     """
     def doit_backtracking(self, N):
         ans = []
@@ -109,7 +119,7 @@ class GenerateParenthesis:
 
             ans = []
             for c in range(N):
-                for left in ssearch(c):
+                for left in search(c):
                     for right in search(N-1-c):
                         ans.append('({}){}'.format(left, right))
         search(N)

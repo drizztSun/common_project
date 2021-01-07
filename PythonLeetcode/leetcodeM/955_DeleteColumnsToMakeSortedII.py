@@ -1,3 +1,4 @@
+"""
 # 955. Delete Columns to Make Sorted II
 
 # We are given an array A of N lowercase letter strings, all of the same length.
@@ -36,44 +37,44 @@
 # Output: 3
 # Explanation:
 # We have to delete every column.
-
+"""
 
 class MinDeletionSizeII:
 
     """
-    Approach 1: Greedy
-    Intuition
+        Approach 1: Greedy
+        Intuition
 
-    Instead of thinking about column deletions, let's think about which columns we will keep in the final answer.
+        Instead of thinking about column deletions, let's think about which columns we will keep in the final answer.
 
-    If the first column isn't lexicographically sorted, we have to delete it.
+        If the first column isn't lexicographically sorted, we have to delete it.
 
-    Otherwise, we will argue that we can keep this first column without consequence. There are two cases:
+        Otherwise, we will argue that we can keep this first column without consequence. There are two cases:
 
-    If we don't keep the first column, then the final rows of the answer all have to be sorted.
+        If we don't keep the first column, then the final rows of the answer all have to be sorted.
 
-    If we do keep the first column, then the final rows of the answer (minus the first column) only have to be sorted if they share the same first letter (coming from the first column).
+        If we do keep the first column, then the final rows of the answer (minus the first column) only have to be sorted if they share the same first letter (coming from the first column).
 
-    The above statement is hard to digest, so let's use an example:
+        The above statement is hard to digest, so let's use an example:
 
-    Say we have A = ["axx","ayy","baa","bbb","bcc"]. When we keep the first column, the final rows are R = ["xx","yy","aa","bb","cc"], and instead of the requirement that these all have to be sorted (ie. R[0] <= R[1] <= R[2] <= R[3] <= R[4]), we have a weaker requirement that they only have to be sorted if they share the same first letter of the first column, (ie. R[0] <= R[1] and R[2] <= R[3] <= R[4]).
+        Say we have A = ["axx","ayy","baa","bbb","bcc"]. When we keep the first column, the final rows are R = ["xx","yy","aa","bb","cc"], and instead of the requirement that these all have to be sorted (ie. R[0] <= R[1] <= R[2] <= R[3] <= R[4]), we have a weaker requirement that they only have to be sorted if they share the same first letter of the first column, (ie. R[0] <= R[1] and R[2] <= R[3] <= R[4]).
 
-    Now, we applied this argument only for the first column, but it actually works for every column we could consider taking. If we can't take a column, we have to delete it. Otherwise, we take it because it can only make adding subsequent columns easier.
+        Now, we applied this argument only for the first column, but it actually works for every column we could consider taking. If we can't take a column, we have to delete it. Otherwise, we take it because it can only make adding subsequent columns easier.
 
-    Algorithm
+        Algorithm
 
-    All our effort has led us to a simple algorithmic idea.
+        All our effort has led us to a simple algorithmic idea.
 
-    Start with no columns kept. For each column, if we could keep it and have a valid answer, keep it - otherwise delete it.
+        Start with no columns kept. For each column, if we could keep it and have a valid answer, keep it - otherwise delete it.
 
-    Complexity Analysis
+        Complexity Analysis
 
-    Time Complexity: O(NW^2) where NN is the length of A, and WW is the length of A[i].
+        Time Complexity: O(NW^2) where NN is the length of A, and WW is the length of A[i].
 
-    Space Complexity: O(NW).
+        Space Complexity: O(NW).
     """
 
-    def doit(self, A):
+    def doit_greedy(self, A):
         def is_sorted(A):
             return all(A[i] <= A[i + 1] for i in range(len(A) - 1))
 
@@ -100,28 +101,27 @@ class MinDeletionSizeII:
         return ans
 
     """
-    Approach 2: Greedy with Optimizations
-    Explanation
+        Approach 2: Greedy with Optimizations
+        Explanation
 
-    It is also possible to implement the solution in Approach 1 without using as much time and space.
+        It is also possible to implement the solution in Approach 1 without using as much time and space.
 
-    The key idea is that we will record the "cuts" that each column makes.
-    In our first example from Approach 1 with A = ["axx","ayy","baa","bbb","bcc"] (and R defined as in Approach 1), the first column cuts our condition from R[0] <= R[1] <= R[2] <= R[3] <= R[4] to R[0] <= R[1] and R[2] <= R[3] <= R[4]. That is, the boundary "a" == column[1] != column[2] == "b" has 'cut' one of the conditions for R out.
+        The key idea is that we will record the "cuts" that each column makes.
+        In our first example from Approach 1 with A = ["axx","ayy","baa","bbb","bcc"] (and R defined as in Approach 1), the first column cuts our condition from R[0] <= R[1] <= R[2] <= R[3] <= R[4] to R[0] <= R[1] and R[2] <= R[3] <= R[4]. 
+        That is, the boundary "a" == column[1] != column[2] == "b" has 'cut' one of the conditions for R out.
 
-    At a high level, our algorithm depends on evaluating whether adding a new column will keep all the rows sorted.
-    By maintaining information about these cuts, we only need to compare characters in the newest column.
+        At a high level, our algorithm depends on evaluating whether adding a new column will keep all the rows sorted.
+        By maintaining information about these cuts, we only need to compare characters in the newest column.
 
-    Complexity Analysis
+        Complexity Analysis
 
-    Time Complexity: O(NW), where N is the length of A, and W is the length of A[i].
+        Time Complexity: O(NW), where N is the length of A, and W is the length of A[i].
 
-    Space Complexity: O(N) in additional space complexity. (In Python, zip(*A) uses O(NW) space.)
+        Space Complexity: O(N) in additional space complexity. (In Python, zip(*A) uses O(NW) space.)
     """
-
-    def doit(self, A):
+    def doit_greedy_1(self, A):
         # cuts[i] is True : we don't need to check col[i] <= col[i+1]
-        cuts = [False] * (len(A) - 1)
-        ans = 0
+        ans, cuts = 0, [False] * (len(A) - 1)
 
         for col in zip(*A):
             if all(cuts[i] or col[i] <= col[i + 1] for i in range(len(col) - 1)):
@@ -164,6 +164,4 @@ if __name__ == "__main__":
 
     res = MinDeletionSizeII().doit(["zyx", "wvu", "tsr"])
 
-    res = MinDeletionSizeII().doit(["xga", "xfb", "yfa"])  # 1
-
-    pass
+    res = MinDeletionSizeII().doit(["xga", "xfb", "yfa"])

@@ -137,4 +137,76 @@ public:
         }  
         return ans;
     }
+
+    /*
+
+    1707.Maximum-XOR-With-an-Element-From-Array
+    我们将query按照m的大小逐个处理。对于每个query而言，就是在一堆数里面挑选一个与x亦或值最大的数。
+    因此，本题的本质就是421. Maximum XOR of Two Numbers in an Array.具体算法是：我们将这堆数按照32位二进制编码构造一个Trie，然后在这棵前缀树里，尽量按照x的相反数（bit-flipped）去探索，只需要移动32次就能找到与x亦或值最大的数。
+
+    接下来再处理下一个query时，我们只需要在已有的前缀树里再增加若干节点即可（也就是比当前m小的数），然后同样地重复之前的步骤。
+
+    这种对于query排序的思路，很像1697.Checking-Existence-of-Edge-Length-Limited-Paths。在1697中，每次处理新query之前，会在一个已有的union网络里添加一些新的连接。
+
+    */
+    class TrieNode
+    {
+        public:
+        TrieNode* next[2];
+    };
+    static bool cmp(vector<int>&a, vector<int>&b)
+    {
+        return a[1]<b[1];
+    }
+public:
+    vector<int> maximizeXor(vector<int>& nums, vector<vector<int>>& queries) 
+    {        
+        int n = queries.size();
+        for (int i=0; i<queries.size(); i++)
+            queries[i].push_back(i);
+        sort(queries.begin(), queries.end(), cmp);
+        sort(nums.begin(), nums.end());
+
+        vector<int>rets(n);
+        TrieNode* root = new TrieNode();        
+        int i = 0;
+        for (auto q: queries)
+        {
+            while (i<nums.size() && nums[i]<=q[1])
+            {
+                TrieNode* node = root;
+                for (int k=31; k>=0; k--)
+                {
+                    if (node->next[(nums[i]>>k)&1]==NULL)
+                        node->next[(nums[i]>>k)&1] = new TrieNode();
+                    node = node->next[(nums[i]>>k)&1];
+                }
+                i++;
+            }
+            
+            if (i==0)
+            {
+                rets[q[2]]=-1;
+                continue;
+            }
+                        
+            TrieNode* node = root;
+            int ret = 0;
+            for (int k=31; k>=0; k--)
+            {
+                if (node->next[1-((q[0]>>k)&1)] != NULL)
+                {
+                    node = node->next[1-((q[0]>>k)&1)];
+                    ret = ret*2 + 1;
+                }                    
+                else
+                {
+                    node = node->next[((q[0]>>k)&1)];
+                    ret = ret*2 + 0;
+                }
+            }
+            rets[q[2]] = ret;            
+        }
+        return rets;        
+    }
 };

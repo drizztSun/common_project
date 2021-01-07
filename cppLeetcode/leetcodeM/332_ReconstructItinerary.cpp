@@ -42,7 +42,7 @@ class ReconstructItinerary {
 
 public:
     
-    vector<string> doit_greedy(vector<vector<string>>& tickets) {
+    vector<string> doit_greedy_postorder(vector<vector<string>>& tickets) {
         
         unordered_map<string, deque<string>> graph;
         vector<string> trip;
@@ -77,5 +77,44 @@ public:
         visit("JFK");
         
         return vector<string>(trip.rbegin(), trip.rend());
+    }
+
+     vector<string> findItinerary(vector<std::pair<string, string>> tickets) {
+
+        // src -> {dst1, dest2, ..., destn}
+        unordered_map<string, deque<string>> trips_;    
+        // ans (reversed)
+        vector<string> route_;
+
+        route_.clear();
+        trips_.clear();
+        
+        for(const auto& pair : tickets)
+            trips_[pair.first].push_back(pair.second);
+        
+        for(auto& pair : trips_) {
+            auto& dests = pair.second;
+            std::sort(dests.begin(), dests.end());
+        }
+        
+        const string kStart = "JFK";
+
+        std::function<void(const string&)> visit = [&](const string& src) {
+            auto& dests = trips_[src];
+            while (!dests.empty()) {
+                // Get the smallest dest
+                const string dest = dests.front();
+                // Remove the ticket
+                dests.pop_front();
+                // Visit dest
+                visit(dest);
+            }
+            // Add current node to the route
+            route_.push_back(src);
+        };
+        
+        visit(kStart);
+        
+        return vector<string>(route_.crbegin(), route_.crend());
     }
 };

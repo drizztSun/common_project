@@ -50,7 +50,7 @@ class LargestBSTSubtree:
 
         def dfs(node):
             if not node:
-                return 0, float('inf'), -float('inf')  # num, min, max
+                return 0, float('inf'), -float('inf')  # num, min, max, any higher level node will greater then maximum value and less than minimum value
 
             left, lmin, lmax = dfs(node.left)
             right, rmin, rmax = dfs(node.right)

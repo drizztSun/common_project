@@ -1,3 +1,4 @@
+"""
 # 1027. Longest Arithmetic Sequence
 
 # Given an array A of integers, return the length of the longest arithmetic subsequence in A.
@@ -27,9 +28,16 @@
 # Explanation:
 # The longest arithmetic subsequence is [20,15,10,5].
 
+Constraints:
+
+2 <= A.length <= 1000
+0 <= A[i] <= 500
+"""
+
+
 class LongestArithSeqLength:
 
-    def doit(self, A):
+    def doit_dp(self, A):
 
         from collections import defaultdict
         # dp for each element i, sequence length is j, and how manch elements in the sequence, ended by ith element.
@@ -48,7 +56,7 @@ class LongestArithSeqLength:
 
         return ans
 
-    def doit(self, A):
+    def doit_dp_1(self, A):
         import collections
         if not A:
             return 0
@@ -62,7 +70,7 @@ class LongestArithSeqLength:
         return res
 
     # (DP)
-    def doit(self, A):
+    def doit_dp_2(self, A):
 
         n = len(A)
         indices = {}

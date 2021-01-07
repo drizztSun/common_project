@@ -44,7 +44,7 @@ class LongestArithSeqLength {
 public:
     
     // (DP)
-    int doit1(vector<int>&& A) {
+    int doit_dp(vector<int>&& A) {
         
         unordered_map<int, size_t> indice;
         
@@ -72,7 +72,7 @@ public:
     }
     
     // (DP)
-    int doit(vector<int>&& A) {
+    int doit_dp_1(vector<int>&& A) {
         int res = 2;
         unordered_map<size_t, unordered_map<int, int>> dp;
         

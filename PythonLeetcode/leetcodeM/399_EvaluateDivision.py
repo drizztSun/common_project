@@ -47,6 +47,57 @@ Ai, Bi, Cj, Dj consist of lower case English letters and digits.
 
 class EvaluateDivision:
 
+
+    def doit_dfs(self, equations, values, queries):
+        def divide(x, y, visited):
+        if x == y: return 1.0
+        visited.add(x)
+        for n in g[x]:
+            if n in visited: continue
+            visited.add(n)
+            d = divide(n, y, visited)
+            if d > 0: return d * g[x][n]
+        return -1.0
+        
+        g = collections.defaultdict(dict)
+        for (x, y), v in zip(equations, values):      
+        g[x][y] = v
+        g[y][x] = 1.0 / v
+        
+        ans = [divide(x, y, set()) if x in g and y in g else -1 for x, y in queries]
+        return ans
+
+    def doit_disjoint(self, equations, values, queries):
+        def find(x):
+            if x != U[x][0]:
+                px, pv = find(U[x][0])
+                U[x] = (px, U[x][1] * pv)
+            return U[x]
+        
+        def divide(x, y):
+            rx, vx = find(x)
+            ry, vy = find(y)
+            if rx != ry: return -1.0
+            return vx / vy
+        
+        U = {}
+        for (x, y), v in zip(equations, values):      
+        if x not in U and y not in U:
+            U[x] = (y, v)
+            U[y] = (y, 1.0)
+        elif x not in U:
+            U[x] = (y, v)
+        elif y not in U:
+            U[y] = (x, 1.0 / v)
+        else:
+            rx, vx = find(x)
+            ry, vy = find(y)
+            U[rx] = (ry, v / vx * vy)
+        
+        ans = [divide(x, y) if x in U and y in U else -1 for x, y in queries]
+        return ans
+
+
     """
     Approach 1: Path Search in Graph
     Algorithm
@@ -147,7 +198,29 @@ class EvaluateDivision:
 
     """
     Approach 2: Union-Find with Weights
-    
+    Algorithm
+
+    Now that we have defined the behaviors for the desired Union-Find data structure, let us put them down into implementation.
+
+    The overall interfaces of our Union-Find data structure remain the same. We will implement two functions: find(variable) and union(dividend, divisor, quotient).
+
+    find(variable): the function will return the group_id that the variable belongs to. Moreover, the function will update the states of variables along the chain, if there is any discrepancy.
+
+    union(dividend, divisor, quotient): this function will attach the group of dividend to that of the divisor, if they are not already the same group. In addition, it needs to update the weight of the dividend variable accordingly, so that the ratio between the dividend and divisor is respected.
+
+    We present a sample implementation of the above two functions in the later section, which is inspired from the post of WangQiuc in the discussion forum. Concise the implementation might be, it might be tricky to wrap one's head around it. One might want to refer to the step-wise example we showed before.
+
+    Once we implement the above two functions, we then solve the problem in two steps:
+
+    Step 1): we iterate through each input equation, and invoke the union(dividend, divisor, quotient) on each of them, in order to build the Union-Find data structure.
+
+    Step 2): we evaluate the query one by one. The evaluation is just as intuitive as our first approach, which can be broken down into the following cases:
+
+    case 1): Either of the variables did not appear in the input equations. The query is not valid. We then return -1.0 as the result.
+
+    case 2): If both variables are valid, we then apply the find(variable) to obtain the tuple of (group_id, weight) for each variable. If they are not of the same group, i.e. there is no chain of division between them, we then return -1.0 as the result.
+
+    case 3): Finally if both variables are of the same group, then we simply perform the division between their weights as the result.
     
     """
     def doit_disjoint(self, equations: list, values: list, queries: list) -> list:

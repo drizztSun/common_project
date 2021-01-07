@@ -46,7 +46,7 @@ The maze contains at least 2 empty spaces.
 
 class MazehasPath:
 
-    def doit(self, maze, start, destination):
+    def doit_dfs(self, maze, start, destination):
 
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         visited = set()

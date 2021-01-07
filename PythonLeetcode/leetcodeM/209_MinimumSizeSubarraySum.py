@@ -17,7 +17,7 @@ If you have figured out the O(n) solution, try coding another solution of which 
 
 class MinimumSizeSubarraySum:
 
-    def doit_slidewindow(self, s: int, nums: list) -> int:
+    def doit_slidingwindow(self, s: int, nums: list) -> int:
 
         j, total, res = 0, 0, len(nums) + 1
 
@@ -31,3 +31,32 @@ class MinimumSizeSubarraySum:
                 j += 1
 
         return 0 if res == len(nums) + 1 else res
+
+    def doit_binary_search(sel, s: int, nums: list) -> int:
+
+        n = len(nums)
+        presum = [0] * (n+1)
+        for i in range(n):
+            presum[i+1] = presum[i] + nums[i]
+
+        res = float('inf')
+        for i in range(len(presum)):
+
+            target = presum[i] + s
+            left, right = 0, len(presum)
+            
+            while left < right:
+                mid = (left + right) // 2
+                if presum[mid] >= target:
+                    right = mid
+                else:
+                    left = mid + 1
+
+            if left != len(presum):
+                res = min(res, left - i)
+
+        return 0 if res == float('inf') else res
+
+if __name__ == '__main__':
+
+    MinimumSizeSubarraySum().doit_binary_search(15, [1,2,3,4,5])

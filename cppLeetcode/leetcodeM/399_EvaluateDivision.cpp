@@ -47,7 +47,9 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::unordered_map;
 using std::string;
 using std::vector;
@@ -56,6 +58,73 @@ using std::vector;
 class EvaluateDivision {
     
 public:
+
+    /*
+    Solution1: Graph + DFS
+
+    A/B = 2
+    g[A][B] = 2 | g[B][A] = 1.0/2
+
+    Time complexity: O(e + q*e)
+    Space complexity: O(e)
+    */
+    vector<double> calcEquation(vector<vector<string>> equations, vector<double>& values, vector<vector<string>> queries) {
+            // g[A][B] = k -> A / B = k
+        unordered_map<string, unordered_map<string, double>> g;
+
+        for (int i = 0; i < equations.size(); ++i) {
+            const string& A = equations[i][0];
+            const string& B = equations[i][1];
+            const double k = values[i];
+            g[A][B] = k;
+            g[B][A] = 1.0 / k;
+        }
+
+                // get result of A / B
+        std::function<double(const string&, const string&)> divide = [&](const string& A, const string& B) {        
+            if (A == B) 
+                return 1.0;
+            visited.insert(A);
+            
+            for (const auto& pair : g[A]) {
+                const string& C = pair.first;
+                if (visited.count(C)) 
+                    continue;
+                double d = divide(C, B); // d = C / B
+                // A / B = C / B * A / C
+                if (d > 0) 
+                    return d * g[A][C];
+            }        
+            return -1.0;
+        };
+        
+        vector<double> ans;
+        for (const auto& pair : queries) {
+            const string& X = pair[0];
+            const string& Y = pair[1];
+            if (!g.count(X) || !g.count(Y)) {
+                ans.push_back(-1.0);
+                continue;
+            }
+            unordered_set<string> visited;            
+            ans.push_back(divide(X, Y));
+        }
+        return ans;
+    }
+
+    /*
+    Solution 2: Union Find
+
+    A / B = 2 -> Parent[A] = {B, 2} Parent[B] = {B, 1.0}
+
+    B / C = 3 -> Parent[C] = {B, 1/3.0}
+
+    A / C? p[A].key == p[C].ley == B
+    = p[A].val / p[C].val = 2/ (1/3.0) = 6
+
+    Time complexity: O(e + q)
+    Space complexity: O(e)
+    */
     
     vector<double> doit_disjoint(vector<vector<string>>&& equations, vector<double>&& values, vector<vector<string>>&& queries) {
         
@@ -111,8 +180,7 @@ public:
         
         return res;
     }
-    
-    
+
 };
 
 

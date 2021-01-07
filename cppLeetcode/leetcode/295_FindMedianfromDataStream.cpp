@@ -3,7 +3,7 @@
 # 295. Find Median from Data Stream
 
 
-#Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value.
+# Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value.
 # So the median is the mean of the two middle value.
 
 # Examples:
@@ -30,7 +30,7 @@ I keep two heaps (or priority queues):
 
 Max-heap small has the smaller half of the numbers.
 Min-heap large has the larger half of the numbers.
-This gives me direct access to the one or two middle values (they’re the tops of the heaps), so getting the median takes O(1) time. And adding a number takes O(log n) time.
+This gives me direct access to the one or two middle values (theyï¿½re the tops of the heaps), so getting the median takes O(1) time. And adding a number takes O(log n) time.
 
 Supporting both min- and max-heap is more or less cumbersome, depending on the language, so I simply negate the numbers in the heap in which I want the reverse of the default order. To prevent this from causing a bug with -231 (which negated is itself, when using 32-bit ints), I use integer types larger than 32 bits.
 
@@ -44,8 +44,105 @@ Update: These are pretty short already, but by now I wrote even shorter ones.
 #include <stdlib.h>
 #include <queue>
 #include <vector>
+#include <map>
+#include <set>
 
 using namespace std;
+
+/*
+Solution 2: Balanced binary search tree
+
+C++: Multiset
+
+Use two pointers to keep track the median position in the tree.
+
+When n is even, two pointers pointer to nearby middle elements.
+When n is odd, two pointers pointer to the same middle element.
+
+Add: O(log(n))
+1) Insert into tree: O(log(n))
+2) Move pointers: O(log(n))
+
+Computer median: O(1)
+
+Total = log(1) + log(2) + log(n) = O(n*log(n))
+
+*/
+
+class MedianFinderSet {
+public:
+    /** initialize your data structure here. */
+    MedianFinderSet(): l_(m_.cend()), r_(m_.cend()) {}
+    
+    // O(logn)
+    void addNum(int num) {
+        if (m_.empty()) {
+            l_ = r_ = m_.insert(num);
+            return;
+        }
+        
+        m_.insert(num);
+        const size_t n = m_.size();    
+        
+        if (n & 1) {
+            // odd number
+            if (num >= *r_) {         
+                l_ = r_;
+            } else {
+                // num < *r_, l_ could be invalidated
+                l_ = --r_;
+            }
+        } else {
+            if (num >= *r_)
+                ++r_;
+            else
+                --l_;
+        }
+    }
+    // O(1)
+    double findMedian() {
+        return (static_cast<double>(*l_) + *r_) / 2;
+    }
+private:
+    multiset<int> m_;
+    multiset<int>::const_iterator l_;  // current left median
+    multiset<int>::const_iterator r_;  // current right median
+};
+
+class MedianFinderHeap {
+public:
+    /** initialize your data structure here. */
+    MedianFinderHeap() {}
+    
+    // l_.size() >= r_.size()
+    void addNum(int num) {
+        if (l_.empty() || num <= l_.top()) {
+            l_.push(num);
+        } else {
+            r_.push(num);
+        }
+        
+        // Step 2: Balence left/right
+        if (l_.size() < r_.size()) {
+            l_.push(r_.top());
+            r_.pop();
+        } else if (l_.size() - r_.size() == 2) {
+            r_.push(l_.top());
+            l_.pop();
+        }
+    }
+    
+    double findMedian() {
+        if (l_.size() > r_.size()) {
+            return static_cast<double>(l_.top());
+        } else {            
+            return (static_cast<double>(l_.top()) + r_.top()) / 2;
+        }
+    }
+private:
+    priority_queue<int, vector<int>, less<int>> l_;    // max-heap
+    priority_queue<int, vector<int>, greater<int>> r_; // min-heap
+};
 
 class MedianFinder {
 
