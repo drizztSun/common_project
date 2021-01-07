@@ -102,6 +102,42 @@ public:
         
         return col - *max_element(dp.begin(), dp.end());
     }
+
+
+    /*
+    960.Delete-Columns-to-Make-Sorted-III
+    我们将每一列看做一个整体的话，本题就是求LIS序列：要求序列的元素（一列字符串）满足递增关系。这里的递增关系具体的定义是每行字符都要是递增的。
+
+    这种LIS没有办法用贪心的I(NlogN)来实现，但是用O(N^2)的DP就可以很容易地解决。
+    */
+    int minDeletionSize(vector<string>& A) {
+        int N = A[0].size();
+
+        auto checkLarger = [&](int x, int y)
+        {
+            int M = A.size();
+            for (int i=0; i<M; i++)
+            {
+                if (A[i][x]<A[i][y])
+                    return false;
+            }
+            return true;
+        };
+        
+        vector<int>dp(N,1);
+        for (int i=1; i<N; i++)
+            for (int j=0; j<i; j++) {
+                if (checkLarger(i, j))
+                    dp[i] = std::max(dp[i], dp[j] + 1);
+            }
+
+        int result = 0;
+        for (int i=0; i<N; i++)
+            result = std::max(result, dp[i]);
+        return N-result;
+    }
+        
+
 };
 
 
