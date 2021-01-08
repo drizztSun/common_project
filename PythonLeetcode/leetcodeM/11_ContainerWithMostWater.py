@@ -48,8 +48,7 @@ class MaxAreaByRect:
 
     For further clarification click here and for the proof click here.
     """
-
-    def doit_array(self, height: list[int]):
+    def doit_twopointer(self, height: list[int]):
 
         left, right = 0, len(height) - 1
         area = 0

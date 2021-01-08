@@ -36,6 +36,33 @@ nums is guranteed to be rotated at some pivot.
 
 class Search:
 
+    def doit_(self, nums: List[int], target: int) -> int:
+                
+        low, high = 0, len(nums)-1
+        
+        while low <= high:
+            
+            mid = (low + high) // 2
+            
+            if target == nums[mid]:
+                return mid
+            
+            elif nums[mid] >= nums[low]:
+                
+                if target >= nums[low] and target < nums[mid]:
+                    high = mid - 1
+                else:
+                    low = mid + 1
+                    
+            else:
+                
+                if target > nums[mid] and target <= nums[high]:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+                    
+        return -1
+
     """
     Approach 1: Binary search
     The problem is to implement a search in O(logN) time that gives an idea to use a binary search.
@@ -135,18 +162,24 @@ class Search:
     def doit_binary_search(self, nums, target):
 
         start, end = 0, len(nums) - 1
+
         while start <= end:
+        
             mid = start + (end - start) // 2
+        
             if nums[mid] == target:
                 return mid
+        
             elif nums[mid] >= nums[start]:
                 if target >= nums[start] and target < nums[mid]:
                     end = mid - 1
                 else:
                     start = mid + 1
+        
             else:
                 if target <= nums[end] and target > nums[mid]:
                     start = mid + 1
                 else:
                     end = mid - 1
+        
         return -1
