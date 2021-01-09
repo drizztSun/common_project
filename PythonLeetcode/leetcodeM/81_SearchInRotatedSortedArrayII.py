@@ -38,8 +38,10 @@ class SearchRotatedSortedArrayII:
         :rtype: bool
         """
         lo, hi = 0, len(nums) - 1
+
         while lo < hi :
             mid = (lo + hi) / 2
+        
             if nums[mid] == target:
                 return True
             
@@ -48,6 +50,7 @@ class SearchRotatedSortedArrayII:
                     hi = mid
                 else :
                     lo = mid + 1
+        
             elif nums[mid] < nums[hi] :
                 if target > nums[mid] and target <= nums[hi] :
                     lo = mid + 1

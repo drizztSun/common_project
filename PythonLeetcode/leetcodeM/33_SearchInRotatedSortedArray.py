@@ -138,7 +138,8 @@ class Search:
 
     Algorithm
 
-    As in the normal binary search, we keep two pointers (i.e. start and end) to track the search scope. At each iteration, we reduce the search scope into half, by moving either the start or end pointer to the middle (i.e. mid) of the previous search scope.
+    As in the normal binary search, we keep two pointers (i.e. start and end) to track the search scope. At each iteration, we reduce the search scope into half, 
+    by moving either the start or end pointer to the middle (i.e. mid) of the previous search scope.
 
     Here are the detailed breakdowns of the algorithm:
 

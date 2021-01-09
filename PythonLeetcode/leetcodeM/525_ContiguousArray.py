@@ -72,12 +72,7 @@ class FindMaxLength:
                 maxv = max(maxv, i - profix[pos[i]])
 
         return maxv
-
-    def doit_array_1(self, nums):
-
-
-
-
+    
     """
     Approach #3 Using HashMap [Accepted]
     Algorithm

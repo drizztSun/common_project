@@ -94,9 +94,37 @@ class LongestConsecutiveBST:
             
         return search(root, None, 0)
 
+    """
+        Approach #2 (Bottom Up Depth-first Search) [Accepted]
+        Algorithm
+
+        The bottom-up approach is similar to a post-order traversal. We return the consecutive path length starting at current node to its parent. Then its parent can examine if its node value can be included in this consecutive path.
+
+        Complexity analysis
+
+        Time complexity : O(n). The time complexity is the same as a post-order traversal in a binary tree, which is O(n)O(n).
+
+        Space complexity : O(n). The extra space comes from implicit stack space due to recursion. For a skewed binary tree, the recursion could go up to nn levels deep.
+    """
     def doit_bottomup(self, root) ->int:
 
+        maxlength = 0
+        def search(node):
+            nonlocal maxlength
+            
+            if not node:
+                return 0
 
+            l, r = search(node.left) + 1, search(node.right) + 1
 
+            if node.left and node.left.val != node.val + 1:
+                l = 1
+            
+            if node.right and node.right.val != node.val + 1:
+                r = 1
 
-        
+            maxlength = max(maxlength, l, r)
+            return max(l, r)
+
+        search(root)
+        return maxlength

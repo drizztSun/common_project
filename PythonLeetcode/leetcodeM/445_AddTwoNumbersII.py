@@ -16,6 +16,25 @@ Example:
 Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
 
+
+Solution
+Overview
+Prerequisites
+
+The problem is a combination of three basic problems:
+
+Reverse Linked List.
+
+Add Strings - the good problem to refresh textbook digit-by-digit addition algorithm.
+
+Add Two Numbers - the same problem as the current one, but the digits are stored in reverse order.
+
+Time and Space Complexity To Target
+
+Each list should be parsed at least once, hence the best time complexity we could have is \mathcal{O}(N_1 + N_2), where N_1 and N_2 are the numbers of elements in the lists.
+
+Space complexity is more interesting. It's relatively standard for linked list problems not to allocate any data structure but the output list. This way, one could target O(1) space complexity without taking the output list into account.
+
 """
 
 
@@ -26,7 +45,7 @@ class ListNode(object):
         self.next = next
 
 
-class AddTwoNumbers(object):
+class AddTwoNumbers:
 
     def doit(self, l1, l2):
         """
@@ -63,6 +82,41 @@ class AddTwoNumbers(object):
 
         return head
 
+    """
+        Algorithm
+
+        Implement reverseList function.
+
+        Reverse both input lists: l1 = reverseList(l1), l2 = reverseList(l2).
+
+        Initialize the result list: head = None.
+
+        Initialize the carry: carry = 0.
+
+        Loop through lists l1 and l2 until you reach both ends.
+
+        Set x1 = l1.val if l1 is not finished yet, and x1 = 0 otherwise.
+
+        Set x2 = l2.val if l2 is not finished yet, and x2 = 0 otherwise.
+
+        Compute the current value: val = (carry + x1 + x2) % 10, and the current carry: carry = (carry + x1 + x2) / 10.
+
+        Update the result by adding the current value to front.
+
+        Move to the next elements in the lists.
+
+        If the carry is not equal to zero, append it to frond of the result list.
+
+        Return the result list: return head.
+
+        Implementation
+
+        Complexity Analysis
+
+        Time complexity: O(N_1 + N_2), where N_1 + N_2 is a number of elements in both lists.
+
+        Space complexity: O(1) space complexity without taking the output list into account, and O(max(N_1, N_2)) to store the output list.
+    """
     def doit_reverse(self, l1: ListNode, l2: ListNode) -> ListNode:
 
         def reverseList(head: ListNode) -> ListNode:

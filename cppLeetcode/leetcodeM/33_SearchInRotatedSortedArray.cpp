@@ -34,6 +34,9 @@ nums is guaranteed to be rotated at some pivot.
 
 
 */
+#include <vector>
+using std::vector;
+
 
 class SearchInRotatedSortedArray {
 

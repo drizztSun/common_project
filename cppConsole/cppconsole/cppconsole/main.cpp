@@ -10,7 +10,11 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
+#include <unordered_map>
 
+using std::unordered_map;
+using std::string;
 using std::vector;
 
 void TestUnorderMap();
@@ -47,48 +51,101 @@ void TestUnorderMap();
 
 void Test_map();
 
-bool canPartition(vector<int>&& nums) {
-    int sums = accumulate(begin(nums), end(nums), 0);
-    if (sums % 2 == 1) return false;
-    
-    int half = sums/2;
-    vector<int> dp(half+1, false);
-    dp[0] = true;
-    
-    for (auto c: nums) {
-        for (int i = 0; i <= half-c; i++) {
-            if (dp[i]) {
-                dp[i+c] = true;
+
+
+class RemoveSubfolders {
+
+public:
+
+    vector<string> doit_dfs(vector<string>& folder) {
+        size_t found;
+        
+        sort(folder.begin(), folder.end());
+        
+        string main_folder=folder[0];
+
+        vector<string> answer;
+        answer.reserve(folder.size());
+        answer.push_back(main_folder);
+        main_folder=main_folder+"/";       //  /a/b/c vs /a/b/ca, folder ends with '/'
+        //cout<<"DEBUG main_folder: "<<main_folder<<endl;
+        
+        for(auto it=folder.begin()+1; it!=folder.end(); it++){
+            //cout<<" *it: "<<*it<<" main_folder: "<<main_folder<<endl;
+            string sub_folder=(string) (*it);
+            /* check if main_folder is substring of current string */
+            found=sub_folder.find(main_folder);
+           // cout<<" founs is:"<<found;
+            if(found == string::npos){ //uniq, another main folder found
+                main_folder=*it;
+                answer.push_back(main_folder);
+                main_folder=main_folder+"/";
             }
         }
-        
-        //if (dp[half]) return true;
+
+        return answer;
     }
-    
-    return dp[half];
-}
+
+    struct Trie {
+        unordered_map<string, Trie*> _children;
+        bool _done;
+    };
+
+public:
+    vector<string> removeSubfolders(vector<string>&& folder) {
+        Trie *_root = new Trie();
+
+        std::function<void(string)> insert = [&](const string& target) {
+
+            Trie *node = _root;
+            int i = 1;
+            string child;
+
+            while (i < target.size()+1) {
+
+                if (i == target.size() || target[i] == '/') {
+                    
+                    if (node->_children.find(child) == node->_children.end()) {
+                        node->_children[child] = new Trie();
+                    }
+                    node = node->_children[child];
+                    child = "";
+                    if (node->_done) return;
+                } else {
+                    child += target[i];
+                }
+                i++;
+            }
+            node->_done = true;
+        };
+
+        vector<string> ans;
+        std::function<void(Trie*, string)> find = [&](Trie* p, string path){
+            
+            if (p->_done) {
+                ans.push_back(path);
+                return;
+            }
+
+            for (auto c: p->_children) {
+                find(c.second, path + '/' + c.first);
+            }
+        };
+
+        for (auto w: folder)
+            insert(w);
+
+        find(_root, "");
+
+        return ans;
+    }
+};
 
 int main(int argc, const char * argv[]) {
 
     std::cout << "Hello, World!\n";
     
-    canPartition(vector<int>{1, 2, 5});
-    
-    vector<int> A{1,1,1,0,0,0,1,1,1,1,0};
-    int K = 2;
-    int left = 0, right = 0;
-    
-    for (; right < A.size(); right++) {
-        
-        K -= 1 - A[right];
-            
-        if (K < 0) {
-            K += 1 - A[left];
-            left++;
-        }
-    }
-    
-    return right - left + 1;
+    RemoveSubfolders().removeSubfolders(vector<string>{"/a","/a/b","/c/d","/c/d/e","/c/f"});
     
     
     // Test_map();

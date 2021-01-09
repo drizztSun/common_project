@@ -119,36 +119,53 @@ public:
         return build(head).first;
     }
 
+    Node* doit_iterate(Node* head) {
+
+        Node* cur = head;
+
+        while (cur) {
+
+            if (cur->child) {
+
+                Node* curnext = cur->next;
+
+                cur->next = cur->child;
+                cur->child->prev = cur;
+                cur->child = nullptr;
+
+                Node *tail = cur;
+                while (tail->next)
+                    tail = tail->next;
+
+                tail->next = curnext;
+                if (curnext) {
+                    curnext->prev = tail;
+                }
+            }
+            cur = cur->next;
+        }
+        return head;
+    }
+
     Node* doit_iterate(Node* node) {
 
         stack<Node*> st;
         st.push(node);
-        Node* cur = node;
-        Node* head = nullptr;
-        while (cur) {
+        Node *cur = node;
+        Node *prehead = node;
+
+        while (st) {
 
             if (cur->child) {
-                st.pus(cur);
-                head = cur->child;
-                cur = cur->child;
-                continue;
-            } else if (!cur->next) {
 
-                Node *last = st.pop();
-                Node *lastnext = last->next;
+                
 
-                last->child = nullptr;
-                last->next = head;
-                head->prev = last;
 
-                if (lastnext) {
-                    cur->next = lastnext;
-                    lastnext->prev = cur;
-                }
-            } 
-            cur = cur->next;
+            }
+
+
         }
 
-        return st.pop();
+        return prehead;
     }
 };

@@ -54,7 +54,7 @@ class NumDistinctIslands:
     Space complexity: O(R∗C), the space used by seen to keep track of visited squares, and shapes.
     """
 
-    def doit_(self, grid: list) -> int:
+    def doit_dfs(self, grid: list) -> int:
 
         seen = {}
         sharps = {}
@@ -91,7 +91,7 @@ class NumDistinctIslands:
     Time Complexity: O(R∗C), where RR is the number of rows in the given grid, and CC is the number of columns. We visit every square once.
     Space complexity: O(R∗C), the space used by seen to keep track of visited squares, and shapes.
     """
-    def doit_1(self, grid):
+    def doit_dfs_1(self, grid):
 
         seen = set()
 

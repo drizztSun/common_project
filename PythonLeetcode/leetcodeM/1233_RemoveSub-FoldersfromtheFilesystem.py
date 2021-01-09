@@ -69,6 +69,14 @@ class RemoveSubfolders:
 
         return ans
 
+    def doit_hashtable(self, folder: List[str]) -> List[str]:
+        ans  = []
+        folder.sort()
+        for f in folder:
+            if not ans or not f.startswith(ans[-1]+ "/"):
+                ans.append(f)
+        return ans
+
 
 if __name__ == '__main__':
 
