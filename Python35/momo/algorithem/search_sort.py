@@ -63,11 +63,11 @@ def binarySearch(A, n):
 
         mid = (low + high) // 2
 
-        if A[mid] == n:
+        if A[mid] == n:            
             return mid
 
         elif A[mid] < n:
-            low = mid
+            low = mid + 1
 
         elif A[mid] > n:
             high = mid
@@ -87,7 +87,7 @@ def search(A, n):
 # Hash search
 # O(1)
 def hash_search(A, val, key):
-    hash_val = key(val)
+    has h_val = key(val)
 
     if A[hash_val] is None:
         return ''
@@ -269,7 +269,7 @@ def quick_sort(arr, i, j):
 
 
 def QuickSort(arr):
-    quick_sort(arr, 0, len(arr)) 
+    return quick_sort(arr, 0, len(arr)) 
 
 
 if __name__ == '__main__':
