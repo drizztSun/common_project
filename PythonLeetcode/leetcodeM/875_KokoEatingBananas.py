@@ -75,8 +75,7 @@ class MinEatingSpeed:
 
     def doit(piles, H):
 
-        hi, lo = math.ceil(sum(piles) / (H - len(piles) + 1)
-                           ), math.floor(sum(piles) / H)
+        hi, lo = math.ceil(sum(piles) / (H - len(piles) + 1)), math.floor(sum(piles) / H)
 
         while hi - lo > 1:
             md = (hi + lo) // 2

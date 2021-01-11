@@ -1,7 +1,6 @@
 # 939. Minimum Area Rectangle
 
-# Given a set of points in the xy-plane, determine the minimum area of a rectangle formed from these points,
-# with sides parallel to the x and y axes.
+# Given a set of points in the xy-plane, determine the minimum area of a rectangle formed from these points, "with sides parallel to the x and y axes".
 
 # If there isn't any rectangle, return 0.
 
@@ -28,6 +27,7 @@ from collections import defaultdict
 
 
 class MinAreaRect:
+
     def doit(self, A):
         n = len(points)
         nx = len(set(p[0] for p in points))
@@ -75,7 +75,6 @@ class MinAreaRect:
     Complexity Analysis
 
     Time Complexity: O(N^2) where NN is the length of points.
-
     Space Complexity: O(N).
     """
 
@@ -112,22 +111,23 @@ class MinAreaRect:
 
     Put all the points in a set. For each pair of points, if the associated rectangle are 4 distinct points all in the set,
     then take the area of this rectangle as a candidate answer.
+
+    Complexity Analysis
+
+    Time Complexity: O(N^2), where N is the length of points.
+    Space Complexity: O(N), where H is the height of the tree.
     """
 
     def doit(self, points):
-
         S = set(map(tuple, points))
         ans = float("inf")
+        
         for j, p2 in enumerate(points):
             for i in range(j):
                 p1 = points[i]
-                if (
-                    p1[0] != p2[0]
-                    and p1[1] != p2[1]
-                    and (p1[0], p2[1]) in S
-                    and (p2[0], p1[1]) in S
-                ):
+                if p1[0] != p2[0] and p1[1] != p2[1] and (p1[0], p2[1]) in S and (p2[0], p1[1]) in S:
                     ans = min(ans, abs(p2[0] - p1[0]) * abs(p2[1] - p1[1]))
+
         return ans if ans < float("inf") else 0
 
 

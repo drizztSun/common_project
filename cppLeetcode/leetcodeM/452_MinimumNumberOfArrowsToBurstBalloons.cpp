@@ -100,7 +100,41 @@ public:
 
     Implementation
 
+    Complexity Analysis
+
+    Time complexity : O(NlogN) because of sorting of input data.
+
+    Space complexity : O(N) or O(logN)
+
+    The space complexity of the sorting algorithm depends on the implementation of each program language.
+
+    For instance, the list.sort() function in Python is implemented with the Timsort algorithm whose space complexity is O(N).
+
+    In Java, the Arrays.sort() is implemented as a variant of quicksort algorithm whose space complexity is O(logN).
+
     */
+    int soit_(vector<vector<int>>& points) {
+        if (points.size() == 0) return 0;
+
+        // sort by x_end
+        std::sort(begin(points), end(points), [](const vector<int> &o1, const vector<int> &o2) {
+            return (o1[1] < o2[1]);
+        });
+
+        int arrows = 1;
+        int xStart, xEnd, firstEnd = points[0][1];
+        for (auto p : points) {
+            xStart = p[0];
+            xEnd = p[1];
+            // if the current balloon starts after the end of another one,
+            // one needs one more arrow
+            if (firstEnd < xStart) {
+                arrows++;
+                firstEnd = xEnd;
+            }
+        }
+        return arrows;
+    }
 
     int doit_greedy(vector<vector<int>>& points) {
 
