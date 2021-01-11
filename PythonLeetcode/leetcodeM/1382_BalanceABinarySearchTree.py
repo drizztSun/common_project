@@ -36,7 +36,7 @@ class BalanceBST:
             self.left = left
             self.right = right
 
-    def (self, root):
+    def doit_(self, root):
 
         inorder, buf = [], []
         node = root

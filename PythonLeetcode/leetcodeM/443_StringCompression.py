@@ -49,7 +49,75 @@ chars[i] is a lower-case English letter, upper-case English letter, digit, or sy
 
 class StringCompress:
 
+    def doit_(self, chars):
+        """
+        :type chars: List[str]
+        :rtype: int
+        """
+        res = []
+        current, amount = '', 0
+        j = 0
+        for i in range(len(chars) + 1):
+        
+            if i == len(chars) or chars[i] != current:
+                if amount != 0 and current:
+                    chars[j] = current
+                    j += 1
+                    if amount > 1:
+                        nums = str(amount)
+                        for s in nums:
+                            chars[j] = s
+                            j += 1
+                    
+                    current = ''
+                    amount = 0
 
-    def doit_(self, chars: list) -> int:
+            if i < len(chars):
+                current = chars[i]
+                amount += 1
 
-        pass
+        return j
+
+    # O(1)
+    def doit_(self, a: list) -> int:
+
+        i, j = 0, 0
+        cnt = 0
+        
+        while j < len(a) + 1:
+            
+            if j < len(a) and a[i] == a[j]:
+                cnt += 1
+            else :
+                if cnt == 1:
+                    i += 1
+                else:
+                    for c in str(cnt):
+                        a[i+1] = c
+                        i += 1
+                    i += 1
+                cnt = 1
+                if j < len(a) and i < len(a):
+                    a[i] = a[j]
+            j += 1
+            
+        return i
+
+    def compress(self, chars):
+        anchor, write = 0, 0
+        for read, c in enumerate(chars):
+            if read + 1 == len(chars) or chars[read + 1] != c:
+                chars[write] = chars[anchor]
+                write += 1
+                if read > anchor:
+                    for digit in str(read - anchor + 1):
+                        chars[write] = digit
+                        write += 1
+                anchor = read + 1
+        return write
+
+if __name__ == '__main__':
+
+    StringCompress().doit_(["a","a","b","b","c","c","c"])
+
+    StringCompress().doit_(["a","b","b","b","b","b","b","b","b","b","b","b","b"])

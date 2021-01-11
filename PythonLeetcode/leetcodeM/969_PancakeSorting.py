@@ -1,3 +1,4 @@
+"""
 # 969. Pancake Sorting
 
 # Given an array A, we can perform a pancake flip: We choose some positive integer k <= A.length,
@@ -26,9 +27,45 @@
 # Output: []
 # Explanation: The input is already sorted, so there is no need to flip anything.
 # Note that other answers, such as [3, 3], would also be accepted.
+"""
 
 
 class PancakeSort:
+
+    """
+
+    """
+    def doit_(self, A: List[int]) -> List[int]:
+        """ sort like bubble-sort
+            sink the largest number to the bottom at each round
+        """
+        def flip(sublist, k):
+            i = 0
+            while i < k / 2:
+                sublist[i], sublist[k-i-1] = sublist[k-i-1], sublist[i]
+                i += 1
+
+        ans = []
+        value_to_sort = len(A)
+        while value_to_sort > 0:
+            # locate the position for the value to sort in this round
+            index = A.index(value_to_sort)
+
+            # sink the value_to_sort to the bottom,
+            #   with at most two steps of pancake flipping.
+            if index != value_to_sort - 1:
+                # flip the value to the head if necessary
+                if index != 0:
+                    ans.append(index+1)
+                    flip(A, index+1)
+                # now that the value is at the head, flip it to the bottom
+                ans.append(value_to_sort)
+                flip(A, value_to_sort)
+
+            # move on to the next round
+            value_to_sort -= 1
+
+        return ans
 
     """
     Approach 1: Sort Largest to Smallest
@@ -53,7 +90,6 @@ class PancakeSort:
 
     Space Complexity: O(N).
     """
-
     def doit(self, A):
 
         ans = []
@@ -81,6 +117,36 @@ class PancakeSort:
             res.extend([i + 1, x])
             A = A[:i:-1] + A[:i]
         return res
+
+    """
+        for case [3,2,4,1], we can flip to [1, 2, 3, 4] like below ways. 
+        We finsh from n ~ 1. Each time, if number n is not in index n-1, it will be a target to do. Saying number n is on the pos k,
+        Since we only can flip from 0 ~ k, that means  flip[0:k], then n will be on pos[0],  like [3, 2, 4, 1] => [4, 2, 3, 1]
+        Thne n is getting into index 0, then we need to flip[0:n], so n will reach to its position. [4, 2, 3, 1] => [1, 3, 2, 4]
+
+        then we go over the array back to forth, then finish each number i. if i is already in ith pos, then no need to change,
+        or if num i in j, it need to do flip[0:j] and then flip[0:i] 
+    """
+    def doit_sort(self, A: list) -> list:
+        def flip(sublist, k):
+            i = 0
+            while i < k // 2:
+                sublist[i], sublist[k - i - 1] = sublist[k - i - 1], sublist[i]
+                i += 1
+        ans = []
+        value_to_sort = len(A)
+        while value_to_sort > 0:
+            index = A.index(value_to_sort)
+            if index != value_to_sort - 1:
+                if index != 0:
+                    ans.append(index + 1)
+                    flip(A, index + 1)
+                    
+                ans.append(value_to_sort)
+                flip(A, value_to_sort)
+            value_to_sort -= 1
+            
+        return ans
 
 
 if __name__ == "__main__":

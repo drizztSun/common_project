@@ -37,6 +37,73 @@
 using std::vector;
 
 class PancakeSort {
+
+
+    vector<int> doit_(vector<int>& arr) {
+        // NOTE : each iter find the largest num, say at idx
+        //.       Flip [0,idx]. This brings largest num to [0].
+        //.       Then flip [0,n-iter] to get the largest num in its place.
+
+        auto find = [&](int v, int b, int e) {
+            for(int i=b; i<e; ++i) {
+                if (arr[i]==v) return i;
+            }
+            return -1;
+        };
+
+        int n=arr.size();
+        vector<int> res;
+        for(int i=n, idx; i>=1; --i) {
+            // find i in [0, i)
+            idx = find(i, 0, i);
+            for(int a=0, b=idx; a<b; ++a, --b) std::swap(arr[a], arr[b]);
+            res.push_back(idx+1);
+            // brings next largest number i.e i into its place
+            for(int a=0, b=(i-1); a<b; ++a, --b) std::swap(arr[a], arr[b]);
+            res.push_back(i);
+        }
+        return res;
+    }
+
+    /*
+        """
+        for case [3,2,4,1], we can flip to [1, 2, 3, 4] like below ways. 
+        We finsh from n ~ 1. Each time, if number n is not in index n-1, it will be a target to do. Saying number n is on the pos k,
+        Since we only can flip from 0 ~ k, that means  flip[0:k], then n will be on pos[0],  like [3, 2, 4, 1] => [4, 2, 3, 1]
+        Thne n is getting into index 0, then we need to flip[0:n], so n will reach to its position. [4, 2, 3, 1] => [1, 3, 2, 4]
+
+        then we go over the array back to forth, then finish each number i. if i is already in ith pos, then no need to change,
+        or if num i in j, it need to do flip[0:j] and then flip[0:i] 
+    */    
+    vector<int> doit_flip(vector<int>& arr) {
+        
+        auto flip = [&](int k) {
+            for (int i = 0, j = k; i < j; i++, j--)
+                std::swap(arr[i], arr[j]);
+        };
+        
+        vector<int> ans;
+        int cur = arr.size();
+        while (cur > 0) {
+            
+            if (arr[cur-1] != cur) {
+                
+                if (arr[0] != cur) {
+                    int index = 0;
+                    while (index < arr.size() && arr[index] != cur) index++;
+                    flip(index);
+                    ans.push_back(index+1);
+                }
+                
+                flip(cur-1);
+                ans.push_back(cur);
+            }
+            cur--;
+        }
+        
+        return ans;
+    }
+
     
     void rev(vector<int>&v,int r)
     {

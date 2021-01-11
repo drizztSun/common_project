@@ -12,10 +12,15 @@
 #include <numeric>
 #include <string>
 #include <unordered_map>
+#include <queue>
+#include <unordered_set>
 
+
+using std::unordered_set;
 using std::unordered_map;
 using std::string;
 using std::vector;
+using std::queue;
 
 void TestUnorderMap();
 
@@ -53,99 +58,59 @@ void Test_map();
 
 
 
-class RemoveSubfolders {
+int treeDiameter(vector<vector<int>>&& edges) {
+    vector<vector<int>> graph(edges.size()+1);
 
-public:
+    for (auto& c : edges) {
+        graph[c[0]].push_back(c[1]);
+        graph[c[1]].push_back(c[0]);
+    }
 
-    vector<string> doit_dfs(vector<string>& folder) {
-        size_t found;
+    auto bfs = [&](int org) -> std::pair<int, int> {
         
-        sort(folder.begin(), folder.end());
-        
-        string main_folder=folder[0];
+        queue<std::pair<int,int>> qu;
+        qu.push({org, 0});
+        unordered_set<int> seen;
+        seen.insert(org);
+        int maxdepth = 0, node = 0;
 
-        vector<string> answer;
-        answer.reserve(folder.size());
-        answer.push_back(main_folder);
-        main_folder=main_folder+"/";       //  /a/b/c vs /a/b/ca, folder ends with '/'
-        //cout<<"DEBUG main_folder: "<<main_folder<<endl;
-        
-        for(auto it=folder.begin()+1; it!=folder.end(); it++){
-            //cout<<" *it: "<<*it<<" main_folder: "<<main_folder<<endl;
-            string sub_folder=(string) (*it);
-            /* check if main_folder is substring of current string */
-            found=sub_folder.find(main_folder);
-           // cout<<" founs is:"<<found;
-            if(found == string::npos){ //uniq, another main folder found
-                main_folder=*it;
-                answer.push_back(main_folder);
-                main_folder=main_folder+"/";
+        while (!qu.empty()) {
+
+            int size = qu.size();
+
+            while (size--) {
+
+                auto [cur, dep] = qu.front();
+                qu.pop();
+                if (maxdepth < dep) {
+                    maxdepth = dep;
+                    node = cur;
+                }
+
+                for (auto nc : graph[cur]) {
+
+                    if (seen.find(nc) == seen.end()) {
+                        seen.insert(nc);
+                        qu.push({nc, dep + 1});
+                    }
+                }
             }
         }
 
-        return answer;
-    }
-
-    struct Trie {
-        unordered_map<string, Trie*> _children;
-        bool _done;
+        return {node, maxdepth};
     };
 
-public:
-    vector<string> removeSubfolders(vector<string>&& folder) {
-        Trie *_root = new Trie();
+    auto [n, depth1] = bfs(0);
 
-        std::function<void(string)> insert = [&](const string& target) {
+    auto [n2, depth2] = bfs(n);
 
-            Trie *node = _root;
-            int i = 1;
-            string child;
-
-            while (i < target.size()+1) {
-
-                if (i == target.size() || target[i] == '/') {
-                    
-                    if (node->_children.find(child) == node->_children.end()) {
-                        node->_children[child] = new Trie();
-                    }
-                    node = node->_children[child];
-                    child = "";
-                    if (node->_done) return;
-                } else {
-                    child += target[i];
-                }
-                i++;
-            }
-            node->_done = true;
-        };
-
-        vector<string> ans;
-        std::function<void(Trie*, string)> find = [&](Trie* p, string path){
-            
-            if (p->_done) {
-                ans.push_back(path);
-                return;
-            }
-
-            for (auto c: p->_children) {
-                find(c.second, path + '/' + c.first);
-            }
-        };
-
-        for (auto w: folder)
-            insert(w);
-
-        find(_root, "");
-
-        return ans;
-    }
-};
+    return depth2;
+}
 
 int main(int argc, const char * argv[]) {
 
-    std::cout << "Hello, World!\n";
-    
-    RemoveSubfolders().removeSubfolders(vector<string>{"/a","/a/b","/c/d","/c/d/e","/c/f"});
+
+    treeDiameter(vector<vector<int>>{{0, 1}, {0, 2}});
     
     
     // Test_map();

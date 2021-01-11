@@ -87,7 +87,7 @@ class MinAreaFreeRect:
 
     Complexity Analysis
 
-    Time Complexity: O(N^2 \log N), where N is the length of points.
+    Time Complexity: O(N^2 * log N), where N is the length of points.
     It can be shown that the number of pairs of points with the same classification is bounded by \log NlogN - see this link for more.
 
     Space Complexity: O(N).

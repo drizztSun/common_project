@@ -52,6 +52,7 @@ class NumberOfSubsequence:
         nums.sort()
         mod = 10 ** 9 + 7
         left, right = 0, len(nums)-1
+        res = 0
 
         while left <= right:
 
