@@ -42,6 +42,7 @@ def test_append_file():
     print(file.read())
 
 def test_seek_file():
+    pass
 
 
 
