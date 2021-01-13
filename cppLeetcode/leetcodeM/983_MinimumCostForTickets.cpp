@@ -60,64 +60,105 @@ using std::unordered_map;
 
 class MincostTickets {
 
-    
-    int search(int i, const vector<int>& costs, unordered_set<int>& dates, vector<int>& spent) {
-        
-        if (i > 365)
-            return 0;
-        
-        if (spent[i] != -1)
-            return spent[i];
-        
-        if (dates.count(i) > 0) {
-            int ans = INT_MAX;
-            vector<int> days{1, 7, 30};
-            for(int d = 1; d < 4; d++)
-                ans = std::min(ans, search(i + days[d-1], costs, dates, spent) + costs[d-1]);
-            spent[i] = ans;
-        } else {
-            spent[i] = search(i+1, costs, dates, spent);
-        }
-        return spent[i];
-    }
-    
 public:
-    int doit(vector<int>&& days, vector<int>&& costs) {
+
+    /*
+        Approach 1: Dynamic Programming (Day Variant)
+        
+        Intuition and Algorithm
+
+        For each day, if you don't have to travel today, then it's strictly better to wait to buy a pass. If you have to travel today, you have up to 3 choices: you must buy either a 1-day, 7-day, or 30-day pass.
+
+        We can express those choices as a recursion and use dynamic programming. Let's say dp(i) is the cost to fulfill your travel plan from day i to the end of the plan. Then, if you have to travel today, your cost is:
+
+        \text{dp}(i) = \min(\text{dp}(i+1) + \text{costs}[0], \text{dp}(i+7) + \text{costs}[1], \text{dp}(i+30) + \text{costs}[2])dp(i)=min(dp(i+1)+costs[0],dp(i+7)+costs[1],dp(i+30)+costs[2])
+
+        Complexity Analysis
+
+        Time Complexity: O(W), where W = 365 is the maximum numbered day in your travel plan.
+
+        Space Complexity: O(W).
+    */
+    int doit_dp_topdown(vector<int>&& days, vector<int>&& costs) {
 
         unordered_set<int> dates(days.begin(), days.end());
         vector<int> spent(365 + 30, -1);
+
+        std::function<int(int)> search = [&](int i) {
         
-        return search(1, costs, dates, spent);
+            if (i > 365) return 0;
+            
+            if (spent[i] != -1) return spent[i];
+            
+            if (dates.count(i) > 0) {
+                int ans = INT_MAX;
+                vector<int> days{1, 7, 30};
+                for(int d = 1; d < 4; d++)
+                    ans = std::min(ans, search(i + days[d-1]) + costs[d-1]);
+                spent[i] = ans;
+            } else {
+                spent[i] = search(i+1);
+            }
+            return spent[i];
+        };
+        
+        return search(1);
+    }
+
+    int doit_topdown(vector<int> days, vector<int> costs) {
+
+        vector<int> duration{1, 7, 30};
+        vector<int> spent(days.size(), -1);
+
+        std::function<int(int)> search = [&](int index) {
+
+            if (index >= days.size()) return 0;
+
+            if (spent[index] != -1) return spent[index];
+
+            int ans = INT_MAX;
+            int j = index;
+            for (int i = 0; i < 3; i++) {
+                int d = duration[i], c = costs[i];
+                while (j < days.size() && days[j] - days[index] < d) {
+                    j++;
+                }
+                ans = std::min(ans, c + search(j));
+            }
+            return spent[index] = ans;
+        };
+
+        return search(0);
     }
     
-    int doit1(vector<int>& days, vector<int>& costs) {
+    int doit_dp_bottomup(vector<int>& days, vector<int>& costs) {
         
         vector<int> dp(366,0);
         vector<int> vis(366,0);
         
-        for(int i=0; i< days.size(); i++){
+        for(int i = 0; i < days.size(); i++){
            vis[days[i]] = 1;
         }
         
-        for(int i=1;i<=365;i++)
+        for(int i = 1; i <= 365; i++)
         {
-             if(!vis[i])
-                 dp[i] = dp[i-1];
-             else
-             {
-                 int minn = costs[0] + dp[i-1];
-                 
-                 minn = std::min(minn, costs[1] + (i >= 7 ? dp[i-7] : 0));
-                 
-                 minn = std::min(minn, costs[2] + (i >= 30 ? dp[i-30] : 0));
-                 
-                 dp[i] = minn;
-             }
-         }
+            if(!vis[i]) {
+                dp[i] = dp[i-1];
+                continue;
+            }
+            
+            int minn = costs[0] + dp[i-1];
+            
+            minn = std::min(minn, costs[1] + (i >= 7 ? dp[i-7] : 0));
+            
+            minn = std::min(minn, costs[2] + (i >= 30 ? dp[i-30] : 0));
+            
+            dp[i] = minn;
+        }
         return dp[365];
     }
     
-    int doit2(vector<int>& days, vector<int>& cost) {
+    int doit_dp_bottonup_2(vector<int>& days, vector<int>& cost) {
         vector<int> dp(366, 0);
         unordered_set<int> daysSet(days.begin(), days.end());
         

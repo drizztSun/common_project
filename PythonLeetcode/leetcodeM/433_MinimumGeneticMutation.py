@@ -49,6 +49,37 @@ return: 3
 
 class MinGeneticMutation:
 
+    def doit_bfs(self, start: str, end: str, bank: list) -> int:
+        from collections import deque
+        
+        n1 = len(start)
+        n2 = len(end)
+        
+        if n1 != n2:
+            return -1
+        
+        # Since it is always one step 
+        # BFS
+        queue = deque([(start,0)])
+        bank = set(bank)
+        
+        while queue:
+            
+            cur, step = queue.popleft()
+            if cur == end:
+                return step
+            
+            for i in range(len(cur)):
+                for c in "ACGT":
+                    nei = cur[:i] + c + cur[i+1:]
+                    
+                    # here need to keep track of how many times (serve as the seen/visited role)
+                    if nei in bank:
+                        bank.remove(nei)
+                        queue.append((nei, step+1))
+            
+        return -1
+
     def doit_bfs(self, start, end, bank):
         '''Method 1. BFS. All bank forms the edges of a graph, with nodes being all gene strings in the bank. Minimum unweighted distance cal is then converted to BFS'''
         import collections

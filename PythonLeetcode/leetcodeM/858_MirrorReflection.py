@@ -43,7 +43,7 @@ class MirrorReflection:
     Space Complexity: O(1).
     """
 
-    def doit(self, p, q):
+    def doit_(self, p, q):
         from fractions import Fraction as F
         x = y = 0
         rx, ry = p, q
@@ -89,7 +89,6 @@ class MirrorReflection:
     Space Complexity: O(1).
 
     """
-
     def doit(self, p, q):
         from fractions import gcd
         g = gcd(p, q)
@@ -101,4 +100,4 @@ class MirrorReflection:
 
 if __name__ == '__main__':
 
-    res = MirrorReflection().doit(p=2, q=1)  # 2
+    res = MirrorReflection().doit_(p=2, q=1)  # 2

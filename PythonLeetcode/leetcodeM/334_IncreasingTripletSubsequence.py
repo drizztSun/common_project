@@ -33,6 +33,7 @@ Constraints:
 Follow up: Could you implement a solution that runs in O(n) time complexity and O(1) space complexity?
 
 
+Other LIC issue 340
 """
 
 
@@ -42,8 +43,8 @@ class IncreasingTriplet:
     Approach 1: Linear Scan
     Intuition
 
-    The idea is to keep track of the first two numbers in increasing order and find the last number which will be bigger
-    than the first two numbers. Here, the first and second smallest numbers can be updated with conditional checks while scanning nums.
+    The idea is to keep track of the first two numbers in increasing order and find the last number which will be bigger than the first two numbers. 
+    Here, the first and second smallest numbers can be updated with conditional checks while scanning nums.
 
     first_num = second_num = some very big number
     for n in nums:
