@@ -103,3 +103,29 @@ class KClosestPointsToOrigin:
         sort(0, len(points) - 1, K)
         return points[:K]
 
+
+    """
+        Approach 1: Sort
+        Intuition
+
+        Sort the points by distance, then take the closest K points.
+
+        Algorithm
+
+        There are two variants.
+
+        In Java, we find the K-th distance by creating an array of distances and then sorting them. After, we select all the points with distance less than or equal to this K-th distance.
+
+        In Python, we sort by a custom key function - namely, the distance to the origin. Afterwards, we return the first K elements of the list.
+
+
+        Complexity Analysis
+
+        Time Complexity: O(NlogN), where NN is the length of points.
+
+        Space Complexity: O(N).
+
+    """
+    def doit_sort(self, points, K):
+        points.sort(key = lambda P: P[0]**2 + P[1]**2)
+        return points[:K]
