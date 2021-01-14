@@ -37,43 +37,51 @@ For the same reason as for 3Sum Smaller, we cannot use a hash set approach here.
 class ThreeSumClosest:
 
     """
-    Approach 1: Two Pointers
-    The two pointers pattern requires the array to be sorted, so we do that first. As our BCR is \mathcal{O}(n^2), the sort operation would not change the overall time complexity.
+        Approach 1: Two Pointers
+        The two pointers pattern requires the array to be sorted, so we do that first. As our BCR is \mathcal{O}(n^2), the sort operation would not change the overall time complexity.
 
-    In the sorted array, we process each value from left to right. For value v, we need to find a pair which sum, ideally,
-    is equal to target - v. We will follow the same two pointers approach as for 3Sum, however, since this 'ideal' pair may not exist,
-    we will track the smallest absolute difference between the sum and the target.
-    The two pointers approach naturally enumerates pairs so that the sum moves toward the target.
+        In the sorted array, we process each value from left to right. For value v, we need to find a pair which sum, ideally,
+        is equal to target - v. We will follow the same two pointers approach as for 3Sum, however, since this 'ideal' pair may not exist,
+        we will track the smallest absolute difference between the sum and the target.
+        The two pointers approach naturally enumerates pairs so that the sum moves toward the target.
 
-    Algorithm
+        Algorithm
 
-    Initialize the minimum difference diff with a large value.
-    Sort the input array nums.
-    Iterate through the array:
-    For the current position i, set lo to i + 1, and hi to the last index.
-    While the lo pointer is smaller than hi:
-    Set sum to nums[i] + nums[lo] + nums[hi].
-    If the absolute difference between sum and target is smaller than the absolute value of diff:
-    Set diff to target - sum.
-    If sum is less than target, increment lo.
-    Else, decrement hi.
-    If diff is zero, break from the loop.
-    Return the value of the closest triplet, which is target - diff.
+        Initialize the minimum difference diff with a large value.
+        Sort the input array nums.
+        Iterate through the array:
+        For the current position i, set lo to i + 1, and hi to the last index.
+        While the lo pointer is smaller than hi:
+        Set sum to nums[i] + nums[lo] + nums[hi].
+        If the absolute difference between sum and target is smaller than the absolute value of diff:
+        Set diff to target - sum.
+        If sum is less than target, increment lo.
+        Else, decrement hi.
+        If diff is zero, break from the loop.
+        Return the value of the closest triplet, which is target - diff.
     """
 
     def doit_twopointerss(self, nums, target):
+
         diff = float('inf')
         nums.sort()
+        
         for i in range(len(nums)):
             lo, hi = i + 1, len(nums) - 1
+        
             while (lo < hi):
+        
                 sum = nums[i] + nums[lo] + nums[hi]
+        
                 if abs(target - sum) < abs(diff):
                     diff = target - sum
+        
                 if sum < target:
                     lo += 1
                 else:
                     hi -= 1
+        
             if diff == 0:
                 break
+        
         return target - diff

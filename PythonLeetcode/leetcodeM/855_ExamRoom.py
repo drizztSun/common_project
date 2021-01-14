@@ -56,7 +56,7 @@ Each leave operation is O(P)O(P) (\log PlogP in Java).
 Space Complexity: O(P)O(P), the space used to store the positions of each student sitting.
 
 """
-
+import bisect
 import heapq
 
 

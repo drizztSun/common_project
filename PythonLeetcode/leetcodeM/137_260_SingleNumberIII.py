@@ -165,7 +165,7 @@ class SingleNumberII:
 
         Space complexity : O(1) since no additional data structures are allocated.
     """
-    def doit_search(self, nums: List[int]) -> int:
+    def doit_search(self, nums: list) -> int:
         seen_once = seen_twice = 0
         
         for num in nums:

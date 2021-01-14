@@ -65,7 +65,7 @@ class MincostTickets:
 
     """
 
-    def doit(self, days, costs):
+    def doit_dp_topdown_1(self, days, costs):
         from functools import lru_cache
         dayset = set(days)
         durations = [1, 7, 30]
@@ -75,12 +75,48 @@ class MincostTickets:
             if i > 365:
                 return 0
             elif i in dayset:
-                return min(dp(i + d) + c
-                           for c, d in zip(costs, durations))
+                return min(dp(i + d) + c for c, d in zip(costs, durations))
             else:
                 return dp(i + 1)
 
         return dp(1)
+
+    """
+        Approach 2: Dynamic Programming (Window Variant)
+        Intuition and Algorithm
+
+        As in Approach 1, we only need to buy a travel pass on a day we intend to travel.
+
+        Now, let dp(i) be the cost to travel from day days[i] to the end of the plan. If say, j1 is the largest index such that days[j1] < days[i] + 1, j7 is the largest index such that days[j7] < days[i] + 7, and j30 is the largest index such that days[j30] < days[i] + 30, then we have:
+
+        dp(i) = min(dp(j1) + cost[0], dp(j7) + cost[1], dp(j30) + cost[2])
+
+        Complexity Analysis
+
+        Time Complexity: O(N)O(N), where NN is the number of unique days in your travel plan.
+
+        Space Complexity: O(N)O(N).
+
+    """
+    def doit_do_topdown(self, days, costs):
+        from functools import lru_cache
+
+        daysCost = [(1, costs[0]), (7, costs[1]), (30, costs[2])]
+        @lru_cache(None)
+        def dp(i):
+            if i >= len(days): return 0
+
+            ans = float('inf')
+            j = i
+            for d, c in daysCost:
+                while j < len(days) and days[j] - days[i] < d:
+                    j += 1
+                ans = min(ans, dp(j) + c)
+
+            return ans
+
+        return dp(0)  
+
 
     def doit(self, days, costs):
 
@@ -130,12 +166,9 @@ class MincostTickets:
 
 if __name__ == '__main__':
 
-    res = MincostTickets().doit(
-        days=[1, 4, 6, 7, 8, 20], costs=[2, 7, 15])  # 11
+    res = MincostTickets().doit_do_topdown(days=[1, 4, 6, 7, 8, 20], costs=[2, 7, 15])  # 11
 
-    res = MincostTickets().doit(
-        days=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 30, 31], costs=[2, 7, 15])  # 17
+    res = MincostTickets().doit_do_topdown(days=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 30, 31], costs=[2, 7, 15])  # 17
 
-    res = MincostTickets().doit([1, 4, 6, 7, 8, 20], [7, 2, 15])  # 6
+    res = MincostTickets().doit_do_topdown([1, 4, 6, 7, 8, 20], [7, 2, 15])  # 6
 
-    pass
