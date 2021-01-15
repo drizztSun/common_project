@@ -46,11 +46,6 @@ class ConstructDistancedSequence:
             if pos == len(res):
                 return True
 
-            #if pos == 0:
-            #    res[0], res[n] = n, n
-            #    used[n] = True
-            #    return dfs(pos+1)
-
             if res[pos] > 0:
                 return dfs(pos+1)
 
