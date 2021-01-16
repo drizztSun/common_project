@@ -32,6 +32,41 @@ class BestTimeSellStockWithCooldown:
 
         return max(dp[n][0], dp[n][2])
 
+    """
+        Approach 1: Dynamic Programming with State Machine
+        Intuition
+
+        First of all, let us take a different perspective to look at the problem, unlike the other algorithmic problems.
+
+        Here, we will treat the problem as a game, and the trader as an agent in the game. The agent can take actions that lead to gain or lose of game points (i.e. profits). And the goal of the game for the agent is to gain the maximal points.
+
+        In addition, we will introduce a tool called state machine, which is a mathematical model of computation. Later one will see how the state machine coupled with the dynamic programming technique can help us solve the problem easily.
+
+        In the following sections, we will first define a state machine that is used to model the behaviors and states of the game agent.
+
+        Then, we will demonstrate how to apply the state machine to solve the problem.
+
+        Definition
+
+        Let us define a state machine to model our agent. The state machine consists of three states, which we define as follows:
+
+        state held: in this state, the agent holds a stock that it bought at some point before.
+
+        state sold: in this state, the agent has just sold a stock right before entering this state. And the agent holds no stock at hand.
+
+        state reset: first of all, one can consider this state as the starting point, where the agent holds no stock and did not sell a stock before. More importantly, it is also the transient state before the held and sold. Due to the cooldown rule, after the sold state, the agent can not immediately acquire any stock, but is forced into the reset state. One can consider this state as a "reset" button for the cycles of buy and sell transactions.
+
+        At any moment, the agent can only be in one state. The agent would transition to another state by performing some actions, namely:
+
+        action sell: the agent sells a stock at the current moment. After this action, the agent would transition to the sold state.
+
+        action buy: the agent acquires a stock at the current moment. After this action, the agent would transition to the held state.
+
+        action rest: this is the action that the agent does no transaction, neither buy or sell. For instance, while holding a stock at the held state, the agent might simply do nothing, and at the next moment the agent would remain in the held state.
+
+        Now, we can assemble the above states and actions into a state machine, which we show in the following graph where each node represents a state, and each edge represents a transition between two states. On top of each edge, we indicate the action that triggers the transition.
+    """
+
     def doit_dp_1(self, prices):
         """
         :type prices: List[int]

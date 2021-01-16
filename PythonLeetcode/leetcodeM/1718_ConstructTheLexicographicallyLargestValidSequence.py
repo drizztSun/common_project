@@ -34,7 +34,7 @@ Constraints:
 """
 
 
-class ConstructDistancedSequence:
+class ConstructDistancedSequence: 
     
     def doit_(self, n: int) -> list:
 
