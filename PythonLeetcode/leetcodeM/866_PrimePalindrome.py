@@ -35,6 +35,24 @@
 
 class PrimePalindrome:
 
+    def primePalindrome(self, N):
+        """
+        :type N: int
+        :rtype: int
+        """
+        def isPrime(x):
+            if x < 2 or x % 2 == 0: return x == 2
+            for i in range(3, int(x**0.5) + 1, 2):
+                if x % i == 0: return False
+            return True
+
+        if 8 <= N <= 11: 
+            return 11
+
+        for x in range(10 ** (len(str(N)) / 2), 10**5):
+            y = int(str(x) + str(x)[-2::-1])
+            if y >= N and isPrime(y): return y
+
     """
     Approach 2: Brute Force with Mathematical Shortcut
     Intuition
@@ -119,6 +137,26 @@ class PrimePalindrome:
     is a divisor of NN.
 
     """
+    def primePalindrome(self, N):
+        def is_prime(n):
+            return n > 1 and all(n%d for d in range(2, int(n**.5) + 1))
+
+        for length in range(1, 6):
+            #Check for odd-length palindromes
+            for root in range(10**(length - 1), 10**length):
+                s = str(root)
+                x = int(s + s[-2::-1]) #eg. s = '123' to x = int('12321')
+                if x >= N and is_prime(x):
+                    return x
+                    #If we didn't check for even-length palindromes:
+                    #return min(x, 11) if N <= 11 else x
+
+            #Check for even-length palindromes
+            for root in range(10**(length - 1), 10**length):
+                s = str(root)
+                x = int(s + s[-1::-1]) #eg. s = '123' to x = int('123321')
+                if x >= N and is_prime(x):
+                    return x
 
 
 if __name__ == '__main__':

@@ -37,6 +37,7 @@ class WiggleSort:
         """
         Do not return anything, modify nums in-place instead.
         """
+        import random
         mid = len(nums) // 2
 
         def quickselect(arr, lo, hi, k):

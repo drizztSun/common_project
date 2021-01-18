@@ -43,8 +43,9 @@ Constraints:
 
 class MaxDepthAfterSplit:
 
-    # Logic: If it is an even depth bracket, assign it to A, else assign it to B. Using this alternating assigning logic to A or B, we achieve the minimum depth possible for max(depth(A),depth(B)).
-    def doit(self, seq: str) -> list:
+    # Logic: If it is an even depth bracket, assign it to A, else assign it to B. 
+    # Using this alternating assigning logic to A or B, we achieve the minimum depth possible for max(depth(A),depth(B)).
+    def doit_(self, seq: str) -> list:
 
         c = 0
         res = []
@@ -65,3 +66,41 @@ class MaxDepthAfterSplit:
                     res.append(0)
 
         return res
+
+    """
+        I first found this problem be a little confusing because of the long explanation. In my opinion, the grammar rules for a VPS could be much more succinctly defined using a context free grammar:
+
+        A -> (A)
+        A -> AA
+        A -> ε
+        where ε is the empty string.
+
+        Furthermore, the examples only have parenthesis nested to a depth of 2. I wanted to see how this problem would look for a more deeply nested VPS, so I made this example:
+
+        `s = "(())()()((()))"`
+        I thought about it for a bit, and figured out that the answer for this example would be:
+
+        [0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0]
+
+        As I worked through this example, an inkling of a solution quickly appeared to me. To construct the VPS, all one has to do is alternate which subsequence one is adding 
+        to if the character they are currently iterating over is not the same as the previous character that was iterated over. 
+        This is where the bottom up part of the solution comes in: We initialize the first character to be in set A (by marking the value at index 0 in the result array to be 0), 
+        and then iterate through the remaining characters in the sequence. Code below:
+
+    """
+    def doit_(self, seq: str) -> list:
+        result = [None for _ in range(len(seq))]
+        result[0] = 0
+        prev = seq[0]
+        
+        for i in range(1, len(seq)):
+            c = seq[i]
+            if c != prev:
+                result[i] = result[i-1]
+            else:
+                if result[i-1] == 1:
+                    result[i] = 0
+                else:
+                    result[i] = 1
+            prev = c
+        return result

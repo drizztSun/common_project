@@ -107,14 +107,14 @@ cur
 cur
 ​
 """
-
+from collections import deque
 
 class CBTInserter1(object):
 
     def __init__(self, root):
-        self.deque = collections.deque()
+        self.deque = deque()
         self.root = root
-        q = collections.deque([root])
+        q = deque([root])
         while q:
             node = q.popleft()
             if not node.left or not node.right:

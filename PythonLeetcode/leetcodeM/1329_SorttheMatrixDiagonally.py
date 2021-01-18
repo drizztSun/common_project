@@ -74,7 +74,7 @@ class SortTheMatrixDiagonally:
     Space complexity: \mathcal{O}(\min(N, M))O(min(N,M)), where NN is a number of rows and MM is a number of columns. The space is used by the heap with diagonal elements, and the longest diagonal contains not more than \min(N, M)min(N,M) elements.
     """
 
-    def doit_sort(self, mat: list) -> list:
+    def doit_sort_heap(self, mat: list) -> list:
         from heapq import heappush, heappop
         n, m = len(mat), len(mat[0])
 

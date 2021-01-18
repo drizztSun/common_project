@@ -28,6 +28,22 @@
 
 class MaxWidthRamp:
 
+
+    def maxWidthRamp(self, A: list) -> int:
+        st, ans = [], 0
+        
+        # Cache up decreasing nums index []
+        for i, num in enumerate(A):
+            if not st or A[st[-1]] > num:
+                st.append(i)
+        
+        # reverse to search 
+        for i in range(len(A)-1, -1, -1):
+            while st and A[st[-1]] <= A[i]:
+                ans = max(ans, i - st.pop())
+                
+        return ans
+
     """
     Approach 1: Sort
     Intuition and Algorithm
@@ -45,7 +61,7 @@ class MaxWidthRamp:
     Space Complexity: O(N), depending on the implementation of the sorting function.
     """
 
-    def doit(self, A):
+    def doit_sort(self, A):
 
         ans = 0
         m = float('inf')
@@ -74,10 +90,8 @@ class MaxWidthRamp:
     Time Complexity: O(NlogN), where N is the length of A.
     Space Complexity: O(N).
     """
-
-    import bisect
-
-    def doit1(self, A):
+    def doit_binary_search_sort(self, A):
+        import bisect
         N = len(A)
         ans = 0
         candidates = [(A[N-1], N-1)]

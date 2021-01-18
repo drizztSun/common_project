@@ -56,7 +56,7 @@ class DiffWaysToCompute:
 
         return cal(input, {})
 
-    def doit_devide_and_conquor_1(self, input: str) -> List[int]:
+    def doit_devide_and_conquor_1(self, input: str) -> list:
 
         def ops(os, n1, n2):
             return {

@@ -98,6 +98,29 @@ return ans
 
 class MaxSubarraySumCircular:
 
+
+    def doit_cycle(self, A):
+        base = len(A)
+        A = A * 2
+        i, total = 0, 0
+        ans = float('-inf')
+        
+        for j in range(len(A)):
+        
+            if total + A[j] < A[j]:
+                total = 0
+                i = j
+                
+            total += A[j]
+            
+            while j-i >= base or (j > i and A[i] < 0):
+                total -= A[i]
+                i += 1
+                
+            ans = max(ans, total)
+            
+        return ans
+
     """
     Approach 1: Next Array
     Intuition and Algorithm
@@ -182,6 +205,7 @@ class MaxSubarraySumCircular:
     """
 
     def doit(self, A):
+        from collections import deque
         N = len(A)
 
         # Compute P[j] = sum(B[:j]) for the fixed array B = A+A
@@ -193,7 +217,7 @@ class MaxSubarraySumCircular:
         # Want largest P[j] - P[i] with 1 <= j-i <= N
         # For each j, want smallest P[i] with i >= j-N
         ans = A[0]
-        deque = collections.deque([0])  # i's, increasing by P[i]
+        deque = deque([0])  # i's, increasing by P[i]
         for j in range(1, len(P)):
             # If the smallest i is too small, remove it.
             if deque[0] < j-N:
@@ -249,11 +273,11 @@ class MaxSubarraySumCircular:
                 ans = max(ans, cur)
             return ans
 
-    S = sum(A)
-    ans1 = kadane(iter(A))
-    ans2 = S + kadane(-A[i] for i in range(1, len(A)))
-    ans3 = S + kadane(-A[i] for i in range(len(A) - 1))
-    return max(ans1, ans2, ans3)
+        S = sum(A)
+        ans1 = kadane(iter(A))
+        ans2 = S + kadane(-A[i] for i in range(1, len(A)))
+        ans3 = S + kadane(-A[i] for i in range(len(A) - 1))
+        return max(ans1, ans2, ans3)
 
     """
     Approach 4: Kadane's (Min Variant)
@@ -297,14 +321,14 @@ class MaxSubarraySumCircular:
 
 if __name__ == '__main__':
 
-    res = MaxSubarraySumCircular().doit([1, -2, 3, -2])  # 3
+    res = MaxSubarraySumCircular().doit_cycle([1, -2, 3, -2])  # 3
 
-    res = MaxSubarraySumCircular().doit([5, -3, 5])  # 10
+    res = MaxSubarraySumCircular().doit_cycle([5, -3, 5])  # 10
 
-    res = MaxSubarraySumCircular().doit([3, -1, 2, -1])  # 4
+    res = MaxSubarraySumCircular().doit_cycle([3, -1, 2, -1])  # 4
 
-    res = MaxSubarraySumCircular().doit([3, -2, 2, -3])  # 3
+    res = MaxSubarraySumCircular().doit_cycle([3, -2, 2, -3])  # 3
 
-    res = MaxSubarraySumCircular().doit([-2, -3, -1])  # -1
+    res = MaxSubarraySumCircular().doit_cycle([-2, -3, -1])  # -1
 
     pass

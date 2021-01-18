@@ -41,7 +41,7 @@ class ListNode:
 
 class NextLargerNodes:
 
-    def doit(self, head):
+    def doit_stack(self, head):
 
         st, ans = [], []
 
@@ -58,7 +58,7 @@ class NextLargerNodes:
 
         return ans
 
-    def doit(self, head):
+    def doit_stack_1(self, head):
 
         if not head:
             return [0]

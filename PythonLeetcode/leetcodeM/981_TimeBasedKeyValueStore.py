@@ -55,7 +55,7 @@ class TimeMap:
 
     Complexity Analysis
 
-    Time Complexity: O(1)O(1) for each set operation, and O(\log N)O(logN) for each get operation, where NN is the number of entries in the TimeMap.
+    Time Complexity: O(1)O(1) for each set operation, and O(logN) for each get operation, where NN is the number of entries in the TimeMap.
 
     Space Complexity: O(N)O(N).
     """

@@ -19,16 +19,13 @@ struct Node {
 class FindCheapestPrice {
 
 public:	
-	int doit(int n, vector<vector<int>>&& flights, int src, int dst, int K) {
-
+	int doit_dijastra(int n, vector<vector<int>>&& flights, int src, int dst, int K) {
 
 		vector<vector<Edge>> flight_prices(n, vector<Edge>());
 
 		for (auto& c : flights) {
 			flight_prices[c[0]].push_back(Edge{ c[0], c[1], c[2] });
 		}
-
-		//vector<bool> visited(n, false);
 
 		auto compare = [](Node l, Node r) -> bool {
 			return l.cost > r.cost;
@@ -41,16 +38,19 @@ public:
 
 			Node n = pq.top();
 			pq.pop();
+
 			if (n.name == dst) {
 				return n.cost;
 			}
 
 			for (auto&c : flight_prices[n.name]) {
-				if (/*!visited[c.to] && */ n.stops < K) {
+				if (n.stops < K) {
 					pq.push(Node{ c.to, n.cost + c.price, n.stops + 1 });
 				}
 			}
-			// visited[n.name] = true; The problem is Stop, if we reach n, with m - 1 first, then next step it is gone. but there is longer one with more step reach n again, then we can get answer follow the trip. Stop is the key to avoid infinite, not visited.
+			// visited[n.name] = true; The problem is Stop, if we reach n, with m - 1 first, then next step it is gone. 
+			// but there is longer one with more step reach n again, then we can get answer follow the trip. 
+			// Stop is the key to avoid infinite, not visited.
 		}
 
 		return -1;

@@ -25,15 +25,20 @@ class FindNumberOfLIS:
     """
     def doit_dp_binary_search(self, nums: list) -> int:
         import bisect
-        if not nums: 
-            return 0
+        if not nums: return 0
         
         m = min(nums)-1
         a, b = [{m: 1}], [m] # build baseline
+        # a is array, index is the length of LIS, value is {key: value }, key is number end with, value is the cnt of LIS. 
+        # A is {different length: {end with this number: how many sequence}}
+        # b is the sorted sequence of number has been handler.
 
         for x in nums:
+            # i is the new positon of x, means it can build sequence of length i. 
+            # if it is end of the sorted sequence that meeans it is end and new max length
             i, t = bisect.bisect_left(b, x) - 1, 0
 
+            # if i == len(a)-1, it means it will build a longer length then any existed, so put it into the tails.
             if i == len(a) - 1:
                 a.append({})
                 b.append(x)
@@ -44,13 +49,16 @@ class FindNumberOfLIS:
             # when we meet 4, it will be [1, 2, 3, 4], the number from [1, 2, 36 ..] became invalid and need to remove.
 
             for y in list(a[i].keys()):
+                # list all {key, value} with x, 
                 if y < x: 
                     t += a[i][y]
-                else: 
+                else:
+                    # remove useless one, if it is greater than x. because of no sequence needs it. if it is greater y, 
+                    # it will use x to build longer sequence
                     del a[i][y]
 
             a[i + 1][x] = a[i + 1].get(x, 0) + t
-            b[i + 1] = min(b[i + 1], x)
+            b[i + 1] = min(b[i + 1], x) # update the value of i+1, so it can use new value to build sequence.
 
         return sum(a[-1].values())
     

@@ -104,7 +104,49 @@ public:
                 right = mid-1; // mid is not valid value.
         }
 
-        return (found(left)) ? left : 0;
+        return found(left) ? left : 0;
+    }
+
+    int doit_rolling_hash_binary_search_1(string S) 
+    {
+        int left = 1, right = S.size();
+        auto found = [&](int len)
+        {
+            long base = 26;
+            long mod = 1e9+7;
+            long hash = 0;
+            long pow_base_len = 1;
+            unordered_set<long>Set;
+            for (int i = 0; i < len; i++)
+                pow_base_len = pow_base_len*base % mod;
+            
+            for (int i = 0; i < S.size(); i++)
+            {
+                hash = (hash * base + S[i] - 'a') % mod;
+                if (i >= len)
+                    hash = (hash - pow_base_len * (S[i-len] - 'a') % mod + mod) % mod;
+                
+                if (i >= len-1)
+                {
+                    if (Set.find(hash)!=Set.end())
+                        return true;
+                    Set.insert(hash);
+                }
+            }
+            return false;
+        };
+
+        while (left <= right) {
+
+            int mid = left + (right-left) / 2; 
+            
+            if (found(mid)) 
+                left = mid + 1;
+            else
+                right = mid-1;
+        }
+
+        return left - 1;
     }
 
     int doit_dp(string S) {

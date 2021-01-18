@@ -1,3 +1,4 @@
+"""
 # 974. Subarray Sums Divisible by K
 
 # Given an array A of integers, return the number of (contiguous, non-empty) subarrays that have a sum divisible by K.
@@ -16,7 +17,7 @@
 # 1 <= A.length <= 30000
 # -10000 <= A[i] <= 10000
 # 2 <= K <= 10000
-
+"""
 
 class SubarraysDivByK:
 
@@ -52,6 +53,21 @@ class SubarraysDivByK:
 
         return cnt
 
+    """
+        Complexity Analysis
+
+        Time Complexity: O(N), where NN is the length of A.
+
+        Space Complexity: O(N). (However, the solution can be modified to use O(K) space by storing only count.)
+    """
+    def doit_(self, A, K):
+        import collections
+        P = [0]
+        for x in A:
+            P.append((P[-1] + x) % K)
+
+        count = collections.Counter(P)
+        return sum(v*(v-1)/2 for v in count.values())
 
 if __name__ == "__main__":
 

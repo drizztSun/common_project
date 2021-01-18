@@ -29,7 +29,18 @@ What limitation we need to add to the question to allow negative numbers?
 
 """
 
-class CombinationSum4:
+class CombinationSumIV:
+
+    def doit_(self, nums: list, target: int) -> int:
+        dp = [1] + [0] * target
+
+        for i in range(1, target+1):
+            
+            for num in nums:
+                if i >= num:
+                    dp[i] += dp[i - num]
+
+        return dp[target]
 
     """
     Approach 1: Top-Down Dynamic Programming
@@ -89,7 +100,7 @@ class CombinationSum4:
 
     We allocate an array dp[i] to hold all the intermediate values, which amounts to \mathcal{O}(T)O(T) space.
     """
-    def doit_dp_bottomup_1(self, nums: List[int], target: int) -> int:
+    def doit_dp_bottomup_1(self, nums: list, target: int) -> int:
         # minor optimization
         # nums.sort()
         dp = [0 for i in range(target+1)]
