@@ -22,8 +22,8 @@
 # 0 <= B[i] <= 10^9
 
 class AdvantageCount:
-    def doit(self, A, B):
-        """
+    
+    """
         Approach 1: Greedy
         Intuition
 
@@ -38,25 +38,38 @@ class AdvantageCount:
         For each card a in sortedA, we will either have a beat that card b (put a into assigned[b]), or throw a out (put a into remaining).
 
         Afterwards, we can use our annotations assigned and remaining to reconstruct the answer. Please see the comments for more details.
-        """
-        sortedA, sortedB = sorted(A), sorted(B)
-        B_pos = {b: [] for b in B}
-        remaining = []
-        j = 0
 
+        Complexity Analysis
+
+        Time Complexity: O(NlogN), where NN is the length of A and B.
+
+        Space Complexity: O(N).
+    """
+    def doit_greedy(self, A, B):
+        sortedA = sorted(A)
+        sortedB = sorted(B)
+
+        # assigned[b] = list of a that are assigned to beat b
+        # remaining = list of a that are not assigned to any b
+        assigned = {b: [] for b in B}
+        remaining = []
+
+        # populate (assigned, remaining) appropriately
+        # sortedB[j] is always the smallest unassigned element in B
+        j = 0
         for a in sortedA:
             if a > sortedB[j]:
-                B_pos[sortedB[j]].append(a)
+                assigned[sortedB[j]].append(a)
                 j += 1
             else:
                 remaining.append(a)
 
-        return [B_pos[b].pop() if B_pos[b] else remaining.pop() for b in B]
+        # Reconstruct the answer from annotations (assigned, remaining)
+        return [assigned[b].pop() if assigned[b] else remaining.pop() for b in B]
 
-    def doit(self, A, B):
+    def doit_greedy(self, A, B):
 
-        if not A:
-            return []
+        if not A: return []
 
         results = [0]*len(A)
 
@@ -77,10 +90,6 @@ class AdvantageCount:
 
 if __name__ == '__main__':
 
-    res = AdvantageCount().doit(A=[2, 7, 11, 15], B=[
-        1, 10, 4, 11])  # [2,11,7,15]
+    res = AdvantageCount().doit(A=[2, 7, 11, 15], B=[1, 10, 4, 11])  # [2,11,7,15]
 
-    res = AdvantageCount().doit(A=[12, 24, 8, 32], B=[
-        13, 25, 32, 11])  # [24,32,8,12]
-
-    pass
+    res = AdvantageCount().doit(A=[12, 24, 8, 32], B=[13, 25, 32, 11])  # [24,32,8,12]

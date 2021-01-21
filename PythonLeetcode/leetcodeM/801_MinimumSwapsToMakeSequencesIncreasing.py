@@ -30,50 +30,55 @@ class MinimumSwapsToMakeSequencesIncreasing:
 
 
     """
-    Approach #1: Dynamic Programming [Accepted]
-    Intuition
+        Approach #1: Dynamic Programming [Accepted]
+        Intuition
 
-    The cost of making both sequences increasing up to the first i columns can be expressed in terms of the cost of making both sequences increasing up to the first i-1 columns.
-    This is because the only thing that matters to the ith column is whether the previous column was swapped or not. This makes dynamic programming an ideal choice.
+        The cost of making both sequences increasing up to the first i columns can be expressed in terms of the cost of making both sequences increasing up to the first i-1 columns.
+        This is because the only thing that matters to the ith column is whether the previous column was swapped or not. This makes dynamic programming an ideal choice.
 
-    Let's remember n1 (natural1), the cost of making the first i-1 columns increasing and not swapping the i-1th column;
-    and s1 (swapped1), the cost of making the first i-1 columns increasing and swapping the i-1th column.
+        Let's remember n1 (natural1), the cost of making the first i-1 columns increasing and not swapping the i-1th column;
+        and s1 (swapped1), the cost of making the first i-1 columns increasing and swapping the i-1th column.
 
-    Now we want candidates n2 (and s2), the costs of making the first i columns increasing if we do not swap (or swap, respectively) the ith column.
+        Now we want candidates n2 (and s2), the costs of making the first i columns increasing if we do not swap (or swap, respectively) the ith column.
 
-    Algorithm
+        Algorithm
 
-    For convenience, say a1 = A[i-1], b1 = B[i-1] and a2 = A[i], b2 = B[i].
+        For convenience, say a1 = A[i-1], b1 = B[i-1] and a2 = A[i], b2 = B[i].
 
-    Now, if a1 < a2 and b1 < b2, then it is allowed to have both of these columns natural (unswapped), or both of these columns swapped.
-    This possibility leads to n2 = min(n2, n1) and s2 = min(s2, s1 + 1).
+        Now, if a1 < a2 and b1 < b2, then it is allowed to have both of these columns natural (unswapped), or both of these columns swapped.
+        This possibility leads to n2 = min(n2, n1) and s2 = min(s2, s1 + 1).
 
-    Another, (not exclusive) possibility is that a1 < b2 and b1 < a2. This means that it is allowed to have exactly one of these columns swapped.
-    This possibility leads to n2 = min(n2, s1) or s2 = min(s2, n1 + 1).
+        Another, (not exclusive) possibility is that a1 < b2 and b1 < a2. This means that it is allowed to have exactly one of these columns swapped.
+        This possibility leads to n2 = min(n2, s1) or s2 = min(s2, n1 + 1).
 
-    Note that it is important to use two if statements separately, because both of the above possibilities might be possible.
+        Note that it is important to use two if statements separately, because both of the above possibilities might be possible.
 
-    At the end, the optimal solution must leave the last column either natural or swapped, so we take the minimum number of swaps between the two possibilities.
+        At the end, the optimal solution must leave the last column either natural or swapped, so we take the minimum number of swaps between the two possibilities.
 
+        Complexity Analysis
+
+        Time Complexity: O(N).
+
+        Space Complexity: O(1).
     """
     def doit_dp(self, A: list, B: list) -> int:
 
-        n, s = 0, 1
-
+        nonswap, swap = 0, 1
+        
         for i in range(1, len(A)):
-
+            
             n1, s1 = float('inf'), float('inf')
-            if A[i - 1] < A[i] and B[i - 1] < B[i]:
-                n1 = min(n1, n)
-                s1 = min(s1, s + 1)
-
-            if A[i - 1] < B[i] and B[i - 1] < A[i]:
-                n1 = min(n1, s)
-                s1 = min(s1, n + 1)
-
-            n, s = n1, s1
-
-        return min(n, s)
+            if (A[i-1] < A[i] and B[i-1] < B[i]):
+                n1 = min(n1, nonswap)
+                s1 = min(s1, swap + 1)
+                
+            if (A[i-1] < B[i] and B[i-1] < A[i]):
+                n1 = min(n1, swap)
+                s1 = min(s1, nonswap + 1)
+                
+            nonswap, swap = n1, s1
+            
+        return min(nonswap, swap)
 
 
 if __name__ == '__main__':

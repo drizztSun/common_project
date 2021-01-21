@@ -45,7 +45,7 @@ class NumTrees:
 
         return find(1, n, {})
 
-    def doit_dp1(self, n: int) -> int:
+    def doit_dp_1(self, n: int) -> int:
         """
         :type n: int
         :rtype: int

@@ -45,22 +45,22 @@ using std::vector;
 #include <stack>
 using std::stack;
 
-//Definition for a binary tree node.
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
-
-
 class InsertIntoMaxTreeII {
+
+    //Definition for a binary tree node.
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    };
+
 public:
-    TreeNode* doit(TreeNode* root, int val) {
-        if (!root)
-            return new TreeNode(val);
+    
+    TreeNode* doit_stack(TreeNode* root, int val) {
+
+        if (!root) return new TreeNode(val);
         
-        stack<TreeNode*> buf;
         TreeNode *parent = nullptr, *node = root;
         
         while (node && node->val > val) {
@@ -81,24 +81,21 @@ public:
         return root;
     }
     
-    TreeNode* search(TreeNode* root, int val) {
-        if (!root)
-            return new TreeNode(val);
-        if (root->val < val) {
-            TreeNode *now = new TreeNode(val);
-            now->left = root;
-            return now;
-        } else {
-            root->right = search(root->right, val);
-            return root;
-        }
-    }
-    
     TreeNode* doit1(TreeNode* root, int val) {
+
+        std::function<TreeNode*(TreeNode*, int)> search = [&](TreeNode* root, int val) {
+            if (!root) return new TreeNode(val);
+            
+            if (root->val < val) {
+                TreeNode *now = new TreeNode(val);
+                now->left = root;
+                return now;
+            } else {
+                root->right = search(root->right, val);
+                return root;
+            }
+        };
+
         return search(root, val);
     }
 };
-
-void test_998_maximum_binary_treeII() {
-    
-}

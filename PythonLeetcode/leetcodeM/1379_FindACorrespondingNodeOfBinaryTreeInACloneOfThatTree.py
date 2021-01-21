@@ -59,7 +59,7 @@ target node is a node from the original tree and is not null.
 
 class CopyBinaryTreeTarget:
 
-    def doit_search(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+    def doit_search(self, original: 'TreeNode', cloned: 'TreeNode', target: 'TreeNode') -> 'TreeNode':
 
         ans = None
 
@@ -83,6 +83,33 @@ class CopyBinaryTreeTarget:
         dfs(original, cloned)
 
         return ans
+
+    """
+        Approach 1: DFS: Recursive Inorder Traversal.
+        Recursive inorder traversal is extremely simple: follow Left->Node->Right direction, i.e., do the recursive call for the left child, then do all the business with the node
+         (= check if the node is a target one or not), and then do the recursive call for the right child.
+
+        diff Figure 1. The nodes are enumerated in the order of visit. To compare different DFS strategies, follow 1-2-3-4-5 direction.
+
+        Implementation
+
+
+        Complexity Analysis
+
+        Time complexity: \mathcal{O}(N)O(N) since one has to visit each node, where NN is a number of nodes.
+
+        Space complexity: up to \mathcal{O}(H)O(H) to keep the recursion stack, where HH is a tree height.
+    """
+    def doit_dfs_inorder(self, original, cloned, target) -> 'TreeNode':
+        def inorder(o: 'TreeNode', c: 'TreeNode'):
+            if o:
+                inorder(o.left, c.left)
+                if o is target:
+                    self.ans = c
+                inorder(o.right, c.right)
+                
+        inorder(original, cloned)
+        return self.ans 
 
 
 class CopyBinaryTreeTarget:

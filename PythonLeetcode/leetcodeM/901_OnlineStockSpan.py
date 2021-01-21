@@ -38,27 +38,6 @@
 """
 
 
-# O(n) TLE
-class Solution:
-
-    def __init__(self):
-
-        self._buff = []
-
-    def next(self, price):
-
-        self._buff.append([price, 1])
-        i = len(self._buff) - 2
-
-        while i > -1:
-            if self._buff[i][0] > price:
-                break
-            i -= self._buff[i][1]
-
-        self._buff[-1][1] = len(self._buff) - 1 - i
-        return self._buff[-1][1]
-
-
 """
 Approach 1: Stack
 Intuition
@@ -92,9 +71,9 @@ In total, there are Q pushes to the stack, and at most Q pops.
 
 Space Complexity: O(Q).
 
+"consecutive days"
+
 """
-
-
 class StockSpanner:
 
     def __init__(self):

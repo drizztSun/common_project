@@ -1,3 +1,4 @@
+"""
 # 998. Maximum Binary Tree II
 
 # We are given the root node of a maximum tree: a tree where every node has a value greater than any other value in its subtree.
@@ -36,6 +37,8 @@
 # Input: root = [5,2,3,null,1], val = 4
 # Output: [5,2,4,null,1,3]
 # Explanation: A = [2,1,5,3], B = [2,1,5,3,4]
+"""
+
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -47,60 +50,38 @@ class TreeNode:
 
 class InsertIntoMaxTree:
 
-    def doit(self, root, val):
+    def doit_(self, root, val):
 
-        st = []
-        n = root
-
-        while n and n.val > val:
-            st.append(n)
-            n = n.right
-
-        if st:
-            st[-1].right = TreeNode(val)
-            st[-1].right.left = n
+        target = TreeNode(val)
+        
+        parent, cur = None, root
+        
+        while cur and cur.val > val:
+            parent, cur = cur, cur.right
+        
+        if not parent:
+            root, target.left = target, root
         else:
-            st.append(TreeNode(val))
-            st[0].left = root
-
-        return st[0]
-
-    def doit(self, root, val):
-
-        x = TreeNode(val)
-        if not root or root.val < val:
-            x.left = root
-            return x
-
-        p = root
-        while True:
-            if not p.right:
-                p.right = x
-                return root
-            if p.right.val < val:
-                x.left = p.right
-                p.right = x
-                return root
-            p = p.right
-
-    def doit(self, root, val):
-
-        def search(n, p):
-            if not n or n.val < val:
-                p.right = TreeNode(val)
-                p.right.left = n
-                return
-
-            search(n.right, n)
-
-        if root and root.val < val:
-            n = TreeNode(val)
-            n.left = root
-            root = n
-        else:
-            search(root, None)
-
+            parent.right, target.left = target, cur
+            
         return root
+
+    def doit_recursive(self, root, val):
+
+        def search(node, parent):
+
+            if not node: return TreeNode(val)
+            
+            if node.val < val:
+                tmp = TreeNode(val)
+                tmp.left = node
+                
+                return tmp
+            else:
+                node.right = search(node.right, node)
+                return node
+            
+        return search(root, None)
 
 
 if __name__ == '__main__':

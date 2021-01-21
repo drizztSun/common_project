@@ -38,7 +38,7 @@
 class IsValid(object):
 
     #
-    def doit(self, S):
+    def doit_(self, S):
         """
         :type S: str
         :rtype: bool
@@ -48,7 +48,7 @@ class IsValid(object):
 
         return len(S) == 0
 
-    def doit(self, S):
+    def doit_stack(self, S):
         """
         :type S: str
         :rtype: bool

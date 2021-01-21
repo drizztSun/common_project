@@ -135,5 +135,3 @@ class DeleteBSTNode:
         node.left, node.right = None, None
 
         return root
-
-

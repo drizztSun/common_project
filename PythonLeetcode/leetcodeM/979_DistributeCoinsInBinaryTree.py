@@ -38,9 +38,9 @@ class DistributeCoins:
 
     Complexity Analysis
 
-    Time Complexity: O(N)O(N), where NN is the number of nodes in the tree.
+    Time Complexity: O(N), where N is the number of nodes in the tree.
 
-    Space Complexity: O(H)O(H), where HH is the height of the tree.
+    Space Complexity: O(H), where H is the height of the tree.
     """
 
     def doit(self, root):
