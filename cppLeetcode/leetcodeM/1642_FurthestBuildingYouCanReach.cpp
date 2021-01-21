@@ -1,5 +1,4 @@
 /*
-
 1642. Furthest Building You Can Reach
 
 
@@ -48,6 +47,7 @@ Constraints:
 #include <algorithm>
 #include <numeric>
 #include <queue>
+#include <functional>
 
 using std::priority_queue;
 using std::vector;
