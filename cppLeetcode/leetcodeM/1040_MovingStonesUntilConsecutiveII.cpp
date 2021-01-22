@@ -1,5 +1,4 @@
 /*
- 
  # 1040. Moving Stones Until Consecutive II
 
 
@@ -42,7 +41,6 @@
 #include <algorithm>
 
 using std::vector;
-using namespace std;
 
 class NumMovesStonesII {
 
@@ -63,7 +61,7 @@ public:
     // Edge Case: A[j]-A[i]==n-2 && j-i+1==n-1
     // e.g. 1,2,3,4,10: we need to move 1 to 6, then 10 to 5
     
-    vector<int> doit1(vector<int>&& stones) {
+    vector<int> doit_slidingwindow(vector<int>&& stones) {
 
         std::sort(stones.begin(), stones.end());
         int N = stones.size();
