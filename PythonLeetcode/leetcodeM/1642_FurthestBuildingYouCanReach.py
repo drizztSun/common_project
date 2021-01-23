@@ -88,9 +88,9 @@ class FurthestBuilding:
                 return i
 
             if heap and -heap[0] > diff:
-                bricks += -heappop(heap) - dff
-            else:
-                ladders -= 1
+                bricks += -heappop(heap) - diff
+
+            ladders -= 1
 
         return len(heights) - 1
 
@@ -98,3 +98,5 @@ class FurthestBuilding:
 if __name__ == '__main__':
 
     FurthestBuilding().doit_([4,12,2,7,3,18,20,3,19], 10, 2)
+
+    FurthestBuilding().doit_([4,2,7,6,9,14,12], 5, 1)

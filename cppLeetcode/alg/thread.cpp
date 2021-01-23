@@ -43,7 +43,6 @@ public:
         }
 
         conv.notify_one();
-
     }
 
     void start(int threads_amount) {

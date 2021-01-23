@@ -104,7 +104,19 @@ public:
         
         return dq.back().first;
     }
-    
+
+    /*
+        Solution 1: DP + Monotonic Queue
+
+        max(dp(j)), (max(0, i - k) <= j < i) find a "Maximum sliding window of size k"
+
+        leetcode 239 Sliding window maximum
+
+        Method          Time            Space
+        Brute Force     (n-k)*k         1
+        BST/Multimap    (n-k)*log(k)    k
+        Monotonic Queue   n             k
+    */
     int doit_dp_1(vector<int>& nums, int k) {
         vector<int> dp(nums.size());
         deque<int> qu{{0}};

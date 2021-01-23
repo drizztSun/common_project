@@ -4,7 +4,8 @@
 
 You are given a 0-indexed integer array nums and an integer k.
 
-You are initially standing at index 0. In one move, you can jump at most k steps forward without going outside the boundaries of the array. That is, you can jump from index i to any index in the range [i + 1, min(n - 1, i + k)] inclusive.
+You are initially standing at index 0. In one move, you can jump at most k steps forward without going outside the boundaries of the array. 
+That is, you can jump from index i to any index in the range [i + 1, min(n - 1, i + k)] inclusive.
 
 You want to reach the last index of the array (index n - 1). Your score is the sum of all nums[j] for each index j you visited in the array.
 
@@ -39,21 +40,91 @@ Constraints:
 class JumpGameVI:
 
     """
-        Recursive + memorized + dp 
+        Solution 0: Recursive w/ memorized / dp 
+
+        Definition DP(i) := max score we can get at position i
+        Base case: dp(0) = nums[0]
+        Transition: dp(1) = nums[i] + max(dp(j)  max(0, i-k) < j < i)
+        Answer: dp(n-1)
+
+        Time complexity:O(n^k) => TLE
+        Space complexity: O(n)
+    """
+    def doit_dp(self, nums: List[int], k: int) -&gt; int:
+        @lru_cache(None)
+        def dp(i: int) -&gt; int:
+            return nums[0] if i == 0 else nums[i] + max(dp(j) for j in range(max(0, i - k), i))
+        return dp(len(nums) - 1)
+    
+    """
+        Solution 1: DP + Monotonic Queue
+
+        max(dp(j)), (max(0, i - k) <= j < i) find a "Maximum sliding window of size k"
+
+        leetcode 239 Sliding window maximum
+
+        Method          Time            Space
+        Brute Force     (n-k)*k         1
+        BST/Multimap    (n-k)*log(k)    k
+        Monotonic Queue   n             k
     """
     def doit_dp_1(self, nums: list, k: int) -> int:
-        from functools import lru_cache
 
-        @lru_cache(None)
-        def build(i):
-
-            if i == 0: return nums[0]
-
-            ans = 0
-            for j in range(min(0, i - k -1), i):
-               ans = min(ans, build(j))
-            ans += nums[i]
-
-            return ans
+        from collections import deque
         
-        return build(len(nums-1))
+        n = len(nums)
+
+        dp = [0] * (n)
+        dp[0] = nums[0]
+        
+        st = deque([0])
+
+        for i in range(1, n):
+
+            dp[i] = nums[i] + dp[st[0]]
+
+            while st and dp[st[-1]] < dp[i]:
+                st.pop()
+
+            while st and i - st[0] >= k:
+                st.popleft()
+
+            st.append(i)
+
+        return dp[n-1]
+
+
+    def doit_dp_best(self, nums: list) -> list:
+
+        from collections import deque
+        
+        st = deque([(0, nums[0])])
+
+        for i in range(1, len(nums)):
+
+            while st and st[0][0] < i - k:
+                st.popleft()
+
+            res = st[0][1] + nums[i]
+
+            while st and st[-1][1] < res:
+                st.pop()
+
+            st.append((i, res))
+
+        return st[-1][1]
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+    
