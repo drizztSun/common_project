@@ -223,4 +223,45 @@ public:
         }
         return result;
     }
+
+    /*
+        Approach 3: Build number from right - Optimised solution
+        Intuition
+
+        In Approach 2, we first filled all the positions with the smallest character a, subtracted 11 numeric value for each position from kk, and later calculated the additional value. Instead of that, we could simply leave some value from kk for the remaining positions while iterating over each position from backward.
+
+        While allocating a numeric value at any position, we must just make sure that there would be sufficient k values left such that all the remaining positions would get at least the smallest numeric value i.e 1.
+
+        Algorithm
+
+        Build a string or character array result to store the character chosen for each position.
+
+        Start iterating from last position n-1 and allocate maximum possible numeric value to each position based on remaining k.
+
+        We know that the largest character at any position could be z with numeric value 2626. Also, we must leave some value from k, that is, 1 numeric value for each remaining position (k - position). Thus the maximum numeric value for the current position given by add can be calculated as, minimum of k - position and 26.
+
+        Subtract the value calculated for the current position add from k.
+
+        The process would continue until all the positions are filled.
+
+        Implementation
+
+
+        Complexity Analysis
+
+        Time Complexity: \mathcal{O}(n)O(n), as we iterate over nn positions to build the resultant string.
+
+        Space Complexity: \mathcal{O}(1)O(1), as we use constant extra space to store add and position variables.
+    
+    */
+
+    string getSmallestString(int n, int k) {
+        string result(n, 0);
+        for (int position = n - 1; position >= 0; position--) {
+            int add = min(k - position, 26);
+            result[position] = (char)(add + 'a' - 1);
+            k -= add;
+        }
+        return result;
+    }
 };
