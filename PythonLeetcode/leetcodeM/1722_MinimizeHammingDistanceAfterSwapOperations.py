@@ -53,7 +53,48 @@ ai != bi
 
 class MinimumHammingDistance:
 
-    def doit_(self, source: list, target: list, allowedSwaps: list) -> int:
+    def doit_disjoint(self, source: list, target: list, allowedSwaps: list) -> int:
 
+        from collections import defaultdict, Counter
 
-        
+        father = [i for i in range(len(source))]
+
+        def find(i):
+            while father[i] != i:
+                father[i] = father[father[i]]
+                i = father[i]
+            return father[i]
+
+        def union(i, j):
+            pi, pj = find(i), find(j)
+            if pi == pj: return
+
+            if pi < pj:
+                father[pj] = pi
+            else:
+                father[pi] = pj
+
+        for c in allowedSwaps:
+            union(c[0], c[1])
+
+        groups = defaultdict(list)
+
+        for i in range(len(father)):
+            groups[find(i)].append(i)
+
+        ans = 0
+        for k, v in groups.items():
+
+            group = defaultdict(int)
+            for c in v:
+                group[source[c] ]+= 1
+
+            for i in v:
+                if target[i] in group:
+                    group[target[i]] -= 1
+                    if group[target[i]] == 0:
+                        del group[target[i]]
+
+            ans += sum(c for c in group.values())
+
+        return ans
