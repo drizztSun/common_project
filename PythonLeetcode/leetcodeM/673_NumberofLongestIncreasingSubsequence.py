@@ -20,22 +20,24 @@ class FindNumberOfLIS:
 
     """
 
-    [1, 2, 6, 3, 4, 7]
-    o(n*logn)
+        [1, 2, 6, 3, 4, 7]
+        o(n*logn)
     """
     def doit_dp_binary_search(self, nums: list) -> int:
         import bisect
         if not nums: return 0
         
         m = min(nums)-1
-        a, b = [{m: 1}], [m] # build baseline
+        a, b = [{m: 1}], [m] 
+        # build baseline
         # a is array, index is the length of LIS, value is {key: value }, key is number end with, value is the cnt of LIS. 
         # A is {different length: {end with this number: how many sequence}}
-        # b is the sorted sequence of number has been handler.
+        # b is the sorted increasing sequence of number has been handler.
 
         for x in nums:
-            # i is the new positon of x, means it can build sequence of length i. 
+            # i is the new postion of x, in sequence B. it means it can be used to build sequence with length i.
             # if it is end of the sorted sequence that meeans it is end and new max length
+            # Then we will check sequence length is i in a, to make sure how many sequence end with element less than x, could be use to build need sequence i + 1
             i, t = bisect.bisect_left(b, x) - 1, 0
 
             # if i == len(a)-1, it means it will build a longer length then any existed, so put it into the tails.
@@ -43,6 +45,7 @@ class FindNumberOfLIS:
                 a.append({})
                 b.append(x)
 
+            #
             # [1, 2, 6, 3, 4, 7]
             # the sequence would be [1,2,6 ..], then [1, 2, 3 ...] then [1, 2, 3, 4]
             # when we don't know 4, [1, 2, 6 ..] and [1, 2, 3 ..] all candidates, and being in index 3 of
@@ -57,8 +60,11 @@ class FindNumberOfLIS:
                     # it will use x to build longer sequence
                     del a[i][y]
 
+            # update i+1 and x, means there is i+1 length sequence and ends with x and how many those sequences we got
             a[i + 1][x] = a[i + 1].get(x, 0) + t
-            b[i + 1] = min(b[i + 1], x) # update the value of i+1, so it can use new value to build sequence.
+
+            # update possible smaller number for sequence i+1, used to build sequence future.
+            b[i + 1] = min(b[i + 1], x)
 
         return sum(a[-1].values())
     

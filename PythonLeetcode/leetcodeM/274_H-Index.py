@@ -28,59 +28,45 @@ class HIndex:
 
         Solution
         Approach #1 (Sorting) [Accepted]
+
         Intuition
 
-        Think geometrically. Imagine plotting a histogram where the yy-axis represents the number of citations for each paper. After sorting in descending order, hh-index is the length of the largest square in the histogram.
+        Think geometrically. Imagine plotting a histogram where the y-axis represents the number of citations for each paper. After sorting in descending order, h-index is the length of the largest square in the histogram.
 
         h-index
 
         Figure 1. hh-index from a plot of decreasing citations for papers
 
         Algorithm
-
-        To find such a square length, we first sort the citations array in descending order. After sorting, if \mathrm{citations}[i] \gt icitations[i]>i, then papers 00 to ii all have at least i + 1i+1 citations.
-
-        Thus, to find hh-index, we search for the largest ii (let's call it i'i 
-        ′
-        ) such that
-
-        \mathrm{citations}[i] \gt icitations[i]>i
-
-        and therefore the hh-index is i' + 1i 
-        ′
-        +1.
-
-
+        To find such a square length, we first sort the citations array in descending order. After sorting, if citations[i] > i, then papers 0 to i all have at least i+1 citations.
+        Thus, to find h-index, we search for the largest ii (let's call it i' ) such that citations[i] > i and therefore the h-index is i' + 1
     """
 
     def doit_sort(self, citations: list) -> int:
         # sort it as ascsending 
         citations.sort()
-        
         i = 0
-        # 
         while i < len(citations) and citations[len(citations) - i - 1] > i:
             i += 1
-            
         return i
 
     """
         O(n) bucket sort, anything value more then length, will be same into array[length]
     """
-    def doit_sort(self, citations: list) -> int:
+    def doit_sort_1(self, citations: list) -> int:
 
         # Sort and linear scan: O(log n) time and O(n ) space
         # Save counts
         n = len(citations)
-        citation2Freq = [0 for x in range(n+1)] #  [i] will tell us how many papers have i citations
+        citation2Freq = [0 for _ in range(n+1)] #  [i] will tell us how many papers have i citations
 
         for cites in citations:
-            citation2Freq[min(cites,n)] += 1 
+            citation2Freq[min(cites,n)] += 1 # Each page citation frequency.
         
         atLeast_i_cites = 0 
         for i in reversed(range(n+1)):
-            atLeast_i_cites += citation2Freq[i] 
+            atLeast_i_cites += citation2Freq[i] # How many pages
             if atLeast_i_cites >= i:
-                return i 
+                return i
         
         # count number with more than h citations

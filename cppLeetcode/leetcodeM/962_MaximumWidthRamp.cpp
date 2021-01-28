@@ -33,29 +33,126 @@
  */
 
 #include <vector>
+#include <algorithm>
+#include <numeric>
+#include <map>
+#include <stack>
+
+using std::stack;
+using std::map;
 using std::vector;
+using std::multimap;
 
 class MaxWidthRamp {
+
 public:
-    int doit(vector<int>&& A) {
+    /*
+    """
+        Solution 1
+        Intuition:
+        Keep a decreasing stack.
+        For each number,
+        binary search the first smaller number in the stack.
+
+        When the number is smaller the the last,
+        push it into the stack.
+
+        Time Complexity:
+        O(NlogN)
+    """
+
+
+    """
+        Solution 2
+        Improve the idea above.
+        Still one pass and keep a decraesing stack.
+
+        Time Complexity:
+        O(N)
+    """
+    */
+    int doit_stack(vector<int>& A) {
+        stack<int> s;
+        int res = 0, n = A.size();
+
+        for (int i = 0; i < n; ++i)
+            if (s.empty() || A[s.top()] > A[i]) s.push(i);
+
+        for (int i = n - 1; i > res; --i)
+            while (!s.empty() && A[s.top()] <= A[i])
+                res = std::max(res, i - s.top()), s.pop();
+        return res;
+    }
+
+
+    int doit_sort(vector<int>& A) {
         
-        vector<std::pair<int, int>> B;
-        for (int i = 0; i < A.size(); i++) {
-            B.push_back({A[i], i});
-        }
-        std::sort(B.begin(), B.end(), [](auto& a, auto& b) {
-            return a.first < b.first;
+        vector<int> range(A.size());
+        std::iota(begin(range), end(range), 0);
+        std::sort(begin(range), end(range), [&](auto a, auto b) {
+           return A[a] < A[b] || (A[a] == A[b] && a < b);
         });
         
-        int min_index = A.size();
-        int res = 0;
-        for (auto& c : B) {
-            
-            res = std::max(res, c.second - min_index);
-            min_index = std::min(min_index, c.second);
+        int ans = 0, mini = range[0];
+        for (auto c : range) {
+            ans = std::max(ans, c - mini);
+            mini = std::min(mini, c);
         }
         
-        return res;
+        return ans;
+    }
+
+    /*
+        Monotonic queue, we iterate form left to right, so index is monotonic increasing. 
+        the queue will be queue A[i < j], A value is monotoic increasing, and we attach value, i < j. from index, it also decreasing, index[A[i]] > index[A[j]]
+    */
+    int doit_binary_search(vector<int>& A) {
+        
+        map<int, int, std::greater<int>> m;
+        int maxv = 0;
+
+        for (int i = 0; i < A.size(); i++) { 
+            auto it = m.lower_bound(A[i]);
+            if (it == m.end()) {
+                m[A[i]] = i;
+            } else {
+                maxv = std::max(maxv, i - it->second);
+            }
+        }
+        return maxv;
+    }
+
+    int doit_(vector<int>& A) {
+        multimap<int, int> map;
+        for (int i = 0; i < A.size(); i++) {
+            map.insert({ A[i], i });
+        }
+
+        int minIndex = INT_MAX;
+        int result = 0;
+        for (auto& it : map) {
+            result = max(result, it.second - minIndex);
+            minIndex = min(minIndex, it.second);
+        }
+        return result;
+    }
+
+    int doit_binary_search_monotonic_queue(vector<int>&& A) {
+        
+        int n = A.size(), ans = 0;
+        map<int, int> queue{{A[n-1], n-1}};
+
+        for (int i = n-2; i > -1; i--) {
+
+            auto it = queue.upper_bound(A[i]);
+
+            if (it == queue.end()) {
+                queue.insert({A[i], i});
+            } else {
+                ans = std::max(ans, it->second - i);
+            }
+        }
+        return ans;
     }
 };
 

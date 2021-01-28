@@ -29,7 +29,14 @@
 class MaxWidthRamp:
 
 
-    def maxWidthRamp(self, A: list) -> int:
+    """
+        Improve the idea above.
+        Still one pass and keep a decraesing stack.
+
+        Time Complexity:
+        O(N)
+    """
+    def doit_stack_monotonic_queue(self, A: list) -> int:
         st, ans = [], 0
         
         # Cache up decreasing nums index []
@@ -67,7 +74,6 @@ class MaxWidthRamp:
         m = float('inf')
 
         for i in sorted(range(len(A)), key=A.__getitem__):
-
             ans = max(ans, i - m)
             m = min(m, i)
 
@@ -105,19 +111,18 @@ class MaxWidthRamp:
             if jx < len(candidates):
                 ans = max(ans, candidates[jx][1] - i)
             else:
+                # we only append the element, basiclly it built a monntonic increaing queue, can[i] < can[j], i < j.
                 candidates.append((A[i], i))
 
         return ans
 
 
-
-
 if __name__ == '__main__':
 
-    res = MaxWidthRamp().doit([7, 2, 5, 4])
+    res = MaxWidthRamp().doit_binary_search_sort([7, 2, 5, 4])
 
-    res = MaxWidthRamp().doit([6, 0, 8, 2, 1, 5])  # 4
+    res = MaxWidthRamp().doit_binary_search_sort([6, 0, 8, 2, 1, 5])  # 4
 
-    res = MaxWidthRamp().doit([9, 8, 1, 0, 1, 9, 4, 0, 4, 1])  # 7
+    res = MaxWidthRamp().doit_binary_search_sort([9, 8, 1, 0, 1, 9, 4, 0, 4, 1])  # 7
 
     pass

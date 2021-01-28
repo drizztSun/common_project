@@ -72,14 +72,12 @@ class Find132pattern:
         while i >= 0:
             if nums[i] < last:
                 return True
-            else:
-                while st and st[-1] < nums[i]:
-                    last = st.pop()
+        
+            while st and st[-1] < nums[i]:
+                last = st.pop()
 
             st.append(nums[i])
-
             i -= 1
-
         return False
 
     """

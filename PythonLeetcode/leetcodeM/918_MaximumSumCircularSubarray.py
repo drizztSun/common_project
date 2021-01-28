@@ -98,28 +98,63 @@ return ans
 
 class MaxSubarraySumCircular:
 
+    """
+        Intuition
+        I guess you know how to solve max subarray sum (without circular).
+        If not, you can have a reference here: 53. Maximum Subarray
 
-    def doit_cycle(self, A):
-        base = len(A)
-        A = A * 2
-        i, total = 0, 0
-        ans = float('-inf')
-        
-        for j in range(len(A)):
-        
-            if total + A[j] < A[j]:
-                total = 0
-                i = j
-                
-            total += A[j]
+
+        Explanation
+        So there are two case.
+        Case 1. The first is that the subarray take only a middle part, and we know how to find the max subarray sum.
+        Case2. The second is that the subarray take a part of head array and a part of tail array.
+        We can transfer this case to the first one.
+        The maximum result equals to the total sum minus the minimum subarray sum.
+
+
+        Here is a diagram by @motorix:
+        image
+
+        So the max subarray circular sum equals to
+        max(the max subarray sum, the total sum - the min subarray sum)
+
+
+        Prove of the second case
+        max(prefix+suffix)
+        = max(total sum - subarray)
+        = total sum + max(-subarray)
+        = total sum - min(subarray)
+
+
+        Corner case
+        Just one to pay attention:
+        If all numbers are negative, maxSum = max(A) and minSum = sum(A).
+        In this case, max(maxSum, total - minSum) = 0, which means the sum of an empty subarray.
+        According to the deacription, We need to return the max(A), instead of sum of am empty subarray.
+        So we return the maxSum to handle this corner case.
+
+
+        Complexity
+        One pass, time O(N)
+        No extra space, space O(1)
+
+        OnePass
+    """
+    def doit_(self, A):
+
+        minsum, maxsum, total, cursum, curmin = float('inf'), float('-inf'), 0, 0, 0
+
+        for a in A:
             
-            while j-i >= base or (j > i and A[i] < 0):
-                total -= A[i]
-                i += 1
-                
-            ans = max(ans, total)
-            
-        return ans
+            cursum = max(cursum + a, a)
+            maxsum = max(maxsum, cursum)
+
+            curmin = min(curmin + a, a)
+            minsum = min(minsum, curmin)
+
+            total += a
+
+        return max(maxsum, total - minsum) if maxsum > 0 else maxsum
 
     """
     Approach 1: Next Array
@@ -152,7 +187,7 @@ class MaxSubarraySumCircular:
     Space Complexity: O(N).
     """
 
-    def doit(self, A):
+    def doit_(self, A):
 
         ans = cur = float('-inf')
         for c in A:
@@ -204,7 +239,7 @@ class MaxSubarraySumCircular:
     Space Complexity: O(N).
     """
 
-    def doit(self, A):
+    def doit_monoque(self, A):
         from collections import deque
         N = len(A)
 
@@ -290,11 +325,8 @@ class MaxSubarraySumCircular:
     For a two interval subarray written as (∑ A[k] (k=0, N−1))−(∑ A[k], (k=i+1, j−1)),
     we can use our kadane-min algorithm to minimize the "interior" (∑ A[k] (j−1, k=i+1)) part of the sum.
 
-    Again, because the interior [i+1, j-1][i+1,j−1] must be non-empty, we can break up our search into a search on A[1:] and on A[:-1].
-
-
+    Again, because the interior [i+1, j-1] must be non-empty, we can break up our search into a search on A[1:] and on A[:-1].
     """
-
     def doit(self, A):
         # ans1: answer for one-interval subarray
         ans1 = cur = None
