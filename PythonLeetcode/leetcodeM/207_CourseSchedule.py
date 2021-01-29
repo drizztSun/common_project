@@ -35,8 +35,9 @@ You may assume that there are no duplicate edges in the input prerequisites.
 
 class CourseScheduleI:
 
-    def doit_topsort(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-
+    def doit_topsort(self, numCourses: int, prerequisites: list) -> bool:
+        from collections import deque
+        
         g = [set() for _ in range(numCourses)]
         indegree = [0 for _ in range(numCourses)]
 

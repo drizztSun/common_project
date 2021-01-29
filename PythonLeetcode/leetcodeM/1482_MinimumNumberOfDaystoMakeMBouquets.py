@@ -61,7 +61,37 @@ bloomDay.length == n
 
 class MinimumNumberOfDaystoMakeBouquets:
 
-    def doit_(self, bloomDay: list, m: int, k: int) -> int:
-        pass
+    def doit_binary_search(self, bloomDay: list, m: int, k: int) -> int:
+
+        left, right = min(bloomDay), max(bloomDay) + 1
+
+        def search(mid):
+            cnt = 0
+            ans = 0
+            for i in range(len(bloomDay)):
+                if bloomDay[i] <= mid:
+                    cnt += 1
+                else:
+                    ans += cnt // k
+                    cnt = 0
+
+            return ans + cnt // k
+            
+            
+        ans = -1
+        while left < right:
+
+            mid = left + (right - left) // 2
+
+            if search(mid) >= m:
+                ans = mid
+                right = mid
+            else:
+                left = mid + 1
+
+        return -1 if ans == float('inf') else ans
 
 
+if __name__ == '__main__':
+
+    MinimumNumberOfDaystoMakeBouquets().doit_binary_search([1,10,3,10,2], 3, 1)
