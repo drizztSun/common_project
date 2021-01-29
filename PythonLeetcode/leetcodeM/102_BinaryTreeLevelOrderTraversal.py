@@ -55,7 +55,7 @@ class LevelOrder:
         Space complexity : O(N) to keep the output structure which contains N node values.
 
     """
-    def doit_recursive(self, root):
+    def doit_dfs(self, root):
         """
         :type root: TreeNode
         :rtype: List[List[int]]
@@ -109,11 +109,12 @@ class LevelOrder:
         Implementation
 
     """
-    def doit_iterate(self, root):
+    def doit_bfs(self, root):
         """
         :type root: TreeNode
         :rtype: List[List[int]]
         """
+        from collections import deque
         levels = []
         if not root:
             return levels

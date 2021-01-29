@@ -1,17 +1,17 @@
 class Treenode:
     def __init__(self, data):
-        self._data = data
-        self._left = None
-        self._right = None
+        self.val = data
+        self.left = None
+        self.right = None
 
 
 def maketree():
     s = Treenode(6)
-    s._left = Treenode(3)
-    s._right = Treenode(8)
-    s._right._right = Treenode(9)
-    s._left._right = Treenode(4)
-    s._left._left = Treenode(1)
+    s.left = Treenode(3)
+    s.right = Treenode(8)
+    s.right.right = Treenode(9)
+    s.left.right = Treenode(4)
+    s.left.left = Treenode(1)
 
     return s
 
@@ -20,30 +20,30 @@ def preorder_travel(a):  # return [...]
     if a is None:
         return []
 
-    if a._left is None and a._right is None:
-        return [a._data]
+    if a.left is None and a.right is None:
+        return [a.val]
 
-    return [a._data] + preorder_travel(a._left) + preorder_travel(a._right)
+    return [a.val] + preorder_travel(a.left) + preorder_travel(a.right)
 
 
 def inorder_travel(a):
     if a == None:
         return []
 
-    if a._left == None and a._right == None:
-        return [a._data]
+    if a.left == None and a.right == None:
+        return [a.val]
 
-    return inorder_travel(a._left) + [a._data] + inorder_travel(a._right)
+    return inorder_travel(a.left) + [a.val] + inorder_travel(a.right)
 
 
 def postorder_travel(a):
     if a == None:
         return []
 
-    if a._left == None and a._right == None:
-        return [a._data]
+    if a.left == None and a.right == None:
+        return [a.val]
 
-    return postorder_travel(a._left) + postorder_travel(a._right) + [a._data]
+    return postorder_travel(a.left) + postorder_travel(a.right) + [a.val]
 
 
 def preorder_travel_no_recr(root):
@@ -116,9 +116,18 @@ def postorderTraversal(self, root):
         cur = buff.pop()
     return res
 
+def maxval(root):
+    if not root:
+        return 0
+    max_left = maxval(root.left)
+    max_right = maxval(root.right)
+    return max(root.val, max_left, max_right)
+
 if __name__ == "__main__":
     maketree()
     a = preorder_travel(maketree())
     print(a)
     v = preorder_travel_no_recr(maketree())
     print(v)
+    res = maxval(maketree())
+    print(res)
