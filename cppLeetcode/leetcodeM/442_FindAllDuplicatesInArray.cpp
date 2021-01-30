@@ -19,6 +19,7 @@ Output:
 */
 #include <vector>
 #include <unordered_set>
+#include <algorithm>
 
 using std::unordered_set;
 using std::vector;
@@ -28,14 +29,12 @@ class FindAllDuplicatesArray {
 
 public:
 
-    vector<int> doit_(vector<int>& nums) {
-        int i = 0;
-        while (i < nums.size()) {
-
+    vector<int> doit_indexingsort(vector<int>& nums) {
+        
+        for (int i = 0; i < nums.size(); i++) {
             while (nums[i] != i+1 && nums[i] != nums[nums[i]-1]) {
                 std::swap(nums[i], nums[nums[i]-1]);
             }
-            i++;
         }
 
         vector<int> ans;
@@ -44,6 +43,72 @@ public:
         
         return ans;
     }
+
+    /*
+        Pop Quiz: Can you do this in a single loop?
+
+        Definitely! Notice that if an element x occurs just once in the array, the value at index abs(x)-1 becomes negative and remains 
+        so for all of the iterations that follow.
+
+        Traverse through the array. When we see an element x for the first time, we'll negate the value at index abs(x)-1.
+        But, the next time we see an element x, we don't need to negate again! If the value at index abs(x)-1 is already negative, we know that we've seen element x before.
+        So, now we are relying on a single negation to mark the visited status of an element. 
+        This is similar to what we did in Approach 3, except that we are re-using the array (with some smart negations) instead of a separate set.
+    
+    */
+    vector<int> doit_indexingsort_2(vector<int>& nums) {
+        vector<int> ans;
+
+        for (auto num : nums) {
+            if (nums[abs(num) - 1] < 0) {  // seen before
+                ans.push_back(abs(num));
+            }
+            nums[abs(num) - 1] *= -1;
+        }
+
+        return ans;
+    }
+
+        /*
+        Approach 4: Mark Visited Elements in the Input Array itself
+        Intuition
+
+        All the above approaches have ignored a key piece of information in the problem statement:
+
+        The integers in the input array arr satisfy 1 ≤ arr[i] ≤ n, where n is the size of array. [2]
+
+        This presents us with two key insights:
+
+        All the integers present in the array are positive. i.e. arr[i] > 0 for any valid index i. [3]
+        The decrement of any integers present in the array must be an accessible index in the array.
+        i.e. for any integer x in the array, x-1 is a valid index, and thus, arr[x-1] is a valid reference to an element in the array. [4]
+        Algorithm
+
+        Iterate over the array and for every element x in the array, negate the value at index abs(x)-1. [5]
+        The negation operation effectively marks the value abs(x) as seen / visited.
+        Pop Quiz: Why do we need to use abs(x), instead of x?
+
+        Iterate over the array again, for every element x in the array:
+        If the value at index abs(x)-1 is positive, it must have been negated twice. Thus abs(x) must have appeared twice in the array. We add abs(x) to the result.
+        In the above case, when we reach the second occurrence of abs(x), we need to avoid fulfilling this condition again. So, we'll additionally negate the value at index abs(x)-1.
+    
+
+    */
+    vector<int> doit_element(vector<int>& nums) {
+        vector<int> ans;
+
+        for (auto num : nums)
+            nums[abs(num) - 1] *= -1;
+
+        for (auto num : nums)
+            if (nums[abs(num) - 1] > 0) {
+                ans.push_back(abs(num));
+                nums[abs(num) - 1] *= -1;
+            }
+
+        return ans;
+    }
+
 
     /*
         Approach 1: Brute Force
@@ -128,7 +193,7 @@ public:
     vector<int> doit_sort(vector<int>& nums) {
         vector<int> ans;
 
-        sort(nums.begin(), nums.end());
+        std::sort(nums.begin(), nums.end());
 
         for (int i = 1; i < nums.size(); i++)
             if (nums[i] == nums[i - 1]) {
@@ -172,69 +237,6 @@ public:
                 ans.push_back(num);
             else
                 seen.insert(num);
-        }
-
-        return ans;
-    }
-
-    /*
-        Approach 4: Mark Visited Elements in the Input Array itself
-        Intuition
-
-        All the above approaches have ignored a key piece of information in the problem statement:
-
-        The integers in the input array arr satisfy 1 ≤ arr[i] ≤ n, where n is the size of array. [2]
-
-        This presents us with two key insights:
-
-        All the integers present in the array are positive. i.e. arr[i] > 0 for any valid index i. [3]
-        The decrement of any integers present in the array must be an accessible index in the array.
-        i.e. for any integer x in the array, x-1 is a valid index, and thus, arr[x-1] is a valid reference to an element in the array. [4]
-        Algorithm
-
-        Iterate over the array and for every element x in the array, negate the value at index abs(x)-1. [5]
-        The negation operation effectively marks the value abs(x) as seen / visited.
-        Pop Quiz: Why do we need to use abs(x), instead of x?
-
-        Iterate over the array again, for every element x in the array:
-        If the value at index abs(x)-1 is positive, it must have been negated twice. Thus abs(x) must have appeared twice in the array. We add abs(x) to the result.
-        In the above case, when we reach the second occurrence of abs(x), we need to avoid fulfilling this condition again. So, we'll additionally negate the value at index abs(x)-1.
-    
-
-    */
-    vector<int> doit_element(vector<int>& nums) {
-        vector<int> ans;
-
-        for (auto num : nums)
-            nums[abs(num) - 1] *= -1;
-
-        for (auto num : nums)
-            if (nums[abs(num) - 1] > 0) {
-                ans.push_back(abs(num));
-                nums[abs(num) - 1] *= -1;
-            }
-
-        return ans;
-    }
-
-    /*
-        Pop Quiz: Can you do this in a single loop?
-
-        Definitely! Notice that if an element x occurs just once in the array, the value at index abs(x)-1 becomes negative and remains so for all of the iterations that follow.
-
-        Traverse through the array. When we see an element x for the first time, we'll negate the value at index abs(x)-1.
-        But, the next time we see an element x, we don't need to negate again! If the value at index abs(x)-1 is already negative, we know that we've seen element x before.
-        So, now we are relying on a single negation to mark the visited status of an element. This is similar to what we did in Approach 3, except that we are re-using the array (with some smart negations) instead of a separate set.
-    
-    */
-    vector<int> doit_2(vector<int>& nums) {
-        vector<int> ans;
-
-        for (auto num : nums) {
-            if (nums[abs(num) - 1] < 0) {  // seen before
-                ans.push_back(abs(num));
-            }
-            nums[abs(num) - 1] *= -1;
         }
 
         return ans;
