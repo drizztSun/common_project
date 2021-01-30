@@ -135,7 +135,7 @@ class BulbSwitcherII:
 
         When m = 2, we can manually check that we can get 7 states: all of them except for (0, 1, 1). The answer in this case is either 2, 4, 7 for n = 1, 2, 3 respectively.
 
-        When m = 3, we can get all 8 states. The answer in this case is either 2, 4, 82,4,8 for n = 1, 2, 3 respectively.
+        When m = 3, we can get all 8 states. The answer in this case is either 2, 4, 8 for n = 1, 2, 3 respectively.
 
 
         Complexity Analysis
