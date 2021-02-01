@@ -3,7 +3,15 @@ from typing import List
  
 # Author: Huahua
  
- 
+# LC 28
+
+# nxt array is a suffix array, and DP thought. 
+# nxt[i] = [j] it means there is a j length str from 0 s[0:j] equal to j length substr end by i, exclusing i.
+# nxt[i] = j => s[0:j] == s[i-j-1:i]
+# so if p[j] != p[i], the suffix end by i, should be tried out to find on nxt[nxt[j]]. 
+# it means there is length jj where nxt[0:jj]= ii, s[0:jj] == s[j-jj+1:j], we will continue to try until jj == 0
+
+
 def Build(p: str) -> List[int]:
     m = len(p)
     nxt = [0, 0]
