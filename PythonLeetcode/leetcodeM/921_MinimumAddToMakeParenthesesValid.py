@@ -1,3 +1,4 @@
+"""
 # 921. Minimum Add to Make Parentheses Valid
 
 # Given a string S of '(' and ')' parentheses, we add the minimum number of parentheses ( '(' or ')',
@@ -34,9 +35,44 @@
 
 # S.length <= 1000
 # S only consists of '(' and ')' characters.
-
+"""
 
 class MinAddToMakeValid:
+
+    """
+        Intuition:
+        To make a string valid,
+        we can add some ( on the left,
+        and add some ) on the right.
+        We need to find the number of each.
+
+
+        Explanation:
+        left records the number of ( we need to add on the left of S.
+        right records the number of ) we need to add on the right of S,
+        which equals to the number of current opened parentheses.
+
+
+        Loop char c in the string S:
+        if (c == '('), we increment right,
+        if (c == ')'), we decrement right.
+        When right is already 0, we increment left
+        Return left + right in the end
+
+
+        Time Complexity:
+        Time O(N)
+        Space O(1)
+    """
+    def minAddToMakeValid(self, S):
+        left = right = 0
+        for i in S:
+            if right == 0 and i == ')':
+                left += 1
+            else:
+                right += 1 if i == '(' else -1
+        return left + right
+
 
     """
     Approach 1: Balance
