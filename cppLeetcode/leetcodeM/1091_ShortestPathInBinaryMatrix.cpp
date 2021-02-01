@@ -40,8 +40,6 @@
 #include <vector>
 #include <queue>
 
-
-
 using std::queue;
 using std::vector;
 
