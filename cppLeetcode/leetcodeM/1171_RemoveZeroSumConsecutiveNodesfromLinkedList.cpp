@@ -1,5 +1,7 @@
-"""
+/*
 1171. Remove Zero Sum Consecutive Nodes from Linked List
+
+
 
 Given the head of a linked list, we repeatedly delete consecutive sequences of nodes that sum to 0 until there are no such sequences.
 
@@ -30,18 +32,31 @@ The given linked list will contain between 1 and 1000 nodes.
 Each node in the linked list has -1000 <= node.val <= 1000.
 
 
-"""
+*/
+#include <map>
+#include <unordered_map>
+
+using std::unordered_map;
+using std::map;
+
+class RemoveZeroSumSublists {
 
 
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
 
-class RemoveZeroSumSublists:
+ // Definition for singly-linked list.
+ struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+ };
+ 
 
-    """
+public:
+
+
+    /*
         Intuition
         Assume the input is an array.
         Do you know how to solve it?
@@ -60,38 +75,43 @@ class RemoveZeroSumSublists:
 
         Then we scan the linked list, accumulate the node's value as prefix sum.
 
-        1. If it's a prefix that we've never seen, we set m[prefix] = cur.
-
-        2. If we have seen this prefix, m[prefix] is the node we achieve this prefix sum.
-            We want to skip all nodes between m[prefix] and cur.next (exclusive).
-            So we simplely do m[prefix].next = cur.next.
-            We keep doing these and it's done.
+        If it's a prefix that we've never seen, we set m[prefix] = cur.
+        If we have seen this prefix, m[prefix] is the node we achieve this prefix sum.
+        We want to skip all nodes between m[prefix] and cur.next (exclusive).
+        So we simplely do m[prefix].next = cur.next.
+        We keep doing these and it's done.
 
 
         Complexity
         Time O(N), one pass
         SpaceO(N), for hashmap
-    """
+    */
 
-    def doit_(self, head: 'ListNode') -> 'ListNode':
-        import collections
-        cur = dummy = ListNode(0)
-        dummy.next = head
-        prefix = 0
-        seen = collections.OrderedDict()
+    ListNode* doit_1(ListNode* head) {
+        ListNode* dummy = new ListNode(0), *cur = dummy;
+        dummy->next = head;
+        int prefix = 0;
+        map<int, ListNode*> m;
+        while (cur) {
+            prefix += cur->val;
+            if (m.count(prefix)) {
+                cur =  m[prefix]->next;
+                int p = prefix + cur->val;
+                while (p != prefix) {
+                    m.erase(p);
+                    cur = cur->next;
+                    p += cur->val;
+                }
+                m[prefix]->next = cur->next;
+            } else {
+                m[prefix] = cur;
+            }
+            cur = cur->next;
+        }
+        return dummy->next;
+    }
 
-        while cur:
-            prefix += cur.val
-            node = seen.get(prefix, cur)
-            while prefix in seen:
-                seen.popitem()
-            seen[prefix] = node
-            node.next = cur = cur.next
-        return dummy.next
-
-
-    """
-
+    /*
         Improvement
         I think that's the best part of my post.
         It's a great discuss in the leetcode's discuss.
@@ -124,29 +144,19 @@ class RemoveZeroSumSublists:
         Iterate for the second time,
         calculate the prefix sum,
         and directly skip to last occurrence of this prefix
-    """
-    def doit_(self, head):
-        prefix = 0
-        seen = {}
-        seen[0] = dummy = ListNode(0)
-        dummy.next = head
-
-        while head:
-            prefix += head.val
-            seen[prefix] = head
-            head = head.next
-
-        head = dummy
-        prefix = 0
-        
-        while head:
-            prefix += head.val
-            head.next = seen[prefix].next
-            head = head.next
-        
-        return dummy.next
-
-
-
-
-        
+    */
+    ListNode* doit_2(ListNode* head) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        int prefix = 0;
+        unordered_map<int, ListNode*> seen;
+        for (ListNode* i = dummy; i; i = i->next) {
+            seen[prefix += i->val] = i;
+        }
+        prefix = 0;
+        for (ListNode* i = dummy; i; i = i->next) {
+            i->next = seen[prefix += i->val]->next;
+        }
+        return dummy->next;
+    }
+}

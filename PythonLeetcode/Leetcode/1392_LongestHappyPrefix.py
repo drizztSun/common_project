@@ -40,7 +40,7 @@ s contains only lowercase English letters.
 
 class LongestHappyPrefix:
 
-    def doit_dp_suffix_kmp(self, s: str) -> str:
+    def doit_dp_suffix_KMP(self, s: str) -> str:
         
         dp = [0 for _ in range(len(s))]
         
