@@ -155,7 +155,7 @@ class MajorityElement1:
 
         Boyer-Moore allocates only constant additional memory.
     """
-    def doit_(self, nums):
+    def doit_Boyer_Moore(self, nums):
         count = 0
         candidate = None
 
@@ -201,7 +201,7 @@ Constraints:
 
 class MajorityElementII:
     
-    def doit(self, nums: list) -> list:
+    def doit_hashtable(self, nums: list) -> list:
         from collections import Counter
         N = len(nums)
         ans = []

@@ -1,3 +1,4 @@
+"""
 # 870. Advantage Shuffle
 
 # Given two arrays A and B of equal size, the advantage of A with respect to B is the number of indices i for which A[i] > B[i].
@@ -20,6 +21,7 @@
 # 1 <= A.length = B.length <= 10000
 # 0 <= A[i] <= 10^9
 # 0 <= B[i] <= 10^9
+"""
 
 class AdvantageCount:
     

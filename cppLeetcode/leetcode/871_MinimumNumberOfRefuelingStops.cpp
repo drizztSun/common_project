@@ -45,7 +45,8 @@ using std::vector;
 class MinRefuelStops {
 
 public:
-    int doit_heap(int target, int startFuel, vector<vector<int>>& stations) {
+
+    /*
         // max heap nlogn solution
         // the idea is that we refuel only when the need arises
         // AND when does the need arise:
@@ -57,38 +58,39 @@ public:
         // so that we reach the next station or the target then we need to refuell again
         
         // used max heap for effiicent max fuel station search
-        
+    */
+    int doit_heap(int target, int startFuel, vector<vector<int>>& stations) {
+  
         auto n = stations.size();
         priority_queue<int> pq;
 
         int can_coverdist = startFuel;    //can_coverdist tells the total dist we can cover cover using the available fuel
         int stops = 0;
-        for(auto i=0; i<n; i++)
-        {
-                if(can_coverdist >= target)
-                    return stops;
+        for(auto i = 0; i < n; i++){
             
-                while(!pq.empty() && can_coverdist < stations[i][0])  //can't reach the curr station so refuelling
-                {
-                    can_coverdist += pq.top();
-                    pq.pop();
-                    stops++;
-                }
-                
-                if(pq.empty() && can_coverdist < stations[i][0])    //can't reach the curr station even with refuelling at all the stations
-                    return -1;
-                
-                pq.push(stations[i][1]);        //if code reaches here that means we can reach till this station so we push into heap so that we can refuel in the future if necessary
+            if(can_coverdist >= target)
+                return stops;
+        
+            while(!pq.empty() && can_coverdist < stations[i][0])  //can't reach the curr station so refuelling
+            {
+                can_coverdist += pq.top();
+                pq.pop();
+                stops++;
+            }
+            
+            if(pq.empty() && can_coverdist < stations[i][0])    //can't reach the curr station even with refuelling at all the stations
+                return -1;
+            
+            pq.push(stations[i][1]);        //if code reaches here that means we can reach till this station so we push into heap so that we can refuel in the future if necessary
         }
         
         //case when we have covered all the stations by refuelling at 0 or more stations and still we haven't reached the target
-        while(!pq.empty() && can_coverdist<target)
-        {
-            can_coverdist+=pq.top();
+        while(!pq.empty() && can_coverdist < target) {
+            can_coverdist += pq.top();
             pq.pop();
             stops++;
         }
         
-        return can_coverdist>=target ? stops:-1;
+        return can_coverdist >= target ? stops: -1;
     }
 };

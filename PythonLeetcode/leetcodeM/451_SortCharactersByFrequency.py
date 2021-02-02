@@ -77,7 +77,7 @@ class FrequencySort:
         Like before, the HashMap building has a cost of O(n).
 
         The bucket sorting is O(n), because inserting items has a cost of O(k) (each entry from the HashMap), and building the buckets initially has a worst case of O(n) (which occurs when k=1). 
-        Because k ≤ nk≤n, we're left with O(n)O(n).
+        Because k ≤ nk≤n, we're left with O(n).
 
         So in total, we have O(n).
 
@@ -85,9 +85,7 @@ class FrequencySort:
 
         Space Complexity : O(n).
 
-        Same as above. The bucket Array also uses O(n) space, because its length is at most nn, and there are kk items across all the buckets.
-
-        O(n)
+        Same as above. The bucket Array also uses O(n) space, because its length is at most nn, and there are k items across all the buckets.
     """
     def doit_sort(self, s: str) -> str:
         from collections import Counter
@@ -151,9 +149,9 @@ class FrequencySort:
 
         Considering kk as well gives us O(n + k \, \log \, k)O(n+klogk), because we don't know which is largest out of nn and k \, \log \, kklogk. We do, however, know that in total this is less than or equal to O(n \, \log \, n)O(nlogn).
 
-        Space Complexity : O(n)O(n).
+        Space Complexity : O(n).
 
-        The HashMap uses O(k)O(k) space.
+        The HashMap uses O(k) space.
 
         However, the StringBuilder at the end dominates the space complexity, pushing it up to O(n)O(n), as every character from the input String must go into it. Like was said above, it's impossible to do better with the space complexity here.
 
@@ -220,7 +218,7 @@ class FrequencySort:
 
         Let nn be the length of the input String.
 
-        Time Complexity : O(n \, \log \, n)O(nlogn).
+        Time Complexity : O(nlogn).
 
         The first part of the algorithm, converting the String to a List of characters, has a cost of O(n)O(n), because we are adding nn characters to the end of a List.
 
@@ -236,7 +234,7 @@ class FrequencySort:
         2
         ).
 
-        Space Complexity : O(n)O(n).
+        Space Complexity : O(n).
 
         It is impossible to do better with the space complexity, because Strings are immutable. The List of characters, List of Strings, and the final output String, are all of length nn, so we have a space complexity of O(n)O(n).
     """
