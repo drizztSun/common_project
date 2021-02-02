@@ -95,7 +95,7 @@ public:
     
     
     */
-    int doit_kmp(string haystack, string needle) 
+    int doit_KMP(string haystack, string needle) 
     {
         int n = haystack.size();
         int m = needle.size();

@@ -93,7 +93,7 @@ class StrStr:
     """
 
 
-    def doit_kmp(self, haystack: str, needle: str) -> int:
+    def doit_KMP(self, haystack: str, needle: str) -> int:
 
         pattern = [0, 0]
         j = 0
