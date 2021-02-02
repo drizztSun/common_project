@@ -1,3 +1,4 @@
+"""
 # 459. Repeated Substring Pattern
 
 
@@ -22,7 +23,7 @@
 # Input: "abcabcabcabc"
 # Output: True
 # Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
-
+"""
 
 class RepeatedSubstringPattern:
 
@@ -91,9 +92,13 @@ class RepeatedSubstringPattern:
         How to check: n % (n-l) == 0 --> True --> It's a repeated pattern string
 
 
-        a b a b b a => The longest common prefix/suffix length l = 1
+        a b a b b a => The longest common prefix/suffix length l = 1    
+        
+        n - l = 5 should be the length of repeated pattern
 
-        n - l
+        (a b a b b) a
+
+        How to check: n % (n-l) == 0 --> False --> It is not a reapted pattern string
 
         Algorithm
 
@@ -189,9 +194,9 @@ class RepeatedSubstringPattern:
         Approach 3: Find Divisors + Rabin-Karp
         Rabin-Karp
 
-        Rabin-Karp is a linear-time \mathcal{O}(N)O(N) string searching algorithm:
+        Rabin-Karp is a linear-time O(N) string searching algorithm:
 
-        Move a sliding window of length LL along the string of length NN.
+        Move a sliding window of length L along the string of length N.
 
         Check hash of the string in the sliding window.
 
@@ -201,13 +206,13 @@ class RepeatedSubstringPattern:
 
         For the current problem the standard hash / hashCode is enough because the idea is to check only lengths L, which are divisors of N. This way we're not sliding, we're jumping:
 
-        the first string is 0..L
+        . the first string is 0..L
 
-        the second string is L..2L
+        . the second string is L..2L
 
         ...
 
-        the last string is N - L..N
+        . the last string is N - L..N
 
         To copy characters in sliding window takes time L, to compute hash - time L as well. In total, there are N / L substrings, that makes it all work in a linear time \mathcal{O}(N)O(N).
 
@@ -271,12 +276,15 @@ class RepeatedSubstringPattern:
                 divisors = [i]
                 if i != 1:
                     divisors.append(n // i)
+
                 for l in divisors:
                     first_hash = curr_hash = hash(s[:l])
                     start = l
+                    
                     while start != n and curr_hash == first_hash:
                         curr_hash = hash(s[start:start + l])
                         start += l
+                    
                     if start == n and curr_hash == first_hash:
                         return True
                 
