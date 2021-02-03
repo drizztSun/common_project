@@ -17,6 +17,9 @@ If you have figured out the O(n) solution, try coding another solution of which 
 
 class MinimumSizeSubarraySum:
 
+    """
+        O(n)
+    """
     def doit_slidingwindow(self, s: int, nums: list) -> int:
 
         j, total, res = 0, 0, len(nums) + 1
@@ -32,6 +35,9 @@ class MinimumSizeSubarraySum:
 
         return 0 if res == len(nums) + 1 else res
 
+    """
+        O(nlog(n))
+    """
     def doit_binary_search(sel, s: int, nums: list) -> int:
 
         n = len(nums)

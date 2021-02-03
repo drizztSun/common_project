@@ -32,7 +32,7 @@ Example 2:
 Input: nums = [3,2,1]
 Output: [3,null,2,null,1]
  
-
+ 
 Constraints:
 
 1 <= nums.length <= 1000

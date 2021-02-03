@@ -1,3 +1,4 @@
+"""
 # 572. Subtree of Another Tree
 
 # Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s.
@@ -33,6 +34,8 @@
 #  1   2
 # Return false.
 
+"""
+
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -43,7 +46,28 @@ class TreeNode:
 
 class SubtreeInAnotherTree:
 
-    def doit(self, s, t):
+
+    def doit_(self, s, t):
+
+        def same(n1, n2):
+            if n1 == n2 == None:
+                return True
+            
+            if n1 and n2 and n1.val == n2.val:
+                return same(n1.left, n2.left) and same(n1.right, n2.right)
+
+            return False
+
+        def check(node):
+
+            if same(node, t):
+                return True
+            
+            return same(node.left, t) or same(node.right, t)
+
+        return check(s)
+
+    def doit_(self, s, t):
         """
         :type s: TreeNode
         :type t: TreeNode
