@@ -67,9 +67,9 @@ class IncreasingTriplet:
 
     Complexity Analysis
 
-    Time complexity : O(N)O(N) where NN is the size of nums. We are updating first_num and second_num as we are scanning nums.
+    Time complexity : O(N) where NN is the size of nums. We are updating first_num and second_num as we are scanning nums.
 
-    Space complexity : O(1)O(1) since we are not consuming additional space other than variables for two numbers.
+    Space complexity : O(1) since we are not consuming additional space other than variables for two numbers.
 
     """
     def doit_search(self, nums: list) -> bool:
