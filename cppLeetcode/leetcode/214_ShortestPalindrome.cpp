@@ -59,7 +59,7 @@ public:
 
     */
 
-    string doit_kmp(string t) {
+    string doit_KMP(string t) {
         
         if (t == "") return t;
         

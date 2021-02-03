@@ -128,12 +128,21 @@ public:
         Update \text{sums}[i] = \text{sums}[i-1] + \text{nums}[i]sums[i]=sums[i−1]+nums[i]
         Sum of subarray from ii to jj is calculated as: \text{sum}=\text{sums}[j] - \text{sums}[i] +\text{nums}[i]sum=sums[j]−sums[i]+nums[i], , wherein \text{sums}[j] - \text{sums}[i]sums[j]−sums[i] is the sum from (i+1i+1)th element to the jjth element.
 
+        Complexity analysis
+
+        Time complexity: O(n^2)
+        Time complexity to find all the subarrays is O(n^2).
+
+        Sum of the subarrays is calculated in O(1)O(1) time.
+        Thus, the total time complexity: O(n^2 * 1) = O(n^2)
+        Space complexity: O(n) extra space.
+
+        Additional O(n) space for sums vector than in Approach #1.
     */
     int doit_(int s, vector<int>& nums)
     {
         int n = nums.size();
-        if (n == 0)
-            return 0;
+        if (n == 0) return 0;
         int ans = INT_MAX;
         vector<int> sums(n);
         sums[0] = nums[0];
@@ -152,4 +161,47 @@ public:
         }
         return (ans != INT_MAX) ? ans : 0;
     }
+
+    /*
+        Approach #1 Brute force [Time Limit Exceeded]
+        Intuition
+
+        Do as directed in question. Find the sum for all the possible subarrays and update the \text{ans}ans as and when we get a better subarray that fulfill the requirements (\text{sum} \geq \text{s}sum≥s).
+
+        Algorithm
+
+        Initialize \text{ans}=\text{INT_MAX}
+        Iterate the array from left to right using ii:
+        Iterate from the current element to the end of vector using jj:
+        Find the \text{sum}sum of elements from index ii to jj
+        If sum is greater then ss:
+        Update \text{ans} = \min(\text{ans}, (j - i + 1))ans=min(ans,(j−i+1))
+        Start the next iith iteration, since, we got the smallest subarray with \text{sum} \geq ssum≥s starting from the current index.
+
+        Complexity Analysis
+
+        Time complexity: O(n^3) For each element of array, we find all the subarrays starting from that index which is O(n^2).
+        Time complexity to find the sum of each subarray is O(n).
+        Thus, the total time complexity : O(n^2 * n) = O(n^3)
+        Space complexity: O(1) extra space.
+    */
+   int doit_brute_force_TLE(int s, vector<int>& nums)
+    {
+        int n = nums.size();
+        int ans = INT_MAX;
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                int sum = 0;
+                for (int k = i; k <= j; k++) {
+                    sum += nums[k];
+                }
+                if (sum >= s) {
+                    ans = min(ans, (j - i + 1));
+                    break; //Found the smallest subarray with sum>=s starting with index i, hence move to next index
+                }
+            }
+        }
+        return (ans != INT_MAX) ? ans : 0;
+    }
+
 };

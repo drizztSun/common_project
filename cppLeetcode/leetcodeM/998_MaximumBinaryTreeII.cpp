@@ -57,7 +57,7 @@ class InsertIntoMaxTreeII {
 
 public:
     
-    TreeNode* doit_stack(TreeNode* root, int val) {
+    TreeNode* doit_(TreeNode* root, int val) {
 
         if (!root) return new TreeNode(val);
         
@@ -81,7 +81,7 @@ public:
         return root;
     }
     
-    TreeNode* doit1(TreeNode* root, int val) {
+    TreeNode* doit_recursive(TreeNode* root, int val) {
 
         std::function<TreeNode*(TreeNode*, int)> search = [&](TreeNode* root, int val) {
             if (!root) return new TreeNode(val);
