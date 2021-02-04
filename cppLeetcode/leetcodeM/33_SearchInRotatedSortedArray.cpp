@@ -90,4 +90,80 @@ public:
         
         return -1;
     }
+
+
+    int doit_binary_search_1(vector<int>& nums, int target) {
+
+        int left = 0, right = nums.size()-1;
+        
+        while (left <= right) {
+            
+            int mid = (left + right) / 2;
+            
+            if (nums[mid] == target) return mid;
+            
+            if (nums[mid] <= nums[right]) {
+                if (target <= nums[right] && target > nums[mid])
+                    left = mid + 1;
+                else
+                    right = mid - 1;
+            } else {
+                if (target >= nums[left] && target < nums[mid])
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
+        }
+        
+        return -1;
+    }
+
+    // Function to find an element `x` in a circularly sorted array
+    int doit_(int A[], int n, int x)
+    {
+        // search space is `A[low…high]`
+        int low = 0, high = n - 1;
+    
+        // loop till the search space is exhausted
+        while (low <= high)
+        {
+            // find the mid-value in the search space and
+            // compares it with the target
+            int mid = (low + high)/2;
+    
+            // if the target is found, return its index
+            if (x == A[mid]) {
+                return mid;
+            }
+    
+            // if right half `A[mid…high]` is sorted and `mid` is not
+            // the target element
+            if (A[mid] <= A[high])
+            {
+                // compare target with `A[mid]` and `A[high]`to know
+                // if it lies in `A[mid…high]` or not
+                if (x > A[mid] && x <= A[high]) {
+                    low = mid + 1;    // go searching in the right sorted half
+                } else {
+                    high = mid - 1;    // go searching left
+                }
+            }
+    
+            // if left half `A[low…mid]` is sorted, and `mid` is not
+            // the target element
+            else
+            {
+                // compare target with `A[low]` and `A[mid]` to know
+                // if it lies in `A[low…mid]` or not
+                if (x >= A[low] && x < A[mid]) {
+                    high = mid - 1;    // go searching in the left sorted half
+                } else {
+                    low = mid + 1;    // go searching right
+                }
+            }
+        }
+    
+        // target not found or invalid input
+        return -1;
+    }
 };

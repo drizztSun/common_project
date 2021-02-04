@@ -45,22 +45,17 @@ class DistributeCoins:
 
     def doit(self, root):
 
-        self.ans = 0
+        ans = 0
 
-        def search(node):
+        def dfs(node):
+            nonlocal ans
+            if not node: return 0
+            L, R = dfs(node.left), dfs(node.right)
+            ans += abs(L) + abs(R)
+            return node.val + L + R - 1
 
-            if not node:
-                return 0
-
-            l, r = search(node.left), search(node.right)
-
-            self.ans = abs(l) + abs(r)
-
-            return node.val + l + r - 1
-
-        search(root)
-
-        return self.ans
+        dfs(root)
+        return ans
 
 
 if __name__ == '__main__':

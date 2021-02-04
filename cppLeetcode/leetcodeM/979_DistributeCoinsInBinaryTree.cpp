@@ -41,29 +41,23 @@ public:
      Space Complexity: O(H), where HH is the height of the tree.
      */
     
-    int search(TreeNode* n, int& res) {
-        
-        if (!n)
-            return 0;
-        
-        int l = search(n->left, res);
-        int r = search(n->right, res);
-        res += std::abs(l) + std::abs(r);
-        
-        return l + r + n->val - 1;
-    }
-    
     int doit(TreeNode* root) {
         
-        int res = 0;
-        search(root, res);
-        return res;
+        int ans = 0;
+        
+        std::function<int(TreeNode*)> search = [&](TreeNode* node) {
+          
+            if (node == nullptr) return 0;
+            
+            int left = search(node->left), right = search(node->right);
+            
+            ans += abs(left) + abs(right);
+            
+            return left + right + node->val - 1;
+        };
+        
+        search(root);
+        
+        return ans;
     }
 };
-
-void test_979_distribute_coins_binary_tree() {
-    
-    
-}
-
-

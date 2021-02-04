@@ -71,7 +71,7 @@ public:
         if (!root) return 0;
         
         int depth = 0;
-        TreeNode *p = root;
+        TreeNode *p = root->left;
         while (p) {
             depth++;
             p = p->left;
@@ -99,8 +99,11 @@ public:
         };
         
         int left = 1, right = base;
+
         while (left <= right) {
+        
             int mid = left + (right - left) / 2;
+        
             if (search(mid, depth, root)) {
                 left = mid + 1;
             } else {

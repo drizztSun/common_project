@@ -76,7 +76,7 @@ class ShortestBridge:
                     q = [[i, j]]
                     break
 
-        while len(q) > 0:
+        while q:
             x, y = q.pop(0)
             if A[x][y] == 2:
                 continue
@@ -92,8 +92,8 @@ class ShortestBridge:
         # Grow boundary region 'b' until the 2nd island is discovered.
         dst = 0
         while len(b) > 0:
-            n = len(b)
-            for i in range(n):
+            size = len(b)
+            for _ in range(size):
                 x, y = b.pop(0)
 
                 if A[x][y] == 1:
@@ -111,6 +111,7 @@ class ShortestBridge:
 
 
     def shortestBridge(self, A):
+        from collections import deque
         R, C = len(A), len(A[0])
 
         def neighbors(r, c):
@@ -138,9 +139,9 @@ class ShortestBridge:
             return components
 
         source, target = get_components()
-        print source, target
-        queue = collections.deque([(node, 0) for node in source])
+        queue = deque([(node, 0) for node in source])
         done = set(source)
+
         while queue:
             node, d = queue.popleft()
             if node in target: 
