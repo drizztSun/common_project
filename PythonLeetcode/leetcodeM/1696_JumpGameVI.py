@@ -50,9 +50,11 @@ class JumpGameVI:
         Time complexity:O(n^k) => TLE
         Space complexity: O(n)
     """
-    def doit_dp(self, nums: List[int], k: int) -&gt; int:
+    def doit_dp(self, nums: list, k: int) -> int:
+        from functools import lru_cache
+        
         @lru_cache(None)
-        def dp(i: int) -&gt; int:
+        def dp(i: int) -> int:
             return nums[0] if i == 0 else nums[i] + max(dp(j) for j in range(max(0, i - k), i))
         return dp(len(nums) - 1)
     

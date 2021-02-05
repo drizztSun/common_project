@@ -39,16 +39,15 @@ class GraphValidTree:
 
         Recall that a graph, G, is a tree iff the following two conditions are met:
 
-        G is fully connected. In other words, for every pair of nodes in G, there is a path between them.
-        G contains no cycles. In other words, there is exactly one path between each pair of nodes in G.
+        1. G is fully connected. In other words, for every pair of nodes in G, there is a path between them.
+        2. G contains no cycles. In other words, there is exactly one path between each pair of nodes in G.
+        
         Depth-first search is a classic graph-traversal algorithm that can be used to check for both of these conditions:
 
-        G is fully connected if, and only if, we started a depth-first search from a single source and discovered all nodes in G during it.
-        G contains no cycles if, and only if, the depth-first search never goes back to an already discovered node. We need to be careful though not to count trivial cycles of the form A → B → A that occur with most implementations of undirected edges.
-        Depth-first search requires being able to look up the adjacent (immediate neighbours) of a given node. Like many graph interview problems though, the input format we're given doesn't allow us to quickly get the neighbours of a node. Therefore, our first step is to convert the input into an adjacency list. Recall that an adjacency list is where we have a list of sub-lists, where each sub-list is the list of the immediate neighbours for the i'th node.
-
-
-
+        1. G is fully connected if, and only if, we started a depth-first search from a single source and discovered all nodes in G during it.
+        2. G contains no cycles if, and only if, the depth-first search never goes back to an already discovered node. We need to be careful though not to count trivial cycles of the form A → B → A that occur with most implementations of undirected edges.
+        Depth-first search requires being able to look up the adjacent (immediate neighbours) of a given node. Like many graph interview problems though, the input format we're given doesn't allow us to quickly get the neighbours of a node. 
+        Therefore, our first step is to convert the input into an adjacency list. Recall that an adjacency list is where we have a list of sub-lists, where each sub-list is the list of the immediate neighbours for the i'th node.
     """
     def doit_dfs(self, n: int, edges: list) -> bool:
         
@@ -166,8 +165,9 @@ class GraphValidTree:
 
         Going by this definition, our algorithm needs to do the following:
 
-        Check whether or not there are n - 1 edges. If there's not, then return false.
-        Check whether or not the graph is fully connected. Return true if it is, false if otherwise.
+        1. Check whether or not there are n - 1 edges. If there's not, then return false.
+        2. Check whether or not the graph is fully connected. Return true if it is, false if otherwise.
+        
         Recall that the most complicated part of Approach 1 was in checking whether or not the graph contained cycles. This was because in an undirected graph, we needed to be careful of trivial cycles. Checking whether or not a graph is fully connected is straightforward—we simply checked if all nodes were reachable from a search starting at a single node.
 
         Like before, we can can check for connectivity using recursive depth-first search, iterative depth-first search, or iterative breadth-first search. We still need to use a seen set to prevent the algorithm getting caught in an infinite loop if there are indeed cycles (and to prevent looping on the trivial cycles).

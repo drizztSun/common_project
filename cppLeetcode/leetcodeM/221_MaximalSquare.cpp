@@ -1,5 +1,6 @@
-"""
+/*
 221. Maximal Square
+
 
 Given a 2D binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
 
@@ -13,12 +14,16 @@ Input:
 1 0 0 1 0
 
 Output: 4
-"""
+*/
+#include <vector>
 
+using std::vector;
 
-class MaximalSquare:
+class MaximalSquare {
 
-    """
+public:
+
+    /*
         Approach #2 (Dynamic Programming) [Accepted]
         Algorithm
 
@@ -58,31 +63,29 @@ class MaximalSquare:
         Time complexity : O(mn). Single pass.
 
         Space complexity : O(mn). Another matrix of same size is used for dp.
+     
+    */
+    int doit_dp(vector<vector<char>>& matrix) {
 
+        int m = matrix.size(), n = matrix[0].size();
 
-    """
-    def doit_dp(self, matrix):
-        """
-        :type matrix: List[List[str]]
-        :rtype: int
-        """
-        if not matrix:
-            return 0
+        vector<vector<int>> dp(m+1, vector<int>(n+1, 0));
+        int ans = 0;
+        for (int i = 1; i <= m; i++) {
 
-        m, n = len(matrix), len(matrix[0])
-        D = [[0] * (n + 1) for _ in range(m + 1)]
-        ans = 0
+            for (int j = 1; j <= n; j++) {
+                
+                if (matrix[i-1][j-1] == '1') {
+                    dp[i][j] = std::min( std::min(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1]) + 1;
+                    ans = std::max(ans, dp[i][j]);
+                }
+            }
+        }
+        
+        return ans * ans;
+    }
 
-        for i in range(1, m + 1):
-            for j in range(1, n + 1):
-
-                if matrix[i - 1][j - 1] == '1':
-                    D[i][j] = min(D[i - 1][j - 1], D[i][j - 1], D[i - 1][j]) + 1
-                    ans = max(D[i][j], ans)
-
-        return ans ** 2
-
-    """
+    /*
         Approach #3 (Better Dynamic Programming) [Accepted]
         Algorithm
 
@@ -120,34 +123,28 @@ class MaximalSquare:
         Time complexity : O(mn). Single pass.
 
         Space complexity : O(n). Another array which stores elements in a row is used for dp.
+    */
+    int doit_dp(vector<vector<char>>& matrix) {
+
+        int m = matrix.size(), n = matrix[0].size();
+        vector<vector<int>> dp(2, vector<int>(n+1, 0));
+        int ans = 0;
+
+        for (int i = 1; i <= m; i++) {
+            int index = i % 2;
+
+            for (int j = 1; j <= n; j++) {
+                
+                dp[index][j] = 0;
+                
+                if (matrix[i-1][j-1] == '1') {
+                    dp[index][j] = std::min( std::min(dp[1-index][j], dp[index][j-1]), dp[1-index][j-1]) + 1;
+                    ans = std::max(ans, dp[index][j]);
+                }
+            }
+        }
         
-    """
-    def doit_dp_better(self, matrix: list) -> int:
+        return ans * ans;
+    }
 
-        M, N = len(matrix), len(matrix[0])
-        dp = [[0 for _ in range(N+1)] for _ in range(2)]
-        ans = 0
-
-        for i in range(M):
-            index = i % 2
-            for j in range(1, N+1):
-
-                if matrix[i][j-1] == "1":
-                    dp[index][j] = min(dp[1-index][j], dp[index][j-1], dp[1-index][j-1]) + 1
-                else:
-                    dp[index][j] = 0
-
-                ans = max(ans, dp[index][j])
-
-        return ans ** 2
-
-
-if __name__ == '__main__':
-
-    MaximalSquare().doit([["0", "1"]])
-
-    MaximalSquare().doit([["1","1","1","1","1"],
-                          ["1","1","1","1","1"],
-                          ["0","0","0","0","0"],
-                          ["1","1","1","1","1"],
-                          ["1","1","1","1","1"]])
+};

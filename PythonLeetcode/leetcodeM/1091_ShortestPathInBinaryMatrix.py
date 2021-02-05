@@ -176,7 +176,7 @@ class ShortestPathBinaryMatrix:
 
         Therefore, we have a time complexity of O(N)O(N).
 
-        Space complexity : O(N)O(N).
+        Space complexity : O(N).
 
         The only additional space we used was the queue. We determined above that at most, we enqueued NN cells. Therefore, an upper bound on the worst-case space complexity is O(N)O(N).
 
@@ -190,8 +190,7 @@ class ShortestPathBinaryMatrix:
 
         max_row = len(grid) - 1
         max_col = len(grid[0]) - 1
-        directions = [
-            (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
         
         # Helper function to find the neighbors of a given cell.
         def get_neighbours(row, col):
@@ -230,8 +229,7 @@ class ShortestPathBinaryMatrix:
         
         max_row = len(grid) - 1
         max_col = len(grid[0]) - 1
-        directions = [
-            (-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
+        directions = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 1), (1, -1), (1, 0), (1, 1)]
         
         # Helper function to find the neighbors of a given cell.
         def get_neighbours(row, col):

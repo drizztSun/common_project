@@ -111,7 +111,6 @@ class PathWithMinimumEffort:
 
                 x1 = r + direct[i]
                 y1 = c + direct[i+1]
-                
 
                 if 0 <= x1 < m and 0 <= y1 < n:
                     nval = max(val, abs(heights[x1][y1] - heights[r][c]))    
@@ -249,15 +248,15 @@ class PathWithMinimumEffort:
         Let mm be the number of rows and nn be the number of columns for the matrix \text{height}height.
 
         Time Complexity : O(m⋅n). We do a binary search to calculate the mid values and then do Breadth First Search on the matrix for each of those values.
+
         Binary Search: To perform Binary search on numbers in range (0.. 10^{6}), the time taken would be O(log10^6).
 
-        Breath First Search: The time complexity for the Breadth First Search for vertices V and edges E is O(V+E) (Refer) Thus, in the matrix of size m \cdot nm⋅n, with m \cdot nm⋅n vertices and m \cdot nm⋅n edges (Refer time complexity of Approach 3), the time complexity to perform Breath First Search would be \mathcal{O}(m \cdot n + m \cdot n)O(m⋅n+m⋅n) = \mathcal{O}(m \cdot n)O(m⋅n).
+        Breath First Search: The time complexity for the Breadth First Search for vertices V and edges E is O(V+E) (Refer) Thus, in the matrix of size m \cdot nm⋅n, 
+        with m \cdot nm⋅n vertices and m \cdot nm⋅n edges (Refer time complexity of Approach 3), the time complexity to perform Breath First Search would be \mathcal{O}(m \cdot n + m \cdot n)O(m⋅n+m⋅n) = \mathcal{O}(m \cdot n)O(m⋅n).
 
-        This gives us total time complexity as \mathcal{O}(\log10^{6}\cdot(m \cdot n))O(log10 
-        6
-        ⋅(m⋅n)) which is equivalent to \mathcal{O}(m \cdot n)O(m⋅n).
+        This gives us total time complexity as O(log10^6 ⋅(m⋅n)) which is equivalent to O(m⋅n).
 
-        Space Complexity: \mathcal{O}(m \cdot n)O(m⋅n), as we use a queue and visited array of size m \cdot nm⋅n
+        Space Complexity: O(m⋅n), as we use a queue and visited array of size m⋅n
     """
     def doit_bfs_binary_search(self, heights: list) -> int:
         row = len(heights)
@@ -275,7 +274,7 @@ class PathWithMinimumEffort:
                     adjacent_x = x + dx
                     adjacent_y = y + dy
                     if 0 <= adjacent_x < row and 0 <= adjacent_y < col and not visited[adjacent_x][adjacent_y]:
-                        current_difference = abs(heights[adjacent_x][adjacent_y]-heights[x][y])
+                        current_difference = abs(heights[adjacent_x][adjacent_y] - heights[x][y])
                         if current_difference <= mid:
                             visited[adjacent_x][adjacent_y] = True
                             queue.append((adjacent_x, adjacent_y))
@@ -301,9 +300,9 @@ class PathWithMinimumEffort:
 
         Complexity Analysis
 
-        Time Complexity : \mathcal{O}(m \cdot n)O(m⋅n). As in Approach 4. The only difference is that we are using Depth First Search instead of Breadth First Search and have similar time complexity.
+        Time Complexity : O(m⋅n). As in Approach 4. The only difference is that we are using Depth First Search instead of Breadth First Search and have similar time complexity.
 
-        Space Complexity: \mathcal{O}(m \cdot n)O(m⋅n), As in Approach 4. In Depth First Search, we use the internal call stack (instead of the queue in Breadth First Search).
+        Space Complexity: O(m⋅n), As in Approach 4. In Depth First Search, we use the internal call stack (instead of the queue in Breadth First Search).
 
 
     """
@@ -318,10 +317,8 @@ class PathWithMinimumEffort:
             for dx, dy in [[0, 1], [1, 0], [0, -1], [-1, 0]]:
                 adjacent_x = x + dx
                 adjacent_y = y + dy
-                if 0 <= adjacent_x < row and 0 <= adjacent_y < col and not visited[
-                        adjacent_x][adjacent_y]:
-                    current_difference = abs(
-                        heights[adjacent_x][adjacent_y]-heights[x][y])
+                if 0 <= adjacent_x < row and 0 <= adjacent_y < col and not visited[adjacent_x][adjacent_y]:
+                    current_difference = abs(heights[adjacent_x][adjacent_y] - heights[x][y])
                     if current_difference <= mid:
                         visited[adjacent_x][adjacent_y] = True
                         if canReachDestinaton(adjacent_x, adjacent_y, mid):

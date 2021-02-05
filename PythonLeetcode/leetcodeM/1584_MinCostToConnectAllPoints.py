@@ -51,7 +51,7 @@ All pairs (xi, yi) are distinct.
 class MinCostConnectPoints:
 
     """
-        O(n^2)
+        O(n^2) Min Spinning Tree
     """
     def doit_prims(self, points: list) -> int:
 

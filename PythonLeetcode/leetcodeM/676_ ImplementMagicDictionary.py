@@ -88,8 +88,8 @@ Algorithm
 
 Continuing the above thinking, one issue is that 'apply' is not a neighbor with itself, yet it has the same generalized neighbor '*pply'. 
 To remedy this, we'll count how many sources generated '*pply'. 
-If there are 2 or more, then one of them won't be 'apply'. If there is exactly one, we should check that it wasn't 'apply'. 
-In either case, we can be sure that there was some magic word generating '*pply' that wasn't 'apply'.
+1) If there are 2 or more, then one of them won't be 'apply'. If there is exactly one, we should check that it wasn't 'apply'. 
+2) In either case, we can be sure that there was some magic word generating '*pply' that wasn't 'apply'.
 
 Complexity Analysis
 
@@ -127,4 +127,7 @@ class MagicDictionary(object):
         self.count = Counter(nei for word in words for nei in self._genneighbors(word))
 
     def search(self, word):
+        # Continuing the above thinking, one issue is that 'apply' is not a neighbor with itself, yet it has the same generalized neighbor '*pply'. 
+        # To remedy this, we'll count how many sources generated '*pply'. If there are 2 or more, then one of them won't be 'apply'. 
+        # If there is exactly one, we should check that it wasn't 'apply'. In either case, we can be sure that there was some magic word generating '*pply' that wasn't 'apply'.
         return any(self.count[nei] > 1 or self.count[nei] == 1 and word not in self.words for nei in self._genneighbors(word))

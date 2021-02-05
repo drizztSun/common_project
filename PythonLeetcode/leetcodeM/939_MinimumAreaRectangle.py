@@ -79,10 +79,11 @@ class MinAreaRect:
     """
 
     def doit(self, points):
-
+        import collections
         columns = collections.defaultdict(list)
         for x, y in points:
             columns[x].append(y)
+
         lastx = {}
         ans = float("inf")
 
@@ -117,7 +118,6 @@ class MinAreaRect:
     Time Complexity: O(N^2), where N is the length of points.
     Space Complexity: O(N), where H is the height of the tree.
     """
-
     def doit(self, points):
         S = set(map(tuple, points))
         ans = float("inf")

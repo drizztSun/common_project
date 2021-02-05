@@ -50,17 +50,17 @@ For more details, please review the comments made in the implementations.
 
 Complexity Analysis
 
-Time Complexity: Each seat operation is O(P)O(P), (where PP is the number of students sitting), as we iterate through every student.
-Each leave operation is O(P)O(P) (\log PlogP in Java).
+Time Complexity: Each seat operation is O(P), (where PP is the number of students sitting), as we iterate through every student.
+Each leave operation is O(P) (\log PlogP in Java).
 
-Space Complexity: O(P)O(P), the space used to store the positions of each student sitting.
+Space Complexity: O(P), the space used to store the positions of each student sitting.
 
 """
 import bisect
 import heapq
 
 
-class ExamRoom(object):
+class ExamRoom:
     def __init__(self, N):
         self.N = N
         self.students = []
@@ -97,46 +97,7 @@ class ExamRoom(object):
     def leave(self, p):
         self.students.remove(p)
 
-
-class ExamRoom1:
-    def __init__(self, N: int):
-        self._students = []
-        self._ranges = [(-(N-1 - 0 + 1) // 2, 0, N-1)]
-        self.N = N
-
-    def seat(self):
-        _, s, e = heapq.heappop(self._ranges)
-
-        if s == 0:
-            heapq.heappush(self._ranges, (-e // 2, s+1, e))
-            return 0
-        elif e == self.N-1:
-            heapq.heappush(self._ranges, (-(self.N-2 - s + 1) // 2, s, self.N-2))
-            return self.N - 1
-        else:
-            index = (e - s + 1) // 2
-            if index != s:
-                heapq.heappush(self._ranges, (-(index - s + 1) // 2, s, index - 1))
-            if index != e:
-                heapq.heappush(self._ranges, (-(e - index + 1) // 2, index + 1, e))
-            return index
-
-    def leave(self, p):
-        left, right = p, p
-        replic_heap = []
-        for d, s, e in self._ranges:
-            if s == p + 1:
-                right = e
-            if e == p - 1:
-                left = e
-            else:
-                heapq.heappush(replic_heap, (d, s, e))
-
-        heapq.heappush(replic_heap, (left - right - 1, left, right))
-        self._students = replic_heap
-
-
-class ExamRoom2:
+class ExamRoom:
 
     # 每次坐在一个使得第一个满足间距最大的位置
     # 注意两侧的间距相当于无穷即可

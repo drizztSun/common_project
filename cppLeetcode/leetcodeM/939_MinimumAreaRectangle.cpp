@@ -80,7 +80,8 @@ public:
     */
     int doit1(vector<vector<int>>&& points) {
         
-        unordered_map<int, vector<int>> ylines;
+        // unordered_map<int, vector<int>> ylines;
+        map<int, vector<int>> ylines;
         set<int> xs;
         for (auto&c : points) {
             ylines[c[0]].push_back(c[1]);
@@ -88,7 +89,8 @@ public:
         }
         
         int ans = INT_MAX;
-        unordered_map<std::pair<int, int>, int> seen;
+        // unordered_map<std::pair<int, int>, int> seen;
+        map<std::pair<int, int>, int> seen;
         for (auto x : xs) {
             
             std::sort(ylines[x].begin(), ylines[x].end());
@@ -124,8 +126,17 @@ public:
      */
     
     int doit(vector<vector<int>>&& points) {
+
+        auto hash_cord = [](const std::pair<int, int>& c) {
+            return hash<int>()(c.first) ^ hash<int>()(c.second);
+        };
         
-        unordered_set<std::pair<int, int>> pts;
+        auto equal_cord = [](const std::pair<int, int>& a, const std::pair<int, int>& b){
+            return a.first == b.first && a.second == b.second;
+        };
+        
+        unordered_set<std::pair<int, int>, decltype(hash_cord), decltype(equal_cord)> pts;
+        // set<std::pair<int, int>> pts;
         for (auto& c : points)
             pts.insert({c[0], c[1]});
         
@@ -133,8 +144,7 @@ public:
         for (int i = 0; i < points.size(); i++)
             for (int j = 0; j < i; j++) {
                 
-                if (points[i][0] != points[j][0] && points[i][1] != points[j][1]
-                    && pts.count({points[i][0], points[j][1]}) > 0 && pts.count({points[j][0], points[i][1]})) {
+                if (points[i][0] != points[j][0] && points[i][1] != points[j][1] && pts.count({points[i][0], points[j][1]}) > 0 && pts.count({points[j][0], points[i][1]})) {
                     ans = std::min(ans, abs(points[i][0] - points[j][0]) * abs(points[i][1] - points[j][1]));
                 }
             }

@@ -114,7 +114,7 @@ class UnhappyFriends:
         O(n): For the hashtable which links each person to his partner.
         O(n^2): For the list which holds a dictionary of size (n - 1) for each person.
     """
-    def doit_(self, n: int, preferences: list, pairs: list]) -> int:
+    def doit_(self, n: int, preferences: list, pairs: list) -> int:
         person_to_preferences = [None] * n
         unhappy_friends = 0
         

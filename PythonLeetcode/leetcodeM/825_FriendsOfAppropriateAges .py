@@ -47,8 +47,15 @@ class NumFriendRequests:
     """
     def doit_sort_slidingwindow(self, ages: list) -> int:
         import collections
+        # age decreasing by [102, 100, ..., 89, ..., 15, ...]
         c = sorted(collections.Counter(ages).items(), reverse=True)
-        # print(c)
+
+        # B can't be older or too young to be be to friend with A.
+        # age[B] <= 0.5 * age[A] + 7
+        # age[B] > age[A]
+        # age[B] > 100 && age[A] < 100
+
+
         res = 0
         i, j = 0, 1
         acc = 0
@@ -69,6 +76,7 @@ class NumFriendRequests:
             res += c[i][1] * acc
             i += 1
             j = max(j, i + 1)
+
         return res
 
     """

@@ -35,7 +35,7 @@ class SortTheMatrixDiagonally:
 
     Complexity Analysis
 
-    Time complexity: \mathcal{O}(N \times M \times \log (\min(N, M)))O(N×M×log(min(N,M))), where NN is a number of rows and MM is a number of columns.
+    Time complexity: O(N×M×log(min(N,M))), where NN is a number of rows and MM is a number of columns.
     We perform N \times MN×M operations in two nested loops. At each iteration, we push an element into a heap that contains the current diagonal.
     The longest diagonal contains not more than \min(N, M)min(N,M) elements.
 

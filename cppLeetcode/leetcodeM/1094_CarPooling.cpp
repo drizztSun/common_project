@@ -1,10 +1,10 @@
-"""
+/*
 1094. Car Pooling
 
 You are driving a vehicle that has capacity empty seats initially available for passengers.  The vehicle only drives east (ie. it cannot turn around and drive west.)
 
-Given a list of trips, trip[i] = [num_passengers, start_location, end_location] contains information about the i-th trip: the number of passengers that must be picked up, and the locations to pick them up and drop them off. 
-The locations are given as the number of kilometers due east from your vehicle's initial location.
+Given a list of trips, trip[i] = [num_passengers, start_location, end_location] contains information about the i-th trip: the number of passengers that must be picked up, 
+and the locations to pick them up and drop them off.  The locations are given as the number of kilometers due east from your vehicle's initial location.
 
 Return true if and only if it is possible to pick up and drop off all passengers for all the given trips. 
 
@@ -37,39 +37,21 @@ trips[i].length == 3
 0 <= trips[i][1] < trips[i][2] <= 1000
 1 <= capacity <= 100000
 
+*/
+#include <vector>
+#include <map>
+#include <queue>
+#include <algorithm>
 
+using std::priority_queue;
+using std::map;
+using std::vector;
 
-Solution
-Overview
-It is one of the classical problems related to intervals, and we have some similar problems such as Meeting Rooms II at LeetCode. Below, two approaches are introduced: the simple Time Stamp approach, and the Bucket Sort approach.
+class CarPooling {
 
-"""
+public:
 
-
-class CarPooling:
-
-
-    def doit_heap(self, trips: list, capacity: int) -> bool:
-        from heapq import heapify, heappush, heappop
-
-        trips.sort(key=lambda x: x[1])
-        persons, heap = 0, []
-
-        for p, s, e in trips:
-
-            while heap and heap[0][0] <= s:
-                _, dropoff = heappop(heap)
-                persons -= dropoff
-
-            if persons + p > capacity:
-                return False
-
-            heappush(heap, (e, p))
-            persons += p
-
-        return True
-
-    """
+    /*
         Approach 1: Time Stamp
         Intuition
 
@@ -91,27 +73,60 @@ class CarPooling:
 
         Assume NN is the length of trips.
 
-        Time complexity: O(Nlog(N)) since we need to iterate over trips and sort our timestamp. Iterating costs \mathcal{O}(N)O(N), and sorting costs \mathcal{O}(N\log(N))O(Nlog(N)), and adding together we have \mathcal{O}(N) + \mathcal{O}(N\log(N)) = \mathcal{O}(N\log(N))O(N)+O(Nlog(N))=O(Nlog(N)).
+        Time complexity: O(Nlog(N)) since we need to iterate over trips and sort our timestamp. Iterating costs O(N), and sorting costs O(Nlog(N)), and adding together we have O(N)+O(Nlog(N))=O(Nlog(N)).
 
         Space complexity: O(N) since in the worst case we need \mathcal{O}(N)O(N) to store timestamp.
-    """
-    def doit_interval(self, trips: list, capacity: int) -> bool:
-        timestamp = []
-        for trip in trips:
-            timestamp.append([trip[1], trip[0]])
-            timestamp.append([trip[2], -trip[0]])
+    */
+    bool doit_sort(vector<vector<int>>& trips, int capacity) {
 
-        timestamp.sort()
+        vector<std::pair<int, int>> buff;
+        for (const auto& c: trips) {
+            buff.push_back({c[1], c[0]});
+            buff.push_back({c[2], -c[0]});
+        }
 
-        used_capacity = 0
-        for time, passenger_change in timestamp:
-            used_capacity += passenger_change
-            if used_capacity > capacity:
-                return False
+        std::sort(begin(buff), end(buff), [](const auto& a, const auto& b) {
+            return a.first < b.first || (a.first == b.first && a.second < b.second);
+        });
 
-        return True
+        int seats = 0;
+        for (const auto& c: buff) {
+            seats += c.second;
+            if (seats > capacity) return false;
+        }
 
-    """
+        return true;
+    }
+
+    bool doit_heap(vector<vector<int>>& trips, int capacity) {
+
+        std::sort(begin(trips), end(trips), [](const auto& a, const auto& b) {
+            return a[1] < b[1];
+        });
+
+        priority_queue<std::pair<int, int>, vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> heap; 
+
+        int seats = 0;
+        for (const auto& cur : trips) {
+
+            int cnt = cur[0], start = cur[1], stop = cur[2];
+
+            while (!heap.empty() && heap.top().first <= start) {
+                seats -= heap.top().second;
+                heap.pop();
+            }
+
+            seats += cnt;
+
+            if (seats > capacity) return false;
+
+            heap.push({stop, cnt});
+        }
+
+        return true;
+    }
+
+    /*
         Approach 2: Bucket Sort
         Intuition
 
@@ -127,17 +142,22 @@ class CarPooling:
         Algorithm
 
         We will initial 1001 buckets, iterate trip, and save the number of passengers changed at i mile in the i-th bucket.
-    """
-    def doit_interval_sweepline(self, trips: list, capacity: int) -> bool:
-        timestamp = [0] * 1001
-        for trip in trips:
-            timestamp[trip[1]] += trip[0]
-            timestamp[trip[2]] -= trip[0]
+    */
 
-        used_capacity = 0
-        for passenger_change in timestamp:
-            used_capacity += passenger_change
-            if used_capacity > capacity:
-                return False
+    bool doit_sweepline(vector<vector<int>>& trips, int capacity) {
 
-        return True
+        int stops = 2000;
+        vector<int> timelines(stops, 0);
+        for (auto& c : trips) {
+            timelines[c[1]] += c[0];
+            timelines[c[2]] -= c[0];
+        }
+
+        int seats = 0;
+        for (int i = 0; i < timelines.size(); i++) {
+            seats += timelines[i];
+            if (seats > capacity) return false;
+        }
+        return true;
+    }
+};

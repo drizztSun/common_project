@@ -46,6 +46,15 @@ s[0] == '1'
 
 class NumStepsReduce:
 
+    """
+        for exsample, 111100001
+
+        For '1', add 1 and divide 2, +2, 111100010 => 11110001, then remove a 0 by 2 step
+        
+        if there is 11110000, no 1, remove '0' needs by 1 step 
+
+
+    """
     def doit_(self, s: str) -> int:
         
         return len(s) - 1 if s.count('1') == 1 else s.count('0') + s.rfind('1') + 2
