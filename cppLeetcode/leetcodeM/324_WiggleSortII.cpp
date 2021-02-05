@@ -20,7 +20,7 @@ Can you do it in O(n) time and/or in-place with O(1) extra space?
 
 */
 #include <vector>
-
+#include <algorithm>
 using std::vector;
 
 
@@ -39,7 +39,7 @@ public:
     */
     void doit_(vector<int>& nums) {
         vector<int> sorted(nums);
-        sort(sorted.begin(), sorted.end());
+        std::sort(sorted.begin(), sorted.end());
         for (int i=nums.size()-1, j=0, k=i/2+1; i>=0; i--)
             nums[i] = sorted[i&1 ? k++ : j++];
     }
@@ -87,7 +87,7 @@ public:
         
         // Find a median.
         auto midptr = nums.begin() + n / 2;
-        nth_element(nums.begin(), midptr, nums.end());
+        std::nth_element(nums.begin(), midptr, nums.end());
         int mid = *midptr;
         
         // Index-rewiring.

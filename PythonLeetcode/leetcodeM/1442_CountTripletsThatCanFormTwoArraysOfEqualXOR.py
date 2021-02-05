@@ -128,7 +128,8 @@ class CountTriplets:
         for i, a in enumerate(A):
             cur ^= a
             n, total = count.get(cur, [0, 0])
-            res += i * n - total
+
+            res += i * n - total  # There are n A[j {1...n}] == A[i], total is SUM(A[j], j, 1...n), Then we need to calculate i * n - total 
             count[cur] = [n + 1, total + i + 1]
         return res
 
