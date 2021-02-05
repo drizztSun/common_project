@@ -68,7 +68,7 @@ Follow up: Your algorithm should have a linear runtime complexity. Could you imp
 
 Solution
 Overview
-The problem seems to be quite simple and one could solve it in \mathcal{O}(N)O(N) time and \mathcal{O}(N)O(N) space by using an additional data structure like set or hashmap.
+The problem seems to be quite simple and one could solve it in O(N) time and O(N) space by using an additional data structure like set or hashmap.
 
 The real game starts at the moment when Google interviewer (the problem is quite popular at Google the last six months) asks you to solve the problem in a constant space, testing if you are OK with bitwise operators.
 
@@ -117,13 +117,13 @@ class SingleNumberII:
         Approach 3: Bitwise Operators : NOT, AND and XOR
         Intuition
 
-        Now let's discuss \mathcal{O}(1)O(1) space solution by using three bitwise operators
+        Now let's discuss O(1) space solution by using three bitwise operators
 
-        \sim x \qquad \textrm{that means} \qquad \textrm{bitwise NOT}∼xthat meansbitwise NOT
+        ∼x that means bitwise NOT
 
-        x \& y \qquad \textrm{that means} \qquad \textrm{bitwise AND}x&ythat meansbitwise AND
+        x&y that means bitwise AND
 
-        x \oplus y \qquad \textrm{that means} \qquad \textrm{bitwise XOR}x⊕ythat meansbitwise XOR
+        x⊕y that means bitwise XOR
 
         XOR
 
@@ -131,31 +131,49 @@ class SingleNumberII:
 
         XOR of zero and a bit results in that bit
 
-        0 \oplus x = x0⊕x=x
+        0 ⊕ x = x
 
         XOR of two equal bits (even if they are zeros) results in a zero
 
-        x \oplus x = 0x⊕x=0
+        x ⊕ x = 0
 
         and so on and so forth, i.e. one could see the bit in a bitmask only if it appears odd number of times.
 
-        fig
+        Bitmap  000000
+        x = 2   000010
+
+        Bitmap^2 000010
+        B^2^2    000000
+        B^2^2^2  000010
+
+
 
         That's already great, so one could detect the bit which appears once, and the bit which appears three times. The problem is to distinguish between these two situations.
 
-        AND and NOT
+        *** AND and NOT
 
         To separate number that appears once from a number that appears three times let's use two bitmasks instead of one: seen_once and seen_twice.
 
         The idea is to
 
-        change seen_once only if seen_twice is unchanged
+        1) change seen_once only if seen_twice is unchanged
 
-        change seen_twice only if seen_once is unchanged
+        2) change seen_twice only if seen_once is unchanged
 
-        fig
+        
+        x = 2                                               0 0 0 0 0 0 0 0
 
-        This way bitmask seen_once will keep only the number which appears once and not the numbers which appear three times.
+        seen_once = ~seen_twice & (seen_once ^ x)           0 0 0 0 0 0 1 0
+        seen_twice = ~seen_once & (seen_twice ^ x)          0 0 0 0 0 0 0 0
+
+        seen_once = ~seen_twice & (seen_once ^ x)           0 0 0 0 0 0 0 0
+        seen_twice = ~seen_once & (seen_twice ^ x)          0 0 0 0 0 0 1 0
+
+        seen_once = ~seen_twice & (seen_once ^ x)           0 0 0 0 0 0 0 0
+        seen_twice = ~seen_once & (seen_twice ^ x)          0 0 0 0 0 0 0 0
+
+
+        *** This way bitmask seen_once will keep only the number which appears once and not the numbers which appear three times.
 
         Implementation
 

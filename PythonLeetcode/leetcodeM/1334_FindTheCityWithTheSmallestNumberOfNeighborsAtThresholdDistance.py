@@ -73,7 +73,7 @@ class SmallestNumberOFNeighbour:
         Time O(N^3)
         Space O(N^2)
     """
-    def doit_(self, n, edges, maxd):
+    def doit_floyd_warshall(self, n, edges, maxd):
         dis = [[float('inf')] * n for _ in range(n)]
         for i, j, w in edges:
             dis[i][j] = dis[j][i] = w
@@ -100,7 +100,7 @@ class SmallestNumberOFNeighbour:
         # Minimum distance graph between all the cities
         from collections import defaultdict
         from math import inf
-        minDistance = defaultdict(lambda: defaultdict(lambda: math.inf))
+        minDistance = defaultdict(lambda: defaultdict(lambda: inf))
 
         # set the distance from a city to itself to 0
         for i in range(n):
