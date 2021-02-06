@@ -34,12 +34,60 @@
  */
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
+#include <functional>
 
 using std::vector;
 using std::unordered_map;
 
 class StoneGameI {
+
 public:
+
+    /*
+        877.Stone-Game
+        解法1：
+        因为此题的N为偶数，且不会有平局。说明奇数堆的总和，必然与偶数堆的总和不一样。先手玩家可以总是取奇数堆（或者总是取偶数堆），因此可以必胜。
+
+        解法2：
+        当N为奇数时，就没有上述的巧解。对于这种策略型的题目，递归是比较常见的解法。我们设计递归函数int solve(a,b)表示先手玩家来当前面对[a,b]区间时可以得到的最大收益。因为这个游戏的得分是此消彼长的关系，所以先手玩家最终取得胜利的条件就是：
+
+        solve(1,n) > total - solve(1,n);
+        那么这个递归函数怎么往下拆解呢？无非就是遵循游戏规则，有两种决策：
+
+        1. 如果我选择了最左边的石头堆（也就是a），那么对手面临也是同一个最优化的问题，只不过范围不同，即solve(a+1,b)，对手需要在[a+1,b]这个区间内最大化自己的收益。因此我方在[a,b]区间最终能够得到的收益就是sum[a:b] - solve(a+1,b).
+        2. 如果我选择了最右边的石头堆（也就是b），那么对手面临也是同一个最优化的问题，只不过范围不同，即solve(a,b-1)，对手需要在[a,b-1]这个区间内最大化自己的收益。因此我方在[a,b]区间最终能够得到的收益就是sum[a:b] - solve(a,b-1).
+        综上，我方必定会在这两个决策中选择一个能够在[a,b]区间收益更多的方案。这就实现了solve(a,b)的递归。无论是我方还是对方，递归的拆解思路总是相同的。递归的边界条件就是a==b时，这堆石头直接拿走。
+    
+    */
+
+
+
+    
+
+public:
+    bool stoneGame(vector<int>& piles) 
+    {
+        int dp[501][501];
+        std::function<int(int, int)> solve = [&](int a, int b) {
+            if (a==b) 
+                return piles[a];
+            
+            if (dp[a][b]!=0) 
+                return dp[a][b];
+            
+            dp[a][b] = std::max(piles[a]+solve(a+1,b), piles[b]+solve(a,b-1));
+            return dp[a][b];
+        };
+
+        int myBest = solve(0, piles.size()-1);
+        int total = std::accumulate(piles.begin(), piles.end(), 0);
+        return (myBest > total - myBest);
+    }
+
+
+
+
     bool doit_dp_dfs(vector<int>& piles) {
         
         
@@ -52,6 +100,7 @@ public:
         };
         
         auto N = piles.size();
+        // Must profit Alice can get from (a, b)
         unordered_map<std::pair<int, int>, int, decltype(hash), decltype(equal)> dp(0, hash, equal);
         
         std::function<int(int, int)> dfs = [&](int i, int j) {
@@ -66,8 +115,10 @@ public:
            
             int turn = (j - i + 1) % 2;
             if (turn == 0) {
+                // Alice turn, what profit is maximum profit at next range plus Bob gets
                 dp[key] = std::max(piles[i] + dfs(i+1, j), piles[j] + dfs(i, j-1));
             } else {
+                // Bob turn, what proit is maximum profit at next range minus Bob gets
                 dp[key] = std::max(-piles[i] + dfs(i+1, j), -piles[j] + dfs(i, j-1));
             }
            

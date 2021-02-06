@@ -82,6 +82,8 @@ public:
 
         所以本题最优解的时间复杂度是o(N)
 
+        monotonic_queue
+
     */
     int doit_dp(vector<int>& nums, int k) 
     {

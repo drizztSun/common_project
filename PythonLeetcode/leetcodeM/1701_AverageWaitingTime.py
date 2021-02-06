@@ -44,6 +44,21 @@ arrivali <= arrivali+1
 
 
 class AverageWaitingTime:
+
+    def averageWaitingTime(self, customers: list) -> float:
+        
+        t = 0
+        ans = 0
+
+        for arr, dur in customers:
+            if arr >= t:
+                t = arr + dur
+                ans += dur
+            else:
+                ans += (t-arr) + dur
+                t += dur
+        
+        return ans/ len(customers)
     
     def doit_search(self, customers: list) -> float:
 
