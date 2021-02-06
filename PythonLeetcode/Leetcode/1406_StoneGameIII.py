@@ -80,3 +80,28 @@ class StoneGameIII:
             return 'Alice'
         else:
             return 'Bob'
+
+    def doit_dp_bottomup(self, stoneValue: list) -> str:
+
+        i = len(stoneValue) - 1;
+        x, y, z = 0, 0, 0
+
+        while i >= 0:
+
+            ans - float('-inf')
+            ans = max(ans, stoneValue[i] - x)
+
+            if i + 1 < len(stoneValue):
+                ans = max(ans, stoneValue[i] + stoneValue[i+1] - y)
+
+            if i + 2 < len(stoneValue):
+                ans = max(ans, stoneValue[i] + stoneValue[i+1] + stoneValue[i+2] - z)
+
+            z = y
+            y = x
+            x = ans 
+            i -= 1
+
+        if x == 0: return 'Trie'
+
+        return 'Alice' if x > 0 else 'Bob'

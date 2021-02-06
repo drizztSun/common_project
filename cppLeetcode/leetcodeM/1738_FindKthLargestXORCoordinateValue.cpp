@@ -42,6 +42,7 @@ n == matrix[i].length
 
 */
 #include <vector>
+#include <algorithm>
 
 using std::vector;
 
@@ -69,6 +70,30 @@ public:
         }
         
         std::sort(begin(presum), end(presum));
-        return presum[k-1];
+        return presum[m*n - k];
+    }
+
+    int doit_sort(vector<vector<int>>& matrix, int k) {
+        
+        int m = matrix.size(), n = matrix[0].size();
+        vector<int> presum(m*n, 0);
+
+        for (int i = 0; i < m; i++) {
+
+            int local = 0;
+            for (int j = 0; j < n; j++) {
+
+                local ^= matrix[i][j];
+
+                presum[i * n + j] = local;
+
+                if (i > 0)
+                    presum[i *n + j] ^= presum[(i-1)*n + j];
+            }
+        }
+        
+        std::nth_element(begin(presum), end(presum)-k, end(presum));
+        std::sort(end(presum)-k, end(presum));
+        return presum[m*n-k];
     }
 };
