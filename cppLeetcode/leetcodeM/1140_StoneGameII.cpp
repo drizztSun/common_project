@@ -30,7 +30,7 @@
  Constraints:
 
  1 <= piles.length <= 100
- 1 <= piles[i] <= 104
+ 1 <= piles[i] <= 10^4
  
  */
 #include <vector>
@@ -43,20 +43,70 @@ class StoneGameII {
     
  
 public:
+
+    /*
+        1140.Stone-Game-II
+        本题是典型的决策问题。设计solve(i,M)表示当前玩家可以从第i堆石头开始取、所取的堆数的上下限是[1,2M]，那么截止游戏结束所能得到的最大收益。
+
+        假设当前玩家取X堆，那么对手在之后所能得到的最大收益就是solve(i+X, max(X,M))。
+        这就说明，对于当前玩家而言，如果本回合取X堆，根据此消彼长的规则，意味着截止游戏时能得到的最大收益就是sufSum[i] - solve(i+X, max(X,M))。
+        所以为了使solve(i,M)最大，我们必然会取能使sufSum[i] - solve(i+X, max(X,M))最大的X。
+
+        递归的边界条件就是当i==n的时候，玩家不能再取石头，返回零。最终的答案就是solve(0,1)。
+    */
+
+public:
+    int stoneGameII(vector<int>& piles)
+    {
+
+        int dp[101][101];    
+        int sufsum[101];
+
+        int n = piles.size();
+        for (int i=0; i<=100; i++)
+            for (int j=0; j<=100; j++)
+                dp[i][j] = 0;
+
+        sufsum[n] = 0;
+
+        std::function<int(int, int)> solve = [&](int i, int M) {
+
+            if (i==piles.size()) return 0;
+            
+            if (dp[i][M]!=0) return dp[i][M];
+
+            for (int x=1; x<=2*M; x++)
+            {
+                if (i+x>piles.size()) break;
+                dp[i][M] = max(dp[i][M], sufsum[i] - solve(i+x, max(x,M)));
+            }
+            return dp[i][M];
+        }
+
+        for (int i=n-1; i>=0; i--)
+            sufsum[i] = sufsum[i+1]+piles[i];
+        return solve(0, 1, piles);
+    }
+
+
+
+public:
     
     int doit_dp(vector<int>& piles) {
         
         int N = piles.size();
         vector<vector<int>> cache(N, vector<int>(N+1));
         
+        // dp is profit of current turn, Alice or Bob, so one person needs calulate what he gets minus another person's profit 
+        // also we need to cache dp(i, m), to minimize the calculation.
         std::function<int(int, int)> dp = [&](int i, int m) {
           
             if (i == N)
                 return 0;
             
             m = std::min(m, N);
-            if (cache[i][m] > 0)
-                return cache[i][m];
+
+            if (cache[i][m] > 0) return cache[i][m];
             
             if (i + 2 * m >= N)
                 return cache[i][m] = std::accumulate(begin(piles)+i, end(piles), 0);
@@ -72,12 +122,13 @@ public:
         
         int sums = accumulate(begin(piles), end(piles), 0);
         
+        // profit = A - B, A + b = total, so A = (sum + profit) / 2
         return (sums + dp(0, 1)) / 2;
     }
     
     
     vector<int>Sum;
-    vector< vector<int>>dp;
+    vector<vector<int>>dp;
 public:
     
     int find_solution(vector<int>& arr, int index, int n, int X){
@@ -92,8 +143,8 @@ public:
         }
         dp[index][X] = Sum[index] - min_value;
         return dp[index][X];
-        
     }
+
     int stoneGameII(vector<int>& piles) {
         int n = piles.size();
         Sum.resize(n);

@@ -1,5 +1,4 @@
 """
-
 1510. Stone Game IV
 
 Alice and Bob take turns playing a game, with Alice starting first.
@@ -135,7 +134,7 @@ class StoneGameIV:
     Space complexity: O(N) since we need spaces of O(N) to store the result of dfs.
     """
 
-    def doit_dfs(self, n: int) -> bool:
+    def doit_dfs_dp_topdown(self, n: int) -> bool:
         from functools import lru_cache
 
         @lru_cache(maxsize=None)
@@ -188,7 +187,7 @@ class StoneGameIV:
     Space complexity: \mathcal{O}(N)O(N) since we need a dp array.
     
     """
-    def doit_dp(self, n: int) -> bool:
+    def doit_dp_bottomup(self, n: int) -> bool:
         dp = [False]*(n+1)
         for i in range(1, n+1):
             for k in range(1, int(i**0.5)+1):

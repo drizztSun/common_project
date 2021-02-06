@@ -38,5 +38,62 @@ s consists of lowercase English letters.
 
 class MaximumGain:
     
-    def doit_(self, s: str, x: int, y: int) -> int:
+    """
+        1717.Maximum-Score-From-Removing-Substrings
+        此题就是一个简单的贪心法。如果ab的收益比ba大，那么从头到尾我们就尽量删除ab。一遍走完之后，剩下的就一定只是bbbaaa的形式，那么我们就只需要再走一遍删ba了。
+        如果ba的收益比ab大，我们有一个比较巧妙的处理方法。就是将s逆序，并把x和y对换。这样我们依然重用上面的代码，第一遍删ab，第二遍删ba。
+    """
+    def doit_greedy(self, s: str, x: int, y: int) -> int:
+
+        if x < y:
+            x, y = y, x
+            s = reversed(s)
+
+        ans = 0
+        st = []
+        for c in s:
+            st.append(c)
+
+            if len(st) > 1 and st[-2] == 'a' and st[-1] == 'b':
+                ans += x
+                st.pop()
+                st.pop()
+
+        s = ''.join(st)
+        st = []
+        for c in s:
+            
+            st.append(c)
+            if len(st) > 1 and st[-2] == 'b' and st[-1] == 'a':
+                ans += y
+                st.pop()
+                st.pop()
+
+        return ans
+
+    def doit_greedy(self, s: str, x: int, y: int) -> int:
+        
+        def search(target, c1, c2):
+            st = ['.']
+            ans = 0
+            for c in target:
+                if c == c2 and st[-1] == c1:
+                    st.pop()
+                    ans += 1
+                    continue
+                st.append(c)
+            return ''.join(st), ans
+        
+        ans = 0
+        if (x > y):
+            rest, cnt1 = search(s, 'a', 'b')
+            _, cnt2 = search(rest, 'b', 'a')
+            ans = cnt1 * x + cnt2 * y
+        else:
+            rest, cnt1 = search(s, 'b', 'a')
+            _, cnt2 = search(rest, 'a', 'b')
+            ans = cnt1 * y + cnt2 * x
+        
+        return ans
+
         

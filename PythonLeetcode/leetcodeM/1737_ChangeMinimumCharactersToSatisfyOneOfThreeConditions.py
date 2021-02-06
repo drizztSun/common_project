@@ -6,9 +6,10 @@ You are given two strings a and b that consist of lowercase letters. In one oper
 
 Your goal is to satisfy one of the following three conditions:
 
-Every letter in a is strictly less than every letter in b in the alphabet.
-Every letter in b is strictly less than every letter in a in the alphabet.
-Both a and b consist of only one distinct letter.
+* Every letter in a is strictly less than every letter in b in the alphabet.
+* Every letter in b is strictly less than every letter in a in the alphabet.
+* Both a and b consist of only one distinct letter.
+
 Return the minimum number of operations needed to achieve your goal.
 
  
@@ -39,6 +40,17 @@ a and b consist only of lowercase letters.
 
 class MinCharacters:
     
+    """
+        1737.Change-Minimum-Characters-to-Satisfy-One-of-Three-Conditions
+        对于第一个条件，我们只需要枚举所有字母作为borderline，a中所有大于等于该字母的都要改小，b中所有小于该字母的都要改大。这样就可以保证a的每个字母都比b中的小。
+        记录改动的次数，选择需要改动最少的（border line）。特别注意的是，这个borderline不能是字母'a'，因为你无法让b的所有字母比'a'还要小，这是个大坑。
+
+        对于第二个条件，同理，反着做一遍。
+
+        对于第三个条件，我们也只需要枚举所有字母，让a和b中所有非该字母的都做改变。记录改动的次数。
+
+        最终答案是分别三个条件的最少改动次数里选最小的。
+    """
     def doit_(self, a: str, b: str) -> int:
         
         from collections import Counter

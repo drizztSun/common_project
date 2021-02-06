@@ -42,6 +42,21 @@ All elements in nums are distinct.
 
 class TupleSameProduct:
 
+    """
+        Here we take advantage of the fact that there 8 ways to reorganize a tuple of the form (a,b,c,d). I got to this from looking at the sub tuples (a,b) and (c,d) as a pair. 
+        Thus there are 2 ways to rearrange each tuple pair and 2 ways to combine them (either a,b before c,d or a,b after c,d) W.L.O.G. Below is a numbered list view.
+
+        (a,b,c,d)
+        (a,b,d,c)
+        (b,a,c,d)
+        (b,a,d,c)
+        (c,d,a,b)
+        (c,d,b,a)
+        (d,c,a,b)
+        (d,c,b,a)
+        Suppose you have a iterable A of length N such that every pair in that iterable evaluates to X. Then each time you add a new pair to that iterable you are effectively adding N unique possible tuples of the form/order (a,b,c,d). 
+        Consequently, we track those with the count variable and multiply by 8 to get the combination of pairs listed above. Or at least that was my logic that seems to have worked.
+    """
     def doit_hashtable(self, nums: list) -> int:
 
         from collections import defaultdict

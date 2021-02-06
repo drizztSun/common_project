@@ -5,10 +5,12 @@
 
 You are given a string s and two integers x and y. You can perform two types of operations any number of times.
 
-Remove substring "ab" and gain x points.
-For example, when removing "ab" from "cabxbae" it becomes "cxbae".
-Remove substring "ba" and gain y points.
-For example, when removing "ba" from "cabxbae" it becomes "cabxe".
+*Remove substring "ab" and gain x points.
+*For example, when removing "ab" from "cabxbae" it becomes "cxbae".
+
+*Remove substring "ba" and gain y points.
+*For example, when removing "ba" from "cabxbae" it becomes "cabxe".
+
 Return the maximum points you can gain after applying the above operations on s.
 
  
@@ -62,7 +64,7 @@ public:
 
         int ret = 0;
         string t;
-        for (auto ch:s)
+        for (auto ch: s)
         {
             t.push_back(ch);
             while (t.size()>=2 && t.substr(t.size()-2)=="ab")
@@ -74,7 +76,7 @@ public:
         }
 
         string w;
-        for (auto ch:t)
+        for (auto ch: t)
         {
             w.push_back(ch);
             while (w.size()>=2 && w.substr(w.size()-2)=="ba")

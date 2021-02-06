@@ -49,6 +49,15 @@ matrix[i][j] is 0 or 1.
 
 class LargestSubmatrixWithRearrangements:
 
+    """
+        O(m*nlog(n))
+        Higram the matrix
+
+        0, 2, 3 ,2, 1, 3, 0.
+
+        because of arrangement, so we can sort it as 0, 0, 1, 2, 2, 3, 3
+        Then go thought left to right, to calculate area of rectangle
+    """
     def doit_sort_dp(self, matrix: list) -> int:
 
         heights = [0] * len(matrix[0])

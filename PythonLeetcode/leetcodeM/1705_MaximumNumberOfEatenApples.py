@@ -44,7 +44,7 @@ days[i] = 0 if and only if apples[i] = 0.
 class EatenApples:
 
 
-    def eatenApples(self, apples: list, days: list) -> int:
+    def doit_sweepline(self, apples: list, days: list) -> int:
 
         n, m = len(days), 0
         for i, x in enumerate(days):
