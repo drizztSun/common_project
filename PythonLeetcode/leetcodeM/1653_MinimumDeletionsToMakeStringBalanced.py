@@ -58,8 +58,8 @@ class MinimumDeletions:
     def doit_greedy(self, s: str) -> int:
 
         bCnt, res = 0, 0
+
         for c in s:
-            
             if c == 'a' and bCnt > 0:
                 bCnt -= 1
                 res += 1

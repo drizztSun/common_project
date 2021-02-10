@@ -78,7 +78,7 @@ class MinimumHumpsToReachHome:
 
         from collections import deque
         
-        furthest =max(x, max(forbidden)) + a + b
+        furthest = max(x, max(forbidden)) + a + b
         visited = set()
         for c in forbidden:
             visited.add((c, 1))

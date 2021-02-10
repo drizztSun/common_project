@@ -78,25 +78,24 @@ class CountVowelStrings:
         Approach 5: Math
         Intuition and Algorithm
 
-        The problem is a variant of finding Combinations. Mathematically, the problem can be described as, given 5 vowels (let k = 5k=5), we want to find the number of combinations using only nn vowels. Also, we can repeat each of those vowels multiple times.
+        The problem is a variant of finding Combinations. Mathematically, the problem can be described as, given 5 vowels (let k = 5), we want to find the number of combinations using only n vowels. 
+        
+        Also, we can repeat each of those vowels multiple times.
 
-        In other words, from kk vowels (k = 5k=5), we can choose nn vowels with repetition. Denoted as Combination((n,k)), the formulae for Combination with Repetition is given by,        ​	
+        In other words, from k vowels (k = 5), we can choose n vowels with repetition. Denoted as Combination((n,k)), the formulae for Combination with Repetition is given by,        ​	
         
 
-        We know that the kk value is 55 as there are always 55 vowels to choose from. Substituting k as 5 in above formulae,
+        We know that the k value is 5 as there are always 5 vowels to choose from. Substituting k as 5 in above formulae,
         (n+4)⋅(n+3)⋅(n+2)⋅(n+1) / 24
         The derivation can be illustrated as follows.
 
-        img
-
-        Implementation
-
+        Combination(k, n) = (k + n - 1)! / (k-1)! * n!
 
         Complexity Analysis
 
-        Time Complexity: \mathcal{O}(1)O(1), as the approach runs in constant time.
+        Time Complexity: O(1), as the approach runs in constant time.
 
-        Space Complexity: \mathcal{O}(1)O(1), as the approach uses constant extra space.
+        Space Complexity: O(1), as the approach uses constant extra space.
 
     """
     def doit_math(self, n: int) -> int:

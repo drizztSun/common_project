@@ -48,14 +48,120 @@ Constraints:
 #include <numeric>
 #include <queue>
 #include <functional>
+#include <set>
+#include <queue>
 
+using std::priority_queue;
+using std::multiset;
 using std::priority_queue;
 using std::vector;
 
 class ReachFurthestBuilding {
 
 public:
-    
+
+
+    /*
+        1642.Furthest-Building-You-Can-Reach
+        我们会有一个大致的概念：就是遇到跨度大尽量用梯子，遇到跨度小的采用砖头更合算。
+
+        我们现在只考虑需要爬升的楼（下降的楼可以忽略）。如果需要爬升的楼的数目<=ladders，那么是一定是可以到达的。如果我们需要爬升ladders+1座楼的时候，其中必然会有一次需要用到砖头。
+        那么我们是在爬哪一幢楼的时候用砖头呢？显然，是跨度最小的那幢楼。并且一个很重要的结论是：无论未来会遇到什么样的楼（或高或低），这幢依靠砖头去爬的楼一定不会改变当初的决策。为什么呢？因为已经有ladders座楼的跨度比它大了，无论如何，这幢楼都不会有资格去使用梯子。
+
+        具体的算法是：我们逐个遍历楼层，将跨度依次放入一个优先队列中。如果队列的元素数目大于ladders，那么当前最小的元素必然需要用砖头来实现（隐含的意思就是其他元素可以用梯子来实现）。
+        于是砖头的总数减去该跨度，并将该跨度从优先队列中弹出。前进的过程中不断重复这个过程，直至砖头不够用为止。
+
+        O(nlog(n))
+    */
+    int doit_heap(vector<int>& heights, int bricks, int ladders) 
+    {
+        multiset<int> Set;
+        int count = 0;
+        for (int i = 1; i < heights.size(); i++)
+        {
+            if (heights[i] <= heights[i-1])
+                continue;
+
+            if (count < ladders)
+            {                
+                Set.insert(heights[i] - heights[i-1]);
+                count++;
+            }
+            else
+            {
+                Set.insert(heights[i] - heights[i-1]);
+                if (bricks < *Set.begin())
+                    return i-1;
+                bricks -= *Set.begin();
+                Set.erase(Set.begin());                    
+            }
+        }
+        return heights.size()-1;
+    }
+
+    /*
+        Solution 2: Min Heap
+
+        Use a min heap for track all the differences so far.
+
+        Delay decision
+        Always "use" ladder first until we are out of ladders service, than find the smallest one replace it with brick.
+        online method: Heights can be a stream
+
+        Time complexity: O(nlogL)
+        Space complexity: O(L)
+    */
+    int doit_heap(vector<int>& heights, int bricks, int ladders) {
+
+        const int n = heights.size();
+        priority_queue<int, vector<int>, std::greater<int>> q;
+
+        for (int i = 1; i < n; i++) {
+
+            const int diff = heights[i] - heights[i-1];
+
+            if (diff <= 0)
+                continue;
+
+            q.push(diff);
+
+            if (q.size() <= ladders)
+                continue;
+
+            bricks -= q.top();
+            q.pop();
+
+            if (bricks < 0)
+                return i - 1;
+        }
+        return n-1;
+    }
+
+    int doit_heap_1(vector<int>& heights, int bricks, int ladders) {
+
+        priority_queue<int> heap;
+
+        for (int i = 0; i < heights.size() - 1; i++) {
+
+            int diff = heights[i+1] - heights[i];
+            
+            if (diff < 0) continue;
+
+            bricks -= diff;
+            heap.push(diff);
+
+            if (bricks < 0 && ladders == 0) return i;
+
+            if (bricks < 0) {
+                bricks += heap.top(); heap.pop();
+                ladders--;
+            }
+        }
+
+        return heights.size() - 1;
+    }
+
+
     /*
     O(2^n)
     */
@@ -100,25 +206,25 @@ public:
     }
 
     /*
-    Observations:
+        Observations:
 
-    1. ladders >= n-1, ans = n-1
-    2. bricks >= sum(diffs), ans = n-1
-    3. we want to use laders to largest gains and bricks fro smallest ones.
+        1. ladders >= n-1, ans = n-1
+        2. bricks >= sum(diffs), ans = n-1
+        3. we want to use laders to largest gains and bricks fro smallest ones.
 
-    Solutions 1 binary search
+        Solutions 1 binary search
 
-    check whether we can reach to m by:
-    1. Sort all the differences.
-    2. Use ladders for the largest ones
-    3. check the sum of the rest one is <= bricks
+        check whether we can reach to m by:
+        1. Sort all the differences.
+        2. Use ladders for the largest ones
+        3. check the sum of the rest one is <= bricks
 
 
-    Trick: find the smallest index L that we cannot reach, Ans = L - 1
+        Trick: find the smallest index L that we cannot reach, Ans = L - 1
 
-    Time complexity: O(nlogn)
+        Time complexity: O(nlogn)
 
-    Space complexity: O(n)
+        Space complexity: O(n)
     */
     int doit_binary_search(vector<int>& heights, int bricks, int ladders) {
 
@@ -150,44 +256,7 @@ public:
         return l - 1;
     }
 
-    /*
-    Solution 2: Min Heap
 
-    Use a min heap for track all the differences so far.
-
-    Delay decision
-    Always "use" ladder first until we are out of ladders service, than find the smallest one replace it with brick.
-    online method: Heights can be a stream
-
-    Time complexity: O(nlogL)
-    Space complexity: O(L)
-
-    */
-    int doit_heap(vector<int>& heights, int bricks, int ladders) {
-
-        const int n = heights.size();
-        priority_queue<int, vector<int>, std::greater<int>> q;
-
-        for (int i = 1; i < n; i++) {
-
-            const int diff = heights[i] - heights[i-1];
-
-            if (diff <= 0)
-                continue;
-
-            q.push(diff);
-
-            if (q.size() <= ladders)
-                continue;
-
-            bricks -= q.top();
-            q.pop();
-
-            if (bricks < 0)
-                return i - 1;
-        }
-        return n-1;
-    }
 };
 
 

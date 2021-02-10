@@ -76,7 +76,7 @@ class Solution:
                 return p
             
         prev = None
-        while len(parents1) > 0 and len(parents2) and parents1[-1] == parents2[-1]:
+        while len(parents1) > 0 and len(parents2) > 0 and parents1[-1] == parents2[-1]:
             prev = parents1[-1]
             parents1.pop()
             parents2.pop()

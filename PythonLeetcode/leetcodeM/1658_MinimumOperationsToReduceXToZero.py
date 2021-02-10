@@ -189,40 +189,7 @@ class MinOperations:
                 ans = min(ans, len(nums) - right + left - 1)
 
         return -1 if ans == float('inf') else ans
-
-    def doit_dfs_tle(self, nums: list, x: int) -> int:
-        from functools import lru_cache
-        ans = float('inf')
-        N = len(nums)
         
-        @lru_cache(None)
-        def search(i, j, cur):
-            nonlocal ans
-            
-            if cur == 0:
-                ans = min(ans, i + N - j - 1)
-                return
-            
-            if i > j or cur < 0:
-                return    
-            
-            length = i + N - j - 1
-            
-            if length > ans:
-                return
-            
-            if nums[i] > cur and nums[j] > cur:
-                return
-            
-            if nums[i] <= cur:
-                search(i+1, j, cur - nums[i])
-            
-            if nums[j] <= cur:
-                search(i, j-1, cur - nums[j])
-                
-        search(0, len(nums)-1, x)
-        return -1 if ans == float('inf') else ans
-
 
 if __name__ == '__main__':
 

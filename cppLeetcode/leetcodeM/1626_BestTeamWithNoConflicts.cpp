@@ -45,10 +45,52 @@ using std::vector;
 
 
 class BestTimeScore {
+
+
 public:
 
     /*
-    O(n*log(n))
+        1626. Best Team With No Conflicts
+        将所有的队员按照年纪排序之后，我们很容易发现，所选的队员需要按照能力值呈现一个递增的序列。这就和longest increasing subsequence非常相似。只不过我们的objective不是长度，而是sum。
+
+        状态转移方程如下：
+
+        dp[i] = max{dp[j]+score[i]} for all j s.t. age[j]<=age[i]
+    */
+
+    int bestTeamScore(vector<int>& scores, vector<int>& ages) 
+    {
+        int n = scores.size();
+        vector<std::pair<int,int>>players(n);
+
+        vector<int> dp(1000);
+
+        for (int i=0; i<n; i++)
+            players[i] = {ages[i], scores[i]};
+
+        sort(players.begin(), players.end());
+        dp[0] = players[0].second;
+
+        for (int i=1; i<n; i++)
+        {          
+            dp[i] = players[i].second;
+            for (int j=0; j<i; j++)
+            {
+                if ((players[j].first < players[i].first && players[j].second <= players[i].second) || players[j].first == players[i].first)
+                    dp[i] = std::max(dp[i], dp[j]+players[i].second);
+            }                
+        }
+        
+        int ret = 0;
+        for (int i=0; i<n; i++)
+            ret = std::max(ret, dp[i]);
+        
+        return ret;
+    }
+
+
+    /*
+        O(n*log(n))
     */
     int doit_(vector<int>& scores, vector<int>& ages) {
         const int n = scores.size();
@@ -62,10 +104,17 @@ public:
         });
 
         map<int, int> dp = {{0, 0}}; // mapping from player's score to team's score
+
         for (int i = 0; i < n; ++i) {
-            
+            // dp is map, or arry with binary_search solution
+            // log(n) to locate the upper_boumd, then right side is conflict one, because of less age and higher score
             auto t = dp.upper_bound(scores[ind[i]]);
+
+            // take the left one, score less than current, and age younger or equal.
+            // plus the score, it is basic one
             const int may = (--t)->second + scores[ind[i]];
+
+            // 
             t = dp.lower_bound(scores[ind[i]]);
 
             // Every team's score below "may" are suboptimal and can be deleted.
@@ -77,29 +126,34 @@ public:
     }
 
     /*
-    Actually, this problem is to find the maximum sum of increasing subsequence.
-    Very similiar with 300.Longest Increasing Subsequence
+        Actually, this problem is to find the maximum sum of increasing subsequence.
+        Very similiar with 300.Longest Increasing Subsequence
 
-    This problem want both age and score are increasing.
-    We can sort by age and do DP for scores.
-    Sum up, 3 key points:
+        This problem want both age and score are increasing.
+        We can sort by age and do DP for scores.
+        Sum up, 3 key points:
 
-    Create another arr by {age[i], socres[i]} and sorted by age.
-    For each loop, goes back and find maximum for current DP value to it maintain a increasing subsequence.
-    The answer could in any place of the dp array.
-    Time complexity: O(n * n), space complexity: O(n)
+        Create another arr by {age[i], socres[i]} and sorted by age.
+        For each loop, goes back and find maximum for current DP value to it maintain a increasing subsequence.
+        The answer could in any place of the dp array.
+
+        Time complexity: O(n^2), 
+        space complexity: O(n)
     */
     int doit_dp(vector<int>& scores, vector<int>& ages) {
         const int n = scores.size();
         vector<int> dp(n, 0);
         // first: age
         // second: scores
-        vector<std::pair<int, int>> arr(n, {0, 0}); 
+        vector<std::pair<int, int>> arr(n, {0, 0});
+        
         for(int i = 0; i < n; ++i){
             arr[i].first = ages[i];
             arr[i].second = scores[i];
         }
+
         sort(arr.begin(), arr.end());
+        
         int team_score = 0;
         for(int i = 0; i < n; ++i){
             dp[i] = arr[i].second;

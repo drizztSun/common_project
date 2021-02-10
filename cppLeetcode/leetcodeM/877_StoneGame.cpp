@@ -60,15 +60,12 @@ public:
         综上，我方必定会在这两个决策中选择一个能够在[a,b]区间收益更多的方案。这就实现了solve(a,b)的递归。无论是我方还是对方，递归的拆解思路总是相同的。递归的边界条件就是a==b时，这堆石头直接拿走。
     
     */
-
-
-
-    
-
 public:
-    bool stoneGame(vector<int>& piles) 
+    bool doit_dp(vector<int>& piles) 
     {
         int dp[501][501];
+        
+        // 
         std::function<int(int, int)> solve = [&](int a, int b) {
             if (a==b) 
                 return piles[a];
@@ -76,7 +73,7 @@ public:
             if (dp[a][b]!=0) 
                 return dp[a][b];
             
-            dp[a][b] = std::max(piles[a]+solve(a+1,b), piles[b]+solve(a,b-1));
+            dp[a][b] = std::max(piles[a] + solve(a+1,b), piles[b] + solve(a,b-1));
             return dp[a][b];
         };
 
@@ -85,50 +82,74 @@ public:
         return (myBest > total - myBest);
     }
 
+    bool doit_dp_topdown(vector<int>& piles) {
+        const int n = piles.size();
+        
+        vector<vector<int>> m_(n, vector<int>(n, INT_MIN));
+        
+        std::function<int(int, int)> score = [&](int l, int r) {
+            
+            if (l == r) return piles[l];
+            
+            if (m_[l][r] == INT_MIN)
+                m_[l][r] = max(piles[l] - score(l + 1, r), piles[r] - score(l, r - 1));
+            
+            return m_[l][r];
+        };
 
+        return score(0, n - 1) > 0;
+    }
 
+    bool doit_dp_bottomup(vector<int>& piles) {
+
+        const int n = piles.size();
+        
+        vector<vector<int>> dp(n, vector<int>(n, INT_MIN));
+
+        for (int i = 0; i < n; i++)
+            dp[i][i] = piles[i];
+        
+        for (int l = 1; l < n; l++) {
+
+            for (int i = 0; i + l < n; i++) {
+
+                int j = i + l;
+                dp[i][j] = std::max(piles[i] - dp[i+1][j], piles[j] - dp[i][j-1]);
+            }
+        }
+
+        return dp[0][n-1] > 0;
+    }
 
     bool doit_dp_dfs(vector<int>& piles) {
-        
-        
-        auto hash = [](const std::pair<int, int>& a) {
-            return std::hash<int>()(a.first) ^ std::hash<int>()(a.second);
-        };
-        
-        auto equal = [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
-            return a.first == b.first && a.second == b.second;
-        };
-        
-        auto N = piles.size();
-        // Must profit Alice can get from (a, b)
-        unordered_map<std::pair<int, int>, int, decltype(hash), decltype(equal)> dp(0, hash, equal);
-        
+    
+        int n = piles.size();
+        vector<vector<int>> dp(n, vector<int>(n, INT_MIN));
+
         std::function<int(int, int)> dfs = [&](int i, int j) {
             
-            if (i > j)
-              return 0;
+            if (i > j) return 0;
+
+            if (i == j) return piles[i];
             
-            auto key = std::make_pair(i, j);
-            
-            if (dp.count(key) > 0)
-                return dp[key];
+            if (dp[i][j] != INT_MIN) return dp[i][j];
            
             int turn = (j - i + 1) % 2;
             if (turn == 0) {
                 // Alice turn, what profit is maximum profit at next range plus Bob gets
-                dp[key] = std::max(piles[i] + dfs(i+1, j), piles[j] + dfs(i, j-1));
+                dp[i][j] = std::max(piles[i] + dfs(i+1, j), piles[j] + dfs(i, j-1));
             } else {
                 // Bob turn, what proit is maximum profit at next range minus Bob gets
-                dp[key] = std::max(-piles[i] + dfs(i+1, j), -piles[j] + dfs(i, j-1));
+                dp[i][j] = std::max(-piles[i] + dfs(i+1, j), -piles[j] + dfs(i, j-1));
             }
            
-            return dp[key];
+            return dp[i][j];
         };
                                    
         return dfs(0, piles.size() - 1) > 0;
     }
     
-    bool doit_dp(vector<int>& piles) {
+    bool doit_dp_bottomup(vector<int>& piles) {
         
         int n = piles.size();
         vector<vector<std::pair<int,int>>> dp(n, vector<std::pair<int, int>>(n, {0,0}));
@@ -153,13 +174,10 @@ public:
         return dp[0][n-1].first > dp[0][n-1].second;
     }
     
-    bool doit_dp_2(vector<int>& piles) {
+    bool doit_dp_bottomup(vector<int>& piles) {
         
-        auto n=piles.size();
-        int sum=0;
-        for(auto p:piles){
-            sum+=p;
-        }
+        auto n = piles.size();
+        int sum = std::accumulate(begin(piles), end(piles), 0);
         
         vector<vector<int> > dp(piles.size()+1,vector<int>(piles.size()+1));
         

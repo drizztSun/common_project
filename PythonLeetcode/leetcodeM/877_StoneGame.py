@@ -116,16 +116,13 @@ class StoneGame:
         N = len(piles)
 
         @lru_cache(None)
-        def whowins(i, j):
-            if i > j:
-                return 0
-            chance = (j - i + 1) % 2
-            if chance == 0:
-                return max(piles[i] + whowins(i+1, j), piles[j] + whowins(i, j-1))
-            else:
-                return max(-piles[i] + whowins(i+1, j), -piles[j] + whowins(i, j-1))
+        def score(i, j): # The most score people first step can get
 
-        return whowins(0, N - 1) > 0
+            if i > j: return 0
+
+            return max(piles[i] - score(i+1, j), piles[j] - score(i, j-1))
+
+        return score(0, N - 1) > 0
 
     """
     Approach 2: Mathematical

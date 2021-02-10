@@ -146,6 +146,7 @@ class SmallestNumberOFNeighbour:
             dist[start] = 0
             visited = [0] * n
             cnt = 0
+            
             while que:
                 distcity, city = heapq.heappop(que)
                 if visited[city]:

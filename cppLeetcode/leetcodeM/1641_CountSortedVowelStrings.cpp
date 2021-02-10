@@ -30,7 +30,9 @@ Constraints:
 1 <= n <= 50 
 
 */
+#include <vector>
 
+using std::vector;
 
 class CountSortedVowelStrings {
 
@@ -184,6 +186,11 @@ public:
             }
         }
         return dp[n][5];
+    }
+
+    int doit_math(int n) {
+
+        return (n+4) * (n+3) * (n+2) * (n+1) / 24;
     }
 
         

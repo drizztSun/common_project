@@ -42,4 +42,64 @@ class MaxWidthOfVerticalArea:
             max_x = max(max_x, points[i+1][0] - points[i][0])
         return max_x
 
+    def maxWidthOfVerticalArea(self, points: list) -> int:
+        # the widest vertical area is simply the widest difference between any
+        # consequtive points along the x axis.
+        # to resolve the problem we sort the points by their x values
+        # and compute the largest difference between any two consqutive points.
         
+        def quicksort(arr):
+            if len(arr) <= 1:
+                return arr
+            else:
+                pivot = arr[0]
+                left = []
+                right = []
+                rest = arr[1:]
+                for i in rest:
+                    if i <= pivot:
+                        left.append(i)
+                    else:
+                        right.append(i)
+                return quicksort(left)+[pivot]+quicksort(right)
+        
+        
+        def mergeSort(arr):
+            if len(arr) == 1:
+                return arr
+            else:
+                mid = int(len(arr) / 2)
+                left = arr[:mid]
+                right = arr[mid:]
+                return merge(mergeSort(left),mergeSort(right))
+
+        def merge(left, right):
+            merged = []
+            i = 0
+            j = 0
+            while i < len(right) and j < len(left):
+                if right[i] < left[j]:
+                    merged.append(right[i])
+                    i = i+1
+                else:
+                    merged.append(left[j])
+                    j = j+1
+            if i <= len(right)-1:
+                merged = merged + right[i:]
+            elif j <= len(left)-1:
+                merged = merged + left[j:]
+            return merged
+
+
+        
+        x = []
+        for p in points:
+            x.append(p[0])
+
+        sortedPoints = mergeSort(x) # or use quicksort
+       
+        res = 0
+        for i in range(0, len(x)-1):
+            if sortedPoints[i+1] - sortedPoints[i] > res:
+                res = sortedPoints[i+1] - sortedPoints[i]
+        return res

@@ -26,6 +26,40 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
 
 class CheckSubarraySumOfMultipleK:
 
+    """
+        Approach 3: Using HashMap
+        Algorithm
+
+        In this solution, we make use of a HashMap that is used to store the cumulative sums upto the i^{th}i 
+        th
+        index after some processing along with the index ii. The processing done is taking the modulus of the the sum upto the i^{th}i 
+        th
+        index with the given kk. The reasoning behind this will become clear soon.
+
+        We traverse over the given array, and keep on calculating the sum%ksum values upto the current index. Whenever we find a new sum%ksum value, which isn't present in the HashMap already, we make an entry in the HashMap of the form, (sum%k, i)(sum.
+
+        Now, assume that the given sum%ksum value at the i^{th}i 
+        th
+        index be equal to remrem. Now, if any subarray follows the i^{th} element, which has a sum equal to the integer multiple of kk, say extending upto the j^{th}j 
+        th
+        index, the sum value to be stored in the HashMap for the j^{th} index will be: (rem + n*k)%k(rem+n∗k), where nn is some integer > 0. We can observe that (rem + n*k)%k = rem(rem+n∗k), which is the same value as stored corresponding to the i^{th}i 
+        th
+        index.
+
+        From this observation, we come to the conclusion that whenever the same sum%ksum value is obtained corresponding to two indices ii and jj, it implies that sum of elements betweeen those indices is an integer multiple of kk. Thus, if the same sum%ksum value is encountered again during the traversal, we return a \text{True}True directly.
+
+        The slideshow below depicts the process for the array nums: [2, 5, 33, 6, 7, 25, 15] and k=13.
+
+        Current
+        1 / 6
+
+        Complexity Analysis
+
+        Time complexity : O(n). Only one traversal of the array numsnums is done.
+
+        Space complexity : O(min(n,k)). The HashMap can contain upto min(n,k) different pairings.
+
+    """
     def doit_array(self, nums: list[int], k: int) -> bool:
         buff, runningtotals = {0: -1}, 0
 

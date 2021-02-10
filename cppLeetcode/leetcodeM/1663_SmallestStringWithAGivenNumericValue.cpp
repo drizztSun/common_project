@@ -55,7 +55,7 @@ class SmallestString {
 
 public:
 
-    string doit_(int n, int k) {
+    string doit_greedy(int n, int k) {
         // Greedy: for each index from 1 to n, find the smallest character could be inserted.
         // The smallest possible character can be found in this way:
         // 1) Find the value of 26*(n - i) and k - accumulate_sum_so_far, saying n1 and n2.

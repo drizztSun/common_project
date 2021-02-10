@@ -46,6 +46,60 @@ class ConcatenatedBinary:
             res = ((res << int(log2(i))+1) + i) % mod
         return res
 
+
+    """
+        Approach 3: Math (Bitwise Operation)
+        Intuition
+
+        In Approach 2, we still need to spend \mathcal{O}(\log(i))O(log(i)) to find the length of number i. Can we make it faster?
+
+        Of course!
+
+        With bitwise operation, we can check whether a number is the power of 22 in \mathcal{O}(1)O(1). If (x & (x-1)) == 0, then x is the power of 22.
+
+        For example, if x == 4, then x - 1 == 3. Their binary form is 100 (binary) and 011 (binary). All of their bits are different, so the bitwise "and" operation yields 0.
+
+        Figure 3.1
+
+        We only need to increase the length when we meet a power of 22.
+
+        Also, we can use bitwise operations to replace other executions.
+
+        Figure 3.1
+
+        Algorithm
+
+        Step 1: Initialize an integer result to store the final result.
+
+        Step 2: Iterate from 1 to n. For each number i:
+
+        Find the length of the binary representation of the number. Denote by length.
+        Update result to result << length | i.
+        Step 3: Return result.
+
+        Challenge: Can you implement the code yourself without seeing our implementations?
+
+        Implementation
+
+
+        Complexity Analysis
+
+        Time Complexity: \mathcal{O}(n)O(n). We iterate nn numbers, and for each number we spend \mathcal{O}(1)O(1) to add it to the final result.
+
+        Space Complexity: \mathcal{O}(1)O(1), since we do not need any extra data structure.
+    """
+    def doit_(self, n: int) -> int:
+        MOD = 10**9 + 7
+        length = 0  # bit length of addends
+        result = 0   # long accumulator
+        for i in range(1, n + 1):
+            # when meets power of 2, increase the bit length
+            if (i & (i - 1)) == 0:
+                length += 1
+            result = ((result << length) | i) % MOD
+        return result
+
+
     """
     Reference: https://stackoverflow.com/questions/64450456/concatenation-of-binary-representation-of-first-n-positive-integers-in-ologn-t
     The idea is the calculation of the concatenatedBinary in range [a, b), where 2^(t-1) <= a < b <= 2^t can be done 

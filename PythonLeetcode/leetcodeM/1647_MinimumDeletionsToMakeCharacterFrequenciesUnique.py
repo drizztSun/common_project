@@ -70,6 +70,11 @@ class MinimumDeletionsToMakeCharaterFrequenceUnique:
             
         top, ans = heappop(heap)[0], 0
         top = -top
+
+        # In the begining top is max frequency, if any v < top, top = v, v is next frequency.
+        # If v == top, top has been used, so ans + 1, top = v - 1
+        # If there are multiple same v, top = v - 1, and next v > top, then top continue to minus 1. 
+        # 
         while heap:
             v = heappop(heap)[0]
             v = -v

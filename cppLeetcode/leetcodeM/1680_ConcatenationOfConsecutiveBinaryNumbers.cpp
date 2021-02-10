@@ -49,6 +49,64 @@ public:
         }
         return res;
     }
+
+    /*
+        Approach 3: Math (Bitwise Operation)
+        Intuition
+
+        In Approach 2, we still need to spend \mathcal{O}(\log(i))O(log(i)) to find the length of number i. Can we make it faster?
+
+        Of course!
+
+        With bitwise operation, we can check whether a number is the power of 22 in \mathcal{O}(1)O(1). If (x & (x-1)) == 0, then x is the power of 22.
+
+        For example, if x == 4, then x - 1 == 3. Their binary form is 100 (binary) and 011 (binary). All of their bits are different, so the bitwise "and" operation yields 0.
+
+        Figure 3.1
+
+        We only need to increase the length when we meet a power of 22.
+
+        Also, we can use bitwise operations to replace other executions.
+
+        Figure 3.1
+
+        Algorithm
+
+        Step 1: Initialize an integer result to store the final result.
+
+        Step 2: Iterate from 1 to n. For each number i:
+
+        Find the length of the binary representation of the number. Denote by length.
+        Update result to result << length | i.
+        Step 3: Return result.
+
+        Challenge: Can you implement the code yourself without seeing our implementations?
+
+        Implementation
+
+
+        Complexity Analysis
+
+        Time Complexity: \mathcal{O}(n)O(n). We iterate nn numbers, and for each number we spend \mathcal{O}(1)O(1) to add it to the final result.
+
+        Space Complexity: \mathcal{O}(1)O(1), since we do not need any extra data structure.
+    */
+    int doit_(int n ) {
+
+        int mod = 1e9 + 7;
+        int length = 0;
+        long long res = 0;
+
+        for (int i = 1; i <= n; i++) {
+            if ((i & (i-1)) == 0) {
+                length += 1;
+            }
+
+            res = ((res << length) | i) % mod;
+        }
+        return res;
+    }
+
     
     /* Reference: https://stackoverflow.com/questions/64450456/concatenation-of-binary-representation-of-first-n-positive-integers-in-ologn-t
     The idea is the calculation of the concatenatedBinary in range [a, b), where 2^(t-1) <= a < b <= 2^t can be done in roughly O(1) time (or O(log(b-a)) if considering the time to calculate power).

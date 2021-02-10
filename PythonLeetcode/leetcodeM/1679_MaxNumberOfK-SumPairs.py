@@ -54,12 +54,11 @@ class MaxNumberOfKSumPairs:
                 ans += 1
                 
                 if buf[k-c] == 0:
+                    
                     del buf[k-c]
-            
             else:
                 
                 buf[c] += 1
-        
         
         return ans
         

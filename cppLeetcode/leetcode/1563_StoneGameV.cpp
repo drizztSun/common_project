@@ -59,7 +59,7 @@ public:
             dp[i][j] = max(dp[i][j], max(dp[i][k],dp[k+1][j])+rightSum);
         else if (leftSum>rightSum)                    
             dp[i][j] = max(dp[i][j], dp[k+1][j]+rightSum);     
-        dp[i][j]的最终值，就是所有划分区间的可能决策里（即遍历k的位置）的最大值。
+        dp[i][j]的最终值，就是所有划分区间的可能决策里（即遍历k的位置）的最大值。 dp[i][i] = 0, because split 0, 1 two group, oppenent will take 1, left 0 element.
 
         dp的边界值是当区间长度为2的时候，我方的得分只能是较小的那个元素。
 
@@ -70,10 +70,99 @@ public:
         else if (leftSum==rightSum)
             dp[i][j] = max(dp[i][j], max(solve(i,k),solve(k+1,j))+rightSum);
         else if (leftSum>rightSum)                    
-            dp[i][j] = max(dp[i][j], solve(k+1,j)+rightSum);            
-        这种方法能AC的原因在于，当leftSum<rightSum的时候，只需要向下递归solve(i,k)而不需要向下递归solve(k+1,j)，可以省略一些分支。而bottom-up的DP写法，则需要计算出任意两点区间的dp值。
+            dp[i][j] = max(dp[i][j], solve(k+1,j)+rightSum);
+
+        这种方法能AC的原因在于，当leftSum < rightSum or leftSum > rightSum 的时候，只需要向下递归solve(i,k)而不需要向下递归solve(k+1,j) or solve(solve(i, k)，可以省略一些分支。而bottom-up的DP写法，则需要计算出任意两点区间的dp值。
+
+        这里 Topdown （recursive + memo） 可以省略一些分支。 当leftSum < rightSum or leftSum > rightSum 的时候，只需要向下递归solve(i,k)而不需要向下递归solve(k+1,j) or solve(solve(i, k)。
+        在 Bottomup 情形下， 这些 dp[i][k] 和 dp[k+1][j] 都会毫无保留的在for-loop 中被计算。 
+
     */
+    int stoneGameV(vector<int>& stoneValue) 
+    {
+        int dp[501][501];
+        int presum[501];
+
+        int n = stoneValue.size();
+        stoneValue.insert(stoneValue.begin(),0);
+        presum[0] = 0;
+        for (int i=1; i<=n; i++)
+            presum[i] = presum[i-1]+stoneValue[i];
+        
+        for (int i=0; i<501; i++)
+            for (int j=0; j<501; j++)
+                dp[i][j] = 0;
+        
+        for (int i=1; i<=n-1; i++)
+            dp[i][i+1] = std::min(stoneValue[i], stoneValue[i+1]);
+
+
+        std::function<int(int, int)> solve =[&](int i, int j) {   
+            
+            if (dp[i][j] != 0) return dp[i][j];
+            if (i >= j) return 0;
+            
+            for (int k=i; k<j; k++)
+            {
+                int leftsum = presum[k] - presum[i-1];
+                int rightsum = presum[j] - presum[k];
+                if (leftsum > rightsum)
+                    dp[i][j] = max(dp[i][j], rightsum + solve(k+1,j));
+                else if (leftsum < rightsum)
+                    dp[i][j] = max(dp[i][j], leftsum + solve(i,k));
+                else
+                    dp[i][j] = max(dp[i][j], leftsum + max(solve(i,k), solve(k+1,j)));
+            }
+            
+            return dp[i][j];
+        };
+        
+        return solve(1,n);
+    }
     
+    int stoneGameV(vector<int>& stoneValue) 
+    {
+        int presum[501];
+        int dp[501][501];
+
+        int n = stoneValue.size();
+        stoneValue.insert(stoneValue.begin(),0);        
+        
+        presum[0] = 0;
+        for (int i=1; i<=n; i++)
+            presum[i] = presum[i-1]+stoneValue[i];                
+        
+        for (int i=1; i<=n; i++)
+            for (int j=1; j<=n; j++)
+                dp[i][j] = 0;
+        
+        for (int i=1; i<=n-1; i++)
+            dp[i][i+1] = std::min(stoneValue[i], stoneValue[i+1]);        
+        
+        for (int len = 3; len <= n; len++)
+        {
+            for (int i=1; i+len-1<=n; i++)
+            {
+                int j = i+len-1;
+                
+                for (int k=i; k<j; k++)
+                {
+                    int leftSum = presum[k]-presum[i-1];
+                    int rightSum = presum[j]-presum[k];
+
+                    if (leftSum < rightSum)
+                        dp[i][j] = std::max(dp[i][j], dp[i][k]+leftSum);
+                    else if (leftSum == rightSum)
+                        dp[i][j] = std::max(dp[i][j], std::max(dp[i][k], dp[k+1][j]) + rightSum);
+                    else if (leftSum > rightSum)                    
+                        dp[i][j] = std::max(dp[i][j], dp[k+1][j] + rightSum);                                            
+                }
+            }
+        }
+        
+        return dp[1][n];
+    }
+
     /*
      Q: What if I don't know the optimal partition?
      A: Try all possible partitions
@@ -100,9 +189,51 @@ public:
     
      Time complexity: O(n^2) * O(n) = O(n^3)
      Space complexity: O(n^2)
-     */
-    
-    int doit_dp(vector<int>& stoneValue) {
+
+        dp[l][r] := max store Alice can get from range [l, r]
+        sum_l = sum(l, k), sum_r = sum(k + 1, r)
+        dp[l][r] = max{
+        dp[l][k] + sum_l if sum_l < sum_r
+        dp[k+1][r] + sum_r if sum_r < sum_l
+        max(dp[l][k], dp[k+1][r])) + sum_l if sum_l == sum_r)
+        } for k in [l, r)
+
+        Time complexity: O(n^3)
+        Space complexity: O(n^2)
+    */
+    int doit_dp_buttomup(vector<int>& stoneValue) {
+        // huahua
+        const int n = stoneValue.size();
+        
+        vector<int> sums(n + 1);
+        for (int i = 0; i < n; ++i)
+            sums[i + 1] = sums[i] + stoneValue[i];
+        
+        vector<vector<int>> cache(n, vector<int>(n, -1));
+
+        // max value alice can get from range [l, r]
+        std::function<int(int, int)> dp = [&](int l, int r) {
+            if (l == r) return 0;
+            int& ans = cache[l][r];
+            if (ans != -1) return ans;
+
+            for (int k = l; k < r; ++k) {
+                // left: [l, k], right: [k + 1, r]
+                int sum_l = sums[k + 1] - sums[l];
+                int sum_r = sums[r + 1] - sums[k + 1];
+                if (sum_l > sum_r)
+                    ans = max(ans, sum_r + dp(k + 1, r));
+                else if (sum_l < sum_r)
+                    ans = max(ans, sum_l + dp(l, k));
+                else
+                    ans = max(ans, sum_l + max(dp(l, k), dp(k + 1, r)));
+            }      
+            return ans;
+        };
+        
+        return dp(0, n - 1);
+    }
+    int doit_dp_topdown(vector<int>& stoneValue) {
         
         int N = stoneValue.size();
         vector<int> sums(N+1);
@@ -153,7 +284,7 @@ public:
      In all my codes, I am building the dp table bottom-up i.e. dp[0][1], dp[1][2] gets calculated before dp[0][2].
      
      */
-    int doit_dp_1(vector<int>&& stoneValue) {
+    int doit_dp_bottomup(vector<int>&& stoneValue) {
 
         int N = stoneValue.size();
         vector<int> sums(N+1);
@@ -267,6 +398,8 @@ public:
                     dp[i][j] = std::max(left[i][k], right[k+1][j]);
                     
                 } else {
+                    // k is the first point left > right, so need to compare left[i][k-1], right[k+1][j], both of them are less than half of total.
+                    // k == i or k == j
                     dp[i][j] = std::max(k == i ? 0: left[i][k-1], k == j ? 0 : right[k+1][j]);
                 }
                 
@@ -294,18 +427,19 @@ public:
      Using this idea, we implement the final solution. Couple of pointers about my code:
 
      1) mid: represents k' or first index such that left half >= right half
-     2) with i < j, max[i][j] represents left[i][j] of previous solution i.e. max(dp[i][i], dp[i][i+1], dp[i][i+2] .. dp[i][j]) and max[j][i] represents right[i][j] of previous solution i.e.
-                max(dp[i][j], dp[i+1][j], dp[i+2][j] .. dp[j][j]). We could have used two different arrays left and right just like previous solution but this trick saves space.
-     3) I am traversing in the order: dp[j][j], dp[j-1,j], dp[j-2, j], .., dp[i][j] instead of the above mentioned order but the idea remains same.
-
-     
-     */
     
+     2) with i < j, max[i][j] represents left[i][j] of previous solution i.e. max(dp[i][i], dp[i][i+1], dp[i][i+2] .. dp[i][j]) and 
+                    max[j][i] represents right[i][j] of previous solution i.e.max(dp[i][j], dp[i+1][j], dp[i+2][j] .. dp[j][j]). 
+        We could have used two different arrays left and right just like previous solution but this trick saves space.
+     
+     3) I am traversing in the order: dp[j][j], dp[j-1,j], dp[j-2, j], .., dp[i][j] instead of the above mentioned order but the idea remains same.
+ 
+    */
     int doit_dp_3(vector<int>& stoneValue) {
-        
+         
         int N = stoneValue.size();
         vector<vector<int>> dp(N, vector<int>(N));
-        vector<vector<int>> maxv(N, vector<int>(N));
+        vector<vector<int>> maxv(N, vector<int>(N)); // left i < j, right j > i
         
         for (int i = 0; i < N; i++) {
             maxv[i][i] = stoneValue[i];
@@ -387,11 +521,3 @@ public:
     return D[1][N] - sum[1][N];
   }
 };
-
-
-
-void test_1563_stone_game_v() {
-        
-    StoneGameV().doit_dp_1(vector<int>{6, 2, 3, 4, 5, 5});
-    
-}

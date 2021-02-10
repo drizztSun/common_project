@@ -35,8 +35,9 @@
  */
 #include <vector>
 #include <numeric>
+#include <unordered_map>
 
-
+using std::unordered_map;
 using std::vector;
 
 class StoneGameII {
@@ -54,9 +55,7 @@ public:
 
         递归的边界条件就是当i==n的时候，玩家不能再取石头，返回零。最终的答案就是solve(0,1)。
     */
-
-public:
-    int stoneGameII(vector<int>& piles)
+    int doit_dp(vector<int>& piles)
     {
 
         int dp[101][101];    
@@ -81,14 +80,54 @@ public:
                 dp[i][M] = max(dp[i][M], sufsum[i] - solve(i+x, max(x,M)));
             }
             return dp[i][M];
-        }
+        };
 
         for (int i=n-1; i>=0; i--)
             sufsum[i] = sufsum[i+1]+piles[i];
-        return solve(0, 1, piles);
+
+        return solve(0, 1);
     }
 
+    /*
+        Constraints:
+        1 <= piles.length <= 100
+        1 <= piles[i] <= 10 ^ 4
+        Solution: Recursion + Memoization
+        def solve(s, m) = max diff score between two players starting from s for the given M.
 
+        cache[s][M] = max{sum(piles[s:s+x]) – solve(s+x, max(x, M)}, 1 <= x <= 2*M, s + x <= n
+
+        Time complexity: O(n^3), s->n, m->n, 
+        Space complexity: O(n^2)
+    */
+    int doit_dp_topdown(vector<int>& piles) {
+        // huahua
+
+        const int n = piles.size();
+        unordered_map<int, int> cache;
+
+        // Maximum diff starting from piles[s] given M.
+        std::function<int(int, int)> solve = [&](int s, int M) {
+            if (s >= n) return 0;
+
+            const int key = (s << 8) | M; // state compress
+            
+            if (cache.count(key)) return cache[key];
+            
+            int best = INT_MIN;
+            int curr = 0;
+            
+            for (int x = 1; x <= 2 * M; ++x) {
+                if (s + x > n) break;
+                curr += piles[s + x - 1];
+                best = max(best, curr - solve(s + x, max(x, M)));
+            }
+            
+            return cache[key] = best;
+        };    
+        int total = accumulate(begin(piles), end(piles), 0);
+        return  (total + solve(0, 1)) / 2;
+    }
 
 public:
     
@@ -124,42 +163,5 @@ public:
         
         // profit = A - B, A + b = total, so A = (sum + profit) / 2
         return (sums + dp(0, 1)) / 2;
-    }
-    
-    
-    vector<int>Sum;
-    vector<vector<int>>dp;
-public:
-    
-    int find_solution(vector<int>& arr, int index, int n, int X){
-        if(index >= n)
-            return 0;
-        if(dp[index][X] != -1)
-            return dp[index][X];
-        
-        int min_value = Sum[index];
-        for(int k=index; k< index + 2 * X && k <n ; k++){
-            min_value = std::min(min_value, find_solution(arr, k+1, n, std::max(k-index+1, X)));
-        }
-        dp[index][X] = Sum[index] - min_value;
-        return dp[index][X];
-    }
-
-    int stoneGameII(vector<int>& piles) {
-        int n = piles.size();
-        Sum.resize(n);
-        dp.resize(n);
-        for(int i=0;i<n;i++)
-            dp[i].resize(n);
-        
-        for(int i=0;i<n;i++)
-            for(int j=0;j<n;j++)
-                dp[i][j] = -1;
-        
-        Sum[n-1] = piles[n-1];
-        for(int i=n-2; i>=0; i--)
-            Sum[i] = Sum[i+1] + piles[i];
-        return find_solution(piles, 0, n, 1);
-        
     }
 };

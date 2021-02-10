@@ -54,7 +54,7 @@ Constraints:
 
 class StoneGameIII:
 
-    def doit_dfs_greedy(self, stoneValue: list) -> str:
+    def doit_dfs_topdown(self, stoneValue: list) -> str:
         from functools import lru_cache
 
         @lru_cache(None)
@@ -81,14 +81,32 @@ class StoneGameIII:
         else:
             return 'Bob'
 
+    """
+        dp(i) := max relative score the current player can get if start the game from the i-th stone.
+
+        dp(i) = max(sum(values[i:i+k]) – dp(i + k)) 1 <= k <= 3
+
+        Time complexity: O(n)
+        Space complexity: O(n)
+    """
+    def stoneGameIII(self, stoneValue: list) -> str:
+        n = len(stoneValue)
+        stoneValue += [0, 0, 0]
+        dp = [-10**9] * n + [0, 0, 0]
+        
+        for i in range(n - 1, -1, -1):
+            for k in (1, 2, 3):
+                dp[i] = max(dp[i], sum(stoneValue[i:i+k]) - dp[i+k])    
+        return "Alice" if dp[0] > 0 else "Bob" if dp[0] < 0 else "Tie"
+
     def doit_dp_bottomup(self, stoneValue: list) -> str:
 
         i = len(stoneValue) - 1;
-        x, y, z = 0, 0, 0
+        x, y, z = 0, 0, 0 # x 1 stone, y 2 stones, z 3 stones 
 
         while i >= 0:
 
-            ans - float('-inf')
+            ans = float('-inf')
             ans = max(ans, stoneValue[i] - x)
 
             if i + 1 < len(stoneValue):

@@ -70,7 +70,8 @@ public:
 
         对于当前决策而言，玩家有三种选择，拿走第1堆，拿走2堆，拿走3堆。
 
-        我们分析第一种情况，玩家当前只拿走一堆，那么玩家可以收益stones[i+1]。接下来对手面临的问题是：已经有i+1对石头被拿走的情况下，在后续的操作中最多能拿多少分？显然对手的答案有着相同的定义，就是dp[i+1]。同时，这意味着，对手获取dp[i+1]的同时，我方能够获取的分数就是sum[i+2:n]-dp[i+1]。所以，退回到玩家的当前状态，说明如果玩家当前只拿走一堆，那么玩家的总收益就是 dp[i] = stones[i+1] + sum[i+2:n]-dp[i+1]
+        我们分析第一种情况，玩家当前只拿走一堆，那么玩家可以收益stones[i+1]。接下来对手面临的问题是：已经有i+1对石头被拿走的情况下，在后续的操作中最多能拿多少分？显然对手的答案有着相同的定义，就是dp[i+1]。
+        同时，这意味着，对手获取dp[i+1]的同时，我方能够获取的分数就是sum[i+2:n]-dp[i+1]。所以，退回到玩家的当前状态，说明如果玩家当前只拿走一堆，那么玩家的总收益就是 dp[i] = stones[i+1] + sum[i+2:n]-dp[i+1]
 
         以上的结论可以推广到：玩家当前决定拿走k堆。那么该轮玩家的收益是stones[i+1:i+k]。对手之后的总收益是dp[i+k]，此消彼长，玩家之后的总收益就是sum[i+k+1:n]-dp[i+k]。所以当前决策所对应的玩家总收益就是dp[i] = stones[i+1:i+k] + sum[i+k+1:n]-dp[i+1]
 
@@ -99,7 +100,7 @@ public:
             {
                 if (i+k>n) break;
                 sum += stoneValue[i+k];
-                dp[i] = max(dp[i], sum + presum[n]-presum[i+k]-dp[i+k]);
+                dp[i] = std::max(dp[i], sum + presum[n]-presum[i+k]-dp[i+k]);
             }
         }
 
@@ -109,6 +110,38 @@ public:
             return "Bob";
         else
             return "Tie";
+    }
+
+    /*
+        dp(i) := max relative score the current player can get if start the game from the i-th stone.
+
+        dp(i) = max(sum(values[i:i+k]) – dp(i + k)) 1 <= k <= 3
+
+        Time complexity: O(n)
+        Space complexity: O(n)
+    */
+    string stoneGameIII(vector<int>& stoneValue) {
+        // huahua
+
+        const int n = stoneValue.size();
+        vector<int> mem(n, INT_MIN);
+        
+        // Maximum `relative score` the current player can achieve
+        // if start from the i-th stone.
+        std::function<int(int)> dp = [&](int i) {
+            if (i >= n) return 0; // end of game.
+            if (mem[i] != INT_MIN) return mem[i];      
+            for (int j = 0, s = 0; j < 3 && i + j < n; ++j) {
+                s += stoneValue[i + j];
+                // s - dp(.) to get `relative score`.
+                mem[i] = max(mem[i], s - dp(i + j + 1));
+            }
+
+            return mem[i];
+        };
+    
+        const int score = dp(0);    
+        return score > 0 ? "Alice" : (score == 0 ? "Tie" : "Bob");
     }
 
     string doit_dp_topdown(vector<int>& stoneValue) {
@@ -150,23 +183,20 @@ public:
             
             int ans = INT_MIN;
             
-            ans = max( ans , stone[i] - x);
+            ans = std::max( ans , stone[i] - x);
             
             if (i+1 < stone.size()) 
-                ans = max( ans , stone[i] + stone[i+1] - y);
+                ans = std::max( ans , stone[i] + stone[i+1] - y);
         
             if (i+2 < stone.size()) 
-                ans = max( ans , stone[i]+ stone[i+1] + stone[i+2] - z);
+                ans = std::max( ans , stone[i]+ stone[i+1] + stone[i+2] - z);
         
             z = y;
             y = x;
             x = ans;
             i--;
         }
-        
-        int a = x;
-        if( a > 0)return "Alice";
-        if( a == 0) return "Tie";
-        return "Bob";
+
+        return x == 0 ? "Tie" : (x > 0 ? "Alice" : "Bob");
     }
 };

@@ -75,6 +75,9 @@ class SellDiminishingValuedColoredBalls:
 
         return int(res)
 
+    """"
+        One by one to fill the target will cause too much, like [10000000], 10000000
+    """
     def doit_heap_lte(self, inventory: list, orders: int) -> int:
         from heapq import heapify, heappush, heappop
 

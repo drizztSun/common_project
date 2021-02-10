@@ -50,14 +50,15 @@ class MinimumMovesToArrayComplementary:
 
         N = len(nums)
         delta = [0 for _ in range(2 * limit + 2)]
-        res = N
+        res = N #maximum move
 
         for i in range(N//2):
+            # calclulate we don't need to move
             a, b = nums[i], nums[N - i - 1]
-            delta[a + b] -= 1
-            delta[a + b + 1] += 1
-            delta[min(a+1, b+1)] -= 1
-            delta[max(a + limit, b + limit) + 1] += 1
+            delta[a + b] -= 1 # no change
+            delta[a + b + 1] += 1 # no change end
+            delta[min(a+1, b+1)] -= 1 # change one to 1 start
+            delta[max(a + limit, b + limit) + 1] += 1 # change one to limit end
 
         for i in range(2, 2 * limit + 2):
             N += delta[i]

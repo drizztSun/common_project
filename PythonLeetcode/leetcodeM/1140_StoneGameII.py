@@ -38,7 +38,7 @@ Constraints:
 
 class StoneGameII:
 
-    def doit_dp(self, piles: list) -> int:
+    def doit_dp_topdown(self, piles: list) -> int:
 
         dp = {}
         N = len(piles)
@@ -68,7 +68,7 @@ class StoneGameII:
         #  a + b = T, a - b = r, so (T + r) // 2 == a
         return (sum(piles) + build(0, 1)) // 2
 
-    def stoneGameII(self, A):
+    def doit_dp_topdown(self, A):
 
         N = len(A)
         for i in range(N - 2, -1, -1):
