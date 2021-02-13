@@ -47,30 +47,116 @@
 #include <vector>
 #include <set>
 #include <unordered_map>
+#include <algorithm>
+#include <map>
 
 using std::set;
 using std::vector;
 using std::unordered_map;
+using std::map;
 
 
 class JobScheduling {
     
 public:
+
+    /*
+        1235.Maximum-Profit-in-Job-Scheduling
+        考虑到我们最终选取的区间必须是non-overlapping的，所以根据经验，我们按照endTime对区间进行排序。
+
+        假设我们按照如上排序后的顺序，遍历每个区间。我们会想，如果我们选择了第i个区间的话，那么我们就有机会更新这么一个记录dp[endTime[i]]，其中dp[t]表示截至t时刻的最大收益。显然，我们会有dp[endTime[i]] = dp[startTime[i]]+profit[i].这像不像DP的思想？
+
+        当然，我们不可能在dp里存放每一个时刻的最大收益，我们只能离散化存放每一个endTime时刻的最大收益。也就是说，dp应该是一个哈希表。因此，可能dp记录里并没有startTime[i]，但我们只需要找到最后一个小于等于startTime[i]的时刻即可，记为t，对应的dp[t]=val。
+        特别注意，我们试图记录dp[endTime[i]] = val+profit[i]的时候，前提条件是val + profit[i]一定要比dp里面最后时刻的收益还要大。也就是说，我们在dp里面只存放按收益递增的time->profit键值对。
+        事实上，这也合情合理，如果t0<t1，且dp[t0]>dp[t1]的话，t1并没有必要塞入这个dp数组里面（既浪费了时间反而收益下降）。
+
+        于是我们的算法就呼之欲出了。对于当前的区间i，我们在dp数组（或者有序的map）里面考察在startTime[i]时刻之前的最大收益val，我们可以通过二分法得到。接下来，我们就有机会添加dp[endTime[i]] = val+profit[i]。
+        注意，如果dp[endTime[i]]的最优解还有另外一个可能，就是不取第i个区间，这样的话dp[endTime[i]]=dp[endTime[i-1]]。
+
+        有了这样一个在时间和收益上都是递增的序列dp，我们就可以不断追加dp[endTime[i]]的记录，来创建更新的时刻的最大收益。
+    */
+    static bool cmp(vector<int>&a, vector<int>&b)
+    {
+        return a[1] < b[1];
+    }
+
+public:
+    int doit_dp(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) 
+    {
+        int n = startTime.size();
+        vector<vector<int>>jobs;
+        for (int i=0; i<n; i++)
+            jobs.push_back({startTime[i],endTime[i],profit[i]});
+        
+        sort(jobs.begin(), jobs.end(), cmp);
+        map<int,int> dp;
+        dp[-1] = 0;
+
+        int ret = 0;
+        for (int i=0; i<n; i++)
+        {            
+            int ans = ret;
+            auto iter = dp.upper_bound(jobs[i][0]);
+            ans = std::max(ans, std::prev(iter,1)->second + jobs[i][2]);
+            dp[jobs[i][1]] = ans;
+
+            ret = std::max(ret, ans);
+        }
+
+        return ret;
+    }
+
+    int doit_dp_1(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) 
+    {
+        int n = startTime.size();
+        vector<vector<int>>jobs;
+        for (int i=0; i<n; i++)
+            jobs.push_back({startTime[i],endTime[i],profit[i]});
+
+        sort(jobs.begin(), jobs.end(), cmp);
+        vector<std::pair<int,int>>dp;
+        dp.push_back({-1,0});
+
+        int ret = 0;
+        for (int i=0; i<n; i++)
+        {            
+            int ans = ret;
+            auto iter = upper_bound(dp.begin(), dp.end(), std::make_pair(jobs[i][0], INT_MAX));
+            ans = std::max(ans, std::prev(iter,1)->second + jobs[i][2]);            
+            dp.push_back({jobs[i][1], ans});
+
+            ret = std::max(ret, ans);
+        }
+
+        return ret;
+    }
+
+
     
     struct box{
         int s, e, p;
     };
-
     
-    int dpot_dp(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+    int doit_dp(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
         
+        auto n = startTime.size();
+        if(n == 0)
+           return 0;
+       
+        vector<box> task(n);
+        for(auto i=0; i<n; i++){
+            task[i].s = startTime[i];
+            task[i].e = endTime[i];
+            task[i].p = profit[i];
+        }
+
         auto comp = [](box const& b1, box const &b2){
             if(b1.e == b2.e)
                 return b1.p > b2.p;
             return b1.e < b2.e;
         };
-        
-        auto binary = [](box task[], int l, int r, int target){
+
+        auto binary_search = [&](int l, int r, int target){
             int res = -1;
             int mid;
             while(l<=r){
@@ -85,26 +171,14 @@ public:
             }
             return res;
         };
-        
-        
-        auto n = startTime.size();
-        if(n == 0)
-           return 0;
        
-        box task[n];
-        for(auto i=0; i<n; i++){
-            task[i].s = startTime[i];
-            task[i].e = endTime[i];
-            task[i].p = profit[i];
-        }
-       
-        std::sort(task, task+n, comp);
-        int dp[n];
+        std::sort(begin(task), begin(task)+n, comp);
+        vector<int> dp(n);
         dp[0] = task[0].p;
        
         for(int i=1; i<n; i++){
            dp[i] = std::max(dp[i-1], task[i].p);
-           int j = binary(task, 0, i-1, task[i].s);
+           int j = binary_search(task, 0, i-1, task[i].s);
            if(j != -1)
                dp[i] = std::max(dp[i], dp[j] + task[i].p);
         }
