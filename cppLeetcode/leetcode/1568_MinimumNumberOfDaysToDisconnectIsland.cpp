@@ -108,9 +108,12 @@ public:
                         {
                             int a = x + dir[k].first;
                             int b = y + dir[k].second;
+                            
                             if (a<0 || a>=m || b<0 || b>=n) continue;
+
                             if (grid[a][b] == 0) continue;
                             if (visited[a][b]==1) continue;
+
                             q.push({a,b});
                             visited[a][b] = 1;                        
                         }

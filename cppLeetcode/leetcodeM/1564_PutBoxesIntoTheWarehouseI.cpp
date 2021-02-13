@@ -60,8 +60,16 @@ using std::vector;
 class MaxBoxesInWarehouse {
 
 public:
-    
-    int doit_(vector<int>& boxes, vector<int>& warehouse) 
+
+    /*
+        1564.Put-Boxes-Into-the-Warehouse-I
+        这是一道经典题，比较简单的贪心策略是：尽量将最外的仓库（即index较小的位置，它能支持最大的高度）留给高的盒子，否则会浪费空间。
+
+        具体的做法是：从左到右遍历cell。对于每个cell，从高到低寻找能fit的盒子，凡是不fit的盒子就都舍弃（他们以后肯定放不进任何cell），如果发现某个盒子能fit，就装进去。然后处理第二个cell，以此类推。
+
+        if we use sort acesnding, it will try smaller one first. the we have to put it as deeper as possible. Then it means you have to try O(n) for each one. 
+    */
+    int doit_greedy(vector<int>& boxes, vector<int>& warehouse) 
     {
         std::sort(boxes.begin(), boxes.end());
         std::reverse(boxes.begin(), boxes.end());
@@ -71,7 +79,7 @@ public:
         for (int box: boxes)
         {
             if (j==warehouse.size()) break;
-            
+
             if (box <= warehouse[j])
             {
                 j++;
@@ -80,4 +88,6 @@ public:
         }
         return count;
     }
+
+
 };
