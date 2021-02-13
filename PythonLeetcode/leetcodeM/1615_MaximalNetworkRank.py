@@ -50,6 +50,10 @@ Each pair of cities has at most one road connecting them.
 
 class MaximalNetworkRank:
 
+    """
+        How many different edges Two nodes has.
+    """
+
     def doit_(self, N: int, roads: list) -> int:
 
         g = [[False for _ in range(N)] for _ in range(N)]
@@ -88,21 +92,27 @@ class MaximalNetworkRank:
             con[s].add(e)
             con[e].add(s)
 
+        # sort node, by degree
         r = [[v, i] for i, v in enumerate(r)]
         r.sort()
 
+        # get the ones with most degrees
         br = [[i, x] for x, i in r if x == r[-1][0]]
 
         if len(br) == 1:
+            # if there is one, put with second most degrees nodes.
             br += [[i, x] for x, i in r if x == r[-2][0]]
             iran = 1
         else:
+            # two more ones has most degrees
             iran = len(br)
 
+        # candidate one, supposed they are connected
         re = br[0][1] + br[1][1] - 1
 
         for i in range(iran):
             for j in range(i+1, len(br)):
+                # if there are two not connected, plus one
                 if br[i][0] not in con[br[j][0]]:
                     return re+1
         return re

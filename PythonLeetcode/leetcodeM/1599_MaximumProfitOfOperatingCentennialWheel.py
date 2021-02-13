@@ -106,7 +106,7 @@ class MaximumOperationMaxProfit:
         return -1 if bestprofit <= 0 else bestround
 
 
-    def minOperationsMaxProfit(self, customers: list, boardingCost: int, runningCost: int) -> int:
+    def doit_(self, customers: list, boardingCost: int, runningCost: int) -> int:
         
         ans = -1
         most = pnl = waiting = 0

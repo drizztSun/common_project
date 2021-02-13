@@ -57,20 +57,21 @@ class NumWays:
         n = len(s)
         cnt = s.count('1')
         
-		#Base case, if count == 0 (i.e. no 1's) then it is a combination problem on the entire string (n-1)C2
+		# Base case, if count == 0 (i.e. no 1's) then it is a combination problem on the entire string (n-1)C2
+        # for (1--n-1), we can pick two points as starting index of seond and third parts.
         if cnt == 0:
             return (((n-1)*(n-2)) // 2) % mod
 		
-		#if count % 3!=0 i.e. if the number of 1's is not divisible by 3 then we cant split them equally
+		# if count % 3!=0 i.e. if the number of 1's is not divisible by 3 then we cant split them equally
         if cnt % 3 != 0:
             return 0
         
-		#onethird stores the number of 1's in each division
+		# onethird stores the number of 1's in each division
         onethird = cnt/3
 		
-		#Ways1 and ways2 stores the number of ways we can create the first and second partition 
-		#Example 1010001101001
-		#101, 110 and 1001 are the 3 partitions with equal 1's
+		# Ways1 and ways2 stores the number of ways we can create the first and second partition 
+		# Example 1010001101001
+		# 101, 110 and 1001 are the 3 partitions with equal 1's
 		# a split can be made in 4 places at '000', 2 places are '0'
         ways1 = 0
         ways2 = 0

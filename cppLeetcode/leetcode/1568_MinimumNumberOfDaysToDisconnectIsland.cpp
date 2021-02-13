@@ -54,11 +54,89 @@
  */
 #include <vector>
 
-
 using std::vector;
 
 
 class MinimumUNumberToDisconnectIsland {
+
+    /*
+        1568.Minimum-Number-of-Days-to-Disconnect-Island
+        此题乍看没有头绪。但是考虑到这只是一个6分题，必然有巧解。
+
+        首先想到的是，如果一个格子最多只会被四个邻接陆地包围，所以答案不会超过4.
+
+        其次，想到肯定不会所有的格子都被四个邻接陆地包围，肯定会有“边缘”的格子，有一边是邻接水域或者边界。对于这个格子，我们只要断开另外三面陆地连接即可。所以答案不会超过3.
+
+        再看一下例子，发现sample里的答案没有超过2的。细想一下，确实无论什么几何形状，都会有“角落”的格子。所谓的“角落”，指的是只有两个邻接点是与大陆相连。所以答案又可以缩小为不会超过2.
+
+        如今答案的可能只有0，1，2。答案是否为零很好判断，扫一遍全局看是否只有一个岛。答案是否为1呢？如果只要删除一块陆地就能使得岛的数量大于等于2，那么我们就遍历每一块陆地，假设删除它，再查看一下剩下的地形的岛的数量即可。
+        遍历一块“删除之地”大概是o(900)，然后每次搜索全局数一下剩余岛的个数也是o(900)，总共的时间复杂度是o(810000)，是可以接受的。如果答案不为1，那么答案就肯定是2了。
+
+        所以本题的本质就是一个暴力枚举+BFS搜索判断岛数量。
+    */
+public:
+
+    int doit_(vector<vector<int>>& grid) 
+    {
+        int m = grid.size(), n = grid[0].size();
+
+        auto islands = [&]() -> int{
+
+            auto dir = vector<pair<int,int>>({{1,0},{-1,0},{0,1},{0,-1}});
+            auto visited = vector<vector<int>>(m, vector<int>(n,0));
+            int count = 0;
+
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++)
+                {
+                    if (grid[i][j]==0) continue;
+                    if (visited[i][j]==1) continue;
+                    
+                    queue<pair<int,int>> q;
+                    q.push({i,j});
+                    visited[i][j] = 1;
+                                    
+                    count++;
+                    
+                    while (!q.empty())
+                    {
+                        int x = q.front().first;
+                        int y = q.front().second;
+                        q.pop();
+                        
+                        for (int k=0; k<4; k++)
+                        {
+                            int a = x + dir[k].first;
+                            int b = y + dir[k].second;
+                            if (a<0 || a>=m || b<0 || b>=n) continue;
+                            if (grid[a][b] == 0) continue;
+                            if (visited[a][b]==1) continue;
+                            q.push({a,b});
+                            visited[a][b] = 1;                        
+                        }
+                    }
+                    
+                    if (count == 2) return 2;
+                }
+            }
+            return count;
+        };
+        
+        int count = islands(grid);
+        if (count > 1) return 0;
+        
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+            {
+                if (grid[i][j]==0) continue;
+                grid[i][j] = 0;
+                int count = islands(grid);
+                if (count > 1) return 1;
+                grid[i][j] = 1;
+            }
+        
+        return 2;        
+    }
     
 public:
    const int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};

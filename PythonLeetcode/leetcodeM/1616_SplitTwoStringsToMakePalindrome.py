@@ -52,24 +52,24 @@ class SplitTwoStringsToPalindrome:
     def doit_(self, a: str, b: str) -> bool:
 
         def centerpalindrome(target, s):
-
             s, e = s, len(target) - s - 1
             while s < e and target[s] == target[e]:
                 s += 1
                 e -= 1
 
             return s >= e
-
         
         def prefixpalindrome(s1, s2):
             n, i = len(s2), 0
             while i < n and s1[i] == s2[n-i-1]:
                 i += 1
             return i
-
+        
+        # get a, b prefix length to match b, a surfix
         aprefix, bprefix = prefixpalindrome(a, b), prefixpalindrome(b, a)
         
-        return centerpalindrome(a, aprefix ) or centerpalindrome(a, bprefix) or centerpalindrome(b, aprefix), centerpalindrome(b, bprefix)
+        # a suffix + a half / b suffix, a half  / a suffix + b half / b prefix + b half
+        return centerpalindrome(a, aprefix) or centerpalindrome(a, bprefix) or centerpalindrome(b, aprefix), centerpalindrome(b, bprefix)
 
 if __name__ == '__main__':
 

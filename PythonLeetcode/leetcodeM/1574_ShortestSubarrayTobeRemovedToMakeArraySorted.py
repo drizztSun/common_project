@@ -69,3 +69,25 @@ class FindLengthOfShortestSubarray:
                 j += 1
         
         return ans
+
+    def doit_greedy(self, arr: list) -> int:
+
+        j = len(arr) - 1
+        while j > 0 and arr[j-1] <= arr[j]:
+            j -= 1
+
+        if j == 0: return 0
+
+        ret, i = j, 0
+        
+        while i < len(arr):
+            
+            if i >= 1 and arr[i] < arr[i-1]: break
+            
+            while j < len(arr) and arr[i] > arr[j]:
+                j += 1
+
+            ret = min(ret, j - i - 1)
+            i += 1
+
+        return ret

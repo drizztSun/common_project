@@ -55,7 +55,7 @@ class OptimizeWaterDistributionVillage:
     1101. the-earliest-moment-when-everyone-become-friends
 
     """
-    def doit(self, n: int, wells: 'list', pipes: 'list') -> int:
+    def doit_kruskal(self, n: int, wells: 'list', pipes: 'list') -> int:
 
         # 1. Treat each well like a pipe to house number 0 (props to @mhelvens for this awesome idea)
         for i, c in enumerate(wells, 1):

@@ -91,88 +91,91 @@ class MinCostConnectPoints:
 
         More details/code of this algorithm can be found: here, here, here and here
     """
+    class BIT:
+        def __init__(self,n):
+            self.n=n
+            self.tree=[(10**12,-1) for _ in range(n)]
+        
+        def minq(self,k):
+            v,i=10**12,-1
+            while k>=1:
+                if self.tree[k][0]<v:
+                    v,i=self.tree[k]
+                k-=k&-k
+            return i
+        
+        def update(self,k,x,i):
+            while k<self.n:
+                if self.tree[k][0]>x:
+                    self.tree[k]=(x,i)
+                k+=k&-k
 
-    def minCostConnectPoints(self, points: list) -> int:
-        n=len(points)
-        edges=[]
+    class UF:
+        def __init__(self,n):
+            self.p = list(range(n))
+            self.s = [1]*n
+        
+        def find(self,x):
+            if self.p[x] != x:
+                self.p[x] = self.find(self.p[x])
+            return self.p[x]
+
+        def union(self,x,y):
+            xr, yr = self.find(x), self.find(y)
+            if xr == yr:
+                return False
+            if self.s[xr] < self.s[yr]:
+                xr, yr = yr, xr
+            self.p[yr] = xr
+            self.s[xr] += self.s[yr]
+            return True
+
+    def doit_kruskal(self, points: list) -> int:
+        n = len(points)
+        edges = []
         
         # transform the x,y coordinates so 4 of the 8 regions are considered
         for dirc in range(4): 
-            if dirc==1 or dirc==3:
+            if dirc == 1 or dirc == 3:
                 for i in range(n): points[i].reverse()    # swap x,y coordinates
-            elif dirc==2:
-                for i in range(n): points[i][0]*=-1    #  flip x coordinates
+
+            elif dirc == 2:
+                for i in range(n): points[i][0] *= -1    #  flip x coordinates
                     
             # sort by x values (descending x0<x1), if same x values, sort by y values (y0-x0<y1-x1)
-            p1=sorted(enumerate(points),key=itemgetter(1),reverse=True)
+            p1 = sorted(enumerate(points),key= itemgetter(1),reverse=True)
             
             # sort by x-y values (x0-y0<x1-y1), if same x-y values, sort by x values (descending)
-            p2=sorted([(i,(x-y,-x)) for i,(x,y) in enumerate(points)],key=itemgetter(1))
+            p2 = sorted([(i, (x-y, -x)) for i,(x, y) in enumerate(points)],key= itemgetter(1))
             
             # compress the x-y values
-            d=[0]*n            
-            for v,(i,_) in enumerate(p2,1): d[i]=v
+            d = [0]*n            
+            for v,(i,_) in enumerate(p2,1): d[i] = v
                 
             # initialize a binary indexed tree for minimum range query
             # array index: compressed x-y, array value: x+y and the index in the `points` array
             # we loop over points from larger x to smaller x (x0<x1)
             # query the point that has the minimum x+y value from all points that have smaller x-y values
             # add the edge to our candidates
-            ft=BIT(n+1)
+            ft = BIT(n+1)
             for i,(x,y) in p1:
-                j=ft.minq(d[i])
-                if j!=-1:
-                    xj,yj=points[j]
-                    edges.append((i,j,abs(x-xj)+abs(y-yj)))
-                ft.update(d[i],x+y,i)
+                j = ft.minq(d[i])
+                if j != -1:
+                    xj, yj = points[j]
+                    edges.append((i, j, abs(x-xj) + abs(y-yj)))
+                ft.update(d[i], x+y, i)
         
         # Kruskal
-        edges.sort(key=itemgetter(2))
-        dsu=UF(n)
-        ans=0
-        for i,j,w in edges:
+        edges.sort(key= itemgetter(2))
+        dsu = UF(n)
+        ans = 0
+        for i, j, w in edges:
             if dsu.union(i,j):
-                ans+=w
+                ans += w
+        
         return ans
             
-class BIT:
-    def __init__(self,n):
-        self.n=n
-        self.tree=[(10**12,-1) for _ in range(n)]
-    
-    def minq(self,k):
-        v,i=10**12,-1
-        while k>=1:
-            if self.tree[k][0]<v:
-                v,i=self.tree[k]
-            k-=k&-k
-        return i
-    
-    def update(self,k,x,i):
-        while k<self.n:
-            if self.tree[k][0]>x:
-                self.tree[k]=(x,i)
-            k+=k&-k
 
-class UF:
-    def __init__(self,n):
-        self.p=list(range(n))
-        self.s=[1]*n
-    
-    def find(self,x):
-        if self.p[x]!=x:
-            self.p[x]=self.find(self.p[x])
-        return self.p[x]
-
-    def union(self,x,y):
-        xr,yr=self.find(x),self.find(y)
-        if xr==yr:
-            return False
-        if self.s[xr]<self.s[yr]:
-            xr,yr=yr,xr
-        self.p[yr]=xr
-        self.s[xr]+=self.s[yr]
-        return True
 
 if __name__ == '__main__':
 
