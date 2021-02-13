@@ -51,7 +51,41 @@ class MaxProbabilityPath:
 
         from collections import defaultdict
         from heapq import heappush, heappop
+
         graph = defaultdict(lambda : defaultdict(int))
+
+        for i in range(len(edges)):
+            s, e = edges[i][0], edges[i][1]
+            graph[s][e] = succProb[i]
+            graph[e][s] = succProb[i]
+
+        buff = [(-1, start)]
+        visited = {start: 1}
+
+        while buff:
+
+            p, s = heappop(buff)
+            p = -p
+
+            if s in visited and visited[s] > p: continue
+
+            if s == end: return p
+
+            visited[s] = p
+
+            for n, p1 in graph[s].items():
+                if n not in visited:
+                    heappush(buff, (-p * p1, n))
+
+        return 0.0
+
+    def doit_heap_dijstra_1(self, n: int, edges: list, succProb: list, start: int, end: int) -> float:
+
+        from collections import defaultdict
+        from heapq import heappush, heappop
+
+        graph = defaultdict(lambda : defaultdict(int))
+
         for i in range(len(edges)):
             s, e = edges[i][0], edges[i][1]
             graph[s][e] = succProb[i]
@@ -65,8 +99,8 @@ class MaxProbabilityPath:
             p, s = heappop(buff)
             p = -p
             visited.add(s)
-            if s == end:
-                return p
+
+            if s == end: return p
 
             for n, p1 in graph[s].items():
                 if n not in visited:
