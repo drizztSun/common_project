@@ -2,7 +2,8 @@
 743. Network Delay Time
 
 
-You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi), where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.
+You are given a network of n nodes, labeled from 1 to n. You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi), 
+where ui is the source node, vi is the target node, and wi is the time it takes for a signal to travel from source to target.
 
 We will send a signal from a given node k. Return the time it takes for all the n nodes to receive the signal. If it is impossible for all the n nodes to receive the signal, return -1.
 
@@ -72,7 +73,7 @@ class NetworkDelayTime {
 
 public:
     
-    int doit_dfs(vector<vector<int>>& times, int N, int K) {
+    int doit_bfs(vector<vector<int>>& times, int N, int K) {
 
         unordered_map<int,int>EarliestTime; // node->earliestTime;
         for (int i=1; i<=N; i++)
@@ -116,8 +117,8 @@ public:
     }
 
     typedef std::pair<int,int> PII;
-    
-    int doit_dijkstra(vector<vector<int>>& times, int n, int k) 
+    // O(elog(e))
+    int doit_dijkstra_eloge(vector<vector<int>>& times, int n, int k) 
     {
         unordered_map<int, vector<PII>>Map;
         for (auto t: times)
@@ -133,10 +134,11 @@ public:
         {
             auto [d, cur] = pq.top();
             pq.pop();
-            ret = std::max(ret, d);
-
+            
             if (visited[cur]) continue;
             visited[cur] = 1;
+            
+            ret = std::max(ret, d);
             
             for (auto next: Map[cur])
                 pq.push({d+next.second, next.first});
@@ -148,6 +150,7 @@ public:
         return ret;
     }
 
+    // O(n^2)
     int doit_dijkstra_1(vector<vector<int>>& times, int n, int k) 
     {
         unordered_map<int, vector<PII>> Map;
@@ -184,6 +187,7 @@ public:
         return ret == INT_MAX ? -1: ret;
     }
 
+    // O(n^3)
     int doit_floyd(vector<vector<int>>& times, int N, int K) {
         
         vector<vector<int>> dp(N+1, vector<int>(N+1, INT_MAX/2));
