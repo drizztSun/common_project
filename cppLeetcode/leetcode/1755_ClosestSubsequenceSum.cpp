@@ -58,7 +58,19 @@ public:
 
         在上面的解法中，如果先求得所有的subset sum，然后排序，将会使得时间复杂度达到o(MlogM)，其中M=2^N/2. 有一种方法可以直接用o(2^N/2)得到有序的subset sum。
         假设nums的前i-1个元素已经得到了有序的subset sum的集合{a_k},那么加上第i个元素之后的subset sum的集合就是{a_k}和{a_k+nums[i]}的并集。我们发现这两个集合是各自有序的，这样我们可以用归并排序的方法将两者合并成一个更大的有序集合。
-    
+
+
+        num.size() <= 20
+        check every subset sum: 2^20
+
+        total |nums| sum <= 1000
+
+        data is too big to use DP
+        for (int i = 0; i < nums.size(); i++)
+            dp[sum] = dp_old[sum]
+            for sum in range(0, 1000):
+                dp[sum] = dp_old[sum-nums[i]]
+]
         No, this problem is NP-complete. It's basically https://en.wikipedia.org/wiki/Subset_sum_problem
         So there is a DP approach which has the complexity of O(n * goal), but goal can be up to 10^9, so it's too slow.
         Given n < 40 and goal < 10^9 the only possible exact approach is an optimised bruteforce (e.g. using meet in the middle technique).
