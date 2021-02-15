@@ -54,10 +54,10 @@ class MinNumberOfFrogs:
                 cnt[c] += 1
                 length += 1
             else:
-                if cnt[last[c]] > 0:
-                    cnt[last[c]] -= 1
-                else:
+                if cnt[last[c]] == 0:
                     return -1
+
+                cnt[last[c]] -= 1
                     
                 if c == 'k':
                     length -= 1

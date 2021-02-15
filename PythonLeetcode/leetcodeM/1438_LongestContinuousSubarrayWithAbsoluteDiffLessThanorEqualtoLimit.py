@@ -70,7 +70,6 @@ class LongestSubarray:
             if abs(maxv[0] - minv[0]) <= limit:
                 ans = max(ans, r - l + 1)
 
-
             while l < r and abs(maxv[0] - minv[0]) > limit:
 
                 if maxv[0] == nums[l]: 

@@ -94,6 +94,7 @@ public:
     int doit_(vector<int>& nums, int limit) {
         int maxLen = 1;
         multiset<int> curEl{nums[0]};
+        
         for (int r = 1, l = 0; r < nums.size(); r++) {
             curEl.insert(nums[r]);
             while (*curEl.rbegin() - *curEl.begin() > limit) {

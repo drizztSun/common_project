@@ -48,7 +48,6 @@ Constraints:
 """
 
 
-
 class MaxPointsYouCanObtain:
 
     def doit_(self, cardPoints: list, k: int) -> int:
