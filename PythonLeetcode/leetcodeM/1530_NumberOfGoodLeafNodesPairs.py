@@ -71,11 +71,10 @@ class GoodLeafNodePairs:
                 tmp = 0
                 for i in range(1, distance):
                     if i in l:
-                        ans += sum(r[c] for c in r if c < distance - i)
-                    #if i in r:
-                    #    tmp += sum(l[c] for c in l if c <= distance - i)
-
-               #for k1, v1 in l.items():
+                        ans += sum(l[i] * r[c] for c in r if c <= distance - i)
+                        
+                # low performance, O(n^2)
+                # for k1, v1 in l.items():
                 #    for k2, v2 in r.items():
                 #        if k1 + k2 <= distance:
                 #            ans += v1 * v2

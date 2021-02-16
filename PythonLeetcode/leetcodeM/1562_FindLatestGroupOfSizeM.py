@@ -53,6 +53,9 @@ All integers in arr are distinct.
 """
 
 
+from math import isinf
+
+
 class LastestStepGroup:
 
     """
@@ -86,6 +89,25 @@ class LastestStepGroup:
                 res = i
             length[a - left] = length[a + right] = left + right + 1
         return res
+
+    def doit_(self, A: list, m: int) -> int:
+
+        n, ans = len(A), -1
+        length, count = [0] * (n + 2), [0] * (n+1)
+
+        for i, a in enumerate(A):
+
+            left, right = length[a-1], length[a+1]
+            length[a] = length[a-left] = length[a+right] = left + right + 1
+
+            count[left] -= 1
+            count[right] -= 1
+            count[length[a]] += 1
+
+            if count[m]:
+                ans = i + 1
+
+        return ans
 
     def doit_disjoint(self, arr: list, m: int) -> int:
         

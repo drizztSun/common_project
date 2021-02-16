@@ -211,4 +211,3 @@ class FindKthBit:
                 flip = 1 - flip
             l /= 2
         return str(flip)
-        

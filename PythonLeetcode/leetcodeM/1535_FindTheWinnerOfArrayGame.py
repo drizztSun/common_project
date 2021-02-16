@@ -68,3 +68,20 @@ class FindWinnerOfAnArrayGame:
                 return arr[maxi]
 
         return arr[maxi]
+
+    def doit_(self, arr: list, k: int) -> int:
+
+        win, maxi = 0, 0
+        
+        for i in range(1, len(arr)):
+
+            if arr[i] > arr[maxi]:
+                maxi = i
+                win = 0
+            
+            win += 1
+            
+            if win == k:
+                return arr[maxi]
+
+        return arr[maxi]

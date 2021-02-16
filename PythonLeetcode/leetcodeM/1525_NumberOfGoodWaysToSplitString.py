@@ -84,3 +84,25 @@ class NumberOfGoodWaysToSplit:
                 ans += 1
                 
         return ans
+
+    def doit_hashtable(self, s: str) -> int:
+
+        left, total, ans = [0] * 26, [0]*26, 0
+
+        for c in s:
+            total[c - ord('a')] += 1
+
+        for c in s:
+            left[c - ord('a')] += 1
+
+            L, R = 0, 0
+
+            for i in range(26):
+                if left[i]: L += 1
+                if total[i] - left[i]: R += 1
+
+            if L == R: ans += 1
+
+            if L > R: break
+
+        return ans

@@ -44,7 +44,7 @@ hasApple.length == n
 
 class MinimumTimeToCollectApples:
 
-    def minTime(self, n: int, edges: list, hasApple: list) -> int:
+    def doit_dfs(self, n: int, edges: list, hasApple: list) -> int:
         from collections import defaultdict, deque
         graph = defaultdict(list)
         for edge in edges:
@@ -66,6 +66,24 @@ class MinimumTimeToCollectApples:
             return (sec + 2) if sec > 0 or hasApple[node] else 0
         
         return max(dfs(0)-2, 0)
+
+    def doit_dfs_1(self, n: int, edges: list, hasApple: list) -> int:
+        from collections import defaultdict, deque
+        graph = defaultdict(list)
+        for edge in edges:
+            graph[edge[0]].append(edge[1])
+            graph[edge[1]].append(edge[0])
+        
+        def dfs(node, p):
+
+            sec = 0
+            for c in graph[node]:
+                if p == c: continue
+                sec += dfs(c, node)
+                
+            return (sec + 2) if sec > 0 or hasApple[node] else 0
+        
+        return max(dfs(0, -1)-2, 0)
         
     def doit_topsort(self, n: int, edges: list, hasApple: list) -> int:
         from collections import defaultdict, deque

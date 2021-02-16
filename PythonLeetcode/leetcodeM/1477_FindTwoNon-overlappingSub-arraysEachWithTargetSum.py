@@ -88,9 +88,10 @@ class NonOverlappingTargetSum:
         return min([pre+suf for pre, suf in zip(prefix, suffix) if pre and suf] or [-1])
 
 
-    def doit_(self, arr: list, target: int) -> int:
+    def doit_dp(self, arr: list, target: int) -> int:
         from math import inf
 
+        # p is dp array, for dp[i] until to i, minimum length will be
         res, cur, i, p = inf, 0, 0, [inf]
 
         # p DP array for left side minimum length of target subarray

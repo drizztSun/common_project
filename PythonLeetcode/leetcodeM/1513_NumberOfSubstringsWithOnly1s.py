@@ -65,6 +65,33 @@ class NumberOfSubstringWithOnly1S:
                 
         return total
 
+    def doit_(self, s: str) -> int:
+
+        count, res = 0, 0
+        hmod = 10**9 + 7
+        for c in s:
+            count = (count + 1) if c == '1' else 0
+            res = (res + count) % hmod
+        return res
+
+    def doit_(self, s: str) -> int:
+
+        count, last = 0, '0'
+        res = 0
+
+        for c in s:
+
+            if c == '1':
+                count += 1
+            else:
+                if last != c:
+                    res += count * (count + 1) // 2
+                count = 0
+            last = c
+
+        return (res + count * (count + 1) // 2) % (10**9 + 7)
+
+
     def doit_math(self, s: str) -> int:
         a, b, r = 0, 0, 0
         

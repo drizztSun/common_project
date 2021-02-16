@@ -105,4 +105,19 @@ class MinimumNUmberFunctionCall:
             
         return calls
 
-        
+    def doit_(self, A):
+
+        res, maxLen = 0, 1
+
+        for a in A:
+            
+            bits = 0
+
+            while a > 0:
+                res += a & 1
+                bits += 1
+                a >>= 1
+
+            maxLen = max(maxLen, bits)
+
+        return res + maxLen - 1

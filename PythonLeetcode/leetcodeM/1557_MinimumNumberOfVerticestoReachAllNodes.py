@@ -64,4 +64,9 @@ class MinimumNumberOfVerticesToReachAllNodes:
     def doit_toplogic(self, n: int, edges: list) -> list:
 
         return list(set(range(n)) - set(j for i, j in edges))
-        
+
+    def doit_toplogic(self, n: int, edges: list) -> list:
+        degree = [0] * n
+        for i, j in edges:
+            degree[j] += 1
+        return [c for c in range(n) if degree[c] == 0]

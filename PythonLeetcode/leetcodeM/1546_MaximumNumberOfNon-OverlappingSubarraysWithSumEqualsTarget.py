@@ -41,7 +41,7 @@ Constraints:
 
 class MaxNonOverlapping:
     
-    def doit_hashtable(self, nums: list, target: int) -> int:
+    def doit_greedy_hashtable(self, nums: list, target: int) -> int:
 
         from collections import defaultdict
         

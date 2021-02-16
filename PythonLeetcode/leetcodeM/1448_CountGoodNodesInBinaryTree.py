@@ -42,6 +42,19 @@ Each node's value is between [-10^4, 10^4].
 
 class CountGoodNodesInBinaryTree:
 
+
+    """
+        Explanation:
+        Record the maximum value along the path from the root to the node.
+
+        Time O(N)
+        Space O(height)
+    """
+    def goodNodes(self, r):
+        def search(node, val=-100000):
+            return search(node.left, max(val, node.val)) + search(node.right, max(val, node.val)) + (node.val >= val) if r else 0
+        return search(r)
+
     def doit_search(self, root) -> int:
         num = 0
         def search(node, maxv):

@@ -1,4 +1,4 @@
-"""
+/*
 1482. Minimum Number of Days to Make m Bouquets
 
 Given an integer array bloomDay, an integer m and an integer k.
@@ -56,12 +56,14 @@ bloomDay.length == n
 1 <= m <= 10^6
 1 <= k <= n
 
-"""
 
+*/
 
-class MinimumNumberOfDaystoMakeBouquets:
+class MinimumNumberOfDaystoMakeBouquets {
 
-    """
+public:
+
+    /*
         Intuition
         If m * k > n, it impossible, so return -1.
         Otherwise, it's possible, we can binary search the result.
@@ -129,64 +131,35 @@ class MinimumNumberOfDaystoMakeBouquets:
         mark the bloomed flower,
         calculate the the continous flowers connnected,
         update the bouquets and compared with m.
-    """
-    def doit_binary_search(self, A, m, k):
+    
+    */
+    int doit_binary_search(vector<int>& A, int m, int k) {
 
-        if m * k > len(A): return -1
+        int n = A.size(), left = 1, right = 1e9;
         
-        left, right = 1, max(A)
+        if (m * k > n) return -1;
         
-        while left < right:
-
-            mid = (left + right) / 2
-            flow = bouq = 0
-            
-            for a in A:
-            
-                flow = 0 if a > mid else flow + 1
-                if flow >= k:
-                    flow = 0
-                    bouq += 1
-                    if bouq == m: break
-            
-            if bouq == m:
-                right = mid
-            else:
-                left = mid + 1
+        while (left < right) {
         
-        return left
-
-    def doit_binary_search(self, bloomDay: list, m: int, k: int) -> int:
-
-        left, right = min(bloomDay), max(bloomDay) + 1
-
-        def search(mid):
-            cnt = 0
-            ans = 0
-            for i in range(len(bloomDay)):
-                if bloomDay[i] <= mid:
-                    cnt += 1
-                else:
-                    ans += cnt // k
-                    cnt = 0
-
-            return ans + cnt // k
+            int mid = (left + right) / 2, flow = 0, bouq = 0;
+        
+            for (int j = 0; j < n; ++j) {
+                if (A[j] > mid) {
+                    flow = 0;
+                } else if (++flow >= k) {
+                    bouq++;
+                    flow = 0;
+                }
+            }
             
-            
-        ans = -1
-        while left < right:
-
-            mid = left + (right - left) // 2
-
-            if search(mid) >= m:
-                ans = mid
-                right = mid
-            else:
-                left = mid + 1
-
-        return -1 if ans == float('inf') else ans
+            if (bouq < m) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
 
 
-if __name__ == '__main__':
-
-    MinimumNumberOfDaystoMakeBouquets().doit_binary_search([1,10,3,10,2], 3, 1)
+}

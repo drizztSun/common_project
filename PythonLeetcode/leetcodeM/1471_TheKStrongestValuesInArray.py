@@ -66,3 +66,17 @@ class KthStrongest:
                 ans.append(arr[r])
                 r -= 1
         return ans
+
+    def doit_(self, arr: list, k: int) -> list:
+        from heapq import nlargest
+        from math import abs
+
+        median = (len(arr) - 1) // 2
+
+        nlargest(median, arr)
+
+        median = arr[median]
+
+        nlargest(arr, k, key=lambda x: abs(x-median))
+
+        return arr[:k]

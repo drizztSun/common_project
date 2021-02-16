@@ -50,7 +50,7 @@ from typing import NamedTuple
 
 class MaximumVowels:
 
-    def doit_(self, s: str, k: int) -> int:
+    def doit_slidingwindow(self, s: str, k: int) -> int:
 
         ans, length = 0, 0
         vowel = set(['a', 'e', 'i', 'o', 'u'])

@@ -43,9 +43,10 @@ class MinimumOperations:
         n is odd or even
         like [1, 3, 5, 7, ...]  ave is always n
 
-        increasing part (greater than ave) is on the right side, from [n+1, ......., 2*n -1 ]  n//2 items
+        n = 10, [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]  => [1, 3, 5, n-1] => (n // 2 items)
+        n = 11, [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21] => [2, 4, 6, n-1] => (n // 2 items)
 
-        
+        increasing part (greater than ave) is on the right side, from [n+1, ......., 2*n -1 ]  n//2 items
     """
     def doit_math(self, n: int) -> int:
         return ((n + 1) // 2) * (n // 2)

@@ -49,7 +49,11 @@ Constraints:
 */
 #include <vector>
 #include <algorithm>
+#include <map>
+#include <queue>
 
+using std::priority_queue;
+using std::multimap;
 using std::vector;
 
 
@@ -74,16 +78,93 @@ public:
         return {begin(arr), begin(arr) + k};
     }
 
-    // O(n)
-    vector<int> doit_quicksort(vector<int>& arr, int k) {
-        const int m = (arr.size() - 1) / 2;
-        nth_element(begin(arr), begin(arr) + m, end(arr));
-        
-        const int median = *(begin(arr) + m);
+    vector<int> doit_(vector<int>& arr, int k) {
 
-        nth_element(begin(arr), begin(arr) + k - 1, end(arr), [&](int a, int b) {
-            int pa = abs(a - median), pb = abs(b - median);
-            return pa != pb ? pa > pb : a > b;
+        sort(arr.begin(), arr.end());
+        int n = arr.size();
+        int m = (n - 1) / 2;
+        
+        multimap<int, int> M;
+        for(int i = 0; i < arr.size(); i++) {
+            M.insert({abs(arr[i] - arr[m]), i});
+        }
+        
+        vector<int> ans;
+        for (auto it = M.rbegin(); it != M.rend() && k != 0; ++it) {
+            ans.push_back(arr[it->second]);
+            k--;
+        }
+
+        return ans;
+    }
+
+
+    struct compare {
+        bool operator() (pair<int, int>p1, pair<int, int>p2) {
+            return (p1.first == p2.first) ? p1.second < p2.second : p1.first < p2.first;
+        }
+    };
+
+    vector<int> doit_heap(vector<int>& arr, int k) {
+        
+        int n = arr.size();
+        
+        sort(arr.begin(), arr.end());
+        int median = arr[(n-1)/2];
+        
+        priority_queue<pair<int, int>, vector<pair<int, int>>, compare>pq;
+        
+        for (int i = 0; i < n; i++)
+            pq.push({abs(arr[i]-median), arr[i]});
+        
+        vector<int>res;
+        while (!pq.empty() && k--) {
+            res.push_back(pq.top().second);
+            pq.pop();
+        }
+    
+        return res;
+    }
+
+    /*
+        What are we missing?
+        
+        Do we really need to sort the full array?
+        Or do we need to find the (n-1/)2th element for finding median,
+        and the first k elements after the question criteria given.
+
+        We will use quickselect to acheive these tasks in O(n) time. (Worst case O(n^2)).
+
+        QuickSelect is basically a partial sort in which we choose a pivot and then keep all smaller elements to the left, and bigger to the right.(We only need this in the question)
+
+        For Finding the median
+
+        Choose Pivot = (n-1)/2.
+        Quickselect keeps smaller elements in left, bigger in right.
+        So arr[n-1/2] will be the median (as defined by question)
+
+        For finding the kth strongest
+
+        Choose Pivot = k.
+        We will use a custom comparator such that quickselect keeps greater elements to left and lower to right.
+        First k elements will be the strongest.
+
+        O(n)
+    */
+    vector<int> doit_quicksort(vector<int>& arr, int k) {
+
+        int n = arr.size();
+        
+		// A STL method in C++ for quick select.
+		// Pivot is the (n-1)/2 th element.
+        nth_element(arr.begin(), arr.begin() + (n-1)/2, arr.end());
+        
+        int median = arr[(n-1)/2];
+        
+		// choose pivot = k and custom comparator to do as the question asks.
+        nth_element(arr.begin(),arr.begin() + k, arr.end(), [&](int a, int b){
+           int a1 = abs(a - median), b1 = abs(b - median);
+           return a1 == b1 ? a > b : a1 > b1;
         });
 
         return {begin(arr), begin(arr) + k};

@@ -52,8 +52,6 @@ The prerequisites graph has no repeated edges.
 1 <= queries.length <= 10^4
 queries[i][0] != queries[i][1]
 
-
-
 """
 
 
@@ -122,19 +120,23 @@ class CheckIfPrerequisite:
 
         return [related[s][e] for s, e in queries]
 
-    def checkIfPrerequisite(self, n: int, A: List[List[int]], Q: List[List[int]]) -> List[bool]:
+    def doit_disjoint(self, n: int, A: list, Q: list) -> list:
         import collections
+
         class UF:
             def __init__(self, n):
                 self.p=collections.defaultdict(set)
                 for i in range(n):
                     self.p[i].add(i)
+
             def union(self,x,y):
-                self.p[x]|=self.p[y]
+                self.p[x] |= self.p[y]
+
             def q(self,x,y):
                 return y in self.p[x]
 
-        uf=UF(n)
+        uf = UF(n)
         for dep,cur in A:
             uf.union(cur,dep)
+
         return [uf.q(*reversed(q)) for q in Q]
