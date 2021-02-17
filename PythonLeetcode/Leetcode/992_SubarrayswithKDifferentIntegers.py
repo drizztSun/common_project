@@ -25,6 +25,90 @@ from collections import Counter
 
 class SubarraysWithKDistinct:
 
+    """
+        992.Subarrays-with-K-Different-Integers
+        此题的解法非常巧妙.它代表了一类思想:求关于K的解,是否可以化成求at most K的解减去求at most K-1的解.本题恰好就是用到这个方法.我们需要写一个helper函数,计算数组A里面最多含有K个不同数字的subarray的个数.于是最终答案就是helper(K)-helper(K-1).
+
+        对于这个helper函数,标准答案很显然就是用双指针和滑动窗口的方法.遍历右指针,考察对应的最大的滑窗是多少.于是在该右边界固定的条件下,满足题意的subarray的个数就是count+=右指针-左指针+1
+    """
+    def doit_slidingwindow(self, A:list, K:int) -> int:
+
+        from collections import defaultdict
+
+        def atmost(k):
+            i, cnt, res = 0, defaultdict(int), 0
+            length = 0
+            
+            for j in range(len(A)):
+                
+                cnt[A[j]] += 1
+                if cnt[A[j]] == 1:
+                    length += 1
+
+                while length > k:
+                    cnt[A[i]] -= 1
+                    if cnt[A[i]] == 0:
+                        length -= 1
+                    i += 1
+
+                res += j - i + 1
+            return res
+
+        return atmost(K) - atmost(K-1)
+
+    """
+        I republished this post.
+        The original one is deleded by Leetcode without any notification or information.
+        The only reason that, I included my youtube channel link.
+        Excusem me, What the HACK!?
+
+
+        Intuition:
+        First you may have feeling of using sliding window.
+        Then this idea get stuck in the middle.
+
+        This problem will be a very typical sliding window,
+        if it asks the number of subarrays with at most K distinct elements.
+
+        Just need one more step to reach the folloing equation:
+        exactly(K) = atMost(K) - atMost(K-1)
+
+
+        Explanation
+        Write/copy a helper function of sliding window,
+        to get the number of subarrays with at most K distinct elements.
+        Done.
+
+        Complexity:
+        Time O(N) for two passes.
+        Space O(K) at most K elements in the counter
+
+        Of course, you can merge 2 for loops into one, if you like.
+    """
+     def subarraysWithKDistinct(self, A, K):
+        
+        def atMostK(A, K):
+            import collections
+            count = collections.Counter()
+            res = i = 0
+            for j in range(len(A)):
+                if count[A[j]] == 0: K -= 1
+                count[A[j]] += 1
+                while K < 0:
+                    count[A[i]] -= 1
+                    if count[A[i]] == 0: K += 1
+                    i += 1
+                res += j - i + 1
+            return res
+
+        return atMostK(A, K) - atMostK(A, K - 1)
+
+
+
+
+
+
+
     '''
         Use two left pointers and one right pointer to maintain two sliding windows
         A[left_L:right+1] is the longest subarray with K different int

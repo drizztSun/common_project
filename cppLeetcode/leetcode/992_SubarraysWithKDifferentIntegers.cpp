@@ -29,10 +29,7 @@
  1 <= K <= A.length
  
  
- 992.Subarrays-with-K-Different-Integers
- 此题的解法非常巧妙.它代表了一类思想:求关于K的解,是否可以化成求at most K的解减去求at most K-1的解.本题恰好就是用到这个方法.我们需要写一个helper函数,计算数组A里面最多含有K个不同数字的subarray的个数.于是最终答案就是helper(K)-helper(K-1).
 
- 对于这个helper函数,标准答案很显然就是用双指针和滑动窗口的方法.遍历右指针,考察对应的最大的滑窗是多少.于是在该右边界固定的条件下,满足题意的subarray的个数就是count+=右指针-左指针+1
  
  
  */
@@ -48,6 +45,55 @@ using std::vector;
 class SubarraysWithKDistinct {
     
 public:
+
+    /*
+        I republished this post.
+        The original one is deleded by Leetcode without any notification or information.
+        The only reason that, I included my youtube channel link.
+        Excusem me, What the HACK!?
+
+
+        Intuition:
+        First you may have feeling of using sliding window.
+        Then this idea get stuck in the middle.
+
+        This problem will be a very typical sliding window,
+        if it asks the number of subarrays with at most K distinct elements.
+
+        Just need one more step to reach the folloing equation:
+        exactly(K) = atMost(K) - atMost(K-1)
+
+
+        Explanation
+        Write/copy a helper function of sliding window,
+        to get the number of subarrays with at most K distinct elements.
+        Done.
+
+        Complexity:
+        Time O(N) for two passes.
+        Space O(K) at most K elements in the counter
+
+        Of course, you can merge 2 for loops into one, if you like.
+    */
+    int subarraysWithKDistinct(vector<int>& A, int K) {
+
+        std::function<int(int)> atMostK = [&](int K) {
+            int i = 0, res = 0;
+            unordered_map<int, int> count;
+            for (int j = 0; j < A.size(); ++j) {
+                if (!count[A[j]]++) K--;
+                while (K < 0) {
+                    if (!--count[A[i]]) K++;
+                    i++;
+                }
+                res += j - i + 1;
+            }
+            return res;
+        };
+
+        return atMostK(K) - atMostK(K - 1);
+    }
+    
     
     int doit_threepointer(vector<int>& s, int k)
     {
@@ -88,31 +134,43 @@ public:
         return ans;
     }
     
-    
-    int doit_iter(vector<int>& A, int K)
-    {
-        return atMostK(A,K) - atMostK(A,K-1);
-    }
-    
-    int atMostK(vector<int>& A, int K)
-    {
-        unordered_map<int,int>Map;
-        int count=0;
-        int i = 0;
-        
-        for (int j=0; j<A.size(); j++)
+    /*
+         992.Subarrays-with-K-Different-Integers
+        此题的解法非常巧妙.它代表了一类思想:求关于K的解,是否可以化成求at most K的解减去求at most K-1的解.本题恰好就是用到这个方法.我们需要写一个helper函数,计算数组A里面最多含有K个不同数字的subarray的个数.于是最终答案就是helper(K)-helper(K-1).
+
+        对于这个helper函数,标准答案很显然就是用双指针和滑动窗口的方法.遍历右指针,考察对应的最大的滑窗是多少.于是在该右边界固定的条件下,满足题意的subarray的个数就是count+=右指针-左指针+1
+    */
+    int doit_slidingwindow(vector<int>& A, int K) {
+
+        std::function<int(int)> atMostK = [&](int K)
         {
-            Map[A[j]]++;
+            unordered_map<int,int> Map;
+            int count=0;
+            int i = 0;
             
-            while (Map.size()>K)
+            for (int j=0; j < A.size(); j++)
             {
-                Map[A[i]]--;
-                if (Map[A[i]]==0)
-                    Map.erase(A[i]);
-                i++;
+                Map[A[j]]++;
+                
+                while (Map.size() > K)
+                {
+                    Map[A[i]]--;
+                    if (Map[A[i]] == 0)
+                        Map.erase(A[i]);
+                    i++;
+                }
+                count+= j-i+1;
             }
-            count+= j-i+1;
-        }
-        return count;
+            return count;
+        };
+
+        return atMostK(K) - atMostK(K-1);
     }
+    
+    int doit_slidingwindow_1(vector<int>& A, int k) {
+
+
+
+    }
+    
 };

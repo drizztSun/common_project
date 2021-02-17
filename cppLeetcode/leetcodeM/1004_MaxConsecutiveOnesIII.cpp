@@ -40,7 +40,28 @@ class LongestOnes {
     
 public:
 
+    /*
+        Translation:
+        Find the longest subarray with at most K zeros.
+
+
+        Explanation
+        For each A[j], try to find the longest subarray.
+        If A[i] ~ A[j] has zeros <= K, we continue to increment j.
+        If A[i] ~ A[j] has zeros > K, we increment i (as well as j).
+    
+    */
     int doit_slidingwindow(vector<int>& A, int K) {
+        int i = 0, j;
+        for (j = 0; j < A.size(); ++j) {
+            if (A[j] == 0) K--;
+            if (K < 0 && A[i++] == 0) K++;
+        }
+        return j - i;
+    }
+
+
+    int doit_slidingwindow_1(vector<int>& A, int K) {
         int left = 0, right = 0;
         int ans = 0;
             

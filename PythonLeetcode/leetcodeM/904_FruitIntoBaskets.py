@@ -51,6 +51,31 @@
 
 class TotalFruit:
 
+    """
+        Problem
+        "Start from any index, we can collect at most two types of fruits. What is the maximum amount"
+
+
+        Translation
+        Find out the longest length of subarrays with at most 2 different numbers?
+
+
+        Explanation
+        Solve with sliding window,
+        and maintain a hashmap counter,
+        which count the number of element between the two pointers.
+        Find more infinite similar prolems in the end.
+    """
+    def doit_slidingwindow(self, tree):
+            count, i = {}, 0
+            for j, v in enumerate(tree):
+                count[v] = count.get(v, 0) + 1
+                if len(count) > 2:
+                    count[tree[i]] -= 1
+                    if count[tree[i]] == 0: del count[tree[i]]
+                    i += 1
+            return j - i + 1
+
     def doit(self, tree):
 
         best, i0, j0, j1, x0, x1 = 0, len(tree), -1, -1, -1, -1
@@ -119,8 +144,8 @@ class TotalFruit:
     """
 
     def doit1(self, tree):
-        blocks = [(k, len(list(v)))
-                  for k, v in itertools.groupby(tree)]
+        import itertools
+        blocks = [(k, len(list(v))) for k, v in itertools.groupby(tree)]
 
         ans = i = 0
         while i < len(blocks):
@@ -131,7 +156,7 @@ class TotalFruit:
             types, weight = set(), 0
 
             # For each block from i and going forward,
-            for j in xrange(i, len(blocks)):
+            for j in range(i, len(blocks)):
                 # Add each block to consideration
                 types.add(blocks[j][0])
                 weight += blocks[j][1]

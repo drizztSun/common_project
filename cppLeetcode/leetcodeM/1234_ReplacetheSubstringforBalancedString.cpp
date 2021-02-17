@@ -41,7 +41,9 @@ s contains only 'Q', 'W', 'E' and 'R'.
 */
 #include <string>
 #include <map>
+#include <unordered_map>
 
+using std::unordered_map;
 using std::map;
 using std::string;
 
@@ -49,6 +51,75 @@ class BalancedString {
 
 public:
 
+    /*
+        Intuition
+        We want a minimum length of substring,
+        which leads us to the solution of sliding window.
+        Specilly this time we don't care the count of elements inside the window,
+        we want to know the count outside the window.
+
+
+        Explanation
+        One pass the all frequency of "QWER".
+        Then slide the windon in the string s.
+
+        Imagine that we erase all character inside the window,
+        as we can modyfy it whatever we want,
+        and it will always increase the count outside the window.
+
+        So we can make the whole string balanced,
+        as long as max(count[Q],count[W],count[E],count[R]) <= n / 4.
+
+
+        Important
+        Does i <= j + 1 makes more sense than i <= n.
+        Strongly don't think, and i <= j + 1 makes no sense.
+
+        Answer the question first:
+        Why do we need such a condition in sliding window problem?
+
+        Actually, we never need this condition in sliding window solution
+        (Check all my other solutions link at the bottom).
+
+        Usually count the element inside sliding window,
+        and i won't be bigger than j because nothing left in the window.
+
+        The only reason that we need a condition is in order to prevent index out of range.
+        And how do we do that? Yes we use i < n
+
+        Does i <= j + 1 even work?
+        When will i even reach j + 1?
+        Does i <= j + 1 work better than i <= j?
+
+        Please upvote for this important tip.
+        Also let me know if there is any unclear, glad to hear different voices.
+        But please, have a try, and show the code if necessary.
+
+        Some people likes to criticize without even a try,
+        and solve the problem by talking.
+        Why talk to me? Talk to the white board.
+
+
+        Complexity
+        Time O(N), one pass for counting, one pass for sliding window
+        Space O(1)
+    */
+    int doit_slidingwindow(string s) {
+        unordered_map<int, int> count;
+        int n = s.length(), res = n, i = 0, k = n / 4;
+        for (int j = 0; j < n; ++j) {
+            count[s[j]]++;
+        }
+        for (int j = 0; j < n; ++j) {
+            count[s[j]]--;
+            while (i < n && count['Q'] <= k && count['W'] <= k && count['E'] <= k && count['R'] <= k) {
+                res = std::min(res, j - i + 1);
+                count[s[i++]] += 1;
+            }
+        }
+        return res;
+    }
+    
     int balancedString(string s) {
         
         map<int, int> cnt;
@@ -83,32 +154,33 @@ public:
         return ans;
     }
 
-    bool checker(int*count , int*current)
-    {
-        for(int i=0;i<4;++i)
-            if(count[i] && current[i]<count[i]) return 0;
-        return 1;
-    }
-
-    void counter(int *count,char &ch,bool sign)
-    {
-        int val=1;
-        if(sign) val=-1;
-        
-        if(ch=='Q')
-            count[0]+=val;
-        else if(ch=='W')
-            count[1]+=val;
-        else if(ch=='E')
-            count[2]+=val;
-        else
-            count[3]+=val;
-    }
-    
-    int doit_(string s) {
+    int doit_slidingwindow(string s) {
 
         int len = s.length();
         int count[4] = {0,0,0,0}; // Q:0 , W:1 , E:2, R:3
+
+        auto checker =[](int*count , int*current)
+        {
+            for(int i=0;i<4;++i)
+                if(count[i] && current[i]<count[i]) return 0;
+            return 1;
+        };
+
+        auto counter = [](int *count,char &ch,bool sign) {
+            int val=1;
+            if(sign) val=-1;
+            
+            if(ch=='Q')
+                count[0]+=val;
+            else if(ch=='W')
+                count[1]+=val;
+            else if(ch=='E')
+                count[2]+=val;
+            else
+                count[3]+=val;
+        };
+
+
         // finding count of characters
         for(int i=0;i<len;++i)
            counter(count,s[i],0);

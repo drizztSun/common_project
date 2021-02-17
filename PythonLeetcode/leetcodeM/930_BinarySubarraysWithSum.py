@@ -26,6 +26,44 @@ import collections
 class NumSubarraysWithSum:
 
     """
+        Solution 2: Sliding Window
+        We have done this hundreds time.
+        Space O(1)
+
+    """
+    def doit_slidingwindow(self, A, S):
+        def atMost(S):
+            if S < 0: return 0
+            res = i = 0
+            for j in range(len(A)):
+                S -= A[j]
+                while S < 0:
+                    S += A[i]
+                    i += 1
+                res += j - i + 1
+            return res
+        return atMost(S) - atMost(S - 1)
+
+    """
+        Solution 1: HashMap
+        Count the occurrence of all prefix sum.
+
+        I didn't notice that the array contains only 0 and 1,
+        so this solution also works if have negatives.
+
+        Space O(N)
+        Time O(N)
+    """
+    def doit_hashstable(self, A, S):
+        c = collections.Counter({0: 1})
+        psum = res = 0
+        for i in A:
+            psum += i
+            res += c[psum - S]
+            c[psum] += 1
+        return res
+
+    """
     Approach 1: Index of Ones
     Intuition
 
@@ -84,7 +122,6 @@ class NumSubarraysWithSum:
     Space Complexity: O(N).
 
     """
-
     def doit(self, A, S):
 
         P = [0]
@@ -139,12 +176,9 @@ class NumSubarraysWithSum:
 
     Complexity Analysis
 
-    Time Complexity: O(N)O(N), where NN is the length of A.
-
-    Space Complexity: O(1)O(1).
-
+    Time Complexity: O(N), where NN is the length of A.
+    Space Complexity: O(1).
     """
-
     def doit(self, A, S):
 
         i_lo = i_hi = 0
