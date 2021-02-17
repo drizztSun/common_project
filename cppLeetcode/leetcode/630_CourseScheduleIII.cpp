@@ -51,7 +51,7 @@ class CourseScheduleIII {
     }
 
 public:
-    int scheduleCourse(vector<vector<int>>& courses) 
+    int doit_heap(vector<vector<int>>& courses) 
     {
         sort(courses.begin(),courses.end(),cmp);        
         

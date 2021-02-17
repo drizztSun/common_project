@@ -61,9 +61,16 @@ public:
         1066.Campus-Bikes-II
         此题是著名的带权二分图的最优匹配问题，可由KM算法解决。在这里我们尝试用比较容易理解的搜索的方法来解决。
 
-        我们将“自行车被选取的状态”作为节点，状态之间的跳转理解为节点之间的相邻关系，状态之间的权重差就是相邻边的权重，就可以用Dijkstra算法了。举个例子，状态0110表示前两个工人（0号和1号）已经被配对1号和2号自行车的最优价值（即最小的配对距离之和）。
+        我们将“自行车被选取的状态”作为节点，状态之间的跳转理解为节点之间的相邻关系，状态之间的权重差就是相邻边的权重，就可以用Dijkstra算法了。
+        
+        举个例子，状态0110表示前两个工人（0号和1号）已经被配对1号和2号自行车的最优价值（即最小的配对距离之和）。
         注意，这个状态中我们不再区分前两个工人分别配对了哪辆自行车，我们不关心，我们只关心前两个工人的总和状态。
         状态0110可以转移到另外两种状态：如果2号工人选择0号自行车，即转移到了1110，权重的变化就是dist[2][2]；如果2号工人选择3号自行车，即转移到了0111，权重的变化就是dist[3][2]。
+
+        We don't care who is gonna take which bike, because we only care the total, heap will allow different combination push into and pop the minimum out.
+        If A bike more closes to person 1, we starts from person 0. Maybe we have a state has person 0 to match bike A, also we have state not math this bike.
+        when we calculate this person 2, there is one state make person 2 to match bike A. and this state's total cost becoming the current minimum one. 
+        so it means we don't need to care always to pick the person has the minimum cost with any bike, first. some moment, it will work and put into HEAP.  
 
         我们的起点是全为0的state，终点是一个包含m个1（工人数目）的state，求其最短路径。至此，我们已经完全把这道题转化为了Dijkstra的模板了。
         BFS+PQ利用贪心法的思想就可以很容易解决：利用优先队列来进行BFS搜索，所有状态在队列里按照cost从小到大排序。如果某个状态第一次被PQ弹出，那么它对应的cost就是实现该状态的最优解。
@@ -71,7 +78,7 @@ public:
     typedef std::pair<int,int> PII;
     
     int doit_bfs(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
-        
+
         int m = workers.size(), n = bikes.size();
 
         vector<vector<int>> dist(m, vector<int>(n, 0));

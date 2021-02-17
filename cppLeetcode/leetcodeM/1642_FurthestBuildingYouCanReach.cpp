@@ -137,6 +137,9 @@ public:
         return n-1;
     }
 
+    /*
+        Max heap, using bricks first. than use ladder to fill the most brick and then release those bricks for future.
+    */
     int doit_heap_1(vector<int>& heights, int bricks, int ladders) {
 
         priority_queue<int> heap;
