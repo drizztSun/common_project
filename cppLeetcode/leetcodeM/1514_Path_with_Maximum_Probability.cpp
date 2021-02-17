@@ -45,12 +45,97 @@ There is at most one edge between every two nodes.
 */
 #include <vector>
 #include <queue>
+#include <set>
 
+using std::set;
+using std::queue;
 using std::priority_queue;
 using std::vector;
 
 
 class PathMaximumProbability {
+
+
+    /*
+        1514.Path-with-Maximum-Probability
+        解法1：常规BFS
+        常规的BFS解法就是从start出发往周围的点遍历。但是，并不是某个点被遍历过之后就不要再遍历了。这是因为通过不同路径到达某个点时的概率是不同的。某些路径虽然在BFS的算法中晚遍历到点A，但路径概率更大，这就意味着从A往后延伸的路径必须再次重新遍历。这个算法的时间复杂度可以很高。
+
+        解法2：Dijkstra 贪心
+        回顾一下Dijkstra算法。它适合单源非负权重图。所谓“单源”，就是它只能求某个特定节点作为起点的最短路径。思想是基于BFS的贪心策略。在队列中的所有节点都按照“（从起点）到达路径长度”排序，任何轮次中，最先弹出的节点A如果之前从没有访问过，那么它所对应的路径就一定是从起点到A的最短路径。
+
+        本题需要改造一番才能使用Dijkstra算法。原本的题意是求最大乘积路径问题：
+
+        maxmize prob(E1)*prob(E2)*...*prob(Ek) 
+        = maxmize log[prob(E1)]+log[prob(E2)] + ... + log[prob(Ek)] 
+        = minimize -log[prob(E1)] -log[prob(E2)] - ... -log[prob(Ek)]
+        我们发现每条边的-log[prob(Ek)]都是正数，并且目标是最小化路径之和。所以考虑-log[prob(Ek)]为权重的图，原题就可以转化成标准的最短路径问题。
+    */
+    double doit_dijkstra(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) 
+    {
+        vector<vector<std::pair<int, double>>>Next(n);
+        for (int i=0; i<edges.size(); i++)
+        {
+            Next[edges[i][0]].push_back({edges[i][1], -log(succProb[i])});
+            Next[edges[i][1]].push_back({edges[i][0], -log(succProb[i])});
+        }
+
+        set<std::tuple<double, int>> Set; // {dist, node}
+        Set.insert({0, start});
+        vector<double>prob(n,-1);
+
+        while (!Set.empty())
+        {
+            double dist = std::get<0>(*Set.begin());
+            int curNode = std::get<1>(*Set.begin());            
+            Set.erase(Set.begin());
+
+            if (prob[curNode]!=-1) continue;
+            prob[curNode] = dist;
+            
+            if (curNode==end) return exp(-prob[curNode]);
+
+            for (auto next: Next[curNode])
+            {
+                int nextNode = next.first;
+                double edge = next.second;
+                if (prob[nextNode]!=-1) continue;
+                Set.insert({dist + edge, nextNode});
+            }
+        }
+
+        return 0;
+    }
+
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) 
+    {
+        vector<vector<std::pair<int, double>>>Next(n);
+        for (int i=0; i<edges.size(); i++)
+        {
+            Next[edges[i][0]].push_back({edges[i][1], succProb[i]});
+            Next[edges[i][1]].push_back({edges[i][0], succProb[i]});
+        }
+        
+        vector<double>prob(n);
+        prob[start] = 1;
+        queue<int>q;
+        q.push(start);
+        
+        while (!q.empty())
+        {
+            int cur = q.front();
+            q.pop();
+            for (auto next: Next[cur])
+            {
+                if (prob[next.first] >= prob[cur] * next.second) continue;
+                prob[next.first] = prob[cur]*next.second;
+                q.push(next.first);
+            }
+        }
+        return prob[end];
+    }
+
+
 public:
     
     struct comparator { 
@@ -105,7 +190,7 @@ public:
             Q.pop();
             
             // If current node probability cost > nodeProb then ignore 
-            if(probCost[node]>nodeProb) continue;
+            if(probCost[node] > nodeProb) continue;
             
             // If end node is reached then retuen node probability and end BFS
             if(node == end) {

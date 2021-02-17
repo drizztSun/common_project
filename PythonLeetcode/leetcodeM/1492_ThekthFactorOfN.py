@@ -50,7 +50,7 @@ class KthFactor:
     Overview
     In this article, we consider three solutions.
 
-    Approach 1: Brute Force, \mathcal{O}(N)O(N). One could iterate from 11 to NN, figure out all divisors in a linear time, and then return the kth one.
+    Approach 1: Brute Force, O(N). One could iterate from 11 to NN, figure out all divisors in a linear time, and then return the kth one.
     """
     def doit_on(self, n, k):
         for i in range(1, n):
@@ -100,18 +100,13 @@ class KthFactor:
     Initialize a list divisors to store the divisors.
     
     Iterate by xx from 11 to \sqrt{N} 
-    N
-    ​	
-     :
-    
-    If xx is a divisor of NN, decrease kk by one. Return xx if k == 0k==0.
+
+    If x is a divisor of NN, decrease kk by one. Return x if k == 0.
     We're here because the kth divisor is not yet found. Although divisors already contains all "independent" divisors. 
     All other divisors are "paired" ones, i.e, the kth divisor could be computed as N / divisors[len(divisors) - k].
     
-    But before that, we need a small correction for the case when NN is a perfect square. In that case, the divisor list contains a duplicate because \sqrt{N} 
-    N
-    ​	
-      appears two times. To skip it, we have to increase kk by one.
+    But before that, we need a small correction for the case when NN is a perfect square. In that case, the divisor list contains a duplicate because \sqrt{N} appears two times. 
+    To skip it, we have to increase k by one.
     
     Return N / divisors[len(divisors) - k] if k <= len(divisors) and -1 otherwise.
 

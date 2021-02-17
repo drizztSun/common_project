@@ -81,8 +81,7 @@ public:
         EarliestTime[K] = 0;
         
         unordered_map<int,vector<std::pair<int,int>>>next;
-        for (auto time: times)
-        {
+        for (auto time: times) {
             next[time[0]].push_back({time[1],time[2]});
         }
         
@@ -104,6 +103,7 @@ public:
                 
                 if (EarliestTime[nextNode] <= EarliestTime[curNode]+weight)
                     continue;
+                    
                 EarliestTime[nextNode] = EarliestTime[curNode]+weight;
                 q.push({nextNode,EarliestTime[nextNode]});
             }

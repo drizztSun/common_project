@@ -1,12 +1,11 @@
-"""
+/*
 1498. Number of Subsequences That Satisfy the Given Sum Condition
 
 Given an array of integers nums and an integer target.
 
-Return the number of non-empty subsequences of nums such that the sum of the minimum and maximum element on
-it is less or equal to target. Since the answer may be too large, return it modulo 10**9 + 7.
+Return the number of non-empty subsequences of nums such that the sum of the minimum and maximum element on it is less or equal to target. Since the answer may be too large, return it modulo 109 + 7.
 
-
+ 
 
 Example 1:
 
@@ -34,7 +33,7 @@ Example 4:
 Input: nums = [5,2,4,1,7,6,8], target = 16
 Output: 127
 Explanation: All non-empty subset satisfy the condition (2^7 - 1) = 127
-
+ 
 
 Constraints:
 
@@ -42,13 +41,17 @@ Constraints:
 1 <= nums[i] <= 10^6
 1 <= target <= 10^6
 
-"""
+*/
+#include <vector>
+#include <algorithm>
 
+using std::vector;
 
-class NumberOfSubsequence:
+class NumberSequenceThatSatisfy {
 
+public:
 
-    """
+    /*
         Intuition
         Almost same as problem two sum.
         If we want to know the count of subarray in sorted array A,
@@ -75,38 +78,24 @@ class NumberOfSubsequence:
         Time O(NlogN)
         Space O(1) for python
         (O(N) space for java and c++ can be save anyway)
-    """
-    def doit_sort(self, A, target):
-        A.sort()
-        l, r = 0, len(A) - 1
-        res = 0
-        mod = 10**9 + 7
-        while l <= r:
-            if A[l] + A[r] > target:
-                r -= 1
-            else:
-                res += pow(2, r - l, mod)
-                l += 1
-        return res % mod
-
-    def doit_sort(self, nums: 'list', target: int) -> int:
-
-        nums.sort()
-        mod = 10 ** 9 + 7
-        left, right = 0, len(nums)-1
-        res = 0
-
-        while left <= right:
-
-            if nums[left] + nums[right] > target:
-                right -= 1
-            else:
-                res = (res + pow(2, right - left, mod)) % mod
-                left += 1
-
-        return res
-
-
-
-
-
+    */
+    int doit_sort(vector<int>& A, int target) {
+        
+        std::sort(A.begin(), A.end());
+        int res = 0, n = A.size(), l = 0, r = n - 1, mod = 1e9 + 7;
+        vector<int> pows(n, 1);
+        
+        for (int i = 1 ; i < n ; ++i)
+            pows[i] = pows[i - 1] * 2 % mod;
+        
+        while (l <= r) {
+            if (A[l] + A[r] > target) {
+                r--;
+            } else {
+                res = (res + pows[r - l++]) % mod;
+            }
+        }
+        
+        return res;    
+    }
+};

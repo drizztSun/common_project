@@ -63,12 +63,6 @@ class ArrayPairDividedByK:
 
         return dp[0] % 2 == 0
 
-
-
-
-
-
-
 if __name__ == '__main__':
 
     ArrayPairDividedByK().doit_(arr = [1,2,3,4,5,10,6,7,8,9], k = 5)

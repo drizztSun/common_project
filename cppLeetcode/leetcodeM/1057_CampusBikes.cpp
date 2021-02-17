@@ -42,7 +42,12 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <queue>
+#include <array>
+#include <set>
 
+using std::set;
+using std::queue;
+using std::array;
 using std::priority_queue;
 using std::vector;
 using std::unordered_set;
@@ -56,7 +61,68 @@ class CampusBikes {
     };
     
 public:
-    vector<int> doit_(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+
+    /*
+        1057.Campus-Bikes
+        此题考查如何设计数据结构来方便解题。
+
+        设计数组d，其中每个d[i]是一个队列，盛装第i个工人到每辆自行车的距离信息{dist, i, j}，并且是已经排序的。
+
+        我们每个回合解决一个工人。在每个回合中，将所有d[i]的首元素（见上，是一个三元triplet）放入一个新的优先队列（或者有序集合），这样集合里的第一个元素自然就是一个当前成功的配对
+        （因为优先队列按照距离、工人编号、自行车编号依次排序）。
+        再下一个回合时，我们会跳过所有已经匹配过的工人，同时对于未匹配的工人i，如果d[i]的首元素是已经匹配过的自行车，我们也将其从d[i]弹出，直至首元素遇到的是未匹配的自行车，
+        再将该tripet放入优先队列中。
+    */
+    vector<int> doit_heap(vector<vector<int>>& workers, vector<vector<int>>& bikes) 
+    {
+        int m = workers.size();
+        int n = bikes.size();
+        vector<queue<array<int,3>>> d(m);
+
+        for (int i=0; i<m; i++)
+        {
+            vector<array<int,3>>temp(n);
+            for (int j=0; j<n; j++)
+            {
+                int x = abs(workers[i][0]-bikes[j][0]);
+                int y = abs(workers[i][1]-bikes[j][1]);
+                temp[j] = {x+y,i,j};
+            }
+            sort(temp.begin(), temp.end());          
+            for (auto x: temp)
+                d[i].push(x);
+        }
+                    
+        set<array<int,3>>Set;
+        for (int i=0; i<m; i++)
+        {            
+            Set.insert(d[i].front());
+        }        
+        
+        vector<int>rets(m, -1);        
+        vector<int>bikesDone(n,0);
+        for (int i=0; i<m; i++)
+        {            
+            int w = (*Set.begin())[1];
+            int b = (*Set.begin())[2];
+            rets[w] = b;            
+            bikesDone[b] = 1;
+            
+            Set.clear();
+            for (int i=0; i<m; i++)
+            {
+                if (rets[i]!=-1) continue;
+                while (!d[i].empty() && bikesDone[d[i].front()[2]])
+                    d[i].pop();
+                if (!d[i].empty())
+                    Set.insert(d[i].front());
+            }            
+        }
+        
+        return rets;  
+    }
+
+    vector<int> doit_heap_1(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
         
         unordered_map<int, vector<std::pair<int, int>>> buckets;
         priority_queue<int, vector<int>, std::greater<int>> que;
@@ -95,7 +161,7 @@ public:
     }
     
     // O(NM)
-    vector<int> assignBikes(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+    vector<int> doit_bucketsort_(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
         static const int bucketsSize = 2001;
         vector<vector<unsigned int>> buckets(bucketsSize, vector<unsigned int>());
         for (unsigned int i = 0; i < workers.size(); i++) {
@@ -124,7 +190,7 @@ public:
     }
     
     // O(NMlog(NM))
-    vector<int> doit_greedy(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+    vector<int> doit_greedy_sort(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
     
         
         auto myfunc = [&](node& a, node& b){

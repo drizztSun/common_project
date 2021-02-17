@@ -114,11 +114,14 @@ public:
 
 	int doit_dijkstra(vector<vector<int>>& grid) {
 
-		priority_queue<cord, vector<cord>, cmp> q;
 		int m = grid.size(), n = grid[0].size();
+		
+		priority_queue<cord, vector<cord>, cmp> q;
 		q.push(cord(grid[0][0], 0, 0));
+
 		set<pair<int, int>> visited;
 		visited.insert(make_pair(0, 0));
+		
 		int heighest = 0;
 
 		while (!q.empty()) {
