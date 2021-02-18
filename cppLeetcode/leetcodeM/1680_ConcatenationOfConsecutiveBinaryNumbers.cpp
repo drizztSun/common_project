@@ -87,9 +87,9 @@ public:
 
         Complexity Analysis
 
-        Time Complexity: \mathcal{O}(n)O(n). We iterate nn numbers, and for each number we spend \mathcal{O}(1)O(1) to add it to the final result.
+        Time Complexity: O(n). We iterate nn numbers, and for each number we spend O(1) to add it to the final result.
 
-        Space Complexity: \mathcal{O}(1)O(1), since we do not need any extra data structure.
+        Space Complexity: O(1), since we do not need any extra data structure.
     */
     int doit_(int n ) {
 

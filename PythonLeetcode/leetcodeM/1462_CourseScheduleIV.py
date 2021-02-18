@@ -132,11 +132,11 @@ class CheckIfPrerequisite:
             def union(self,x,y):
                 self.p[x] |= self.p[y]
 
-            def q(self,x,y):
+            def query(self,x,y):
                 return y in self.p[x]
 
         uf = UF(n)
         for dep,cur in A:
             uf.union(cur,dep)
 
-        return [uf.q(*reversed(q)) for q in Q]
+        return [uf.query(q[1], q[0]) for q in Q]

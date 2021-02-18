@@ -96,7 +96,7 @@ class EventualSafeNodes:
 
         Space Complexity: O(N) in additional space complexity.
     """
-    def doit_dfs(self, graph):
+    def doit_dfs_topsort(self, graph):
         import collections
         N = len(graph)
         safe = [False] * N

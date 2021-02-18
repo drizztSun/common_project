@@ -124,7 +124,7 @@ class SubmatricesAllOnes:
                 while stack and mat[i][stack[-1]] > mat[i][j]:
                     jj = stack.pop()  # start
                     kk = stack[-1] if stack else -1  # end
-                    cnt -= (mat[i][jj] - mat[i][j]) * (jj - kk)  # adjust to reflect lower height
+                    cnt -= (mat[i][jj] - mat[i][j]) * (jj - kk)  # adjust to reflect lower height, no possible to make matrix with that part
 
                 cnt += mat[i][j]  # count submatrices bottom-right at (i, j)
                 ans += cnt

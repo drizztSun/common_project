@@ -79,7 +79,7 @@ class RangeSumOfSortedSubarraySums:
                 while B[j] - B[i] > score:
                     i += 1
                 res += j - i
-            return res
+            return int(res)
 
         # calculate the sum for all numbers whose indices are <= index k
         def sum_k_sums(k):
@@ -90,7 +90,7 @@ class RangeSumOfSortedSubarraySums:
                 while B[j] - B[i] > score:
                     i += 1
                 res += B[j] * (j - i + 1) - (C[j] - (C[i - 1] if i else 0))
-            return res - (count_sum_under(score) - k) * score
+            return int(res - (count_sum_under(score) - k) * score)
 
         # use bisearch to find how many numbers ae below k
         def kth_score(k):
@@ -101,7 +101,7 @@ class RangeSumOfSortedSubarraySums:
                     l = m + 1
                 else:
                     r = m
-            return l
+            return int(l)
 
         # result between left and right can be converted to [0, right] - [0, left-1] (result below right - result below left-1)
-        return sum_k_sums(right) - sum_k_sums(left - 1)
+        return int(sum_k_sums(right) - sum_k_sums(left - 1)) % (10**9 + 7)

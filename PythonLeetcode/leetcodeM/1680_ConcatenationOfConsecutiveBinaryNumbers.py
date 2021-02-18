@@ -27,7 +27,7 @@ After modulo 109 + 7, the result is 505379714.
 
 Constraints:
 
-1 <= n <= 105
+1 <= n <= 10^5
 """
 
 

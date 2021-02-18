@@ -30,22 +30,32 @@ grid[i][j] is 0 or 1
 class Largest1BorderedSquare:
 
 
-    def doit_(self, A):
+    """
+        Explanation
+        Count the number of consecutive 1s on the top and on the left.
+        From length of edge l = min(m,n) to l = 1, check if the 1-bordered square exist.
+
+        Complexity
+        Time O(N^3)
+        Space O(N^2)
+    """
+    def doit_search(self, A):
         m, n = len(A), len(A[0])
         res = 0
         top, left = [a[:] for a in A], [a[:] for a in A]
+
         for i in range(m):
             for j in range(n):
                 if A[i][j]:
                     if i: top[i][j] = top[i - 1][j] + 1
                     if j: left[i][j] = left[i][j - 1] + 1
-
+        
         for r in range(min(m, n), 0, -1):
             for i in range(m - r + 1):
                 for j in range(n - r + 1):
                     if min(top[i + r - 1][j], top[i + r - 1][j + r - 1], left[i][j + r - 1], left[i + r - 1][j + r - 1]) >= r:
                         return r * r
-        return 0
+            return 0
     
     def doit_(self, grid: list) -> int:
 

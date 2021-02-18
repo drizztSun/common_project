@@ -121,7 +121,7 @@ class CountTriplets:
         Space O(N)
         Space O(1) if changing the input
     """
-    def doit_(self, A: list) -> int:
+    def doit_hashtable(self, A: list) -> int:
 
         res = cur = 0
 

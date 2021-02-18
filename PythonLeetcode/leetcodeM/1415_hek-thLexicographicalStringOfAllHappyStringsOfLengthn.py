@@ -94,11 +94,11 @@ class HappyString:
 
             cnt >>= 1
             if res[-1] == 'a':
-                res += 'b' if k < cnt else 'c'
+                res += 'b' if k <= cnt else 'c'
             elif res[-1] == 'b':
-                res += 'a' if k < cnt else 'c'
+                res += 'a' if k <= cnt else 'c'
             elif res[-1] == 'c':
-                res += 'a' if k < cnt else 'b'
+                res += 'a' if k <= cnt else 'b'
 
             if k > cnt:
                 k -= cnt

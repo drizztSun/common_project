@@ -174,7 +174,6 @@ class MinCostConnectPoints:
                 ans += w
         
         return ans
-            
 
 
 if __name__ == '__main__':
