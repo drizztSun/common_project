@@ -76,9 +76,11 @@ class MinFlipsMonoIncr:
             else:
                 ones += 1
 
+            # if 000000 any 1110000 , 000 more than 1, we should be replace 1 not 0.
             if flip > ones:
                 flip = ones
 
+        # at 000000111111100, the last two 0 need to flip.
         return min(flip, ones)
 
 
