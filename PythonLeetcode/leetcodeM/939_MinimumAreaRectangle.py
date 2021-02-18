@@ -28,7 +28,7 @@ from collections import defaultdict
 
 class MinAreaRect:
 
-    def doit(self, A):
+    def doit(self, points):
         n = len(points)
         nx = len(set(p[0] for p in points))
         ny = len(set(p[1] for p in points))

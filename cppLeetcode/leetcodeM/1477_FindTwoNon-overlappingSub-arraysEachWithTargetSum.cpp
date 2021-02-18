@@ -43,7 +43,8 @@ Constraints:
 1 <= target <= 10^8
 
 */
-
+#include <vector>
+using std::vector;
 
 class MinSumOfLengths {
 
@@ -54,7 +55,7 @@ public:
 
         int i = 0, cur = 0;
         int n = arr.size();
-        vector<int> minlength{n+1};
+        vector<int> minlength(n+1);
         int ans = INT_MAX;
         
         for (int j = 0; j < arr.size(); j++) {

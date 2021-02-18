@@ -71,6 +71,7 @@ public:
         {
             if (th>0)
             {
+                // A > B
                 int change = 0;
                 for (int i=0; i<th; i++)
                     change += countA[i];
@@ -78,6 +79,7 @@ public:
                     change += countB[i];
                 ret = std::min(ret, change);
 
+                // B > A
                 change = 0;
                 for (int i=0; i<th; i++)
                     change += countB[i];
@@ -86,6 +88,7 @@ public:
                 ret = std::min(ret, change);
             }
             
+            // Both a and b consist of only one distinct letter.
             int change = 0;
             for (int i=0; i < 26; i++)
                 if (i != th) {

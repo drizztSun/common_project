@@ -67,7 +67,7 @@ class GetSmallestString:
         res = ''
         for i in range(1, n+1):
             
-            n1 = 26*(n - i) # How about the rest all use 'zzz****'
+            n1 = 26*(n - i) # How about the rest all use '***zzz'
             n2 = k - acc # How many is the left
             
             if n2 - n1 <= 1: # if n2 <= n1 + 1, it means the rest is not enough to build 'zzzzz', we can do 'a'

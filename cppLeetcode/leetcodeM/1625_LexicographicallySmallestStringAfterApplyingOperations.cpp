@@ -114,7 +114,7 @@ public:
                     t[k] = (t[k]-'0'+a*j) %10 + '0';                
                 
                 string p = t;
-                // b operation, n can fill how mnay times b,
+                // b operation, n can fill how many times b,
                 for (int k = 0; k <= n / gcd(n,b); k++)
                 {
                     p = p.substr(n-b) + p.substr(0, n-b);
@@ -130,7 +130,7 @@ public:
         string ret = s;
         int n = s.size();
         
-        for (int k=0; k<=n/gcd(n,b); k++)
+        for (int k=0; k <= n/gcd(n,b); k++)
         {
             s = s.substr(n-b) + s.substr(0, n-b);            
 

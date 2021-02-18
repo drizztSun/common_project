@@ -56,7 +56,7 @@ public:
         int curmax = 0, curmin = 0;
         int total = 0;
         
-        for (auto a : A) {
+        for (auto a: A) {
 
             curmax = std::max(curmax + a, a);
             maxv = std::max(maxv, curmax);

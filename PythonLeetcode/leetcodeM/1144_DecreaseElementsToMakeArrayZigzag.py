@@ -71,11 +71,3 @@ class MovesToMakeZigzag:
                 greater += max(0, nums[i] - min(nums[i-1], nums[i+1]) + 1)
 
         return min(less, greater)
-
-
-
-
-        
-
-                
-        
