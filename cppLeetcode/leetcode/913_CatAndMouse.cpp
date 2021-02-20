@@ -103,22 +103,17 @@
  """
  
  */
-
 #include <vector>
-using std::vector;
-
 #include <unordered_map>
-using std::unordered_map;
-
 #include <algorithm>
-
 #include <deque>
-using std::deque;
-
 #include <queue>
-using std::queue;
-
 #include <array>
+
+using std::vector;
+using std::unordered_map;
+using std::deque;
+using std::queue;
 using std::array;
 
 namespace std
@@ -134,9 +129,114 @@ struct hash<std::pair<int, int>>
 };
 } // namespace std
 
-class CatMouseGame
-{
+class CatMouseGame {
+
 public:
+
+    /*
+        913.Cat-and-Mouse
+        此题是game thoery中的好题．看上去像常规的minMax问题，但实际上几乎所有的DFS解法都是不完备的，参看leetcode的讨论区．
+
+        正确的解法是用BFS.我们设计节点状态是(m,c,turn)，用color[m][c][turn]来记忆该状态的输赢情况．
+
+        首先我们将所有已知的状态加入一个队列．已知状态包括(0,c,turn)肯定是老鼠赢，(x,x,turn)且x!=0肯定是猫赢．我们尝试用BFS的思路，将这些已知状态向外扩展开去．
+
+        扩展的思路是：从队列中取出队首节点状态（m,c,t），找到它的所有邻接的parent的状态（m2,c2,t2）．这里的父子关系是指，(m2,c2,t2)通过t2轮（老鼠或猫）的操作，能得到(m,c,t).我们发现，
+        如果(m,c,t)是老鼠赢而且t2是老鼠轮，那么这个(m2,c2,t2)一定也是老鼠赢．同理，猫赢的状态也类似．于是，我们找到了一种向外扩展的方法．
+
+        向外扩展的第二个思路是：对于(m2,c2,t2)，我们再去查询它的所有children（必定是对手轮）是否都已经标注了赢的状态．如果都是赢的状态，那么说明(m2,c2,t2)无路可走，
+        只能标记为输的状态．特别注意的是，第一条规则通过child找parent，和第二条规则通过parent找child的算法细节是不一样的，一定要小心．
+
+        这样我们通过BFS不断加入新的探明输赢的节点．直到队列为空，依然没有探明输赢的节点状态，就是平局的意思！
+    */
+    
+    int color[50][50][3];
+
+    int catMouseGame(vector<vector<int>>& graph) 
+    {
+        int N = graph.size();
+                
+        queue<vector<int>>q;
+        for (int i=0; i<N; i++)
+            for (int turn=1; turn<=2; turn++)
+            {
+                color[0][i][turn] = 1;  // mouse win conditions
+                q.push({0,i,turn});
+                
+                if (i!=0)               
+                {
+                    color[i][i][turn] = 2;  // cat win conditions
+                    q.push({i,i,turn});
+                }
+            }
+        
+        while (!q.empty()) {
+                
+            int m = q.front()[0]; 
+            int c = q.front()[1];
+            int t = q.front()[2];            
+            int status = color[m][c][t];
+            q.pop();
+                        
+            for (auto nextNode: findAllParents(graph,m,c,t)) {
+
+                int m2 = nextNode[0];
+                int c2 = nextNode[1];
+                int t2 = nextNode[2];
+                
+                if (color[m2][c2][t2]!=0) continue; // has been determined
+                
+                if (t2==status)   // immediate win, (m2,c2,t2)->(m,c,t)
+                {
+                    color[m2][c2][t2] = status;
+                    q.push({m2,c2,t2});                    
+                }
+                else if (allChildrenWin(graph, m2,c2,t2))    // eventually lose
+                {
+                    color[m2][c2][t2] = (t2==1)? 2:1;
+                    q.push({m2,c2,t2});                
+                }                
+            }
+        }
+        return color[1][2][1];
+    }
+    
+    
+    vector<vector<int>> findAllParents(vector<vector<int>>& graph, int m, int c, int t)
+    {
+        vector<vector<int>>neighbours;
+        if (t==1)
+        {
+            for (int c_next: graph[c])
+                if (c_next!=0) neighbours.push_back({m,c_next,2});
+        }
+        else
+        {
+            for (int m_next: graph[m])
+                neighbours.push_back({m_next,c,1});
+        }
+        return neighbours;
+    }
+    
+    bool allChildrenWin(vector<vector<int>>& graph, int m, int c, int t)
+    {
+        if (t==1)
+        {
+            for (int m_next: graph[m])
+                if (color[m_next][c][2]!=2)
+                    return false;
+        }
+        else if (t==2)
+        {
+            for (int c_next: graph[c])
+                if (c_next!=0 && color[m][c_next][1]!=1)
+                    return false;
+        }
+        return true;
+    }
+
+    //----------------------
+
     int doit(vector<vector<int>> &&graph)
     {
 
