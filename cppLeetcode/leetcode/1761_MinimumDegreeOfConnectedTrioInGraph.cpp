@@ -70,6 +70,7 @@ public:
         }
         std::sort(begin(edgeds), end(edgeds));
 
+        // sort can help us to find the min res as quick as possible
         int res = INT_MAX;
         for (auto& edge : edgeds) {
             if (res <= edge.first) break;

@@ -154,6 +154,9 @@ class EventualSafeNodes:
         WHITE, GRAY, BLACK = 0, 1, 2
         color = collections.defaultdict(int)
 
+        # This is a classic "white-gray-black" DFS algorithm that would be part of any textbook on DFS. 
+        # We mark a node gray on entry, and black on exit. If we see a gray node during our DFS, it must be part of a cycle. 
+        # White never access, Black terminal, Gray, navigated, twice means not good.
         def dfs(node):
             if color[node] != WHITE:
                 return color[node] == BLACK

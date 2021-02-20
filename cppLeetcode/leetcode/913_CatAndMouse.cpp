@@ -104,14 +104,14 @@
  
  */
 #include <vector>
-#include <unordered_map>
+#include <queue>
 #include <algorithm>
 #include <deque>
-#include <queue>
+#include <unordered_map>
 #include <array>
 
-using std::vector;
 using std::unordered_map;
+using std::vector;
 using std::deque;
 using std::queue;
 using std::array;
@@ -129,29 +129,27 @@ struct hash<std::pair<int, int>>
 };
 } // namespace std
 
-class CatMouseGame {
-
-public:
-
+class CatMouseGame
+{
+ 
     /*
         913.Cat-and-Mouse
+
         此题是game thoery中的好题．看上去像常规的minMax问题，但实际上几乎所有的DFS解法都是不完备的，参看leetcode的讨论区．
 
         正确的解法是用BFS.我们设计节点状态是(m,c,turn)，用color[m][c][turn]来记忆该状态的输赢情况．
 
         首先我们将所有已知的状态加入一个队列．已知状态包括(0,c,turn)肯定是老鼠赢，(x,x,turn)且x!=0肯定是猫赢．我们尝试用BFS的思路，将这些已知状态向外扩展开去．
 
-        扩展的思路是：从队列中取出队首节点状态（m,c,t），找到它的所有邻接的parent的状态（m2,c2,t2）．这里的父子关系是指，(m2,c2,t2)通过t2轮（老鼠或猫）的操作，能得到(m,c,t).我们发现，
-        如果(m,c,t)是老鼠赢而且t2是老鼠轮，那么这个(m2,c2,t2)一定也是老鼠赢．同理，猫赢的状态也类似．于是，我们找到了一种向外扩展的方法．
+        扩展的思路是：从队列中取出队首节点状态（m,c,t），找到它的所有邻接的parent的状态（m2,c2,t2）．这里的父子关系是指，(m2,c2,t2)通过t2轮（老鼠或猫）的操作，能得到(m,c,t).我们发现，如果(m,c,t)是老鼠赢而且t2是老鼠轮，那么这个(m2,c2,t2)一定也是老鼠赢．同理，猫赢的状态也类似．于是，我们找到了一种向外扩展的方法．
 
-        向外扩展的第二个思路是：对于(m2,c2,t2)，我们再去查询它的所有children（必定是对手轮）是否都已经标注了赢的状态．如果都是赢的状态，那么说明(m2,c2,t2)无路可走，
-        只能标记为输的状态．特别注意的是，第一条规则通过child找parent，和第二条规则通过parent找child的算法细节是不一样的，一定要小心．
+        向外扩展的第二个思路是：对于(m2,c2,t2)，我们再去查询它的所有children（必定是对手轮）是否都已经标注了赢的状态．如果都是赢的状态，那么说明(m2,c2,t2)无路可走，只能标记为输的状态．特别注意的是，第一条规则通过child找parent，和第二条规则通过parent找child的算法细节是不一样的，一定要小心．
 
-        这样我们通过BFS不断加入新的探明输赢的节点．直到队列为空，依然没有探明输赢的节点状态，就是平局的意思！
+        这样我们通过BFS不断加入新的探明输赢的节点．直到队列为空，依然没有探明输赢的节点状态，就是平局的意思!
     */
-    
     int color[50][50][3];
-
+    
+public:
     int catMouseGame(vector<vector<int>>& graph) 
     {
         int N = graph.size();
@@ -170,16 +168,16 @@ public:
                 }
             }
         
-        while (!q.empty()) {
-                
+        while (!q.empty())
+        {            
             int m = q.front()[0]; 
             int c = q.front()[1];
             int t = q.front()[2];            
             int status = color[m][c][t];
             q.pop();
                         
-            for (auto nextNode: findAllParents(graph,m,c,t)) {
-
+            for (auto nextNode: findAllParents(graph,m,c,t))
+            {
                 int m2 = nextNode[0];
                 int c2 = nextNode[1];
                 int t2 = nextNode[2];
@@ -238,6 +236,60 @@ public:
     //----------------------
 
     int doit(vector<vector<int>> &&graph)
+    /*
+        Approach 1: Minimax / Percolate from Resolved States
+        
+        Intuition
+
+        The state of the game can be represented as (m, c, t) where m is the location of the mouse, c is the location of the cat, and t is 1 if it is the mouse's move, else 2. Let's call these states nodes. 
+        These states form a directed graph: the player whose turn it is has various moves which can be considered as outgoing edges from this node to other nodes.
+
+        Some of these nodes are already resolved: if the mouse is at the hole (m = 0), then the mouse wins; if the cat is where the mouse is (c = m), then the cat wins. 
+        Let's say that nodes will either be colored \small\text{MOUSE}MOUSE, \small\text{CAT}CAT, or \small\text{DRAW}DRAW depending on which player is assured victory.
+
+        As in a standard minimax algorithm, the Mouse player will prefer \small\text{MOUSE}MOUSE nodes first, \small\text{DRAW}DRAW nodes second, and \small\text{CAT}CAT nodes last, and the Cat player prefers these nodes in the opposite order.
+
+        Algorithm
+
+        We will color each node marked \small\text{DRAW}DRAW according to the following rule. (We'll suppose the node has node.turn = Mouse: the other case is similar.)
+
+        ("Immediate coloring"): If there is a child that is colored \small\text{MOUSE}MOUSE, then this node will also be colored \small\text{MOUSE}MOUSE.
+
+        ("Eventual coloring"): If all children are colored \small\text{CAT}CAT, then this node will also be colored \small\text{CAT}CAT.
+
+        We will repeatedly do this kind of coloring until no node satisfies the above conditions. To perform this coloring efficiently, we will use a queue and perform a bottom-up percolation:
+
+        Enqueue any node initially colored (because the Mouse is at the Hole, or the Cat is at the Mouse.)
+
+        For every node in the queue, for each parent of that node:
+
+        Do an immediate coloring of parent if you can.
+
+        If you can't, then decrement the side-count of the number of children marked \small\text{DRAW}DRAW. If it becomes zero, then do an "eventual coloring" of this parent.
+
+        All parents that were colored in this manner get enqueued to the queue.
+
+        Proof of Correctness
+
+        Our proof is similar to a proof that minimax works.
+
+        Say we cannot color any nodes any more, and say from any node colored \small\text{CAT}CAT or \small\text{MOUSE}MOUSE we need at most KK moves to win. 
+        If say, some node marked \small\text{DRAW}DRAW is actually a win for Mouse, it must have been with > K>K moves. 
+        Then, a path along optimal play (that tries to prolong the loss as long as possible) must arrive at a node colored \small\text{MOUSE}MOUSE (as eventually the Mouse reaches the Hole.) 
+        Thus, there must have been some transition \small\text{DRAW} \rightarrow \small\text{MOUSE}DRAW→MOUSE along this path.
+
+        If this transition occurred at a node with node.turn = Mouse, then it breaks our immediate coloring rule. If it occured with node.turn = Cat, and all children of node have color \small\text{MOUSE}MOUSE, then it breaks our eventual coloring rule. 
+        If some child has color \small\text{CAT}CAT, then it breaks our immediate coloring rule. Thus, in this case node will have some child with \small\text{DRAW}DRAW, which breaks our optimal play assumption, 
+        as moving to this child ends the game in > K>K moves, whereas moving to the colored neighbor ends the game in \leq K≤K moves.
+
+        Complexity Analysis
+
+        Time Complexity: O(N^3), where NN is the number of nodes in the graph. There are O(N^2) states, and each state has an outdegree of NN, as there are at most NN different moves.
+
+        Space Complexity: O(N^2)
+    
+    */
+    int doit_minmax(vector<vector<int>> &&graph)
     {
 
         int N = graph.size();
@@ -297,8 +349,8 @@ public:
                 }
             }
 
-        while (!queue.empty())
-        {
+        while (!queue.empty() {
+            
             auto top = queue.front();
             int m = std::get<0>(top), c = std::get<1>(top), t = std::get<2>(top), win = std::get<3>(top);
 
