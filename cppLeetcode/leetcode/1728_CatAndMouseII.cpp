@@ -135,6 +135,7 @@ public:
                         knowns.push({z[0], z[1], i, j, 1});
                         knowns.push({i, j, i, j, 0});
                         knowns.push({i, j, i, j, 1});
+                        // 0. mouse turn, 1. cat turn
                         // 1. mouse win, 2. cat win
                         states[i][j][z[0]][z[1]][0][2] = 1;
                         states[i][j][z[0]][z[1]][1][2] = 1;
@@ -162,11 +163,11 @@ public:
                         if(xx < 0 || xx >= m || yy < 0 || yy >= n || grid[xx][yy] == '#') break;
                         
                         // last step, mouse turns, cat win
-                        finals = states[xx][yy][h[2]][h[3]][1 - h[4]][2];
+                        finals = states[xx][yy][h[2]][h[3]][1 - h[4]][2]; // 2 is final state
                         if(finals) continue;
 
                         finals = states[h[0]][h[1]][h[2]][h[3]][h[4]][2];
-                        // cur step, cat win or mouse turn and  
+                        // cur step, cat win or mouse turn and all states of mouse can reach. 
                         if(finals == 2 || ++states[xx][yy][h[2]][h[3]][1 - h[4]][2 - finals] == rs[0][xx][yy]) {
                             states[xx][yy][h[2]][h[3]][1 - h[4]][2] = finals;
                             knowns.push({xx, yy, h[2], h[3], 1 - h[4]});
