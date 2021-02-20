@@ -49,6 +49,7 @@
 #include <queue>
 #include <vector>
 #include <deque>
+#include <functional>
 
 
 using std::deque;
@@ -65,17 +66,119 @@ size_t cord_hash(const std::pair<int, int>& cord) {
 class ReachableNodes {
     
 public:
+
+    /*
+        882.Reachable-Nodes-In-Subdivided-Graph
+        我们可以用Dijkstra求出从0点到任意原始节点i的最短距离（最少需要的moves），记为dist[i]。那么这个结果对于解题有什么帮助呢？
+
+        我们令edgeVisitedNodes[i][j]表示从i->j这条边，我们最多能再走几步（即访问多少个“细分点”）。因为总的maxMoves是固定的，我们自然希望到达i点时用的步数越少的话，那么我们在i->j这条边上能走的步数就越多。
+        也就是说，我们能在i->j这条边上再走maxMoves-dist[i]步。注意，我们只考虑“细分点”而不考虑端点，因此这个数字不能超过这条边的cnt，即 VisitedSubNodes[i][j] = min(cnt, maxMoves - dist[i])
+
+        同理，我们也可以求出我们能在j->i这条边上再走多少步，即 VisitedSubNodes[i][j] = min(cnt, maxMoves - dist[i])。
+
+        有了以上的数据，我们再遍历所有的边i<->j，那么除了两个端点，我们能在这条边上访问到的“细分点”数目应该是min(VisitedSubNodes[i][j]+VisitedSubNodes[j][i], cnt). 我们另外从dist[i]统计所有能走到的端点。最终答案是两者之和。
+    */
+    typedef std::pair<int,int> PII;
+
+    int doit_bfs_dijkstra_v1(vector<vector<int>>& edges, int maxMoves, int n) 
+    {
+        unordered_map<int, vector<PII>>Map;
+        for (auto e:edges)
+        {
+            Map[e[0]].push_back({e[1], e[2]});
+            Map[e[1]].push_back({e[0], e[2]});
+        }
+        unordered_map<int, unordered_map<int,int>>edgeVisitedNodes;
+
+        priority_queue<PII, vector<PII>, greater<>>pq;
+        pq.push({0,0});
+        vector<int>resolved(n);
+
+        while (!pq.empty())
+        {
+            auto [d, cur] = pq.top();
+            pq.pop();
+
+            if (resolved[cur]) continue;
+            resolved[cur] = 1;
+
+            for (auto [next, cnt]: Map[cur])
+            {
+                // if (resolved[next]) continue;  // Do NOT add this line.
+                edgeVisitedNodes[cur][next] = std::min(maxMoves - d, cnt);
+                if (maxMoves >= d+cnt+1)
+                    pq.push({d+cnt+1, next});
+            }
+        }
+
+        int count = 0;
+        for (auto e: edges) {
+            int a = e[0], b = e[1], cnt = e[2];
+            count += std::min(cnt, edgeVisitedNodes[a][b]+edgeVisitedNodes[b][a]);
+        }
+
+        for (int i=0; i<n; i++)
+            if (resolved[i]) count++;
+
+        return count;
+    }
     
+    int dist[3000];
+    int resolved[3000];
+public:
+    int doit_bfs_dijkstra_v2(vector<vector<int>>& edges, int maxMoves, int n) 
+    {
+        vector<PII> adj[3000];  // {nextNode, weight}
+        for (auto e: edges)
+        {
+            adj[e[0]].push_back({e[1], e[2]+1});
+            adj[e[1]].push_back({e[0], e[2]+1});
+        }
+        
+        priority_queue<PII, vector<PII>, greater<>>pq;  // {dist, nodeIdx}
+        pq.push({0,0});        
+        
+        while (!pq.empty())
+        {
+            auto [d, cur] = pq.top();
+            pq.pop();
+            if (resolved[cur]) continue;
+            resolved[cur] = 1;
+            dist[cur] = d;
+                        
+            for (auto [next, weight] : adj[cur])
+            {
+                if (resolved[next]) continue;
+                if (d+weight <= maxMoves)
+                    pq.push({d+weight, next});
+            }            
+        }
+        
+        int count = 0;
+        for (auto e: edges)
+        {
+            int a = e[0], b = e[1];
+            int sum = 0;
+            if (resolved[a]) sum += maxMoves - dist[a];
+            if (resolved[b]) sum += maxMoves - dist[b];
+            count += std::min(sum, e[2]);
+        }
+        
+        for (int i=0; i<n; i++)
+            if (resolved[i])
+                count++;
+        
+        return count;    
+    }
+
     typedef std::pair<int,int> pi;
     
-    int reachableNodes(vector<vector<int>>& edges, int m, int n) {
+    int doit_bfs_dijkstra_best(vector<vector<int>>& edges, int m, int n) {
         
-        int dist[n];
-        for(int i=0;i<n;i++)
-            dist[i]=1e9;
-        
+        vector<int> dist(n, 1e9);
         dist[0]=0;
-        vector<pi> adj[n];
+
+        vector<vector<pi>> adj(n);
         for(int i=0;i<edges.size();i++)
         {
             adj[edges[i][0]].push_back({edges[i][1],edges[i][2]+1});
@@ -87,14 +190,15 @@ public:
         
         while(!pq.empty())
         {
-            int u=pq.top().second;
+            int u = pq.top().second;
             pq.pop();
+
             for(pi v:adj[u])
             {
-                if(dist[v.first] > dist[u]+v.second)
+                if(dist[v.first] > dist[u] + v.second)
                 {
-                    dist[v.first] = dist[u]+v.second;
-                    pq.push({dist[v.first],v.first});
+                    dist[v.first] = dist[u] + v.second;
+                    pq.push({dist[v.first], v.first});
                 }
             }
         }
@@ -114,12 +218,12 @@ public:
                 {
                     diff2 = m - dist[v];
                 }
-                count += std::min(w,diff+diff2);
+                count += std::min(w, diff + diff2);
             }
             else
             {
                 if(dist[v] < m)
-                    count += std::min(w,m-dist[v]);
+                    count += std::min(w, m - dist[v]);
             }
         }
         
@@ -130,7 +234,7 @@ public:
         return count;
     }
     
-    int doit_heap(vector<vector<int>>&& edges, int M, int N) {
+    int doit_heap_bfs_dijkstra(vector<vector<int>>&& edges, int M, int N) {
         
         vector<vector<int>> graph(N, vector<int>(N, -1));
         for (auto& c: edges) {
@@ -146,7 +250,6 @@ public:
         
         unordered_map<std::pair<int, int>, int, std::function<decltype(cord_hash)>> used(100, cord_hash);
         int ans = 0;
-        
         
         while (!heapqu.empty()) {
             
@@ -165,9 +268,9 @@ public:
                 
                 int weight = graph[node][i];
                 used[{node, i}] = std::min(weight, M - dist);
-                
                 int d2 = dist + weight + 1;
                 
+                // Always to with minimal distance, because it means you can go more from this node.
                 if (d2 < distance[i]) {
                     distance[i] = d2;
                     heapqu.push({d2, i});

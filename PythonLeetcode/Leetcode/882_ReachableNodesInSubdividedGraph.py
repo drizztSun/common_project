@@ -111,10 +111,9 @@ class ReachableNodes:
         return ans
 
     '''
-    Dijkstra + Heap is O(E log E)
-    Dijkstra + Fibonacci heap is O(N log N + E)
+        Dijkstra + Heap is O(E log E)
+        Dijkstra + Fibonacci heap is O(N log N + E)
     '''
-
     def doit_dijkstra_1(self, edges, M, N):
         e = collections.defaultdict(dict)
         for i, j, l in edges:
@@ -147,35 +146,7 @@ class ReachableNodes:
             '''
             res += min(seen.get(i, 0) + seen.get(j, 0), e[i][j])
         return res
-
-    # This seems like a standard Dijkstra problem. Remember to calculate move even cannot reach the next node.
-    # TLE
-
-    def doit3(self, edges, M, N):
-        graph = [[-1]*N for _ in range(N)]
-        for edge in edges:
-            graph[edge[0]][edge[1]] = edge[2]
-            graph[edge[1]][edge[0]] = edge[2]
-        result = 0
-        # PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> (b[1] - a[1]));
-        pq = []
-        visited = [False]*N
-        heapq.heappush(pq, [-M, 0])
-        while pq:
-            move, start = heapq.heappop(pq)
-            move *= -1
-            if visited[start]:
-                continue
-            visited[start] = True
-            result += 1
-            for i in range(N):
-                if graph[start][i] > -1:
-                    if move > graph[start][i] and not visited[i]:
-                        heapq.heappush(pq, [-(move - graph[start][i] - 1), i])
-                    graph[i][start] -= min(move, graph[start][i])
-                    result += min(move, graph[start][i])
-        return result
-
+        
 
 if __name__ == '__main__':
 
