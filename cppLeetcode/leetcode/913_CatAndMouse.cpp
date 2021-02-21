@@ -131,13 +131,7 @@ struct hash<std::pair<int, int>>
 
 class CatMouseGame
 {
-
-    /*
-
-    
-    */
-
-
+ 
     /*
         913.Cat-and-Mouse
 
@@ -239,6 +233,9 @@ public:
         return true;
     }
 
+    //----------------------
+
+    int doit(vector<vector<int>> &&graph)
     /*
         Approach 1: Minimax / Percolate from Resolved States
         
@@ -352,8 +349,8 @@ public:
                 }
             }
 
-        while (!queue.empty())
-        {
+        while (!queue.empty() {
+            
             auto top = queue.front();
             int m = std::get<0>(top), c = std::get<1>(top), t = std::get<2>(top), win = std::get<3>(top);
 
