@@ -61,8 +61,7 @@ class MaximumNumberOfEvents {
         我们选择events[i]作为第j个选中的项目，那么我们需要考虑第j-1个项目在哪里？显然这个项目的endTime必须必events[i][0]要小.
 
         于是我们可以用二分法，在所有endTimes里找到截止时间恰好早于events[i][0]的项目t，于是dp[i][j]就转化为考察在前t个项目里选取j-1个的最大收益，然后再加上events[i][2]本身。
-        最终的答案就是max(dp[m][x])，其中m是events的总数。注意答案不一定是dp[m][k]，因为强制取k件不重叠的区间，不见得是最大的利润。
-
+        最终的答案就是max(dp[m][x])，其中m是events的总数。注意答案不一定是dp[m][k]，因为强制取k件不重叠的区间，不见得是最大的利润.
     */
 public:
 
@@ -74,7 +73,7 @@ public:
         
         std::sort(events.begin(), events.end(), cmp);
         int m = events.size();
-        auto dp = vector<vector<int>>(m+1, vector<int>(k+1,INT_MIN/2));
+        vector<vector<int>> dp(m+1, vector<int>(k+1,INT_MIN/2));
         
         // add placeholder for index starting from 1
         events.insert(events.begin(), events[0]); 
@@ -91,7 +90,7 @@ public:
             
             for (int j = 1; j <= k; j++)
             {
-                // 
+                // don't pick ith or pick ith and j-1 from first t.
                 dp[i][j] = std::max(dp[i-1][j], dp[t][j-1] + events[i][2]);                                
                 ret = std::max(ret, dp[i][j]);
             }
