@@ -49,7 +49,7 @@ class MinTrioDegree {
 
 public:
 
-    int doit_(int n, vector<vector<int>>&edges) {
+    int doit_sort(int n, vector<vector<int>>&edges) {
 
         vector<unordered_set<int>> graph(n+1);
 
@@ -110,15 +110,15 @@ public:
         vector<int> degree(n+1);
         vector<vector<int>> next(n+1);
 
-        for (auto e:edges)
+        for (auto e: edges)
         {
             connect[e[0]][e[1]] = 1;
             connect[e[1]][e[0]] = 1;
             degree[e[0]] += 1;
             degree[e[1]] += 1;
             
-            int x = std::min(e[0],e[1]), y = std::max(e[0],e[1]);            
-            next[x].push_back(y);            
+            int x = std::min(e[0],e[1]), y = std::max(e[0],e[1]); 
+            next[x].push_back(y);
         }
         
         int ret = INT_MAX;

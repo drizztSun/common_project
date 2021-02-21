@@ -103,7 +103,7 @@ public:
         vector<int>nums2(nums.begin() + m, nums.end());
 
         auto getSubSetsSum = [](vector<int>&nums) {
-
+            // make sorted sums permutation
             vector<int> sums({0});
 
             for (int x: nums)
@@ -113,12 +113,13 @@ public:
                 while (i<n && j<n)
                 {
                     if (sums[i]+x < sums[j])
-                    {
+                    {   // it means there is new value coming, with x
                         temp.push_back(sums[i]+x);
                         i++;
                     }
                     else
                     {
+                        // less value, save this one without x
                         temp.push_back(sums[j]);
                         j++;
                     }
