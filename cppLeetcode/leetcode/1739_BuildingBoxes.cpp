@@ -43,6 +43,7 @@ Constraints:
 */
 #include <cmath>
 #include <vector>
+#include <functional>
 
 using std::vector;
 using std::sqrt;
@@ -131,9 +132,36 @@ public:
 
     int doit_binary_search_math(int n) {
         int left = 1, right = 1e9;
+
+        std::function<ll(ll)> cal = [](ll area) {
+
+            // d^2 < (1+d)*d <= 2 * area => d < sqrt(2*area), d upperbound
+            ll d = (int)sqrt(2*area);
+            while ((1+d)*d/2 > area)
+                d--;
+            
+            ll diff = area - (1+d)*d/2;
+            
+            vector<ll>a(d);
+            for (int i=0; i<d; i++)
+                a[i] = d - i;
+            
+            for (int i=0; i<diff; i++)
+                a[i] += 1;        
+            
+            ll total = 0;
+            ll sufsum = 0;
+            for (int i=d-1; i>=0; i--) {
+                sufsum += a[i];
+                total += sufsum;
+            }
+
+            return total;
+        };
+
         while (left < right)
         {
-            int mid = left+(right-left)/2;
+            int mid = (right+left) / 2;
             if (cal(mid) >= n)
                 right = mid;
             else
@@ -142,31 +170,5 @@ public:
         return left;        
     }
     
-    ll cal(ll area)
-    {
-        // d^2 < (1+d)*d <= 2 * area => d < sqrt(2*area), d upperbound
-        // 
-        ll d = (int)sqrt(2*area);
-        while ((1+d)*d/2 > area)
-            d--;
-        ll diff = area - (1+d)*d/2;
-        
-        vector<ll>a(d);
-        for (int i=0; i<d; i++)
-            a[i] = d - i;
-        for (int i=0; i<diff; i++)
-            a[i] += 1;        
-        
-        ll total = 0;
-        ll sufsum = 0;
-        for (int i=d-1; i>=0; i--)
-        {
-            sufsum += a[i];
-            total += sufsum;
-        }
-        
-        // cout<<area<<" "<<d<<" "<<total<<endl;
-        
-        return total;        
-    }
+
 };

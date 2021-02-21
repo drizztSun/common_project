@@ -37,12 +37,60 @@ Constraints:
 
 */
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 using std::vector;
 
 class MinAbsDifference {
 
 public:
+    const int N = 2000010;
+    int q[N];
+    int n, cnt, goal, ans;
+    
+    void dfs1(vector<int>& nums, int u, int s){
+        if(u == (n+1)/2){
+            q[cnt++] = s;
+            return;
+        }
+        dfs1(nums, u+1, s);   //不选第u个
+        dfs1(nums, u+1, s+nums[u]);   //选第u个
+    }
+    
+    void dfs2(vector<int>& nums, int u, int s){
+        if(u == n){
+            int l = 0, r = cnt-1;
+            //找到和小于goal的最大的和
+            while(l < r){
+                int mid = l + r + 1 >> 1;
+                if(q[mid] + s <= goal) 
+                    l = mid;
+                else 
+                    r = mid-1;
+            }
+            ans = std::min(ans, abs(q[r] + s - goal));
+            //如果r不是端点，则和大于goal的最小的和也可能是最接近goal的
+            if(r + 1 < cnt)
+                ans = std::min(ans, abs(q[r+1] + s - goal));
+            return;
+        }
+
+        dfs2(nums, u+1, s);
+        dfs2(nums, u+1, s + nums[u]);
+    }
+    
+    int doit_best(vector<int>& nums, int _goal) {
+        //空间换时间：分两半处理
+        //在前一半预处理Sl数组,然后在后一半算Sr，并且满足Sl+Sr最接近goal
+        //最接近有两种：小于goal的最大值，大于goal的最小值，对预处理的Sl数组排序，可以用二分找到这两种情况
+        //由于二分的效率更高，可以适当地让预处理数组Sl略大于一半，比如前面22，后面18
+        n = nums.size(), cnt = 0, goal = _goal, ans = INT_MAX;
+        dfs1(nums, 0, 0);
+        std::sort(q, q+cnt);
+        dfs2(nums, (n+1)/2, 0);
+        return ans;
+    }
 
     /*
         1755.Closest-Subsequence-Sum
