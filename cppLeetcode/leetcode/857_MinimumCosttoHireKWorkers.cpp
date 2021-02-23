@@ -23,7 +23,7 @@
  Output: 30.66667
  Explanation: We pay 4 to 0-th worker, 13.33333 to 2-th and 3-th workers seperately.
  
- */
+*/
 #include <stdio.h>
 #include <vector>
 #include <algorithm>
@@ -33,11 +33,56 @@ using std::vector;
 using std::priority_queue;
 
 class MincostToHireWorkers {
+    
 public:
+
+    /*
+        857.Minimum-Cost-to-Hire-K-Workers
+        我们考虑如果将wage[i]/quality[i]作为评价指标来进行排序意味着什么？
+
+        wage[i]/quality[i]最高的那位,意味着最不实惠的工人，它拉高了unitWage，使得其他工人都必须按照这个unitWage乘以各自的quality拿工资．但转念一想，如果我们必须雇佣这个最不实惠的工人的话，那么剩下的工人该如何选择呢？
+        显然我们只要选K-1个quality最低的工人，他们可以拉高那个＂最不实惠工人＂的quality比重，从而减少其他工人的quality比重，从而降低总工资．
+
+        我们再考虑，如果选择了wage[i]/quality[i]第二高的那位，那么我们就在接下来的N-2个人里面选择K-1个quality最底的工人即可．
+
+        由此贪心法的最优策略就出来了．实际操作中，我们根据wage[i]/quality[i]从低到高进行处理．
+    */
+    double doit_sort_heap(vector<int>& quality, vector<int>& wage, int K) 
+    {
+        vector<std::pair<double,int>> q;
+
+        for (int i = 0; i < quality.size(); i++)
+            q.push_back({wage[i]*1.0 / quality[i], quality[i]});
+        
+        sort(q.begin(), q.end());
+        
+        int totalQuality = 0;
+        double result = INT_MAX;
+
+        priority_queue<int> pq;
+        
+        for (int i = 0; i < q.size(); i++)
+        {
+            totalQuality += q[i].second;
+            pq.push(q[i].second);
+            
+            if (pq.size() == K)
+            {
+                double unitWage = q[i].first;
+                result = std::min(result, unitWage * totalQuality);
+                totalQuality -= pq.top();
+                pq.pop();
+            }
+        }        
+        
+        return result;        
+    }
+
     double doit_heap(vector<int>&& quality, vector<int>&& wage, int K) {
   
         vector<std::pair<double, int>> workers;
         auto N = quality.size();
+        
         for (auto i = 0; i < N; i++) {
             workers.push_back({double(wage[i])/double(quality[i]), i});
         };
@@ -68,10 +113,3 @@ public:
         return res;
     }
 };
-
-void Test_857_MinimumCosttoHireKWorkers() {
-    
-    // MincostToHireWorkers().doit_heap(vector<int>{10, 20, 5}, vector<int>{70, 50, 30}, 2);
-    
-    MincostToHireWorkers().doit_heap(vector<int>{3,1,10,10,1}, vector<int>{4,8,2,2,7}, 3);
-}

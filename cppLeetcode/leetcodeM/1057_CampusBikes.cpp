@@ -88,12 +88,13 @@ public:
                 int y = abs(workers[i][1]-bikes[j][1]);
                 temp[j] = {x+y,i,j};
             }
-            sort(temp.begin(), temp.end());          
+
+            std::sort(temp.begin(), temp.end());          
             for (auto x: temp)
                 d[i].push(x);
         }
                     
-        set<array<int,3>>Set;
+        set<array<int,3>> Set;
         for (int i=0; i<m; i++)
         {            
             Set.insert(d[i].front());
@@ -140,15 +141,20 @@ public:
         auto cnt = workers.size();
         
         while (!que.empty()) {
+
             auto c = que.top();
+            
             for (auto& val : buckets[c]) {
+            
                 const unsigned int bikeId   = val.first;
                 const unsigned int workerId = val.second;
+            
                 if ((res[workerId] == -1) && !bikeVisited[bikeId]) {
                     res[workerId] = bikeId;
                     bikeVisited[bikeId] = true;
                     cnt--;
                 }
+            
                 if (cnt == 0) {
                     return res;
                 }
@@ -162,8 +168,10 @@ public:
     
     // O(NM)
     vector<int> doit_bucketsort_(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+
         static const int bucketsSize = 2001;
         vector<vector<unsigned int>> buckets(bucketsSize, vector<unsigned int>());
+        
         for (unsigned int i = 0; i < workers.size(); i++) {
             for (unsigned int j = 0; j < bikes.size(); j++) {
                 const unsigned int dist = abs(workers[i][0] - bikes[j][0]) + abs(workers[i][1] - bikes[j][1]);
@@ -174,8 +182,9 @@ public:
         vector<bool> bikeVisited(bikes.size(), false);
         vector<int>  res(workers.size(), -1);
         auto cnt = workers.size();
-        for (const auto& vec : buckets) {
-            for (auto val : vec) {
+
+        for (const auto& vec: buckets) {
+            for (auto val: vec) {
                 const unsigned int bikeId   = val & 0x3FF;
                 const unsigned int workerId = val >> 10;
                 if ((res[workerId] == -1) && !bikeVisited[bikeId]) {

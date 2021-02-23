@@ -76,7 +76,7 @@ public:
 
      Space Complexity: O(A+B).
      */
-    string doit1(int A, int B) {
+    string doit_greedy(int A, int B) {
         string ans;
         
         while (A > 0 || B > 0) {

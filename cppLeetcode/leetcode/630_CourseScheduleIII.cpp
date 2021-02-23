@@ -46,16 +46,15 @@ class CourseScheduleIII {
         于是我们一个接一个的处理deadline,这样得到的就是总的最优方案．
 
     */
-    static bool cmp(vector<int>a,vector<int>b) {
-        return a[1] < b[1];
-    }
-
 public:
-    int doit_heap(vector<vector<int>>& courses) 
+
+    int doit_heap_sort(vector<vector<int>>& courses) 
     {
-        sort(courses.begin(),courses.end(),cmp);        
+        std::sort(courses.begin(),courses.end(), [](auto& a, auto&b) {
+            return a[1] < b[1];
+        });        
         
-        priority_queue<int> pq;        
+        priority_queue<int> pq;
         
         int day = 0;
         
@@ -80,7 +79,7 @@ public:
         return pq.size();
     }
     
-    int doit_(vector<vector<int>>& courses) {
+    int doit_heap_sort_1(vector<vector<int>>& courses) {
         
         // sort array by end time, so we can handle the one has earyly end time, then means we can handle more,
         // if end time is same, we handle smaller duration one first.

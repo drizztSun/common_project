@@ -43,6 +43,7 @@ days[i] = 0 if and only if apples[i] = 0.
 #include <queue>
 #include <unordered_map>
 #include <map>
+#include <algorithm>
 
 using std::map;
 using std::unordered_map;
@@ -52,6 +53,47 @@ using std::priority_queue;
 
 class EatenApples {
 
+    using PII = std::pair<int,int>;
+
+    /*
+        1705.Maximum-Number-of-Eaten-Apples
+        本题事实上没有“高级的”贪心法。所有o(N)时间的算法都是不正确。
+
+        比较暴力的贪心其实很容易想到：优先吃离腐败日期最近的苹果，先解决燃眉之急。数据结构选用优先队列或者其他heap。我们每一天的流程是这样的：
+
+        1. 如果队列里有今天过期的苹果，扔掉。
+        2. 如果今天有新长出来的苹果，加入队列。
+        3. 取队列最上方的一批苹果，吃掉其中的一个；剩下的再放回队列。
+        
+        时间复杂度是o(NlogN)，其中N是天数。最多我们会遍历多少天呢？极限情况是：最后一天遇上了保质期最长的苹果，N最大是2e4+2e4.所以o(NlogN)是可以接受的。    
+    */
+    int doit_dp(vector<int>& apples, vector<int>& days) 
+    {
+        int count = 0, i = 0;
+        priority_queue<PII, vector<PII>, std::greater<PII>> pq;
+
+        while (i < apples.size() || !pq.empty()){
+
+            while (!pq.empty() && pq.top().first <= i)
+                pq.pop();
+            
+            if (i < apples.size() && apples[i] > 0)
+                pq.push({i+days[i], apples[i]});
+
+            if (!pq.empty()){
+                
+                auto x = pq.top();
+                pq.pop();
+                count++;
+
+                if (x.second >= 2)
+                    pq.push({x.first, x.second-1});
+            }
+            i++;
+        }
+
+        return count;
+    }
 
 public:
 

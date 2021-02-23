@@ -77,67 +77,6 @@ public:
         return W;
     }
 
-
-	/*
-		Key Observation:
-
-		The more capital W you have now, the more maximum capital you will eventually earn.
-		Working on any doable project with positive P[i] > 0 increases your capital W.
-		Any project with P[i] = 0 is useless and should be filtered away immediately (note that the problem only guarantees all inputs non-negative).
-		Therefore, always work on the most profitable project P[i] first as long as it is doable until we reach maximum k projects or all doable projects are done.
-
-		The algorithm will be straightforward:
-
-		At each stage, split projects into two categories:
-		�doables�: ones with C[i] <= W (store P[i] in priority_queue<int> low)
-		�undoables�: ones with C[i] > W (store (C[i], P[i]) in multiset<pair<int,int>> high)
-		Work on most profitable project from low (low.top()) first, and update capital W += low.top().
-		Move those previous undoables from high to doables low whose C[i] <= W.
-		Repeat steps 2 and 3 until we reach maximum k projects or no more doable projects.
-	*/
-	int doit(int k, int W, vector<int>&& P, vector<int>&& C) {
-		priority_queue<int> low;      // P[i]'s within current W
-		multiset<pair<int, int>> high; // (C[i],P[i])'s' outside current W
-
-		for (int i = 0; i < P.size(); ++i) // initialize low and high
-			if (P[i] > 0) if (C[i] <= W) low.push(P[i]); else high.emplace(C[i], P[i]);
-
-		while (k-- && low.size()) {
-			W += low.top(), low.pop(); // greedy to work on most profitable first
-			for (auto i = high.begin(); high.size() && i->first <= W; i = high.erase(i)) 
-				low.push(i->second);
-		}
-		return W;
-	}
-
-
-	int doit1(int k, int W, vector<int>& Profits, vector<int>& Capital) {
-
-		priority_queue<int> lowerThanCurrentW;
-		multiset<pair<int, int>> HigherThanCurrentW;
-
-		for (auto i = 0; i < Profits.size(); i++) {
-			if (Capital[i] <= W)
-				lowerThanCurrentW.push(Profits[i]);
-			else
-				HigherThanCurrentW.emplace(Capital[i], Profits[i]);
-		}
-
-		while (k-- && !lowerThanCurrentW.empty()) {
-
-			W += lowerThanCurrentW.top();
-			lowerThanCurrentW.pop();
-
-			while (!HigherThanCurrentW.empty() && HigherThanCurrentW.begin()->first <= W) {
-				lowerThanCurrentW.push(HigherThanCurrentW.begin()->second);
-				HigherThanCurrentW.erase(HigherThanCurrentW.begin());
-			}
-		}
-
-		return W;
-	}
-
-
 	int doit2(int k, int W, vector<int>&& Profits, vector<int>&& Capital) {
 
 		vector<std::pair<int, int>> buff;
@@ -164,6 +103,73 @@ public:
 			}
 
 			k--;
+		}
+
+		return W;
+	}
+	/*
+		Key Observation:
+
+		The more capital W you have now, the more maximum capital you will eventually earn.
+		Working on any doable project with positive P[i] > 0 increases your capital W.
+		Any project with P[i] = 0 is useless and should be filtered away immediately (note that the problem only guarantees all inputs non-negative).
+		Therefore, always work on the most profitable project P[i] first as long as it is doable until we reach maximum k projects or all doable projects are done.
+
+		The algorithm will be straightforward:
+
+		At each stage, split projects into two categories:
+		�doables�: ones with C[i] <= W (store P[i] in priority_queue<int> low)
+		�undoables�: ones with C[i] > W (store (C[i], P[i]) in multiset<pair<int,int>> high)
+		Work on most profitable project from low (low.top()) first, and update capital W += low.top().
+		Move those previous undoables from high to doables low whose C[i] <= W.
+		Repeat steps 2 and 3 until we reach maximum k projects or no more doable projects.
+	*/
+    int doit_heap_sort(int k, int W, vector<int>& Profits, vector<int>& Capital) {
+        priority_queue<int> low;      // P[i]'s within current W
+		multiset<std::pair<int, int>> high; // (C[i],P[i])'s' outside current W
+
+		// initialize low and high
+		for (int i = 0; i < Profits.size(); ++i) {
+			if (Profits[i] > 0) 
+				if (Capital[i] <= W) 
+					low.push(Profits[i]); 
+				else 
+					high.emplace(Capital[i], Profits[i]);
+		}
+
+		while (k-- && low.size()) {
+			// greedy to work on most profitable first
+			W += low.top(); 
+			low.pop();
+
+			for (auto i = high.begin(); i != high.end() && i->first <= W; i = high.erase(i)) 
+				low.push(i->second);
+		}
+		return W;
+    }
+
+
+	int doit1(int k, int W, vector<int>& Profits, vector<int>& Capital) {
+
+		priority_queue<int> lowerThanCurrentW;
+		multiset<std::pair<int, int>> HigherThanCurrentW;
+
+		for (auto i = 0; i < Profits.size(); i++) {
+			if (Capital[i] <= W)
+				lowerThanCurrentW.push(Profits[i]);
+			else
+				HigherThanCurrentW.emplace(Capital[i], Profits[i]);
+		}
+
+		while (k-- && !lowerThanCurrentW.empty()) {
+
+			W += lowerThanCurrentW.top();
+			lowerThanCurrentW.pop();
+
+			while (!HigherThanCurrentW.empty() && HigherThanCurrentW.begin()->first <= W) {
+				lowerThanCurrentW.push(HigherThanCurrentW.begin()->second);
+				HigherThanCurrentW.erase(HigherThanCurrentW.begin());
+			}
 		}
 
 		return W;

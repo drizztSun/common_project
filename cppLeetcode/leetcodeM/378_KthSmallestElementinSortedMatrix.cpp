@@ -1,16 +1,48 @@
-#include <stdio.h>
+/*
+378. Kth Smallest Element in a Sorted Matrix
+
+Given an n x n matrix where each of the rows and columns are sorted in ascending order, return the kth smallest element in the matrix.
+
+Note that it is the kth smallest element in the sorted order, not the kth distinct element.
+
+ 
+
+Example 1:
+
+Input: matrix = [[1,5,9],[10,11,13],[12,13,15]], k = 8
+Output: 13
+Explanation: The elements in the matrix are [1,5,9,10,11,12,13,13,15], and the 8th smallest number is 13
+Example 2:
+
+Input: matrix = [[-5]], k = 1
+Output: -5
+ 
+
+Constraints:
+
+n == matrix.length
+n == matrix[i].length
+1 <= n <= 300
+-10^9 <= matrix[i][j] <= -10^9
+All the rows and columns of matrix are guaranteed to be sorted in non-degreasing order.
+1 <= k <= n^2
+*/
+
 #include <vector>
 #include <queue>
+#include <algorithm>
 
 using std::vector;
 using std::priority_queue;
 
 
-class KthSmallest {
+class KthSmallestInSortedMatrix {
+
 public:
+    
     int doit_heap(vector<vector<int>>& matrix, int k) {
 
-        std::priority_queue<std::pair<int, std::pair<int, int>>> heap;
+        priority_queue<std::pair<int, std::pair<int, int>>> heap;
         
         auto push = [&](int i, int j) {
             if (i < matrix.size() && j < matrix[0].size())
@@ -19,10 +51,12 @@ public:
         
         push(0, 0);
         int ans = 0;
+
         while (!heap.empty() && k > 0) {
             
             auto item = heap.top();
             auto c = item.second;
+        
             ans = item.first;
             int x = c.first, y = c.second;
             heap.pop();
@@ -42,16 +76,20 @@ public:
         int size = matrix.size(), l = matrix[0][0], r = matrix[size-1][size-1];
         
         while(l < r) {
-           int smaller = 0, m = l+((r-l)>>1);
             
-           for(int i = 0; i < size; ++i) {
-               smaller += upper_bound(matrix[i].begin(), matrix[i].end(), m)-matrix[i].begin();
-           }
+            int smaller = 0, m = l+((r-l)>>1);
             
-           smaller < k ? l = m+1 : r = m;
-       
-         }
-         return r;
+            for(int i = 0; i < size; ++i) {
+               smaller += std::upper_bound(matrix[i].begin(), matrix[i].end(), m) - matrix[i].begin();
+            }
+            
+            if (smaller < k)
+                l = m + 1;
+            else 
+                r = m;
+        }
+
+        return r;
     }
 
     /*

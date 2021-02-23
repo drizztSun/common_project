@@ -18,19 +18,126 @@ The median is (2 + 3)/2 = 2.5
 
 
 */
-
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <string>
+#include <queue>
+
 using namespace std;
-
-
 
 
 class FindMedianSortedArrays {
 
+
+	struct cmp
+    {
+        bool operator()(pair<int,int>a,pair<int,int>b)
+        {
+            return a.first>b.first;
+        }
+    };
+
 public:
+
+	/*
+		4. Median of Two Sorted Arrays
+		1 二分法
+		基本思想：
+		此题可以拓展为求两个排序数组的总第K个最小数问题 FindKthSmallest。此题还可以扩展到M个数组。 函数定义为:
+
+		FindKthSmallest(nums1,a,m,nums2,b,n,K) 
+		a定义了数组A的首元素位置，m定义了数组A的长度。类似数组B有定义b,n。K是求总体的第K个最小数。
+
+		关键算法：  
+		考察每个数组分别第K/2个数。如果数组A的第K/2个数小于数组B的第K/2个数，则说明总体的第K个数不可能在数组A的前K/2个数中，因为假设这样的数存在于A的前K/2个中，它也不可能打过B的前K/2个，故总体上不可能大过K个数。同理，如果数组A的第K/2个数大于数组B的第K/2个数，则说明总体的第K个数不可能在数组B的前K/2个数中。
+
+		细节
+		每次都优先处理长度小的数组，希望它尽快到零。所以长度小的数组不在第一个的话，就将两个数组交换再调用。
+		两个边界条件：K=1 时取两个数组首元素的最小值. m=0时，直接在B数组里找第K个元素。
+		2 Heap
+		利用堆排序，维持一个只含有两个元素的priority_queue，每出列一个，就在相对应的数组里面再取一个放进去。
+		程序写起来更容易。
+
+		Update: 因为priority_queue默认是大顶堆，优先出列大数，所以可以从两个顺序数组从后往前遍历，从高往低取第K个元素。
+	*/
+	double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) 
+    {
+        int m=nums1.size();
+        int n=nums2.size();
+
+		std::function<double()> FindKthSmallest = [&](int a, int m, int b, int n, int k) {
+			
+			if (m>n) return FindKthSmallest(nums2,b,n,nums1,a,m,k);
+			
+			if (m==0) return nums2[b+k-1];
+			
+			if (k==1) return min(nums1[a],nums2[b]);
+			
+			int k1=min(m,k/2);
+			int k2=k-k1;
+			
+			if (nums1[a+k1-1]<nums2[b+k2-1])
+				return FindKthSmallest(a+k1, m-k1, b, n, k-k1);
+			else
+				return FindKthSmallest(a, n, b+k2, n-k2, k-k2);
+		};
+
+        if ((m+n)%2==1)
+            return FindKthSmallest(0, m, 0, n, (m+n+1)/2);
+        else
+            return (FindKthSmallest(0, m, 0, n, (m+n)/2) + FindKthSmallest(0, m, 0, n, (m+n)/2+1))/2;
+    }
+
+	double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) 
+    {        
+        int m=nums1.size();
+        int n=nums2.size();
+
+		std::function<double(int)> findKth = [&](int k) -> double {
+
+			priority_queue<pair<int,int>,vector<pair<int,int>>,cmp>q;
+			int count=0;
+			int i=0;
+			int j=0;
+			if (nums1.size()!=0) 
+			{
+				q.push({nums1[0],1});
+				i++;
+			}
+			if (nums2.size()!=0) 
+			{
+				q.push({nums2[0],2});
+				j++;
+			}
+						
+			int result;
+			while (count<k)
+			{
+				int label=q.top().second;
+				result = q.top().first;
+				q.pop();
+				count++;
+				if (label==1 && i<nums1.size())
+				{
+					q.push({nums1[i],1});
+					i++;
+				}
+				else if (label==2 && j<nums2.size())
+				{
+					q.push({nums2[j],2});
+					j++;
+				}
+			}
+
+			return result;
+		};
+
+        if ((m+n)%2==0)
+            return 0.5f*(findKth(nums1,nums2,(m+n)/2)+findKth(nums1,nums2,(m+n)/2+1));
+        else
+            return findKth(nums1,nums2,(m+n)/2+1);
+    }
 
 	// O(log(m) + log(n))
 	double findMedian(vector<int>&& nums1, vector<int>&& nums2) {
@@ -90,14 +197,14 @@ public:
 	}
 
 	//  
-	double findMedianSortedArrays(vector<int>&& nums1, vector<int>&& nums2) {
+	double doit_binary_search(vector<int>&& nums1, vector<int>&& nums2) {
 
 		if (nums1.size() > nums2.size())
 			return findMedianSortedArrays(std::move(nums2), std::move(nums1));
 
 		int N1 = nums1.size(), N2 = nums2.size();
 		int lo = 0, hi = N1;
-		int half = (N1 + N2 + 1) / 2;
+ 		int half = (N1 + N2  + 1) / 2;
 
 		while (lo <= hi) {
 
@@ -132,28 +239,7 @@ public:
 		}
         return 0.0;
 	}
-};
 
-void Test_4_MedianofTwoSortedArrays() {
-
-	double res1 = FindMedianSortedArrays().findMedian(vector<int>{1, 3}, vector<int>{2});
-
-	double res2 = FindMedianSortedArrays().findMedian(vector<int>{1, 2}, vector<int>{3, 4});
-
-	double res3 = FindMedianSortedArrays().findMedian(vector<int>{1, 3, 5, 7, 9}, vector<int>{2, 4, 6, 8, 10});
-
-	double res4 = FindMedianSortedArrays().findMedian(vector<int>{1, 3, 5, 7, 9}, vector<int>{2, 4, 6, 8});
-}
-
-
-// so far, the best solution
-//static string s = []() {
-//	std::ios::sync_with_stdio(false);
-//	cin.tie(NULL);
-//	return "";
-//}();
-
-class Solution1 {
 public:
 	vector<int> mergeSort(vector<int>& nums1, vector<int>& nums2) {
 		int i = 0, j = 0;
@@ -164,23 +250,23 @@ public:
 
 		while (i < size1 && j < size2) {
 			if (nums1[i] < nums2[j]) {
-				bothNums.emplace_back(nums1[i]);
+				bothNums.push_back(nums1[i]);
 				i++;
 			}
 			else {
-				bothNums.emplace_back(nums2[j]);
+				bothNums.push_back(nums2[j]);
 				j++;
 			}
 		}
 
 		// add what's left
 		while (i < size1) {
-			bothNums.emplace_back(nums1[i]);
+			bothNums.push_back(nums1[i]);
 			i++;
 		}
 
 		while (j < size2) {
-			bothNums.emplace_back(nums2[j]);
+			bothNums.push_back(nums2[j]);
 			j++;
 		}
 
@@ -202,10 +288,6 @@ public:
 		}
 		return median;
 	}
-};
-
-
-class Solution {
 
 public:
 

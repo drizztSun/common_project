@@ -22,7 +22,10 @@
 #include <stdio.h>
 #include <queue>
 #include <vector>
+#include <set>
 
+using std::set;
+using std::multiset;
 using std::vector;
 using std::priority_queue;
 using std::pair;
@@ -30,40 +33,14 @@ using std::pair;
 class NthSuperUglyNumber {
     
 public:
-    
-    int doit_heap(int n, vector<int>& primes) {
-        
-        vector<int> uglyNums{1};
-        priority_queue<pair<int, pair<int, int>>> heap;
-        for (auto c : primes) {
-            heap.push(std::make_pair(-c, std::make_pair(c, 1)));
-        }
-        
-        for (auto i = 1; i < n; i++) {
-            
-            auto cur = heap.top();
-            auto num = cur.first, base = cur.second.first, index = cur.second.second;
-            heap.pop();
-            
-            uglyNums.push_back(-num);
-            heap.push(std::make_pair(-uglyNums[index] * base, std::make_pair(base, index+1)));
-            
-            while (!heap.empty() && heap.top().first == num) {
-                auto cur = heap.top();
-                auto num = cur.first, base = cur.second.first, index = cur.second.second;
-                heap.pop();
-                heap.push(std::make_pair(-uglyNums[index] * base, std::make_pair(base, index+1)));
-            }
-        }
-        
-        return uglyNums.back();
-    }
-    
-    int doit_array(int n, vector<int>& A) {
+
+    int doit_array_best(int n, vector<int>& A) {
         
         int k = A.size(), t = 1;
-        int u[n], d[k], v[k];
+        vector<int> u(n), d(k), v(k);
         
+        // d is the d[i] number of u, which ith key in A
+        // v is the current value, base on u[d[i]] multiplied by A[i]
         for(int i = 0; i < k; ++i)
             d[i] = 0, v[i] = A[i];
         
@@ -82,6 +59,63 @@ public:
         }
         return u[n - 1];
     }
-    
+
+    int doit_heap(int n, vector<int>& primes) {
+        
+        vector<int> uglyNums{1};
+        priority_queue<pair<int, std::pair<int, int>>> heap;
+
+        for (auto c: primes)
+            heap.push({-c, {c, 1}});
+        
+        for (auto i = 1; i < n; i++) {
+            
+            auto cur = heap.top();
+            // bigger number in PQ, base number in primes, index of result buff.
+            auto num = cur.first, base = cur.second.first, index = cur.second.second;
+            heap.pop();
+            
+            uglyNums.push_back(-num);
+            heap.push({-uglyNums[index] * base, {base, index+1}});
+            
+            while (!heap.empty() && heap.top().first == num) {
+                auto cur = heap.top();
+                auto num = cur.first, base = cur.second.first, index = cur.second.second;
+                heap.pop();
+                heap.push({-uglyNums[index] * base, {base, index+1}});
+            }
+        }
+        
+        return uglyNums.back();
+    }
+
+    /*
+        313.Super-Ugly-Number
+        本题本质就是find the n-th largest element from k sorted lists. 从1开始，每次从优先队列里弹出当前最小的数，然后分别乘以k个质数再放入队列中。直至弹出n个数为止。
+
+        注意到装入队列的元素可能会是重复的。所以此处用set更方便。
+    */
+    int doit_heap(int n, vector<int>& primes) 
+    {
+        set<long> Set={1};
+        int count=0;
+        long x;
+
+        while (count<n)
+        {
+            x = *Set.begin();
+            Set.erase(x);
+            for (int i=0; i<primes.size(); i++)
+            {
+                if (x*primes[i]<INT_MAX)
+                    Set.insert(x*primes[i]);
+                else
+                    break;
+            }
+                
+            count++;
+        }
+        return x;
+    }
 };
 
