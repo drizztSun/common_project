@@ -1,6 +1,4 @@
 
-
-
 # 352. Data Stream as Disjoint Intervals
 
 # Given a data stream input of non-negative integers a1, a2, ..., an, ...,

@@ -50,6 +50,109 @@ Update: These are pretty short already, but by now I wrote even shorter ones.
 using namespace std;
 
 /*
+    295.Find-Median-from-Data-Stream
+    解法1:
+    设计两个可以实时排序的multiset，其中一个Large存放较大的那一半数据，另一个Small存放较小的那一半数据。
+
+    每次读入一个新数num，将其和Large的首元素比较大小，决定是加入Large还是Small。加入之后，需要调整Large和Small的个数，使得总是保持Large比Small多一个或者两者数目相等。
+
+    输出的Median就是Large的首元素，或者Large首元素和Small尾元素的平均值。
+
+    解法2:
+    使用multiset容器和相应的迭代器的操作,非常简单明了.不断更新处于正中间或者中间偏左的那个迭代器位置即可.
+
+    注意,multiset里有相同的元素加入时,新元素的迭代器位置在旧元素迭代器位置的后面.
+*/
+class MedianFinder {
+    multiset<int>Small;
+    multiset<int>Large;
+    
+public:
+    /** initialize your data structure here. */
+    MedianFinder() 
+    {
+        Small.clear();
+        Large.clear();
+    }
+    
+    void addNum(int num) 
+    {
+        if (Large.size()==0)
+            Large.insert(num);
+        else
+        {
+            if (num>=*(Large.begin()))
+                Large.insert(num);
+            else
+                Small.insert(num);
+        }
+        
+        if (Large.size()>=Small.size()+2)
+        {
+            Small.insert(*Large.begin());
+            Large.erase(Large.begin());
+        }
+        else if (Small.size()>Large.size())
+        {
+            Large.insert(*(--Small.end()));
+            Small.erase(--Small.end());
+        }
+    }
+    
+    double findMedian() 
+    {
+        if (Large.size()>Small.size())
+            return *Large.begin();
+        else
+            return (*Large.begin()+*(--Small.end()))*1.0/2.0;
+    }
+};
+
+
+class MedianFinder {
+public:
+    /** initialize your data structure here. */
+    double result;
+    multiset<int>Set;
+    multiset<int>::iterator iter;
+    
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) 
+    {
+        Set.insert(num);
+        
+        if (Set.size()==1)
+        {
+            iter = Set.begin();
+            result = *iter;
+            return;
+        }
+        
+        if (Set.size()%2==1)    // OOXOOO
+        {
+            if (num>=*iter)
+                iter = next(iter,1);
+            result = *iter;
+        }
+        else    // OOXOO
+        {
+            if (num<*iter)
+                iter = prev(iter,1);
+            result = *iter*0.5 + *next(iter,1)*0.5;                
+        }        
+    }
+    
+    double findMedian() 
+    {
+        return result;
+    }
+};
+
+
+/*
 Solution 2: Balanced binary search tree
 
 C++: Multiset
@@ -82,7 +185,7 @@ public:
         }
         
         m_.insert(num);
-        const size_t n = m_.size();    
+        const size_t n = m_.size();
         
         if (n & 1) {
             // odd number
