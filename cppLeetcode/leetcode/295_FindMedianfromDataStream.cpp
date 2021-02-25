@@ -40,14 +40,47 @@ Update: These are pretty short already, but by now I wrote even shorter ones.
 
 
 */
-
-#include <stdlib.h>
 #include <queue>
 #include <vector>
 #include <map>
 #include <set>
 
 using namespace std;
+
+class MedianFinderHeap {
+public:
+    /** initialize your data structure here. */
+    MedianFinderHeap() {}
+    
+    // l_.size() >= r_.size()
+    void addNum(int num) {
+        if (l_.empty() || num <= l_.top()) {
+            l_.push(num);
+        } else {
+            r_.push(num);
+        }
+        
+        // Step 2: Balence left/right
+        if (l_.size() < r_.size()) {
+            l_.push(r_.top());
+            r_.pop();
+        } else if (l_.size() - r_.size() == 2) {
+            r_.push(l_.top());
+            l_.pop();
+        }
+    }
+    
+    double findMedian() {
+        if (l_.size() > r_.size()) {
+            return static_cast<double>(l_.top());
+        } else {            
+            return (static_cast<double>(l_.top()) + r_.top()) / 2;
+        }
+    }
+private:
+    priority_queue<int, vector<int>, less<int>> l_;    // max-heap
+    priority_queue<int, vector<int>, greater<int>> r_; // min-heap
+};
 
 /*
     295.Find-Median-from-Data-Stream
@@ -212,41 +245,6 @@ private:
     multiset<int>::const_iterator r_;  // current right median
 };
 
-class MedianFinderHeap {
-public:
-    /** initialize your data structure here. */
-    MedianFinderHeap() {}
-    
-    // l_.size() >= r_.size()
-    void addNum(int num) {
-        if (l_.empty() || num <= l_.top()) {
-            l_.push(num);
-        } else {
-            r_.push(num);
-        }
-        
-        // Step 2: Balence left/right
-        if (l_.size() < r_.size()) {
-            l_.push(r_.top());
-            r_.pop();
-        } else if (l_.size() - r_.size() == 2) {
-            r_.push(l_.top());
-            l_.pop();
-        }
-    }
-    
-    double findMedian() {
-        if (l_.size() > r_.size()) {
-            return static_cast<double>(l_.top());
-        } else {            
-            return (static_cast<double>(l_.top()) + r_.top()) / 2;
-        }
-    }
-private:
-    priority_queue<int, vector<int>, less<int>> l_;    // max-heap
-    priority_queue<int, vector<int>, greater<int>> r_; // min-heap
-};
-
 class MedianFinder {
 
 	std::priority_queue<double> smaller_, larger_;
@@ -254,9 +252,7 @@ class MedianFinder {
 
 public:
 
-	MedianFinder(): even_(true) {
-
-	}
+	MedianFinder(): even_(true) {}
 
 	void addNum(int num) {
 		if (even_) {
@@ -330,9 +326,7 @@ public:
 class MedianFinder2 {
 public:
     /** initialize your data structure here. */
-    MedianFinder2() {
-        
-    }
+    MedianFinder2() {}
     
     void addNum(int num) {
         auto it = std::lower_bound(_src.begin(), _src.end(), num);
@@ -357,9 +351,7 @@ private:
 class MedianFinder1 {
 public:
 	/** initialize your data structure here. */
-	MedianFinder1() : _count(0) {
-
-	}
+	MedianFinder1() : _count(0) {}
 
 	void addNum(int num) {
 		//cout << "\nAdding = " << num;
@@ -419,19 +411,3 @@ private:
 	minHeap  _higherNumbers;
 	unsigned _count;
 };
-
-
-void Test_295_FindMedianFromDataStream() {
-
-	MedianFinder2 A;
-
-	A.addNum(1);
-	A.addNum(2);
-
-	auto res = A.findMedian();
-
-	A.addNum(3);
-	res = A.findMedian();
-
-	return;
-}

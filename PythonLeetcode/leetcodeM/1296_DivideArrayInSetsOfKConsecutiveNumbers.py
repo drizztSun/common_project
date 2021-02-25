@@ -40,6 +40,76 @@ Note: This question is the same as 846: https://leetcode.com/problems/hand-of-st
 
 class DivideArrayInSetsOfKConsecutiveNumbers:
 
+    """ 
+        Intuition
+        Exactly same as 846. Hand of Straights
+
+
+        Solution 1
+        Count number of different cards to a map c
+        Loop from the smallest card number.
+        Everytime we meet a new card i, we cut off i - i + k - 1 from the counter.
+
+        Complexity:
+        Time O(MlogM + MK), where M is the number of different cards.
+        In Cpp and Java it's O(NlogM), which can also be improved.
+    """
+    def doit_hashtable(self, A, k):
+        import collections
+        c = collections.Counter(A)
+        for i in sorted(c):
+            if c[i] > 0:
+                for j in range(k)[::-1]:
+                    c[i + j] -= c[i]
+                    if c[i + j] < 0:
+                        return False
+        return True
+
+    """
+        Follow Up
+        We just got lucky AC solution. Because k <= 10000.
+        What if k is huge, should we cut off card on by one?
+
+
+        Solution 2
+        Count number of different cards to a map c
+        Cur represent current open straight groups.
+        In a deque start, we record the number of opened a straight group.
+        Loop from the smallest card number.
+        For example, A = [1,2,3,2,3,4], k = 3
+        We meet one 1:
+        opened = 0, we open a new straight groups starting at 1, push (1,1) to start.
+        We meet two 2:
+        opened = 1, we need open another straight groups starting at 1, push (2,1) to start.
+        We meet two 3:
+        opened = 2, it match current opened groups.
+        We open one group at 1, now we close it. opened = opened - 1 = 1
+        We meet one 4:
+        opened = 1, it match current opened groups.
+        We open one group at 2, now we close it. opened = opened - 1 = 0
+
+        return if no more open groups.
+
+        Complexity
+        O(N+MlogM), where M is the number of different cards.
+        Because I count and sort cards.
+        In Cpp and Java it's O(NlogM), which can also be improved.
+    """
+    def doit_hashtable(self, A, k):
+        from collections import Counter, deque
+
+        c = Counter(A)
+        start = deque()
+        last_checked, opened = -1, 0
+
+        for i in sorted(c):
+            if opened > c[i] or opened > 0 and i > last_checked + 1: return False
+            start.append(c[i] - opened)
+            last_checked, opened = i, c[i]
+            if len(start) == k: opened -= start.popleft()
+        
+        return opened == 0
+
     def doit_heap(self, hand: list, k: int) -> bool:
         from collections import Counter
         from heapq import heapify, heappush, heappop

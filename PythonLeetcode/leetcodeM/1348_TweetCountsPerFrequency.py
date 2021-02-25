@@ -41,7 +41,7 @@ There will be at most 10000 operations considering both recordTweet and getTweet
 
 """
 from collections import defaultdict
-from bisect import bisect_right, insort
+from bisect import bisect_right, insort, bisect
 
 
 class TweetCounts:
@@ -53,7 +53,7 @@ class TweetCounts:
     def recordTweet(self, tweetName: str, time: int) -> None:
         insort(self.T[tweetName], time)
 
-    def getTweetCountsPerFrequency(self, freq: str, tweetName: str, startTime: int, endTime: int) -> List[int]:
+    def getTweetCountsPerFrequency(self, freq: str, tweetName: str, startTime: int, endTime: int) -> list:
         j = -1
         out = []
         for t in list(range(startTime - 1, endTime, self.delta[freq])) + [endTime]:

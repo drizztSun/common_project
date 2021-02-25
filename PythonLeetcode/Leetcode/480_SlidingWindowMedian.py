@@ -1,6 +1,4 @@
-
-
-
+"""
 # 480. Sliding Window Median
 
 # Median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value.
@@ -27,15 +25,14 @@
 #  1  3  -1  -3 [5  3  6] 7       5
 #  1  3  -1  -3  5 [3  6  7]      6
 # Therefore, return the median sliding window as [1,-1,-1,3,5,6].
-
+"""
 import bisect
-
 from heapq import heappush, heappop
+from collections import defaultdict
 
 class MedianSlidingWindow:
 
-
-    def doit(self, nums, k):
+    def doit_heap(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
@@ -59,29 +56,57 @@ class MedianSlidingWindow:
 
         return Median
             
-                
-
-            
-    def doit(self, nums, k):
+    def doit_heap_best(self, nums, k):
         """
         :type nums: List[int]
         :type k: int
         :rtype: List[float]
         """
-        window = sorted(nums[:k])
-        medians = []
+        import heapq
+        if not nums or not k: return []
 
-        for a, b in zip(nums, nums[k:] + [0]):
-
-            medians.append((window[k//2] + window[-(k//2)-1]) // 2 )
-
-            window.pop(bisect.bisect(window, a) - 1)
+        lo = [] # max heap
+        hi = [] # min heap
+        
+        for i in range(k):
+            heapq.heappush(hi, nums[i])
+        
+        while len(hi) - len(lo) > 1:
+            heapq.heappush(lo, -heapq.heappop(hi))
             
-            bisect.insort(window, b)
-
-        return medians
-
+        ans = [float(hi[0])] if k & 1 else [(hi[0] - lo[0]) / 2.0]
+        to_remove = defaultdict(int)
+        
+        for i in range(k, len(nums)): # right bound of window
+            heapq.heappush(lo, -heapq.heappushpop(hi, nums[i])) # always push to lo
+            out_num = nums[i-k]
+            # if the element to remove is in the 
+            # lo heap then we dont need to do anything
+            # the number of valid elements are still balanced (or close to balanced)
             
+            # if the element is in the hi heap then that could be removed in a later iteration
+            # and cause balance to be not valid anymore so we remove one element from the top
+            # element from the lo heap and move it to the high heap
+            if out_num > -lo[0]:
+                heapq.heappush(hi, -heapq.heappop(lo))
+            to_remove[out_num] += 1
+            
+            # when the k is 1 it is possible that the lo is empty
+            # so we check for that case
+            
+            # we remove any invalid elements ( out of the current window)
+            # from the top using elements and counts in the to_remove map
+            while lo and to_remove[-lo[0]]:
+                to_remove[-lo[0]] -= 1
+                heapq.heappop(lo)
+            while to_remove[hi[0]]:
+                to_remove[hi[0]] -= 1
+                heapq.heappop(hi)
+            if k % 2:
+                ans.append(float(hi[0]))
+            else:
+                ans.append((hi[0] - lo[0]) / 2.0)
+        return ans
         
         
     def doit(self, nums, k):             
@@ -90,6 +115,7 @@ class MedianSlidingWindow:
         :type k: int
         :rtype: List[float]
         """
+        import collections
         first, second = [], []
         size1, size2 = 0, 0
         ans = []
@@ -146,25 +172,4 @@ class MedianSlidingWindow:
             else:
                 ans.append((-first[0] + second[0])*0.5)
             # print(ans)
-        return ans        
-        
-
-
-
-if __name__=="__main__":
-
-
-
-    msw = MedianSlidingWindow();
-
-    res = msw.doit([1,3,-1,-3,5,3,6,7], 3)
-
-
-    pass
-
-    
-
-
-        
-
-
+        return ans

@@ -88,8 +88,10 @@ public:
         For more complecated usage,
         I recall this problem
         862. Shortest Subarray with Sum at Least K
+
+        Monotonic queue
     */
-    int doit_slidingwindow(vector<int>& A, int k) {
+    int doit_slidingwindow_monotonic_queue(vector<int>& A, int k) {
     
         deque<int> q;
         int res = A[0];

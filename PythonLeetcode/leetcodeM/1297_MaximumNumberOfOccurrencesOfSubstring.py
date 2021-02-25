@@ -77,7 +77,33 @@ class MaxFreq:
                 this_data[0] = this_data[0][c]
         return res
 
-    def doit(self, s: str, maxLetters: int, minSize: int, maxSize: int) -> int:
+    def doit_(self, s: str, maxLetters: int, minSize: int, maxSize: int) -> int:
+        import collections
+        count = collections.Counter(s[i:i + minSize] for i in range(len(s)-minSize+1))
+        return max([count[w] for w in count if len(set(w)) <= maxLetters] + [0])
+
+
+    """
+        Intuition
+        If a string have occurrences x times,
+        any of its substring must appear at least x times.
+
+        There must be a substring of length minSize, that has the most occurrences.
+        So that we just need to count the occurrences of all substring with length minSize.
+
+
+        Explanation
+        Find the maximum occurrences of all substrings with length k = minSize
+
+
+        Complexity
+        Time O(KN), where K = minSize
+        Space O(KN)
+
+
+        Python:
+    """
+    def doit_(self, s: str, maxLetters: int, minSize: int, maxSize: int) -> int:
         from collections import Counter
         return max([j for i, j in Counter(s[i:i+minSize] for i in range(len(s) - minSize + 1)).items() if len(set(i)) <= maxLetters] or [0])
 

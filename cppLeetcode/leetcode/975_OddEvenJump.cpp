@@ -1,6 +1,4 @@
 /*
- 
- 
  # 975. Odd Even Jump
 
  # You are given an integer array A.  From some starting index, you can make a series of jumps.
@@ -61,15 +59,90 @@
  # Explanation:
  # We can reach the end from starting indexes 1, 2, and 4.
 
- 
  */
 #include <vector>
+#include <algorithm>
+#include <map>
+
+using std::map;
 using std::vector;
 
 #include <stack>
 using std::stack;
 
 class OddEvenJumps {
+
+    /*
+        975.Odd-Even-Jump
+
+        令dp_odd[i]表示从位置i开始作为奇数次的起跳，能否到达终点；dp_even[i]表示从位置i开始作为偶数次的起跳，能否到达终点。
+
+        从后往前考虑，对于元素A[i]，如果能寻找到它的下一步跳到的位置j，那么显然dp_odd[i] = dp_even[j]，dp_even[i] = dp_odd[j].
+
+        怎么高效地从i找到j呢？对于奇数次跳跃，显然考虑将i之后的所有元素放在一起排个序，有就二分法A[j] = *lower_bound(A[i])，然后再从这个A[j]映射回j。
+        
+        同理，对于偶数次跳跃，也是考虑将i之后的所有元素放在一起排个序，有A[j] = *prev(upper_bound(A[i]),1)，然后再从这个A[j]映射回j。
+
+        显然，要保证所有i之后的元素放在一起是自动有序的，数据结构必然选择set或者map。这样每加入一个新元素，都是以log(n)的代价继续保持这个set或map是有序的。用lower_bound或upper_bound非常方便。
+            
+    */
+    int doit_dp_heap(vector<int>& A) 
+    {
+        int n = A.size();
+        vector<bool> odd(n,0);
+        vector<bool> even(n,0);
+        odd[n-1] = true;
+        even[n-1] = true;
+                
+        map<int,int> Map;        
+        Map[A.back()] = n-1;
+        
+        for (int i = n-2; i >= 0; i--)
+        {            
+            auto iter1 = Map.lower_bound(A[i]);   
+            if (iter1 != Map.end())
+            {                
+                if (even[iter1->second]) odd[i] = true;
+            }
+            
+            auto iter2 = Map.upper_bound(A[i]);
+            if (iter2 != Map.begin())
+            {
+                iter2 = prev(iter2,1);                
+                if (odd[iter2->second]) even[i] = true;
+            }
+            
+            Map[A[i]] = i;
+        }
+        
+        int count = 0;
+        for (int i = 0; i < n; i++)
+            if (odd[i]) count++;
+        return count;
+    }
+
+    int doit_(vector<int>& A) {
+
+        int n  = A.size(), res = 1;
+        vector<int> higher(n), lower(n);
+        higher[n - 1] = lower[n - 1] = 1;
+        
+        map<int, int> map;
+        map[A[n - 1]] = n - 1;
+        
+        for (int i = n - 2; i >= 0; --i) {
+            auto hi = map.lower_bound(A[i]), lo = map.upper_bound(A[i]);
+        
+            if (hi != map.end()) higher[i] = lower[hi->second];
+            if (lo != map.begin()) lower[i] = higher[(--lo)->second];
+        
+            if (higher[i]) res++;
+            map[A[i]] = i;
+        }
+        
+        return res;
+    }
+
 public:
     int doit(vector<int>&& A) {
         int N = A.size();
@@ -120,15 +193,3 @@ public:
         return ans;
     }
 };
-
-
-void test_975_odd_even_jumo() {
-    
-    auto res1 = OddEvenJumps().doit(vector<int>{10,13,12,14,15});
-    
-    auto res2 = OddEvenJumps().doit(vector<int>{2,3,1,1,4});
-    
-    auto res3 = OddEvenJumps().doit(vector<int>{5,1,3,4,2});
-    
-    return;
-}

@@ -70,6 +70,113 @@ import bisect
 
 class FallingSquares:
 
+    def fallingSquares(self, positions):
+        import bisect
+
+        heights = [0, 0] 
+        axis = [0, float('inf')]
+        res = [0]
+
+        for start, high in positions:
+
+            pos1 = bisect.bisect_right(axis, start)
+            pos2 = bisect.bisect_left(axis, start + high)
+
+            new_h= max(heights[pos1-1:pos2]) + high
+            axis[pos1: pos2] = [start, start + high]
+
+            heights[pos1: pos2] = [new_h, heights[pos2 - 1]] 
+            res.append(max(res[-1], new_h)) 
+
+        return res[1:]
+
+
+    def doit_segmenttree(self, positions):
+        """
+        :type positions: List[List[int]]
+        :rtype: List[int]
+        """
+        # compress positions into consecutive indices
+        all_pos = set()
+        for p in positions:
+            all_pos.add(p[0])
+            all_pos.add(p[0] + p[1])
+        
+        pos_ind = {}
+        for i, pos in enumerate(sorted(all_pos)):
+            pos_ind[pos] = i
+        
+        n = len(pos_ind)
+        segtree = [0] * (4 * n)
+        lazy = [0] * (4 * n)
+        
+        def _insert(left, right, h, root, start, end):
+            if lazy[root] != 0:
+                if start != end:
+                    lazy[root*2] = max(lazy[root*2], lazy[root])
+                    lazy[root*2 + 1] = max(lazy[root*2+1], lazy[root])
+                segtree[root] = max(segtree[root], lazy[root])
+                lazy[root] = 0          
+            
+            if left > end or right < start:
+                return
+            
+            if start == end:
+                segtree[root] = max(segtree[root], h)
+                return 
+            
+            if left <= start and right >= end:
+                segtree[root] = max(segtree[root], h)
+                lazy[root*2] = max(lazy[root*2], h)
+                lazy[root*2 + 1] = max(lazy[root*2+1], h)
+                return
+            
+            mid = (start + end) // 2
+            _insert(left, right, h, root*2, start, mid)
+            _insert(left, right, h, root*2 + 1, mid + 1, end)
+            segtree[root] = max(segtree[2*root], segtree[2*root + 1], h)
+            return
+        
+        def _query(left, right, root, start, end):
+            if lazy[root] != 0:
+                if start != end:
+                    lazy[root*2] = max(lazy[root*2], lazy[root])
+                    lazy[root*2 + 1] = max(lazy[root*2+1], lazy[root])
+                segtree[root] = max(segtree[root], lazy[root])
+                lazy[root] = 0
+                
+            if left > end or right < start:
+                return 0
+            
+            if start == end: 
+                return segtree[root]
+            
+            if left <= start and right >= end:
+                return segtree[root]
+            
+            mid = (start + end) // 2
+            return max(_query(left, right, root*2, start, mid), _query(left, right, root*2+1, mid + 1, end))
+        
+        def insert(left, right, h):
+            _insert(left, right, h, 1, 0, n-1)
+        
+        def query(left, right):
+            return _query(left, right, 1, 0, n-1)
+        
+        res = []
+        accu_max = 0
+        for p in positions:
+            left_raw, h = p
+            right_raw = left_raw + h
+            left = pos_ind[left_raw]
+            right = pos_ind[right_raw] - 1
+            cur_max = query(left, right)
+            new_max = cur_max + h
+            accu_max = max(accu_max, new_max)
+            res.append(accu_max)
+            insert(left, right, new_max)
+        return res
+
     """
     Approach 4: Segment Tree with Lazy Propagation
     Intuition
@@ -85,9 +192,12 @@ class FallingSquares:
 
     With such an implementation in hand, the problem falls out immediately.
 
+    Complexity Analysis
 
+    Time Complexity: O(NlogN), where NN is the length of positions. This is the run-time complexity of using a segment tree.
+
+    Space Complexity: O(N), the space used by our tree.
     """
-
     class SegmentTree(object):
         def __init__(self, N, update_fn, query_fn):
             self.N = N
@@ -112,7 +222,7 @@ class FallingSquares:
                 self.tree[x] = self.update_fn(self.tree[x], self.lazy[x])
 
         def _push(self, x):
-            for h in xrange(self.H, 0, -1):
+            for h in range(self.H, 0, -1):
                 y = x >> h
                 if self.lazy[y]:
                     self._apply(y * 2, self.lazy[y])
@@ -130,7 +240,7 @@ class FallingSquares:
                 if R & 1 == 0:
                     self._apply(R, h)
                     R -= 1
-                L /= 2;
+                L /= 2
                 R /= 2
             self._pull(L0)
             self._pull(R0)
@@ -138,7 +248,7 @@ class FallingSquares:
         def query(self, L, R):
             L += self.N
             R += self.N
-            self._push(L);
+            self._push(L)
             self._push(R)
             ans = 0
             while L <= R:
@@ -148,7 +258,7 @@ class FallingSquares:
                 if R & 1 == 0:
                     ans = self.query_fn(ans, self.tree[R])
                     R -= 1
-                L /= 2;
+                L /= 2
                 R /= 2
             return ans
 

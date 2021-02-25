@@ -50,8 +50,28 @@ class MaximumNumberOfOcuurance {
 
 public:
 
+    /*
+        Intuition
+        If a string have occurrences x times,
+        any of its substring must appear at least x times.
+
+        There must be a substring of length minSize, that has the most occurrences.
+        So that we just need to count the occurrences of all substring with length minSize.
+
+
+        Explanation
+        Find the maximum occurrences of all substrings with length k = minSize
+
+
+        Complexity
+        Time O(KN), where K = minSize
+        Space O(KN)
+
+
+        Python:
+    */
     int doit_(string s, int maxLetters, int minSize, int maxSize) {
-                
+        // maxsize is useless, minsize should cover the answser          
         unordered_map<string, int> buff;
         int cnt[26] = {0};
         int length = 0;

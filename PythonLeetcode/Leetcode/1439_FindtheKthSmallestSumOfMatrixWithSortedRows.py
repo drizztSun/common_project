@@ -48,7 +48,7 @@ class KthSmallest(object):
     For the input with one row the answer is the smallest k-th element or top of the max priority queue of size k.
 
     Algorithm:
-    Calculate max priority queue of sizr k for the first row.
+    Calculate max priority queue of size k for the first row.
 
     Add the rest rows one by one to the max priority queue and make sure that max priority queue size is less than or equal to k.
 

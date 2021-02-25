@@ -63,6 +63,100 @@ using std::map;
 using std::set;
 using std::vector;
 
+
+class SummaryRanges {
+    
+    map<int, int> Map;
+    
+public:
+    /** Initialize your data structure here. */
+    SummaryRanges() {
+        // Map[INT_MIN]=INT_MIN;
+    }
+    
+    void addNum(int val) {
+        
+        if (Map.empty()) {
+            Map[val] = val;
+            return;
+        }
+        
+        auto s = Map.lower_bound(val);
+        
+        if (s != end(Map) && s->first == val) return;
+        if (s != begin(Map) && prev(s, 1)->second >= val) return;
+        
+        
+        if (s != begin(Map) && prev(s,1)->second == val-1)
+            prev(s,1)->second = val;
+        else
+            Map[val] = val;
+        
+        auto pos = Map.upper_bound(val);
+        if (pos != end(Map) && pos != begin(Map) && prev(pos, 1)->second + 1 == pos->first) {
+            prev(pos,1)->second = pos->second;
+            Map.erase(pos);
+        }
+        
+    }
+    
+    vector<vector<int>> getIntervals() {
+        vector<vector<int>> res;
+        for (auto c : Map) {
+            if (c.first == INT_MIN) continue;
+            
+            res.push_back({c.first, c.second});
+        }
+        return res;
+    }
+};
+
+class SummaryRangesV3 {
+
+public:
+    
+    map<int,int>Map;
+    
+    /** Initialize your data structure here. */
+    SummaryRangesV3() 
+    {
+        Map[INT_MIN] = INT_MIN;
+    }
+    
+    void addNum(int val) 
+    {
+        auto pos = Map.lower_bound(val);
+
+        if (pos!=Map.end() && pos->first==val) return;                        
+        if (prev(pos,1)->second>=val) return;  // if val is already within an interval                                        
+        
+        if (prev(pos,1)->second==val-1)
+            prev(pos,1)->second=val;   // if val is at the right boundary of the previous interval
+        else        
+            Map[val]=val;               // if val is not connected to the previous interval, create a new one
+                
+        pos = Map.upper_bound(val);        
+        if (pos!=Map.end() && pos->first==prev(pos,1)->second+1) // if the new interval is conneted to the next interval
+        {
+            prev(pos,1)->second = pos->second;
+            Map.erase(pos);
+        }         
+        
+    }
+    
+    vector<vector<int>> getIntervals() 
+    {
+        vector<vector<int>> results;
+        for (auto a:Map){
+
+            if (a.first == INT_MIN) continue;
+
+            results.push_back({a.first, a.second});
+        }
+        return results;
+    }
+};
+
 /**
  * Definition for an interval.
  * struct Interval {
@@ -236,47 +330,3 @@ public:
     }
 };
 
-class SummaryRangesV3 {
-
-public:
-    
-    map<int,int>Map;
-    
-    /** Initialize your data structure here. */
-    SummaryRangesV3() 
-    {
-        Map[-2]=-2;
-    }
-    
-    void addNum(int val) 
-    {
-        auto pos = Map.lower_bound(val);
-
-        if (pos!=Map.end() && pos->first==val) return;                        
-        if (prev(pos,1)->second>=val) return;  // if val is already within an interval                                        
-        
-        if (prev(pos,1)->second==val-1)
-            prev(pos,1)->second=val;   // if val is at the right boundary of the previous interval
-        else        
-            Map[val]=val;               // if val is not connected to the previous interval, create a new one
-                
-        pos = Map.upper_bound(val);        
-        if (pos!=Map.end() && pos->first==prev(pos,1)->second+1) // if the new interval is conneted to the next interval
-        {
-            prev(pos,1)->second = pos->second;
-            Map.erase(pos);
-        }         
-        
-    }
-    
-    vector<Interval> getIntervals() 
-    {
-        vector<Interval>results;
-        for (auto a:Map)
-        {
-            if (a.first!=-2)
-                results.push_back(Interval(a.first,a.second));
-        }
-        return results;
-    }
-};

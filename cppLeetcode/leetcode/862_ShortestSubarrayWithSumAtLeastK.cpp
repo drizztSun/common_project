@@ -61,6 +61,8 @@ public:
         Time Complexity: O(N), where NN is the length of A.
 
         Space Complexity: O(N).
+        
+        Monotonic queue
     */
 
     int doit_slidingwindow(vector<int>& A, int K) {
@@ -87,6 +89,7 @@ public:
 
             d.push_back(i);
         }
+        
         return res <= N ? res : -1;
     }
 
