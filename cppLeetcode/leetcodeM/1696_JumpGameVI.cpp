@@ -82,10 +82,9 @@ public:
 
         所以本题最优解的时间复杂度是o(N)
 
-        monotonic_queue
-
+        monotonic queue
     */
-    int doit_dp(vector<int>& nums, int k) 
+    int doit_dp_monotonicqueue_slidingwindow(vector<int>& nums, int k) 
     {
         int n = nums.size();
         deque<std::pair<int,int>> dq;

@@ -43,6 +43,54 @@ using std::priority_queue;
 
 class MaxValueOfEquation {
 
+    /*
+        1499.Max-Value-of-Equation
+        如果我们固定j点，那么原题就是求max{yi+yj+xj-xi} = max{-xi+yi} + xj+yj .也就是要在|xi-xj|<k的范围内，找到一个i点，使得-xi+yj最大。这就是一个典型的sliding window maximum，标准解法使用双端队列，时间复杂度是o(N).
+
+        注意，这里的sliding window并不是固定长度的，我们保持的是一个满足首尾元素|xi-xj|<k的窗口。队列中保持递减的序列。任何新进来的元素，如果-x+y比队尾元素要大，说明队尾的元素就不再有任何利用的价值（又旧又小，永远不会被用到），那么队尾元素都可以弹出。
+    */
+    int doit_(vector<vector<int>>& points, int k) 
+    {
+        int ret = INT_MIN;
+        deque<int>q;
+        for (int i=0; i<points.size(); i++)
+        {
+            while (q.size()>0 && points[q.front()][0] < points[i][0]-k)
+                q.pop_front();
+            
+        	if (q.size() > 0)
+        	    ret = std::max(ret, -points[q.front()][0]+points[q.front()][1] + points[i][0]+points[i][1]);
+
+            while (q.size()>0 && -points[q.back()][0]+points[q.back()][1] < -points[i][0]+points[i][1])
+                q.pop_back();
+            
+            q.push_back(i);
+        }
+        return ret;
+    }
+
+    int doit_monotonicqueue(vector<vector<int>>& points, int k) {
+        int ans = INT_MIN;
+        deque<std::pair<int, int>> qu;
+        
+        for (const auto& c : points) {
+            int x = c[0], y = c[1];
+            
+            while (!qu.empty() && x - qu.front().second > k)
+                qu.pop_front();
+            
+            if (! qu.empty())
+                ans = std::max(ans, x + y + qu.front().first);
+            
+            while (!qu.empty() && (y - x) > qu.back().first)
+                qu.pop_back();
+            
+            qu.push_back({y- x, x});
+        }
+        
+        return ans;
+    }
+
 public:
     /*
     Solution 1: Priority Queue / Heap
