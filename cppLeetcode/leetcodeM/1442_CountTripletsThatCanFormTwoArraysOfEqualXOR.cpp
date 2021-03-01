@@ -138,6 +138,7 @@ public:
         unordered_map<int, int> count, total;
 
         for (int i = 0; i < n; ++i) {
+            // There are n A[j {1...n}] == A[i], total is SUM(A[j], j, 1...n), Then we need to calculate i * n - total 
             res += count[A[i]]++ * (i - 1) - total[A[i]];
             total[A[i]] += i;
         }

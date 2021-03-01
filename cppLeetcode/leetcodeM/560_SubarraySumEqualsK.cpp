@@ -50,7 +50,7 @@ public:
     
      */
     
-    int doit(vector<int>&& nums, int k) {
+    int doit_hashtable(vector<int>&& nums, int k) {
         
         int ans = 0, total = 0;
         unordered_map<int, int> cache;
@@ -68,11 +68,3 @@ public:
         return ans;
     }
 };
-
-
-void test_560_subarray_sum_equalk() {
-    
-    auto res1 = SubarraySum().doit(vector<int>{1, 1, 1}, 2);
-    
-    return;
-}

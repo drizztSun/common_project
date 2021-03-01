@@ -37,33 +37,104 @@ Constraints:
 */
 #include <vector>
 #include <set>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::set;
 using std::vector;
 
 
 class  MysteriousFunc{
 
+    /*
+        1521.Find-a-Value-of-a-Mysterious-Function-Closest-to-Target
+        考虑s集合包含了所有以元素i结尾的subarray的bitwise AND的结果。那么这个集合有多大呢？其实并没有i个，而是最多只有32个。因为这些subarray的bitwise AND的本质，都是针对A[i]的某些bit进行从1到0的翻转。
+        并且这些subarray bitwise AND从后往前来看都是不可逆的。具体地说，A[i], A[i]&A[i-1], A[i]&A[i-1]&A[i-2], ... 它们的bit 1的个数只会越来越少。因为A[i]最多只有32个1，所以所有这些subarray最多只会有32个不同的bitwise AND的结果。
+
+        既然s只有32个元素，那么只需要遍历一遍就可以找到最接近target的值。然后在考虑A[i+1]，并更新s集合：只需要将每个s的元素与A[i+1]进行AND，再添加A[i+1]即可。同理可知，此时的集合s依然最多只有32个元素。
+    */
+    int closestToTarget(vector<int>& arr, int target) {
+        unordered_set<int>s;
+        int ret = INT_MAX;
+        for (int i = 0; i < arr.size(); i++)
+        {
+            unordered_set<int> s2;
+            for (auto x: s)
+                s2.insert(x&arr[i]);
+
+            s2.insert(arr[i]);
+            for (auto x: s2)
+                ret = std::min(ret, abs(x-target));
+            s = s2;
+        }
+        return ret;
+    }
+
 public:
 
 
-    int doit_1(vector<int>& arr, int target) {
-        int res = INT_MAX;
+    int doit_(vector<int>& arr, int target) {
+        int res = INT_MAX; 
+        set<int> pre = {arr[0]}, cur;
+        
+        for(auto x: arr){
+            cur.insert(x);
+            
+            for(auto y: pre) 
+                cur.insert(x&y);
+            
+            for(auto& z: cur) 
+                res = min(res, abs(z-target));
+            
+            pre = move(cur);
+        }          
+        return res;
+    }
 
-        for (int i = 0; i < arr.size(); ++i) {
-            res = std::min(res, abs(target - arr[i]));
-
-            for (int j = i - 1; j >= 0; --j) {
-                arr[j] &= arr[i];
-                res = std::min(res, abs(target - arr[j]));
-                
-                //after couple of times AND, atmost log(A[i]), A[i] will became to zero. so when arr[i] == arr[j+1], then we quit. 
-                if (arr[j] <= target || arr[j] == arr[j + 1]) 
-                    break;
+    int dem[26];
+    void add(int &sum, int x)
+    {
+        for (int i = 0; i <= 24; i++)
+        {
+            if (((x >> i) & 1) == 0)
+            {
+                dem[i]++;
+                if (dem[i] == 1) sum = sum ^ (1 << i);
             }
         }
+    }
+    
+    void remove(int &sum, int x)
+    {
+        for (int i = 0; i <= 24; i++)
+        {
+            if (((x >> i) & 1) == 0)
+            {
+                dem[i]--;
+                if (dem[i] == 0) sum = sum | (1 << i);
+            }
+        }
+    }
+    
+    int doit_slidingwindow_best(vector<int>& arr, int target) {
+        int sum = (1 << 25) - 1;
+        int ans = INT_MAX;
+        memset(dem, 0, sizeof(dem));
+        
+        for (int l = 0, r = 0; r < arr.size(); r++)
+        {
+            add(sum, arr[r]);
+            
+            ans = std::min(ans, abs(sum - target));
 
-        return res;
+            while (sum < target)
+            {
+                remove(sum, arr[l]);
+                ans = std::min(ans, abs(sum - target));
+                l++;
+            }
+        }
+        return ans;
     }
 
     /*

@@ -19,7 +19,22 @@ Output: 1
 class SumOfTwoInteger {
 
 public:
-
+    /*
+            371.Sum-of-Two-Integers
+        将a+b改造为m+n，其中m=a^b不进位的加法，n=(a&b)<<1将有进位的bit置为1。反复这样的操作直至所有的进位为零，得到的m即为结果。
+    */
+    int getSum(int a, int b) 
+    {     
+        long mask = 0xFFFFFFFF;
+        while (b!=0)
+        {
+            int aa= (a^b) & mask;  // 不进位的加法
+            int bb= ((a&b) & mask) <<1; // 各个位上的进位值
+            a = aa;
+            b = bb;
+        }
+        return a;
+    }
 
     /*
         Approach 2: Bit Manipulation: Short Language-Specific Solution
@@ -70,6 +85,8 @@ public:
 
     */
     int doit_(int a, int b) {
+
+        // mask is bit to handle negetive value. or there is error about left shift of negative value -2147483648 for -1.
         long mask = 0xFFFFFFFF;
         
         while (b != 0) {

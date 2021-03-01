@@ -50,16 +50,124 @@
  */
 #include <vector>
 #include <deque>
+#include <bitset>
 
+using std::bitset;
 using std::deque;
 using std::vector;
 
 
 class MinFlips {
-    
+
+    /*
+        1284.Minimum-Number-of-Flips-to-Convert-Binary-Matrix-to-Zero-Matrix
+        首先我们应该有这样一个认识，每个元素最多只需要flip一次，flip两次及以上都是没有意义的操作。再考虑到矩阵的维度非常小（不超过3x3），因此即使穷举每个元素是否flip，
+        最多只有2^9种不同的可能性。对于每种可能性，我们最多再花o(4mn)的时间来验证是否能实现矩阵全部翻零。因此这种暴力的方法的时间复杂度是可以接受的。
+
+        如果还想优化一点的话，可以用Gosper's hack，按照“1-bit的个数”从小到大地枚举状态。一旦发现可以实现矩阵翻零，即可输出答案。
+    */
+    int m,n;
+
+    int doit_(vector<vector<int>>& mat) 
+    {
+        m = mat.size();
+        n = mat[0].size();
+        int ret = INT_MAX;
+
+        for (int state=0; state<(1<<(m*n)); state++)
+        {
+            if (check(mat, state))
+                ret = std::min(ret, (int)bitset<9>(state).count());
+        }
+        if (ret==INT_MAX)
+            return -1;
+        else
+            return ret;
+    }
+
+    bool check(vector<vector<int>>& mat, int state)
+    {
+        auto temp = mat;
+        auto dir = vector<pair<int,int>>({{0,1},{0,-1},{1,0},{-1,0},{0,0}});        
+
+        for (int s=0; s<(m*n); s++)
+        {
+            int t = state%2;            
+            state/=2;
+            if (t==0) continue;
+
+            int i = s/n;
+            int j = s%n;
+
+            for (int k=0; k<5; k++)
+            {
+                int x = i+dir[k].first;
+                int y = j+dir[k].second;
+                if (x<0||x>=m||y<0||y>=n) continue;
+                temp[x][y] = 1-temp[x][y];
+            }            
+        }
+
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+                if (temp[i][j]!=0) return false;
+        return true;
+    }
+
+    int m,n;
+public:
+    int minFlips(vector<vector<int>>& mat) 
+    {
+        m = mat.size();
+        n = mat[0].size();
+        if (check(mat,0)) return 0;
+
+        for (int k=1; k<=m*n; k++)
+        {
+            int state = (1 << k) - 1;                                  
+            while (state < (1 << (m*n)))
+            {
+                if (check(mat, state))
+                    return k;
+
+                int c = state & - state;
+                int r = state + c;
+                state = (((r ^ state) >> 2) / c) | r;
+            }
+        }
+        return -1;
+    }
+
+    bool check(vector<vector<int>>& mat, int state)
+    {
+        auto temp = mat;
+        vector<std::pair<int,int>> dir({{0,1},{0,-1},{1,0},{-1,0},{0,0}});        
+
+        for (int s=0; s<(m*n); s++)
+        {
+            int t = state%2;            
+            state/=2;
+            if (t==0) continue;
+
+            int i = s/n;
+            int j = s%n;
+
+            for (int k=0; k<5; k++)
+            {
+                int x = i+dir[k].first;
+                int y = j+dir[k].second;
+                if (x<0||x>=m||y<0||y>=n) continue;
+                temp[x][y] = 1-temp[x][y];
+            }            
+        }
+
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+                if (temp[i][j]!=0) return false;
+        return true;
+    }
 
 public:
-    
     /*
         STATE COMPRESSION
     */
@@ -81,7 +189,7 @@ public:
         
         auto flip = [&](size_t status, int i, int j) {
             for (int s = 0; s < 5; s++) {
-                const int tx = i + dirs[s];
+                const int tx = i + dirs[s];ß
                 const int ty = j + dirs[s+1];
                 if (tx >=0 && tx< m && ty >= 0 && ty < n)
                     status ^= 1 << (tx * n + ty);
@@ -120,10 +228,3 @@ public:
         return -1;
     }
 };
-
-void test_1284_minimum_number_of_flip() {
-    
-    MinFlips().doit_bfs(vector<vector<int>>{{0, 0}, {0, 1}});
-    
-    MinFlips().doit_bfs(vector<vector<int>>{{1, 1, 1}, {1, 0, 1}, {0, 0, 0}});
-}
