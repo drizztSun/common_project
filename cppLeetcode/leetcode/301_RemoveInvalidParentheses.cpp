@@ -32,15 +32,75 @@ using std::stack;
 using std::string;
 
 class MinRemoveToMakeValid {
+
+    /*
+        301.Remove-Invalid-Parentheses
+        本题没有太高明的办法，基本就是靠搜索，数量级应该就是O(2^N).DFS和BFS均可。感觉对于在同一个数组或字符串里面搜若干个元素的话，DFS写起来更舒服一些。
+        基本思想就是对于每一个s[i]都有“选用”（append到当前curStr中去）和“不选用”两种选择，然后依次递归下去。如果遇到curStr不合法的情况，就及时中断这条支路。
+
+        但本题最大的考点应该在于如何避免最后大量重复的结果。比如说我们想在“((()”里面最终得到"()"，其实就有好几种DFS的路径。比如说"OOXX", "XOOX", "OXOX"（O表示不选，X表示选）。
+        可见原字符串中的三个“(((”，可以有三种不同的路径得到最后只剩一个"("。如果无脑地对每个字符都尝试“选用”和“不选用”，那么最后势必要依靠字符串类型的集合来去重，效率会很低。
+
+        本题的精彩之处，是在于设计一种DFS路径选择机制，能够避开任何可能造成重复的路径。规则如下：
+
+        1. 如果备选字符s[i]与已选字符串的最后一位相同，那么你必须选择使用这个字符，即curStr.append(s[i])
+        2. 如果备选字符s[i]与已选字符串的最后一位不相同，那么你可以选择使用这个字符，也可以选择不使用，接下来的两条分叉递归处理。
+        上面规则的本质是，如果最终生成的字符串含有若干个相同的字符，那么这些相同字符在s中的顺序也必须是连续的，并且是最后的若干个连续的字符。
+
+        举个例子，如果s中有四个连续的左括号，我们选择保留下来两个左括号，那么我们对这四个左括号的选择一定是XXOO的形式，即我们只选择最后两个。而不能是OOXX,OXOX,OXXO,XOOX,XOXO这五种其他的形式。这样就避免了六种DFS搜索形式对应同一个最终结果的复杂局面。
     
+    */
+    vector<string> doit_dfs(string s) 
+    {
+        vector<string>rets;
+        int retLen = -1;
+        string curStr = "";
+
+        std::function<void(string, string&, int, int)> dfs = [&](string curStr, string &s, int i, int count)
+        {
+            if (count<0) return;
+            
+            if (i==s.size())
+            {
+                if (count!=0) return;
+                                        
+                if (curStr.size() == retLen)
+                    rets.push_back(curStr);
+                else if ((int)curStr.size() > retLen)
+                {
+                    // getting longer one, we are finding minimum number removing
+                    rets.clear();
+                    rets.push_back(curStr);
+                    retLen = curStr.size();
+                }            
+                return;
+            }
+            
+            if (s[i]!='(' && s[i]!=')')
+            {
+                dfs(curStr+s.substr(i,1), s, i+1, count);
+                return;
+            }
+            
+            dfs(curStr+s.substr(i,1), s, i+1, count+(s[i]=='('?1:-1));
+            
+            if (curStr.size()==0 || curStr.back()!=s[i])
+                // remove current one.
+                dfs(curStr, s, i+1, count);
+        };
+        
+        dfs(curStr, s, 0, 0);
+        return rets;
+    }
+
 public:
     
-    vector<string> doit_backtracking(string str) {
+    vector<string> doit_dfs_backtracking(string str) {
         
         int left = 0, right = 0;
         unordered_set<string> res;
         
-        for (auto c : str ) {
+        for (auto c: str) {
             
             if (c == '(')
                 left++;
@@ -73,11 +133,13 @@ public:
             // don't remove
             path.push_back(str[index]);
             
+            // non-parenthesis 
             if (str[index] != '(' && str[index] != ')')
                 dfs(index + 1, left, right, left_rem, right_rem, path);
-            
+            // putting left
             else if (str[index] == '(')
                 dfs(index+1, left+1, right, left_rem, right_rem, path);
+            // putting right
             else if (str[index] == ')' && left > right)
                 dfs(index+1, left, right+1, left_rem, right_rem, path);
             
@@ -89,20 +151,6 @@ public:
         return vector<string>(res.begin(), res.end());
     }
 
-    
-    
-
-    bool check(string s)
-    {
-        int count = 0;
-            for (const char ch : s) {
-                if (ch == '(') count++;
-                if (ch == ')') count--;
-                if (count < 0)
-                    return false;
-            }
-            return count == 0;
-    }
     vector<string> doit_bfs(string s)
     {
         queue<string> q;
@@ -110,6 +158,17 @@ public:
         vector<string> ret;
         unordered_set<string> v;
         bool flag=false;
+
+        auto check = [](string s) {
+            int count = 0;
+            for (const char ch : s) {
+                if (ch == '(') count++;
+                if (ch == ')') count--;
+                if (count < 0)
+                    return false;
+            }
+            return count == 0;
+        };
         
         while(!q.empty() && !flag)
         {
@@ -144,53 +203,5 @@ public:
             }
         }
         return ret;
-    }
-    
-    
-    void flip(string& s) {
-        reverse(s.begin(), s.end());
-        for (int i = 0; i < s.length(); i++) {
-            if (s[i] == '(') {
-                s[i] = ')';
-            } else if (s[i] == ')') s[i] ='(';
-        }
-    }
-    
-    vector<string> res;
-    
-    // doit_dfs
-    vector<string> removeInvalidParentheses(string s, int start = 0, int remove_start = 0, bool flipped = false) {
-      //  cout << s << " " << start << " " <<  remove_start << " " << flipped << endl;
-        int bal = 0, i = start;
-        for (; i < s.length(); i++) {
-            if (s[i] == '(') bal++;
-            if (s[i] == ')') bal--;
-            if (bal < 0) {
-                break;
-            }
-        }
-        
-        if (i == s.length() && bal == 0) {
-            if (flipped) {
-                flip(s);
-            }
-            res.push_back(s);
-            return res;
-        }
-        
-        if (i == s.length() && bal > 0) {
-            // deal with extra opening brackets.
-            flip(s);
-            removeInvalidParentheses(s, 0, 0, true);
-            return res;
-        }
-        
-        for (int j = remove_start; j <= i; j++) {
-            if (s[j] == ')' && (j == remove_start || s[j-1] != ')')) {
-                removeInvalidParentheses(s.substr(0, j) + s.substr(j+1), i, j, flipped);
-            }
-        }
-
-        return res;
     }
 };

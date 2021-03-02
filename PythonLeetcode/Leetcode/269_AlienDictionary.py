@@ -49,7 +49,7 @@ There may be multiple valid order of letters, return any one of them is fine.
 
 class AlienOrder:
 
-    def doit_bfs(self, words) -> str:
+    def doit_bfs_topsort(self, words) -> str:
         from collections import defaultdict, Counter, deque
 
         # Step 0: create data structures + the in_degree of each unique letter to 0.

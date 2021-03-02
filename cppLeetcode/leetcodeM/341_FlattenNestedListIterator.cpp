@@ -48,6 +48,22 @@ using std::vector;
 
 class NestedIterator {
 
+
+
+    class NestedInteger {
+    public:
+      // Return true if this NestedInteger holds a single integer, rather than a nested list.
+      bool isInteger() const;
+ 
+      // Return the single integer that this NestedInteger holds, if it holds a single integer
+      // The result is undefined if this NestedInteger holds a nested list
+      int getInteger() const;
+ 
+      // Return the nested list that this NestedInteger holds, if it holds a nested list
+      // The result is undefined if this NestedInteger holds a single integer
+      const vector<NestedInteger> &getList() const;
+    };
+
     /*
         341.Flatten-Nested-List-Iterator
         仔细分析数据结构的定义。vector<NestedInteger>包含的是元素是NestedInteger类型. 当对元素做.getInteger()操作后得到的才是整形；做.getList()操作后得到的是vector<NestedInteger>类型。

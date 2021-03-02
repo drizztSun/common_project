@@ -107,7 +107,7 @@ public:
         // left + star > right, we need star to be right
         int rightbalance = 0;
 
-        for(int i = s.size() - 1;i>=0;i--)  {
+        for(int i = s.size() - 1; i>=0; i--)  {
             
             if(s[i] == ')' || s[i] == '*')
             

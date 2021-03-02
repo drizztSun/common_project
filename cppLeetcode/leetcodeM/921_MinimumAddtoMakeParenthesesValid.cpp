@@ -62,7 +62,7 @@ public:
 
         如果题目改成"Minimum delete to Make Parentheses Valid"，答案其实一模一样。我们增加多少括号促成匹配，就等效于减少多少（对称的）括号促成匹配。
     */
-    int doit_(string S) 
+    int doit_parenthesis(string S) 
     {        
         int count = 0;
         int ret = 0;
@@ -82,7 +82,7 @@ public:
         return ret;
     }
 
-    int doit_(string S) {
+    int doit_best(string S) {
         
         int opening = 0;
         int total = 0;

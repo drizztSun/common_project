@@ -41,9 +41,38 @@ using std::stack;
 
 class Solution {
 
+    /*
+        856.Score-of-Parentheses
+        此题的本质是一道Parentheses Parse。规则如下：同一层级的元素需要相加。更高一层级的元素（括号内）在脱括号的时候乘以2.不过有一个特殊的规则，如果更高一层级的元素是空，那么脱括号的时候赋值为1.
+    */
+    int doit_parenthesis(string S) {
+        stack<int>Stack;
+        int cur = 0;
+        for (auto ch: S)
+        {
+            if (ch==')')
+            {
+                if (cur==0)
+                    cur = 1;
+                else
+                    cur = cur*2;
+                cur = Stack.top()+cur;
+                Stack.pop();
+            }
+            else
+            {
+                Stack.push(cur);
+                cur = 0;
+            }
+        }
+        return cur;
+    }
+
+
+
 public:
     
-    int doit_stack(string S) {
+    int doit_stack_parenthesis(string S) {
         
         stack<int> st;
         st.push(0);
