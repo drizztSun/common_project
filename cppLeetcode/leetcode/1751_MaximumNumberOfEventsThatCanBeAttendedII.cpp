@@ -77,7 +77,7 @@ public:
         
         // add placeholder for index starting from 1
         events.insert(events.begin(), events[0]); 
-        vector<int>endTime({0});
+        vector<int> endTime({0});
         
         int ret = 0;        
         for (int i = 0; i <= m; i++)
