@@ -90,4 +90,37 @@ public:
         
         return current;
     }
+
+
+    TreeNode* str2tree(string s) {
+        
+        std::function<TreeNode*(int&)> dfs = [&](int& pos) -> TreeNode*{
+            
+            int i = pos;
+            while (i < s.length() && s[i] != '(' && s[i] != ')') i++;
+            int num = std::stoi(s.substr(pos, i - pos));
+            
+            TreeNode* node = new TreeNode(num);
+            
+            if (s[i] == ')') {
+                pos = i+1;
+                return node;
+            }
+            
+            i++;
+            node->left = dfs(i);
+            
+            if (i == s.length()) {
+                pos = i;
+                return node;
+            }
+                
+            node->right = dfs(i);
+            pos = i;
+            return node;
+        };
+        
+        int pos = 0;
+        return dfs(pos);
+    }
 };
