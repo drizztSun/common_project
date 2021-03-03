@@ -41,6 +41,43 @@ using std::vector;
 
 class Pattern132 {
 
+    /*
+        456.132-Pattern
+        从后往前遍历。我们假设当前的元素nums[i]是132 pattern中的"2"，那么什么元素最适合作为"3"呢？其实就是"2"的prev greater element，也就是nums[i]左边第一个比它大的元素，假设是nums[j]。
+        为什么这样的j最合适呢？因为j越接近i的话，我们就能够在[0,j-1]的区间里找到一个越小的数作为132 pattern里的"1"，即越容易收集齐这样的132 pattern。
+
+        具体的做法是，我们先预处理数组，算出每个元素k左边的最小值leftMin[k]。然后从后往前遍历，对于第i个元素，找到它的prev greater element，它的index记做j，那么查看leftMin[j]的元素是否比num[i]还小。如果符合要求，就可以返回true.
+    */
+    bool doit_stack(vector<int>& nums) {
+
+        int n = nums.size();
+        if (n<3) return false;
+        
+        vector<int>leftMin(n);
+        leftMin[0] = INT_MAX;
+        for (int i=1; i<n; i++)
+            leftMin[i] = std::min(leftMin[i-1],nums[i-1]);
+        
+        stack<int>Stack;
+        for (int i=n-1; i>=0; i--)
+        {
+            int second = INT_MIN;
+            while (!Stack.empty() && Stack.top()<nums[i])
+            {
+                second = Stack.top();
+                Stack.pop();
+            }
+                        
+            if (leftMin[i]<second)
+                return true;
+            Stack.push(nums[i]);            
+        }
+        
+        return false;
+    }
+
+
+
 public:
 
     bool doit_stack(vector<int>& nums) {

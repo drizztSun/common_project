@@ -225,7 +225,7 @@ class ReverseParentheses {
 
 public:
 
-    string doit_stack_parenthesis(string s) {
+    string doit_stack_parenthesis(string target) {
 
         std::function<string(int, int, bool)> dfs = [&](int i, int j, bool reversed) -> string{
             

@@ -33,7 +33,10 @@ Constraints:
 s consists of digits, '(', ')', and '-' only.
 */
 #include <stack>
+#include <functional>
+#include <string>
 
+using std::string;
 using std::stack;
 
 
@@ -52,7 +55,18 @@ class BuildBinaryTree {
         ( => start a new one, put current into stack 
         
         ) => create new one, put it into child of top one. currrent one move back to top one.
+
+        4(5)(6)
+        5(6(7))
+        4(2(3)(1))
     */
+
+    struct TreeNode {
+        TreeNode(int val): _val(val), left(nullptr), right(nullptr) {}
+
+        int _val;
+        TreeNode *left, *right;
+    };
 
 public:
 
@@ -92,35 +106,83 @@ public:
     }
 
 
-    TreeNode* str2tree(string s) {
+    TreeNode* doit_recursive(string s) {
         
-        std::function<TreeNode*(int&)> dfs = [&](int& pos) -> TreeNode*{
-            
+        if (s.empty()) return nullptr;
+    
+        std::function<TreeNode*(int&)> dfs = [&](int& pos) -> TreeNode* {
+
             int i = pos;
             while (i < s.length() && s[i] != '(' && s[i] != ')') i++;
             int num = std::stoi(s.substr(pos, i - pos));
-            
+
             TreeNode* node = new TreeNode(num);
             
-            if (s[i] == ')') {
-                pos = i+1;
+            if (i == s.length() || s[i] == ')') {
+                // leaf node
+                pos = i + (i != s.length());
                 return node;
             }
-            
+
             i++;
             node->left = dfs(i);
             
-            if (i == s.length()) {
-                pos = i;
+            if (i == s.length() || s[i] == ')') {
+                pos = i + (i != s.length());
                 return node;
             }
-                
+
+            i++;
             node->right = dfs(i);
-            pos = i;
+            pos = i + (i != s.length());
             return node;
         };
-        
+
+        int pos = 0;
+        TreeNode* p = dfs(pos);
+        return p;
+    }
+
+    TreeNode* doit_(string s) {
+
+        if (s.empty()) return nullptr;
+
+        std::function<TreeNode*(int&)> dfs = [&](int& pos) {
+
+            int i = pos;
+            TreeNode *left = nullptr, *right = nullptr;
+            int sign = 1, num = 0;
+            while (i < s.length()) {
+
+                if (s[i] == '-') {
+                    sign *= -1;
+                } else if (s[i] == ')') {
+                    break;
+                } else if (s[i] == '(') {
+                    i++;
+                    TreeNode* p = dfs(i);
+                    if (!left)
+                        left = p;
+                    else
+                        right = p;
+                } else {
+                    num = num * 10 + s[i] - '0';
+                }
+
+                i++;
+            }
+
+            pos = i;
+            TreeNode* p = new TreeNode(num*sign);
+            p->left = left;
+            p->right = right;
+
+            return p;
+        };
+
         int pos = 0;
         return dfs(pos);
     }
+
+
 };

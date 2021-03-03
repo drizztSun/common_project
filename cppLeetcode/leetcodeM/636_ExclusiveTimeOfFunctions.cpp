@@ -36,19 +36,60 @@ Example 1:
  */
 
 #include <vector>
-using std::vector;
-
-#include <string>
-using std::string;
-
 #include <stack>
+#include <string>
+
+using std::vector;
+using std::string;
 using std::stack;
 
+
 class ExclusiveTime {
-    
+    /*
+            636.Exclusive-Time-of-Functions
+        很明显此题应该用到栈。遇到start就入栈，遇到end就出栈。
+
+        stack<pair<int,int>>Stack; //记录id和时刻
+        遇到end（该事件的结束点）时，出栈一个元素（该事件的起始点）做匹配，算出这个事件A的时间差，累计在这个事件A上（用一个数组来记录）。
+        同时，因为这个事件A占用的时间要从它的上级事件中扣除，所以还要考察此时的栈顶元素B，在相应B的runtime记录里减去这段时间。这种补偿只需要做一次，因为等事件B退栈时，所占用的总时间（包括A的）也会再从更上级事件C里面扣除的。以此类推。
+
+        注意start和end的计时标准不一致。比较巧妙的方法就是对于end所标记的时刻，人为加上1，这样计算时间差的时候就可以直接相减。
+    */
+    vector<int> doit_stack(int n, vector<string>& logs) 
+    {
+        stack<std::pair<int,int>>Stack;
+        vector<int>results(n,0);
+        
+        for (auto s: logs)
+        {
+            int pos1 = s.find(":",0);
+            int pos2 = s.find(":",pos1+1);
+            int id = stoi(s.substr(0,pos1));
+            bool flag = s.substr(pos1+1,pos2-pos1-1)=="start"? true:false;
+            int timeStamp = stoi(s.substr(pos2+1));
+            
+            if (flag)
+                Stack.push({id,timeStamp});
+            else
+            {
+                int start = Stack.top().second;
+                int duration = timeStamp - start + 1;
+                results[id] += duration;
+                Stack.pop();
+                
+                if (!Stack.empty())
+                {
+                    int prevId = Stack.top().first;
+                    results[prevId] -= duration;
+                }
+            }            
+        }
+        
+        return results;
+    }
 public:
     
-    vector<int> doit(int n, vector<string>&& logs) {
+    vector<int> doit_stack(int n, vector<string>&& logs) {
         
         vector<int> ans(n, 0);
         vector<vector<int>> buf;
