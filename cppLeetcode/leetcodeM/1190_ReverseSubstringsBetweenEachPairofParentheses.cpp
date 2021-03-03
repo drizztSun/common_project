@@ -38,7 +38,9 @@ It's guaranteed that all parentheses are balanced.
 #include <string>
 #include <vector>
 #include <stack>
+#include <unordered_map>
 
+using std::unordered_map;
 using std::stack;
 using std::vector;
 using std::string;
@@ -108,10 +110,9 @@ class ReverseParentheses {
                 i = pair[i];
                 d = -d;
             }
-            i+=d;            
+            i += d;
         }
         return ret;
-
     }
 
     string doit_stack_parenthesis(string s) 
@@ -132,6 +133,39 @@ class ReverseParentheses {
             }
         }
         return ret;
+    }
+
+    string doit_stack(string s) {
+        
+        unordered_map<int, int> pair;
+        stack<int> st;
+        
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == '(') {
+                st.push(i);
+            } else if (s[i] == ')') {
+                int j = st.top();
+                st.pop();
+                pair[i] = j;
+                pair[j] = i;
+            }
+        }
+        
+        int i = 0;
+        int d = 1;
+        string ans;
+        while (i < s.size()) {
+            
+            if (isalpha(s[i])) {
+                ans.push_back(s[i]);
+            } else if (pair.count(i) > 0) {
+                i = pair[i];
+                d = -d;
+            }
+            i += d;
+        }
+        
+        return ans;
     }
 
     /**

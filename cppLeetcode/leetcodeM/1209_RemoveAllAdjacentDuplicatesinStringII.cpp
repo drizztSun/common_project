@@ -167,6 +167,74 @@ s only contains lower case English letters.
 */
 class RemoveAllAdjacentDuplicatesII {
 
+    /*
+        1209.Remove-All-Adjacent-Duplicates-in-String-II
+        模拟整个消除的过程是比较笨拙的方法。优秀的方法可以用one pass来得到最终的结果。
+
+        考虑aabbbadd，k=3这个例子。第一轮消除bbb之后会遇到一个a，如果是纯模拟的话，第一轮并不会处理这个字符，但是考虑到bbb之前已经有两个a了，现在等于有三个连续的相同字符放在一起了，肯定能在第二轮被消除掉，何不就在one pass的时候一并做了呢？
+
+        显然，我们可以用栈的数据结构来实现这个功能。一个需要考虑的问题是，我们如何快速判定栈顶有几个a以便我们决策是否要退栈做k消除？方法是我们在入栈的时候不仅放入字符，而且放入一个数字来统计目前栈顶有多少个连续的相同字符。这样我们只需看一下最栈顶的元素，就知道栈顶有多少个连续的相同字符了。
+    */
+    string removeDuplicates(string s, int k) 
+    {
+        stack<pair<char, int>>Stack;
+
+        for (auto ch: s)
+        {
+            if (Stack.empty() || Stack.top().first!=ch)            
+                Stack.push({ch, 1});            
+            else            
+                Stack.push({ch, Stack.top().second+1});            
+
+            if (Stack.top().second==k)
+            {
+                for (int i=0; i<k; i++)
+                    Stack.pop();
+            }
+        }
+
+        string ret;
+        while (!Stack.empty())
+        {
+            ret.push_back(Stack.top().first);
+            Stack.pop();
+        }
+        reverse(ret.begin(), ret.end());
+        return ret;
+    }
+
+    string removeDuplicates(string s, int k) {
+        
+        stack<pair<int, int>> st;
+        
+        for (auto c: s) {
+            
+            if (st.empty() || st.top().first != c) {
+                st.push({c, 1});
+            } else {
+                st.top().second++;
+            }
+            
+            if (st.top().second == k) {
+                st.pop();
+            }
+        }
+        
+        string ans;
+        while (!st.empty()) {
+            auto it = st.top();
+            ans.append(it.second, it.first);
+            /* while (it.second--) {
+                ans.push_back(it.first);
+            }*/
+            st.pop();
+        }
+        reverse(begin(ans), end(ans));
+        
+        return ans;
+    }
+
+
 public:
 
     /*
