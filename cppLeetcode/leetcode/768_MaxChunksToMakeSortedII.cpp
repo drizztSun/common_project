@@ -41,7 +41,7 @@ using namespace std;
 class MaxChunksToSorted {
 public:
 	int doit(vector<int>& arr) {
-		auto length = arr.size();
+		int length = arr.size();
 		vector<int> leftMax(length), rightMin(length);
 	
 		leftMax[0] = arr[0];
@@ -69,15 +69,3 @@ public:
 		return maxChunks + 1;
 	}
 };
-
-
-void Test_768_MaxChunksToMakeSortedII() {
-
-    //vector<int> a{5, 4, 3, 2, 1};
-	//MaxChunksToSorted().doit(a);
-
-    //vector<int> b{2, 1, 3, 4, 4};
-	//MaxChunksToSorted().doit(b);
-
-	return;
-}
