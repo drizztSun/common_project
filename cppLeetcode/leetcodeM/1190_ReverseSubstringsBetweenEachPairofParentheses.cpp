@@ -39,6 +39,7 @@ It's guaranteed that all parentheses are balanced.
 #include <vector>
 #include <stack>
 #include <unordered_map>
+#include <functional>
 
 using std::unordered_map;
 using std::stack;
@@ -255,41 +256,5 @@ class ReverseParentheses {
                 res += s[i];
         }
         return res;
-    }
-
-public:
-
-    string doit_stack_parenthesis(string target) {
-
-        std::function<string(int, int, bool)> dfs = [&](int i, int j, bool reversed) -> string{
-            
-            if (j >= i) return "";
-            
-            int s = i, e = j;
-            
-            while (i < j && target[i] != '(') i++;
-            
-            while (i < j && target[j] != ')') j--;
-            
-            if (i == j) {
-                string middle = target.substr(s, e - s + 1);
-                if (reversed)
-                    std::reverse(begin(middle), end(middle));
-                return middle;
-            }
-            
-            string part1 = target.substr(s, i - s), part2 = target.substr(j+1, e - j);
-            string middle = dfs(i+1, j-1, !reversed);
-            
-            if (reversed) {
-                std::reverse(begin(part1), end(part1));
-                std::reverse(begin(part2), end(part2));
-                return part2 + middle + part1;
-            }
-                
-            return part1 + middle + part2;
-        };
-        
-        return dfs(0, target.length()-1, false);
     }
 };
