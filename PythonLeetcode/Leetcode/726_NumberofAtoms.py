@@ -1,6 +1,3 @@
-
-
-
 # 726. Number of Atoms
 
 # Given a chemical formula (given as a string), return the count of each atom.
@@ -56,24 +53,72 @@ import collections
 class CountOfAtoms:
 
 
-# The first regex ([A-Z]{1}[a-z]?|\(|\)|\d+) splits up the input string into a few kinds of tokens for parsing:
-# (1) An atom (2) A number (3) Open bracket (4) Closing bracket. These are the only tokens we need to do our parsing.
+    # The first regex ([A-Z]{1}[a-z]?|\(|\)|\d+) splits up the input string into a few kinds of tokens for parsing:
+    # (1) An atom (2) A number (3) Open bracket (4) Closing bracket. These are the only tokens we need to do our parsing.
 
-# An input of Mg(OH)2 will be tokenized into: ['Mg', '(', 'O', 'H', ')', '2'].
-# An input of K4(ON(SO3)2)2 will be tokenized into: ['K', '4', '(', 'O', 'N', '(', 'S', 'O', '3', ')', '2', ')', '2'].
+    # An input of Mg(OH)2 will be tokenized into: ['Mg', '(', 'O', 'H', ')', '2'].
+    # An input of K4(ON(SO3)2)2 will be tokenized into: ['K', '4', '(', 'O', 'N', '(', 'S', 'O', '3', ')', '2', ')', '2'].
 
-# As we iterate through the tokens, there are three cases that we need to handle:
+    # As we iterate through the tokens, there are three cases that we need to handle:
 
-# Open bracket - We push a new dictionary onto a stack to keep track of the atoms and its count in this current group
-# Close bracket - The next token might be a number/count. Check whether if it is a count. If it is, multiply all the atoms
-# at the top of the stack by the count and combine it with a dictionary below it in the stack.
-# Normal atom - The next token might be a number/count. Check whether if it is a count.
-# If it is, add that atom and its count to the top of the stack.
-# Cases 2 and 3 are very similar, so we can combine them.
+    # Open bracket - We push a new dictionary onto a stack to keep track of the atoms and its count in this current group
+    # Close bracket - The next token might be a number/count. Check whether if it is a count. If it is, multiply all the atoms
+    # at the top of the stack by the count and combine it with a dictionary below it in the stack.
+    # Normal atom - The next token might be a number/count. Check whether if it is a count.
+    # If it is, add that atom and its count to the top of the stack.
+    # Cases 2 and 3 are very similar, so we can combine them.
 
-# At the end, sort the atoms alphabetically and format them nicely to be returned.
+    # At the end, sort the atoms alphabetically and format them nicely to be returned.
 
-#- Yangshun
+    #- Yangshun
+
+    def doit_stack(self, formula):
+
+        i = 0
+        st, current = [], {}
+
+        while i < len(formula):
+
+            if formula[i] == '(':
+                st.append(current)
+                current = {}
+            elif formula[i] == ')':
+                j = i
+                while i + 1< len(formula) and formula[i+1].isdigit():
+                    i += 1
+                num = 1 if j == i else int(formula[j+1:i+1])
+
+                for a in current.keys():
+                    st[-1][a] = st[-1].get(a, 0) + current[a] * num
+                current = st.pop()
+
+
+            elif formula[i].isupper():
+                j = i
+                i += 1
+                while i < len(formula) and formula[i].islower():
+                    i += 1
+                
+                key = formula[j:i]
+                j = i
+                while i < len(formula) and formula[i].isdigit():
+                    i += 1
+
+                num = 1 if j == i else int(formula[j:i])
+
+                current[key] = current.get(key, 0) + num
+                i -= 1
+            
+            i += 1
+
+        res = []
+        for k in sorted(current.keys()):
+            res.append(k)
+            if current[k] != 1:
+                res.append(str(current[k]))
+
+        return ''.join(res)
+
 
     def doit(self, formula):
         """
@@ -176,70 +221,15 @@ class CountOfAtoms:
         return res 
         
 
-    # <TLE:
-    
-    def doit1(self, formula):
-        """
-        :type formula: str
-        :rtype: str
-        """
-        formula = '(' + formula + ')'
-        stack, i = [], 0
-        unfolded = ''
-
-        while i < len(formula):
-            c = formula[i]
-            if c == '(':
-                stack.append('')
-            elif c == ')':
-                j = i+1
-                while j < len(formula) and formula[j].isdigit():
-                    j += 1
-                n = 1 if j == i+1 else int(formula[i+1:j])
-                unfolded = stack.pop()
-                if stack:
-                    stack[-1] += unfolded * n                              
-                i = j-1
-            else:
-                stack[-1] += c
-
-            i += 1
-
-        buff = collections.defaultdict(int)
-        i, cur, num = 0, '', ''
-        while i < len(unfolded) + 1:
-        
-            c = unfolded[i] if i < len(unfolded) else ''
-
-            if c.isupper() or i == len(unfolded):
-                if cur != '':
-                    buff[cur] += int(num) if num else 1
-                cur = c
-                num = ''
-            elif c.islower():
-                cur += c
-            elif c.isdigit:
-                num += c
-
-            i += 1
-    
-        res = ''
-        for key in sorted(buff.keys()):
-            res += key + (str(buff[key]) if buff[key] > 1 else '')
-
-        return res
-
 if __name__ == "__main__":
 
 
-    res = CountOfAtoms().doit("K4(ON(SO3)2)2")
+    res = CountOfAtoms().doit_stack("K4(ON(SO3)2)2")
 
-    res = CountOfAtoms().doit("Mg(OH)2")
+    res = CountOfAtoms().doit_stack("Mg(OH)2")
 
-    res = CountOfAtoms().doit("H2O")
+    res = CountOfAtoms().doit_stack("H2O")
 
-
-    
     # "B18900Be18984C4200H5446He1386Li33894N50106O22638" # "B93145920Be2345280C3178560H992320He6985440Li75657120N2412328800O114095520"
     res = CountOfAtoms().doit("((N42)24(OB40Li30CHe3O48LiNN26)33(C12Li48N30H13HBe31)21(BHN30Li26BCBe47N40)15(H5)16)14")
 

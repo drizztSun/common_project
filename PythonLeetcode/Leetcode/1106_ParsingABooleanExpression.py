@@ -42,7 +42,7 @@ expression is a valid expression representing a boolean, as given in the descrip
 
 class ParsingBooleanExpre:
 
-    def doit_(self, expression: str) -> bool:
+    def doit_stack(self, expression: str) -> bool:
 
         stack = []
 
@@ -74,6 +74,45 @@ class ParsingBooleanExpre:
                     stack.append(c)
 
         return stack[0]
+
+
+    def doit_stack_(self, S: str) -> bool:
+
+        stval, stops, cur = [], [], []
+
+        i = 0
+
+        while i < len(S):
+            
+            if S[i] in '!|&':
+                
+                stval.append(cur)
+                cur = []
+                stops.append(S[i])
+                i += 1
+                
+            elif S[i] == ')':
+                
+                res = None
+                if stops[-1] == '!':
+                    res = not cur[0]
+                elif stops[-1] == '|':
+                    res = any(cur)
+                elif stops[-1] == '&':
+                    res = all(cur)
+                    
+                cur = stval.pop()
+                cur.append(res)
+                stops.pop()
+                
+            elif S[i] in 'tf':
+                
+                cur.append(S[i] == 't')
+                
+            i += 1
+            
+        return cur[0]
+    
 
     def doit_recursive(self, expression: str) -> bool:
 

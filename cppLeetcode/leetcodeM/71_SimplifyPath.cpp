@@ -56,6 +56,48 @@ using std::string;
 using std::vector;
 
 class SimplifyPath {
+
+    /*
+        071.Simplify-Path
+        先预处理字符串，将所有用"/"分割的字符串放置于一个字符串数组里。再根据每个字符串的具体含义，模拟一个栈的操作：遇到".."就退栈，遇到"."就不入栈，其他的时候都入栈。最后把栈里面的所有字符串用"/"再连接起来。
+    */
+    string simplifyPath(string path) 
+    {
+        int i = 0;
+        vector<string>q;
+        while (i+1<path.size())
+        {
+            int j = path.find("/", i+1);
+            if (j==-1) 
+            {
+                q.push_back(path.substr(i+1));
+                break;
+            }
+            else
+            {
+                q.push_back(path.substr(i+1, j-i-1));
+                i = j;
+            }
+        }
+
+        vector<string>p;
+        for (auto s: q)
+        {
+            if (s=="." || s=="") continue;
+            else if (s=="..") 
+            {
+                if (p.size()>0) p.pop_back();
+            }
+            else p.push_back(s);
+        }
+
+        string ret;
+        for (auto s:p)
+            ret+='/'+s;
+        return ret == ""? "/":ret;
+        
+    }
+
     
 public:
     

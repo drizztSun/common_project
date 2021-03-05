@@ -31,11 +31,63 @@ The answer is guaranteed to fit in a 32-bit integer.
 */
 #include <stack>
 #include <string>
+#include <vector>
 
+using std::vector;
 using std::string;
 using std::stack;
 
 class BasicCaculatorII {
+
+    /*
+        227.Basic-Calculator-II
+        本题因为不涉及到括号，反而更加好做。思想是，将所有涉及到加法和减法的操作数都直接加入数组。遇到乘法和除法的操作，就直接改变数组的最后一个元素。最终把数组内的所有元素相加即可。
+    */
+    int doit_stack(string s) 
+    {
+        string S = "+";
+        for (auto ch:s)
+        {
+            if (ch==' ') continue;
+            S.push_back(ch);
+            if (ch=='(')
+                S+="+";
+        }
+        s = S;
+
+        vector<int>nums;
+
+        for (int i=0; i<s.size(); i++)
+        {
+            if (s[i]=='+' || s[i]=='-')
+            {
+                int j = i+1;
+                while (j<s.size() && isdigit(s[j]))
+                    j++;
+                int num = stoi(s.substr(i+1,j-i-1));
+                if (s[i]=='+') nums.push_back(num);
+                else if (s[i]=='-') nums.push_back(-num);
+                i = j-1;
+            }
+            else if (s[i]=='*' || s[i]=='/')
+            {
+                int j = i+1;
+                while (j<s.size() && isdigit(s[j]))
+                    j++;
+                int num = stoi(s.substr(i+1,j-i-1));                
+                if (s[i]=='*') nums.back() *= num;
+                else if (s[i]=='/') nums.back() /= num;
+                i = j-1;
+            }
+        }
+
+        int ret = 0;
+        for (int i=0; i<nums.size(); i++)
+            ret+=nums[i];
+        return ret;
+    }
+
+
 
 public:
 
@@ -67,6 +119,7 @@ public:
             char currentChar = s[i];
             if (isdigit(currentChar)) {
                 currentNumber = (currentNumber * 10) + (currentChar - '0');
+                continue;
             }
         
             if (!isdigit(currentChar) && !iswspace(currentChar) || i == len - 1) {

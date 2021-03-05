@@ -1,9 +1,4 @@
-
-
 /*
-
-
-
 # 726. Number of Atoms
 
 # Given a chemical formula (given as a string), return the count of each atom.
@@ -52,8 +47,6 @@
 # The length of formula will be in the range [1, 1000].
 # formula will only consist of letters, digits, and round parentheses,
 # and is a valid formula as defined in the problem.
-
-
 */
 
 #include <vector>
@@ -61,10 +54,82 @@
 #include <string>
 #include <set>
 #include <unordered_map>
+#include <map>
 
 using namespace std;
 
 class CountOfAtoms {
+
+	/*
+		726.Number-of-Atoms
+		典型的栈的应用。此题的特别之处在于stack的元素应该是map<string,int>.
+
+		遍历formula的元素，分别对formula[i]=='(', ')', '大写字母'三种情况进行讨论。注意分子式中的下标数字为1时会缺省。
+	*/
+	string doit_stack(string formula) 
+    {
+        stack<map<string,int>>Stack;
+        map<string,int>current;
+        Stack.push(current);
+        
+        for (int i=0; i<formula.size(); i++)
+        {
+            if (formula[i]=='(')
+            {
+                Stack.push(current);
+                current.clear();
+            }
+            else if (formula[i]==')')
+            {
+                map<string,int>temp = current;
+                
+                int j=i+1;
+                while (j<formula.size() && isdigit(formula[j]))
+                    j++;
+                string s = formula.substr(i+1,j-i-1);
+                int num;
+                if (s.size()!=0)
+                    num = stoi(s);
+                else
+                    num = 1;                
+                
+                current = Stack.top();
+                Stack.pop();
+                for (auto a:temp)                
+                    current[a.first]+=a.second*num;                
+                
+                i=j-1;
+            }
+            else if (formula[i]>='A' && formula[i]<='Z' )
+            {
+                int j=i+1;
+                while (j<formula.size() && formula[j]>='a' && formula[j]<='z')
+                    j++;
+                string element = formula.substr(i,j-i);
+                i=j;
+                while (j<formula.size() && isdigit(formula[j]))
+                    j++;
+                string s = formula.substr(i,j-i);
+                int num;
+                if (s.size()!=0)
+                    num = stoi(s);
+                else
+                    num = 1;
+                current[element]+=num; 
+                i=j-1;
+            }
+        }
+        
+        string result;
+        for (auto a:current)
+        {
+            result+=a.first;
+            if (a.second>1)
+                result+=to_string(a.second);
+        }
+        return result;
+            
+    }
 
 	typedef unordered_map<string, int> ElementCollector;
 
@@ -93,9 +158,8 @@ class CountOfAtoms {
 				cur += content[i];
 			}
 		}
-
-
 	}
+
 public:
 	string doit(string formula) {
 

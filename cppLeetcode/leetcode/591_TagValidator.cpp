@@ -1,7 +1,3 @@
-
-
-
-
 /*
 
 # 591. Tag Validator
@@ -100,9 +96,184 @@
 	So we can just create parser for each elements, and dedicate the work to the right parsers.
 */
 #include <string>
-using namespace std;
+#include <stack>
+
+
+using std::string;
+using std::stack;
 
 class TagValidator {
+
+	/*
+		591.Tag-Validator
+		此题的表述非常复杂，需要逐条分析，各个击破。
+
+		首先检测是否 cdata 的段首关键字<![CDATA[。有的话,在遇到cdata段尾关键字]]>之前，所有字符不用check。
+		如果不满足条件1，则检测是否 end tag 的标记</。有的话就遍历直到找到>，分割这段TagName，检测TagName是否和栈顶的tag匹配，退栈。另外，如果退栈后为空，说明这是最后一个end tag，此时应该对应code的末尾。
+		如果不满足条件2，则检测是否 start tag 的标记<。有的话就就遍历直到找到>，分割这段TagName，判断TagName是否合法，将TagName推入栈。注意，另外，如果这是栈第一次非空，说明这是第一个start tag，此时应该对应code的开头。
+		在遍历完整个code字符串之后，还要保证栈空，且栈曾经非空过。这里可以用一个ever的变量来记录是否曾经有tag入栈过。
+	
+	*/
+
+	bool isValid(string code) 
+    {
+        stack<string>TagStack;
+        int i=0;
+        bool cdata_flag=0;
+        bool ever=0;
+
+        while (i<code.size())
+        {
+            if (cdata_flag==0 && i+9<=code.size() && code.substr(i,9)=="<![CDATA[")
+            {
+                cdata_flag=1;
+                i+=9;
+                continue;
+            }
+            
+            if (cdata_flag==1)
+            {
+                if (i+3<=code.size() && code.substr(i,3)=="]]>")
+                {
+                    cdata_flag=0;
+                    i+=3;
+                    continue;
+                }
+                else
+                {
+                    i++;
+                    continue;
+                }
+                
+            }
+            
+            if (code[i]=='<' && i+1<code.size() && code[i+1]!='/')
+            {
+                i++;
+                int i0=i;
+                while (i<code.size() && code[i]!='>') i++;
+                if (i==code.size()) return false;
+                string TagName=code.substr(i0,i-i0);
+                
+                if (validTagName(TagName)==false)
+                    return false;
+                else if (TagStack.empty() && i0-1!=0) // must start with a tag
+                    return false;
+                else
+                {
+                    TagStack.push(TagName);
+                    ever=1; 
+                }
+                i++;
+                continue;
+            }
+            
+            if (code[i]=='<' && i+1<code.size() && code[i+1]=='/')
+            {
+                i+=2;
+                int i0=i;
+                while (i<code.size() && code[i]!='>') i++;
+                if (i==code.size()) return false;
+                string TagName=code.substr(i0,i-i0);
+                
+                if (TagStack.empty() || TagStack.top()!=TagName)
+                    return false;
+                else if (TagStack.size()==1 && i<code.size()-1)  // must end with a tag
+                    return false;
+                else
+                    TagStack.pop();
+                i++;
+                continue;
+            }
+            
+            i++;
+        }
+        
+        if (TagStack.empty() && ever==1)
+            return true;
+        else
+            return false;
+        
+    }
+    
+	bool validTagName(string t)
+	{
+		if (t=="") return false;
+		if (t.size()>9) return false;
+		for (int i=0; i<t.size(); i++)
+		{
+			if (t[i]<'A' || t[i]>'Z')
+				return false;
+		}
+		return true;
+	}
+
+	bool isValid(string code) 
+    {
+        stack<string>Stack;
+        
+        int i=0;
+        bool ever = 0;
+        
+        while (i<code.size())
+        {
+            if (i+8<code.size() && code.substr(i,9)=="<![CDATA[")
+            {
+                i+=9;
+                int i0=i;
+                while (i+2<code.size() && code.substr(i,3)!="]]>")
+                    i++;
+                if (i+2==code.size()) return false;
+                i+=3;                
+            }
+            
+            else if (i+1<code.size() && code.substr(i,2)=="</")
+            {
+                i+=2;
+                int i0=i;
+                while (i<code.size() && code[i]!='>')
+                    i++;
+                if (i==code.size()) return false;
+                string tagname = code.substr(i0,i-i0);
+                if (Stack.empty() || Stack.top()!=tagname)
+                    return false;
+                Stack.pop();
+                i++; 
+                if (Stack.empty() && i!=code.size()) return false;                             
+            }
+            
+            else if (code[i]=='<')
+            {
+                i++;
+                int i0=i;
+                while (i<code.size() && code[i]!='>')
+                    i++;
+                if (i==code.size()) return false;
+                string tagname = code.substr(i0,i-i0);
+                if (!isValidTag(tagname)) return false;                
+                if (ever==false && i0!=1) return false;
+                ever = true;                
+                Stack.push(tagname);
+                i++;
+            }
+            
+            else
+                i++;
+        }
+        
+        if (!Stack.empty()) return false;
+        if (ever==0) return false;
+        
+        return true;
+    }
+    
+    bool isValidTag(string tagname)
+    {
+        if (tagname.size()<1 || tagname.size()>9) return false;
+        for (auto ch:tagname)
+            if (ch<'A'|| ch>'Z') return false;
+        return true;
+    }
 
 public:
 	bool isValid(string&& code) {
@@ -110,7 +281,6 @@ public:
 		return validTag(code, i) && i == code.size();
 	}
 
-private:
 	bool validTag(string& s, int & i) {
 		int j = i;
 		string tag = parseTagName(s, j);
