@@ -59,50 +59,6 @@ using std::string;
 class BraceExpansionII {
 
 
-    
-    vector<string> doit_(string S) {
-
-        vector<std::pair<set<string>, bool>> res;
-        res.push_back({{""}, true});
-        string current;
-
-        int i = 0;
-        while (i < S.length()) {
-
-            if (S[i] == '{') {
-                res.push_back({{}, true});
-            } else if (S[i] == '}') {
-                auto c = res.back();
-                res.pop_back();
-
-                if (res.back().second) {
-                    std::sort(begin(c.first), end(c.first));
-                    set<string> tmp;
-                    for (auto w: c.first) {
-                        for (auto w2: res.back().first)
-                            tmp.insert(w2 + w);
-                    }
-                    vector<string> tmp(begin(tmp), end(tmp));
-                    std::swap(res.back().first, tmp);
-                } else {
-                    for (auto w : c.first) {
-                        res.back().first.insert(w);
-                    }
-                }
-            } else if (S[i] == ',') {
-                res.back().second = false;
-                current.clear();
-            } else {
-                current = {S[i]};
-            }
-
-            i++;
-        }
-
-        return res.back().first;
-    }
-
-
 public:
 
 
@@ -129,19 +85,19 @@ public:
     {
         string S = expression;
                 
-        auto resultSet =  dfs(S,0,S.size()-1);
+        auto resultSet = dfs(S,0,S.size()-1);
         
-        vector<string>results;
-        for (auto x:resultSet)
+        vector<string> results;
+        for (auto x: resultSet)
             results.push_back(x);
         sort(results.begin(),results.end());
-        return results;        
+        return results;
     }
     
-    unordered_set<string>dfs(string&S, int a, int b)
+    unordered_set<string> dfs(string&S, int a, int b)
     {
-        stack<unordered_set<string>>Stack;
-        unordered_set<string>cur={};       
+        stack<unordered_set<string>> Stack;
+        unordered_set<string> cur={};       
                        
         for (int i=a; i<=b; i++)            
         {            
@@ -187,10 +143,9 @@ public:
         return cur;
     }
     
-    unordered_set<string>product(unordered_set<string>&A, unordered_set<string>&B)
+    unordered_set<string> product(unordered_set<string>&A, unordered_set<string>&B)
     {
-        if (A.size()==0)
-            A.insert("");
+        if (A.size()==0) A.insert("");
         unordered_set<string>results;
         for (auto x:A)
             for (auto y:B)
@@ -219,11 +174,32 @@ public:
         stack<int>stackOp;        
         unordered_set<string>cur;
         
+        auto combine = [](unordered_set<string>&s, unordered_set<string>&t)
+        {
+            unordered_set<string>ret;
+            for (auto x:s)
+                ret.insert(x);
+            for (auto y:t)
+                ret.insert(y);
+            return ret;
+        };
+        
+        auto crossProduct = [](unordered_set<string>&s, unordered_set<string>&t)
+        {
+            if (s.size()==0) s.insert("");
+            if (t.size()==0) t.insert("");
+            unordered_set<string>ret;
+            for (auto x:s)
+                for (auto y:t)
+                    ret.insert(x+y);
+            return ret;
+        };
+
         for (int i=0; i<expression.size(); i++)
         {
             if (expression[i]=='{')
             {
-                stackStr.push(cur);                
+                stackStr.push(cur);
                 stackOp.push(0);
                 cur = {};
             }
@@ -263,28 +239,4 @@ public:
         
         return rets;
     }
-
-    unordered_set<string>combine(unordered_set<string>&s, unordered_set<string>&t)
-    {
-        unordered_set<string>ret;
-        for (auto x:s)
-            ret.insert(x);
-        for (auto y:t)
-            ret.insert(y);
-        return ret;
-    }
-    
-    unordered_set<string>crossProduct(unordered_set<string>&s, unordered_set<string>&t)
-    {
-        if (s.size()==0) s.insert("");
-        if (t.size()==0) t.insert("");
-        unordered_set<string>ret;
-        for (auto x:s)
-            for (auto y:t)
-                ret.insert(x+y);
-        return ret;
-    }
-
-
-
 };

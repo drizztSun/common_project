@@ -55,6 +55,7 @@
 #include <set>
 #include <unordered_map>
 #include <map>
+#include <algorithm>
 
 using namespace std;
 
@@ -131,6 +132,70 @@ class CountOfAtoms {
             
     }
 
+	string doit_stack(string formula) {
+		
+		unordered_map<string, int> current;
+		vector<unordered_map<string, int>> Stack;
+		Stack.push_back(current);
+
+		for (int i = 0; i < formula.size(); i++) {
+
+			if (formula[i] == '(') {
+
+				Stack.push_back(current);
+				current.clear();
+
+			}
+			else if (isupper(formula[i])) {
+
+				int j = i+1;
+				while (j < formula.size() && islower(formula[j])) j++;
+
+				string key = formula.substr(i, j - i);
+
+				i = j;
+
+				while (j < formula.size() && isdigit(formula[j])) j++;
+
+				int num = j == i ? 1 : stoi(formula.substr(i, j - i));
+
+				i = j - 1;
+				current[key] += num;
+
+			}
+			else if (formula[i] == ')') {
+
+				int j = i + 1;
+				while (j < formula.size() && isdigit(formula[j])) j++;
+
+				int num = j == i + 1 ? 1 : std::stoi(formula.substr(i + 1, j - i - 1));
+
+				for (auto it : current) {
+					Stack.back()[it.first] += it.second * num;
+				}
+
+				i = j - 1;
+				current = Stack.back();
+				Stack.pop_back();
+			}
+		}
+
+		vector<string> keys;
+		for (auto it : current) keys.push_back(it.first);
+		std::sort(begin(keys), end(keys));
+
+		string ans;
+		for (auto it : keys) {
+			ans += it;
+			if (current[it] > 1)
+				ans += std::to_string(current[it]);
+		}
+
+		return ans;
+	}
+
+public:
+
 	typedef unordered_map<string, int> ElementCollector;
 
 	void generate(ElementCollector& collector, string& content, int n) {
@@ -160,7 +225,6 @@ class CountOfAtoms {
 		}
 	}
 
-public:
 	string doit(string formula) {
 
 		formula = "(" + formula + ")";
