@@ -46,6 +46,31 @@ class ConstrainedSubsetSum {
 
 public:
 
+
+    int doit_(vector<int>& nums, int k) {
+        
+        int n = nums.size(), res = INT_MIN;
+        vector<int> dp(n, 0);
+        deque<int> buff;
+        
+        for (int i = 0; i < n; i++) {
+            
+            while (!buff.empty() && buff.front() + k < i)
+                buff.pop_front();
+            
+            dp[i] = nums[i] + std::max(0, buff.empty() ? 0 : dp[buff.front()]);
+            res = std::max(res, dp[i]);
+            
+            while (!buff.empty() && dp[buff.back()] < dp[i]) {
+                buff.pop_back();
+            }
+            
+            buff.push_back(i);
+        }
+        
+        return res;
+    }
+
     /*
         Intuition
         We need to know the maximum in the window of size k.

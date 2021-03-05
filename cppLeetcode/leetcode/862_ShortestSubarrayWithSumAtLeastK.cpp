@@ -103,7 +103,7 @@ class ShortestSubarray {
         return (ret==INT_MAX) ? -1 : ret;
     }
 
-    int doit_(vector<int>& A, int K) 
+    int doit_monotonic_queue(vector<int>& A, int K) 
     {
         int N = A.size();
         vector<int>presum(N+1,0);        
@@ -169,7 +169,7 @@ public:
             if (A[i] >= K)
                 res = std::min(res, i + 1);
 
-            // 
+            // pop out it, becuase it is useless. any later one make it larget than k will be larger than current one.
             while (d.size() > 0 && A[i] - A[d.front()] >= K) {
                 res = std::min(res, i - d.front()); 
                 d.pop_front();

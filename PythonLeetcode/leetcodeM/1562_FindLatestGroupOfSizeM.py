@@ -58,6 +58,25 @@ from math import isinf
 
 class LastestStepGroup:
 
+
+    def doit_slidingwindow_monotonic_queue(self, arr: list, m: int) -> int:
+
+        from collections import deque
+
+        arr = [0] + arr
+
+        days = [0 for _ in range(len(arr))]
+        for i in range(len(days)):
+            days[arr[i]] = i
+
+        queue = deque()
+
+        for i in range(1, len(days)):
+
+            while queue and 
+        
+
+
     """
         Explanation
         When we set bit a, where a = A[i],
@@ -79,7 +98,7 @@ class LastestStepGroup:
 
         Solution 1: Count all lengths
     """
-    def doit_(self, A: list, m: int) -> int:
+    def doit_sweepline(self, A: list, m: int) -> int:
         if m == len(A): return m
         length = [0] * (len(A) + 2)
         res = -1
@@ -154,5 +173,3 @@ class LastestStepGroup:
                 union(i,i+1)
             
         return res
-
-        pass
