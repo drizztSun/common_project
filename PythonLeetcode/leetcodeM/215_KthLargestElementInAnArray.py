@@ -98,3 +98,56 @@ class FindKthLargest:
 
         # kth largest is (n - k)th smallest
         return select(0, len(nums) - 1, len(nums) - k)
+
+    """
+        A naive solution would be sort the whole array and return the kth to last element
+        O(NlogN) time
+    """
+    def doit_sort(self, nums: list, k: int) -> int:
+        return sorted(nums)[-k]
+
+    
+    """
+        A slightly improved solution is to maintain a min heap of size k, and return the element on top.
+        O(NlogK) time
+    """
+    def doit_heap(self, nums: list, k: int) -> int:
+        from heapq import heappush, heappop
+
+        pq = [] #min heap of size k
+        for x in nums:
+            heappush(pq, x)
+            if len(pq) > k: heappop(pq)
+        return pq[0]
+
+    def doit_(self, nums: list, k: int) -> int:
+        from heapq import nlargest
+        return nlargest(k, nums)[-1]
+
+    """
+        quick select (Hoare's selection algo)
+        O(N) time
+    """
+    def doit_quickselect(self, nums: List[int], k: int) -> int:
+        from random import randint
+        def fn(lo, hi): 
+            """Partition nums[lo:hi+1] into two parts"""
+            p = randint(lo, hi) #random pivot
+            nums[lo], nums[p] = nums[p], nums[lo] #relocate to front 
+            p, lo = lo, lo+1
+            while lo <= hi: 
+                if nums[lo] < nums[p]: lo += 1
+                elif nums[hi] > nums[p]: hi -= 1
+                else: 
+                    nums[lo], nums[hi] = nums[hi], nums[lo]
+                    lo += 1
+                    hi -= 1
+            nums[p], nums[hi] = nums[hi], nums[p]
+            return hi 
+        
+        lo, hi = 0, len(nums)
+        while lo < hi: 
+            p = fn(lo, hi-1)
+            if p + k == len(nums): return nums[p]
+            elif p + k > len(nums): hi = p
+            else: lo = p + 1
