@@ -33,6 +33,9 @@
  1 <= m <= min(50, nums.length)
  */
 #include <vector>
+#include <functional>
+#include <algorithm>
+#include <numeric>
 
 using std::vector;
 
@@ -153,6 +156,18 @@ public:
     
     int doit_binary_search_1(vector<int>& nums, int m) {
         
+        /*
+        int total = 0, maxv = 0;
+        for (auto c : nums) {
+            total += c;
+            if (c > maxv) {
+                maxv = c;
+            }
+        }*/
+
+        int maxv = *std::max_element(begin(nums), end(nums));
+        int total = std::accumulate(begin(nums), end(nums), 0);
+
         auto search = [](vector<int>& nums, int m, int target) {
             int cnt = 1, cur = 0;
             for (auto c : nums) {
@@ -167,22 +182,9 @@ public:
             return true;
         };
     
-        int total = 0, maxv = 0;
-        for (auto c : nums) {
-            total += c;
-            if (c > maxv) {
-                maxv = c;
-            }
-        }
-    
-        if (m == 1) {
-            return total;
-        }
-    
-        if (m == nums.size()) {
-            return maxv;
-        }
-        
+        if (m == 1) return total;
+        if (m == nums.size()) return maxv;
+
         int l = maxv, r = total;
         while (l <= r) {
             int mid = l + (r-l) / 2;

@@ -39,6 +39,61 @@ using std::vector;
 
 class SumOfMutatedClosestToTarget {
 
+    /*
+            1300.Sum-of-Mutated-Array-Closest-to-Target
+        这是一道典型的二分搜值的问题。我们猜测某个value，查看数组之后的sum是否大于target。如果sum>=target，那么说明我们可以把value降一点（这样使得sum会变小）。
+        反之，如果sum>=target，那么说明我们可以把value升一点（这样使得sum会变大）。这样直至我们找到恰好使得sum比target大的那个value。自然，value-1就是恰好使得sum比target小的那个value。对于最终的答案，我们需要在二者之间选择一个更接近target的sum。
+
+        但是本题有一个非常隐蔽的corner case。如果初始有的sum就已经小于target了，那么无论你如何操作都不能使得sum大于target。上述的二分法其实是失效的。对于这种情况，我们需要输出的答案是arr里面的最大值。  
+    */
+    
+public:
+    int doit_binary_search(vector<int>& arr, int target) 
+    {
+
+        vector<int>presum;
+        sort(arr.begin(),arr.end());
+        
+        presum.resize(arr.size());
+        presum[0] = arr[0];        
+        for (int i=1; i<arr.size(); i++)
+            presum[i] = presum[i-1]+arr[i];
+
+        if (presum.back() <= target) return arr.back();
+                    
+
+        auto helper = [&](vector<int>&arr, int value)
+        {
+            auto iter = upper_bound(arr.begin(),arr.end(),value);
+            int num = arr.end()-iter;
+            if (iter-arr.begin()-1>=0)
+                return presum[iter-arr.begin()-1]+(long long)num*value;
+            else
+                return (long long)num*value;
+        };
+
+        int left = 0;
+        int right = 1e5;
+        
+        while (left<right)
+        {
+            int mid = left+(right-left)/2;
+            if (helper(arr, mid)>=target)
+                right = mid;
+            else
+                left = mid+1;
+        }
+        
+        int a = helper(arr,left);
+        int b = helper(arr,left-1);
+
+        if (abs(a-target)<abs(target-b))
+            return left;
+        else
+            return left-1;                
+    }
+    
+
 public:
 
     /*
@@ -80,6 +135,8 @@ public:
         while (i < n && target > arr[i] * (n-i))
             target -= arr[i++];
 
+        // if A is empty means its impossible to reach target so we just return maximum element.
+        // If A is not empty, intuitively the answer should be the nearest integer to target / len(A).
         return i == n ? arr[n-1] : int(round((target - 0.0001) / (n - i)));
     }
 

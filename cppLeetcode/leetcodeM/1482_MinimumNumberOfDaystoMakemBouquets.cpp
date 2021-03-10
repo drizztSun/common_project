@@ -58,10 +58,64 @@ bloomDay.length == n
 
 
 */
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+using std::vector;
 
 class MinimumNumberOfDaystoMakeBouquets {
 
+    /*
+        1482.Minimum-Number-of-Days-to-Make-m-Bouquets
+        可以想见，如果天数越靠后，那么可供选择的花就越多，能找到连续的k朵花的概率就越大。这是一个单调递增的过程。所以这非常适合用二分搜值的方法。如果t天的时候，无法找到连续的k多花，那么我们就猜更大的t并检验是否能成功，反之就猜测较小的t。
+    */
+    int minDays(vector<int>& bloomDay, int m, int k) 
+    {
+        int n = bloomDay.size();
+        if (n<m*k) return -1;
+        
+        int left = 0;
+        int right = INT_MAX;
+        while (left<right)
+        {
+            int mid = left+(right-left)/2;
+            if (isOK(bloomDay, m, k, mid))
+                right = mid;
+            else
+                left = mid+1;
+        }
+        return left;
+        
+    }
+    
+    bool isOK(vector<int>& bloomDay, int m, int k, int t)
+    {
+        int cnt = 0;
+        int cur = 0;
+        for (int i=0; i<bloomDay.size(); i++)
+        {
+            if (bloomDay[i] > t)
+            {
+                cur = 0;
+            }
+            else 
+            {
+                cur += 1;
+                if (cur==k)
+                {
+                    cur = 0;
+                    cnt += 1;
+                }
+            }
+            if (cnt >=m ) return true;
+        }
+        return false;
+    }
+
 public:
+    
+
 
     /*
         Intuition
@@ -133,33 +187,42 @@ public:
         update the bouquets and compared with m.
     
     */
-    int doit_binary_search(vector<int>& A, int m, int k) {
+    int doit_binary_search(vector<int>& bloomDay, int m, int k) {
 
-        int n = A.size(), left = 1, right = 1e9;
-        
+        int low = 0, high = *std::max_element(begin(bloomDay), end(bloomDay));
+        int n = bloomDay.size();
         if (m * k > n) return -1;
         
-        while (left < right) {
-        
-            int mid = (left + right) / 2, flow = 0, bouq = 0;
-        
-            for (int j = 0; j < n; ++j) {
-                if (A[j] > mid) {
-                    flow = 0;
-                } else if (++flow >= k) {
-                    bouq++;
-                    flow = 0;
+        auto cal = [&](int day) {
+            int cnt = 0, last = 0;
+            for (int i = 0; i < bloomDay.size(); i++) {
+                
+                if (bloomDay[i] > day) {
+                    last = 0;
+                    continue;
+                }
+                
+                last++;
+                if (last == k) {
+                    cnt++;
+                    last = 0;
                 }
             }
+            return cnt;
+        };
+        
+        while (low < high) {
             
-            if (bouq < m) {
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
+            int mid = (low + high) / 2;
+            
+            int cnt = cal(mid);
+            
+            if (cnt < m)
+                low = mid + 1;
+            else
+                high = mid;
         }
-        return left;
+        
+        return low;
     }
-
-
 }

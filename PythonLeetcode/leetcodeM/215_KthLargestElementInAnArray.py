@@ -128,7 +128,7 @@ class FindKthLargest:
         quick select (Hoare's selection algo)
         O(N) time
     """
-    def doit_quickselect(self, nums: List[int], k: int) -> int:
+    def doit_quickselect(self, nums: list, k: int) -> int:
         from random import randint
         def fn(lo, hi): 
             """Partition nums[lo:hi+1] into two parts"""

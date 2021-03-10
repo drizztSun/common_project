@@ -18,13 +18,7 @@
 class FindClosestElements:
 
     # because it is sorted array, so binary search
-    def doit(self, arr, k, x):
-        """
-        :type arr: List[int]
-        :type k: int
-        :type x: int
-        :rtype: List[int]
-        """
+    def doit_binary_search(self, arr, k, x):
         l, r = 0, len(arr) - k
         while l < r:
             m = l + (r - l) // 2

@@ -41,6 +41,29 @@ class MissingElementInSortedArray {
 
 public:
 
+
+    int doit_linear(vector<int>& nums, int k) {
+        
+        auto missingcounter = [&](int i) {
+             // Return how many numbers are missing until nums[idx]
+            return nums[i] - nums[0] - i;
+        };
+        
+        int n = nums.size();
+        // If kth missing number is larger than 
+        // the last element of the array
+        if (k > missingcounter(n-1)) return k - missingcounter(n-1) + nums[n-1];
+        
+        int i = 0;
+        // find idx such that 
+        // missing(idx - 1) < k <= missing(idx)
+        while (missingcounter(i) < k) i++;
+        
+        // kth missing number is greater than nums[idx - 1]
+        // and less than nums[idx]
+        return k - missingcounter(i-1) + nums[i-1];
+    }
+
     /*
         Approach 2: Binary Search
         Intuition
@@ -69,17 +92,20 @@ public:
     */
     
     int doit_binary_search(vector<int>& nums, int k) {
-        
+        // Return how many numbers are missing until nums[idx]
         auto missing = [&](int idx) {
             return nums[idx] - nums[0] - idx;
         };
 
         int n = nums.size();
+        // If kth missing number is larger than 
+        // the last element of the array
         if (k > missing(n-1))
             return nums[n-1] + k - missing(n-1);
 
         int left = 0, right = n-1;
-
+        // find left = right index such that 
+        // missing(left - 1) < k <= missing(left)
         while (left < right) {
             int mid = (left + right) / 2;
 
@@ -89,6 +115,8 @@ public:
                 right = mid;
         }
 
+        // kth missing number is greater than nums[idx - 1]
+        // and less than nums[idx]
         return nums[left - 1] + k - missing(left-1);
     }
 };

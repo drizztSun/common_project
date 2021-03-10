@@ -42,7 +42,6 @@ Note:
 
 class PathWithMaximumMinimumValue:
 
-
     def doit_dijstra(self, A: list) -> int:
 
         from heapq import heapify, heappush, heappop
@@ -69,9 +68,3 @@ class PathWithMaximumMinimumValue:
                     visited.add((x, y))
         
         return minimum
-
-
-if __name__ == '__main__':
-
-    PathWithMaximumMinimumValue().doit_dijstra([[5,4,5],[1,2,6],[7,4,6]])
-        

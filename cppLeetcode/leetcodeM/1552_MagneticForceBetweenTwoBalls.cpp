@@ -35,17 +35,64 @@ All integers in position are distinct.
 
 */
 #include <vector>
+#include <algorithm>
 
 using std::vector;
 
 
 class MagneticForceTwoBalls {
 
+    /*
+        1552.Magnetic-Force-Between-Two-Balls
+        常规的二分搜值。猜测一个minimum magnetic force是F，然后查看能否在数组中挑选m个位置，使得这m个位置之间的距离都大于等于F。如果能够实现，那么尝试猜测更大的F；反之就猜测更小的F。
+    */
+    int maxDistance(vector<int>& position, int m) 
+    {
+        sort(position.begin(), position.end());
+        int left = 1, right = position.back()-position[0];
+
+
+        auto isOK = [&](int len, int m)
+        {
+            int j=0;
+            int count = 1;
+            
+            for (int i=0; i<position.size(); )
+            {
+                j = i;
+                while (j<position.size() && position[j]-position[i]<len)
+                    j++;
+                            
+                if (j==position.size()) 
+                    break;
+                else
+                {
+                    count++;                
+                    i=j;
+                }
+                if (count==m) return true;
+                
+            }
+            return false;
+        };
+
+        while (left < right)
+        {
+            int mid = right-(right-left)/2;
+            if (isOK(mid, m))
+                left = mid;
+            else
+                right = mid-1;
+        }
+        return left;        
+    }
+    
+
 public:
     
     int doit_binary_search(vector<int>& a, int m) {
 
-        sort(a.begin(),a.end());
+        std::sort(a.begin(),a.end());
         long long int l = 1,r = a[a.size()-1] + 1, ans = 0;
         
         while(l <= r) {
