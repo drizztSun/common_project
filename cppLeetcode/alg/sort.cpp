@@ -1,4 +1,6 @@
 #include <vector>
+#include <functional>
+#include <numeric>
 
 using std::vector;
 
@@ -43,10 +45,17 @@ private:
 };
 
 
-class findKthLargest {
-public:
+int quick_select(vector<int>& nums, int k) {
+    int n = nums.size();
+    std::nth_element(begin(nums), begin(nums) + n - k, end(nums));
+    return nums[n-k];
+}
+
+int quick_select(vector<int>& nums, int k) {
     
-    int partition(vector<int>& nums , int l , int h)
+    int n = nums.size();
+
+    auto partition = [&](int l , int h)
     {
         int pivot = h;
         int j = l-1;
@@ -61,40 +70,35 @@ public:
         }
         
         j++;
-        std::swap( nums[j] , nums[pivot]);
+        std::swap(nums[j] , nums[pivot]);
         return j;
-    }
+    };
     
-    int randomPart( vector<int>& nums , int l , int r)
+    auto randomPart = [&](int l , int r)
     {
         int n = l + rand()%( r-l+1);
-        std::swap( nums[n] , nums[r]);
-        return partition( nums, l , r);
-    }
+        std::swap(nums[n] , nums[r]);
+        return partition(l , r);
+    };
     
-    int findKthLargestUtil( vector<int>& nums, int k ,int l ,int h)
+    std::function<int(int, int, int)> findKthLargestUtil = [&](int k ,int l ,int h)
     {
         if( l <= h)
         {
             if( l == h)
                 return nums[l];
             
-            int p = randomPart( nums, l , h);
+            int p = randomPart(l, h);
             
-            if( p == k)
-                return nums[p];
-            else if( p > k)
-            {
-                return findKthLargestUtil(nums,k, l , p-1);
-            }
-            return findKthLargestUtil(nums,k, p+1 , h);
+            if( p == k) return nums[p];
+            
+            if( p > k)
+                return findKthLargestUtil(k, l , p-1);
+
+            return findKthLargestUtil(k, p+1 , h);
         }
         return -1;
-    }
-    
-    int doit_partition_sort(vector<int>& nums, int k) {
-        int n = nums.size();
-        return findKthLargestUtil(nums, n-k, 0 , n-1 );        
-        
-    }
-};
+    };
+
+    return findKthLargestUtil(n-k, 0, n-1);    
+}

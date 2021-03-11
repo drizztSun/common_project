@@ -67,8 +67,7 @@ public:
                 std::swap(nums[i], nums[nums[i] - 1]);
             }
 
-            if (nums[i] != i+1)
-                return nums[i];
+            if (nums[i] != i+1) return nums[i];
         }
     }
     /*
@@ -210,15 +209,13 @@ public:
         于是此题可以联想到 142. Linked List Cycle II，用快慢指针来确定一个linked list中环的入口。算法是，先用快慢指针做追及（快指针的速度比慢指针快一倍），直到他们相遇的位置；再用一个慢指针从起点开始，和在追及位置的慢指针共同前进。他们再次相遇的地方就是环的入口。
     
     */
-    int doit_v1(vector<int>& nums) 
+    int doit_binary_search(vector<int>& nums) 
     {
-        int n = nums.size();
-        int left=1;
-        int right=n-1;        
+        int n = nums.size(), left = 1, right = n-1;        
         
-        while (left<right)
+        while (left < right)
         {
-            int k = left+(right-left)/2;
+            int k = left + (right-left)/2;
             int count=0;
             for (auto x: nums)
                 if (x <= k) count++;
@@ -226,7 +223,7 @@ public:
             if (count > k)
                 right = k;
             else
-                left = k+1;
+                left = k + 1;
         }        
         return left;        
     }

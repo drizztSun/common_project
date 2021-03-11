@@ -40,6 +40,7 @@ using std::vector;
 
 class MinMaxGasDist {
 
+public:
     /*
         774.Minimize-Max-Distance-to-Gas-Station
 
@@ -64,9 +65,7 @@ class MinMaxGasDist {
         最后知道二分的搜索精度小于1e-6.
     */
 
-public:
-
-    double doit_heap(vector<int>& stations, int K) {
+    double doit_heap_tle(vector<int>& stations, int K) {
 
         priority_queue<std::pair<double,int>> pq;
 
@@ -84,13 +83,36 @@ public:
         return pq.top().first;
     }
 
+    double doit_binary_search(vector<int>& stations, int K) 
+    {
+        double left = 0;
+        double right = 0;
+        for (int i=1; i<stations.size(); i++)
+            right = fmax(right,stations[i]-stations[i-1]);
+        
+        double mid;
+        while (right-left>1e-6)
+        {
+            mid = (right+left)/2;
+            int count = 0;
+            for (int i=1; i<stations.size(); i++)
+            {
+                double k = (stations[i]-stations[i-1])/mid;
+                count+=  ceil(k)-1;               
+            }
+            if (count>K)
+                left = mid;
+            else
+                right = mid;            
+        }
+        return mid;
+    }
+
     /*
         Approach #4: Binary Search [Accepted]
         Intuition
 
-        Let's ask possible(D): with K (or less) gas stations, can we make every adjacent distance between gas stations at most D? This function is monotone, so we can apply a binary search to find D^{\text{*}}D
-        *
-        .
+        Let's ask possible(D): with K (or less) gas stations, can we make every adjacent distance between gas stations at most D? This function is monotone, so we can apply a binary search to find D
 
         Algorithm
 
@@ -106,31 +128,34 @@ public:
 
         Space Complexity: O(1) in additional space complexity.
     */
-
-    double doit_binary_search(vector<int>& stations, int K) 
-    {
-        double left = 0;
-        double right = 0;
-        for (int i = 1; i < stations.size(); i++)
-            right = fmax(right, stations[i] - stations[i-1]);
+    double doit_binary_search(vector<int>& stations, int k) {
         
-        double mid;
-        while (right-left > 1e-6){
-
-            mid = (right+left)/2;
+        double lo = 0, hi = 1e8;
+        
+        auto possible = [&](double x) {
             
-            int count = 0;
-            for (int i=1; i<stations.size(); i++)
-            {
-                double k = (stations[i]-stations[i-1])/mid;
-                count+=  ceil(k)-1;               
+            int cnt = 0;
+            for (int i = 0; i < stations.size()-1; i++) {
+                
+                if (stations[i+1] - stations[i] > x)
+                    cnt += int((stations[i+1] - stations[i]) / x);
+                
+                if (cnt > k) return false; 
             }
             
-            if (count > K)
-                left = mid;
+            return true;
+        };
+        
+        while (hi - lo > 1e-6) {
+            
+            double mid = (lo + hi) / 2.0;
+            
+            if (possible(mid))
+                hi = mid;
             else
-                right = mid;            
+                lo = mid;
         }
-        return mid;
+        
+        return lo;
     }
 };

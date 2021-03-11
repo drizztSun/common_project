@@ -71,6 +71,7 @@ public:
         return -ans;
     }
     
+    // O(m*(logn)^2)
     int doit_binary_search(vector<vector<int>>& matrix, int k) {
      
         int size = matrix.size(), l = matrix[0][0], r = matrix[size-1][size-1];

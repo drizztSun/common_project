@@ -190,6 +190,7 @@ public:
         while(!heap.empty()) {
 
             // maxheap always popup current maximum val path
+            // each time we move forward always be the path with maximum way.
             auto p = heap.top();
             heap.pop();
             
@@ -199,8 +200,15 @@ public:
             
             // Each time, we popup the current maximum path, like[10, 9, 8]. if new point 4 on 10 path is 4, then it will be [9, 8, 4] 
             // Then 9 is the next path can move forward. Any one will smaller score will be the final value on th path.
+            // all paths have changes to popup will be the candiates to the end. but we need to get minimux one
+            // like three path [10, 9, 8], if path 10 get a node 4, it will because to be 4.
+            // so 9, 8 will may get 7, 6, if 9 meets 6, 8 has change to popup, if 8 meet 7, 6 will have no change to get the end.
+            // bfs ways to go to the end. it always to be the mimimal value is the answer. 
+            // and finally reach to the end, so we have to pick the mimimum value of the score.
             maxscore = std::min(maxscore, value);
 
+            // if current path reach to the end, it breaks.
+            // the 
             if(i == n-1 && j == m-1) break;
 
             for(int k = 0; k < 4; k++)

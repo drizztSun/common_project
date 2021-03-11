@@ -28,7 +28,6 @@ Explanation: All possible pairs are returned from the sequence: [1,3],[2,3]
 
 */
 
-#include <stdio.h>
 #include <queue>
 #include <vector>
 
@@ -71,24 +70,18 @@ public:
     }
 
     /*
-        378. Kth Smallest Element in a Sorted Matrix
-        解法１
-        矩阵的规律是：如果matrix[i][j]不是最小的，则matrix[i+1][j]和matrix[i][j+1]就都不用考虑。或者matrix[i][j]是最小的，则matrix[i+1][j]和matrix[i][j+1]就能进如考虑范围。
+        373.Find-K-Pairs-with-Smallest-Sums
+        本题本质上非常巧妙地转换成了二维矩阵问题，同378。
 
-        所以类似BFS的算法，设计一个小顶堆的Priority_queue，每次出列最小值之后，将最小值邻接的matrix[i+1][j]和matrix[i][j+1]加入这个队列会自动排序。当出列k个数之后就是答案。
+        设想一个MxN的矩阵，其矩阵元素(m,n)就是num1[m]+nums2[n]，很显然这个矩阵的行、列都是递增的。于是立刻就转化成了找该矩阵第k个元素的问题。
 
-        类似的题目：373
+        解法1：BFS+PQ
+        用BFS的方法进行搜索。每次弹出一个PQ里最小的元素，然后新加入该元素相邻（右边和下边）的两个元素。最先弹出的k个元素就是答案。
 
-        解法2
-        以上的解法在新的测试集下会非常慢．更优的方法是binary search.
+        解法2：binary search + sorted matrix property
+        此题和378. Kth Smallest Element in a Sorted Matrix非常相似。
 
-        显然，答案的上限是matrix[0][0],下限是matrix[N-1][N-1]．对于这个区间的任意一个ｘ，我们可以计算出这个矩阵里小于等于ｘ的元素有多少，定义为smallerOrEqual(x)．如果smallerOrEqual(x)<k，说明这个ｋ太小了不是想要的答案，
-        应该往上调整，所以left=x+1.反之smallerOrEqual(x)>=k，说明ｋ可能是答案，但可以再缩小一点试一试，因此right=x．　（当然，更直接一点，其实如果直接得到smallerOrEqual(x)==k的话就已经说明ｋ就是答案了）
-
-        那么如果写这个smallerOrEqual(x)呢？这个思路其实和 240. Search a 2D Matrix II 非常相似．对于这种行列都排序的矩阵，我们可以从左下角（其实右上角也可以）出发，遇到matrix[i][j]<=x，说明从(i,j)之上的整列都smallerOrEqual(x)，于是就可以往右移动一列．　
-        否则的话，我们就往上移动一行．　这样直至我们走出这个矩阵，走过的路径就自动将矩阵划分为了左上和右下两个部分，就是以smallerOrEqual(x)为分界的．
-
-        这个性质非常好用，请大家多多练习．（从左下角出发或者从右上角出发）．
+        用binary search的方法先确定按从小到大顺序第k个元素是多少，令它为x。然后打印出matrix里面所有小于等于x的元素。注意，这样的元素可能会超过k个，也可能会小于k个。最终只要输出k个。
     */
     struct cmp
     {
@@ -98,12 +91,12 @@ public:
         }
     };
     
-    vector<pair<int, int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) 
+    vector<vector<int>> doit_heap(vector<int>& nums1, vector<int>& nums2, int k)
     {
-        priority_queue<std::pair<int,int>,vector<std::pair<int,int>>,cmp>q;
+        priority_queue<std::pair<int,int>, vector<std::pair<int,int>>, cmp>q;
         int M=nums1.size();
         int N=nums2.size();
-        vector<pair<int, int>>results;
+        vector<vector<int>>results;
         if (M==0 || N==0) return results;
         
         auto used=vector<vector<int>>(M,vector<int>(N,0));
@@ -134,12 +127,72 @@ public:
         return results;                
     }
 
-};
 
-void test_373_find_Kpair_with_smallest_sum() {
+    static bool cmp(vector<int>&a, vector<int>&b)
+    {
+        return a[0]+a[1]<b[0]+b[1];
+    }
+public:
+    vector<vector<int>> doit_binary_search(vector<int>& nums1, vector<int>& nums2, int k) 
+    {
+        int M = nums1.size();
+        int N = nums2.size();
+        if (M==0 || N==0) return {};
+        
+        auto matrix = vector<vector<int>>(M,vector<int>(N));
+        for (int i=0; i<M; i++)
+            for (int j=0; j<N; j++)
+                matrix[i][j] = nums1[i]+nums2[j];
+        
+        int left = matrix[0][0];
+        int right = matrix[M-1][N-1];
+        while (left<right)
+        {
+            int mid = left+(right-left)/2;
+            if (EqualOrSmaller(matrix, mid) < k)
+                 left = mid+1;
+            else
+                right = mid;
+        }
+        
+        int x = left;
+        
+        vector<vector<int>>results;
+        int i = M-1, j = 0;
+        while (i>=0 && j<N)
+        {
+            if (matrix[i][j]<=x)
+            {
+                for (int k=i; k>=0; k--)
+                    results.push_back({nums1[k],nums2[j]});
+                j++;
+            }
+            else
+                i--;
+        }
+        
+        sort(results.begin(), results.end(), cmp);
+        if (k<results.size())
+            results.resize(k);
+        return results;
+    }
     
-    vector<int> a{1, 1, 2};
-    vector<int> b{1, 2, 3};
-    
-    KSmallestPairs().doit_heap(a, b, 3);
-}
+    int EqualOrSmaller(vector<vector<int>>& matrix, int x)
+    {
+        int M = matrix.size();
+        int N = matrix[0].size();
+        int i = M-1, j = 0;
+        int count = 0;
+        while (i>=0 && j<N)
+        {
+            if (matrix[i][j]<=x)
+            {
+                count += i+1;
+                j++;
+            }
+            else
+                i--;
+        }
+        return count;        
+    }
+};
