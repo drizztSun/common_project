@@ -191,6 +191,8 @@ public:
 
         int low = 0, high = *std::max_element(begin(bloomDay), end(bloomDay));
         int n = bloomDay.size();
+
+        // Only possible failure is no enough flowers for bouquet.
         if (m * k > n) return -1;
         
         auto cal = [&](int day) {

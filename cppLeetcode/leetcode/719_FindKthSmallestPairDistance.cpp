@@ -237,6 +237,40 @@ public:
 		return lo;
 	}
 
+	int doit_binary_search(vector<int>& nums, int k) {
+        
+        sort(begin(nums), end(nums));
+        
+        int left = 0, right = nums.back() - nums.front();
+        
+        auto count = [&](int val) {
+            
+            int cnt = 0;
+            
+            for (int i = 0, j = 0; i < nums.size(); i++) {
+                
+                while (j <= i && nums[i] - nums[j] > val) j++;
+                
+                cnt += i - j;
+                
+            }
+
+            return cnt;
+        };
+        
+        while (left < right) {
+            
+            int mid = left + (right - left) / 2;
+            
+            if (count(mid) < k)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        
+        return left;
+    }
+
 	/*
 	O(n^2)
 	*/

@@ -63,6 +63,7 @@ class RangeSumsSortedSubarray {
 public:
     int doit_binary_search(vector<int>& nums, int n, int left, int right) 
     {
+        // not good way
         int totalSum;
         totalSum = accumulate(nums.begin(), nums.end(), 0);
         int ret = 0;
@@ -109,7 +110,7 @@ public:
 
 public:
 
-    int doit_sort(vector<int>& nums, int n, int left, int right) {
+    int doit_sort_quickselect(vector<int>& nums, int n, int left, int right) {
 
         vector<ll> sums;
 

@@ -72,6 +72,42 @@ class KthSmallestNum {
 
 public:
 
+	int doit_binary_search(int m, int n, int k) {
+
+        int left = 1, right = m * n;
+        
+        auto count = [&](int mid) -> int {
+        
+            int i = m, j = 1;
+            int cnt = 0;
+            while (i >= 1 && j <= n) {
+                
+                if (i*j <= mid) {
+                    cnt += i;
+                    j++;
+                } else
+                    i--;
+            }
+            
+            return cnt;
+        };
+        
+        while (left < right) {
+            
+            int mid = left + (right - left) / 2;
+            //int count=0;
+            //for (int i=1; i<=m; i++)
+            //    count+= std::min(mid/i,n);
+            
+            if (count(mid) < k)
+                left = mid + 1;
+            else
+                right = mid;
+        }
+        
+        return left;
+    }
+
 	/*
 	
 		Approach #3: Binary Search [Accepted]

@@ -158,6 +158,62 @@ class ColoredBalls {
 
 public:
 
+    /*
+        The idea is we first want to find a target value T which is the smallest value we will add to our score within a transaction. 
+        Since the trend is monotonic, we can use Binary Search to find the value T. 
+        We simply guess a value to see 
+        how many orders we can make with the value. If the result is less the 
+        value orders we are given, then we know the value we guessed is too high that cannot be the target value (that's why set hi=mid-1). 
+        When we know the target value T, we need to notice that 
+        we are not necessarily buying all those balls with target value,
+        but it is guaranteed that we need to buy all the balls with value greater than 
+        target value T(that's why we set low = low+1). 
+        After that, we ran out of the balls with value greater than target value, 
+        now, we can only add balls with target value for (orders we left) times.
+    */
+    long check(vector<int>& inventory, int target) {// count how many orders with buying balls with value at least target
+		long sum = 0;
+		for(auto& x:inventory) {
+			if(x >= target) {
+				sum += x - target + 1;
+			}
+		}
+		return sum;
+	}
+	int doit_binary_search(vector<int>& inventory, int orders) {
+		long low = 1;
+		long hi = INT_MAX;
+		int kMod = 1e9 + 7;
+
+		while(low < hi) {
+			long mid = low + (hi - low+1) /2;
+			long res = check(inventory, mid);
+			if(res < orders) {
+				hi = mid - 1;
+			} else {
+				low = mid;
+			}
+		}
+
+		long ans = 0;
+		low = low + 1; // buy all balls with this value and above
+		for(auto& x:inventory) {
+			if(x >= low ) {
+				ans += (low + x)*(x-low + 1)/2;
+				ans = ans%kMod;
+				orders -= x-low+1;
+			}
+		}
+		
+        low = low - 1;
+		for(int i=0;i<orders;i++) {
+			ans += low;
+			ans = ans%kMod;
+
+		}
+		return ans;
+	}
+
     int doit_sort(vector<int>& inventory, int orders) {
         
         std::sort(begin(inventory), end(inventory), [](auto a, auto b){ return a > b; });

@@ -76,15 +76,21 @@ class MagneticForceTwoBalls {
             return false;
         };
 
-        while (left < right)
+        // [left, right]
+        while (left < right) // left < right, left == right is always equal to right, or left<= right, left = right + 1.
         {
             int mid = right-(right-left)/2;
+
+            // Old code is left + (right-left) / 2, but need to double check. 
+            // if left, right 0, 1, mid is 0, then left is 0 again. it is dead-loop.
+            // New code, for left, right is 0, 1, then mid is 1, it will be good.
             if (isOK(mid, m))
-                left = mid;
+                left = mid; // we wannt push the value bigger, so mid is a valid one.
             else
+                // mid needs to be dropped, because it is not legal for rule.
                 right = mid-1;
         }
-        return left;        
+        return left; // we don't check, because there is always a value.   
     }
     
 
