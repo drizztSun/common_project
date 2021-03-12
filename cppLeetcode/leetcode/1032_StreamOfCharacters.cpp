@@ -1,6 +1,4 @@
 /*
- 
- 
  # 1032. Stream of Characters
 
  # Implement the StreamChecker class as follows:
@@ -36,31 +34,28 @@
 
  
  */
-#include <stdlib.h>
-
 #include <algorithm>
-
 #include <vector>
-using std::vector;
-
 #include <string>
+#include <deque>
+
+using std::deque;
+using std::vector;
 using std::string;
 
-#include <deque>
-using std::deque;
 
-
-struct node {
-    bool done = false;
-    node* field[26];
-    node() {
-        for (size_t i = 0; i < 26; i++)
-            this->field[i] = nullptr;
-    }
-};
 
 class StreamChecker {
-    
+
+    struct node {
+        bool done = false;
+        node* field[26];
+        node() {
+            for (size_t i = 0; i < 26; i++)
+                this->field[i] = nullptr;
+        }
+    };
+
     size_t _max_length;
     node* _root;
     deque<char> _stream;
@@ -112,7 +107,7 @@ public:
         vector<node*> n;
         n.push_back(_root);
         
-        while (not n.empty()) {
+        while (!n.empty()) {
             node* r = n.back();
             n.pop_back();
             
@@ -127,64 +122,46 @@ public:
 };
 
 
-struct node1{
-  node1* arr[26];
-  bool isWord = false;
-};
+
 
 class StreamChecker1 {
-    
+
+
+    struct node1{
+        node1* arr[26];
+        bool isWord = false;
+    };
+
 public:
   
-  node1* root;
-  string q;  //query string
+    node1* root;
+    string q;  //query string
   
-  StreamChecker1(vector<string>& words){
-    
-    root = new node1();
-    for (auto& s : words){
-      auto cur = root;
-      for (int i = s.length()-1; i >= 0; i--){
-        if (!cur->arr[s[i]-'a'])
-          cur->arr[s[i]-'a'] = new node1();
-        cur = cur->arr[s[i]-'a'];
-      }
-      cur->isWord = true;
-    }
-  }
-    
-  bool query(char ch){
-    q += ch;
-    auto cur = root;
-    for (int i = q.length()-1; i >=0; i--){
-        cur = cur->arr[q[i]-'a'];
-        if (!cur)
-            return false;
+    StreamChecker1(vector<string>& words){
         
-        if (cur->isWord)
-          return true;
+        root = new node1();
+        for (auto& s : words){
+        auto cur = root;
+        for (int i = s.length()-1; i >= 0; i--){
+            if (!cur->arr[s[i]-'a'])
+            cur->arr[s[i]-'a'] = new node1();
+            cur = cur->arr[s[i]-'a'];
+        }
+        cur->isWord = true;
+        }
     }
-    return false;
-  }
+        
+    bool query(char ch){
+        q += ch;
+        auto cur = root;
+        for (int i = q.length()-1; i >=0; i--){
+            cur = cur->arr[q[i]-'a'];
+            if (!cur)
+                return false;
+            
+            if (cur->isWord)
+            return true;
+        }
+        return false;
+    }
 };
-
-void test_1032_stream_of_characters() {
-    
-    vector<string> input{"cd","f","kl"};
-    StreamChecker r(input);
-    
-    for (auto c : string("abcdefghijkl")) {
-        auto res = r.query(c);
-        printf("%d\n", res);
-        
-    }
-    
-    printf("--\n");
-    vector<string> input1{"ab", "ba", "aaab", "abab", "baa"};
-    StreamChecker r1(input1);
-    
-    for (auto c : string("aaaaabababbbababbbbababaaabaaa")) {
-        auto res = r1.query(c);
-        printf("%d\n", res);
-    }
-}

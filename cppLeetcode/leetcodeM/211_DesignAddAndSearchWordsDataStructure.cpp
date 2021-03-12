@@ -39,10 +39,119 @@ At most 50000 calls will be made to addWord and search.
 */
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <functional>
 
 using std::vector;
 using std::string;
+using std::unordered_map;
 
+
+/*
+    
+211.Add-and-Search-Word
+这是字典树的典型题，考察了Trie的各种基本操作。
+
+首先是TrieNode的类型及构造函数:
+
+class TrieNode
+{
+    public:
+    TrieNode* next[26];
+    bool isEnd;
+    TrieNode()
+    {
+       for (int i=0; i<26; i++)
+         next[i]=NULL;
+       isEnd=false;
+    }
+};
+注意：1.类定义结束之后要加分号。2.构造函数必须显式地声明为public（否则默认为private）。
+
+其次是字典树的数据添加:
+
+    void addWord(string word) 
+    {
+        TrieNode* node=root;
+        for (int i=0; i<word.size(); i++)
+        {
+            char ch=word[i];
+            if (node->next[ch-'a']==NULL)
+                node->next[ch-'a']=new TrieNode();
+            node=node->next[ch-'a'];
+        }
+        node->isEnd=true;
+    }
+本质是不断开辟子树的过程，将原本是NULL的子节点new出一个实际的内存空间。
+
+最后的字典树的查询，则是用到了DFS，根据索引下沉到相应的子节点，和二叉树的遍历类似。
+*/
+class WordDictionary {
+    class TrieNode
+    {
+        public:
+        TrieNode* next[26];
+        bool isEnd;
+        TrieNode()
+        {
+            for (int i=0; i<26; i++)
+                next[i]=NULL;
+            isEnd=false;
+        }
+    };
+    TrieNode* root;
+    
+public:
+    /** Initialize your data structure here. */
+    WordDictionary() 
+    {
+        root = new TrieNode();
+    }
+    
+    /** Adds a word into the data structure. */
+    void addWord(string word) 
+    {
+        TrieNode* node=root;
+        for (int i=0; i<word.size(); i++)
+        {
+            char ch=word[i];
+            if (node->next[ch-'a']==NULL)
+                node->next[ch-'a']=new TrieNode();
+            node=node->next[ch-'a'];
+        }
+        node->isEnd=true;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one letter. */
+    bool search(string word) 
+    {
+        return DFS(word, 0, root);
+    }
+    
+    bool DFS(string word, int i, TrieNode* node)
+    {
+        if (node==NULL)
+            return false;
+        if (i==word.size())
+            return (node->isEnd);
+
+        if (word[i]!='.')
+            return DFS(word, i+1, node->next[ch=word[i]-'a']);
+        else
+        {
+            bool flag=false;
+            for (int k=0; k<26; k++)
+            {
+                if (DFS(word,i+1,node->next[k]))
+                {
+                    flag=true;
+                    break;
+                }    
+            }
+            return flag;
+        }
+    }
+};
 
 class WordDictionary_Trie {
 
@@ -104,5 +213,49 @@ public:
     
     bool search(string word) {
         return _query(word);
+    }
+};
+
+class WordDictionary {
+    struct TrieNode {
+        unordered_map<char, TrieNode*> _node;
+        bool end = false;
+    };
+
+    TrieNode _root;
+
+public:
+    /** Initialize your data structure here. */
+    WordDictionary() {}
+    
+    void addWord(string word) {
+        TrieNode* node = &_root;
+        for (auto c: word) {
+            if (node->_node.count(c) == 0)
+                node->_node[c] = new TrieNode();
+            node = node->_node[c];
+        }
+
+        node->end = true;
+    }
+    
+    bool search(string word) {
+        
+        std::function<bool(TrieNode*, int)> dfs = [&](TrieNode* p, int i) {
+            if (i == word.length())
+                return p->end;
+            
+            if (word[i] != '.') {
+                return p->_node.count(word[i]) > 0 && dfs(p->_node[word[i]], i+1);
+            } else {   
+                for (auto c: p->_node) {
+                    if (dfs(c.second, i+1)) return true;
+                }
+                
+                return false;
+            }
+        };
+        
+        return dfs(&_root, 0);
     }
 };
