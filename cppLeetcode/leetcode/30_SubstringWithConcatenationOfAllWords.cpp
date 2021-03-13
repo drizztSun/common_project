@@ -33,15 +33,14 @@ words[i] consists of lower-case English letters.
 
 */
 
-
-
-#include <stdlib.h>
 #include <vector>
 #include <string>
-
 #include <unordered_map>
 
-using namespace std;
+using std::vector;
+using std::string;
+using std::unordered_map;
+
 
 // 30. Substring with Concatenation of All Words
 // travel all the words combinations to maintain a window
@@ -54,23 +53,17 @@ class SubstringWConcatenationOfAllWords {
 
 public:
 
-	std::vector<int> doit(const std::string& s, std::vector<std::string>& words) {
+	std::vector<int> doit_slidingwindow(const std::string& s, std::vector<std::string>& words) {
 
 		auto wl = words[0].size();
 		auto strlen = s.size();
 		auto amount = words.size();
 		std::vector<int> ans;
 
-		if (strlen < wl * amount) {
-			return ans;
-		}
+		if (strlen < wl * amount) return ans;
 
-
-		std::unordered_map<std::string, int> gDict;
-		for (auto it = words.begin(); it != words.end(); it++) {
-			gDict[*it]++;
-		}
-
+		std::unordered_map<string, int> gDict;
+		for (auto word : words) gDict[word]++;
 
 		for (auto i = 0; i < wl; i++) {
 			auto left = i;
@@ -116,68 +109,67 @@ public:
 	}
 
 	/*
-	30. Substring-with-Concatenation-of-All-Words
-	典型的双指针算法题，常规思路：右指针一路前进，遇到不符合条件的情况就移动左指针直至消除负面条件，再接着移动右指针。
-	具体的实现比较复杂，需要注意这么几点：
-	1.增加一个外层循环，双指针的起始点可以从0~M, M是每个词的长度. 注意count和showTime在每个start都要清零，故设置为循环内变量。
+		30. Substring-with-Concatenation-of-All-Words
+		典型的双指针算法题，常规思路：右指针一路前进，遇到不符合条件的情况就移动左指针直至消除负面条件，再接着移动右指针。
+		具体的实现比较复杂，需要注意这么几点：
+		1.增加一个外层循环，双指针的起始点可以从0~M, M是每个词的长度. 注意count和showTime在每个start都要清零，故设置为循环内变量。
 
-			for (int start=0; start<M; start++ )
-			{
-				int i=start;
-				int j=start;
-				int count=0;
-				unordered_map<string,int> showTime;
-				
-				while (j<s.size() && i<=j)
+				for (int start=0; start<M; start++ )
 				{
-					...
-				}
-			}
-	2.每次考察右指针对应的待加入的子串，
-
-					string ss = s.substr(j,M);
-	但不要着急移动右指针，进入如下的判断：
-
-	(a).待加入的新元素不在字典中，则count和showTime全部都清零！移动两个指针：都移到右指针的下一个位置
-
-					if (Map.find(ss)==Map.end())
+					int i=start;
+					int j=start;
+					int count=0;
+					unordered_map<string,int> showTime;
+					
+					while (j<s.size() && i<=j)
 					{
-						j+=M;
-						i=j;
-						count=0;
-						showTime.clear();
+						...
 					}
-	(b).待加入的新元素在字典中，且没有溢出，则加入并更新统计。移动右指针。
-	注意，加入之后如果已经满足条件，则记录并处理。
+				}
+		2.每次考察右指针对应的待加入的子串，
 
-					else if (Map_temp[ss]<Map[ss])
-					{
-						j+=M;
-						showTime[ss]++;
-						if (showTime[ss]==Map[ss])
-							count++;
-						
-						if (count==N)
+						string ss = s.substr(j,M);
+		但不要着急移动右指针，进入如下的判断：
+
+		(a).待加入的新元素不在字典中，则count和showTime全部都清零！移动两个指针：都移到右指针的下一个位置
+
+						if (Map.find(ss)==Map.end())
 						{
-							results.push_back(i);
+							j+=M;
+							i=j;
+							count=0;
+							showTime.clear();
+						}
+		(b).待加入的新元素在字典中，且没有溢出，则加入并更新统计。移动右指针。
+		注意，加入之后如果已经满足条件，则记录并处理。
+
+						else if (Map_temp[ss]<Map[ss])
+						{
+							j+=M;
+							showTime[ss]++;
+							if (showTime[ss]==Map[ss])
+								count++;
+							
+							if (count==N)
+							{
+								results.push_back(i);
+								string tt = s.substr(i,M);
+								showTime[tt]--;
+								count--;
+								i+=M;
+							}
+						}
+		(c) 待加入的新元素虽然在字典中，但会造成溢出，则不加入统计。移动左指针，退出最左边的元素。
+
+						else
+						{
 							string tt = s.substr(i,M);
 							showTime[tt]--;
-							count--;
+							if (showTime[tt]==Map[tt]-1)
+								count--;
 							i+=M;
 						}
-					}
-	(c) 待加入的新元素虽然在字典中，但会造成溢出，则不加入统计。移动左指针，退出最左边的元素。
-
-					else
-					{
-						string tt = s.substr(i,M);
-						showTime[tt]--;
-						if (showTime[tt]==Map[tt]-1)
-							count--;
-						i+=M;
-					}
-	5.重复循环。
-
+		5.重复循环。
 	*/
     vector<int> doit_search(string s, vector<string>& words) 
     {
@@ -231,25 +223,3 @@ public:
     }
 
 };
-
-
-void substring_with_concatenation_of_all_words() {
-
-	std::vector<int> ans;
-
-	std::vector<std::string> words;
-	words.push_back("foo");
-	words.push_back("bar");
-
-	ans = SubstringWConcatenationOfAllWords().doit(std::string("barfoothefoobarman"), words);
-
-
-
-	words.clear();
-	words.push_back("bar");
-	words.push_back("foo");
-	words.push_back("the");
-
-	ans = SubstringWConcatenationOfAllWords().doit("barfoofoobarthefoobarman", words);
-
-}

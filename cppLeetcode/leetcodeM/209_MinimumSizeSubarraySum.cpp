@@ -1,23 +1,79 @@
 /*
-
 209. Minimum Size Subarray Sum
 
-Given an array of n positive integers and a positive integer s, find the minimal length of a contiguous subarray of which the sum ≥ s. If there isn't one, return 0 instead.
+Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous subarray 
+[numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no such subarray, return 0 instead.
 
-Example: 
+ 
 
-Input: s = 7, nums = [2,3,1,2,4,3]
+Example 1:
+
+Input: target = 7, nums = [2,3,1,2,4,3]
 Output: 2
-Explanation: the subarray [4,3] has the minimal length under the problem constraint.
-Follow up:
-If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log n). 
+Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+Example 2:
 
+Input: target = 4, nums = [1,4,4]
+Output: 1
+Example 3:
+
+Input: target = 11, nums = [1,1,1,1,1,1,1,1]
+Output: 0
+ 
+
+Constraints:
+
+1 <= target <= 109
+1 <= nums.length <= 105
+1 <= nums[i] <= 105
+ 
+
+Follow up: If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log(n)).
 */
 #include <vector>
 
 using std::vector;
 
 class MinumumSizeSubarraySum {
+
+
+    /*
+        209.Minimum-Size-Subarray-Sum
+        基本思路：因为题意保证所有数组元素都是正数，可以用双指针定界。当双指针之间子数组和大于sum时，记录Len并left++；否则right++。
+
+        实际编程中，用for循环来控制右指针的思路比较清晰，左指针仅当固定了一个右指针的前提下进行移动；相对而言，用while来控制双指针比较容易出错。
+
+        细节：注意在什么条件下更新len。
+    */
+    int minSubArrayLen(int s, vector<int>& nums) 
+    {
+        int i=0;
+        int j=0;
+        int sum=0;
+        int len=INT_MAX;
+        
+        for (int j=0; j<nums.size(); j++)
+        {
+            sum+=nums[j];
+            
+            if (sum<s)
+                continue;
+            else
+            {
+                while (sum>=s)
+                {
+                    len=min(len,j-i+1);
+                    sum-=nums[i];
+                    i++;
+                }
+            }
+        }
+        
+        if (len==INT_MAX)
+            len=0;
+        
+        return len;
+    }
 
 public:
 
