@@ -1,5 +1,6 @@
-/*
+"""
 1775. Equal Sum Arrays With Minimum Number of Operations
+
 
 You are given two arrays of integers nums1 and nums2, possibly of different lengths. The values in the arrays are between 1 and 6, inclusive.
 
@@ -36,110 +37,47 @@ Constraints:
 
 1 <= nums1.length, nums2.length <= 10^5
 1 <= nums1[i], nums2[i] <= 6
-*/
-#include <vector>
-#include <algorithm>
-#include <numeric>
+"""
 
-using std::vector;
+class MinOperations:
 
-class MinOperations {
-
-    /*
+    """
         1775.Equal-Sum-Arrays-With-Minimum-Number-of-Operations
         假设nums1比num2的sum要大，那么我们要将这两个sum更靠近，无非就是两种思路：要么将nums1里面的元素改小，要么将num2里面的元素改大。为了减少操作次数，我们必须最大化改动的效率。
         也就是说，如果选择将nums1里面的元素改小，那么我们一定会将最大的元素改成1；反之，我们也可以将nums2里面最小的元素改成6。至于这两种方案里面怎么选，自然是查看它们的变动幅度，看哪个更大一些。一旦改动幅度能够cover当前的diff，就说明可以将这两个sum变成一致的。
 
         所以我们将两个数组都排个序。对于nums1，我们从后往前改动；对于nums2，我们从前往后改动。于是本题本质就是一个双指针，每改动一次，就移动相应的一个指针。直至diff小于等于零（实现目标），或者两个指针都到了尽头（无法实现目标）。
+    """
+
+    def doit_(self, nums1: list, nums2: list) -> int:
+        
+        from collections import Counter;
+        
+        cnt1, cnt2 = Counter(nums1), Counter(nums2)
+        sum1, sum2 = sum(nums1), sum(nums2)
+        
+        if sum1 > sum2:
+            sum1, sum2 = sum2, sum1
+            cnt1, cnt2 = cnt2, cnt1
+        
+        l1, l2 = len(nums1), len(nums2)
+        if sum1 == sum2: return 0
+        if 6 * l1 < l2 or 6 * l2 < l1: return -1
+        
+        ops = 0
+        
+        for i in range(1, 7):
             
-    */
-
-    int doit_twopointer_best(vector<int>& nums1, vector<int>& nums2) {
-        
-        int m = nums1.size(), n = nums2.size(), sum1 = 0, sum2 = 0;
-        vector<int> cnt1(7, 0), cnt2(7, 0);
-        for(int num : nums1){
-            sum1 += num;
-            cnt1[num]++;
-        }
-        for(int num : nums2){
-            sum2 += num;
-            cnt2[num]++;
-        }
-
-        if(sum1 == sum2) return 0;
-        if(6 * m < n || m > 6 * n) return -1;
-        
-        int ans = 0;
-        if(sum2 < sum1){
-            std::swap(sum1, sum2);
-            std::swap(cnt1, cnt2);
-        }
-        
-        // sum2 > sum1
-        for(int i = 1; i <= 6; i++){
-            
-            if(sum1 + (6 - i) * cnt1[i] >= sum2){
-                return ans + (sum2 - sum1 - 1) / (6 - i) + 1;
-            }else{
-                sum1 += (6 - i) * cnt1[i];
-                ans += cnt1[i];
-            }
-
-            if(sum2 - (6 - i) * cnt2[7-i] <= sum1){
-                return ans + (sum2 - sum1 - 1) / (6 - i) + 1;
-            }else{
-                sum2 -= (6 - i) * cnt2[7-i];
-                ans += cnt2[7-i];
-            }
-        }
-        return -1;
-    }
-
-public:
-    
-    int doit_slidingwindow(vector<int>& nums1, vector<int>& nums2) {
-
-        int sum1 = std::accumulate(nums1.begin(), nums1.end(), 0);
-        int sum2 = std::accumulate(nums2.begin(), nums2.end(), 0);
-
-        if (sum1 < sum2)
-            return doit_slidingwindow(nums2, nums1);
-        
-        int diff = sum1 - sum2;
-        sort(nums1.begin(), nums1.end());
-        sort(nums2.begin(), nums2.end());
-        
-        int i = nums1.size()-1, j = 0;
-        int count = 0;
-        while (diff > 0)
-        {
-            if (i<0 && j==nums2.size())
-                return -1;
-            if (i<0)
-            {
-                diff -= (6 - nums2[j]);
-                j++;
-            }
-            else if (j==nums2.size())
-            {
-                diff -= (nums1[i] - 1);
-                i--;
-            }
-            else if (nums1[i] - 1> 6-nums2[j])
-            {
-                diff -= (nums1[i] - 1);
-                i--;
-            }
-            else
-            {
-                diff -= (6 - nums2[j]);
-                j++;
-            }
-            count++;            
-        }
-        
-        return count;
-
-    }
-};
+            if sum1 + (6-i) * cnt1[i] >= sum2:
+                return ops + (sum2 - sum1 - 1) // (6-i) + 1
+            else:
+                ops += cnt1[i]
+                sum1 += (6-i) * cnt1[i]
+                
+            if sum2 - (6 - i) * cnt2[7-i] <= sum1:
+                return ops + (sum2 - sum1 - 1) // (6-i) + 1
+            else:
+                ops += cnt2[7-i]
+                sum2 -= (6 - i) * cnt2[7-i]
+                
+        return -1

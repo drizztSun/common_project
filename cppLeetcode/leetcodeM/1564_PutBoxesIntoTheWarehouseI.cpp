@@ -54,6 +54,7 @@ n == warehouse.length
 
 */
 #include <vector>
+#include <algorithm>
 
 using std::vector;
 
@@ -87,6 +88,32 @@ public:
             }                
         }
         return count;
+    }
+
+    int doit_greedy(vector<int>& boxes, vector<int>& warehouse) {
+
+        std::sort(begin(boxes), end(boxes));
+        int n = warehouse.size();
+        vector<int> minrequest(n);
+        int minv = INT_MAX;
+
+        for (int i = 0; i < warehouse.size(); i++) {
+            minv = std::min(minv, warehouse[i]);
+            minrequest[i] = minv;
+        }
+
+
+        int j = 0;
+        for (int i = warehouse.size()-1; i >= 0; i--) {
+
+            if (j == boxes.size()) break;
+
+            if (boxes[j] <= minrequest[i]) {
+                j++;
+            }
+        }
+
+        return j;
     }
 
 

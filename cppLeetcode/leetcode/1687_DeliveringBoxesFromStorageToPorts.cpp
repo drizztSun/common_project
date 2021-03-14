@@ -163,7 +163,7 @@ public:
             
             // like sliding window, from [i:j] => [i+1:j], update weightSum and tripSum
             weightSum -= boxes[i][1];
-            tripNum -= (j+1 <= n && boxes[i][0] != boxes[i+1][0]);
+            tripNum -= (i+1 <= n && boxes[i][0] != boxes[i+1][0]);
         }
         
         return dp[n];

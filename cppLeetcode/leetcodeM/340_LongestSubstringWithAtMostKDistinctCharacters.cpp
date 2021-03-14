@@ -24,11 +24,92 @@ Constraints:
 0 <= k <= 50
 
 */
+#include <vector>
 #include <string>
 
+using std::vector;
 using std::string;
 
 class LengthOfLongestSubstringKDistinct {
+
+    /*
+        340.Longest-Substring-with-At-Most-K-Distinct-Characters.cpp
+        解法1：固定左边界，探索右边界(开区间)
+                for (int i=0; i<n; i++)
+                {
+                    while (j<n && count + (freq[s[j]]+1 == 1) <= k)
+                    {
+                        freq[s[j]]++;
+                        count += (freq[s[j]] == 1);
+                        j++;
+                    }
+                    ret = max(ret, j-i);
+                    
+                    freq[s[i]]--;
+                    count -= (freq[s[i]] == 0);
+                }
+        解法1：固定右边界，探索左边界(闭区间)
+                for (int j=0; j<s.size(); j++)
+                {                        
+                    freq[s[j]]++;
+                    if (freq[s[j]]==1) count++;
+                    
+                    while (count>k)
+                    {
+                        freq[s[i]]--;
+                        if (freq[s[i]]==0)
+                            count--;
+                        i++;
+                    }
+                    ret = max(ret, j-i+1);            
+                }
+    
+    */
+    int lengthOfLongestSubstringKDistinct_left(string s, int k) 
+    {
+        vector<int> freq(256,0);
+        int n = s.size();
+        int j = 0;
+        int ret = 0;
+        int count = 0;
+        for (int i=0; i<n; i++)
+        {
+            while (j<n && count + (freq[s[j]]+1 == 1) <= k)
+            {
+                freq[s[j]]++;
+                count += (freq[s[j]] == 1);
+                j++;
+            }
+            ret = std::max(ret, j-i);
+            
+            freq[s[i]]--;
+            count -= (freq[s[i]] == 0);
+        }
+        return ret;        
+    }
+
+    int lengthOfLongestSubstringKDistinct_right(string s, int k) 
+    {
+        vector<int>freq(256,0);
+        int count = 0;
+        int i = 0;
+        int ret = 0;
+        for (int j=0; j<s.size(); j++)
+        {                        
+            freq[s[j]]++;
+            if (freq[s[j]]==1) count++;
+            
+            while (count>k)
+            {
+                freq[s[i]]--;
+                if (freq[s[i]]==0)
+                    count--;
+                i++;
+            }
+            ret = std::max(ret, j-i+1);            
+        }
+        return ret;        
+    }
 
 public:
     

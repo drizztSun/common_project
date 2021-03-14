@@ -49,6 +49,117 @@ using std::string;
 
 class BalancedString {
 
+    /*
+    
+        1234.Replace-the-Substring-for-Balanced-String
+        解法１：
+        比赛的时候我用的是二分法，尝试我们需要移除的substring的宽度ｋ，它的范围是[0,n]．二分的过程中，每次确定一个ｋ，就在s上滑过一个固定长度ｋ的窗口，查看滑窗是否在哪个位置的时候满足题意．
+
+        那么如何判断满足题意呢？令s里的字符总数是n，那么我们期望最终每种字符的个数恰好是n/4. 我们只要保证滑窗外的每种字符的个数不超过n/4，那么即说明这样的滑窗可以满足题意。
+        为什么呢？显然，如果滑窗外的某种字符的个数超过了n/4，那么无论滑窗里面怎么搞，最终无法使得该字符的总数符合期望的n/4。相反，只要滑窗外的每种字符的个数都不超过n/4，那么滑窗内就可以自由安排，总能使得最终每种字符的总数恰好是n/4.
+
+        这个复杂度其实是nlog(n).
+
+        解法２：
+        本题其实用双指针来做更简单，时间复杂度为o(n). 根据解法1的分析，我们其实只要找到一段窗口，使得窗口外的词频统计满足每种字母的频率都不超过n/4.
+
+        基于这种算法，滑窗的两个指针是可以交替移动的．比如说当慢指针为i,快指针移动到j，满足条件．那么下一步慢指针移动到i+1,而快指针则不用动．为什么快指针不需要考察小于ｊ的位置呢？其实如果窗口[i+1,k]满足条件的话（k<j)，
+        那么一定有[i,k]也满足条件，所以快指针根本就不会走到j的位置了．所以我们可以保证，并没有一个k<j使得[i+1,k]满足条件．所以快指针不需要回调．
+
+        所以我们只要遍历左边界i，相应地单向朝右移动右边界j，使得[i:j]是一个满足条件的区间。探索所有的这样的区间，找一个最短的。
+    */
+    int n;
+    unordered_map<char,int>count;
+public:
+    int doit_binary_search(string s) 
+    {
+        n = s.size();        
+        for (auto ch:s)
+            count[ch] += 1;
+        int flag = 1;
+        for (auto x: count)
+            if (x.second!=n/4)
+                flag = 0;
+        if (flag==1) return 0;
+
+        int left = 1, right = n;
+        while (left<right)
+        {
+            int mid = left+(right-left)/2;
+            if (isOK(mid, s))
+                right = mid;
+            else
+                left = mid+1;
+        }
+        return left;
+    }
+
+    bool isOK(int k, string& s)
+    {
+        unordered_map<char,int>sum;
+        for (int i=0; i<n; i++)
+        {
+            sum[s[i]]+=1;
+            if (i>=k)
+                sum[s[i-k]]-=1;
+
+            int flag = 1;
+            for (auto x: count)
+            {
+                char ch = x.first;
+                if (count[ch]-sum[ch] > n/4)
+                {
+                    flag  = 0;
+                    break;
+                }
+            }
+            if (flag) return true;                    
+        }
+        return false;
+    }
+
+    //int n;
+    //unordered_map<char,int>count;
+public:
+    int doit_(string s) 
+    {
+        n = s.size();        
+        for (auto ch:s)
+            count[ch] += 1;
+        int flag = 1;
+        for (auto x: count)
+            if (x.second!=n/4)
+                flag = 0;
+        if (flag==1) return 0;
+
+        int j = 0;
+        unordered_map<char,int>sum;
+        int ret = INT_MAX;
+        for (int i=0; i<n; i++)
+        {
+            while (j<n && !isOK(sum))
+            {
+                sum[s[j]]+=1;
+                j++;
+            }
+            if (isOK(sum))
+                ret = min(ret, j-i);
+            sum[s[i]] -= 1;
+        }
+        return ret;
+    }
+
+    bool isOK(unordered_map<char,int>&sum)
+    {        
+        for (auto x: count)
+        {
+            char ch = x.first;
+            if (count[ch]-sum[ch] > n/4)
+                return false;
+        }
+        return true;
+    }
+
 public:
 
     /*

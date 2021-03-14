@@ -49,6 +49,41 @@ using std::vector;
 
 class NumberSequenceThatSatisfy {
 
+    /*
+        1498.Number-of-Subsequences-That-Satisfy-the-Given-Sum-Condition
+        因为这题考察的是subsequence，我们选取的元素其实和顺序无关，所以我们可以将nums排个序。好处是任何subsquece的最小值都在前面，最大值在后面。
+
+        我们遍历每个元素nums[i]，假想它是subsequence的最小值，那么我们可以容易确定可选的最大值nums[j]：只要从j=n-1往左移，找到第一个满足nums[i]+nums[j]<=target的元素j。
+        确定了最大值和最小值，此时区间[i+1:j]内部的所有元素都可选可不选。所以我们的结论是：如果最小值是nums[i]，那么合法的子序列数目是2^(j-i).
+
+        我们考察下一个i的时候，j必然只能在之前的位置继续往左移。所以这是一个双指针模式，用o(N)时间就可以搜寻所有的{i,j}配对。对于每对{i,j}我们都将子序列的数目累加起来。
+
+        此外，我们还预处理得到一个数组power[k]来存储所有2^k % M的值供使用。
+    */
+    int numSubseq(vector<int>& nums, int target) 
+    {
+        sort(nums.begin(), nums.end());
+        int n = nums.size();
+        long M = 1e9+7;
+        long ret = 0;
+        vector<long>power(n+1);
+
+        power[0] = 1;
+        for (int i=1; i<=n; i++)
+            power[i] = power[i-1] * 2 % M;
+
+        int j = n-1;    
+        for (int i=0; i<n; i++)
+        {            
+            while (j>=0 && nums[i]+nums[j] > target)
+                j--;
+            if (j<i) break;                        
+            ret = (ret + power[j-i]) % M;
+        }
+        return ret;
+    }
+
+
 public:
 
     /*

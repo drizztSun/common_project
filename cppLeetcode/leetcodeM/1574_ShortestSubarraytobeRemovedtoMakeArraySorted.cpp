@@ -39,6 +39,8 @@ Constraints:
 0 <= arr[i] <= 10^9
 */
 #include <vector>
+#include <algorithm>
+
 
 using std::vector;
 
@@ -65,41 +67,74 @@ public:
     {
         int n = arr.size();
         int ret = n-1;
-        
         int j = n-1;
-        while (j-1>=0 && arr[j-1]<=arr[j])
-            j--;
 
-        ret = min(ret, j);        
+        while (j-1 >= 0 && arr[j-1] <= arr[j]) j--;
+
+        ret = std::min(ret, j);        
         if (ret==0) return 0;
         
         for (int i=0; i<n; i++)
         {
-            if (i>=1 && arr[i]<arr[i-1]) break;
-            while (j<n && arr[j]<arr[i])
+            if (i >= 1 && arr[i] < arr[i-1]) break;
+
+            while (j<n && arr[j] < arr[i]) j++;
+
+            ret = std::min(ret, j-i-1);
+        }
+        
+        return ret;
+    }
+
+    int doit_greedy(vector<int>& arr) {
+        
+        int n = arr.size();
+        
+        int left = 0;
+        while (left < n-1 && arr[left] <= arr[left+1]) left++;
+        
+        if (left == n-1) return 0;
+        
+        int right = n - 1;
+        while (right >= left && arr[right] >= arr[right-1]) right--;
+        
+
+        int ret = std::min(right, n-1-left);
+        
+        int i = 0, j = right;
+        
+        while (i <= left && j < n) {
+            
+            if (arr[i] <= arr[j]) {
+                ret = std::min(ret, j - i - 1);
+                i++;
+            } else {
                 j++;
-            ret = min(ret, j-i-1);
+            }
         }
         
         return ret;
     }
 
     int doit_greedy_1(vector<int>& arr) {
-        int size{(int)arr.size()}, min_{size}, i{0}, j{size-1};
+
+        int size = (int)arr.size(), min_ = size; 
+        int i = 0, j = size-1;
+        
         while(i < size-1 && arr[i+1] >= arr[i]) ++i;
         while(j > i && arr[j-1] <= arr[j]) --j;
         
         if(j == i) return 0;
         
-        for(int k{0}; k <= i; ++k) {
-            auto it{std::upper_bound(arr.begin()+j, arr.end(), arr[k]-1)};
-            int dist{(int)(it-(arr.begin()+k)-1)};
+        for(int k = 0; k <= i; ++k) {
+            auto it = std::upper_bound(arr.begin()+j, arr.end(), arr[k]-1);
+            int dist = (int)(it-(arr.begin()+k)-1);
             min_ = std::min(min_, dist);
         }
 
-        for(int k{size-1}; k >= j; --k) {
-            auto it{std::upper_bound(arr.begin(), arr.begin()+i+1, arr[k]-1)};
-            int dist{(int)(arr.begin()+k-it)};
+        for(int k = size-1; k >= j; --k) {
+            auto it = std::upper_bound(arr.begin(), arr.begin()+i+1, arr[k]-1);
+            int dist = (int)(arr.begin()+k-it);
             min_ = std::min(min_, dist);
         }
         

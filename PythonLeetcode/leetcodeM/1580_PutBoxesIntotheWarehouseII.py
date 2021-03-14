@@ -70,7 +70,7 @@ class MaxBoxesInWarehouseII:
 
             if box > max(warehouse[i], warehouse[j]): continue
 
-            if box > warehouse[j] or (warehouse[i] > box and warehouse[j] >= warehouse[i]):
+            if box > warehouse[j] or warehouse[i] > box and warehouse[j] >= warehouse[i]:
                 i += 1
             else:
                 j -= 1
@@ -93,4 +93,3 @@ class MaxBoxesInWarehouseII:
                 return Lw
 
         return w_left + Lw - w_right - 1
-        
