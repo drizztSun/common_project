@@ -69,7 +69,7 @@ public:
 
             if (dp[nl][ind]) return dp[nl][ind];
 
-            return dp[nl][ind] = max(nums[nl] * mul[ind] + dfs(nl + 1, nr, ind + 1), nums[nr] * mul[ind] + dfs(nl, nr - 1, ind + 1));
+            return dp[nl][ind] = std::max(nums[nl] * mul[ind] + dfs(nl + 1, nr, ind + 1), nums[nr] * mul[ind] + dfs(nl, nr - 1, ind + 1));
         };
         
         return dfs(0, nums.size() - 1, 0);
