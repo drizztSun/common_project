@@ -86,6 +86,13 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
 
 class DetectCycle {
 
+    struct ListNode {
+       int val;
+       ListNode *next;
+       ListNode() : val(0), next(nullptr) {}
+       ListNode(int x) : val(x), next(nullptr) {}
+       ListNode(int x, ListNode *next) : val(x), next(next) {}
+    };
 
     /*
         141. Linked List Cycle
@@ -94,12 +101,12 @@ class DetectCycle {
     */
     bool hasCycle(ListNode *head) 
     {
-        if (head==NULL) return false;
+        if (head == nullptr) return false;
         
         ListNode* slow=head;
         ListNode* fast=head;
         
-        while (fast->next!=NULL && fast->next->next!=NULL)
+        while (fast->next!=nullptr && fast->next->next!=nullptr)
         {
             fast=fast->next->next;
             slow=slow->next;
@@ -167,7 +174,6 @@ public:
         ListNode *slow = head;
         ListNode *fast = head;
         
-        
         do {
             
             if (!slow) break;
@@ -178,14 +184,12 @@ public:
             
             fast = fast->next->next;
             
-            
-            
         } while (slow != fast);
         
         return slow == fast;        
     }
 
-    ListNode* doit_(ListNode *head) {
+    ListNode* doit_link(ListNode *head) {
        
         if (!head) return nullptr;
         
@@ -203,8 +207,6 @@ public:
             
             fast = fast->next->next;
             
-            
-            
         } while (slow != fast);
         
         if (slow != fast) return nullptr;
@@ -215,7 +217,6 @@ public:
             slow = slow->next;
             fast = fast->next;
         }
-        
         
         return slow;
     }

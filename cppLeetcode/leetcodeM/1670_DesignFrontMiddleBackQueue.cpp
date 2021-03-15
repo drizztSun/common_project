@@ -120,9 +120,7 @@ public:
     }
     
     void pushFront(int val) {
-    
         _buff.insert(begin(_buff), val);
-        
     }
     
     void pushMiddle(int val) {
