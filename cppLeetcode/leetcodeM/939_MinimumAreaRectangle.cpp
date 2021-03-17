@@ -21,23 +21,19 @@
  */
 
 #include <vector>
-using std::vector;
-
 #include <unordered_map>
-using std::unordered_map;
-
 #include <unordered_set>
-using std::unordered_set;
-
 #include <map>
-using std::map;
-
 #include <set>
-using std::set;
-
 #include <limits>
-
 #include <algorithm>
+
+
+using std::vector;
+using std::unordered_map;
+using std::unordered_set;
+using std::map;
+using std::set;
 
 namespace std{
     template <> struct hash<std::pair<int, int>> {
@@ -55,7 +51,65 @@ struct Hash {
 };
 
 class MinAreaRectI {
+
+    /*
+        939.Minimum-Area-Rectangle
+        对于“横平竖直”的矩阵而言，只需要给定对角线的两个点，就能完全确定一个矩形。所以最外层的两个大循环来遍历点A和点B，这是显而易见的。固定A和B之后，另外一条对角线的两个点C和D，其坐标也就能确定下来。那么如何在一个集合中快速查找到C和D呢？
+
+        因为每个点的坐标包括两个分量，所以你想做查找的话，无非两个思路：1.把所有二维坐标哈希化成字符串，放入一个无序集合中，但额外的哈希化很耗时。2.直接把二维向量放入一个有序集合中，但这涉及红黑树的插入，也是效率很低的。
+
+        这里提供一个用空间换时间的方法。那就是设计一个这样的数据结构unordered_map<int, unordered_set<int>>Map。其中key是横坐标的值，value是纵坐标的值的集合。
+        初始化时将所有的点按照横坐标的位置来这样归类。这样，后期我们考察(x,y)是否存在的时候，只需要考察Map[x]里面是否存在y就可以了。这样既避免了哈希化，也只用到了无序容器从而省去了排序的时间。    
+    */
+    int minAreaRect_best(vector<vector<int>>& points) 
+    {
+        unordered_map<int, unordered_set<int>>Map;
+        for (auto p: points)
+            Map[p[0]].insert(p[1]);
+        
+        int ret = INT_MAX;
+        for (int i=0; i<points.size(); i++)
+            for (int j=i+1; j<points.size(); j++)
+            {
+                int x1 = points[i][0];
+                int y1 = points[i][1];
+                int x2 = points[j][0];
+                int y2 = points[j][1];
+                
+                if (x1==x2 || y1==y2) continue;
+                
+                int x3 = x2;
+                int y3 = y1;
+                int x4 = x1;
+                int y4 = y2;
+                
+                if (Map[x3].find(y3)==Map[x3].end())
+                    continue;
+                if (Map[x4].find(y4)==Map[x4].end())
+                    continue;
+                
+                ret = std::min(ret, abs(x2-x1)*abs(y1-y2));
+            }
+        
+        return ret==INT_MAX? 0:ret;
+    }
     
+    int minAreaRect(vector<vector<int>>& points) {
+        set<std::pair<int, int>> pts;
+        for (auto& c : points)
+            pts.insert({c[0], c[1]});
+        
+        int ans = INT_MAX;
+        for (int i = 0; i < points.size(); i++)
+            for (int j = 0; j < i; j++) {
+                
+                if (points[i][0] != points[j][0] && points[i][1] != points[j][1] && pts.count({points[i][0], points[j][1]}) > 0 && pts.count({points[j][0], points[i][1]})) {
+                    ans = std::min(ans, abs(points[i][0] - points[j][0]) * abs(points[i][1] - points[j][1]));
+                }
+            }
+        
+        return ans == INT_MAX ? 0 : ans;
+    }
     
 public:
     
@@ -78,7 +132,7 @@ public:
      Space Complexity: O(N).
      """
     */
-    int doit1(vector<vector<int>>&& points) {
+    int doit_hashtable(vector<vector<int>>&& points) {
         
         // unordered_map<int, vector<int>> ylines;
         map<int, vector<int>> ylines;
@@ -196,14 +250,3 @@ public:
          return res == std::numeric_limits<int>::max() ? 0 : res;
     }
 };
-
-
-
-void test_939_minimum_area_rectangle() {
-    
-    auto res1 = MinAreaRectI().doit1(vector<vector<int>>{{1,1},{1,3},{3,1},{3,3},{2,2}});
-    
-    auto res2 = MinAreaRectI().doit2(vector<vector<int>>{{1,1},{1,3},{3,1},{3,3},{4,1},{4,3}});
-    
-    return;
-}

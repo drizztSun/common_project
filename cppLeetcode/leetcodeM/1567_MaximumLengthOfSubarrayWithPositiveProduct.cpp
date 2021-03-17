@@ -58,9 +58,6 @@ class MaximumLengthOfSubarry {
 
         因为根据j来确定左边界可以用o(1)时间完成，所以本题的时间复杂度是o(N).
     */
-
-
-public:
     int doit_greedy(vector<int>& nums) 
     {
         int ret = 0;
@@ -87,5 +84,36 @@ public:
             i = j;
         }
         return ret;
+    }
+
+public:
+
+    int doit_greedy_slidingwindow_twopointer(vector<int>& nums) {
+        
+        int total = 1, res = 0;
+        int pos = -1, neg = INT_MAX;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            
+            if (nums[i] == 0) {
+                total = 1;
+                pos = i;
+                neg = INT_MAX;
+                continue;
+            }
+            
+            total *= nums[i] > 0 ? 1 : -1;
+            
+            if (total < 0) {
+                if (neg == INT_MAX) {
+                    neg = i;
+                }
+                res = std::max(res, i - neg);
+            } else {
+                res = std::max(res, i - pos);
+            }
+        }
+        
+        return res;
     }
 };

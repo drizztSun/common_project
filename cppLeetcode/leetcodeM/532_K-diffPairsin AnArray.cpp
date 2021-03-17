@@ -52,7 +52,9 @@ Constraints:
 #include <algorithm>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::unordered_map;
 using std::vector;
 
@@ -70,6 +72,24 @@ class FindPairs {
         另外注意的一个细节就是，每确定一个指针i，都要重新定位j=i+1.
     
     */
+    int findPairs(vector<int>& nums, int k) 
+    {
+        if (k<0) return 0;
+        unordered_set<int>Set;
+        unordered_set<int>minSet;
+        
+        for (int i=0; i<nums.size(); i++)
+        {
+            if (Set.find(nums[i]-k)!=Set.end())
+                minSet.insert(nums[i]-k);
+            if (Set.find(nums[i]+k)!=Set.end())
+                minSet.insert(nums[i]);
+            Set.insert(nums[i]);
+        }
+        
+        return minSet.size();        
+    }
+
     int findPairs(vector<int>& nums, int k) 
     {
         if (nums.size()<2) return 0;
@@ -93,6 +113,22 @@ class FindPairs {
         return count;
     }
 
+    int doit_hashtable(vector<int>& nums, int k) {
+
+        unordered_map<int, int> buf;
+        for(auto c: nums) buf[c]++;
+        
+        int ans = 0;
+        for (auto it : buf) {
+        
+            if (k == 0)
+                ans += it.second > 1;
+            else if (buf.count(it.first - k)) 
+                ans++;
+        }
+        
+        return ans;
+    }
 
 public:
 

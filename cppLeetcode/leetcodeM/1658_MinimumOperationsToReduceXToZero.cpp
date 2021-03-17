@@ -47,11 +47,57 @@ Below, we will discuss two methods: Two Pointers (Indirectly) and Two Pointers (
 
 */
 #include <vector>
+#include <unordered_map>
 
+using std::unordered_map;
 using std::vector;
 
 
 class MinimumOperationToReduceXToZero {
+
+    /*
+        1658.Minimum-Operations-to-Reduce-X-to-Zero
+        本题的题意是：在nums数组里找a个元素的前缀和，与b个元素的后缀和，使得他们的sum是x，问如果能找到的话，a+b最少是多少？
+
+        比较直观的算法就是：从右往左遍历b的数目，给定了b，我们就要确定多少个元素的前缀和presum[a]，恰好等于x-sufsum[b]。显然，我们可以提前遍历数组来构建所有presum[i]->i的hash表。
+        利用这个hash表就能用o(1)时间快速得到指定前缀和所对应的位置。只要这个位置i小于b，那么i和b就是一对合法的解。
+
+        最终答案是遍历所有的b，找到i+(n-b)的最小值。
+    */
+    int minOperations(vector<int>& nums, int x) 
+    {
+        int n = nums.size();
+        unordered_map<int,int>Map;
+        int presum = 0;
+        Map[0] = -1;
+        for (int i=0; i<n; i++)
+        {
+            presum += nums[i];
+            if (Map.find(presum)==Map.end())
+                Map[presum] = i;
+        }
+        
+        int ret = INT_MAX;
+        if (Map.find(x)!=Map.end())
+            ret = Map[x]+1;
+        
+        int sufsum = 0;
+        for (int b = n-1; b>=0; b--)
+        {
+            sufsum += nums[b];
+            int pre = x - sufsum;
+            if (Map.find(pre)!=Map.end())
+            {
+                int a = Map[pre];
+                if (a<b)
+                {
+                    ret = std::min(ret, a+1 + n-b);
+                }
+            }
+        }
+        
+        return ret==INT_MAX ? -1: ret;        
+    }
 
 public:
 
@@ -142,7 +188,7 @@ public:
             }
             // check if equal
             if (current == total - x) {
-                maxi = max(maxi, right - left + 1);
+                maxi = std::max(maxi, right - left + 1);
             }
         }
         return maxi != -1 ? n - maxi : -1;
@@ -221,7 +267,7 @@ public:
             }
             // check if equal
             if (current == x) {
-                mini = min(mini, (n - 1 - right) + left);
+                mini = std::min(mini, (n - 1 - right) + left);
             }
         }
         return mini != INT_MAX ? mini : -1;

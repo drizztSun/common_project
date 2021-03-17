@@ -1,5 +1,4 @@
 /*
-
 1224. Maximum Equal Frequency
 
 Given an array nums of positive integers, return the longest possible length of an array prefix of nums, 
@@ -48,33 +47,32 @@ public:
 
 
     /*
-    Intuition
-    We need to count the frequency of numbers in A
-    Also we need to know, for each frequency, we have how many different numbers.
-    count[a] means the frequency of number a
-    freq[c] means how many numbers that occur c times.
+        Intuition
+        We need to count the frequency of numbers in A
+        Also we need to know, for each frequency, we have how many different numbers.
+        count[a] means the frequency of number a
+        freq[c] means how many numbers that occur c times.
 
 
-    Explanation
-    Iterate the input array A and we count the n first numbers.
+        Explanation
+        Iterate the input array A and we count the n first numbers.
 
-    There actually only 2 situation to discuss:
+        There actually only 2 situation to discuss:
 
-    we delete the current number a.
-    In this case, the n - 1 first numbers have the same frequency,
-    and we can easier detect this case when we iterate the previous number A[n - 1]
+        1. we delete the current number a.
+            In this case, the n - 1 first numbers have the same frequency,
+            and we can easier detect this case when we iterate the previous number A[n - 1]
 
-    we don't delete the current number a
-    the current a occurs c times.
-    So except all numbers that also occurs c times,
-    it should leave one single number, or c + 1 same numeber.
+        2. we don't delete the current number a
+            the current a occurs c times.
+            So except all numbers that also occurs c times,
+            it should leave one single number, or c + 1 same numeber.
 
-    That's it, done.
+        That's it, done.
 
-
-    Complexity
-    Time O(N)
-    Space O(K), where K = set(A).length
+        Complexity
+        Time O(N)
+        Space O(K), where K = set(A).length
 
     */
     int doit_search(vector<int>& A) {

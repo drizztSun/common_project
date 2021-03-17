@@ -46,11 +46,57 @@ Constraints:
 #include <vector>
 #include <algorithm>
 #include <unordered_map>
+#include <numeric>
 
 using std::unordered_map;
 using std::vector;
 
 class MakeSumDivisible {
+
+    /*
+        1590.Make-Sum-Divisible-by-P
+        假设整个数组的和除以P的余数是r0. 题目要求subarray的剩余数字和除以P于0，那么就意味着这个subarray sum除以P的余数就是r0. 于是本题就转化成了求最短的subarray，满足和是r0.
+
+        假设我们探索这样的subarray，令其右边界是j，那么左边界i可以取在哪里呢？我们可以利用前缀和的思想。如果presum[j]%P==r，那么我们必然要求presum[i]%P==r-r0（当然如果r-r0<0，那么我们就要补上一个周期变成r-r0+P）.
+        所以我们转化为了求与j最接近的索引i，满足presum[i]%P==r-r0。 显然，我们在遍历之前的presum的时候，可以每次都求一下它除以P的余数，然后存下余数->索引的映射关系。此时，我们就可以直接调用Map[r-r0]得到该余数对应的、最近的presum的索引值。
+
+        本题要注意，计算totalSum和preSum的过程中，都有可能会溢出。但事实上，所有的操作都和取余有关，所以我们只需要每一步求和都取余就行了。
+    */
+    int minSubarray(vector<int>& nums, int p) 
+    {
+        using ll = long long;
+
+        int n = nums.size();
+        unordered_map<int,int>Map;
+        Map[0] = -1;
+
+        ll sum = 0;
+        for (auto a: nums)
+            sum = (sum+a)%p;
+        ll r0 = sum % p;
+        if (r0==0) return 0;
+        
+        ll presum = 0;
+        int ret = INT_MAX;
+        
+        for (int i=0; i<n; i++)
+        {
+            presum += nums[i];
+            presum %= p;
+            ll r = presum % p;
+            ll diff = (r+p-r0) % p;            
+            
+            if (Map.find(diff)!=Map.end())
+                ret = std::min(ret, i-Map[diff]);
+            Map[r] = i;
+        }
+        
+        if (ret>=n)
+            return -1;
+        else 
+            return ret;
+    }
+
 
 public:
 
@@ -84,7 +130,7 @@ public:
             last[cur] = i;
             int want = (cur - need + p) % p;
             if (last.count(want))
-                res = min(res, i - last[want]);
+                res = std::min(res, i - last[want]);
         }
         
         return res < n ? res : -1;
