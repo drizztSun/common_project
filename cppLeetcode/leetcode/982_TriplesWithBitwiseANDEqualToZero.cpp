@@ -94,7 +94,7 @@ public:
     // key thinking: question is easy by itself
     // but the iteration technique is rare to see!
     // (iterate over subset of bit combos!)
-    int doit(vector<int>&& A) {
+    int doit_hashtable(vector<int>&& A) {
         // note A[i] < 2^16
         int n = A.size();
         vector<int> count(1 << 16, 0);
@@ -105,7 +105,7 @@ public:
         
         int res = 0;
         for(int i = 0; i < n; i ++){
-            int bits = (~A[i]) & 0xffff; // mask of 0-bits of A[i]
+            int bits = (~A[i]) & 0xffff; // mask of 0-bits of A[i], A[i] is 00011000100, then ~A[i] 11100111011, any bits is subbits of those 1s will be good candidatas.
             // iterate k until it reaches 0,
             // interesting technique is, we & k with bits!
             // since any 1-bit outside of bits will result in non-zero and result!
@@ -118,10 +118,3 @@ public:
         return res;
     }
 };
-
-void test_982_triple_with_bitwise_and_equal_to_zero() {
-    
-    int res = CountTriplets().doit(vector<int>{2,1,3});
-    
-    return;
-}
