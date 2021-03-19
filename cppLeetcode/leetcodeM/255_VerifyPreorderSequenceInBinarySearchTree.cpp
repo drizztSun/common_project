@@ -27,6 +27,7 @@ Could you do it using only constant space complexity?
 
 
 */
+#include <functional>
 #include <vector>
 #include <stack>
 

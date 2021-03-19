@@ -160,8 +160,6 @@ public:
             }
         };
         
-        
-        
         // The root node is the only node on the first level
         // and hence its the leftmost node for that level
         leftmost = root;
@@ -200,4 +198,5 @@ public:
         }
                 
         return root;
+    }
 };
