@@ -129,6 +129,44 @@ class PopulatingNextRightPointersII {
 
 
 public:
+
+    Node* connect(Node* root) {
+        
+        Node *cur = root, *leftmost = NULL, *last = NULL;
+        
+        auto connect = [&](Node* child) {
+            
+            if (!child) return;
+            
+            if (!leftmost) {
+                leftmost = child;
+                last = child;
+            } else {
+                last->next = child;
+                last = child;
+            }
+        };
+        
+        
+        while (cur) {
+            
+            leftmost = NULL;
+            last = NULL;
+            
+            
+            while (cur) {
+                
+                connect(cur->left);
+                connect(cur->right);
+                
+                cur = cur->next;
+            }
+            
+            cur = leftmost;
+        }
+        
+        return root;
+    }
     
     Node * connect(Node *root) 
     {

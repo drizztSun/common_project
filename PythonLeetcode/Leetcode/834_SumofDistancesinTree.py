@@ -1,3 +1,4 @@
+"""
 # 834. Sum of Distances in Tree
 
 # An undirected, connected tree with N nodes labelled 0...N-1 and N-1 edges are given.
@@ -20,85 +21,11 @@
 # We can see that dist(0,1) + dist(0,2) + dist(0,3) + dist(0,4) + dist(0,5)
 # equals 1 + 1 + 2 + 2 + 2 = 8.  Hence, answer[0] = 8, and so on.
 # Note: 1 <= N <= 10000
+"""
 
 class SumOfDistancesInTree:
-    
-    # <BFS> TLS
-    def doit1(self, N, edges):
-        """
-        :type N: int
-        :type edges: List[List[int]]
-        :rtype: List[int]
-        """
-        from collections import defaultdict
-        tree = defaultdict(set)
-        for c in edges:
-            tree[c[0]].add(c[1])
-            tree[c[1]].add(c[0])
 
-        res = [0] * N
-        for c in range(N):
-            
-            visited = set()
-            sum = 0
-            st = [(c, 0)]
-
-            while st:
-                p, s = st.pop(0)
-                sum += s
-                visited.add(p)
-
-                for n in tree[p]:
-                    if n not in visited:
-                        st.append((n, s + 1))
-
-            res[c] = sum
-
-        return res       
-        
-    def doit2(self, N, edges):
-        """
-        :type N: int
-        :type edges: List[List[int]]
-        :rtype: List[int]
-        """
-        from collections import defaultdict
-        
-        tree = defaultdict(set)
-        # paths = defaultdict(defaultdict(int))
-        paths = [[0 for _ in range(N)] for _ in range(N)]
-
-        for c in edges:
-            tree[c[0]].add(c[1])
-            tree[c[1]].add(c[0])
-
-            paths[c[0]][c[1]] = 1
-            paths[c[1]][c[0]] = 1
-
-
-        for i in range(N):
-            for j in range(N):
-                if i == j:
-                    continue
-                
-                if paths[i][j] == 0:
-                    length = 0
-                    st = [(i, 0)]
-                    while st:
-                        
-                        c, p = st.pop(0)
-                        for n in tree[c]:
-                            if n == j:
-                                length += 1
-
-                                    
-
-
-
-
-        pass
-               
-                      
+    """                      
     # Well, another long solution.
 
     # Intuition:
@@ -133,6 +60,7 @@ class SumOfDistancesInTree:
     # Time Complexity:
     # dfs: O(N)
     # dfs2: O(N)
+    """
     def doit(self, N, edges):
         """
         :type N: int
@@ -168,11 +96,3 @@ class SumOfDistancesInTree:
         post(0, set())
         pre(0, set())
         return res
-        
-
-if __name__ == "__main__":
-
-    res = SumOfDistancesInTree().doit(6, [[0,1],[0,2],[2,3],[2,4],[2,5]])
-
-    pass
-

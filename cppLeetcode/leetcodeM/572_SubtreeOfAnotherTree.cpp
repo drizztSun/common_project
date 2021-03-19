@@ -37,24 +37,30 @@ Return false.
 
 */
 #include <vector>
+#include <unordered_map>
 
+using std::unordered_map;
 using std::vector;
 
 
-class Solution {
-
- // Definition for a binary tree node.
- struct TreeNode {
-     int val;
-     TreeNode *left;
-     TreeNode *right;
-     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
+class SubtreeOfAnotherTree {
 
 
+    using ll = long long;
 
+
+    // Definition for a binary tree node.
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode() : val(0), left(nullptr), right(nullptr) {}
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    };
+
+    // -- _recursive --
+    // 解法1： 递归
     bool isSubtree(TreeNode* s, TreeNode* t) 
     {
         if (s==NULL||t==NULL)
@@ -71,6 +77,7 @@ class Solution {
         if (a->val!=b->val) return false;
         return isSame(a->left,b->left) && isSame(a->right,b->right);
     }
+    // -- end --- //
 
     /*
         572.Subtree-of-Another-Tree
@@ -83,13 +90,15 @@ class Solution {
         我们将每棵树按照先序遍历转化为数组S和T，就可以映射为一个unique的序列。注意，对于任何的叶子节点，序列里也要包含它的两个空叶子（可以设计为INT_MAX）.
 
         于是这道题就变成了在序列S里找一段和T一样的window。这就可以用到KMP算法。尽管这里的“目标串”和“模式串”都是数组而不是字符串，但并不妨碍KMP算法的实现：依旧是先计算模式串的自相关后缀数组，再计算S和T之间的互相关后缀数组。
-    
+
+        解法3： UID
+        参考652.Find-Duplicate-Subtrees的解法。先对s树的所有子树进行编号(包括key和ID），在已有的key2Id数据库的基础上，再对t树的所有子树用同样的法则进行编号。如果t树根节点的编号在数据库里出现了2次或以上，那么就说明t树必然在s树里出现过（因为t树里面不可能出现两个结构相同的、以t为根节点子树）。
     */
 
 
 public:
 
-    bool doit_(TreeNode* s, TreeNode* t) {
+    bool doit_KMP(TreeNode* s, TreeNode* t) {
 
         vector<int> S, T;
         convert(s, S);
@@ -102,7 +111,6 @@ public:
             while (j > 0 && T[j] != T[i]) {
                 j = pattern[j-1];
             }
-
             pattern[i] = j + (T[i] == T[j]);
         }
 
@@ -123,7 +131,7 @@ public:
         return false;
     }
 
-
+    // 解法2： KMP
     bool isSubtree(TreeNode* s, TreeNode* t) 
     {
         vector<int>S, T;
@@ -169,5 +177,36 @@ public:
             dp[i] = j+(P[j]==P[i]);
         }
         return dp;
+    }
+
+public:
+
+    // 解法3： UID
+    unordered_map<ll, int>key2Id;
+    unordered_map<ll, int>key2Count;
+    unordered_map<ll, int>Id2key;
+
+    bool isSubtree(TreeNode* s, TreeNode* t) 
+    {
+        getId(s);
+        int ID = getId(t);
+        for (auto x: key2Id)
+        {
+            if (x.second==ID)
+                return key2Count[x.first] > 1;
+        }
+        return false;
+    }
+    
+    ll getId(TreeNode* node)
+    {
+        if (node==NULL) return 0;        
+        ll key = (getId(node->left)<<32) + (getId(node->right)<<16) + node->val;        
+        key2Count[key]+=1;
+        if (key2Id.find(key)==key2Id.end())
+        {
+            key2Id[key] = key2Id.size()+1;                        
+        }        
+        return key2Id[key];
     }
 };
