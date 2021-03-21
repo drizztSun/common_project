@@ -49,6 +49,19 @@ class BuildingsWithOceanView {
 public:
     
     vector<int> doit_(vector<int>& heights) {
+
+        int maxv = 0;
+        vector<int> ans;
         
+        for (int i = heights.size() - 1; i >= 0; i--) {
+            
+            if (heights[i] > maxv) {
+                ans.push_back(i);
+                maxv = heights[i];
+            }
+        }
+        
+        std::reverse(begin(ans), end(ans));
+        return ans;
     }
 };
