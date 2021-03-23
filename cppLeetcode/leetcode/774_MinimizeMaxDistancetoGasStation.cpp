@@ -77,7 +77,7 @@ public:
             auto [space, insertNum] = pq.top();
             pq.pop();
             
-            pq.push({space * insertNum / (insertNum+1), insertNum + 1});            
+            pq.push({space * insertNum / (insertNum+1), insertNum + 1});
         }
         
         return pq.top().first;
@@ -98,9 +98,10 @@ public:
             for (int i=1; i<stations.size(); i++)
             {
                 double k = (stations[i]-stations[i-1])/mid;
-                count+=  ceil(k)-1;               
+                count += ceil(k)-1;               
             }
-            if (count>K)
+
+            if (count > K)
                 left = mid;
             else
                 right = mid;            

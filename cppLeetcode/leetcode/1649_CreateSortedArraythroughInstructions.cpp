@@ -63,6 +63,7 @@
  */
 #include <algorithm>
 #include <vector>
+#include <functional>
 
 using std::vector;
 
@@ -90,7 +91,6 @@ class CreateSortedArrayThroughInstructions {
 
         BIT的模板相对更简单一些。简单的说，我们将1-index的原数组nums，做一些变换映射到1-index的新数组bitArray.我们对于nums的单点更新、区间求和，都可以映射成在bitArray上的一些操作。
         BIT提供了两个API，分别是update(i,delta)和querySum(i,j)，前者是用来单点更新nums[i]+=delta，后者是用来求区间nums[i:j]的和。
-    
     */
     int numSmaller[100005];
     int temp[100005];    
@@ -104,9 +104,55 @@ public:
     {
         int n = nums.size();
         for (int i=0; i<n; i++)
-            sorted[i] = nums[i];                 
+            sorted[i] = nums[i];
+
+        std::function<void(int, int)> helper = [&](int a, int b) {
+
+            if (a>=b) return;        
+            
+            int mid = a+(b-a)/2;
+            helper(a, mid);
+            helper(mid+1, b);
+            
+            for (int i=mid+1; i<=b; i++)
+            {
+                auto iter = std::lower_bound(sorted+a, sorted+mid+1, nums[i]);
+                numSmaller[i] += iter-(sorted+a);
+            }
+            
+            int i=a, j=mid+1, p = 0;        
+            while (i<=mid && j<=b)
+            {
+                if (sorted[i]<=sorted[j])
+                {
+                    temp[p] = sorted[i];
+                    i++;
+                }                
+                else
+                {
+                    temp[p] = sorted[j];
+                    j++;
+                } 
+                p++;
+            }
+            while (i<=mid)
+            {
+                temp[p] = sorted[i];
+                i++;
+                p++;
+            }
+            while (j<=b)
+            {
+                temp[p] = sorted[j];
+                j++;
+                p++;
+            }
+            for (int i=0; i<b-a+1; i++)
+                sorted[a+i] = temp[i];
+        };                
                 
-        helper(nums, 0, n-1);        
+        helper(0, n-1);
+
         int ret = 0;
         for (int i=0; i<n; i++)
         {
@@ -116,57 +162,15 @@ public:
         }            
         return ret;
     }
-    
-    void helper(vector<int>& nums, int a, int b)
-    {
-        if (a>=b) return;        
-        int mid = a+(b-a)/2;
-        helper(nums, a, mid);
-        helper(nums, mid+1, b);
-        
-        for (int i=mid+1; i<=b; i++)
-        {
-            auto iter = std::lower_bound(sorted+a, sorted+mid+1, nums[i]);
-            numSmaller[i] += iter-(sorted+a);
-        }
-           
-        int i=a, j=mid+1, p = 0;        
-        while (i<=mid && j<=b)
-        {
-            if (sorted[i]<=sorted[j])
-            {
-                temp[p] = sorted[i];
-                i++;
-            }                
-            else
-            {
-                temp[p] = sorted[j];
-                j++;
-            } 
-            p++;
-        }
-        while (i<=mid)
-        {
-            temp[p] = sorted[i];
-            i++;
-            p++;
-        }
-        while (j<=b)
-        {
-            temp[p] = sorted[j];
-            j++;
-            p++;
-        }
-        for (int i=0; i<b-a+1; i++)
-            sorted[a+i] = temp[i];
-    }
 
-  
+public:
+
     const int MAX_N = 100000;
     long long bitArr[MAX_N+1];
     long long nums[MAX_N+1];
     long long M = 1e9+7;
 
+    // BIT
     void updateDelta(int i, long long delta) {
         int idx = i;
         while (idx <= MAX_N)
@@ -191,7 +195,7 @@ public:
         return queryPreSum(j)-queryPreSum(i-1);
     }
     
-    int createSortedArray(vector<int>& instructions) 
+    int doit_BIT(vector<int>& instructions) 
     {        
         long long ret = 0;
         
@@ -209,7 +213,7 @@ public:
     
 public:
     
-    int doit_BIT(vector<int>&& instructions) {
+    int doit_BIT(vector<int>& instructions) {
         
         int m = *max_element(begin(instructions), end(instructions)) + 2;
         vector<int> bitbuff(m, 0);
@@ -219,7 +223,6 @@ public:
         auto update = [&](int c, int v = 1) {
             c += 1;
             while (c < m) {
-                
                 bitbuff[c] += v;
                 c += c & (-c);
             }
@@ -228,12 +231,10 @@ public:
         auto query = [&](int c) {
             c += 1;
             int res = 0;
-            
             while (c > 0) {
                 res += bitbuff[c];
                 c -= c & (-c);
             }
-            
             return res;
         };
         
@@ -248,14 +249,3 @@ public:
         return ans;
     }
 };
-
-
-void test_1649_create_sorted_array_cost() {
-    
-    CreateSortedArrayThroughInstructions().doit_BIT(vector<int>{1, 5, 6, 2});
-    
-    CreateSortedArrayThroughInstructions().doit_BIT(vector<int>{1,2,3,6,5,4});
-    
-    CreateSortedArrayThroughInstructions().doit_BIT(vector<int>{1,3,3,3,2,4,2,1,2});
-    
-}

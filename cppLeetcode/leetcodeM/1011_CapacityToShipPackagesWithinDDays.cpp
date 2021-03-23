@@ -1,6 +1,4 @@
 /*
- 
- 
  # 1011. Capacity To Ship Packages Within D Days
 
  # A conveyor belt has packages that must be shipped from one port to another within D days.
@@ -45,60 +43,86 @@
  # 2nd day: 2
  # 3rd day: 3
  # 4th day: 1, 1
- 
- 
- */
+*/
 
 #include <vector>
+#include <algorithm>
+#include <numeric>
+
 using std::vector;
 
 class ShipWithinDays {
+
+    /*
+        Explanation
+        Given the number of bags,
+        return the minimum capacity of each bag,
+        so that we can put items one by one into all bags.
+
+        We binary search the final result.
+        The left bound is max(A),
+        The right bound is sum(A).
+
+
+        More Good Binary Search Problems
+        Here are some similar binary search problems.
+        Also find more explanations.
+        Good luck and have fun.      
+    */
+    int binarysearch(vector<int>& weights, int D) {
+        int left = 0, right = 25000000;
+        for (int w: weights)
+            left = std::max(left, w);
+
+        while (left < right) {
+            int mid = (left + right) / 2, need = 1, cur = 0;
+            for (int i = 0; i < weights.size() && need <= D; cur += weights[i++])
+                if (cur + weights[i] > mid)
+                    cur = 0, need++;
+
+            if (need > D) 
+                left = mid + 1;
+            else 
+                right = mid;
+        }
+        return left;
+    }
+
     
 public:
-    int doit(vector<int>&& weights, int D) {
+    int doit_binary_search(vector<int>&& weights, int D) {
         
-        int total = 0, maxv = 0;
-        for (auto c : weights) {
-            total += c;
-            if (maxv < c)
-                maxv = c;
-        }
-        
-        int res = total;
-        while (maxv <= total) {
-            
-            int mid = (maxv + total) / 2;
-            int days = 1, parts = 0;
-            
+        int left = *max_element(begin(weights), end(weights));
+        int right = accumulate(begin(weights), end(weights), 0);
+
+        auto check = [&](int units) {
+
+            int needed = 1, total = 0;
+
             for (auto c : weights) {
-                if (parts + c > mid) {
-                    days++;
-                    parts = 0;
+                if (total + c > units) {
+                    total = 0;
+                    needed++;
                 }
-                parts += c;
+                total += c;
             }
-            
-            if (days <= D) {
-                total = mid - 1;
-                if (res > mid)
-                    res = mid;
-            } else
-                maxv = mid + 1;
+
+            return needed;
+        };
+
+        while (left < right) {
+
+            int mid = left + (right - left) / 2;
+
+            int days = 0;
+
+            if (check(mid) > D)
+                left = mid + 1;
+            else
+                right = mid;
+
         }
-        
-        return res;
+
+        return left;
     }
 };
-
-
-void test_1011_capacity_to_ship_package_within_d_days() {
-    
-    auto res1 = ShipWithinDays().doit(vector<int>{1,2,3,4,5,6,7,8,9,10}, 5);
-    
-    auto res2 = ShipWithinDays().doit(vector<int>{3,2,2,4,1,4}, 3);
-    
-    auto res3 = ShipWithinDays().doit(vector<int>{1,2,3,1,1}, 4);
-    
-    return;
-}
-

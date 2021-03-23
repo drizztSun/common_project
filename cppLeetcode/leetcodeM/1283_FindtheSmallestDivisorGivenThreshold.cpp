@@ -77,6 +77,30 @@ class SmallestDivisor {
         return sum<=threshold;
     }
 
+    /*
+        Explanation
+        Binary search the result.
+        If the sum > threshold, the divisor is too small.
+        If the sum <= threshold, the divisor is big enough.
+
+        Complexity
+        Time O(NlogM), where M = max(A)
+        Space O(1)
+    */
+    int binary_search(vector<int>& A, int threshold) {
+        int left = 1, right = 1e6, m, sum;
+        while (left < right) {
+            m = (left + right) / 2, sum = 0;
+            for (int i : A)
+                sum += (i + m - 1) / m;
+            if (sum > threshold)
+                left = m + 1;
+            else
+                right = m;
+        }
+        return left;
+    }
+
 public:
 
     int doit_binary_search(vector<int>& nums, int threshold) {

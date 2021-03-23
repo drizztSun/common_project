@@ -57,8 +57,7 @@ public:
 
     vector<vector<int>> doit_heap_best(vector<vector<int>>& buildings) {
         
-        if (buildings.empty())
-            return {};
+        if (buildings.empty()) return {};
      
         vector<vector<int>> skyline;
         priority_queue<tuple<int, int, int, int>> heap;
@@ -114,7 +113,6 @@ public:
 	vector<vector<int>> doit_heap(vector<vector<int>>& buildings) {
 
         priority_queue<pair<int, int>> rightNd;
-        // 
         vector<vector<int>> skyline;
         size_t i = 0, x = 0;
         
@@ -165,9 +163,8 @@ public:
 		if the new building starts before the top one ends, then process the new building (just put them in the queue).
 		After processing, output it to the resulting vector if the height changes. Complexity is the worst case O(NlogN)
 
-		Not sure why my algorithm is so slow considering others� Python solution can achieve 160ms, any commments?
+		Not sure why my algorithm is so slow considering others Python solution can achieve 160ms, any commments?
 	*/
-
 	vector<pair<int, int>> doit(vector<vector<int>>& buildings) {
 
 		std::priority_queue<pair<int, int>> heightQ;
@@ -179,7 +176,7 @@ public:
 			if (heightQ.empty() || (i < buildings.size() && buildings[i][0] <= heightQ.top().second)) {
 				x = buildings[i][0];
 				while (i < buildings.size() && buildings[i][0] <= x) {
-					heightQ.push(make_pair(buildings[i][2], buildings[i][1]));
+					heightQ.push({buildings[i][2], buildings[i][1]});
 					i++;
 				}
 			}
@@ -193,7 +190,7 @@ public:
 			int height = heightQ.empty() ? 0 : heightQ.top().first;
 
 			if (skyline.empty() || height != skyline.back().second) {
-				skyline.push_back(make_pair(x, height));
+				skyline.push_back({x, height});
 			}
 		}
 
@@ -204,7 +201,7 @@ public:
 
 		vector<vector<int>> res;
 		int cur = 0, cur_X, cur_H = -1, len = buildings.size();
-		priority_queue< pair<int, int>> liveBlg; // first: height, second, end time
+		priority_queue<pair<int, int>> liveBlg; // first: height, second, end time
 
 		while (cur<len || !liveBlg.empty())
 		{ // if either some new building is not processed or live building queue is not empty
@@ -270,6 +267,8 @@ public:
 
     /*
         218.The-Skyline-Problem
+        ---
+
         解法1:有序容器
         此题需要设置一个multiSet记录所有的当前下降沿的高度，则*prev(Set.end(),1)就是这个Set里的最大值。
 
@@ -281,6 +280,7 @@ public:
 
         有一个细节需要注意，在生成edges数组时，如果某一个位置同时有上升沿也有下降沿，注意要先考察上升沿，再考察下降沿。也就是要先加入一个上升沿，再退出可能的下降沿。否则类似[[0,2,3],[2,5,3]]的测试例子就会有问题。
 
+        ---
         解法2:线段树
         此题类似 699. Falling Squares 的方法,采用改造的线段树模型.同样,这里每个区间的status表示该区间内的maxHeight.
 
@@ -322,38 +322,6 @@ public:
         另外，本题中setStatus并不会合并相邻的高度相同的区间，所以通过DFS抽取后的区间集合仍然要在做合并的处理。
     
     */
-    vector<pair<int, int>> doit_heap_1(vector<vector<int>>& buildings) 
-    {
-        vector<vector<int>>edges;
-        for (int i=0;i<buildings.size(); i++)
-        {
-            edges.push_back({buildings[i][0],-buildings[i][2]});
-            edges.push_back({buildings[i][1],buildings[i][2]});
-        }
-        
-        sort(edges.begin(),edges.end());
-        
-        multiset<int>Set={0};        
-        vector<pair<int, int>>results;
-        int cur=0;
-        
-        for (int i=0; i<edges.size(); i++)
-        {
-            if (edges[i][1]<0) 
-                Set.insert(-edges[i][1]);
-            else
-                Set.erase(Set.lower_bound(edges[i][1]));
-            
-            int H=*Set.rbegin();
-            if (cur!=H)
-                results.push_back({edges[i][0],H});
-            cur=H;
-        }
-        
-        return results;
-    }
-
-
     class SegTree
     {
         public:
@@ -430,5 +398,36 @@ public:
             DFS(node->left);
             DFS(node->right);
         }
+    }
+
+    vector<pair<int, int>> doit_heap_1(vector<vector<int>>& buildings) 
+    {
+        vector<vector<int>>edges;
+        for (int i=0;i<buildings.size(); i++)
+        {
+            edges.push_back({buildings[i][0],-buildings[i][2]});
+            edges.push_back({buildings[i][1],buildings[i][2]});
+        }
+        
+        sort(edges.begin(),edges.end());
+        
+        multiset<int>Set={0};        
+        vector<pair<int, int>>results;
+        int cur=0;
+        
+        for (int i=0; i<edges.size(); i++)
+        {
+            if (edges[i][1]<0) 
+                Set.insert(-edges[i][1]);
+            else
+                Set.erase(Set.lower_bound(edges[i][1]));
+            
+            int H=*Set.rbegin();
+            if (cur!=H)
+                results.push_back({edges[i][0],H});
+            cur=H;
+        }
+        
+        return results;
     }
 };

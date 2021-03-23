@@ -148,22 +148,12 @@ public:
      
      **Complexity Analysis**
 
-         Time complexity : O(n * log(sum of array)). The binary search costs O(log(sum of array)), where sum of array is the sum of elements in nums. For each computation of F(x), the time complexity is O(n)O(n)O(n) since we only need to go through the whole array.
+         Time complexity : O(n * log(sum of array)). The binary search costs O(log(sum of array)), where sum of array is the sum of elements in nums. For each computation of F(x), the time complexity is O(n) since we only need to go through the whole array.
 
-         Space complexity : O(n)O(n)O(n). Same as the Brute Force approach. We only need the space to store the array.
+         Space complexity : O(n). Same as the Brute Force approach. We only need the space to store the array.
 
-     */
-    
+    */
     int doit_binary_search_1(vector<int>& nums, int m) {
-        
-        /*
-        int total = 0, maxv = 0;
-        for (auto c : nums) {
-            total += c;
-            if (c > maxv) {
-                maxv = c;
-            }
-        }*/
 
         int maxv = *std::max_element(begin(nums), end(nums));
         int total = std::accumulate(begin(nums), end(nums), 0);
@@ -175,8 +165,7 @@ public:
                 if (cur > target) {
                     cur = c;
                     cnt++;
-                    if (cnt > m)
-                        return false;
+                    if (cnt > m) return false;
                 }
             }
             return true;

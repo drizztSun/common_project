@@ -1,10 +1,7 @@
 /*
-
 315. Count of Smaller Numbers After Self
 
 You are given an integer array nums and you have to return a new counts array. The counts array has the property where counts[i] is the number of smaller elements to the right of nums[i].
-
- 
 
 Example 1:
 
@@ -90,11 +87,10 @@ class CountSmallerNumber {
         return counts;
     }
     
-    vector<int> doit_BIT(vector<int>& nums) {
+    vector<int> doit_BIT_best(vector<int>& nums) {
         
         int maxv = *max_element(begin(nums), end(nums));
         int min_val = *min_element(begin(nums), end(nums));
-        // vector<int> bit(100002,0);
         vector<int> bit(maxv - min_val + 10, 0);
         vector<int> output(nums.size());
 
@@ -120,7 +116,9 @@ class CountSmallerNumber {
 
         for(int i = nums.size()-1; i >=0; i--)
         {
-            if(min_val<0) nums[i] += (-min_val+1);
+            // if(min_val<0) nums[i] += (-min_val+1);
+
+            nums[i] += (-min_val+1);
 
             int count = get(nums[i]-1);
         
@@ -128,12 +126,14 @@ class CountSmallerNumber {
             
             update(nums[i],1);
         }
+
         return output;
     }
 
 
 public:
     
+    // O(n*log^2(n)) => O(n^2) not good
     vector<int> doit_binary_search(vector<int>& nums) {
         
         int n = nums.size();

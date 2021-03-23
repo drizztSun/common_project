@@ -39,6 +39,35 @@ using std::vector;
 
 class MinEatingSpeed {
 
+    /*
+        Explanation
+        Binary search between [1, 10^9] or [1, max(piles)] to find the result.
+        Time complexity: O(NlogM)
+
+        (p + m - 1) / m equal to ceil(p / m) (just personal behavior)
+
+        Here you find another similar problem.
+        774. Minimize Max Distance to Gas Station
+
+
+        Complexity
+        Time O(Nlog(MaxP))
+        Space O(1)
+    */
+    int doit_binary_search(vector<int>& piles, int H) {
+        int l = 1, r = 1000000000;
+        while (l < r) {
+            int m = (l + r) / 2, total = 0;
+            for (int p : piles)
+                total += (p + m - 1) / m;
+            if (total > H)
+                l = m + 1;
+            else
+                r = m;
+        }
+        return l;
+    }
+
 public:
 
     int doit_binary_search(vector<int>& piles, int H) {

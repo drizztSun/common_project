@@ -87,6 +87,42 @@ class DicideChocolate {
         return count>=K+1;
     }
 
+    /*
+        Please reply and upvote now.
+        Don't have prime membership.
+        Cannot even read and modify my own post later, when it's locked.
+
+
+        Explanation
+        We want to maximize the minimum sweetness.
+        Binary search the result between 1 and 10^9.
+
+        Don'e explain binary search too much again and again.
+        Please find more related explanation in More.
+        Also will explain it more in details on youtube lee215.
+
+        Time O(Nlog(10^9))
+        Space O(1)
+    */
+    int binary_search(vector<int>& A, int K) {
+        int left = 1, right = 1e9 / (K + 1);
+        while (left < right) {
+            int mid = (left + right + 1) / 2;
+            int cur = 0, cuts = 0;
+            for (int a : A) {
+                if ((cur += a) >= mid) {
+                    cur = 0;
+                    if (++cuts > K) break;
+                }
+            }
+            if (cuts > K)
+                left = mid;
+            else
+                right = mid - 1;
+        }
+        return left;
+    }
+
 public:
     
     int doit_binary_search(vector<int>& sweetness, int K) {

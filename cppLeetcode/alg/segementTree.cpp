@@ -11,7 +11,7 @@ class RangeModule {
         
         void remove(SegTree* &node)
         {
-            if (node==NULL) return;
+            if (node == NULL) return;
             remove(node->left);
             remove(node->right);
             delete node;
@@ -28,14 +28,18 @@ class RangeModule {
                 status = T;
                 return;
             }
-            if (a>=end || b<=start) // bottom condition 2: [a,b) do not intersect with [start,end)
-                return;
+
+            // bottom condition 2: [a,b) do not intersect with [start,end)
+            if (a>=end || b<=start) return;
+
             int mid = start+(end-start)/2;
-            if (left==NULL)         // no children? create them!
+            
+            if (left == NULL)         // no children? create them!
             {
                 left = new SegTree(start,mid,status);
                 right = new SegTree(mid,end,status);
             }
+            
             left->setStatus(a,b,T);
             right->setStatus(a,b,T);
             status =left->status && right->status;
@@ -43,15 +47,16 @@ class RangeModule {
         
         bool getStatus(int a, int b)
         {            
-            if (a<=start && b>=end)   // bottom condition 1: [a,b)>[start,end)
-                return status;
-            if (a>=end || b<=start)     // bottom condition 2: [a,b) do not intersect with [start,end)
-                return true;
-            if (left==NULL)
-                return status;
+            // bottom condition 1: [a,b)>[start,end)
+            if (a<=start && b>=end) return status;
+            // bottom condition 2: [a,b) do not intersect with [start,end)
+            if (a>=end || b<=start) return true;
+            if (left==NULL) return status;
+
             int mid = start+(end-start)/2;
             bool L = left->getStatus(a,b);
             bool R = right->getStatus(a,b);
+
             return L&&R;
         }        
     };
@@ -60,9 +65,7 @@ public:
     
     SegTree root = SegTree(0,1e9,false);
     
-    RangeModule() 
-    {
-    }
+    RangeModule(){}
     
     void addRange(int left, int right) 
     {
