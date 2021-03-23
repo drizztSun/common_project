@@ -36,6 +36,53 @@ Constraints:
 
 class MaxValue {
 
+    /*
+        1802.Maximum-Value-at-a-Given-Index-in-a-Bounded-Array
+        本题很容易想到贪心的策略。既然要使得所用的数字总和不超过maxSum，那我们就省着用。怎么用呢？令index那个位置最高，然后往两边依次递减，每移一个位置就减1。直至递减到1之后，如果还需要再往两边延伸的话，就继续维持1。这个方案是固定index的高度，同时满足所有条件下、数字总和最小的决策。
+        反之，如果固定数字总和，那么这个方案就是满足所条件下、index位置最高的决策。
+
+        我们用二分搜值的方法，探索index位置的高度。假设当高度为h时，判断该贪心决策所需要的数字总和是否小于等于maxSum。是的话，那么h可能是解，但还可以往大猜；反之，那么h不是解，且必须往小猜。
+
+        在检验函数中，我们需要考虑两个等差数列。前者从index位置的h，往前逐位递减，直至递减至1或者数组的第一个位置；后者从index位置的h，往后逐位递减，直至递减至1或者数组的最后位置。计算两个等差数列之和。另外注意，等差数列降至1时，如果还有元素需要填充1，那么需要正确计算它们的个数。
+    */
+    int binary_search(int n, int index, int maxSum) 
+    {
+        int left = 1, right = maxSum;
+        while (left < right)
+        {
+            int mid = right - (right-left)/2;
+            if (count(mid, n, index) <= (long)maxSum)
+                left = mid;
+            else
+                right = mid - 1;
+        }
+        return left;        
+    }
+    
+    long count(long h, long n, long index)
+    {
+        long sum = 0;
+        if (h > index)
+        {
+            sum += (h-index + h)*(index+1)/2;
+        }
+        else
+        {
+            sum += (1+h)*h/2;
+            sum += index+1-h;
+        }
+        if (h > n-index)
+        {
+            sum += (h + h-(n-index)+1)*(n-index)/2;
+        }
+        else
+        {
+            sum += (h + 1)*h/2;
+            sum += (n - (index+h));
+        }
+        return sum-h;
+    }
+
 public:
 
     /*
