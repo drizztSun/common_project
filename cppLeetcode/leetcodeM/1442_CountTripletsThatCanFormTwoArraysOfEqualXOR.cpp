@@ -155,7 +155,7 @@ public:
         Space O(N)
         Space O(1) if changing the input
     */
-    int doit_prefix_1(vector<int>& A) {
+    int doit_prefix_best(vector<int>& A) {
         A.insert(A.begin(), 0);
         int n = A.size(), res = 0;
 

@@ -1,7 +1,9 @@
 /*
 1310. XOR Queries of a Subarray
 
-Given the array arr of positive integers and the array queries where queries[i] = [Li, Ri], for each query i compute the XOR of elements from Li to Ri (that is, arr[Li] xor arr[Li+1] xor ... xor arr[Ri] ). Return an array containing the result for the given queries.
+Given the array arr of positive integers and the array queries where queries[i] = [Li, Ri], for each query i compute the XOR of elements from Li to Ri (that is, arr[Li] xor arr[Li+1] xor ... xor arr[Ri] ). 
+
+Return an array containing the result for the given queries.
  
 
 Example 1:
@@ -39,6 +41,27 @@ queries[i].length == 2
 using std::vector;
 
 class xorQueries {
+
+    /*
+        1310.XOR-Queries-of-a-Subarray
+        求区间的异或和，可以转化为前缀异或和的异或。即xor[i:j] = pre_xor[j] ^ pre_xor[i-1].
+    */
+    vector<int> XOR(vector<int>& arr, vector<vector<int>>& queries) 
+    {
+        vector<int>q({0});
+        for (int i=0; i<arr.size(); i++)
+            q.push_back(q.back()^arr[i]);
+        
+        vector<int>rets;
+        for (auto query:queries)
+        {
+            int a = query[0]+1;
+            int b = query[1]+1;
+            rets.push_back(q[a-1]^q[b]);            
+        }
+        return rets;
+    }
+
 
 public:
 

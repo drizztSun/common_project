@@ -31,7 +31,7 @@ encoded.length == n - 1
 */
 
 
-class Solution {
+class DecodeXORArray {
 public:
     vector<int> decode(vector<int>& encoded, int first) {
 

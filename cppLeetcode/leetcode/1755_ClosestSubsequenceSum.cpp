@@ -46,7 +46,7 @@ class MinAbsDifference {
 
 public:
     const int N = 2000010;
-    int q[N];
+    int q[2000010];
     int n, cnt, goal, ans;
     
     void dfs_firsthalf(vector<int>& nums, int u, int s){
@@ -63,7 +63,7 @@ public:
             int l = 0, r = cnt-1;
             //找到和小于goal的最大的和
             while(l < r){
-                int mid = l + r + 1 >> 1;
+                int mid = (l + r + 1) >> 1;
                 if(q[mid] + s <= goal) 
                     l = mid;
                 else 
@@ -96,6 +96,8 @@ public:
         
         return ans;
     }
+
+public:
 
     /*
         1755.Closest-Subsequence-Sum
@@ -146,19 +148,17 @@ public:
         //     return sums;
         // }
     */
-    int doit_brute_force(vector<int>& nums, int goal) 
+    int minAbsDifference(vector<int>& nums, int goal) 
     {
-        int ret = 0;
-
+        int ret = INT_MAX;
         int m = nums.size()/2;
-        int n = nums.size() - m;
-        vector<int>nums1(nums.begin(), nums.begin() + m);
-        vector<int>nums2(nums.begin() + m, nums.end());
+        int n = nums.size()-m;
+        vector<int>nums1(nums.begin(), nums.begin()+m);
+        vector<int>nums2(nums.begin()+m, nums.end());
 
-        auto getSubSetsSum = [](vector<int>&nums) {
-            // make sorted sums permutation
+        auto getSubSetsSum = [](vector<int>&nums){
+
             vector<int> sums({0});
-
             for (int x: nums)
             {
                 vector<int>temp;
@@ -166,13 +166,12 @@ public:
                 while (i<n && j<n)
                 {
                     if (sums[i]+x < sums[j])
-                    {   // it means there is new value coming, with x
+                    {
                         temp.push_back(sums[i]+x);
                         i++;
                     }
                     else
                     {
-                        // less value, save this one without x
                         temp.push_back(sums[j]);
                         j++;
                     }
@@ -192,23 +191,24 @@ public:
             return sums;
         };
 
-        vector<int> a = getSubSetsSum(nums1);
-        vector<int> b = getSubSetsSum(nums2);
+
+        vector<int>a = getSubSetsSum(nums1);
+        vector<int>b = getSubSetsSum(nums2);
 
         auto findAns = [&](vector<int>&a, vector<int>&b, int goal) {
+
             for (auto x: a)
             {
-                // first bigger than goal
                 auto iter = lower_bound(b.begin(), b.end(), goal-x);
+                
                 if (iter!=b.end())
                     ret = std::min(ret, abs(goal-x - *iter));
 
-                // last smaller than goal
                 if (iter!=b.begin())
                     ret = std::min(ret, abs(goal-x - *prev(iter)));
             }
         };
-
+        
         findAns(a,b,goal);
         findAns(b,a,goal);
         return ret;

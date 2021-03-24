@@ -84,42 +84,40 @@ public:
                 cur.insert(x&y);
             
             for(auto& z: cur) 
-                res = min(res, abs(z-target));
+                res = std::min(res, abs(z-target));
             
             pre = move(cur);
         }          
         return res;
     }
 
-    int dem[26];
-    void add(int &sum, int x)
-    {
-        for (int i = 0; i <= 24; i++)
-        {
-            if (((x >> i) & 1) == 0)
-            {
-                dem[i]++;
-                if (dem[i] == 1) sum = sum ^ (1 << i);
-            }
-        }
-    }
-    
-    void remove(int &sum, int x)
-    {
-        for (int i = 0; i <= 24; i++)
-        {
-            if (((x >> i) & 1) == 0)
-            {
-                dem[i]--;
-                if (dem[i] == 0) sum = sum | (1 << i);
-            }
-        }
-    }
-    
     int doit_slidingwindow_best(vector<int>& arr, int target) {
         int sum = (1 << 25) - 1;
         int ans = INT_MAX;
-        memset(dem, 0, sizeof(dem));
+        int zeros[26];
+        memset(zeros, 0, sizeof(zeros));
+        
+        auto add = [&](int &sum, int x) {
+            for (int i = 0; i <= 24; i++)
+            {
+                if (((x >> i) & 1) == 0)
+                {
+                    zeros[i]++;
+                    if (zeros[i] == 1) sum = sum ^ (1 << i);
+                }
+            }
+        };
+        
+        auto remove = [&](int &sum, int x) {
+            for (int i = 0; i <= 24; i++)
+            {
+                if (((x >> i) & 1) == 0)
+                {
+                    zeros[i]--;
+                    if (zeros[i] == 0) sum = sum | (1 << i);
+                }
+            }
+        };
         
         for (int l = 0, r = 0; r < arr.size(); r++)
         {
@@ -190,7 +188,7 @@ public:
     int doit(vector<int>& arr, int target) {
         int ans = INT_MAX, n = arr.size();
     
-        set<int> st[n];
+        vector<set<int>> st(n);
         // set[i] -> contains **unique** AND values of subarrays starting from ith index 
 
         st[n-1] = { arr[n-1] };

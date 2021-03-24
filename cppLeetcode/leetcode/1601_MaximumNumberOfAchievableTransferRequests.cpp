@@ -53,7 +53,7 @@ requests[i].length == 2
 */
 #include <vector>
 #include <queue>
-
+#include <functional>
 
 using std::queue;
 using std::vector;
@@ -124,7 +124,7 @@ public:
                if (check(state, n, count))
                   ret = std::max(ret, count);
          }
-         return ret;        
+         return ret;
       }
     
 

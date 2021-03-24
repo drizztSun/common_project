@@ -62,7 +62,6 @@ m == toppingCosts.length
 
 class ClosestCost:
 
-
     def doit_(self, baseCosts: list, toppingCosts: list, target: int) -> int:
 
         costs = set(baseCosts)
@@ -92,7 +91,6 @@ class ClosestCost:
 
         return cloestval
 
-
     def doit_dp(self, baseCosts: list, toppingCosts: list, target: int) -> int:
 
         n = max(baseCosts) + sum(toppingCosts) * 2
@@ -114,27 +112,3 @@ class ClosestCost:
                 ans = i
 
         return ans
-
-
-    def doit_(self, baseCosts: list, toppingCosts: list, target: int) -> int:
-
-        baseCosts.sort()
-        toppingCosts.sort()
-
-        closestVal, val = float('inf'), 0
-
-        for base in baseCosts:
-
-            if base >= target:
-
-                if base == target: return base
-
-                if base - target < closestVal:
-                    closestVal = base - target
-                    val = base
-                break
-
-            topping = target - base
-
-        return val
-

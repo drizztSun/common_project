@@ -63,14 +63,14 @@ class MaximumProduct {
             codes[i]=code;
         }        
         
-        
         int result=0;
         for (int i=0; i<words.size(); i++)
-         for (int j=0; j<words.size(); j++)
-         {
-             if ((codes[i]&codes[j])!=0) continue;
-             result=max(result,(int)words[i].size()*(int)words[j].size());
-         }
+            for (int j=0; j<words.size(); j++)
+            {
+                if ((codes[i]&codes[j])!=0) continue;
+                result = std::max(result,(int)words[i].size()*(int)words[j].size());
+            }
+
         return result;
     }
 
@@ -96,9 +96,5 @@ public:
                     maxlen = std::max(maxlen, it1.second * it2.second);
                 }
         return maxlen;
-
     }
-
-
-
 }

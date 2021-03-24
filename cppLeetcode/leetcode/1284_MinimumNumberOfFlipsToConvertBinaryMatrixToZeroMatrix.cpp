@@ -189,7 +189,7 @@ public:
         
         auto flip = [&](size_t status, int i, int j) {
             for (int s = 0; s < 5; s++) {
-                const int tx = i + dirs[s];ß
+                const int tx = i + dirs[s];
                 const int ty = j + dirs[s+1];
                 if (tx >=0 && tx< m && ty >= 0 && ty < n)
                     status ^= 1 << (tx * n + ty);

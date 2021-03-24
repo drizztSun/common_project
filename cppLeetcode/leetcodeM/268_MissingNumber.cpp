@@ -43,7 +43,7 @@ All the numbers of nums are unique.
 using std::vector;
 
 
-class Solution {
+class MissingNumber {
 
     /*
         268.Missing-Number
@@ -56,7 +56,7 @@ class Solution {
         按照以上规则处理完所有的index之后，我们就已经竭尽全力地把所有数字和索引相match。此时再扫一遍nums数组，唯一的一处nums[i]!=i的地方，就是说明数字i是missing的。
 
         解法2：
-        有一个更优雅的做法。nums[i]包含了0~N的所有数（除了一个missing number，假设是x）。我们将其亦或起来。同时将这个结果再与0~N都亦或一遍。这样，除了x，其他的数字都被xor了两遍而被消除。剩下的结果就是x。
+        有一个更优雅的做法。nums[i]包含了0~N的所有数（除了一个missing number，假设是x）。我们将其 xor 起来。同时将这个结果再与0~N都亦或一遍。这样，除了x，其他的数字都被xor了两遍而被消除。剩下的结果就是x。
     
     */
     int doit_(vector<int>& nums) 

@@ -57,10 +57,9 @@ public:
         unordered_set<string> buff;
 
         for (int i = 0; i <= s.length() - k && need > 0; i++) {
+
             auto tmp = s.substr(i, k);
             
-            //printf("%s", tmp.c_str());
-
             if (buff.count(tmp) == 0) {
                 need--;
                 buff.insert(tmp);

@@ -70,6 +70,7 @@ Could you solve this problem in constant space complexity with a linear time alg
 */
 #include <vector>
 #include <unordered_set>
+#include <functional>
 
 using std::vector;
 using std::unordered_set;
@@ -88,10 +89,6 @@ class Solution {
 
         显然，我们只要在上述的遍历过程中，把所有的val都亦或起来，得到的就是根节点的val值。再扫一遍就可以根据val把根节点挑出来。
     */
-
-
-    unordered_set<Node*>Set;
-
     class Node {
     public:
         int val;
@@ -108,9 +105,21 @@ class Solution {
 
 public:
 
+    unordered_set<Node*>Set;
+
     Node* doit_(vector<Node*> tree) 
     {
         int n = tree.size();
+
+        std::function<void(Node*)> dfs = [&](Node* node) {
+
+            if (Set.find(node)!=Set.end())
+                return;
+            Set.insert(node);
+            for (auto child: node->children)
+                dfs(child);
+        };
+
         for (auto node: tree)
         {
             if (Set.find(node)!=Set.end())
@@ -124,15 +133,6 @@ public:
                 return node;
         }
         return NULL;
-    }
-    
-    void dfs(Node* node)
-    {
-        if (Set.find(node)!=Set.end())
-            return;
-        Set.insert(node);
-        for (auto child: node->children)
-            dfs(child);
     }
 
     Node * doit_hashtable(vector<Node*> tree) {
@@ -150,8 +150,7 @@ public:
                 return c;
         
         return nullptr;
-    } 
-
+    }
 
     Node* doit_bit(vector<Node*> tree) 
     {
@@ -170,6 +169,5 @@ public:
         }
         
         return NULL;
-        
     }
 };
