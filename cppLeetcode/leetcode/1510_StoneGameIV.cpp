@@ -67,8 +67,7 @@ public:
         
         std::function<bool(int)> solve = [&](int n){
 
-            if (dp[n] != -1)
-                return dp[n];
+            if (dp[n] != -1) return bool(dp[n]);
 
             for (int i = 1; i*i <= n; i++)
             {
@@ -101,23 +100,6 @@ public:
             }
         }
         
-        return dp[n];
-    }
-
-    bool doit_dp_buttomup(int n) {
-        
-        vector<bool> dp(n+1, false);
-
-        for (int i = 1; i <= n; i++) {
-
-            for (int j = 1; j*j < i+1; j++) {
-
-                if (dp[i - j*j] == false) {
-                    dp[i] = true;
-                }
-            }
-        }
-
         return dp[n];
     }
 };

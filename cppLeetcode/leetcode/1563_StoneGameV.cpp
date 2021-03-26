@@ -37,8 +37,7 @@
  
  
  */
-
-#include <stdio.h>
+#include <functional>
 #include <vector>
 
 using std::vector;
@@ -107,11 +106,11 @@ public:
                 int leftsum = presum[k] - presum[i-1];
                 int rightsum = presum[j] - presum[k];
                 if (leftsum > rightsum)
-                    dp[i][j] = max(dp[i][j], rightsum + solve(k+1,j));
+                    dp[i][j] = std::max(dp[i][j], rightsum + solve(k+1,j));
                 else if (leftsum < rightsum)
-                    dp[i][j] = max(dp[i][j], leftsum + solve(i,k));
+                    dp[i][j] = std::max(dp[i][j], leftsum + solve(i,k));
                 else
-                    dp[i][j] = max(dp[i][j], leftsum + max(solve(i,k), solve(k+1,j)));
+                    dp[i][j] = std::max(dp[i][j], leftsum + std::max(solve(i,k), solve(k+1,j)));
             }
             
             return dp[i][j];

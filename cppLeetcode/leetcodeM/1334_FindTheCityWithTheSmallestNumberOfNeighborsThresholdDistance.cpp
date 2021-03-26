@@ -84,13 +84,16 @@ public:
         int res = 0, smallest = n;
         for (auto& e : edges)
             dis[e[0]][e[1]] = dis[e[1]][e[0]] = e[2];
+
         for (int i = 0; i < n; ++i)
             dis[i][i] = 0;
-        for (int k = 0; k < n; ++k)
+        
+		for (int k = 0; k < n; ++k)
             for (int i = 0; i < n; ++i)
                 for (int j = 0; j < n; ++j)
-                    dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j]);
-        for (int i = 0; i < n; i++) {
+                    dis[i][j] = std::min(dis[i][j], dis[i][k] + dis[k][j]);
+        
+		for (int i = 0; i < n; i++) {
             int count = 0;
             for (int j = 0; j < n; ++j)
                 if (dis[i][j] <= distanceThreshold)
@@ -138,9 +141,7 @@ public:
             distance[i][i] = 0;
         
         for (int k = 0; k < n; k++) {
-            
             for (int i = 0; i < n; i++) {
-                
                 for (int j = 0; j < n; j ++) {
                     distance[i][j] = std::min(distance[i][j], distance[i][k] + distance[k][j]);
                 }

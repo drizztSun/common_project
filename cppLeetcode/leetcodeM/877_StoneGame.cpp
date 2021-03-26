@@ -92,7 +92,7 @@ public:
             if (l == r) return piles[l];
             
             if (m_[l][r] == INT_MIN)
-                m_[l][r] = max(piles[l] - score(l + 1, r), piles[r] - score(l, r - 1));
+                m_[l][r] = std::max(piles[l] - score(l + 1, r), piles[r] - score(l, r - 1));
             
             return m_[l][r];
         };

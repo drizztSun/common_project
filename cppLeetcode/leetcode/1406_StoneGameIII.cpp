@@ -53,6 +53,7 @@ Constraints:
  
  
 */
+#include <functional>
 #include <vector>
 #include <string>
 
@@ -134,7 +135,7 @@ public:
             for (int j = 0, s = 0; j < 3 && i + j < n; ++j) {
                 s += stoneValue[i + j];
                 // s - dp(.) to get `relative score`.
-                mem[i] = max(mem[i], s - dp(i + j + 1));
+                mem[i] = std::max(mem[i], s - dp(i + j + 1));
             }
 
             return mem[i];

@@ -33,6 +33,7 @@
  1 <= piles[i] <= 10^4
  
  */
+#include <functional>
 #include <vector>
 #include <numeric>
 #include <unordered_map>
@@ -58,7 +59,7 @@ public:
     int doit_dp(vector<int>& piles)
     {
 
-        int dp[101][101];    
+        int dp[101][101];
         int sufsum[101];
 
         int n = piles.size();
@@ -77,7 +78,7 @@ public:
             for (int x=1; x<=2*M; x++)
             {
                 if (i+x>piles.size()) break;
-                dp[i][M] = max(dp[i][M], sufsum[i] - solve(i+x, max(x,M)));
+                dp[i][M] = std::max(dp[i][M], sufsum[i] - solve(i+x, std::max(x,M)));
             }
             return dp[i][M];
         };
@@ -120,11 +121,12 @@ public:
             for (int x = 1; x <= 2 * M; ++x) {
                 if (s + x > n) break;
                 curr += piles[s + x - 1];
-                best = max(best, curr - solve(s + x, max(x, M)));
+                best = std::max(best, curr - solve(s + x, std::max(x, M)));
             }
             
             return cache[key] = best;
-        };    
+        };
+        
         int total = accumulate(begin(piles), end(piles), 0);
         return  (total + solve(0, 1)) / 2;
     }
