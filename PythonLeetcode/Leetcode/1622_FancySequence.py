@@ -42,7 +42,44 @@ Constraints:
 At most 105 calls total will be made to append, addAll, multAll, and getIndex.
 
 """
-from collections import deque
+
+"""
+Explanation
+Count the prefix sum add of addAll
+Count the prefix mul mul of mulAll
+
+
+Complexity
+Time O(1) for all
+Space O(N)
+
+"""
+class Fancy(object):
+
+    def __init__(self):
+        self.A = []
+        self.add = [0]
+        self.mul = [1]
+
+    def append(self, a):
+        self.A.append(a)
+        self.add.append(self.add[-1])
+        self.mul.append(self.mul[-1])
+
+    def addAll(self, inc):
+        self.add[-1] += inc
+
+    def multAll(self, m):
+        self.add[-1] = self.add[-1] * m % (10 ** 9 + 7)
+        self.mul[-1] = self.mul[-1] * m % (10 ** 9 + 7)
+
+    def getIndex(self, i):
+        if i >= len(self.A): return -1
+        mod = 10 ** 9 + 7
+        m = self.mul[-1] * pow(self.mul[i], mod - 2, mod) 
+        inc = self.add[-1] - self.add[i] * m
+        return (self.A[i] * m + inc) % mod
+
 
 """
 Instead of adding to or multiplying all the values, add to or multiply a transformation function, and apply that transformation only when a value is requested with getIndex.
@@ -55,10 +92,7 @@ Yes, which is why we don't store val as-is. Instead we apply the inverse of the 
 Then whengetIndex applies the transformation, we get the correct val. 
 In other words, when we shall append val, we store an x such that ax + b = val. That is, we store x = (val - b) * a**-1. 
 Conveniently, Python's pow does support negative exponents. And that appears to be 2-3 times faster than using exponent p-2 based on Fermat, see my comment with benchmarks.
-
-
 """
-from math import pow
 
 
 class FancySequence:
@@ -70,7 +104,8 @@ class FancySequence:
         self._hmod = 10 ** 9 + 7
 
     def append(self, val: int) -> None:
-        self._data.append((val - self._a) * pow(self._m, -1, self._hmod))
+        from math import pow
+        self._datas.append((val - self._a) * pow(self._m, -1, self._hmod))
 
     def addAll(self, inc: int) -> None:
         self._a += inc
@@ -88,7 +123,8 @@ class FancySequence:
 """
 Solution 2: Faster
 While pow(a, -1, p) is decently fast (and faster than pow(a, p-2, p)), it is slower than just a multiplication. 
-Since the multiplier m is guaranteed to be 1 to 100, we can just compute the inverses of 1 to 100 once, and use them to update the inverse of a which we keep around as well. Got "760 ms, faster than 100.00%".
+Since the multiplier m is guaranteed to be 1 to 100, we can just compute the inverses of 1 to 100 once, 
+and use them to update the inverse of a which we keep around as well. Got "760 ms, faster than 100.00%".
 """
 
 
@@ -99,9 +135,8 @@ class FancySequenceII:
         self.a = 1
         self.ainv = 1
         self.b = 0
-
         self.p = 10 ** 9 + 7
-        self.inv = [None] + [pow(m, -1, p) for m in range(1, 101)]
+        self.inv = [None] + [pow(m, -1, self.p) for m in range(1, 101)]
 
     def append(self, val):
         self.x.append((val - self.b) * self.ainv)
@@ -122,7 +157,8 @@ class FancySequenceII:
 
 """
 Solution 3: Encapsulate the modulo
-Encapsulates the whole modulo stuff, so that the actual solution becomes nicer. The name Zp really means Z/pZ, but that's not a valid class name. Despite the overhead, still got "1196 ms, faster than 35.50%".
+Encapsulates the whole modulo stuff, so that the actual solution becomes nicer. The name Zp really means Z/pZ, but that's not a valid class name. 
+Despite the overhead, still got "1196 ms, faster than 35.50%".
 """
 
 

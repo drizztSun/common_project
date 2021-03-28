@@ -87,18 +87,52 @@ class SnapshotArray:
         return 0    #default value
         
 
-if __name__ == "__main__":
-    """
-    obj = SnapshotArray(3)
-    obj.set(0, 5)
-    obj.snap()
-    obj.set(0, 6)
-    obj.get(0, 0)
-    """
-    obj = SnapshotArray(4)
-    obj.snap()
-    obj.snap()
-    obj.get(3, 1)
-    obj.set(2, 4)
-    obj.snap()
-    obj.set(1, 4)
+"""
+    Intuition
+    Instead of copy the whole array,
+    we can only record the changes of set.
+    
+    
+    Explanation
+    The idea is, the whole array can be large,
+    and we may take the snap tons of times.
+    (Like you may always ctrl + S twice)
+    
+    Instead of record the history of the whole array,
+    we will record the history of each cell.
+    And this is the minimum space that we need to record all information.
+    
+    For each A[i], we will record its history.
+    With a snap_id and a its value.
+    
+    When we want to get the value in history, just binary search the time point.
+    
+    
+    Complexity
+    Time O(logS)
+    Space O(S)
+    where S is the number of set called.
+    
+    SnapshotArray(int length) is O(N) time
+    set(int index, int val) is O(1) in Python and O(logSnap) in Java
+    snap() is O(1)
+    get(int index, int snap_id) is O(logSnap)
+"""
+
+class SnapshotArray:
+
+    def __init__(self, n):
+        self.A = [[[-1, 0]] for _ in range(n)]
+        self.snap_id = 0
+
+    def set(self, index, val):
+        self.A[index].append([self.snap_id, val])
+
+    def snap(self):
+        self.snap_id += 1
+        return self.snap_id - 1
+
+    def get(self, index, snap_id):
+        import bisect
+        i = bisect.bisect(self.A[index], [snap_id + 1]) - 1
+        return self.A[index][i][1]

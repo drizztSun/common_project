@@ -63,7 +63,7 @@ At most 200000 calls will be made to push, pop, and popAtStack.
 
 */
 
-
+#include <unordered_map>
 #include <vector>
 #include <deque>
 #include <set>
@@ -72,6 +72,7 @@ At most 200000 calls will be made to push, pop, and popAtStack.
 using std::set;
 using std::vector;
 using std::stack;
+using std::unordered_map;
 
 
 class DinnerPlates {
@@ -196,5 +197,66 @@ public:
             l=0;
     
         return item;
+    }
+};
+
+
+/*
+1172.Dinner-Plate-Stacks
+本题的关键就是维护两个索引指针，leftNotFull和RightNotEmpty。顾名思义，leftNotFull表示左边第一个没有放满的盘子的编号，rightNotEmpty表示右边第一个非空的盘子的编号。如果这两个索引指针维护的好，那么push和pop就是分别对应这两个盘子进行操作即可。
+
+本题的关键是，任何的操作都需要对这两个指针进行更新和维护。
+
+对于push(val)，意味着往leftNotFull上面再加一个数。如果该盘子满了，就要对leftNotFull进行自增操作来定位下一个非满的盘子。同时，rightNotEmpty也可能增长，基本原理是rightNotEmpty不可能比leftNotFull小（除非leftNotFull对应的是一个空盘子，那样的话rightNotEmpty==leftNotFull-1）。
+
+对于popAtStack(index)，意味着对于index这个盘子要弹出一个数。这个操作会对leftNotFull有什么影响呢？显然，它就有被更新的可能，即leftNotFull=min(leftNotFull,index)。这个操作会对rightNotEmpty有什么影响呢？那就是当index==rightNotEmpty的时候，如果index这个盘子被清空了，则rightNotEmpty就要往下降（特别注意，最小降为-1为止）。
+
+对于pop()，其实就是popAtStack(rightNotEmpty)。
+
+特别注意，rightNotEmpty允许为-1，表示当前所有的盘子都为空。
+*/
+class DinnerPlates {
+    unordered_map<int, vector<int>>Plate;
+    int leftNotFull;
+    int rightNotEmpty;
+    int cap;
+    
+public:
+    DinnerPlates(int capacity) {
+        leftNotFull = 0;
+        rightNotEmpty = -1;
+        cap = capacity; 
+    }
+    
+    void push(int val) {
+        Plate[leftNotFull].push_back(val);
+        while (Plate[leftNotFull].size()==cap)
+            leftNotFull++;
+        
+        rightNotEmpty = max(rightNotEmpty, (Plate[leftNotFull].size()==0)?leftNotFull-1:leftNotFull);
+    }
+    
+    int pop() {
+        if (rightNotEmpty==-1)
+            return -1;
+        return popAtStack(rightNotEmpty);
+    }
+    
+    int popAtStack(int index) {
+        if (Plate[index].size()==0)
+            return -1;
+        
+        int ret = Plate[index].back();
+        Plate[index].pop_back();
+        
+        if (index==rightNotEmpty && Plate[rightNotEmpty].size()==0)
+        {
+            while (Plate[rightNotEmpty].size()==0 && rightNotEmpty>=0)
+                rightNotEmpty--;
+        }
+        
+        leftNotFull = min(leftNotFull, index);
+        
+        return ret;
     }
 };

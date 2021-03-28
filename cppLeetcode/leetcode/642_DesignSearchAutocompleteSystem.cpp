@@ -1,5 +1,4 @@
 /*
-
 642. Design Search Autocomplete System
 
 Design a search autocomplete system for a search engine. Users may input a sentence (at least one word and end with a special character '#'). 
@@ -194,7 +193,7 @@ public:
 
 
 /*
-        642.Design-Search-Autocomplete-System
+    642.Design-Search-Autocomplete-System
 
     如果不用trie来做的话，可以比较简单地用priority_queue来实现对所有候选语句的排序，选择最终未被弹出的三个字符串。
 

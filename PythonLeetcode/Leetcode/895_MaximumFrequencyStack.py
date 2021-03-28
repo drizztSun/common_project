@@ -1,3 +1,4 @@
+"""
 # 895. Maximum Frequency Stack
 
 # Implement FreqStack, a class which simulates the operation of a stack-like data structure.
@@ -40,25 +41,28 @@
 # The total number of FreqStack.push and FreqStack.pop calls will not exceed 150000 across all test cases.
 
 """
-Approach 1: Stack of Stacks
-Intuition
 
-Evidently, we care about the frequency of an element. Let freq be a Map from xx to the number of occurrences of xx.
 
-Also, we (probably) care about maxfreq, the current maximum frequency of any element in the stack.
-This is clear because we must pop the element with the maximum frequency.
+"""
+    Approach 1: Stack of Stacks
+    Intuition
 
-The main question then becomes: among elements with the same (maximum) frequency, how do we know which element is most recent?
-We can use a stack to query this information: the top of the stack is the most recent.
+    Evidently, we care about the frequency of an element. Let freq be a Map from xx to the number of occurrences of xx.
 
-To this end, let group be a map from frequency to a stack of elements with that frequency. We now have all the required components to implement FreqStack.
+    Also, we (probably) care about maxfreq, the current maximum frequency of any element in the stack.
+    This is clear because we must pop the element with the maximum frequency.
 
-Algorithm
+    The main question then becomes: among elements with the same (maximum) frequency, how do we know which element is most recent?
+    We can use a stack to query this information: the top of the stack is the most recent.
 
-Actually, as an implementation level detail, if x has frequency f, then we'll have x in all group[i] (i <= f), not just the top.
-This is because each group[i] will store information related to the ith copy of x.
+    To this end, let group be a map from frequency to a stack of elements with that frequency. We now have all the required components to implement FreqStack.
 
-Afterwards, our goal is just to maintain freq, group, and maxfreq as described above.
+    Algorithm
+
+    Actually, as an implementation level detail, if x has frequency f, then we'll have x in all group[i] (i <= f), not just the top.
+    This is because each group[i] will store information related to the ith copy of x.
+
+    Afterwards, our goal is just to maintain freq, group, and maxfreq as described above.
 
 """
 
@@ -92,27 +96,33 @@ class FreqStack:
         return x
 
 
-if __name__ == '__main__':
+"""
+    Hash map freq will count the frequence of elements.
+    Hash map m is a map of stack.
+    If element x has n frequence, we will push x n times in m[1], m[2] .. m[n]
+    maxfreq records the maximum frequence.
+    
+    push(x) will push x tom[++freq[x]]
+    pop() will pop from the m[maxfreq]
+"""
 
-    # Your FreqStack object will be instantiated and called as such:
-    obj = FreqStack()
 
-    obj.push(5)
+class FreqStack:
 
-    obj.push(7)
+    def __init__(self):
+        self.freq = collections.Counter()
+        self.m = collections.defaultdict(list)
+        self.maxf = 0
 
-    obj.push(5)
+    def push(self, x):
+        freq, m = self.freq, self.m
+        freq[x] += 1
+        self.maxf = max(self.maxf, freq[x])
+        m[freq[x]].append(x)
 
-    obj.push(7)
-
-    obj.push(4)
-
-    obj.push(5)
-
-    res = obj.pop()  # 5
-
-    res = obj.pop()  # 7
-
-    res = obj.pop()  # 5
-
-    res = obj.pop()  # 4
+    def pop(self):
+        freq, m, maxf = self.freq, self.m, self.maxf
+        x = m[maxf].pop()
+        if not m[maxf]: self.maxf = maxf - 1
+        freq[x] -= 1
+        return x
