@@ -70,15 +70,13 @@ public:
     int doit_dp(vector<vector<char>>& matrix) {
 
         int m = matrix.size(), n = matrix[0].size();
-
         vector<vector<int>> dp(m+1, vector<int>(n+1, 0));
         int ans = 0;
+        
         for (int i = 1; i <= m; i++) {
-
             for (int j = 1; j <= n; j++) {
-                
                 if (matrix[i-1][j-1] == '1') {
-                    dp[index][j] = std::min({dp[1-index][j], dp[index][j-1], dp[1-index][j-1]}) + 1;
+                    dp[i][j] = std::min({dp[i-1][j], dp[i][j-1], dp[i-1][j-1]}) + 1;
                     ans = std::max(ans, dp[i][j]);
                 }
             }
@@ -219,7 +217,7 @@ public:
                 {
                     int temp = sum[i][j]-sum[i-k][j]-sum[i][j-k]+sum[i-k][j-k];
                     if (temp == k*k)
-                        result = max(result, temp);
+                        result = std::max(result, temp);
                     k++;    
                 }
             }
@@ -242,10 +240,10 @@ public:
                     dp[i][j]=0;
                 else
                 {
-                    int temp=min(dp[i-1][j],dp[i][j-1]);
-                    temp = min(temp,dp[i-1][j-1]);
+                    int temp=std::min(dp[i-1][j],dp[i][j-1]);
+                    temp = std::min(temp,dp[i-1][j-1]);
                     dp[i][j]=temp+1;
-                    result=max(result,dp[i][j]*dp[i][j]);
+                    result=std::max(result,dp[i][j]*dp[i][j]);
                 }
             }
         

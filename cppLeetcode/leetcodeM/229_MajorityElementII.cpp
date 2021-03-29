@@ -32,7 +32,7 @@ Follow-up: Could you solve the problem in linear time and in O(1) space?
 using std::vector;
 
 
-class MajorityElement: {
+class MajorityElement {
 
 public:
 
@@ -164,4 +164,63 @@ public:
         
         return ans;
     }
+
+    /*
+        229.Majority-Element-II
+        本题的解法非常巧妙，令人印象深刻。第一次不会做没有关系，但第二次遇到就应该能牢牢记住。
+
+        解法的基本思想就是：如果同时消去数组中互不相同的三个数，那么在剩下的数组中，超过1/3的那些数仍然是超过1/3的。所以我们只要不停找到三个互不相同的数并做消去，剩下的就是超过1/3的那些数（最多两个）。
+
+        所以我们在遍历nums数组的过程中，设置两个容器：如果有对应是相同元素的容器，那么就放进那个容器里；如果容器有空的，那么新进来的数就放进容器里；如果两个容器都非空，并且这三个数互不相同，那么就把这三个都消去。
+
+        注意，遍历完之后，最后剩下的两个容器里有可能都是答案，需要单独验证。
+
+        显然，本题可以扩展到定义大于 N/4, N/5 ... 的majority element。只要设置更多的容器即可。      
+    */
+    vector<int> doit_greedy(vector<int>& nums) 
+    {
+        int x1,x2;
+        int count1=0,count2=0;
+        
+        for (int i=0; i<nums.size(); i++)
+        {
+            if (count1>0 && nums[i]==x1)
+            {
+                count1++;
+            }
+            else if (count2>0 && nums[i]==x2)
+            {
+                count2++;
+            }
+            else if (count1==0)
+            {
+                x1=nums[i];
+                count1=1;
+            }
+            else if (count2==0)
+            {
+                x2=nums[i];
+                count2=1;
+            }
+            else if (nums[i]!=x1 && nums[i]!=x2)
+            {
+                count1--;
+                count2--;
+            }            
+        }
+                
+        vector<int>results;
+        count1=0;
+        count2=0;
+        for (int i=0; i<nums.size(); i++)
+        {
+            if (nums[i]==x1) count1++;
+            if (nums[i]==x2) count2++;
+        }  
+        if (count1>nums.size()/3) results.push_back(x1);
+        if (x1!=x2 && count2>nums.size()/3) results.push_back(x2);
+        
+        return results;
+    }
+
 };
