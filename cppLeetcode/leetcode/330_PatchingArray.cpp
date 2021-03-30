@@ -1,64 +1,89 @@
 /*
-# leetcode 330. Patching Array
 
-# Given a sorted positive integer array nums and an integer n, add / patch elements to the
-# array such that any number in range[1, n] inclusive can be formed by the sum of some elements in the array.
-# Return the minimum number of patches required.
-
-# Example 1:
-# nums = [1, 3], n = 6
-# Return 1.
-
-# Combinations of nums are[1], [3], [1, 3], which form possible sums of : 1, 3, 4.
-# Now if we add / patch 2 to nums, the combinations are : [1], [2], [3], [1, 3], [2, 3], [1, 2, 3].
-# Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range[1, 6].
-# So we only need 1 patch.
-
-# Example 2:
-# nums = [1, 5, 10], n = 20
-# Return 2.
-# The two patches can be[2, 4].
-
-# Example 3:
-# nums = [1, 2, 2], n = 5
-# Return 0.
+330. Patching Array
 
 
-class minPatches(object) :
+Given a sorted integer array nums and an integer n, add/patch elements to the array such that any number in the range [1, n] inclusive can be formed by the sum of some elements in the array.
 
-	# Explanation
+Return the minimum number of patches required.
 
-	# Let miss be the smallest sum in[0, n] that we might be missing.Meaning we already know we can build all sums in[0, miss).
-	# Then if we have a number num <= miss in the given array, we can add it to those smaller sums to build all sums in[0, miss + num).
-	# If we don�t, then we must add such a number to the array, and it�s best to add miss itself, to maximize the reach.
+ 
 
-	# Example: Let�s say the input is nums = [1, 2, 4, 13, 43] and n = 100. We need to ensure that all sums in the range[1, 100] are possible.
+Example 1:
 
-	# Using the given numbers 1, 2 and 4, we can already build all sums from 0 to 7, i.e., the range[0, 8).
-	# But we can�t build the sum 8, and the next given number(13) is too large.So we insert 8 into the array.
-	# Then we can build all sums in[0, 16).
+Input: nums = [1,3], n = 6
+Output: 1
+Explanation:
+Combinations of nums are [1], [3], [1,3], which form possible sums of: 1, 3, 4.
+Now if we add/patch 2 to nums, the combinations are: [1], [2], [3], [1,3], [2,3], [1,2,3].
+Possible sums are 1, 2, 3, 4, 5, 6, which now covers the range [1, 6].
+So we only need 1 patch.
+Example 2:
 
-	# Do we need to insert 16 into the array ? No!We can already build the sum 3, and adding the given 13 gives us sum 16.
-	# We can also add the 13 to the other sums, extending our range to[0, 29).
+Input: nums = [1,5,10], n = 20
+Output: 2
+Explanation: The two patches can be [2, 4].
+Example 3:
 
-	# And so on.The given 43 is too large to help with sum 29, so we must insert 29 into our array.
-	# This extends our range to[0, 58).But then the 43 becomes useful and expands our range to[0, 101).
-	# At which point we�re done.
+Input: nums = [1,2,2], n = 5
+Output: 0
+ 
 
+Constraints:
+
+1 <= nums.length <= 1000
+1 <= nums[i] <= 10^4
+nums is sorted in ascending order.
+1 <= n <= 2^31 - 1
 
 */
 
-#include <stdlib.h>
 #include <vector>
 
-using namespace std;
+using std::vector;
+
 
 class MinPatches {
 
+	/*
+		330.Patching-Array
+		假设miss是当前无法通过nums[0]~nums[i-1]这i个数通过题述的加和规则得到的、最小的那个整数，那么我们考虑下一个nums[i]会带来什么影响？
+
+		如果nums[i]>miss，说明它的加入对于我们试图得到miss没有任何帮助，因为nums[i]太大了；并且之后的nums元素更不会有帮助，只会更大。所以miss只能是我们必须人为补充的一个数，即我们手工补上miss。
+		这时下一个无法得到的整数是什么呢？那就是miss*2.因为miss加入前，1~miss-1我们都可以得到，所以miss加入后最大能得到2*miss-1.
+
+		如果nums[i]<=miss，说明它的加入可以将miss提升至miss+nums[i].因为nums[i]加入前，1~miss-1我们都可以得到，所以miss加入后最大能得到miss-1+nums[i].
+
+		如此循环重复上述的过程，不断提升miss，直至miss>n. 注意这个过程中nums可以提前用完。
+
+		另外，值得注意的是，miss的初始值是1，而不是0. 因为没有任何nums提供时，我们首先试图要填补的就是1.
+	*/
+	int minPatches(vector<int>& nums, int n) 
+    {
+        int count=0;
+        long miss=1;
+        int i=0;
+        
+        while (miss<=n)
+        {
+            if (i>=nums.size() || miss<nums[i])
+            {
+                count++;
+                miss+=miss;
+            }
+            else
+            {
+                miss+=nums[i];
+                i++;
+            }
+        }
+        
+        return count;
+    }
 
 public:
 
-	int doit(vector<int>& nums, int n) {
+	int doit_greedy(vector<int>& nums, int n) {
 
 		long long maxV = 0, nextMax = 0;
 		int i = 0;
@@ -80,17 +105,19 @@ public:
 		return cnt;
 	}
 
-	int doit1(std::vector<int>& nums, int n) {
+	int doit_greedy(std::vector<int>& nums, int n) {
 
 		int cnt = 0, i = 0;
 		long long maxNum = 0;
 
 		while (maxNum<n) {
-		
-			if (i<nums.size() && nums[i] <= maxNum + 1)
-				maxNum += nums[i++];
 			
+			// maxNum is maximum value could be reach.
+			if (i<nums.size() && nums[i] <= maxNum + 1)
+				// nums[i] can help to get maxNum, and max it could each is nums[i] + maxNum
+				maxNum += nums[i++];
 			else {
+				// more can reach is maxNUm, so maxNUm + 1 has to filled.
 				maxNum += maxNum + 1; 
 				cnt++;
 			}

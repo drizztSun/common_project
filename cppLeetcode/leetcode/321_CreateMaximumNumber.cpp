@@ -1,42 +1,156 @@
 /*
-	321. Create Maximum Number
 
-	Given two arrays of length m and n with digits 0-9 representing two numbers.
-	Create the maximum number of length k <= m + n from digits of the two.
-	The relative order of the digits from the same array must be preserved.
-	Return an array of the k digits. You should try to optimize your time and space complexity.
+321. Create Maximum Number
 
-	Example 1:
-	nums1 = [3, 4, 6, 5]
-	nums2 = [9, 1, 2, 5, 8, 3]
-	k = 5
-	return [9, 8, 6, 5, 3]
+You are given two integer arrays nums1 and nums2 of lengths m and n respectively. nums1 and nums2 represent the digits of two numbers. You are also given an integer k.
 
-	Example 2:
-	nums1 = [6, 7]
-	nums2 = [6, 0, 4]
-	k = 5
-	return [6, 7, 6, 0, 4]
+Create the maximum number of length k <= m + n from digits of the two numbers. The relative order of the digits from the same array must be preserved.
 
-	Example 3:
-	nums1 = [3, 9]
-	nums2 = [8, 9]
-	k = 3
-	return [9, 8, 9]
+Return an array of the k digits representing the answer.
 
+ 
+
+Example 1:
+
+Input: nums1 = [3,4,6,5], nums2 = [9,1,2,5,8,3], k = 5
+Output: [9,8,6,5,3]
+Example 2:
+
+Input: nums1 = [6,7], nums2 = [6,0,4], k = 5
+Output: [6,7,6,0,4]
+Example 3:
+
+Input: nums1 = [3,9], nums2 = [8,9], k = 3
+Output: [9,8,9]
+ 
+
+Constraints:
+
+m == nums1.length
+n == nums2.length
+1 <= m, n <= 500
+0 <= nums1[i], nums2[i] <= 9
+1 <= k <= m + n
+ 
+
+Follow up: Try to optimize your time and space complexity.
 */
 
-#include <stdlib.h>
 #include <vector>
 #include <algorithm>
 #include <string>
-
 
 using std::string;
 using std::vector;
 
 
 class CreateMaximumNumber {
+
+	/*
+		321.Create-Maximum-Number
+		解法1：
+		此题的形式比较像双序列DP。令dp[i][j][k]表示考虑第一个数组的前i个数、第二个数组的前j个数、并在其中总共取k个，所能够得到的字典序最大的“字符串”。这是利用了题目中每个数字只有单个digit的特点：字典序更大的字符串一定代表了更大的拼接的“数”。
+
+		dp[i][j][k]有四种来源：
+
+		dp[i-1][j][k-1]+nums1[i]，即第k个元素选为nums1[i]，拼接在dp[i-1][j][k-1]上.
+		dp[i][j-1][k-1]+nums2[j]，即第k个元素选为nums2[j]，拼接在dp[i][j-1][k-1]上.
+		dp[i-1][j][k]，即第k个元素不为nums1[i]，那么此时的解直接继承自 dp[i-1][j][k].
+		dp[i][j-1][k]，即第k个元素不为nums2[j]，那么此时的解直接继承自 dp[i][j-1][k].
+		这个解法的时间复杂度是o(M*N*K).
+
+		解法2：
+		另一个比较容易理解的算法是：考虑将k拆分成k1和k2，将取数的指标分配给nums1,nums2，遍历所有的可能取最优解。
+
+		于是得到子问题就是：如何在一个给定顺序的数组nums1里取k1个数，使得连接起来的数最大。这个就和 402.Remove K Digits非常相似，贪心法+栈的典型应用（当然用数组也行）。总体的思想就是遍历nums1的过程中，用栈维护一个递减序列（因为递减序列说明是当前的字典序最大），一旦出现递增的元素，则考虑退栈之前的元素，直至栈恢复为递减序列、或者退栈元素数目达到了上限为止。
+
+		然后将处理nums1、nums2得到的两个数组p1、p2进行"归并"。注意，这个归并要求保持p1,p2保持原来的顺序，但归并后得到的数字最大。这个和传统意义的归并排序是有区别的，因为p1,p2本身并不是有序的。这样的“归并”并不容易，不能只依次比较两个数组的首元素。一个比较简单的C++写法就是，利用C++默认的数组大小的比较方法。比如，若p1>p2，说明p1的整体字典序比p2大，我们就首选p1的首元素（这是正解），然后去除p1首元素p1.erase(p1.begin()). 然后比较剩下的p1和p2.
+
+		最后将所有的k的拆分结果再进行比较，同样用到了C++默认的对数组大小比较的定义。不停更新result = max(result, temp)就可以了。
+
+		这个解法的时间复杂度是o(K*K).
+			
+	*/
+	vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) 
+    {
+        int K = k;
+        int m = nums1.size();
+        int n = nums2.size();
+        nums1.insert(nums1.begin(), 0);
+        nums2.insert(nums2.begin(), 0);
+
+        string dp[m+1][n+1][K+1];        
+
+        for (int i=0; i<=m; i++)
+            for (int j=0; j<=n; j++)
+                for (int k=1; k<=std::min(K,i+j); k++)
+                {
+                    dp[i][j][k] = "";
+                    if (i-1>=0) dp[i][j][k] = std::max(dp[i][j][k], dp[i-1][j][k-1] + std::to_string(nums1[i]));
+                    if (j-1>=0) dp[i][j][k] = std::max(dp[i][j][k], dp[i][j-1][k-1] + std::to_string(nums2[j]));
+                    if (i-1>=0) dp[i][j][k] = std::max(dp[i][j][k], dp[i-1][j][k]);
+                    if (j-1>=0) dp[i][j][k] = std::max(dp[i][j][k], dp[i][j-1][k]);                    
+                }
+
+        vector<int>ret;
+        for (int i=0; i<dp[m][n][K].size(); i++)
+            ret.push_back(dp[m][n][K][i]-'0');
+
+        return ret;
+    }
+
+	vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int K) 
+    {
+        vector<int> ret;
+        for (int i=0; i<=K; i++)
+        {
+            if (i>nums1.size()) continue;
+            if (K-i>nums2.size()) continue;
+            vector<int>p1 = findMax(nums1, i);
+            vector<int>p2 = findMax(nums2, K-i);
+            vector<int>temp = merge(p1, p2);
+            ret = max(ret, temp);            
+        }
+        return ret;
+    }
+    
+    vector<int> findMax(vector<int>&nums, int k)
+    {
+        int drop = nums.size()-k;
+        vector<int>ret;
+        
+        for (int i=0; i<nums.size(); i++)
+        {
+            while (drop>0 && ret.size()>0 && nums[i] > ret.back())
+            {
+                ret.pop_back();
+                drop--;
+            }
+            ret.push_back(nums[i]);
+        }
+        ret.resize(k);
+        return ret;
+    }
+    
+    vector<int> merge(vector<int>&p1, vector<int>&p2)
+    {
+        vector<int>ret;
+        int L = p1.size()+p2.size();
+        for (int i=0; i<L; i++)
+        {
+            if (p1 > p2)
+            {
+                ret.push_back(p1[0]);
+                p1.erase(p1.begin());
+            }
+            else
+            {
+                ret.push_back(p2[0]);
+                p2.erase(p2.begin());
+            }                
+        }
+        return ret;
+    }
 
 public:
     

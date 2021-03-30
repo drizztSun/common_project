@@ -38,6 +38,40 @@ using std::vector;
 
 class AdvantageShuffleCount {
 
+
+    vector<int> advantageCount(vector<int>& A, vector<int>& B) 
+    {
+        int n = A.size();
+        vector<std::pair<int,int>> BB;
+
+        for (int i=0; i<n; i++) BB.push_back({B[i],i});
+        sort(BB.begin(), BB.end());
+        sort(A.begin(), A.end());
+        
+        int j=0;
+        vector<int>rets(n,-1);
+        for (int i=0; i<n; i++)
+        {
+            while (j<n && A[j]<=BB[i].first)
+                j++;
+            if (j<n)
+            {
+                rets[BB[i].second] = A[j];
+                A[j] = -1;
+            }                
+        }
+        
+        j = 0;
+        for (int i=0; i<n; i++)
+        {
+            if (rets[i]!=-1) continue;
+            while (j<n && A[j]==-1) j++;
+            rets[i] = A[j];
+            j++;
+        }
+        return rets;
+    }
+
 public:
 
     vector<int> doit_sort(vector<int>& A, vector<int>& B) {
@@ -57,7 +91,29 @@ public:
         return ans;
     }
 
-    vector<int> doit_(vector<int>& A, vector<int>& B) {
+    /*
+        Approach 1: Greedy
+        Intuition
+
+        If the smallest card a in A beats the smallest card b in B, we should pair them. Otherwise, a is useless for our score, as it can't beat any cards.
+
+        Why should we pair a and b if a > b? Because every card in A is larger than b, any card we place in front of b will score a point. 
+        We might as well use the weakest card to pair with b as it makes the rest of the cards in A strictly larger, and thus have more potential to score points.
+
+        Algorithm
+
+        We can use the above intuition to create a greedy approach. The current smallest card to beat in B will always be b = sortedB[j]. 
+        For each card a in sortedA, we will either have a beat that card b (put a into assigned[b]), or throw a out (put a into remaining).
+
+        Afterwards, we can use our annotations assigned and remaining to reconstruct the answer. Please see the comments for more details.
+
+
+        Complexity Analysis
+        Time Complexity: O(NlogN), where NN is the length of A and B.
+        Space Complexity: O(N).
+    */
+
+    vector<int> doit_greedy(vector<int>& A, vector<int>& B) {
 
         std::sort(begin(A), end(A));
         auto sortedB = B;

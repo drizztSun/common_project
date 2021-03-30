@@ -69,7 +69,7 @@ class JumpGameII {
 
 public:
     
-    int doit_(vector<int>& nums) {
+    int doit_greedy(vector<int>& nums) {
     
         int i = 0, step = 0;
         int far = 0;
