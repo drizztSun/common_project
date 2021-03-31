@@ -158,7 +158,12 @@ public:
                 return -1;
             
             res+=(k-i);
-            arr[k] = -1;
+            //arr[k] = -1;
+            
+            while(k>i) {
+                arr[k]=arr[k-1];
+                k--;
+            }
         }
         
         return res;
