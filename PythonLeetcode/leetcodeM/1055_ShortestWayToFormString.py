@@ -50,7 +50,7 @@ class ShortestWay:
             if start == 0 and j == len(source):
                 return -1
             
-            if source[j] == target[i]:
+            if j != len(source) and source[j] == target[i]:
                 i += 1
                 j += 1
                 
@@ -62,9 +62,3 @@ class ShortestWay:
                 cnt += 1
                 
         return cnt
-
-
-if __name__ == '__main__':
-
-    ShortestWay().doit_search("xyz", "xzyxz")
-            

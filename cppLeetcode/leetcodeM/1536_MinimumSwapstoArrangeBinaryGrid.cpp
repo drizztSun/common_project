@@ -38,7 +38,9 @@ grid[i][j] is 0 or 1
 
 */
 #include <vector>
+#include <list>
 
+using std::list;
 using std::vector;
 
 
@@ -89,7 +91,7 @@ public:
         }
         
         int count = 0;
-        for (int i=0; i<n-1; i++
+        for (int i=0; i<n-1; i++)
         {
             int num = n-1-i;
             int j = i;
@@ -107,5 +109,58 @@ public:
         }
         
         return count;
+    }
+
+    int doit_greedy(vector<vector<int>>& grid) {
+
+        int n = grid.size(), res = 0;
+        list<int> cnt0;
+        for(const auto& v:grid) 
+            cnt0.push_back(find(v.rbegin(), v.rend(), 1) - v.rbegin());
+        
+        for(int i=0;i<n;i++){
+            int j=0;
+            for(auto it = cnt0.begin(); it !=cnt0.end(); ++it, ++j){
+                if(*it >= n-i-1){
+                    res += j;
+                    cnt0.erase(it);
+                    break;
+                }
+            }
+
+            if(j==n-i) return -1;
+        }
+
+        return res;
+    }
+
+    int doit_greedy(vector<vector<int>>& grid) {
+        
+        int n=grid.size();
+        vector<int> arr(n,0);
+        
+        for(int i=0;i<n;i++) {
+            int count=0;
+            for(int j=n-1;j>=0 && grid[i][j]==0;j--)
+                count++;
+            
+            arr[i]=count;
+        }
+        int res=0;
+        
+        for(int i=0;i<n;i++) {
+            int k=i,req=n-1-k;
+            
+            while(k<n && arr[k]<req)
+                k++;
+            
+            if(k==n)
+                return -1;
+            
+            res+=(k-i);
+            arr[k] = -1;
+        }
+        
+        return res;
     }
 };

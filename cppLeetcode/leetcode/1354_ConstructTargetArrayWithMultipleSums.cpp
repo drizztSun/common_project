@@ -74,9 +74,12 @@ public:
          sum = others + b;
          pq.push(b);
      }
-     但是这段代码在处理这个case时遇到了TLE：[1,1000000000]. 我们发现如果依此还原每一步的话，这个数组的变化是：[1,999999999] => [1,999999998] => [1,999999997] => ... 朝最终答案前进的效率非常低。究其原因是每次a替换成b的时候，b明显仍然是整个数组里的最大值，如果将b放入优先队列中的话需要额外log(N)的操作来返回当前最大值，并不合算。
 
-     所以处理的手段是：如果我们能预判将a变成b后，重新放回优先队列的话让然是最大值的话，我们就不放入pq。因为我们发现，当a远远大于others时，每次变成b的过程，减去的都是固定不变的others。所以这些连续相同的减法，不如直接用除法更高效。所以改动后的代码是：
+    但是这段代码在处理这个case时遇到了TLE：[1,1000000000]. 我们发现如果依此还原每一步的话，这个数组的变化是：[1,999999999] => [1,999999998] => [1,999999997] => ... 朝最终答案前进的效率非常低。
+    究其原因是每次a替换成b的时候，b明显仍然是整个数组里的最大值，如果将b放入优先队列中的话需要额外log(N)的操作来返回当前最大值，并不合算。
+
+    所以处理的手段是：如果我们能预判将a变成b后，重新放回优先队列的话让然是最大值的话，我们就不放入pq。因为我们发现，当a远远大于others时，每次变成b的过程，减去的都是固定不变的others。
+    所以这些连续相同的减法，不如直接用除法更高效。所以改动后的代码是：
 
      while (pq.top()!=1)
      {
@@ -93,37 +96,35 @@ public:
      }
     */
     
-    bool doit_heap(vector<int>& target) {
+    bool doit_heap_greedy(vector<int>& target) {
         
         priority_queue<int> qu;
         long long sums = 0;
+
         for (auto c : target) {
             qu.push(c);
             sums += c;
         }
         
-        
         while (qu.top() != 1) {
             
             // a is maximum number,
-            
             long long a = qu.top();
-            long long others = sums - a;
             qu.pop();
             
+            long long others = sums - a;
             /*
                 lastround           x x x x x maxv
-                lastround - 1       x x x x x b
-             
-             */
+                lastround - 1       x x x x x b 
+            */
 
-            if (others == 0)
-                return false;
+            if (others == 0) return false;
             
-            if (a - others <= 0) // a < others, false
-                return false;
+            // a < others, false b + others = a, b = a - others
+            if (a - others <= 0) return false;
             
-            long long b = a % others; // compress multiple times substract to one dividmod ops. like, [1, 1000000] if each time minus 1, that will be huge.
+            // compress multiple times substract to one dividmod ops. like, [1, 1000000] if each time minus 1, that will be huge.
+            long long b = a % others; 
             
             sums = others + b;
             qu.push(b);

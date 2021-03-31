@@ -1,4 +1,79 @@
 /*
+    944. Delete Columns to Make Sorted
+
+    You are given an array of n strings strs, all of the same length.
+    The strings can be arranged such that there is one on each line, making a grid. For example, strs = ["abc", "bce", "cae"] can be arranged as:
+
+    abc
+    bce
+    cae
+    You want to delete the columns that are not sorted lexicographically. In the above example (0-indexed), columns 0 ('a', 'b', 'c') and 2 ('c', 'e', 'e') are sorted while column 1 ('b', 'c', 'a') is not, so you would delete column 1.
+
+    Return the number of columns that you will delete.
+
+    
+
+    Example 1:
+
+    Input: strs = ["cba","daf","ghi"]
+    Output: 1
+    Explanation: The grid looks as follows:
+    cba
+    daf
+    ghi
+    Columns 0 and 2 are sorted, but column 1 is not, so you only need to delete 1 column.
+    Example 2:
+
+    Input: strs = ["a","b"]
+    Output: 0
+    Explanation: The grid looks as follows:
+    a
+    b
+    Column 0 is the only column and is sorted, so you will not delete any columns.
+    Example 3:
+
+    Input: strs = ["zyx","wvu","tsr"]
+    Output: 3
+    Explanation: The grid looks as follows:
+    zyx
+    wvu
+    tsr
+    All 3 columns are not sorted, so you will delete all 3.
+    
+
+    Constraints:
+
+    n == strs.length
+    1 <= n <= 100
+    1 <= strs[i].length <= 1000
+    strs[i] consists of lowercase English letters.
+*/
+#include <vector>
+using std::vector;
+
+
+class minDeletionSize {
+
+public:
+
+    int doit_(vector<string>& strs) {
+
+        int ans = 0;
+        int rows = strs.size(), cols = strs[0].length();
+
+        for (int j = 0; j < cols; j++) {
+
+            int i = 0;
+            while (i < rows-1 && strs[i][j] < strs[i+1][j]) i++;
+
+            ans += i != rows-1;
+        }
+
+        return ans;
+    }
+};
+
+/*
  
  # 955. Delete Columns to Make Sorted II
 
@@ -43,32 +118,38 @@
  */
 
 #include <vector>
-using std::vector;
-
 #include <string>
+
+using std::vector;
 using std::string;
 
 class MinDeletionSize {
 
 public:
     /*
-     Approach 2: Greedy with Optimizations
-     Explanation
+        Approach 2: Greedy with Optimizations
+        Explanation
 
-     It is also possible to implement the solution in Approach 1 without using as much time and space.
+        It is also possible to implement the solution in Approach 1 without using as much time and space.
 
-     The key idea is that we will record the "cuts" that each column makes.
-     In our first example from Approach 1 with A = ["axx","ayy","baa","bbb","bcc"] (and R defined as in Approach 1),
-     the first column cuts our condition from R[0] <= R[1] <= R[2] <= R[3] <= R[4] to R[0] <= R[1] and R[2] <= R[3] <= R[4].
-     
-     That is, the boundary "a" == column[1] != column[2] == "b" has 'cut' one of the conditions for R out.
+        The key idea is that we will record the "cuts" that each column makes.
+        In our first example from Approach 1 with A = ["axx","ayy","baa","bbb","bcc"] (and R defined as in Approach 1),
+        the first column cuts our condition from R[0] <= R[1] <= R[2] <= R[3] <= R[4] to R[0] <= R[1] and R[2] <= R[3] <= R[4].
+        
+        That is, the boundary "a" == column[1] != column[2] == "b" has 'cut' one of the conditions for R out.
 
-     At a high level, our algorithm depends on evaluating whether adding a new column will keep all the rows sorted.
-     By maintaining information about these cuts, we only need to compare characters in the newest column.
-     */
+        At a high level, our algorithm depends on evaluating whether adding a new column will keep all the rows sorted.
+        By maintaining information about these cuts, we only need to compare characters in  the newest column.
+
+        Complexity Analysis
+
+        Time Complexity: O(NW), where N is the length of A, and W is the length of A[i].
+        Space Complexity: O(N) in additional space complexity. (In Python, zip(*A) uses O(NW)O(NW) space.)
+    */
     int doit_greedy(vector<string>&& A) {
         
         size_t N = A.size();
+        // cuts[j] is true : we don't need to check any new A[i][j] <= A[i][j+1]
         vector<bool> cur(N-1, false);
         int ans = 0;
         
@@ -76,12 +157,14 @@ public:
             
             int cnt = 0;
             for (size_t j = 0; j < A.size()-1; j++) {
+                // Evaluate whether we can keep this column
                 if (cur[j] || A[j][i] <= A[j+1][i])
                     cnt++;
                 else
                     break;
             }
             
+            // Update 'cuts' information
             if (cnt == A.size()-1) {
                 for (size_t j = 0; j < A.size()-1; j++)
                     if (!cur[j] && A[j][i] < A[j+1][i])
@@ -90,6 +173,36 @@ public:
                 ans++;
         }
     
+        return ans;
+    }
+
+    int doit_greedy(vector<string>& strs) {
+        
+        int m = strs.size();
+        int n = strs[0].size();
+        vector<bool> cut(m-1, false);
+        int ans = 0;
+        
+        for (int j = 0; j < n; j++) {
+            
+            int cnt = 0;
+            for (int i = 0; i < m-1; i++) {
+                if (cut[i] || strs[i][j] <= strs[i+1][j]) {
+                    cnt++;
+                } else 
+                    break;
+            }
+            
+            if (cnt != m-1) {
+                ans++;
+                continue;
+            }
+            
+            for (int i = 0; i < m-1; i++) {
+                if (!cut[i] && strs[i][j] < strs[i+1][j]) cut[i] = true;
+            }
+        }
+        
         return ans;
     }
 
@@ -140,14 +253,3 @@ public:
 
     }
 };
-
-void test_955_delete_columns_to_make_sortedII() {
-    
-    auto res1 = MinDeletionSize().doit(vector<string>{"ca","bb","ac"});
-    
-    auto res2 = MinDeletionSize().doit(vector<string>{"xc","yb","za"});
-    
-    auto res3 = MinDeletionSize().doit(vector<string>{"zyx","wvu","tsr"});
-    
-    return;
-}
