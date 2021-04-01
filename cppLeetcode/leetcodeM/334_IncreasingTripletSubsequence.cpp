@@ -81,8 +81,7 @@ public:
     
         It is like LIS, longest increasing sequence
     */
-
-    bool doit_(vector<int>& nums) {
+    bool doit_greedy_LIS(vector<int>& nums) {
 
         int first = INT_MAX, second = INT_MAX;
 

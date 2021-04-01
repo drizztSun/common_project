@@ -96,8 +96,6 @@ public:
         10 => 01. it puts 0 forward, so if 1000010 => 1000001 => 01000001 => 00100001 => 10100001 => 100100001 => 110100001 => 111111011
         final result is only one 0, and all other 1. 0 should be in 
     */
-
-    
     string doit_greedy(string binary) {
         
         int n = binary.size();

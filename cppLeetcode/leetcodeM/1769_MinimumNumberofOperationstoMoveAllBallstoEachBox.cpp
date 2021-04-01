@@ -43,8 +43,11 @@ class MinOperations {
 
 public:
 
-    vector<int> doit_search(string boxes) {
+    vector<int> doit_greedy_dp(string boxes) {
         
+        // left means steps to move all ball in the left to left[i]
+        // total is current how many balls on the left. if it moves to i+1, we need to plus 
+        // so left[i+1] = left[i] + total 
         int n = boxes.size();
         vector<int> left(n);
         int total = 0;
@@ -64,6 +67,28 @@ public:
         
         vector<int> ans(n);
         
+        for (int i = 0; i < n; i++)
+            ans[i] = left[i] + right[i];
+        
+        return ans;
+    }
+
+    vector<int> doit_greedy(string boxes) {
+        
+        int n = boxes.size();
+        vector<int> left(n, 0), right(n, 0);
+        
+        for (int i = 1, total = boxes[0] == '1'; i < n; i++) {
+            left[i] = left[i-1] + total;
+            total += boxes[i] == '1';
+        }
+        
+        for (int i = n-2, total = boxes[n-1] == '1'; i >= 0; i--) {
+            right[i] = right[i+1] + total;
+            total += boxes[i] == '1';
+        }
+        
+        vector<int> ans(n, 0);
         for (int i = 0; i < n; i++)
             ans[i] = left[i] + right[i];
         

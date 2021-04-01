@@ -96,8 +96,8 @@ class TrapWater {
         return ret;
     }
 
-
 public:
+	
 	int doit_twopoint(vector<int>&& height) {
 		int N = height.size();
 		vector<int> left(N, 0);
@@ -124,13 +124,4 @@ public:
 
 		return area;
 	}
-
-
 };
-
-void Test_42_TrappingRainWater() {
-
-	int res1 = TrapWater().doit(vector<int>{0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1});
-
-	return;
-}

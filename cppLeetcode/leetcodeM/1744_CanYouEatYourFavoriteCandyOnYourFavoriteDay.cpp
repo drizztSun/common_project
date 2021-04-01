@@ -89,6 +89,67 @@ public:
                 rets.push_back(true);            
         }
         return rets;
+    }
+
+public:
+
+    /*
+        Explanation
+        Accumulate the prefix sum A of candiesCount.
+        The total number of candies with type < i is A[i].
+
+        On the A[type] / cap day, you must already have ths type of candy.
+        On the A[t + 1] - 1 day, you must already have finished ths type of candy.
+        So if you want to eat your favorite candy on your favorite day,
+        this A[t] // c <= d < A[t + 1] must be True.
+
+
+        Complexity
+        Time O(n)
+        Space O(n)
+    */
+    vector<bool> doit_greedy(vector<int>& candiesCount, vector<vector<int>>& queries) {
+        using ll = long long;
         
+        vector<ll> presums{0};
+        int n = candiesCount.size();
+        
+        for (auto c : candiesCount)
+            presums.push_back(presums.back() + c);
+
+        vector<bool> ans;
+
+        for (const auto& c: queries) {
+
+            ll type = c[0]+1, days = c[1], caps = c[2];
+
+            ans.push_back(days < presums[type] && days >= presums[type-1] /caps);
+        }
+
+        return ans;
+    }
+
+
+    vector<bool> doit_greedy(vector<int>& candiesCount, vector<vector<int>>& queries) {
+        using ll = long long;
+        
+        vector<ll> presums{0};
+        int n = candiesCount.size();
+        
+        for (auto c : candiesCount)
+            presums.push_back(presums.back() + c);
+        
+        vector<bool> ans;
+        
+        for (const auto& c : queries) {
+            ll type = c[0]+1, days = c[1]+1, caps = c[2];
+            
+            if ((days-1) >= presums[type] || caps * days <= presums[type-1])
+                ans.push_back(false);
+            else
+                ans.push_back(true);
+        }
+        
+        return ans;
     }
 };

@@ -54,17 +54,18 @@ public:
     所以此题的算法是，将target里面的所有元素顺次映射成1,2,3...，然后将target在arr里面的元素也都替换成对应的1,2,3...其他没有在target里出现的数字都忽略。于是我们可以计算target和arr的LIS。最终的答案就是target的长度减去LIS的长度。
 
     It seems problem for LCS (longest common subsequence), like [5, 1, 3], [9, 4, 2, 3, 4]. LCS is [3], so we have to add [5, 1]
-    That will be: target=[X X a X b c] arr=[X a b X c X]. 
-    Complexity: O(MN)
-    dp[i][j]: LCS A[:i], B[:j]
-    if A[i] == B[j]:
-        dp[i][j] = dp[i-1][j-1] + 1
-    else:
-        dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    
+        That will be: target=[X X a X b c] arr=[X a b X c X]. 
+        Complexity: O(MN)
+        dp[i][j]: LCS A[:i], B[:j]
+        if A[i] == B[j]:
+            dp[i][j] = dp[i-1][j-1] + 1
+        else:
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-    But length is 10^5, only O(n*log(n)) can make it work.
+        But length is 10^5, only O(n*log(n)) can make it work.
 
-    O(n*log(n))
+        O(n*log(n))
     */
     int doit_dp(vector<int>& target, vector<int>& arr) 
     {

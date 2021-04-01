@@ -40,14 +40,57 @@ s contains only lowercase English letters.
 1 <= s.length <= 10^5
 */
 #include <string>
+#include <vector>
 
+using std::vector;
 using std::string;
 
 
 class NumSplits {
+
+    /*
+        1525.Number-of-Good-Ways-to-Split-a-String
+        遍历p和q的分界点的位置i。我们可以提前用two pass计算出i左边的字符种类数left[i]，i右边的字符种类数right[i]。然后第三次遍历所有位置i，检查当left[i]==right[i]的时候，说明在此处划分字符串是符合要求的。
+    */
+    int numSplits(string s) 
+    {
+        int n = s.size();
+        vector<int>left(n,0);
+        vector<int>right(n,0);
+        
+        vector<int>count(26,0);
+        int sum = 0;
+        for (int i=0; i<s.size(); i++)
+        {
+            count[s[i]-'a']+=1;
+            if (count[s[i]-'a']==1)
+                sum+=1;
+            left[i] = sum;
+        }
+        
+        count.assign(26,0);
+        sum = 0;
+        for (int i=s.size()-1; i>=0; i--)
+        {
+            count[s[i]-'a']+=1;
+            if (count[s[i]-'a']==1)
+                sum+=1;
+            right[i] = sum;
+        }
+        
+        int ret = 0;
+        for (int i=0; i<s.size()-1; i++)
+        {
+            if (left[i]==right[i+1])
+                ret+=1;
+        }
+        return ret;
+    }
+
+
 public:
 
-    int doit_hashtable(string s) {
+    int doit_hashtable_greedy(string s) {
         
         int total[26] = {}, left[26] = {}, ans = 0;
         for (char c : s) total[c - 'a']++;

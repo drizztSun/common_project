@@ -63,4 +63,23 @@ class CanEatFavoritCandy:
             
         return ans
 
+    """
+        Explanation
+        Accumulate the prefix sum A of candiesCount.
+        The total number of candies with type < i is A[i].
+
+        On the A[type] / cap day, you must already have ths type of candy.
+        On the A[t + 1] - 1 day, you must already have finished ths type of candy.
+        So if you want to eat your favorite candy on your favorite day,
+        this A[t] // c <= d < A[t + 1] must be True.
+
+
+        Complexity
+        Time O(n)
+        Space O(n)
+    """
+    def canEat(self, candiesCount, queries):
+        A = [0] + list(accumulate(candiesCount))
+        return [A[t] // c <= d < A[t + 1] for t, d, c in queries]
+
         
