@@ -228,7 +228,7 @@ public:
         return left;        
     }
 
-    int doit_v2(vector<int>& nums) 
+    int doit_indexing(vector<int>& nums) 
     {
         int n = nums.size()-1;
         nums.insert(nums.begin(), 0);
@@ -245,7 +245,7 @@ public:
         return -1;
     }
 
-    int doit_v3(vector<int>& nums) 
+    int doit_floyed(vector<int>& nums) 
     {
         int slow = nums[0];
         int fast = nums[nums[0]];

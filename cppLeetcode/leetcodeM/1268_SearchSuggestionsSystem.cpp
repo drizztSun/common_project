@@ -55,6 +55,29 @@ using std::string;
 
 class SuggestedProducts {
 
+    vector<vector<string>> doit_greedy(vector<string>& products, string searchWord) {
+            
+        sort(products.begin(), products.end());
+        vector<vector<string>> suggested;
+        
+        int left = 0, right = products.size();
+        for(int i = 0; i < searchWord.size(); i++) {
+            vector<string> temp;
+            
+            while(left < right && products[left][i] != searchWord[i])
+                left++;
+            while(left < right && products[right-1][i] != searchWord[i])
+                right--;
+            
+            for(int j = 0; j < 3 && left + j < right; j++)
+                temp.push_back(products[left+j]);
+                
+            suggested.push_back(temp);
+        }
+        
+        return suggested;
+    }
+
     /*
         Approach 1: Binary Search
         Intuition
@@ -177,6 +200,7 @@ public:
         // Add all words to trie.
         for(string &w:products)
             trie.insert(w);
+
         string prefix;
         for (char &c : searchWord) {
             prefix += c;

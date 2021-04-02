@@ -52,9 +52,8 @@
  
  
  */
-#include <stdio.h>
-
 #include <vector>
+#include <algorithm>
 
 using std::vector;
 
@@ -127,8 +126,7 @@ public:
             }
         }
         
-        if (A == B)
-            return 0;
+        if (A == B) return 0;
         
         return A > B ? 1 : -1;
     }

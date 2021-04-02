@@ -57,6 +57,26 @@ public:
 
 		return true;
 	}
+
+// -----------
+
+    map<int, int> _calendar;
+    
+public:
+    MyCalendar() {}
+    
+    bool book(int start, int end) {
+        
+        auto it = _calendar.lower_bound(start);
+        
+        if (it != _calendar.begin() && prev(it)->second > start) return false;
+            
+        if (it != _calendar.end() && it->first < end) return false;
+        
+        _calendar.emplace(start, end);
+        
+        return true;
+    }
 };
 
 
