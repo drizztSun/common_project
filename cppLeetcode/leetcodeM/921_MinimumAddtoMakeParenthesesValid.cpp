@@ -14,7 +14,7 @@ Given a parentheses string, return the minimum number of parentheses we must add
 
 Example 1:
 
-Input: "())"
+Input: "())" 
 Output: 1
 Example 2:
 

@@ -98,5 +98,49 @@ public:
         }
         
         return ret;   
-    }   
+    }
+
+    /*
+        Explanation
+        For each meeting,
+        find the maximum value we can get before this meeting starts.
+        Repeatly doing this K times.
+
+
+        Complexity
+        Time O(knlogn), can be improved to O(nk) like Knapsack problem
+        Space O(n)
+    */
+    int doit_dp(vector<vector<int>>& events, int k) {
+        
+        std::sort(begin(events), end(events), [](const auto& a, const auto& b) {
+            return a[1] < b[1];
+        });
+        
+        int m = events.size();
+        events.insert(begin(events), events[0]);
+        vector<vector<int>> dp(m+1, vector<int>(k+1, INT_MIN/2));
+        vector<int> endTime{0};
+        
+        int res = 0;
+        
+        for (int i = 0; i <= m; i++)
+            dp[i][0] = 0;
+        
+        for (int i = 1; i <= m; i++) {
+            
+            int t = int(std::lower_bound(begin(endTime), end(endTime), events[i][0]) - begin(endTime)) - 1;
+            
+            for (int j = 1; j <= k; j++) {
+                
+                dp[i][j] = std::max(dp[i-1][j], dp[t][j-1] + events[i][2]);
+                
+                res = std::max(res, dp[i][j]);
+            }
+            
+            endTime.push_back(events[i][1]);
+        }
+        
+        return res;
+    }
 };
