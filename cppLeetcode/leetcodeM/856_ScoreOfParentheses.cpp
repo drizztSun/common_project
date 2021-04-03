@@ -54,21 +54,20 @@ class ScoreOFParentheses {
             {
                 if (cur==0)
                     cur = 1;
-                else
+                else // "(((())))"
                     cur = cur*2;
                 cur = Stack.top()+cur;
                 Stack.pop();
             }
             else
             {
+                // push it "((()))((..."
                 Stack.push(cur);
                 cur = 0;
             }
         }
         return cur;
     }
-
-
 
 public:
     
@@ -152,10 +151,17 @@ public:
         so we can calculate the score res += 1 << l.
     */
     int doit_01(string S) {
+        
         int res = 0, l = 0;
+        
         for (int i = 0; i < S.length(); ++i) {
-            if (S[i] == '(') l++; else l--;
-            if (S[i] == ')' && S[i - 1] == '(') res += 1 << l;
+            if (S[i] == '(') 
+                l++; 
+            else 
+                l--;
+            
+            if (S[i] == ')' && S[i - 1] == '(') 
+                res += 1 << l;
         }
         return res;
     }

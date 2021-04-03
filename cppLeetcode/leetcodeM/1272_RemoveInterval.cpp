@@ -39,6 +39,31 @@ using std::vector;
 
 class RemoveInterval {
 
+    /*
+                1272.Remove-Interval
+        此题考查了对于两个区间相对关系的代码描述。假设有我们考察的区间是a，toBeRemoved的区间是b：
+
+        如果a和b不相交：if (a[1]<=b[0] || a[0]>=b[1]，那么就将a加入结果。
+        剩下的情况就是a和b相交。我们需要加入结果的是a在b前面的部分，和a在b后面的部分。前者需要if (a[0]<b[0])，然后加入{a[0], min(a[1],b[0])}；后者需要if (a[1]>b[1])，然后加入{max(a[1],b[1]), a[1]}；
+    */
+    vector<vector<int>> doit_greedy(vector<vector<int>>& intervals, vector<int>& toBeRemoved) 
+    {
+        vector<vector<int>>rets;
+        for (auto v: intervals)
+        {
+            if (v[1]<=toBeRemoved[0] || v[0]>=toBeRemoved[1])
+                rets.push_back(v);
+            else
+            {
+                if (v[0] < toBeRemoved[0])
+                    rets.push_back({v[0], min(v[1], toBeRemoved[0])});
+                if (v[1] > toBeRemoved[1])
+                    rets.push_back({max(v[0], toBeRemoved[1]), v[1]});
+            }
+        }
+        return rets;
+    }
+
 public:
     
     vector<vector<int>> doit_search(vector<vector<int>>& intervals, vector<int>& toBeRemoved) {
@@ -63,7 +88,7 @@ public:
         return ans;
     }
 
-    vector<vector<int>> doit_search(vector<vector<int>>& intervals, vector<int>& toBeRemoved) {
+    vector<vector<int>> doit_greedy(vector<vector<int>>& intervals, vector<int>& toBeRemoved) {
         
         vector<vector<int>> ans;
         

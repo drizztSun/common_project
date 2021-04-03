@@ -56,23 +56,20 @@ class VideoStitching {
 public:
 
     /*
-    1024.Video-Stitching
-    此题非常类似 45.Jump Game II，整体就是一个贪心的策略。略微的差异就是我们需要预先将这些clips排序，排序的原则就是左端点靠前的优先，其次右端点靠后的优先。
+        1024.Video-Stitching
+        此题非常类似 45.Jump Game II，整体就是一个贪心的策略。略微的差异就是我们需要预先将这些clips排序，排序的原则就是左端点靠前的优先，其次右端点靠后的优先。
 
-    我们从第一个区间[0,right]开始考虑，将之后所有左端点位于right之前的clips都查看一遍（意味着与之前的区间有overlap），考察他们各自的右端点，取最大值得到能够推进到最远的位置farReach。
-    这对应增加一个clip的操作（这个clip的右端点就是farReach）。然后更新right=farReach，再重复之前的操作，直到抵达target。
+        我们从第一个区间[0,right]开始考虑，将之后所有左端点位于right之前的clips都查看一遍（意味着与之前的区间有overlap），考察他们各自的右端点，取最大值得到能够推进到最远的位置farReach。
+        这对应增加一个clip的操作（这个clip的右端点就是farReach）。然后更新right=farReach，再重复之前的操作，直到抵达target。
 
-    特别注意，如果更新farReach之后仍然等于right，就意味着没有其他clip与当前的区间能够overlap，应该及时返回-1，否则会死循环。
+        特别注意，如果更新farReach之后仍然等于right，就意味着没有其他clip与当前的区间能够overlap，应该及时返回-1，否则会死循环。
     */
-    int videoStitching(vector<vector<int>>& clips, int T) 
+    int doit_greedy(vector<vector<int>>& clips, int T) 
     {
         if (T==0) return 0;
 
-        sort(clips.begin(),clips.end(), [](vector<int>&a, vector<int>&b) {
-            if (a[0]!=b[0])
-                return a[0]<b[0];
-            else
-                return a[1]>b[1];
+        std::sort(clips.begin(),clips.end(), [](vector<int>&a, vector<int>&b) {
+            return a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]);
         });        
         
         int far = 0;
@@ -99,7 +96,40 @@ public:
         return -1;        
     }
 
-    int doit(vector<vector<int>>&& clips, int T) {
+public:
+
+    // It is same as jump game, shoud be greedy and O(n)
+    int doit_greedy_best(vector<vector<int>>& clips, int T) {
+        
+        if (T == 0) return 0;
+    
+        std::sort(begin(clips), end(clips), [](const auto&a, const auto&b) {
+           return a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]);
+        });
+        
+        int ans = 0, end = 0;
+        
+        for (int i = 0; i < clips.size();) {
+            
+            int far = end;
+            ans++;
+            while (i < clips.size() && clips[i][0] <= end) {
+                far = std::max(far, clips[i][1]);
+                i++;
+            }
+            
+            if (far >= T) return ans;
+            
+            else if (far == end) return -1;
+            
+            end = far;
+        }
+        
+        return -1;
+    }
+
+
+    int doit_greedy(vector<vector<int>>&& clips, int T) {
             
          std::sort(clips.begin(), clips.end(), [](auto& a, auto& b) ->bool {
              return (a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]));
@@ -141,27 +171,25 @@ public:
         return -1;
     }
     
-    int doit1(vector<vector<int>>&& clips, int T) {
+    // O(n^2)
+    int doit_dp(vector<vector<int>>&& clips, int T) {
         
         int n = clips.size();
-        if (n==0)
-            return -1;
+        if (n == 0) return -1;
         
-        sort(clips.begin(), clips.end(), [](auto& v1, auto& v2) -> bool{
-            if (v1[0]<v2[0])
-                return true;
-            else if (v1[0]==v2[0])
-                return v1[1]<=v2[1];
-            else
-                return false;
+        std::sort(clips.begin(), clips.end(), [](const auto& v1, const auto& v2){
+            return v1[0]<v2[0] || (v1[0]==v2[0] && v1[1]<=v2[1]);
         });
         
-        vector<int> dp (101, 101);
+        int scope = T;
+        for (auto& c: clips)
+            scope = std::max(scope, c[1]);
+        
+        vector<int> dp (scope+2, 101);
         dp[0] = 0;
         
         for (auto& c : clips) {  
-            if (c[0]>T)
-                break;
+            if (c[0]>=T) break;
             for (int i=c[0]+1; i<=c[1]; i++) {
                 dp[i] = std::min(dp[i], dp[c[0]]+1);
             }
@@ -170,19 +198,3 @@ public:
         return dp[T] == 101 ? -1 : dp[T];
     }
 };
-
-
-void test_1024_VideoStitching() {
-    
-    auto res1 = VideoStitching().doit(vector<vector<int>>{{0,2},{4,6},{8,10},{1,9},{1,5},{5,9}},10);
-    
-    auto res2 = VideoStitching().doit(vector<vector<int>>{{5,7},{1,8},{0,0},{2,3},{4,5},{0,6},{5,10},{7,10}}, 5);
-    
-    //auto res2 = VideoStitching().doit();
-    
-    //auto res3 = VideoStitching().doit();
-    
-    //auto res4 = VideoStitching().doit();
-    
-    return;
-}

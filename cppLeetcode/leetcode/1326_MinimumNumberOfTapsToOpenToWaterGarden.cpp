@@ -51,6 +51,7 @@
  */
 #include <vector>
 #include <array>
+#include <algorithm>
 
 using std::array;
 using std::vector;
@@ -61,12 +62,12 @@ class MinimumNumberOfTapsToOpenToWaterGarden {
 public:
 
     /*
-    1326.Minimum-Number-of-Taps-to-Open-to-Water-a-Garden
-    此题的本质就是寻找数目最少的、互相重叠区间，使得最终能够覆盖[0,n]。这和1024.Video-Stitching非常类似。
+        1326.Minimum-Number-of-Taps-to-Open-to-Water-a-Garden
+        此题的本质就是寻找数目最少的、互相重叠区间，使得最终能够覆盖[0,n]。这和1024.Video-Stitching非常类似。
 
-    我们将所有的区间按照左端点排列，如果左端点并列，那么优先选择范围大的区间。假设我们当前处理区间i，记作[a,b]，那么我们会查看i后面的、与i有交叠的区间，如果有多个，我们一定会从里面挑选右端点最远的那一个（记作区间j），因为j既能与i重叠、又能覆盖最远的地方，可以减少最终所选区间的数目。然后我们再考察区间j，重复之前的操作。
+        我们将所有的区间按照左端点排列，如果左端点并列，那么优先选择范围大的区间。假设我们当前处理区间i，记作[a,b]，那么我们会查看i后面的、与i有交叠的区间，如果有多个，我们一定会从里面挑选右端点最远的那一个（记作区间j），因为j既能与i重叠、又能覆盖最远的地方，可以减少最终所选区间的数目。然后我们再考察区间j，重复之前的操作。
 
-    注意无解的情况有三种：1. 最右端的位置还没有推进到n，但是区间i之后已经没有任何其他区间能与之重叠；2. 如果考察完所有的区间，最右端的位置仍然无法推进到n，3. 第一个区间的左端点在0后面。
+        注意无解的情况有三种：1. 最右端的位置还没有推进到n，但是区间i之后已经没有任何其他区间能与之重叠；2. 如果考察完所有的区间，最右端的位置仍然无法推进到n，3. 第一个区间的左端点在0后面。
     */
     int minTaps(int n, vector<int>& ranges) 
     {
@@ -147,6 +148,7 @@ public:
         return taps; 
     }
 
+    // O(n^2)
     int doit_dp(int n, vector<int>& ranges) {
         
         vector<int> dp(n+1);
@@ -223,7 +225,38 @@ public:
         }
         return ans;
     }
-    
+
+    int doit_greedy(int n, vector<int>& ranges) {
+
+        vector<vector<int>> intervals;
+        
+        for (int i = 0; i < ranges.size(); i++)
+            intervals.push_back({std::max(0, i-ranges[i]), i + ranges[i]});
+        
+        std::sort(begin(intervals), end(intervals), [](const auto& a, const auto& b) {
+            return a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]); 
+        });
+        
+        int i = 0, end = 0, ans = 0;
+        
+        while (i < intervals.size()) {
+            
+            int far = end;
+            ans++;
+            while (i <intervals.size() && intervals[i][0] <= end) {
+                far = std::max(far, intervals[i][1]);
+                i++;
+            }
+            
+            if (far == end) return -1;
+            
+            if (far >= n) return ans;
+            
+            end = far;
+        }
+        
+        return -1;
+    }
 
     // O(n)
     int doit_greedy(int n, vector<int>& ranges) {

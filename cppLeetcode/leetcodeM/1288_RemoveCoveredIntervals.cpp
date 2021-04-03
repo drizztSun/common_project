@@ -83,8 +83,7 @@ public:
     int doit_sort(vector<vector<int>>& intervals) {
 
         std::sort(begin(intervals), end(intervals), [](auto& a, auto&b) {
-            if (a[0] != b[0]) return a[0] < b[0];
-            return a[1] > b[1];
+            return a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]);
         });
         
         int curend = 0, count = 0;

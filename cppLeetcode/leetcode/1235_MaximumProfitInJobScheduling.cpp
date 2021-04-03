@@ -98,8 +98,8 @@ public:
             int ans = ret;
             auto iter = dp.upper_bound(jobs[i][0]);
             ans = std::max(ans, std::prev(iter,1)->second + jobs[i][2]);
+            
             dp[jobs[i][1]] = ans;
-
             ret = std::max(ret, ans);
         }
 
@@ -178,7 +178,7 @@ public:
        
         for(int i=1; i<n; i++){
            dp[i] = std::max(dp[i-1], task[i].p);
-           int j = binary_search(task, 0, i-1, task[i].s);
+           int j = binary_search(0, i-1, task[i].s);
            if(j != -1)
                dp[i] = std::max(dp[i], dp[j] + task[i].p);
         }
