@@ -38,14 +38,119 @@ isConnected[i][j] == isConnected[j][i]
 */
 #include <vector>
 #include <queue>
+#include <functional>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::queue;
 using std::vector;
 
 
 class NumberOfProvinces {
 
+    /*
+        注意，最后需要重新遍历一遍所有节点，通过FindSet来更新所有的父节点。
+
+        unordered_set<int>Set;
+        for (int i=0; i<N; i++)
+        {
+            Father[i] = FindSet(i);
+            Set.insert(Father[i]);
+        }
+        return Set.size();
+    */
+    vector<int>Father;
+
+    int findCircleNum(vector<vector<int>>& M) 
+    {
+        int N=M.size();
+        
+        for (int i=0; i<N; i++)
+            Father.push_back(i);
+        
+        for (int i=0; i<N; i++)
+         for (int j=0; j<N; j++)
+         {
+             if (M[i][j]==0) continue;
+             
+             if (FindSet(i)!=FindSet(j))
+                 Union(i,j);             
+         }
+        
+        unordered_set<int>Set;
+        for (int i=0; i<N; i++)
+        {
+            Father[i] = FindSet(i);
+            Set.insert(Father[i]);
+        }
+            
+        return Set.size();
+    }
+    
+    int FindSet(int x)
+    {
+        if (x!=Father[x])
+        {
+            Father[x]=FindSet(Father[x]);
+        }
+        return Father[x];
+    }
+    
+    void Union (int x, int y)
+    {
+        x=Father[x];
+        y=Father[y];
+        if (x<=y)
+            Father[y]=x;
+        else
+            Father[x]=y;
+    }
+
+
+
 public:
+
+    int doit_disjoint(vector<vector<int>>& isConnected) {
+        
+        int m = isConnected.size();
+        
+        vector<int> parent(m);
+        for (int i = 0; i < m; i++) 
+            parent[i] = i;
+        
+    
+        auto find = [&](int node) {
+            while (node != parent[node]) {
+                parent[node] = parent[parent[node]];
+                node = parent[node];
+            }
+            return node;
+        };
+        
+        auto merge = [&](int a, int b) {
+            int pa = find(a);
+            int pb = find(b);
+            if (pa == pb) return;
+            
+            if (pa < pb)
+                parent[pb] = pa;
+            else
+                parent[pa] = pb;
+        };
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
+                if (isConnected[i][j] == 1) merge(i, j);
+            }
+        }
+        
+        unordered_set<int> groups;
+        for(int i = 0; i < m; i++) {
+            groups.insert(find(i));
+        }
+        
+        return groups.size();
+    }
 
     /*
         Approach #1 Using Depth First Search[Accepted]

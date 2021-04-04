@@ -43,15 +43,18 @@
  s only contains lower case English letters.
 
  
- */
+*/
 
-#include <stdio.h>
 #include <vector>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
+#include <algorithm>
 #include <numeric>
+#include <functional>
+#include <set>
 
+using std::set;
 using std::unordered_set;
 using std::vector;
 using std::string;
@@ -59,7 +62,70 @@ using std::unordered_map;
 
 
 class SmallestStringWithSwaps {
+
+    /*
+        1202.Smallest-String-With-Swaps
+      很显然，将所有有联通关系的index都union成一个连通图，那么这些index对应的字符其实就可以任意调换顺序，想像成“冒泡法”就不难理解了。
+
+      将一个连通分量内的字符串抽取出来按照字典序重新排列，然后再依次放回这些index的位置，就是答案。
+    */
+    vector<int>Father;
+
+    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
+        int N = s.size();
+        Father.resize(N);
+        for (int i=0; i<N; i++)
+            Father[i] = i;
+        
+        for (auto& p :pairs)
+        {
+            int a = p[0];
+            int b = p[1];
+            if (FindFather(a)!=FindFather(b))
+                Union(a,b);
+        }
+        
+        unordered_map<int, vector<int>>Map; // root idx -> all indexes
+        for (int i=0; i<N; i++)
+        {
+            Map[FindFather(i)].push_back(i);
+        }
+        
+        for (auto x: Map)
+        {
+            string temp;
+            for (auto idx : x.second)
+                temp.push_back(s[idx]);
+
+            std::sort(temp.begin(),temp.end());
+            int k = 0;
+            for (auto idx : x.second)
+            {
+                s[idx] = temp[k];
+                k++;
+            }
+        }
+        
+        return s;
+    }
     
+    int FindFather(int x)
+    {
+        if (Father[x]!=x)
+            Father[x] = FindFather(Father[x]);
+        return Father[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Father[x];
+        y = Father[y];
+        if (x<y)
+            Father[y] = x;
+        else
+            Father[x] = y;
+    }
+
 public:
     
     string doit_dfs(string s, vector<vector<int>>& pairs) {
@@ -76,8 +142,7 @@ public:
         
         std::function<void(int)> dfs = [&](int i) {
           
-            if (seen.count(i))
-                return;
+            if (seen.count(i)) return;
             
             tmp.push_back(s[i]);
             idx.push_back(i);
@@ -137,11 +202,57 @@ public:
       
       return s;
     }
+
+
+    string doit_disjoint(string s, vector<vector<int>>& pairs) {
+      
+      int n = s.length();
+      vector<int> parent(n, -1);
+      
+      for (int i = 0; i < n; i++)
+          parent[i] = i;
+      
+      auto find = [&](int n) {
+          while (parent[n] != n) {
+              parent[n] = parent[parent[n]];
+              n = parent[n];
+          }
+          return n;
+      };
+      
+      auto merge = [&](int a, int b) {
+          int pa = find(a), pb = find(b);
+          if (pa < pb)
+              parent[pb] = pa;
+          else
+              parent[pa] = pb;
+      };
+      
+      
+      for (const auto& c: pairs) {
+          merge(c[0], c[1]);
+      }
+      
+      unordered_map<int, set<int>> groups;
+      
+      for (int i = 0; i < n; i++) {
+          groups[find(i)].insert(i);
+      }
+      
+      string result;
+      result.resize(n);
+      
+      for(auto it: groups) {
+          
+          vector<char> tmp;
+          for (auto c: it.second) tmp.push_back(s[c]);
+          
+          std::sort(begin(tmp), end(tmp));
+          
+          int i = 0;
+          for (auto c: it.second) result[c] = tmp[i++];
+      }
+      
+      return result;
+    }
 };
-
-
-void test_1202_smallest_swap_string() {
-    
-    
-    SmallestStringWithSwaps().doit_disjoint("dcab", vector<vector<int>>{{0, 3}, {1, 2}, {0, 2}});
-}

@@ -124,7 +124,7 @@ public:
 		return best;
 	}
 
-	int doit(vector<int>& nums) {
+	int doit_sweepline(vector<int>& nums) {
 
 		unordered_map<int, int> keep;
 
@@ -148,17 +148,17 @@ public:
 		return res;
 	}
 
-	int doit3(vector<int>& nums) {
+	int doit_sort(vector<int>& nums) {
+		
 		sort(nums.begin(), nums.end());
 
 		int max_sum = 0;
 		int sum = 0;
 
-		if (nums.size() <= 1)
-			return nums.size();
+		if (nums.size() <= 1) return nums.size();
 
 		sum = 1;
-
+		
 		for (size_t i = 1; i < nums.size(); i++)
 		{
 			if ((nums[i] - nums[i - 1]) == 1 || (nums[i] - nums[i - 1]) == 0)
@@ -171,11 +171,9 @@ public:
 				max_sum = max(max_sum, sum);
 				sum = 1;
 			}
-			// cout << sum << endl;
 		}
 
-		max_sum = max(max_sum, sum);
-		return max_sum;
+		return max(max_sum, sum);
 	}
 
 	int doit2(vector<int>& nums) {

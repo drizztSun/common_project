@@ -52,12 +52,9 @@ using std::vector;
 
 
 class CheckingExistenceEdgeLengthLimitedPath {
-    
-
-    
+        
 public:
 
-    
     /*
      
      1697.Checking-Existence-of-Edge-Length-Limited-Paths
@@ -69,7 +66,59 @@ public:
      再判断query的两点是否联通...可见，如果我们将所有的queries按照limit从小到大排列进行处理，那么相应地我们只需要按照权重从小到大地添加边就行了。在构建联通图的过程中，每条边只需要处理一遍。
 
      所以本题的时间复杂度可以近似认为是o(ElogE)，瓶颈在于对所有edges的排序。
-     */
+    */
+    int Father[100005];
+    
+    static bool cmp(vector<int>&a, vector<int>&b)
+    {
+        return a[2]<b[2];
+    }
+
+    int FindFather(int x)
+    {
+        if (Father[x]!=x)
+            Father[x] = FindFather(Father[x]);
+        return Father[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Father[x];
+        y = Father[y];
+        if (x<y) Father[y] = x;
+        else Father[x] = y;
+    }
+    
+    vector<bool> distanceLimitedPathsExist(int n, vector<vector<int>>& edgeList, vector<vector<int>>& queries) 
+    {
+        for (int i=0; i<n; i++)
+            Father[i] = i;
+        
+        for (int i=0; i<queries.size(); i++)
+            queries[i].push_back(i);
+        
+        sort(queries.begin(), queries.end(), cmp);        
+        sort(edgeList.begin(), edgeList.end(), cmp);
+        
+        int i = 0;
+        vector<bool>ret(queries.size(),0);
+        for (auto& q: queries)
+        {
+            while (i<edgeList.size() && edgeList[i][2] < q[2])
+            {
+                int a = edgeList[i][0];
+                int b = edgeList[i][1];
+                if (FindFather(a)!=FindFather(b))
+                    Union(a,b);
+                i++;
+            }
+            int idx = q[3];
+            ret[idx] = (FindFather(q[0])==FindFather(q[1]));
+        }
+        return ret;        
+    }
+
+public:    
     
     vector<bool> doit_disjoint(int n, vector<vector<int>>& edgeList, vector<vector<int>>& queries) {
         
@@ -107,7 +156,6 @@ public:
         int i = 0;
         for (auto& c : queries)
         {
-            
             while (i < edgeList.size() && c[2] > edgeList[i][2]) {
                 
                 int a = edgeList[i][0], b = edgeList[i][1];
@@ -115,12 +163,9 @@ public:
                 if (Find(a) != Find(b)) {
                     Union(a, b);
                 }
-                
                 i++;
-            }
-                   
+            }          
             res[c[3]] = (Find(c[0]) == Find(c[1]));
-                
         }
         
         return res;
@@ -150,8 +195,9 @@ public:
         vector<bool> result(queries.size(), false);
         auto func = [&](const vector<int>& a, const vector<int>& b) { return a[2] < b[2]; };
         for (int i=0;i<queries.size();++i) queries[i].push_back(i);
-        sort(edgeList.begin(), edgeList.end(), func);
-        sort(queries.begin(), queries.end(), func);
+        
+        std::sort(edgeList.begin(), edgeList.end(), func);
+        std::sort(queries.begin(), queries.end(), func);
         
         init(n);
         int e = 0;

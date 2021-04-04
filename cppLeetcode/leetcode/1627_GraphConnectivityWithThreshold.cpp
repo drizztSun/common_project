@@ -63,6 +63,101 @@ using std::vector;
 
 class GraphConnecttivityWithThreshold {
 
+    /*
+        1627.Graph-Connectivity-With-Threshold
+        本题考查的是如何高效地选择两个数进行Union.如果是遍历数字A、遍历数字B，再判断是否有大于threshold的公约数，时间复杂度会非常高。
+
+        一个自然的想法是，遍历大于threshold的公约数x，然后查看x的倍数有哪些。所有关于x的倍数必然都是应该Union的。时间复杂度大概是1*n+2*n/2+3*n/3+...+n*n/n = n*(1/1+1/2+1/3+...+1/n)，后者是一个调和级数，增长的趋势近似于logN。所以总的时间复杂度是O(NlogN)。当然关于Union的操作我们得另算，我们可以近似认为均摊后是o(1)，本质上是一个关于n的常数。
+
+        再进一步的改进是，我们不用遍历所有大于threshold的数作为公约数。我们如果已经考察过x作为公约数之后，所有的x的倍数都不用再考察作为公约数了。这等价于埃拉托斯特尼筛法。时间复杂度是O(NloglogN).
+    */
+    vector<int>Father;
+
+    int FindFather(int x)
+    {
+        if (Father[x]!=x)
+            Father[x] = FindFather(Father[x]);
+        return Father[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Father[x];
+        y = Father[y];
+        if (x<y)
+            Father[y] = x;
+        else
+            Father[x] = y;
+    }
+    
+    vector<bool> areConnected(int n, int threshold, vector<vector<int>>& queries) 
+    {
+        Father.resize(n+1);
+        for (int i=1; i<=n; i++)
+            Father[i] = i;
+        
+        for (int k = threshold + 1; k <= n; k++) 
+        {
+            for (int x = 2 * k; x <= n; x += k) 
+            {
+                if (FindFather(x)!=FindFather(k))
+                    Union(x, k);
+            }
+        }
+        
+        vector<bool>rets;
+        for (auto query: queries)
+            rets.push_back(FindFather(query[0])==FindFather(query[1]));
+        return rets;
+        
+    }
+
+public:
+    
+    vector<int>Father;
+
+    int FindFather(int x)
+    {
+        if (Father[x]!=x)
+            Father[x] = FindFather(Father[x]);
+        return Father[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Father[x];
+        y = Father[y];
+        if (x<y)
+            Father[y] = x;
+        else
+            Father[x] = y;
+    }
+    
+    vector<bool> areConnected(int n, int threshold, vector<vector<int>>& queries) 
+    {
+        Father.resize(n+1);
+        for (int i=1; i<=n; i++)
+            Father[i] = i;
+        
+        vector<int>visited(n+1,0);
+        for (int k = threshold + 1; k <= n; k++) 
+        {
+            if (visited[k]==1) continue;
+            for (int x = 2 * k; x <= n; x += k) 
+            {
+                visited[x] = 1;
+                if (FindFather(x)!=FindFather(k))
+                    Union(x, k);
+            }
+        }
+        
+        vector<bool>rets;
+        for (auto query: queries)
+            rets.push_back(FindFather(query[0])==FindFather(query[1]));
+        return rets;
+        
+    }
+
 public:
 
     vector<bool> doit_disjoint(int n, int threshold, vector<vector<int>>& queries) {

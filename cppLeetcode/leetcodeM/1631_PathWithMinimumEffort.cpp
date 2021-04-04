@@ -53,6 +53,111 @@ using std::vector;
 
 class PathWithMinimumEffort {
 
+    /*
+        1631.Path-With-Minimum-Effort
+        此题的道路可以上下左右行走，显然不是动态规划。用DFS搜索路径的话也是一个天文数字。所以此题必有巧解。
+
+        解法1：二分搜索
+        假设minimum effort是a，那么意味着路径上不能有超过diff大于a的边。怎么验证有没有呢？BFS走一遍就行。从左上角向外扩展，遇到diff大于a的边就绕行，看看最终能否到达右下角。成功的话，就尝试减小a；不成功的话，就尝试增大a。这个时间复杂度是o(M*N*logH)，H是矩阵元素的最大值。
+
+        解法2：Union Find
+        我们将所有的边按照diff从小到大排个序。优先选最小的边，看能联通哪些点；再选次小的边，看能联通哪些点。直至选中某条边之后，发现起点和终点恰好联通，那么这条边的diff就是答案。
+    */
+    int minimumEffortPath_binary_search(vector<vector<int>>& heights) 
+    {
+        int left = 0, right = 1000000;
+        while (left < right)
+        {
+            int mid = left+(right-left)/2;
+            if (isOK(heights, mid))
+                right = mid;
+            else
+                left = mid+1;
+        }
+        return left;
+    }
+
+    bool isOK(vector<vector<int>>& heights, int a)
+    {
+        int m = heights.size();
+        int n = heights[0].size();
+        auto visited = vector<vector<int>>(m, vector<int>(n,0));
+        visited[0][0] = 1;
+        queue<std::pair<int,int>>q;
+        q.push({0,0});
+        auto dir = vector<std::pair<int,int>>({{1,0},{-1,0},{0,1},{0,-1}});
+
+        while (!q.empty())
+        {
+            int x = q.front().first;
+            int y = q.front().second;
+            q.pop();
+            for (int k=0; k<4; k++)
+            {
+                int i = x+dir[k].first;
+                int j = y+dir[k].second;
+                if (i<0||i>=m||j<0||j>=n)
+                    continue;
+                if (visited[i][j]==1)
+                    continue;
+                if (abs(heights[i][j]-heights[x][y])>a)
+                    continue;
+                q.push({i,j});
+                visited[i][j]=1;
+            }
+        }
+        return visited[m-1][n-1]==true;
+    }
+
+public:
+
+    int Father[10001];
+    int FindFather(int x)
+    {
+        if (Father[x]!=x)
+            Father[x] = FindFather(Father[x]);
+        return Father[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Father[x];
+        y = Father[y];
+        if (x<y)
+            Father[y] = x;
+        else
+            Father[x] = y;
+    }    
+
+    int minimumEffortPath_disjoint(vector<vector<int>>& heights) 
+    {
+        int m = heights.size();
+        int n = heights[0].size();
+        for (int i=0; i<m*n; i++)
+            Father[i] = i;
+        
+        vector<vector<int>>q;
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+            {
+                if (i!=m-1) q.push_back({abs(heights[i][j]-heights[i+1][j]),i*n+j,(i+1)*n+j});
+                if (j!=n-1) q.push_back({abs(heights[i][j]-heights[i][j+1]),i*n+j,i*n+j+1});
+            }
+
+        sort(q.begin(), q.end());
+        
+        for (auto x:q)
+        {
+            if (FindFather(x[1])!=FindFather(x[2]))
+                Union(x[1],x[2]);
+            if (FindFather(0)==FindFather((m-1)*n+n-1))
+                return x[0];
+        }
+        return 0;
+    }
+
+public:
+
     class Cell {
     public:
         int x, y;
@@ -69,19 +174,16 @@ class PathWithMinimumEffort {
             return p2.difference < p1.difference;
         }
     };
-
-public:
-
-    /*
-    
-    */
     
     int doit_bfs_dijstra(vector<vector<int>>& heights) {
+
         int directions[4][2] = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
         int row = heights.size();
         int col = heights[0].size();
+        
         vector<vector<int>> differenceMatrix(row, vector<int>(col, INT_MAX));
         differenceMatrix[0][0] = 0;
+        
         priority_queue<Cell, vector<Cell>, Comparator> queue;
         vector<vector<bool>> visited(row, vector<bool>(col, false));
         queue.push(Cell(0, 0, differenceMatrix[0][0]));
@@ -94,24 +196,27 @@ public:
             Cell curr = queue.top();
             queue.pop();
             visited[curr.x][curr.y] = true;
+
             if (curr.x == row - 1 && curr.y == col - 1) return curr.difference;
+            
             for (auto direction : directions) {
+            
                 int adjacentX = curr.x + direction[0];
                 int adjacentY = curr.y + direction[1];
-                if (isValidCell(adjacentX, adjacentY, row, col) &&
-                    !visited[adjacentX][adjacentY]) {
-                    int currentDifference = abs(heights[adjacentX][adjacentY] -
-                                                heights[curr.x][curr.y]);
-                    int maxDifference = max(currentDifference,
-                                            differenceMatrix[curr.x][curr.y]);
-                    if (differenceMatrix[adjacentX][adjacentY] >
-                        maxDifference) {
+            
+                if (isValidCell(adjacentX, adjacentY, row, col) && !visited[adjacentX][adjacentY]) {
+
+                    int currentDifference = abs(heights[adjacentX][adjacentY] - heights[curr.x][curr.y]);
+                    int maxDifference = std::max(currentDifference, differenceMatrix[curr.x][curr.y]);
+
+                    if (differenceMatrix[adjacentX][adjacentY] > maxDifference) {
                         differenceMatrix[adjacentX][adjacentY] = maxDifference;
                         queue.push(Cell(adjacentX, adjacentY, maxDifference));
                     }
                 }
             }
         }
+        
         return differenceMatrix[row - 1][col - 1];
     }
 

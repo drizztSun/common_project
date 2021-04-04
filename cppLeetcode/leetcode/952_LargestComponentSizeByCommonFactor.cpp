@@ -27,34 +27,16 @@
  */
 
 #include <algorithm>
-
 #include <cmath>
-
 #include <vector>
-using std::vector;
-
 #include <unordered_set>
-using std::unordered_set;
-
 #include <unordered_map>
+
+using std::vector;
+using std::unordered_set;
 using std::unordered_map;
 
-vector<int> get_primes(int n) {
-    size_t scope = std::sqrt(n) + 1;
-    vector<bool> isprimes(scope, true);
-    isprimes[0] = false, isprimes[1] = true;
-    vector<int> ans;
 
-    for(int i = 0; i < isprimes.size(); i++) {
-        if (isprimes[i])
-            for(int s = i * i; s <  isprimes.size(); s += i)
-                isprimes[s] = false;
-        if (!isprimes[i])
-            ans.push_back(i);
-    }
-
-    return ans;
-}
 
 class UnionFind {
 
@@ -97,160 +79,196 @@ public:
 
 class LargestComponentSize {
 
-public:
-    
-    int doit(vector<int>&& A) {
-        
-        vector<int> ps = get_primes(*std::max_element(A.begin(), A.end()));
-        vector<vector<int>> B;
-        for (auto x : A) {
+    /*
+        952.Largest-Component-Size-by-Common-Factor
+
+    此题一眼就能看出是Union Find的解法．任意两个数，只要有质因数相同，就能建立起联系．所以我们将所有的数a,都分解成一系列质因数Pi，将a和Pi都Union起来．最后看所有的数字经过聚类之后，最大的群的数量．
+
+    第一个版本，我们可以将100000以内的所有的质数Pi都找出来，挨个查看是否是a的因数．这比直接求a的所有质因数要快．
+
+            vector<int>primes = makePrimes(100000);
+            for (auto p:primes) Root[p] = p;
+            for (auto a:A) Root[a] = a;
             
-            vector<int> buf;
-            for (auto p : ps) {
-                if (x % p == 0) {
-                    while (x % p == 0) {
-                        x /= p;
-                    }
-                    buf.push_back(p);
+            for (auto a:A)
+            {
+                for (int p:primes)
+                {
+                    if (a%p==0 && findRoot(a)!=findRoot(p))
+                        Union(a,p);                            
+                    if (p>a/2) break;
                 }
             }
-            if (x > 1 && buf.empty())
-                buf.push_back(x);
-            B.push_back(buf);
-        }
-        
-        unordered_set<int> primes;
-        for (auto& c : B) {
-            for (auto s : c) {
-                primes.insert(s);
-            }
-        }
-
-        
-        
-        return 0;
-    }
-    
-    
-    int doit1(vector<int>&& A) {
-        
-        auto is_edge = [](int a, int b) -> bool{
-            int base = std::min(a, b);
-            for (int i = 2; i < std::sqrt(base) + 1; i++) {
-                if (a % i == 0 && b % i == 0)
-                    return true;
-            }
-            return std::max(a, b) % std::min(a, b) == 0;
-        };
-        
-        vector<vector<int>> graph(A.size(), vector<int>(A.size(), 0));
-        
-        for (int i = 0; i < A.size(); i++) {
             
-            for (int j = i + 1; j < A.size(); j++) {
+            unordered_map<int,int>Groups;
+            for (auto a:A)              
+                Groups[findRoot(a)]+=1;
                 
-                if (is_edge(A[i], A[j])) {
-                    graph[i][j] = 1;
-                    graph[j][i] = 1;
-                }
-            }
-        }
-        
-        auto search = [&graph](int i) -> int{
+            int result = 0;
+            for (auto x:Groups)
+                result = max(result,x.second);
+            return result;
+    这个解法能够AC，但是比其他答案要慢得多．原因是100000以内的质数筛检非常费事．怎么改进呢？
+
+    第二个版本，我们只需要求出sqrt(100000)以内的所有质数Pi，这样预处理的规模就小了很多．但是如果继续按照上面的算法，如何保证得到a的所有质因数Pi并建立联系呢？
+    其实我们只要将a不断除以它在sqrt(100000)以内的所有质因数，如果仍然大于1，那么剩下的必然是它唯一的一个大于sqrt(100000)的质因数．因为任何数不可能含有两个大于sqrt(100000)的质因数的．
+
+            vector<int>primes = makePrimes(sqrt(100000));        
+            for (auto p:primes) Root[p] = p;
+            for (auto a:A) Root[a] = a;
             
-            return 0;
-        };
-        
-        
-        
-        return 0;
-    }
-};
-
-
-// normal solution
-
-class dsu{
-
-public:
-    vector<int> arr;
-    dsu(int n):arr(n){
-        for(int i=0;i<n;i++){
-            arr[i]=i;
-        }
-    }
-
-    void merge(int a, int b){
-        arr[find(arr[a])]=arr[find(arr[b])];
-    }
-
-    int find(int x){
-        if(arr[x]!=x){
-            arr[x]=find(arr[x]);
-        }
-        return arr[x];
-    }
-};
-
-class LargestComponentSize1 {
-
-public:
-    int doit(vector<int>& A) {
-        int n=*max_element(A.begin(),A.end());
-        dsu DSU(n+1);
-        for(auto x:A){
-            int temp=sqrt(x);
-            for(int k=2;k<=temp;k++){
-                if(x%k==0){
-                    DSU.merge(x,k);
-                    DSU.merge(x,x/k);
+            for (auto a:A)
+            {
+                int x = a;
+                for (int p:primes)
+                {
+                    if (x%p==0)
+                    {
+                        if (findRoot(p)!=findRoot(a))
+                            Union(p,a);
+                        while (x%p==0) x = x/p;                    
+                    }                
+                    if (p>x) break;
+                }
+                
+                if (x>1)
+                {
+                    if (Root.find(x)==Root.end()) Root[x] = x;
+                    Union(x,a);
                 }
             }
-        }
-        unordered_map<int,int> m;
-        int res=1;
-        for(auto v:A){
-            m[DSU.find(v)]+=1;
-            res = std::max(res,m[DSU.find(v)]);
-        }
-        return res;
-    }
-};
+            
+            unordered_map<int,int>Groups;
+            for (auto a:A)      
+                Groups[findRoot(a)]+=1;
+                
+            int result = 0;
+            for (auto x:Groups)
+                result = max(result,x.second);
+            return result;
+    */
 
-// normal solution 2
+    unordered_map<int,int>Root;
 
-class DSU1{
-    
-    vector<int> parent_;
-    
 public:
-    DSU1(int n ){
-        parent_.resize(n);
-        for (int i = 0; i < parent_.size(); i++)
-            parent_[i] = i;
-    }
-    
-    int Find(int n) {
-        while (parent_[n] != n){
-            parent_[n] = parent_[parent_[n]];
-            n = parent_[n];
+
+    int largestComponentSize_disjoint(vector<int>& A) 
+    {            
+        vector<int>primes = makePrimes(sqrt(100000));        
+        for (auto p:primes) Root[p] = p;
+        for (auto a:A) Root[a] = a;
+        
+        for (auto a:A)
+        {
+            int x = a;
+            for (int p:primes)
+            {
+                if (x%p==0)
+                {
+                    if (findRoot(p)!=findRoot(a))
+                        Union(p,a);
+                    while (x%p==0) x = x/p;                    
+                }                
+                if (p>x) break;
+            }            
+            if (x>1)
+            {
+                if (Root.find(x)==Root.end()) Root[x] = x;
+                Union(x,a);
+            }
         }
-        return parent_[n];
+        
+        unordered_map<int,int>Groups;
+        for (auto a:A)      
+            Groups[findRoot(a)]+=1;
+            
+        int result = 0;
+        for (auto x:Groups)
+            result = std::max(result,x.second);
+        
+        return result;
     }
     
-    void Union(int a, int b) {
-        int pa = Find(a), pb = Find(b);
-        parent_[pa] = pb;
+    vector<int>makePrimes(int N)
+    {
+        vector<bool>prime(N,true);
+        vector<int>results;
+        for (long i = 2; i < N; i++) 
+        { 
+            if (prime[i]) 
+            { 
+                results.push_back(i);
+                for (long j = i*i; j < N; j += i)  
+                    prime[j] = false;
+            } 
+        }
+        return results;
     }
-};
+    
+    int findRoot(int x)
+    {
+        if (x!=Root[x])
+            Root[x] = findRoot(Root[x]);
+        return Root[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Root[x];
+        y = Root[y];
+        if (x<y) Root[y] = x;
+        else Root[x] = y;
+    }
 
-
-class LargestComponentSizeII {
 public:
-    int largestComponentSize(vector<int>& A) {
+
+    vector<int> get_primes(int n) {
+        size_t scope = std::sqrt(n) + 1;
+        vector<bool> isprimes(scope, true);
+        isprimes[0] = false, isprimes[1] = true;
+        vector<int> ans;
+
+        for(int i = 0; i < isprimes.size(); i++) {
+            if (isprimes[i])
+                for(int s = i * i; s <  isprimes.size(); s += i)
+                    isprimes[s] = false;
+            if (!isprimes[i])
+                ans.push_back(i);
+        }
+
+        return ans;
+    }
+    
+    struct DSU{
+        
+        vector<int> parent_;
+
+        DSU(int n ){
+            parent_.resize(n);
+            for (int i = 0; i < parent_.size(); i++) 
+                parent_[i] = i;
+        }    
+        
+        int Find(int n) {
+            while (parent_[n] != n){
+                parent_[n] = parent_[parent_[n]];
+                n = parent_[n];    
+            }
+            return parent_[n];
+        }
+        
+        void Union(int a, int b) {
+            int pa = Find(a), pb = Find(b);
+            parent_[pa] = pb; 
+        }
+    };
+
+public:
+
+    int doit_disjoint(vector<int>& A) {
         
         int n = *max_element(A.begin(), A.end());
-        DSU1 dsu(n+1);
+        DSU dsu(n+1);
         
         for (auto x: A) {
             for (int i = 2; i <= std::sqrt(x); i++) {
@@ -272,7 +290,6 @@ public:
 };
 
 // fatest solution
-
 class LargestComponentSizeI {
     int find(int root[], int x) {
         if(root[x]!=x) {
@@ -358,15 +375,3 @@ public:
         return max_sz;
     }
 };
-
-
-void test_952_largest_component_size_by_common_factor() {
-    
-    auto res1 = LargestComponentSize().doit(vector<int>{4,6,15,35});  // 4
-    
-    auto res2 = LargestComponentSize().doit(vector<int>{20,50,9,63});  // 2
-    
-    auto res3 = LargestComponentSize().doit(vector<int>{2,3,6,7,4,12,21,39}); // 8
-
-    return;
-}
