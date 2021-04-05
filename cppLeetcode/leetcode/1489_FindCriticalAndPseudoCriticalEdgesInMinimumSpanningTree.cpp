@@ -44,50 +44,161 @@ All pairs (ai, bi) are distinct.
 */
 #include <vector>
 #include <numeric>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::vector;
-
-
-struct UnionFind {
-    
-    vector<int> _r, _p;
-
-    UnionFind(int n): _r(n), _p(n) {
-        iota(begin(_p), end(_p), 0);
-    }
-
-    int Find(int a) {
-        while (_p[a] != a) {
-            _p[a] = _p[_p[a]];
-            a = _p[a];
-        }
-        return a;
-    }
-
-    bool Union(int a, int b) {
-        int pa = Find(a);
-        int pb = Find(b);
-
-        if (pa == pb) {
-            return false;
-        }
-
-        if (_r[pa] == _r[pb]) {
-            _p[pa] = pb;
-            _r[pb]++;
-        } else if (_r[pa] > _r[pb]) {
-            _p[pb] = pa; 
-        } else {
-            _p[pa] = pb;
-        }
-        return true;
-    }
-};
 
 
 class CriticalAndPseduoCritivalEdges {
 
+    /*
+        1489.Find-Critical-and-Pseudo-Critical-Edges-in-Minimum-Spanning-Tree
+        此题在基本的MST建树的操作上套了一层有意思的壳。
+
+        根据关键边的定义，如果删除了它，那么无法生成最初数值的MST。所以我们挨个试每条边，满足这个条件的就是关键边。我们将他们放入Set1.
+
+        伪关键边的定义是，如果删除了它，那么依然可以生成一棵最小数值的MST；但是如果如果用了它，也能生成一棵最小数值的MST。前者很好验证，就是Set1的补集。后者怎么验证呢？我们可以强迫在构建MST的时候使用这条边。
+        如何最小程度地改动原来的MST生成代码来实现这个功能呢？考虑到排序后的edges数组的第一条边总是会被用到的，我们就把待考察的这条边放在edges数组的第一个，那么就可以保证在构建MST的时候用上它。
+        如果生成的MST与之前的最小输出的相同，那么就符合后者的条件，放入Set2. 因此，Set2中那些不属于Set1的边，就是所求的第二类边。
+    */
+    static bool cmp(vector<int>&a, vector<int>&b)
+    {
+        return a[2]<b[2];
+    }
+    vector<int>Father;
+    
 public:
+    int findFather(int x)
+    {
+        if (Father[x]!=x)
+            Father[x] = findFather(Father[x]);
+        return Father[x];
+    }
+    
+    void Union(int x, int y)
+    {
+        x = Father[x];
+        y = Father[y];
+        if (x<y) Father[y] = x;
+        else Father[x] = y;
+    }
+    
+    int mst(int n, vector<vector<int>>& edges, int idx)
+    {
+        Father.resize(n);
+        for (int i=0; i<n; i++)
+            Father[i] = i;
+        
+        unordered_set<int>temp;
+        
+        int result = 0;
+        for (int i=0; i<edges.size(); i++)
+        {
+            if (i==idx) continue;
+            
+            auto edge = edges[i];
+            int a = edge[0];
+            int b = edge[1];
+            if (findFather(a)!=findFather(b))
+            {
+                Union(a,b);
+                result+=edge[2];
+            }            
+        }
+        
+        for (int i=0; i<n; i++)
+        {
+            if (findFather(i)!=Father[1])
+                return INT_MAX;
+        }
+                
+        return result;
+    }
+    
+    
+    vector<vector<int>> findCriticalAndPseudoCriticalEdges(int n, vector<vector<int>>& edges) 
+    {
+        unordered_set<int>Set1;
+        unordered_set<int>Set2;
+
+        for (int i=0; i<edges.size(); i++)
+            edges[i].push_back(i);
+        
+        std::sort(edges.begin(), edges.end(), cmp);
+        
+        int minWt = mst(n, edges, -1);
+                
+        for (int i=0; i<edges.size(); i++)
+        {            
+            int wt = mst(n, edges, i);
+            if (wt > minWt) Set1.insert(edges[i][3]);
+        }
+        
+        for (int i=0; i<edges.size(); i++)
+        {                        
+            auto edge = edges[i];
+            
+            edges.insert(edges.begin(), edge);
+                        
+            int wt = mst(n, edges, -1);
+            if (wt == minWt) Set2.insert(edge[3]);            
+
+            edges.erase(edges.begin());
+        }
+
+        vector<int>rets1(Set1.begin(), Set1.end());
+
+        vector<int>rets2;           
+        for (int x:Set2)
+        {
+            if (Set1.find(x)==Set1.end())
+                rets2.push_back(x);
+        }
+        
+        return {rets1, rets2};
+        
+    }
+
+
+
+public:
+
+    struct UnionFind {
+        
+        vector<int> _r, _p;
+
+        UnionFind(int n): _r(n), _p(n) {
+            iota(begin(_p), end(_p), 0);
+        }
+
+        int Find(int a) {
+            while (_p[a] != a) {
+                _p[a] = _p[_p[a]];
+                a = _p[a];
+            }
+            return a;
+        }
+
+        bool Union(int a, int b) {
+            int pa = Find(a);
+            int pb = Find(b);
+
+            if (pa == pb) {
+                return false;
+            }
+
+            if (_r[pa] == _r[pb]) {
+                _p[pa] = pb;
+                _r[pb]++;
+            } else if (_r[pa] > _r[pb]) {
+                _p[pb] = pa; 
+            } else {
+                _p[pa] = pb;
+            }
+            return true;
+        }
+    };
 
     /*
     For each edge
@@ -122,13 +233,13 @@ public:
         // Record the original id.
         for (int i = 0; i < edges.size(); i++)
             edges[i].push_back(i);
+        
         // Sort edges by weight.
         std::sort(begin(edges), end(edges), [](auto& a, auto& b) {
-            if (a[2] != b[2])
-                return a[2] < b[2];
-
+            if (a[2] != b[2]) return a[2] < b[2];
             return a < b;
         });
+
         // Cost of MST, ex: edge to exclude, in: edge to include.
         auto MST = [&](int ex = -1, int in = -1) -> int {
             

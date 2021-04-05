@@ -106,7 +106,7 @@ public:
         {            
             int w = (*Set.begin())[1];
             int b = (*Set.begin())[2];
-            rets[w] = b;            
+            rets[w] = b;
             bikesDone[b] = 1;
             
             Set.clear();
@@ -123,7 +123,7 @@ public:
         return rets;  
     }
 
-    vector<int> doit_heap_1(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+    vector<int> doit_heap_best(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
         
         unordered_map<int, vector<std::pair<int, int>>> buckets;
         priority_queue<int, vector<int>, std::greater<int>> que;

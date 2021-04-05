@@ -45,7 +45,11 @@ No two stones are at the same coordinate point.
 */
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
+#include <stacK>
 
+using std::stack;
+using std::unordered_set;
 using std::unordered_map;
 using std::vector;
 
@@ -125,6 +129,79 @@ public:
      }
 
 public:
+
+    /*
+        Approach 1: Depth-First Search
+        Intuition
+
+        Let's say two stones are connected by an edge if they share a row or column, and define a connected component in the usual way for graphs: 
+        a subset of stones so that there doesn't exist an edge from a stone in the subset to a stone not in the subset. For convenience, we refer to a component as meaning a connected component.
+
+        The main insight is that we can always make moves that reduce the number of stones in each component to 1.
+
+        Firstly, every stone belongs to exactly one component, and moves in one component do not affect another component.
+
+        Now, consider a spanning tree of our component. We can make moves repeatedly from the leaves of this tree until there is one stone left.
+
+        Algorithm
+
+        To count connected components of the above graph, we will use depth-first search.
+
+        For every stone not yet visited, we will visit it and any stone in the same connected component. Our depth-first search traverses each node in the component.
+
+        For each component, the answer changes by -1 + component.size.
+
+
+        Complexity Analysis
+
+        Time Complexity: O(N^2), where NN is the length of stones.
+
+        Space Complexity: O(N^2)
+    */
+    int doit_dfs(vector<vector<int>>& stones) {
+
+        int n = stones.size();
+        
+        vector<vector<int>> graph(n);
+        
+        for (int i = 0; i < n; i++)
+            for (int j = i+1; j < n; j++) {
+                if (stones[i][0] == stones[j][0] || stones[i][1] == stones[j][1]) {
+                    graph[i].push_back(j);
+                    graph[j].push_back(i);
+                }
+            }
+        
+        int ans = 0;
+        vector<int> seen(n, false);
+        
+        for (int i = 0; i < n; i++) {
+            
+            if (seen[i]) continue;
+            
+            stack<int> st;
+            st.push(i);
+            seen[i] = true;
+            ans--;
+            
+            while (!st.empty()) {
+                
+                int cur = st.top();
+                st.pop();
+                ans++;
+                
+                for (auto j : graph[cur]) {
+                    if (!seen[j]) {
+                        st.push(j);
+                        seen[j] = true;
+                    }
+                }
+            }
+        }
+        
+        return ans;
+
+    }
 
     /*
         Approach 2: Union-Find

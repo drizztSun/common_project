@@ -77,7 +77,7 @@ public:
     */
     typedef std::pair<int,int> PII;
     
-    int doit_bfs(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+    int doit_bfs_pq(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
 
         int m = workers.size(), n = bikes.size();
 
@@ -94,7 +94,7 @@ public:
                 dist[i][j] = abs(x1-x2) + abs(y1-y2);
             }
         
-        priority_queue<PII, vector<PII>, std::greater<>>pq;        
+        priority_queue<PII, vector<PII>, std::greater<>>pq;
         pq.push({0, 0});        
         
         while (!pq.empty())
