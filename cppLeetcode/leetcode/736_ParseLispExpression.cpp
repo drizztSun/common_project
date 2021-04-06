@@ -1,9 +1,4 @@
-
-
-
 /*
-
-
 
 # 736. Parse Lisp Expression
 
@@ -66,20 +61,188 @@
 
 */
 
-#include <stdlib.h>
 #include <iostream>
-
 #include <list>
 #include <vector>
 #include <stack>
 #include <string>
 #include <unordered_map>
-
 #include <deque>
+
 using namespace std;
 
 
 class ParseLispExpression {
+
+	/*
+		736.Parse-Lisp-Expression
+		本题不难，有足够的耐心就能做出来。对于比较复杂的规则，我们用递归应该比用栈更容易。因为“括号”天然就提示了递归的层次，而且这种expression parse的题型，括号内外的规则都是完全一样的，非常适合用递归。
+
+		注意一下对于let语句，后面会跟着总数为奇数个的参数。除了最后一个参数，第2k个参数一定是一个变量，第2k+1个参数则可以是变量/数值/递归式，这两种类型交替出现。而对于最后一个参数（注意它也是属于2k），
+		则同样可能是变量/数值/递归式，这就需要额外进行判断。也就是说，在处理第2k个参数时，如果遇到了数值或者递归式，就意味着这个参数一定最后一个；如果遇到了变量但变量的结尾就是字符串的结尾，也意味着这个参数是最后一个。
+	*/
+	int evaluate(string expression) 
+    {
+        unordered_map<string,int>data;
+        return helper(expression, 1, expression.size()-2, data);
+    }
+    
+    int helper(string &s, int a, int b, unordered_map<string,int> data)
+    {       
+        if (a+3<=b && s.substr(a,3)=="add")
+        {            
+            vector<int>nums;
+            
+            for (int i=a+4; i<=b; i++)
+            {
+                if (s[i]=='(')
+                {
+                    int j = getRightParenthsis(s,i);
+                    int next = helper(s,i+1, j-1, data);
+                    nums.push_back(next);                    
+                    i = j;
+                }
+                else if (isalpha(s[i]))
+                {
+                    int j = getVar(s,i);
+                    string var = s.substr(i,j-i);
+                    nums.push_back(data[var]);
+                    i = j-1;
+                }
+                else if (isdigit(s[i])||s[i]=='-')
+                {
+                    int j= getDigit(s,i);
+                    nums.push_back(stoi(s.substr(i,j-i)));
+                    i = j-1;
+                }
+            }
+            return nums[0]+nums[1];
+        }
+        
+        else if (a+4<=b && s.substr(a,4)=="mult")
+        {            
+            vector<int>nums;
+            
+            for (int i=a+5; i<=b; i++)
+            {
+                if (s[i]=='(')
+                {
+                    int j = getRightParenthsis(s,i);
+                    int next = helper(s,i+1, j-1, data);
+                    nums.push_back(next);                    
+                    i = j;
+                }
+                else if (isalpha(s[i]))
+                {
+                    int j = getVar(s,i);
+                    string var = s.substr(i,j-i);
+                    nums.push_back(data[var]);
+                    i = j-1;
+                }
+                else if (isdigit(s[i])||s[i]=='-')
+                {
+                    int j= getDigit(s,i);
+                    nums.push_back(stoi(s.substr(i,j-i)));
+                    i = j-1;
+                }
+            }
+            return nums[0]*nums[1];
+        }
+        
+        else if (a+3<=b && s.substr(a,3)=="let")
+        {
+            int flag = 0;
+            string var;
+            int val;
+            for (int i=a+4; i<=b; i++)
+            {
+                if (s[i]==' ') continue;
+                                
+                if (flag==0)
+                {
+                    if (s[i]=='(')
+                    {
+                        return helper(s,i+1,b-1,data);
+                    }
+                    else if (isdigit(s[i])||s[i]=='-')
+                    {
+                        int j = getDigit(s,i);
+                        return stoi(s.substr(i,j-i));
+                    }
+                    
+                    int j = getVar(s, i);
+                    var = s.substr(i, j-i);   
+                    i = j-1;
+                    
+                    if (j==b+1)
+                        return data[var];                    
+                }
+                else 
+                {
+                    if (s[i] == '(')
+                    {
+                        int j = getRightParenthsis(s,i);
+                        val = helper(s,i+1, j-1, data);
+                        i = j;
+                    }
+                    else if (isdigit(s[i])||s[i]=='-')
+                    {
+                        int j = getDigit(s,i);
+                        val = stoi(s.substr(i,j-i));
+                        i = j-1;
+                    }
+                    else if (isalpha(s[i]))
+                    {
+                        int j = getVar(s,i);
+                        val = data[s.substr(i,j-i)];
+                        i = j-1;
+                    }
+                    data[var] = val;
+                }
+                                                
+                flag = 1-flag;
+                
+            }
+        }
+        
+        return -1;
+        
+        
+    }
+    
+    int getVar(string &s, int i)
+    {
+        while (isdigit(s[i])||isalpha(s[i]))
+            i++;
+        return i;
+    }
+    
+    int getDigit(string &s, int i)
+    {
+        while (isdigit(s[i])||s[i]=='-')
+            i++;
+        return i;
+    }
+    
+    int getRightParenthsis(string &s, int i)
+    {
+        int level = 1;
+        i++;
+        while (level>0)
+        {
+                        
+            level+=(s[i]=='(');                        
+            level-=(s[i]==')');
+            if (level==0)
+                break;
+            i++;
+        }        
+        return i;
+    }
+
+
+public:
+
 
 	typedef unordered_map<string, string> VARS_CONTEXT;
 
@@ -109,10 +272,6 @@ class ParseLispExpression {
 			return GetVal(vargs, statement.back());
 		}
 	};
-
-
-public:
-
 
 	int evaluate(string expression) {
 

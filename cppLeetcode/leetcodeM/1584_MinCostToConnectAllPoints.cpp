@@ -100,7 +100,7 @@ class MinCostConnectPoints {
         else Father[x] = y;
     }    
 
-    int minCostConnectPoints_kruskal_mst(vector<vector<int>>& points) 
+    int minCostConnectPoints_kruskal_mst_disjoint(vector<vector<int>>& points) 
     {
         int n = points.size();
         for (int i=0; i<n; i++)
@@ -151,7 +151,7 @@ public:
                 edges[j].push_back({dis, i});
             }
         
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq(edges[0].begin(), edges[0].end());
+        priority_queue<std::pair<int,int>, vector<std::pair<int,int>>, std::greater<std::pair<int,int>>> pq(edges[0].begin(), edges[0].end());
         visited[0] = 1;
         int result = 0;
                 
@@ -203,7 +203,7 @@ public:
                 if (visited[j] == 0) 
                 {
                     int new_dist = abs(points[j][0] - points[next][0]) + abs(points[j][1] - points[next][1]);
-                    minDist[j] = min(minDist[j], new_dist);
+                    minDist[j] = std::min(minDist[j], new_dist);
                 }
         }                
         return ret;        

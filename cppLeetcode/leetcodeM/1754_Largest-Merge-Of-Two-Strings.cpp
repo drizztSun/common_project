@@ -45,6 +45,45 @@ using std::string;
   
 class LargestMergeTwoStrings {
 
+    /*
+                1754,Largest-Merge-Of-Two-Strings
+        如果word1和Word2的首字母不同，那么我们显然会优先选择首字母更大的那个。那么如果word1和word2的首字母相同呢？这里有个巧妙的贪心策略，
+        就是将两个字符串各自扔掉首字母，查看剩下的字符串谁大？对于剩下字符串字典序较大的那个字符串，我们在本轮优先选取它的首字母。这是因为这样做可以让它后面更大的字符优先暴露出来。
+
+        以上的做法可以合并成一个策略：查看当前两个字符串谁的字典序更大，就优先取谁的首字母。
+
+        这样的做法的时间复杂度是o(N^2)。也有更复杂的线性时间的做法，就不做要求了。
+    */
+    string largestMerge(string word1, string word2) 
+    {
+        string ret;
+        int i=0, j=0;
+        while (i<word1.size() && j<word2.size())
+        {
+            if (word1.substr(i)>word2.substr(j))
+            {
+                ret.push_back(word1[i]);
+                i++;
+            }
+            else
+            {
+                ret.push_back(word2[j]);
+                j++;
+            }
+        }
+        while (i<word1.size())
+        {
+            ret.push_back(word1[i]);
+            i++;
+        }
+        while (j<word2.size())
+        {
+            ret.push_back(word2[j]);
+            j++;
+        }
+        return ret;
+    }
+
 public:
     
     string doit_greedy(string word1, string word2) 

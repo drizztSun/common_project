@@ -26,6 +26,7 @@ Explanation:
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <funtional>
 
 using std::unordered_map;
 using std::vector;
@@ -34,8 +35,71 @@ using std::string;
 
 class DiffWaysToCompute {
 
+    /*
+                241.Different-Ways-to-Add-Parentheses
+        此题只要想到,任何多项式运算最终可以化简为最后的双目运算.只要确定这个双目运算符的位置,其前后两端用递归处理就行了.
+    */
+    vector<int> diffWaysToCompute(string input) 
+    {
+        vector<int>results;
+        vector<int>vals1;
+        vector<int>vals2;
+        for (int i=0; i<input.size(); i++)
+        {
+            if (input[i]!='+' && input[i]!='-' && input[i]!='*')
+                continue;
+            vals1 = diffWaysToCompute(input.substr(0,i));
+            vals2 = diffWaysToCompute(input.substr(i+1));
+            for (int a : vals1)
+                for (int b: vals2)
+                {
+                    if (input[i]=='+') results.push_back(a+b);
+                    else if (input[i]=='-') results.push_back(a-b);
+                    else if (input[i]=='*') results.push_back(a*b);
+                }
+        }
+        if (results.empty())
+            results.push_back(stoi(input));
+        return results;
+    }
+
+
 public:
     
+    vector<int> diffWaysToCompute(string expression) {
+        
+        std::function<vector<int>(int, int)> dfs = [&](int i, int j) {
+          
+            vector<int> ans;
+            
+            for (int s = i; s < j; s++) {
+                
+                if (!isdigit(expression[s])) {
+                    
+                    vector<int> tmp1 = dfs(i, s), tmp2 = dfs(s+1, j);
+                    
+                    for (auto t1: tmp1)
+                        for (auto t2: tmp2) {
+                            
+                            if (expression[s] == '+')
+                                ans.push_back(t1 + t2);
+                            else if (expression[s] == '-')
+                                ans.push_back(t1 - t2);
+                            else if (expression[s] == '*')
+                                ans.push_back(t1 * t2);
+                        }
+                }
+            }
+            
+            if (ans.empty()) 
+                ans.push_back(std::atoi(expression.substr(i, j-i).c_str()));
+            
+            return ans;
+        };
+        
+        return dfs(0, expression.length());
+    }
+
     vector<int> doit_devide_and_conquer(string input) {
 
         unordered_map<string, vector<int>> dp;
