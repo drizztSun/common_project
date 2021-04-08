@@ -49,7 +49,7 @@ class WordsAbbreviation:
         ans = map(abbrev, words)
         prefix = [0] * N
 
-        for i in xrange(N):
+        for i in range(N):
             while True:
                 dupes = set()
                 for j in range(i + 1, N):

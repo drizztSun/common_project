@@ -43,7 +43,9 @@ Constraints:
 
 
 #include <vector>
+#include <unordered_map>
 
+using std::unordered_map;
 using std::vector;
 
 
@@ -96,8 +98,6 @@ class CountPairsWithXORInRange {
             cnt=0; 
         }
     };
-
-    
 
     int countSmallerPairs(vector<int>&nums, int th)
     {
@@ -167,11 +167,99 @@ class CountPairsWithXORInRange {
             }
         }
     }
-
-public:
     
     int countPairs(vector<int>& nums, int low, int high) 
     {
         return countSmallerPairs(nums, high+1) - countSmallerPairs(nums, low);
     }
+
+public:
+
+    int doit_trie(vector<int>& nums, int low, int high) {
+
+        int cnt = 0;
+        TrieNode root;
+
+        auto insert = [](TrieNode* cur, int num) {
+
+            for (int i = 15; i >= 0; i--) {
+
+                int base = (num>>i) & 1;
+                if (cur->next[base] == nullptr)
+                    cur->next[base] = new TrieNode();
+                cur = cur->next[base];
+                cur->cnt++;
+            }
+        };
+
+        auto lessthan = [](TrieNode* cur, int num, int high) -> int{
+
+            int cnt = 0;
+            for (int i = 15; i >= 0; i--) {
+                if (!cur) break;
+                int base = (num>>i) & 1;
+                int cmp = (high>>i) & 1;
+
+                if (cmp) {
+                    if (cur->next[base])
+                        cnt += cur->next[base]->cnt;
+                    cur = cur->next[1^base]; 
+                } else {
+                    cur = cur->next[base];
+                }
+            }
+
+            return cnt;
+        };
+
+        for (auto c: nums) {
+
+            cnt += lessthan(&root, c, high+1) - lessthan(&root, c, low);
+            insert(&root, c);
+        }
+
+        return cnt;
+    }
+
+    int doit_hash(vector<int>& nums, int low, int high) {
+        
+        unordered_map<int, int> buff;
+        for (auto c: nums) buff[c]++;
+        
+        int cnt = 0;
+        high++;
+        
+        while (high > 0) {
+            
+            if (high & 1) {
+                int y = high-1;
+                for (auto [k, v]: buff) {
+                    if (buff.count(k^y) > 0) cnt += v * buff[k^y];
+                }
+            }
+            
+            if (low & 1) {
+                int y = low-1;
+                for (auto [k, v]: buff) {
+                    if (buff.count(k^y) > 0) cnt -= v * buff[k^y];
+                }
+            }
+            
+            unordered_map<int, int> tmp;
+            for (auto [k, v]: buff) {
+                int total = v;
+                if (buff.count(k^1)) total += buff[k^1];
+
+                tmp.insert({k>>1, total});
+            }
+            
+            std::swap(tmp, buff);
+            
+            high >>= 1;
+            low >>= 1;
+        };
+        
+        return cnt/2;
+    }
+
 };

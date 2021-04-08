@@ -65,10 +65,8 @@ public:
         对于上述的子问题，我们会考虑一个固定长度len的滑窗，掠过整个S。在每个位置上的滑窗，我们都将里面的字符串映射成一个26进制的数，当做hash key放入集合中。如果发现这个key已经在集合中出现过，
         就意味着存在两个完全相同的子串。注意这个hash key会很大，所以需要取一个大数的模。当然，这肯定会有collision的风险。
     */
-
     int doit_rolling_hash_binary_search(string S) 
     {
-        int left = 1, right = S.size()-1;
         auto found = [&](int len)
         {
             long base = 26;
@@ -95,6 +93,7 @@ public:
             return false;
         };
 
+        int left = 1, right = S.size()-1;
         while (left < right) {
             int mid = right-(right-left)/2; 
             // left + (right - left) / 2, but left = 0, right = 1. it is deadloop based on below left, rght.

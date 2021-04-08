@@ -21,71 +21,152 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::unordered_map;
 using std::vector;
 using std::string;
-/*
 
 class WordsAbbreviation {
-    
-public:
-    vector<string> doit_dp(vector<string>& dict) {
-        
-        auto longgest_common_str = [](auto& a, auto& b) {
-            auto i = 0;
-            while (i < a.length() && i < b.length() && a[i] == b[i]) {
-                i++;
-            }
-            return i;
-        };
-        
-        auto hash_cord = [](const auto& c) {
-          return std::hash<int>()(std::get<1>(c)) ^ std::hash<int>()(std::get<2>(c)) ^ std::hash<int>()(std::get<3>(c));
-        };
 
-        auto equal_cord = [](const auto& a, const auto& b){
-            return a == b;
-        };
+    /*
+                527.Word-Abbreviation
+        设置一个Map和一个Set。Map是从缩写到原单词(数组)的映射。Set盛装所有仍需要进一步求缩写的原单词，初始化的时候则装所有的原单词。
+
+        在每次循环中，把Set里所有的单词都求其缩写加入Map，清空Set。然后查看Map的所有元素，对于那些仍然对应多个原单词的缩写，就把这些原单词加入Set。清空Map。
+
+        重复这样的循环直至Set不再有元素。
+    */
+    vector<string> wordsAbbreviation(vector<string>& dict) 
+    {
+        unordered_map<string,int>Index;
+        for (int i=0; i<dict.size(); i++)
+            Index[dict[i]]=i;
         
-        unordered_map<std::tuple<char, char, int>, vector<std::pair<string, int>>, decltype(hash_cord), decltype(equal_cord)> groups(10, hash_cord, equal_cord);
+        unordered_map<string,vector<string>>Map;
+        vector<string>results(dict.size());
+        int abbrNum=0;
+
+        unordered_set<string>Set;
+        for (int i=0; i<dict.size(); i++)
+            Set.insert(dict[i]);
         
-        for (auto i = 0; i < dict.size(); i++) {
-            auto c = dict[i];
-            groups[{c[0], c[c.length()-1], c.length()}].push_back({c, i});
-        }
-        
-        vector<string> res(dict.size());
-        
-        for (auto& k : groups) {
-            
-            auto& group = k.second;
-            
-            std::sort(group.begin(), group.end(), [](auto& a, auto& b) {
-                return a.first < b.first;
-            });
-            
-            vector<int> lcp(group.size(), 0);
-            
-            for (auto i = 1; i < group.size(); i++) {
-                lcp[i] = longgest_common_str(group[i].first, group[i-1].first);
-                lcp[i-1] = std::max(lcp[i-1], lcp[i]);
+        while (1)
+        {
+            Map.clear();
+            for (auto s:Set)
+            {
+                string abbr=getAbbr(s,abbrNum);
+                Map[abbr].push_back(s);
             }
+            Set.clear();
             
-            auto size = std::get<3>(k.first);
-            for (auto i = 0; i < lcp.size(); i++) {
-                int delta = size - 2 - lcp[i];
-                auto [word, index] = group[i];
-                if (delta < 1) {
-                    res[index] = word;
-                } else {
-                    res[index] = word.substr(0, lcp[i]) + std::to_string(delta) + dict[index][dict[index].length()-1];
+            for (auto a:Map)
+            {
+                if (a.second.size()>1)
+                {
+                    for (int i=0; i<a.second.size(); i++)
+                        Set.insert(a.second[i]);
+                }
+                else
+                {
+                    results[Index[a.second[0]]]=a.first;
                 }
             }
             
+            if (Set.size()==0) break;
+            abbrNum++;
+        }
+        
+        return results;
+        
+    }
+    
+    string getAbbr(string s, int abbrNum)
+    {
+        string t;
+        if (s.size()<=2) 
+        {
+            t=s;
+            return t;
+        }
+        
+        t=s.substr(0,abbrNum+1);
+        t+=to_string(s.size()-abbrNum-2);
+        t+=s.back();
+        if (t.size()==s.size()) t=s;
+        return t;
+    }
+
+
+public:
+
+    /*
+        Approach #3: Group + Trie [Accepted]
+        Intuition and Algorithm
+
+        As in Approach #1, let's group words based on length, first letter, and last letter, and discuss when words in a group do not share a longest common prefix.
+
+        Put the words of a group into a trie (prefix tree), and count at each node (representing some prefix P) the number of words with prefix P. If the count is 1, we know the prefix is unique.
+
+
+        Complexity Analysis
+
+        Time Complexity: O(C) where CC is the number of characters across all words in the given array.
+
+        Space Complexity: O(C).
+    */
+    vector<string> doit_trie(vector<string>& dict) {
+        
+        vector<string> res(dict.size());
+        unordered_map<string, vector<int>> category;
+        
+        for (int i = 0; i < dict.size(); i++) {
+            string id = dict[i].substr(0, 1) + dict[i].back() + std::to_string(dict[i].size());
+            category[id].push_back(i);
+        }
+
+        for (const auto& [id, v] : category) {
+            Trie tr;
+            for (int i : v) tr.add(dict[i]);
+            for (int i : v) res[i] = tr.getAbbr(dict[i]);
         }
         
         return res;
     }
+
+    class Trie {
+    public:
+        struct Node {
+            Node* child[26] = { nullptr };
+            int count = 0;
+        };
+
+        void add(const string& s) {
+            auto p = root;
+            for (int i = 0; i < s.size() - 1; i++) {
+                int index = s[i] - 'a';
+                if (!p->child[index]) p->child[index] = new Node();
+                p = p->child[index];
+                p->count++;
+            }
+        }
+
+        string getAbbr(const string& s) {
+            string res;
+            auto p = root;
+            for (int i = 0; i < s.size() - 1; i++) {
+                p = p->child[s[i] - 'a'];
+                res += s[i];
+                if (p->count == 1) break;
+            }
+            int nonAbbrLen = s.size() - res.size() - 1;
+            if (nonAbbrLen <= 1) return s;
+            return res + std::to_string(nonAbbrLen) + s.back();
+        }
+
+        Node* root = new Node();
+    };
+
 };
-*/

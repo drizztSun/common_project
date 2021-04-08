@@ -144,7 +144,7 @@ class NextGreaterElementsII {
     vector<int> doit_monotonic_stack(vector<int>& nums) 
     {
         int N=nums.size();
-        stack<pair<int,int>> Stack;
+        stack<std::pair<int,int>> Stack;
         vector<int> results(N,-1);
         
         for (int j=0; j<N*2; j++)

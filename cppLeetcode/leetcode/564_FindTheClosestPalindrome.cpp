@@ -209,7 +209,7 @@ public:
 	}
 
 
-	string doit_str(string n) {
+	string doit_str_best(string n) {
 
 		int l = n.size();
 		set<long> candidates;

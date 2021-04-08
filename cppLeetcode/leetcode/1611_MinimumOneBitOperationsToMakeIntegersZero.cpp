@@ -45,6 +45,7 @@ Constraints:
 0 <= n <= 109
 
 */
+#include <functional>
 #include <unordered_map>
 
 using std::unordered_map;

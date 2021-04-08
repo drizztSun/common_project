@@ -36,6 +36,7 @@ The number of nodes in the list will be in the range [1, 100].
 1 <= Node.val <= 100 for each node in the linked list and binary tree.
 */
 #include <vector>
+#include <functional>
 
 using std::vector;
 
@@ -65,7 +66,7 @@ class ListNode;
 class TreeNode;
 
 
-class Solution {
+class LinkedListInBinaryTree {
 
     /*
     
@@ -82,9 +83,6 @@ class Solution {
         我们设计dfs(node, i)来计算当前树节点是node、并且深度为i时的dp[i]。根据KMP的算法，我们知道dp[i]仅依赖于dp[i-1]和模式串的后缀数组。如果当前节点计算得到的dp[i]==linkedList.size()，那么返回true；否则探索dfs(node->left, i+1) || dfs(node->right, i+1)
     
     */
-
-
-public:
     bool isSubPath(ListNode* head, TreeNode* root) 
     {
         if (head == NULL) return true;
@@ -106,14 +104,12 @@ public:
         return isSame(head->next, root->left)||isSame(head->next, root->right);
     }
 
-
+public:
 
     vector<int> suf;
     vector<int> list;
     int dp[2500];
 
-public:
-    
     bool isSubPath(ListNode* head, TreeNode* root) 
     {
         suf = preprocess(head);
@@ -163,5 +159,81 @@ public:
         }
 
         return dp;
+    }
+
+public:
+
+    bool isSubPath(ListNode* head, TreeNode* root) {
+        
+        vector<int> target;
+        while (head) {
+            target.push_back(head->val);
+            head = head->next;
+        }
+        
+        int k = target.size();
+        vector<int> path;
+        
+        std::function<bool(TreeNode*)> dfs = [&](TreeNode* p) {
+
+            if (path.size() >= k) {
+                int i = 0;
+                for (auto it1=rbegin(path), it2=rbegin(target); i != k && *it1 == *it2; it1++, it2++) i++;
+                
+                if (i == k) return true;
+            }
+            
+            if (!p) return false;
+            
+            path.push_back(p->val);
+            bool r = dfs(p->left) || dfs(p->right);
+            path.pop_back();
+            return r;
+        };
+        
+        return dfs(root);   
+    }
+
+    bool isSubPath(ListNode* head, TreeNode* root) {
+        
+        vector<int> linkvalues;
+        while(head) {
+            linkvalues.push_back(head->val);
+            head = head->next;
+        }
+        
+        vector<int> pattern(linkvalues.size(), 0);
+        for (int i = 1; i < linkvalues.size(); i++) {
+            int j = pattern[i-1];
+            while (j > 0 && linkvalues[i] != linkvalues[j]) {
+                j = pattern[j-1];
+            }    
+            pattern[i] = j + linkvalues[i] == linkvalues[j];
+        }
+        
+        std::function<bool(TreeNode*, int)> dfs = [&](TreeNode* p, int i) {
+            
+            if (i == pattern.size()) return true;
+            
+            if (!p) return false;
+            
+            if (p->val != linkvalues[i]) {
+                
+                if (i > 0) {
+                    int j = pattern[i-1];
+                    while (j > 0 && p->val != linkvalues[j]) {
+                        j = pattern[j-1];
+                    }
+                    i = j + p->val == linkvalues[j];                    
+                }
+
+            } else {
+                i++;
+            }
+            
+            return dfs(p->left, i) || dfs(p->right, i);
+        };
+        
+        return dfs(root, 0);
     }
 };

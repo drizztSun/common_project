@@ -43,6 +43,7 @@ groups.length == n
 
 */
 #include <vector>
+#include <functional>
 
 using std::vector;
 
@@ -126,7 +127,7 @@ public:
     }
 
 
-    bool doit_kmp(vector<vector<int>>& groups, vector<int>& nums)
+    bool doit_KMP(vector<vector<int>>& groups, vector<int>& nums)
     {
         int dp[1000];
 

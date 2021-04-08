@@ -119,17 +119,18 @@ public:
         };
 
         vector<int> suf = preprocess(needle);
-        
         vector<int>dp(n,0);
         dp[0] = (needle[0]==haystack[0]);
+        
         if (m==1 && dp[0]==1)
             return 0;
 
-        for (int i=1; i<n; i++)
-        {
+        for (int i=1; i<n; i++){
             int j = dp[i-1];
+            
             while (j>0 && needle[j]!=haystack[i])
                 j = suf[j-1];
+            
             dp[i] = j + (needle[j]==haystack[i]);
             if (dp[i]==needle.size())
                 return i-needle.size()+1;
@@ -168,7 +169,7 @@ public:
         return -1;
     }
     
-    int doit_(string haystack, string needle) {
+    int doit_KMP(string haystack, string needle) {
 
         int m = haystack.length(), n = needle.length();
 
