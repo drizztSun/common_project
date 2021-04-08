@@ -106,7 +106,7 @@ public:
 
 public:
 
-    int doit_(int N, vector<vector<int>>& connections) {
+    int doit_disjoint(int N, vector<vector<int>>& connections) {
 
         std::sort(begin(connections), end(connections), [](const auto& a, const auto& b) { return a[2] < b[2]; });
 

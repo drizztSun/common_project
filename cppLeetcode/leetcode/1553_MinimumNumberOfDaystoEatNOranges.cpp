@@ -51,11 +51,13 @@ Constraints:
 #include <unordered_map>
 #include <unordered_set>
 #include <queue>
+#include <functional>
 
 using std::unordered_set;
 using std::queue;
 using std::unordered_map;
 using std::vector;
+
 
 class MinimumDaysToEatAllOrange {
 
@@ -66,6 +68,37 @@ so DP_bottomup get tle, because it needs to go all n nodes. and also memory is a
 
 */
 
+    /*
+        1553.Minimum-Number-of-Days-to-Eat-N-Oranges
+        本题并没有严格的数学解，只能通过递归探索。通常而言，每一步我们都有三个分支：-1，/2（如果能被2整除），/3（如果能被3整除）。但事实上，一直往1这条分支走下去的话，肯定不是效率高的解。我们需要探索的其实尽可能地去/2或者/3.能“早做除法”肯定不会比“晚做除法”吃亏。
+
+        举个例子，当n=11时，你可以先减一，就能除以2，这样2步得到5，再减1能得到4. 你也可以先减3次1，在除以2，这样4步得到4，但这比之前相比效率是低的。所以，直观上来说，能早做除法就尽量早出除法，不能做除法的时候，就做一些减法，再去做除法。
+
+        但是，/2和/3相比较，并没有更加优势的操作。比如说n=11，你是先打算减1再除以2呢，还是打算减2再除以3呢？很难判断。事实上最优方案是先实现/3：11,10,9,3,1,0. 但对于n=17，反而是先实现/2更优：17,16,8,4,2,1,0。所以我们需要对于/2和/3并行的探索。
+
+        所以递归方程其实就是：
+
+        f(n) = min(n%2+1+f(n/2), n%3+1+f(n/3))
+        那么时间复杂度如何计算呢？我们可以知道，从n递归到底的过程中，每层递归都会将参数/2(或者/3)，那么大致的层数就是logN。
+
+        对于第k层，意味着我们做了k次除法，这k次除法中/2的个数可能有0次，1次，2次...，直至有k次，这对应了k+1种不同状态。举个例子，我们从n开始做了5次除法，假设有2次是/2，另外3次是/3，考虑到除法的顺序不影响递归的结果。只要n经过了两次/2和三次/3，剩下来的n'肯定都是一样。因此我们从n开始，经过第k层递归后，得到的只会是k+1种不同的n'。所以这是一个公差为1的等差数列。所以递归完所有的状态，需要记录总的状态就是 1+2+...+logN ~ o(logN^2)
+    */
+    unordered_map<int,int>ans;
+
+    int minDays(int n) 
+    {
+        if (n==1) return 1;
+        if (n==2) return 2;
+        if (n==3) return 2;
+
+        if (ans.find(n)!=ans.end())
+            return ans[n];
+        
+        int ret = std::min(n%2+1+minDays(n/2), n%3+1+minDays(n/3));
+        ans[n] = ret;
+
+        return ret;
+    }
 
 public:
 
@@ -139,7 +172,7 @@ public:
 
     This can be extended to k consecutive -1 operations (k>=3)
     */
-    int doit_dp_topdown(int n) {
+    int doit_dp_topdown_greedy(int n) {
 
         unordered_map<int, int> cache;
 
@@ -160,7 +193,7 @@ public:
     DP: Bottom up, not fast solution, because it is hard to reach n so fast and direct. you have to get n/3, n/2, n-1, first. 
     data like this 2*10^9, needs O(log(N))
     */
-    int doit_dp_tle(int n) {
+    int doit_dp_tle_bottomup(int n) {
         if (n < 2)
             return 1;
 
