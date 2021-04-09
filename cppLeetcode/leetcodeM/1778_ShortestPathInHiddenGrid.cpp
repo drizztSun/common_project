@@ -73,7 +73,9 @@ There is exactly one 2 in grid.
 #include <vector>
 #include <queue>
 #include <unordered_set>
+#include <array>
 
+using std::array;
 using std::unordered_set;
 using std::queue;
 using std::vector;
@@ -148,12 +150,15 @@ public:
 public:
 
     int findShortestPath(GridMaster& master) {
+        
         vector<std::vector<char>> grid(1001, std::vector<char>(1001, 0));
         dfs(grid, master, 500, 500);
+
         std::queue<std::pair<int,int>> q;
         q.emplace(500, 500), q.emplace(-1, -1);
         int steps{0};
         std::unordered_set<int> visited;
+        
         while(!q.empty()) {
             auto [i, j]{q.front()}; q.pop();
             if(i == -1) {
@@ -177,24 +182,30 @@ public:
     }
     
     static void dfs(std::vector<std::vector<char>>& grid, GridMaster& m, int i, int j) {
-        if(m.isTarget()) grid[i][j] = 2;
-        else grid[i][j] = 1;
+        
+        if(m.isTarget()) 
+            grid[i][j] = 2;
+        else 
+            grid[i][j] = 1;
         
         if(m.canMove('U') && grid[i-1][j] == 0) {
             m.move('U');
             dfs(grid, m, i-1, j);
             m.move('D');
         }
+
         if(m.canMove('D') && grid[i+1][j] == 0) {
             m.move('D');
             dfs(grid, m, i+1, j);
             m.move('U');
         }
+
         if(m.canMove('L') && grid[i][j-1] == 0) {
             m.move('L');
             dfs(grid, m, i, j-1);
             m.move('R');
         }
+
         if(m.canMove('R') && grid[i][j+1] == 0) {
             m.move('R');
             dfs(grid, m, i, j+1);
