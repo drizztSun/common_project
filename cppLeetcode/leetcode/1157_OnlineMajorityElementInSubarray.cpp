@@ -40,12 +40,109 @@ using std::unordered_map;
 using std::vector;
 
 
+/*
+    Basic Idea
+    For each a in A, save its index of occurrence to list a2i[a].
+    When we want to get the exact occurrence of a in a range,
+    we can use binary search in a2i[a].
+
+    In the general good cases,
+    the numbers in A should be various,
+    each number should appear 1 time in average,
+    making the time complexity only O(1).
+
+    In the specific worst cases to this binary search solution,
+    the cases will be something like [1,2,1,2,1,2,1,2....],
+    making the binary search O(logN), (search in a list of length N / 2).
+
+    Now the only problem we need to solve,
+    is that how to find the majority element if it exists.
+
+
+    Solution 1: Random Pick
+    Random Pick number a from the range of query.
+    If there is a majority element,
+    we have >50% chance to get it for each pick.
+
+    Here I random pick 20 times,
+    because there are at most 10000 queries and 2^20 = 1048576 is much bigger than 10000.
+
+    If there is a majority element,
+    I only have 1/(2^20) possibility to miss it.
+    And we'll query at most 10000 times,
+    the expectation of fail times is about 0.01 time,
+    which sounds good.
+
+    I have used the same idea in 961. N-Repeated Element in Size 2N Array
+    The funny thing that, I was criticized this idea is misleading earlier this week.
+    Well thanks this guy and I recalled this idea immediately.
+
+    Complexity of function query:
+    Time O(20logN) for binary searching (or O(logNlogN))
+    Space O(1)
+
+    Actually O(20lgn) is the same as O(logNlogN).
+    We just need to pick k times and then let 2^k >> n.
+*/
+class MajorityChecker {
+    unordered_map<int, vector<int>> _a2id;
+    vector<int> _amount;
+
+public:
+
+    MajorityChecker(vector<int>& arr) {
+
+        for (int i = 0; i < arr.size(); i++) {
+            _a2id[arr[i]].push_back(i);
+        }
+        _amount = arr;
+    }
+
+    int query(int left, int right, int threshold) {
+
+        for (int i = 0; i < 20; i++) {
+
+            int c = left + rand() % static_cast<int>(right - left + 1);
+            auto& target = _a2id[_amount[c]]; 
+            int left = std::lower_bound(begin(target), end(target), left) - begin(target);
+            int right = std::upper_bound(begin(target), end(target), right) - begin(target);
+
+            if (right - left >= threshold) return _amount[c];
+        }
+        return -1;
+    }
+};
+
 
 class MajorityChecker {
     
     unordered_map<int, vector<int>> _num_idx;
     
     vector<int> _order_amount;
+
+    /*
+        Solution 2: Bucket
+        For each bucket of size sqrt(N),
+        find the majority candidate using Boyer–Moore majority vote algorithm.
+
+        The idea is that, the element that has over half occurrence,
+        must be the majority element in at least one bucket.
+
+        Now for any range of query,
+        there are at most sqrt(N) bucket involved,
+        (For the elements not in the bucket, we vote for one candidate.)
+        So we have at most sqrt(N) candidates.
+
+        We check the occurrence for each candidate using the basic idea above.
+
+        Complexity of initialization:
+        Time O(N)
+        Space O(N)
+
+        Complexity of function query:
+        Time O(sqrtN * logN)
+        Space O(1)
+    */
     
 public:
     

@@ -73,6 +73,49 @@ using std::unordered_map;
 
 class CreateSortedArrayThroughInstructions {
 
+public:
+
+    /*
+        Here is problem in thought. If we maintain a sorted array and use lower_bound/upper_bound to check the possible and count the left/right side length;
+        but when we insert an element, it still needs to move elements with O(n) compexity.
+        If we use O(logn) in MapTree, but MapTree doesn't support to use iter index to count left/right side length.
+        so we have to use BIT/Segment Tree, use 
+    */
+    int doit_BIT(vector<int>& instructions) {
+        
+        int m = *max_element(begin(instructions), end(instructions)) + 2;
+        vector<int> bitbuff(m, 0);
+        long long ans = 0;
+        int mod = 1e9+7;
+        
+        auto update = [&](int c, int v = 1) {
+            c += 1;
+            while (c < m) {
+                bitbuff[c] += v;
+                c += c & (-c);
+            }
+        };
+        
+        auto query = [&](int c) {
+            c += 1;
+            int res = 0;
+            while (c > 0) {
+                res += bitbuff[c];
+                c -= c & (-c);
+            }
+            return res;
+        };
+        
+        for (int i = 0; i < instructions.size(); i++) {
+            int c = instructions[i];
+            int leftCnt = query(c-1);
+            int rightCnt = i - query(c);
+            ans = (ans + int(std::min(leftCnt, rightCnt))) % mod;
+            update(c);
+        }
+        
+        return ans;
+    }
 
     /*
         1649.Create-Sorted-Array-through-Instructions
@@ -106,16 +149,17 @@ class CreateSortedArrayThroughInstructions {
 
         因为我们不关心instruction里面每个元素x的具体数值，只关心他们在线段树中的位置。所以我们预处理的时候要做“离散化”，建立x和index的映射关系。
     */
-    int numSmaller[100005];
-    int temp[100005];    
-    int count[100005];
-    int sorted[100005];
-    int M = 1e9+7;
 
 public:
 
     int doit_divide_and_conquer(vector<int>& nums) 
     {
+        int numSmaller[100005];
+        int temp[100005];    
+        int count[100005];
+        int sorted[100005];
+        int M = 1e9+7;
+
         int n = nums.size();
         for (int i=0; i<n; i++)
             sorted[i] = nums[i];
@@ -170,6 +214,8 @@ public:
         int ret = 0;
         for (int i=0; i<n; i++)
         {
+            // numSmaller[i], number of smaller than nums[i]
+            // total is ith elements, and count[nums[i]] elements are equal to nums[i]
             ret += std::min(numSmaller[i], i-count[nums[i]]-numSmaller[i]);
             ret %= M;
             count[nums[i]]++;
@@ -224,6 +270,8 @@ public:
         return ret;
         
     }
+
+public:
 
     class SegTreeNode
     {
@@ -307,43 +355,5 @@ public:
             updateSingleBy(root, num2idx[x], 1);
         }
         return ret;        
-    }
-    
-public:
-    
-    int doit_BIT(vector<int>& instructions) {
-        
-        int m = *max_element(begin(instructions), end(instructions)) + 2;
-        vector<int> bitbuff(m, 0);
-        long long ans = 0;
-        int mod = 1e9+7;
-        
-        auto update = [&](int c, int v = 1) {
-            c += 1;
-            while (c < m) {
-                bitbuff[c] += v;
-                c += c & (-c);
-            }
-        };
-        
-        auto query = [&](int c) {
-            c += 1;
-            int res = 0;
-            while (c > 0) {
-                res += bitbuff[c];
-                c -= c & (-c);
-            }
-            return res;
-        };
-        
-        for (int i = 0; i < instructions.size(); i++) {
-            int c = instructions[i];
-            int leftCnt = query(c-1);
-            int rightCnt = i - query(c);
-            ans = (ans + int(std::min(leftCnt, rightCnt))) % mod;
-            update(c);
-        }
-        
-        return ans;
     }
 };

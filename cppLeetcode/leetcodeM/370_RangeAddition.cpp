@@ -106,6 +106,8 @@ class ModifiedArray {
         return results;
     }
 
+public:
+    
     class SegTree{
     
     public:
@@ -136,7 +138,7 @@ class ModifiedArray {
         }
     };
 
-public:
+
     vector<int> getModifiedArray(int length, vector<vector<int>>& updates) 
     {
         SegTree* root = new SegTree(0,length,0);

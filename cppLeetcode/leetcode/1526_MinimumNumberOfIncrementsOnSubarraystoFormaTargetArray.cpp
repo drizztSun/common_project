@@ -169,7 +169,7 @@ public:
         }
     }
     
-    pair<int,int> queryRangeMin(SegTreeNode* node, int a, int b)
+    std::pair<int,int> queryRangeMin(SegTreeNode* node, int a, int b)
     {        
         if (b < node->start || a > node->end )
         {

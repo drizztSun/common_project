@@ -191,6 +191,8 @@ public:
         return ret;
 	}
 
+public:
+
     struct segmentnode {
 
         int start, end, height;
@@ -244,8 +246,6 @@ public:
             height = std::max(left->height, right->height);
         }
     };
-
-public:
     
     vector<int> fallingSquares(vector<vector<int>>& positions) {
 
