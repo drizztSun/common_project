@@ -90,11 +90,10 @@ public:
             const int k = (l - __builtin_popcount(mask)) / 2 + 1;
             
             for (int i = 0; i < l; ++i)
-                for (int j = i + 1; j < l; ++j)
-
+                for (int j = i + 1; j < l; ++j) {
                 if ((mask & (1 << i)) && (mask & (1 << j)))
                     ans = std::max(ans, k * std::gcd(nums[i], nums[j]) + dp(mask ^ (1 << i) ^ (1 << j)));
-            
+            }
             return ans;
         };
         return dp((1 << l) - 1);

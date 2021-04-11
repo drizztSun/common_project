@@ -43,10 +43,167 @@
  
  */
 #include <vector>
+#include <unordered_map>
 
+using std::unordered_map;
 using std::vector;
 
 class MinimumIncompatibility {
+
+
+    /*
+        1681.Minimum-Incompatibility
+        解法1：DFS
+        本题初看有一种错觉，以为小的数字应该尽量和小的数字分在一组，大的数字应该尽量和大的数字分在一组。但是这个贪心策略不成立。比如：[1,1,2,2,3,3,6,8]，4, 贪心策略得到[1,2],[1,2],[3,6],[3,8]，但是最优的答案是[1,2],[1,3],[2,3],[6,8].
+
+        结合本题的提示nums.size()<16，说明这题只能用暴力探索。
+
+        首先我们判定一下无解的情况：当任何一个元素出现的次数大于k的话，说明至少有一组会重复出现两次该元素。于是可以提前返回false。
+
+        在排除无解的情况后，我们就可以放心地用DFS暴力搜索：在数组里连续搜索到n/k个不同的元素后，再从头开始搜索找n/k个不同的元素，直至所有的数组元素都搜到。
+
+        dfs搜索算法中有一个常见而且非常重要的剪枝技巧。比如nums = [1,2,2,3,4,6], k=2, 当你搜索完[1,2,x]之后，不会为第二个数再次搜索2。所以需要在搜索第二个数的时候，用一个last来避免重复搜到相同的数。
+
+        解法2：状态压缩
+        对于每一组，我们要选取n个元素中的n/k个，我们将每种选择方法看做是用01bit表示的state。可知，这样的state总共有C(n, n/k)种。然后我们会删掉其中含有重复元素的state，剩下的state可以放入一个states数组，记它的大小是m。
+
+        于是此时我们等于需要解一个背包问题。我们要在states的m种状态中选择k种，使得拼接起来的总状态恰好是111..111，同时希望incompatibility的总和最小。大致的算法是：
+
+        for (int i=0; i<m; i++)
+        for (int dpstate=(1<<n)-1; dpstate>0; dpstate--)
+            {
+            if (states[i]不是dpstate的子集) continue;
+            dp[dpstate] = min(dp[dpstate], dp[dpstate - states[i]] + incompatibility[i]);
+            }
+        上面的算法会超时，原因是dpstate会遍历到大量显然不合法的状态：因为dpstate是选择若干个互斥的state的拼接得到，故dpstate里面的1bit的数目必须是n/k的整数倍。所以我们可以提前仅把合法的dpstate放入一个dpstates的数组，来替换第二层循环。
+    */
+    int n;
+    int k;
+    vector<int>visited;
+    int ret = INT_MAX;
+
+    int minimumIncompatibility(vector<int>& nums, int k) 
+    {
+        unordered_map<int,int>count;
+        for (auto x: nums)
+            count[x]++;
+        for (auto x: count)
+            if (x.second > k)
+                return -1;
+
+        sort(nums.begin(), nums.end());
+        this->k = k;
+        this->n = nums.size();               
+        visited.resize(n);
+        
+        visited[0] = 1;
+        dfs(nums, 0, 1, nums[0], nums[0], 0);
+        
+        return ret;
+    }
+    
+    void dfs(vector<int>& nums, int cur, int count, int low, int high, int sum)
+    {
+        if (count==n/k)
+        {
+            int j=0;
+            while (j<n && visited[j]==1)
+                j++;
+            if (j==n)
+            {
+                ret = min(ret, sum+high-low);
+            }
+            else
+            {
+                visited[j]=1;
+                dfs(nums, j, 1, nums[j], nums[j], sum+high-low);
+                visited[j]=0;
+            }
+        }
+        else
+        {
+            int last = -1;
+            for (int i=cur+1; i<n; i++)
+            {
+                if (visited[i]==1) continue;
+                if (nums[i]==nums[cur]) continue;
+                if (i>cur+1 && nums[i]==last) continue;
+                visited[i] = 1;
+                dfs(nums, i, count+1, low, nums[i], sum);
+                last = nums[i];
+                visited[i] = 0;
+            }            
+        }
+    }
+
+ 
+public:
+ 
+    int n;
+    
+    int minimumIncompatibility(vector<int>& nums, int k) 
+    {
+        unordered_map<int,int>count;
+        for (auto x: nums)
+            count[x]++;
+        for (auto x: count)
+            if (x.second > k)
+                return -1;
+
+        n= nums.size();        
+        vector<int>states;
+        vector<int>values;
+        int state = (1 << n/k) - 1;            
+        while (state < (1 << n))
+        {
+            int val;
+            if (!containDuplicate(nums, state, val))
+            {
+                states.push_back(state);
+                values.push_back(val);                
+            }
+            
+            int c = state & - state;
+            int r = state + c;
+            state = (((r ^ state) >> 2) / c) | r;
+        }
+
+        vector<int>dpstates;
+        for (int state=0; state<(1<<n); state++)
+        {
+            if (__builtin_popcount(state) % (n/k) ==0) 
+                dpstates.push_back(state);
+        }
+        reverse(dpstates.begin(), dpstates.end());
+        
+        vector<int>dp(1<<n, INT_MAX/2);
+        dp[0] = 0;
+
+        for (int i=0; i<states.size(); i++)
+        {            
+            for (auto dpstate: dpstates)
+            {                
+                if ((dpstate & states[i])!=states[i]) continue;
+                dp[dpstate] = min(dp[dpstate], dp[dpstate-states[i]]+values[i]);
+            }
+        }
+        return dp[(1<<n)-1];
+    }
+
+    bool containDuplicate(vector<int>&nums, int state, int&val)
+    {
+        vector<int>p;
+        for (int i=0; i<n; i++)
+        {
+            if ((state>>i)&1)
+                p.push_back(nums[i]);
+        }
+        sort(p.begin(),p.end());
+        for (int i=1; i<p.size(); i++)
+            if (p[i]==p[i-1]) return true;
+        val = p.back()-p.front();
+        return false;
+    }
     
     
     /*

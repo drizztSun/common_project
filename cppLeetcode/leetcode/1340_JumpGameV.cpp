@@ -49,15 +49,101 @@
  
  */
 
-#include <stdio.h>
 #include <vector>
-
+#include <numeric>
+#include <functional>
 
 using std::vector;
-using std::max;
 
 
 class JumpGameV {
+
+    /*
+        1340.Jump-Game-V
+        解法1：DP o(NlogN)
+        我们从最高点i开始看，它往左右两边范围d内的柱子j都可以到达。如果我们定义dp[k]为到达位置k所能经过的最多的柱子数目，显然我们有机会更新dp[j] = max(dp[j], dp[i]+1)。
+
+        我们从高到低顺次处理完所有的柱子，最终答案就是所有dp[i]里面的最大值。
+
+        注意，我们在向左（或者向右）遍历j的时候，如果发现arr[j]>=arr[i]，那么这个方向的搜索就可以break了。
+
+        解法1：DFS+Memo o(N)
+        以上的解法最大的缺点就是需要排序。这也是DP用法的限制：你必须提前计算出所有的前效状态才能进行状态传递。
+
+        事实上，我们可以用递归的思想来解决这个问题。我们只需要顺次解决dp(i)。如果发现dp(i)的某个前效状态dp(j)暂时不知道，那么我们就一路追查过去先计算dp(j)然后存储下来，再返回来计算dp(i)就可以了。
+    */
+    int maxJumps_dp(vector<int>& arr, int d) 
+    {
+        int n = arr.size();
+        vector<int>dp(n,1);
+
+        vector<std::pair<int,int>>p;
+        for (int i=0; i<n; i++)
+            p.push_back({arr[i],i});
+
+        std::sort(p.begin(), p.end());
+        reverse(p.begin(), p.end());
+
+        for (auto [height, idx]: p)
+        {            
+            for (int i=idx+1; i<=std::min(n-1,idx+d); i++)
+            {
+                if (arr[i] >= arr[idx]) break;                                
+                dp[i] = std::max(dp[i], dp[idx]+1);
+            }            
+            for (int i=idx-1; i>=std::max(0, idx-d); i--)
+            {
+                if (arr[i] >= arr[idx]) break;                                
+                dp[i] = std::max(dp[i], dp[idx]+1);
+            }
+        }
+
+        int ret = 0;
+        for (int i=0; i<n; i++)
+            ret = std::max(ret, dp[i]);
+        return ret;
+    }
+
+
+    int dp[1001];
+    int d;
+
+    int maxJumps(vector<int>& arr, int d) 
+    {
+        this->d = d;
+
+        int ret = 0;
+        for (int i=0; i<arr.size(); i++)
+        {
+            dfs(i, arr);
+            ret = std::max(ret, dp[i]);            
+        }
+        return ret;
+    }
+
+    int dfs(int i, vector<int>&arr)
+    {        
+        if (dp[i]!=0) return dp[i];
+
+        int ret = 1;
+
+        for (int k=1; k<=d; k++)
+        {
+            if (i+k>=arr.size()) break;
+            if (arr[i+k]>=arr[i]) break;
+            ret = std::max(ret, dfs(i+k, arr)+1);
+        }
+        for (int k=1; k<=d; k++)
+        {
+            if (i-k<0) break;
+            if (arr[i-k]>=arr[i]) break;
+            ret = std::max(ret, dfs(i-k, arr)+1);
+        }
+        dp[i] = ret;
+
+        return dp[i];
+    }
+
     
 public:
     
@@ -89,10 +175,8 @@ public:
         std::function<int(int)> search = [&](int i) {
             
             int n = arr.size();
-            vector<int> dp(n);
             
-            if (dp[i] != 0)
-                return dp[i];
+            if (dp[i] != 0) return dp[i];
             
             int ans = 1;
             
@@ -152,8 +236,7 @@ public:
                 dp[i] = std::max(dp[i], dp[j] + 1);
         }
         
-        
-        return *max_element(begin(dp), end(dp));
+        return *std::max_element(begin(dp), end(dp));
     }
     
     

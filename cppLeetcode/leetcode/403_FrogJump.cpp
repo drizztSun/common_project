@@ -41,24 +41,109 @@
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+#include <string>
+#include <set>
+#include <functional>
 
+using std::set;
+using std::string;
 using std::vector;
 using std::unordered_set;
 using std::unordered_map;
 
-auto hash_cord = [](const std::pair<int, int>& c) {
-    return std::hash<int>()(c.first) ^ std::hash<int>()(c.second);
-};
-
-auto equal_cord = [](const std::pair<int, int>& a, const std::pair<int, int>& b){
-    return a.first == b.first && a.second == b.second;
-};
-
-using pointset =  unordered_set<std::pair<int, int>, decltype(hash_cord), decltype(equal_cord)>;
-
 class CanCross {
 
+    /*
+        403.Frog-Jump
+        比较直观的想法就是DFS搜索，层层递归下去。设计递归函数 bool DFS(pos,jump)表示当青蛙以jump的跨度跳到pos的石头上时，它能否跳到最后。显然，如果此刻的pos不是最后一块石头的话，
+        那么就继续考察 DFS(pos+jump-1,jump-1), DFS(pos+jump,jump), DFS(pos+jump+1,jump+1)即可。
+
+        需要注意的细节：1. 如果pos不是石头的位置，直接返回false，2. 下一步的跨度不能小于等于0，否则就死循环。
+
+        以上的算法会LTE。如果思考进一步优化的算法，那显然就是记忆化，把每次搜索过的失败都记录下来。很容易想到，将已经探索过的{pos,jump}共同作为一个key存在一个集合FailureSet里，表明这个状态是失败的，以后DFS过程遇到这个状态就直接返回false。"
+    */
+    unordered_set<string> FailureSet;
+    unordered_set<int> StoneSet;
+
+    bool canCross(vector<int>& stones) 
+    {        
+        for (auto a:stones)
+            StoneSet.insert(a);
+        return DFS(stones.back(),1,1);
+    }
+    
+    bool DFS(int dest, int pos, int jump)
+    {       
+        if (pos==dest)
+            return true;
+        
+        if (StoneSet.find(pos)==StoneSet.end())
+            return false;        
+        
+        string temp = std::to_string(pos) + "#" + std::to_string(jump);
+        if (FailureSet.find(temp)!=FailureSet.end())
+            return false;
+        
+        for (int k=std::max(1,jump-1); k<=jump+1; k++)
+        {
+            if (DFS(dest, pos+k, k))
+                return true;            
+        }
+        
+        FailureSet.insert(temp);
+        return false;
+    }
+
 public:
+
+    unordered_set<int>stoneSet;
+    set<std::pair<int,int>>failed;
+
+    bool canCross(vector<int>& stones) 
+    {
+        for (auto x: stones)
+            stoneSet.insert(x);
+        return dfs(stones, 0, 0);        
+    }
+    
+    bool dfs(vector<int>& stones, int pos, int jump)
+    {
+        if (pos == stones.back()) return true;
+        if (stoneSet.find(pos)==stoneSet.end()) return false;
+        if (failed.find({pos, jump})!=failed.end()) return false;
+        
+        if (jump>1 && dfs(stones, pos+jump-1, jump-1))
+            return true;
+        if (jump>0 && dfs(stones, pos+jump, jump))
+            return true;
+        if (dfs(stones, pos+jump+1, jump+1))
+            return true;
+        
+        failed.insert({pos,jump});
+        return false;        
+    }
+
+public:
+
+    /*
+        Approach #5 Using Dynamic Programming[Accepted]
+        Algorithm
+
+        In the DP Approach, we make use of a hashmap mapmap which contains key:valuekey:value pairs such that keykey refers to the position at which a stone is present and valuevalue is a set containing the jumpsizejumpsize 
+        which can lead to the current stone position. We start by making a hashmap whose keykeys are all the positions at which a stone is present and the valuevalues are all empty except position 0 whose value contains 0. 
+        Then, we start traversing the elements(positions) of the given stone array in sequential order. For the currentPositioncurrentPosition, for every possible jumpsizejumpsize in the valuevalue set, we check if currentPosition + newjumpsizecurrentPosition+newjumpsize exists in the mapmap, where newjumpsizenewjumpsize can be either jumpsize-1jumpsize−1, jumpsizejumpsize, jumpsize+1jumpsize+1. If so, we append the corresponding valuevalue set with newjumpsizenewjumpsize. We continue in the same manner. If at the end, the valuevalue set corresponding to the last position is non-empty, we conclude that reaching the end is possible, otherwise, it isn't.
+
+        For more understanding see this animation-
+
+        Current
+        1 / 19
+
+        Complexity Analysis
+        
+        Time complexity : O(n^2). Two nested loops are there.
+        Space complexity : O(n^2). hashmaphashmap size can grow upto n^2
+    */
+
     
     bool doit_dp(vector<int>& stones) {
         unordered_map<int, unordered_set<int>> dp;
@@ -93,27 +178,38 @@ public:
         return dp.find(u) != dp.end() && dp[u].size() > 0;
     }
     
-    bool search(const unordered_set<int>& stones, int cur, int speed, int target, pointset& memo) {
-        
-        if (memo.count({cur, speed}))
-            return false;
-        
-        if (cur == target)
-            return true;
-        
-        if (cur > target || cur < 0 || speed <= 0 || stones.count(cur) == 0)
-            return false;
-        
-        for (auto c : vector<int>{speed-1, speed, speed+1}) {
-            if (stones.count(cur+c) > 0 && search(stones, cur+c, c, target, memo))
-                return true;
-        }
-        
-        memo.insert(std::make_pair(cur, speed));
-        return false;
-    }
-    
     bool doit_dp_dfs(vector<int>&& stones) {
+
+        auto hash_cord = [](const std::pair<int, int>& c) {
+            return std::hash<int>()(c.first) ^ std::hash<int>()(c.second);
+        };
+
+        auto equal_cord = [](const std::pair<int, int>& a, const std::pair<int, int>& b){
+            return a.first == b.first && a.second == b.second;
+        };
+
+        using pointset = unordered_set<std::pair<int, int>, decltype(hash_cord), decltype(equal_cord)>;
+
+        std::function<bool(const unordered_set<int>&, int, int, int, pointset&)> search = [&](const unordered_set<int>& stones, int cur, int speed, int target, pointset& memo) {
+        
+            if (memo.count({cur, speed}))
+                return false;
+            
+            if (cur == target)
+                return true;
+            
+            if (cur > target || cur < 0 || speed <= 0 || stones.count(cur) == 0)
+                return false;
+            
+            for (auto c : vector<int>{speed-1, speed, speed+1}) {
+                if (stones.count(cur+c) > 0 && search(stones, cur+c, c, target, memo))
+                    return true;
+            }
+            
+            memo.insert({cur, speed});
+            
+            return false;
+        };
         
         pointset memo(10, hash_cord, equal_cord);
         unordered_set<int> stones_set;
@@ -125,9 +221,3 @@ public:
         return search(stones_set, 1, 1, stones.back(), memo);
     }
 };
-
-
-void test_403_frog_jump() {
-    CanCross().doit_dp_dfs(vector<int>{0,1,3,4,5,7,9,10,12});
-}
-

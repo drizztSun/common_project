@@ -24,12 +24,70 @@ s contains only lowercase English letters.
 */
 #include <vector>
 #include <string>
+#include <functional>
 
 using std::vector;
 using std::string;
 
 
 class PalindromePartition {
+
+    /*
+        131.Palindrome-Partitioning
+        首先预处理字符串，用区间型dp计算出任意两个index之间的substring是否是回文串，记做dp[i][j].
+
+        然后从第一个字符开始进行深度优先搜索。设计dfs(i,temp)，表示考虑以当前的位置i为substring的开头，遍历有哪些位置j满足[i:j]的字符串满足回文（即dp[i][j]=1），就将该字符串收录进temp，然后递归搜索第j+1个位置。
+        如果dfs的参数i走到了n，说明恰好将整个s分割成了若干段回文串，就将这组分割的子串temp加入最终答案。
+
+        特别注意，这个dfs在回溯的时候需要将temp末尾加入的子串弹出。
+    */
+    int dp[16][16];
+    vector<vector<string>>rets;
+    int n;
+    string s;
+
+    vector<vector<string>> partition(string s) 
+    {
+        this->s = s;
+        n = s.size();
+        
+        for (int i=0; i<n; i++)
+            dp[i][i] = 1;
+        for (int i=0; i+1<n; i++)
+            dp[i][i+1] = s[i]==s[i+1];
+        for (int len = 3; len <=n; len++)
+            for (int i=0; i+len-1<n; i++)
+            {
+                int j = i+len-1;
+                if (s[i]==s[j])
+                    dp[i][j] = dp[i+1][j-1];
+                else
+                    dp[i][j] = 0;
+            }
+
+        vector<string>temp;
+        dfs(0, temp);
+
+        return rets;
+    }
+
+    void dfs(int i, vector<string>&temp)
+    {
+        if (i==n)
+        {
+            rets.push_back(temp);
+            return;
+        } 
+        for (int j=i; j<n; j++)
+        {
+            if (dp[i][j])
+            {
+                temp.push_back(s.substr(i,j-i+1));
+                dfs(j+1, temp);
+                temp.pop_back();
+            }
+        }
+    }
 
 public:
 

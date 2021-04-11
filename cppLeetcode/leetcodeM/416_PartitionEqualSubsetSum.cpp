@@ -41,9 +41,12 @@ It must be noted that the total sum of an array must be even, only then we can d
 
 */
 #include <vector>
+#include <functional>
 #include <numeric>
 #include <optional>
+#include <set>
 
+using std::set;
 using std::optional;
 using std::vector;
 
@@ -51,6 +54,55 @@ using std::vector;
 class PartitionEqualSubsetSum {
 
 public:
+
+    bool doit_dp_bottomup_best(vector<int>& nums) {
+        int sums = accumulate(begin(nums), end(nums), 0);
+        if (sums % 2 == 1) return false;
+        
+        int half = sums/2;
+        vector<int> dp(half+1, false);
+        dp[0] = true;
+        
+        for (auto c: nums) {
+            for (int i = half; i >= c; i--) {
+                if (dp[i-c]) dp[i] = true;
+            }
+            
+            if (dp[half]) return true;
+        }
+        
+        return false;
+    }
+
+    bool canPartition_slow(vector<int>& nums) {
+            
+        int total = accumulate(begin(nums), end(nums), 0);
+        if (total % 2 != 0) return false;
+
+        total /= 2;
+        set<int> buf;
+        buf.insert(0);
+
+        for (auto c : nums) {
+
+            set<int> tmp;
+
+            auto it = buf.lower_bound(total - c);
+
+            if (it != end(buf) && *it == total - c) return true;
+
+            auto s = begin(buf);
+            while (s != it && *s + c < total) {
+                tmp.insert(*s + c);
+                s++;
+            }
+
+            buf.insert(begin(tmp), end(tmp));
+
+        }
+
+        return false;
+    }
 
     /*
         Approach 2: Top Down Dynamic Programming - Memoization
@@ -172,25 +224,6 @@ public:
         }
         return dp[subSetSum];
     }
-    
-    bool canPartition1(vector<int>& nums) {
-        int sums = accumulate(begin(nums), end(nums), 0);
-        if (sums % 2 == 1) return false;
-        
-        int half = sums/2;
-        vector<int> dp(half+1, false);
-        dp[0] = true;
-        
-        for (auto c: nums) {
-            for (int i = half; i >= c; i--) {
-                if (dp[i-c]) dp[i] = true;
-            }
-            
-            if (dp[half]) return true;
-        }
-        
-        return false;
-    }
     /*
         Approach 3: Bottom Up Dynamic Programming
         Intuition
@@ -226,8 +259,8 @@ public:
         if (totalSum % 2 != 0) return false;
         int subSetSum = totalSum / 2;
         int n = nums.size();
-        bool dp[n + 1][subSetSum + 1];
-        memset(dp, 0, (n + 1) * (subSetSum + 1) * sizeof(bool));
+        vector<vector<bool>> dp(n + 1, vector<bool>(subSetSum + 1, false));
+        //memset(dp, 0, (n + 1) * (subSetSum + 1) * sizeof(bool));
         
         dp[0][0] = true;
         for (int i = 1; i <= n; i++) {

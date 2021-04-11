@@ -27,7 +27,7 @@
 # Return 4
 # The longest increasing path is[3, 4, 5, 6].Moving diagonally is not allowed.
 */
-#include <stdlib.h>
+#include <functional>
 #include <vector>
 #include <algorithm>
 
@@ -35,6 +35,45 @@
 using std::vector;
 
 class LongestIncreasingPath {
+
+    /*
+                329.Longest-Increasing-Path-in-a-Matrix
+        我们从任意点A开始递归寻找各条递增路径，最终返回的时候记录从A为起点时的最长路径长度。将此结果记忆化，这样当对其他点进行DFS的时候，如果递归调用到dfs(A)就直接返回结果。
+    */
+    int m,n;
+    int len[200][200];
+
+    int longestIncreasingPath(vector<vector<int>>& matrix) 
+    {
+        m = matrix.size();
+        n = matrix[0].size();
+        
+        int ret = 0;
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+            {
+                ret = std::max(ret, dfs(matrix,i,j));                    
+            }
+        
+        return ret;
+    }
+    
+    int dfs(vector<vector<int>>& matrix, int i, int j)
+    {
+        if (len[i][j]!=0) return len[i][j];
+        vector<pair<int,int>>dir({{0,1},{0,-1},{1,0},{-1,0}});
+        int ret = 0;
+        for (int k=0; k<4; k++)
+        {
+            int x = i+dir[k].first;
+            int y = j+dir[k].second;
+            if (x<0||x>=m||y<0||y>=n) continue;
+            if (matrix[x][y]<=matrix[i][j]) continue;
+            ret = max(ret, dfs(matrix, x,y));
+        }
+        len[i][j] = 1+ret;
+        return 1+ret;
+    }
 
 public:
 
@@ -59,8 +98,7 @@ public:
         // dfs
         std::function<int(int, int)> dfs = [&](int i, int j) {
             
-            if (dp[i][j] != 0)
-                return dp[i][j];
+            if (dp[i][j] != 0) return dp[i][j];
             
             int val = matrix[i][j];
             int ans = 1;
@@ -91,14 +129,14 @@ public:
 	}
     
     /*
-     Solution 3: DP (Bottom-up)
-     1. Scan the matix m*n times(TLE)
-     2. Sort cells by val, visit cells in reverse order
-     
-     DP
-     Time complexity: O(mn*log(mn))
-     Space complexity: O(mn)
-     */
+        Solution 3: DP (Bottom-up)
+        1. Scan the matix m*n times(TLE)
+        2. Sort cells by val, visit cells in reverse order
+        
+        DP
+        Time complexity: O(mn*log(mn))
+        Space complexity: O(mn)
+    */
     
     int doit_dp_Bottomup(vector<vector<int>>& matrix) {
         if (matrix.empty())
@@ -137,9 +175,3 @@ public:
         return ans;
     }
 };
-
-
-void Test_329_longestIncreasingPath() {
-
-    LongestIncreasingPath().doit_dp_dfs_Topdown({ { 9, 9, 4 },{ 6, 6, 8} , { 2, 1, 1}});
-}

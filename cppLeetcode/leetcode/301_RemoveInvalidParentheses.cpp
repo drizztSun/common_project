@@ -24,6 +24,7 @@
 #include <queue>
 #include <vector>
 #include <unordered_set>
+#include <functional>
 
 using std::unordered_set;
 using std::vector;

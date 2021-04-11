@@ -46,40 +46,119 @@
  
  
  */
-
-#include <stdio.h>
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <functional>
 
 using std::vector;
 using std::string;
 
 
-
-/*
- 1307.Verbal-Arithmetic-Puzzle
- 本题就是一个暴力搜索，逐个将字母尝试匹配数字，没有问题的话就处理下一个字母，有问题的话就返回匹配其他数字。为了方便对齐，我们将所有字符串都逆序排列：
-
- CBA
- ED
- F
- ----
- IHG
- 我们dfs的顺序就是逐个处理CEFIBDHGA。当每一列的加数字符匹配完之后（比如说CEF），我们需要查验它们的sum是否与result（也就是I）对应的数字一致。我们需要考虑大致需要剪支的情况：
-
- I已经匹配过了，但是与sum不一致。
- I没有匹配过，但是sum已经匹配过其他字符了。
- 所以我们需要两个hash表，一个记录每个字符对应的数字，另一个记录每个数字是否已经被匹配过。
-
- 大致的递归函数的形式是：dfs(int i, int j, int sum)，其中(i,j)表示我们在处理第i行、第j列的字符，试图给其赋值一个数字；sum表示该列当前的累加和。
- 
- 
- */
-
-
 class VerbalArithmeticPuzzle {
 
+    /*
+        1307.Verbal-Arithmetic-Puzzle
+        本题就是一个暴力搜索，逐个将字母尝试匹配数字，没有问题的话就处理下一个字母，有问题的话就返回匹配其他数字。为了方便对齐，我们将所有字符串都逆序排列：
+
+        CBA
+        ED
+        F
+        ----
+        IHG
+        我们dfs的顺序就是逐个处理CEFIBDHGA。当每一列的加数字符匹配完之后（比如说CEF），我们需要查验它们的sum是否与result（也就是I）对应的数字一致。我们需要考虑大致需要剪支的情况：
+
+        I已经匹配过了，但是与sum不一致。
+        I没有匹配过，但是sum已经匹配过其他字符了。
+        所以我们需要两个hash表，一个记录每个字符对应的数字，另一个记录每个数字是否已经被匹配过。
+
+        大致的递归函数的形式是：dfs(int i, int j, int sum)，其中(i,j)表示我们在处理第i行、第j列的字符，试图给其赋值一个数字；sum表示该列当前的累加和。
+    */
+    int Map[128];
+    int visited[10];
+public:
+    bool isSolvable(vector<string>& words, string result) 
+    {       
+        for (int i=0; i<128; i++)
+            Map[i] = -1;
+        reverse(result.begin(),result.end());
+        for (int i=0; i<words.size(); i++)
+        {
+            reverse(words[i].begin(),words[i].end());
+            if (words[i].size()>result.size())
+                return false;
+        }            
+        
+        return DFS(words,result,0,0,0);
+    }
+    
+    bool DFS(vector<string>& words, string result, int j, int i, int sum)
+    {
+        if (j==result.size())
+        {
+            if (sum!=0)
+                return false;
+            if (result.size()>1 && Map[result.back()]==0)
+                return false;
+            return true;
+        }
+
+        if (i==words.size())
+        {
+            if (Map[result[j]]!=-1)
+            {
+                if (Map[result[j]]!=sum%10)
+                    return false;
+                else
+                    return DFS(words,result,j+1,0,sum/10);
+            }
+            else
+            {
+                if (visited[sum%10]==1)
+                    return false;
+                
+                Map[result[j]] = sum%10;
+                visited[sum%10] = 1;   
+                if  (DFS(words,result,j+1,0,sum/10))
+                    return true;
+                Map[result[j]] = -1;
+                visited[sum%10] = 0;
+                return false;                                
+            }           
+        }             
+                    
+        if (j>=words[i].size())
+        {            
+            return DFS(words,result,j,i+1,sum);        
+        }   
+        
+        char ch = words[i][j];
+        if (Map[ch]!=-1)
+        {
+            if (words[i].size()>1 && j==words[i].size()-1 && Map[ch]==0)
+                return false;
+            return DFS(words,result,j,i+1,sum+Map[ch]);
+        }
+        else
+        {
+            for (int d=0; d<=9; d++)
+            {
+                if (visited[d]==1) 
+                    continue;
+                if (d==0 && words[i].size()>1 && j==words[i].size()-1)
+                    continue;
+                Map[ch] = d;
+                visited[d] = 1;
+                if (DFS(words,result,j,i+1,sum+d))
+                    return true;                
+                Map[ch] = -1;
+                visited[d] = 0;
+            }
+            return false;
+        }
+        
+        return true;
+    }
 
 public:
 
@@ -173,6 +252,4 @@ public:
         
         return dfs(0, 0, 0);
     }
-    
-    
 };
