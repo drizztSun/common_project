@@ -92,7 +92,6 @@ public:
           int ancestor = -1;
           int cloestcoprime = -1;
           for (auto c : coprimes[nums[cur]]) {
-
               if (!buff[c].empty() && buff[c].back().first > cloestcoprime) {
                 cloestcoprime = buff[c].back().first;
                 ancestor = buff[c].back().second;

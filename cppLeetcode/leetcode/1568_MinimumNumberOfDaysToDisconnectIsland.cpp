@@ -53,7 +53,9 @@
  
  */
 #include <vector>
+#include <queue>
 
+using std::queue;
 using std::vector;
 
 
@@ -74,56 +76,12 @@ class MinimumUNumberToDisconnectIsland {
 
         所以本题的本质就是一个暴力枚举+BFS搜索判断岛数量。
     */
-public:
-
-    int doit_(vector<vector<int>>& grid) 
+    int m,n;
+    
+    int minDays(vector<vector<int>>& grid) 
     {
-        int m = grid.size(), n = grid[0].size();
-
-        auto islands = [&]() -> int{
-
-            auto dir = vector<pair<int,int>>({{1,0},{-1,0},{0,1},{0,-1}});
-            auto visited = vector<vector<int>>(m, vector<int>(n,0));
-            int count = 0;
-
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++)
-                {
-                    if (grid[i][j]==0) continue;
-                    if (visited[i][j]==1) continue;
-                    
-                    queue<pair<int,int>> q;
-                    q.push({i,j});
-                    visited[i][j] = 1;
-                                    
-                    count++;
-                    
-                    while (!q.empty())
-                    {
-                        int x = q.front().first;
-                        int y = q.front().second;
-                        q.pop();
-                        
-                        for (int k=0; k<4; k++)
-                        {
-                            int a = x + dir[k].first;
-                            int b = y + dir[k].second;
-                            
-                            if (a<0 || a>=m || b<0 || b>=n) continue;
-
-                            if (grid[a][b] == 0) continue;
-                            if (visited[a][b]==1) continue;
-
-                            q.push({a,b});
-                            visited[a][b] = 1;                        
-                        }
-                    }
-                    
-                    if (count == 2) return 2;
-                }
-            }
-            return count;
-        };
+        m = grid.size();
+        n = grid[0].size();
         
         int count = islands(grid);
         if (count > 1) return 0;
@@ -141,25 +99,67 @@ public:
         return 2;        
     }
     
+    int islands(vector<vector<int>>& grid)
+    {
+        auto dir = vector<pair<int,int>>({{1,0},{-1,0},{0,1},{0,-1}});
+        auto visited = vector<vector<int>>(m, vector<int>(n,0));
+        int count = 0;
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+            {
+                if (grid[i][j]==0) continue;
+                if (visited[i][j]==1) continue;
+                
+                queue<pair<int,int>>q;
+                q.push({i,j});
+                visited[i][j] = 1;
+                                
+                count++;
+                
+                while (!q.empty())
+                {
+                    int x = q.front().first;
+                    int y = q.front().second;
+                    q.pop();
+                    
+                    for (int k=0; k<4; k++)
+                    {
+                        int a = x+dir[k].first;
+                        int b = y+dir[k].second;
+                        if (a<0||a>=m||b<0||b>=n) continue;
+                        if (grid[a][b]==0) continue;
+                        if (visited[a][b]==1) continue;
+                        q.push({a,b});
+                        visited[a][b] = 1;                        
+                    }
+                }
+                
+                if (count == 2) return 2;
+            }
+        return count;
+    }
 public:
-   const int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
     
+    const int dirs[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    int n, m;
+    vector<vector<int>> g;
+    vector<vector<int>> depth;
+
     int dfs(int x, int y, int px, int py) {
         int res = INT_MAX;
         for (int i = 0; i < 4; ++i) {
             int xx = x + dirs[i][0];
             int yy = y + dirs[i][1];
-            if (xx < 0 || xx >= n || yy < 0 || yy >= m || g[xx][yy] != 1)
-                continue;
-            if (xx == px && yy == py)
-                continue;
+
+            if (xx < 0 || xx >= n || yy < 0 || yy >= m || g[xx][yy] != 1) continue;
+            if (xx == px && yy == py) continue;
+
             if (depth[xx][yy] != -1) {
                 res = std::min(res, depth[xx][yy]);
             } else {
                 depth[xx][yy] = depth[x][y] + 1;
                 int ret = dfs(xx, yy, x, y);
-                if (ret == -1)
-                    return -1;
+                if (ret == -1) return -1;
                 res = std::min(res, ret);
             }
         }
@@ -168,52 +168,49 @@ public:
     
     int minDays(vector<vector<int>>& grid) {
         n = grid.size(), m = grid[0].size();
-        if (n == 1 && m == 1)
-            return 0;
+        if (n == 1 && m == 1) return 0;
+        
         vector<vector<bool>> vis(n, vector<bool>(m, false));
         int ax, ay;
         int cnt = 0;
+
         for (int i = 0; i < n; ++i) {
             for (int j = 0; j < m; ++j) {
-                if (vis[i][j])
-                    continue;
-                if (grid[i][j] == 1) {
-                    if (cnt)
-                        return 0;
-                    ax = i, ay = j;
-                    vector<std::pair<int, int>> bfs = {{i, j}};
-                    vis[i][j] = true;
-                    ++cnt;
-                    while (!bfs.empty()) {
-                        int x = bfs.back().first;
-                        int y = bfs.back().second;
-                        bfs.pop_back();
-                        for (int k = 0; k < 4; ++k) {
-                            int xx = x + dirs[k][0];
-                            int yy = y + dirs[k][1];
-                            if (xx < 0 || xx >= n || yy < 0 || yy >= m || vis[xx][yy] || grid[xx][yy] != 1)
-                                continue;
-                            vis[xx][yy] = true;
-                            ++cnt;
-                            bfs.push_back({xx, yy});
-                        }
+
+                if (vis[i][j]) continue;
+                if (grid[i][j] == 0) continue;
+                
+                if (cnt) return 0;
+
+                ax = i, ay = j;
+                vector<std::pair<int, int>> bfs = {{i, j}};
+                vis[i][j] = true;
+                ++cnt;
+                while (!bfs.empty()) {
+                    int x = bfs.back().first;
+                    int y = bfs.back().second;
+                    bfs.pop_back();
+                    for (int k = 0; k < 4; ++k) {
+                        int xx = x + dirs[k][0];
+                        int yy = y + dirs[k][1];
+                        if (xx < 0 || xx >= n || yy < 0 || yy >= m || vis[xx][yy] || grid[xx][yy] != 1) continue;
+                        vis[xx][yy] = true;
+                        ++cnt;
+                        bfs.push_back({xx, yy});
                     }
                 }
             }
         }
-        if (cnt == 0)
-            return 0;
-        if (cnt == 2)
-            return 2;
+
+        if (cnt == 0) return 0;
+        if (cnt == 2) return 2;
+        
         g = grid;
         depth = vector<vector<int>>(n, vector<int>(m, -1));
         depth[ax][ay] = 0;
-        if (dfs(ax, ay, -1, -1) == -1)
-            return 1;
-        return 2;
+        
+        return dfs(ax, ay, -1, -1) == -1 ? 1 : 2;
     }
     
-    int n, m;
-    vector<vector<int>> g;
-    vector<vector<int>> depth;
+
 };

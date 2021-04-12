@@ -77,7 +77,10 @@ Assume all four edges of the grid are all surrounded by wall.
 #include <string>
 #include <unordered_set>
 #include <vector>
+#include <functional>
+#include <set>
 
+using std::set;
 using std::vector;
 using std::unordered_set;
 using std::string;
@@ -152,5 +155,83 @@ class CleanRoom {
             }                
             robot.turnRight();         
         }
+    }
+
+    void doit_dfs(Robot& robot) {
+        
+        unordered_set<string> visited;
+        int dir[5] = {-1, 0, 1, 0, -1};
+        
+        auto key = [](int x, int y) -> std::string {
+            return std::to_string(x) + '#' + std::to_string(y);    
+        };
+        
+        std::function<void(int, int, int)> dfs = [&](int i, int j, int curdir) {
+            
+            robot.clean();
+            
+            for (int k = 0; k <4; k++) {
+                
+                int nextdir = (curdir+k) % 4;
+                int x = i + dir[nextdir], y = j + dir[nextdir+1];
+                string hashkey = key(x, y);
+                
+                if (visited.count(hashkey) == 0 && robot.move()) {
+                    
+                    visited.insert(hashkey);
+                    
+                    dfs(x, y, nextdir);
+                    
+                    robot.turnLeft();
+                    robot.turnLeft();
+                    robot.move();
+                    robot.turnLeft();
+                    robot.turnLeft();
+                    
+                }
+                
+                robot.turnRight();
+            }
+            
+        };
+        
+        visited.insert(key(0, 0));
+        
+        dfs(0, 0, 0);
+    }
+
+
+public:
+
+    int dist[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};
+    set<pair<int,int>> visited;
+    void move_back(Robot& robot) {
+        robot.turnRight();
+        robot.turnRight();
+        robot.move();
+        robot.turnRight();
+        robot.turnRight();
+    }
+    
+    void dfs(Robot& robot, int x, int y, int dir) {
+        visited.insert({x,y});
+        robot.clean();
+        int nx,ny,ndir;
+        int i;
+        for(i = 0; i < 4; i++) {
+            ndir = (dir + i)%4;
+            nx = x + dist[ndir][0];
+            ny = y + dist[ndir][1];
+            
+            if(!visited.count({nx,ny}) && robot.move()) {
+                dfs(robot,nx,ny,ndir);
+                move_back(robot);                
+            }
+            robot.turnRight();
+        }
+    }
+    
+    void cleanRoom(Robot& robot) {
+       dfs(robot,0,0,0);
     }
 };

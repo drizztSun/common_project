@@ -139,7 +139,7 @@ class RegionsBySlashes {
         if (Grid[x][y]!=0) return;
         Grid[x][y]=2;
         
-        vector<pair<int,int>>dir({{0,1},{0,-1},{1,0},{-1,0}});
+        vector<std::pair<int,int>>dir({{0,1},{0,-1},{1,0},{-1,0}});
         for (int k=0; k<4; k++)
         {
             int i = x+dir[k].first;

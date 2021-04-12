@@ -61,7 +61,112 @@ using namespace std;
 
 
 class HitBricks {
+
+	/*
+	
+		803.Bricks-Falling-When-Hit
+		这题咋看上去很难，但实际上用“时光倒流”的想法就很方便。
+
+		假想在所有的erasure完成之后，这些砖块有些与top相连（成为大陆）），有些则是孤立的岛屿。我们考察最后一次抽掉的砖块，如果“复原”它能使得一些孤立的岛屿与大陆相连的话，那么这些岛屿的面积S，其实就是最后一次erasure所造成砖块掉落的数量。
+		OK，就算这次“复原”不能使得任何岛屿与大陆相连，但也有可能会使得一部分岛屿之间相连，这样下一次“复原”的时候就有可能使得这一块更大的岛屿与大陆相连。以此方法不停地往回追溯上去。
+
+		此题我觉得用DFS来做更直观一点。我的做法是：
+
+		1.将所有的要被erasure的砖块都抹去，也就是标记0（这里我标记为-1便于与原先真正的“海洋”区别）。
+
+		2.用DFS的方法确定所有与上顶端相连的“大陆”，标记为2.
+
+		3.“时光倒流”，处理最后一次erasure。如果这个砖块的周围有大陆（标记是2），那么它就可能将一部分岛屿（标记是1）与大陆相连。所以从该点出发进行DFS，找出所有标记是1的格子，就是答案（也就是因为这次erasure造成的砖块掉落的数量），记得将这些已经并入大陆的格子也都标记成2。
+		如果这个砖块的周围没有大陆，那么就简单的将这个位置的的标记恢复为1就行（也就是岛屿）。
+
+		4.依次类推处理所有的erasure。
+	*/
+	vector<vector<int>>visited; // 1: land, -1 : erased, 2 : connected
+    vector<pair<int,int>>dir;
+
+    vector<int> hitBricks(vector<vector<int>>& grid, vector<vector<int>>& hits) 
+    {
+        int m = grid.size();
+        int n = grid[0].size();
+        dir = {{1,0},{-1,0},{0,1},{0,-1}};
+        
+        visited = grid;
+        for (auto point:hits)        
+            visited[point[0]][point[1]] *= -1;        
+                        
+        for (int j=0; j<n; j++)        
+            if (visited[0][j]==1)
+            {
+                int num = 0;
+                dfs(0,j,num);                        
+            }
+        
+        vector<int>ret;
+        reverse(hits.begin(),hits.end());
+        for (auto point:hits)
+        {
+            int i = point[0];
+            int j = point[1];
+                        
+            if (visited[i][j]!=-1) 
+            {
+                ret.push_back(0);
+                continue;
+            }
+            bool find = (i==0);
+            for (int k=0; k<4; k++)
+            {
+                int x = i+dir[k].first;
+                int y = j+dir[k].second;
+                if (!isValid(x,y)) continue;
+                if (visited[x][y]==2)
+                {
+                    find = true;
+                    break;
+                }                
+            }
+            
+            if (find)
+            {
+                int num = -1;
+                dfs(i,j,num);                        
+                ret.push_back(num);
+            }
+            else
+            {
+                visited[i][j] = 1;            
+                ret.push_back(0);
+            }                            
+        }
+        
+        reverse(ret.begin(),ret.end());
+        return ret;
+    }
+    
+    bool isValid(int x, int y)
+    {
+        int m = visited.size();
+        int n = visited[0].size();
+        return !(x<0||x>=m||y<0||y>=n);
+    }
+    
+    void dfs(int i, int j, int &num)
+    {
+        visited[i][j] = 2;
+        num++;
+        for (int k=0; k<4; k++)
+        {
+            int x = i+dir[k].first;
+            int y = j+dir[k].second;
+            if (!isValid(x,y)) continue;
+            if (visited[x][y]==1)
+                dfs(x,y,num);
+        }        
+    }
+
+
 public:
+
 	vector<int> doit(vector<vector<int>>&& grid, vector<vector<int>>&& hits) {
 
 		int M = grid.size(), N = grid[0].size();

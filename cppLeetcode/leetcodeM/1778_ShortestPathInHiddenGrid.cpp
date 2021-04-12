@@ -74,7 +74,10 @@ There is exactly one 2 in grid.
 #include <queue>
 #include <unordered_set>
 #include <array>
+#include <unordered_map>
+#include <functional>
 
+using std::unordered_map;
 using std::array;
 using std::unordered_set;
 using std::queue;
@@ -99,6 +102,95 @@ class ShortestPath {
        void move(char direction);
        bool isTarget() {return true;};  
     };
+
+    /*
+        1778.Shortest-Path-in-a-Hidden-Grid
+        
+        本题巧妙地将DFS和BFS结合起来。
+
+        因为机器人只能单线程操作，只能到了一个位置再移动到另一个位置，无法像BFS那样并行地让多个机器人朝不同方向扩散。所以本题只能用DFS的方法，指挥机器人一步一步“深度优先+回溯”地探索完整个房间，标记每个格子的状态。DFS结束后将房间的平面图记录在内存，就可以用BFS求到终点的最短路径。
+    */
+
+    typedef std::pair<int,int> PII;
+    int grid[1000][1000];    
+    int visited[1000][1000];
+    int visited2[1000][1000];
+
+    int findShortestPath(GridMaster &master) 
+    {   
+        visited[500][500] = 1;
+        dfs(500, 500, master);
+        
+        auto dir = vector<PII>({{-1,0},{1,0},{0,-1},{0,1}});
+        
+        queue<PII>q;
+        q.push({500,500});
+        visited2[500][500]=1;        
+        
+        int step = 0;
+        while (!q.empty())
+        {
+            int len = q.size();
+            step++;
+            while (len--)
+            {
+                auto [i,j] = q.front();
+                q.pop();
+                
+                for (int k=0; k<4; k++)
+                {                    
+                    int x = i + dir[k].first;
+                    int y = j + dir[k].second;
+                    if (grid[x][y]==2) return step;                        
+                    if (grid[x][y]==0) continue;
+                    if (visited2[x][y]==1) continue;
+                        
+                    visited2[x][y] = 1;
+                    q.push({x,y});                        
+                }
+            }
+        }
+        return -1;
+        
+    }
+    
+    void dfs(int i, int j, GridMaster &master)
+    {
+        auto dir = vector<PII>({{-1,0},{1,0},{0,-1},{0,1}});
+        vector<char> move({'U','D','L','R'});
+        
+        grid[i][j] = 1;
+        
+        if (master.isTarget())
+        {
+            grid[i][j] = 2;
+            return;
+        }
+        
+        for (int k=0; k<4; k++)
+        {
+            int x = i+dir[k].first;
+            int y = j+dir[k].second;
+            if (visited[x][y]) continue;
+            
+            if (master.canMove(move[k])==false)
+                grid[x][y] = 0;
+            else 
+            {
+                visited[x][y] = 1;
+                master.move(move[k]);
+                
+                dfs(x,y,master);                
+                
+                int kk;
+                if (k==0) kk=1;
+                else if (k==1) kk=0;
+                else if (k==2) kk=3;
+                else if (k==3) kk=2;
+                master.move(move[kk]);
+            }                
+        }
+    }
 
 public:
 
@@ -211,5 +303,76 @@ public:
             dfs(grid, m, i, j+1);
             m.move('L');
         }
+    }
+
+
+
+    int doit_dfs(GridMaster &master) {
+        
+        vector<vector<int>> grid(1001, vector<int>(1001, 0));
+        
+        unordered_map<char, std::pair<int, int>> dir{{'L', {0, -1}}, {'R', {0, 1}}, {'U', {-1, 0}}, {'D', {1, 0}}};
+        unordered_map<char, char> revs{{'U', 'D'}, {'D', 'U'}, {'L', 'R'}, {'R', 'L'}};
+        
+        std::function<void(int, int)> dfs = [&](int i, int j) {
+            
+            grid[i][j] = master.isTarget() ? 2 : 1;
+        
+            for (auto it: dir) {
+                if (master.canMove(it.first) && grid[i+it.second.first][j+it.second.second] == 0) {
+                    master.move(it.first);
+                    dfs(i+it.second.first, j+it.second.second);
+                    master.move(revs[it.first]);
+                }
+            }
+        };
+        
+        dfs(500, 500);
+        
+        queue<std::pair<int, int>> qu;
+        qu.push({500, 500});
+        int step = 0;
+        
+        while (!qu.empty()) {
+            
+            int sz = qu.size();
+            
+            while (sz--) {
+                
+                auto it = qu.front();
+                int x = it.first, y = it.second;
+                qu.pop();
+                
+                //printf("%d\n", grid[x][y]);
+                
+                if (grid[x][y] == -2) return step;
+                
+                if (grid[x][y] = 0) continue;
+                
+                if (x > 0 && grid[x-1][y] > 0) {
+                    grid[x-1][y] *= -1;
+                    qu.emplace(x-1, y);
+                }
+                
+                if (x < 1000 && grid[x+1][y] > 0) {
+                    grid[x+1][y] *= -1;
+                    qu.emplace(x+1, y);
+                }
+                
+                if (y > 0 && grid[x][y-1] > 0) {
+                    grid[x][y-1] *= -1;
+                    qu.emplace(x, y-1);
+                }
+                
+                if (y < 1000 && grid[x][y+1] > 0) {
+                    grid[x][y+1] *= -1;
+                    qu.emplace(x, y+1);
+                }
+            }
+            
+            step++;
+        }
+        
+        return -1;
     }
 };

@@ -51,9 +51,7 @@ public:
         就是这样从高位到低位不断地尝试，每次位置优先尝试放置较大的元素。直至我们找到一种方法能把2*n-1个位置都填充满，自然就是我们所能构造的最大答案。
 
     */
-
-
-    vector<int> doit_backtracking_dfs(int n) 
+    vector<int> doit_backtracking_dfs_greedy(int n) 
     {
 
         vector<int>ret;
@@ -83,9 +81,8 @@ public:
             }
             return false;
         };
+
         dfs(0);
         return ret;
     }
-
-    
 };

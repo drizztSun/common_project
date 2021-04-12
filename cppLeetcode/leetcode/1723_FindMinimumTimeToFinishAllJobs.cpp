@@ -95,6 +95,7 @@ public:
     int doit_binary_search(vector<int>& jobs, int k) {
 
         int n = jobs.size();
+        
         // sort and sent bigger jobs, it can makes it failed so fast, then it can help dfs.
         //  
         sort(jobs.begin(), jobs.end());
