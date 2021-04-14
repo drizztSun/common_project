@@ -93,12 +93,12 @@ public:
             for (auto x: temp)
                 d[i].push(x);
         }
-                    
+
         set<array<int,3>> Set;
         for (int i=0; i<m; i++)
-        {            
+        {
             Set.insert(d[i].front());
-        }        
+        }
         
         vector<int>rets(m, -1);        
         vector<int>bikesDone(n,0);
@@ -237,5 +237,4 @@ public:
         
         return result;
     }
-    
 };

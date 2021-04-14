@@ -112,6 +112,45 @@ public:
         return -1;
     }
 
+	int doit_bfs_pq(vector<vector<int>>& grid) {
+        
+        using PII = std::pair<int, std::pair<int, int>>;
+        
+        int N = grid.size();
+        
+        int dir[5] = {-1, 0, 1, 0, -1};
+        
+        std::priority_queue<PII, vector<PII>, std::greater<>> pq;
+        
+        vector<vector<int>> seen(N, vector<int>(N, 0));
+        
+        pq.push({grid[0][0], {0, 0}});
+        seen[0][0] = 1;
+        
+        while (!pq.empty()) {
+            
+            auto it = pq.top(); pq.pop();
+            
+            int time = it.first, x = it.second.first, y = it.second.second;
+            
+            if (x == N-1 && y == N-1) return time;
+            
+            
+            for (int k = 0; k < 4; k++) {
+                
+                int i = x + dir[k], j = y + dir[k+1];
+                
+                if (i < 0 || i >= N || j < 0 || j >= N || seen[i][j]) continue;
+                
+                seen[i][j] = 1;
+
+                pq.push({std::max(time, grid[i][j]), {i, j}});
+            }
+        }
+        
+        return -1;
+    }
+
 	int doit_dijkstra(vector<vector<int>>& grid) {
 
 		int m = grid.size(), n = grid[0].size();
@@ -136,9 +175,9 @@ public:
 			for (auto& e : vector<pair<int, int>>({ { 0,-1 },{ 0, 1 },{ 1, 0 },{ -1, 0 } })) {
 				int xx = c.x + e.first, yy = c.y + e.second;
 
-				if (xx >= 0 && xx < m && yy >= 0 && yy < n && visited.find(make_pair(xx, yy)) == visited.end()) {
+				if (xx >= 0 && xx < m && yy >= 0 && yy < n && visited.find({xx, yy}) == visited.end()) {
 					q.push(cord(grid[xx][yy], xx, yy));
-					visited.insert(make_pair(xx, yy));
+					visited.insert({xx, yy});
 				}
 			}
 		}
@@ -204,26 +243,3 @@ public:
 		return ret;
 	}
 };
-
-void Test_778_SwimInRisingWater() {
-
-	vector<vector<int>> input{ { 0,1,2,3,4 },
-							{24, 23, 22, 21, 5},
-							{12, 13, 14, 15, 16},
-							{11, 17, 18, 19, 20},
-							{10, 9, 8, 7, 6} };
-
-	int res = SwimInWater().doit_bfs_heap(input);
-	
-	vector<vector<int>> input1{ {7, 34, 16, 12, 15, 0},
-								{10, 26, 4, 30, 1, 20},
-								{28, 27, 33, 35, 3, 8},
-								{29, 9, 13, 14, 11, 32},
-								{31, 21, 23, 24, 19, 18},
-								{22, 6, 17, 5, 2, 25} };
-
-	int res1 = SwimInWater().doit_bfs_heap(input1);
-
-
-	return;
-}

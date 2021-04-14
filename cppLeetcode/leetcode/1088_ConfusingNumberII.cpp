@@ -51,6 +51,7 @@ After the rotation we can ignore leading zeros, for example if after rotation we
 #include <unordered_set>
 #include <unordered_map>
 #include <string>
+#include <functional>
 
 using std::string;
 using std::unordered_map;
@@ -260,6 +261,36 @@ public:
 public:
 
     int doit_(int N) {
+        vector<long> bases = {0, 1, 6, 8, 9};
+        int count = 0;
         
+        auto isconfusing = [](long num) {
+           
+            long res = 0, org = num;
+            while (num) {
+                int n = num % 10;
+                if (n == 6 || n == 9)
+                    n = n == 6 ? 9 : 6;
+                res = res * 10 + n;
+                num /= 10;
+            }
+            return res != org;
+        };
+
+        std::function<void(long)> dfs = [&](long num) {
+            if (num > N) return;
+            
+            if (isconfusing(num)) count++;
+            
+            for (auto c:bases) {
+                dfs(num*10 + c);
+            }
+        };
+        
+        for (auto c : bases) {
+            if (c != 0) dfs(c);
+        }
+        
+        return count;
     }
 };

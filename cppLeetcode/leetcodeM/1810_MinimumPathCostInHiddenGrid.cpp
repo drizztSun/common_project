@@ -90,7 +90,9 @@ n == grid[i].length
 #include <functional>
 #include <unordered_map>
 #include <string>
+#include <array>
 
+using std::array;
 using std::string;
 using std::unordered_map;
 using std::priority_queue;
@@ -104,6 +106,87 @@ class ShortestPath {
       int move(char direction) {return 1; }
       bool isTarget() { return true; }
     };
+
+    /*
+        1810.Minimum-Path-Cost-in-a-Hidden-Grid
+        开辟一个200x200的二维矩阵。将起始点设置为(100,100)。先通过DFS走遍所有的格子，标记每个格子的cost和是否是障碍物，以及终点的位置。然后再从起点开始，用Dijkstra算法求得起点到终点的最小权重路径，
+    */
+    typedef array<int,3> AI3;
+    
+    int visited[201][201];
+    int cost[201][201];
+    string d = "ULRD";
+    int targetX, targetY;
+    vector<std::pair<int,int>> dir = {{-1,0},{0,-1},{0,1},{1,0}};
+    
+public:
+    int findShortestPath(GridMaster &master) 
+    {
+        for (int i=0; i<201; i++)
+            for (int j=0; j<201; j++)
+                cost[i][j] = -1;
+        
+        visited[100][100] = 1;
+        dfs(master, 100, 100);
+        
+        for (int i=0; i<201; i++)
+            for (int j=0; j<201; j++)
+                visited[i][j] = 0;
+                
+        priority_queue<AI3,vector<AI3>, std::greater<>>pq;
+        pq.push({0,100,100});
+                
+        while (!pq.empty())
+        {
+            auto [c,x,y] = pq.top();
+            pq.pop();
+            visited[x][y] = 1;        
+            if (x==targetX && y==targetY)
+                return c;
+            
+            for (int k=0; k<4; k++)
+            {
+                int i = x+dir[k].first;
+                int j = y+dir[k].second;
+                if (cost[i][j]==-1) continue;    
+                if (i<0 || i>=200 || j<0|| j>=200) continue;
+                if (visited[i][j]==1) continue;
+                
+                pq.push({c+cost[i][j], i, j});
+            }
+        }
+        
+        return -1;        
+    }
+    
+    void dfs(GridMaster &master, int x, int y)
+    {
+        
+        if (master.isTarget())
+        {
+            targetX = x;
+            targetY = y;
+        }
+        for (int k=0; k<4; k++)
+        {       
+            int i = x+dir[k].first;
+            int j = y+dir[k].second;
+            if(visited[i][j]==1) continue;
+            
+            if (master.canMove(d[k]))
+            {                
+                int c = master.move(d[k]);
+                visited[i][j] = 1;
+                cost[i][j] = c;
+                dfs(master, i,j);
+                master.move(d[3-k]);
+            }
+            else
+            {
+                visited[i][j] = 1;                
+            }
+        }
+    }
 
 
     int findShortestPath(GridMaster &master) {

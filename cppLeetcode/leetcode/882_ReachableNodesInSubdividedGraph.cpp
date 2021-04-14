@@ -122,10 +122,12 @@ public:
 
         return count;
     }
-    
+
+public:
+
     int dist[3000];
     int resolved[3000];
-public:
+
     int doit_bfs_dijkstra_v2(vector<vector<int>>& edges, int maxMoves, int n) 
     {
         vector<PII> adj[3000];  // {nextNode, weight}
@@ -285,14 +287,3 @@ public:
         return ans;
     }
 };
-
-
-void test_882_ReachableNodeInSubdividedGraph() {
-    
-    ReachableNodes().doit_heap(vector<vector<int>>{{3,4,8},{0,1,3},{1,4,0},{1,2,3},{0,3,2},{0,4,10},{1,3,3},{2,4,3},{2,3,3},{0,2,10}}, 7, 5);
-    
-    ReachableNodes().doit_heap(vector<vector<int>>{{2, 4, 2}, {3, 4, 5}, {2, 3, 1}, {0, 2, 1}, {0, 3, 5}}, 14, 5);
-    
-    ReachableNodes().doit_heap(vector<vector<int>>{{0, 1, 10}, {0, 2, 1}, {1, 2, 2}}, 6, 3);
-}
-
