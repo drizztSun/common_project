@@ -176,7 +176,7 @@ public:
 
         Space Complexity: O(N), the space used to store the color.
     */
-    bool doit_(vector<vector<int>>& graph) {
+    bool doit_dfs(vector<vector<int>>& graph) {
         int n = graph.size();
         vector<int> color(n, -1);
         

@@ -65,7 +65,7 @@ class CutOffTree {
     */
     int cutOffTree(vector<vector<int>>& forest) 
     {
-        map<int,pair<int,int>>Map;
+        map<int, std::pair<int,int>>Map;
         int M=forest.size();
         int N=forest[0].size();
         
@@ -97,12 +97,12 @@ class CutOffTree {
     
     int Go(int x0, int y0, int m, int n, vector<vector<int>>& forest)
     {
-        vector<pair<int,int>>dir={{0,1},{0,-1},{1,0},{-1,0}};
+        vector<std::pair<int,int>>dir={{0,1},{0,-1},{1,0},{-1,0}};
         int M=forest.size();
         int N=forest[0].size();
         auto visited=vector<vector<int>>(M,vector<int>(N,0));
         
-        queue<pair<int,int>>q;
+        queue<std::pair<int,int>>q;
         q.push({x0,y0});
         visited[x0][y0]=1;
         int count=-1;
@@ -208,7 +208,7 @@ public:
         return ans;
     }
 
-    int doit_hadlock(vector<vector<int>>& forest) {
+    int doit_hadlock_bfs(vector<vector<int>>& forest) {
 
         int m = forest.size(), n = forest[0].size();
         vector<std::tuple<int, int, int>> trees;
@@ -224,7 +224,7 @@ public:
             return std::get<0>(a) < std::get<0>(b);
         });
 
-        std::function<int(int, int, int, int)> dfs = [&](int sx, int sy, int tx, int ty) {
+        std::function<int(int, int, int, int)> bfs = [&](int sx, int sy, int tx, int ty) {
 
             vector<vector<bool>> visited(m, vector<bool>(n, false));
             deque<std::tuple<int, int, int>> qu;
@@ -261,7 +261,7 @@ public:
         int ans = 0, sx = 0, sy = 0;
         for (int i = 0; i < trees.size(); i++) {
             int tx = std::get<1>(trees[i]), ty = std::get<2>(trees[i]);
-            int tmp = dfs(sx, sy, tx, ty);
+            int tmp = bfs(sx, sy, tx, ty);
             if (tmp == -1) return -1;
             ans += tmp;
             sx = tx;
