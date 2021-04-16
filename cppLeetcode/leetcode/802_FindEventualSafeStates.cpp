@@ -28,6 +28,7 @@
 
 #include <vector>
 #include <queue>
+#include <functional>
 
 using std::queue;
 using std::vector;
@@ -119,6 +120,33 @@ public:
 
 
 public:
+
+    vector<int> doit_dfs(vector<vector<int>>& graph) {
+       
+        int n = graph.size();    
+        vector<int> visited(n, 0);
+        
+        std::function<bool(int)> dfs = [&](int cur) {
+          
+            if (visited[cur] == 1) return true;
+            if (visited[cur] == 2) return false;
+            
+            visited[cur] = 2;
+            for (auto child: graph[cur]) {
+                if (!dfs(child)) return false;
+            }
+            
+            visited[cur] = 1;
+            return true;
+        };
+        
+        vector<int> ans;
+        for (int i = 0; i < n; i++) {
+            if (dfs(i)) ans.push_back(i);
+        }
+        
+        return ans;
+    }
 
 	bool dfs(int n, const vector<vector<int>>& graph, vector<int>& terminal) {
 
