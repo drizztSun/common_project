@@ -128,7 +128,6 @@ class MinPushBox {
         int memo[21][21][21][21];
         memset(memo, 255, sizeof(memo));
         memo[bx][by][px][py] = 0;
-        
         auto dir = vector<std::pair<int,int>>({{1,0},{-1,0},{0,1},{0,-1}});
         
         while (!q.empty())
@@ -166,6 +165,6 @@ class MinPushBox {
                 }
             }
         }
-        return -1;        
+        return -1;
     }
 };

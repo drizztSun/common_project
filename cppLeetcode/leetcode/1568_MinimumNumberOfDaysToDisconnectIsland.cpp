@@ -155,18 +155,23 @@ public:
             if (xx == px && yy == py) continue;
 
             if (depth[xx][yy] != -1) {
+                // known the depth, check if it is minium number
                 res = std::min(res, depth[xx][yy]);
             } else {
+                // unknown, it will be depth[parent] + 1;
                 depth[xx][yy] = depth[x][y] + 1;
                 int ret = dfs(xx, yy, x, y);
                 if (ret == -1) return -1;
                 res = std::min(res, ret);
             }
         }
+
+        // no circle, because it is gonna reach a alone node. 
+        // or if res <= depth[parent], it means it reach to its parent's parent. That means it can't be removec by removing one element.
         return (res > depth[x][y]) ? -1 : std::min(depth[x][y], res);
     }
     
-    int minDays(vector<vector<int>>& grid) {
+    int minDays_best(vector<vector<int>>& grid) {
         n = grid.size(), m = grid[0].size();
         if (n == 1 && m == 1) return 0;
         
@@ -202,8 +207,8 @@ public:
             }
         }
 
-        if (cnt == 0) return 0;
-        if (cnt == 2) return 2;
+        if (cnt == 0) return 0; // no land.
+        if (cnt == 2) return 2; // two land, one or two just removed them.
         
         g = grid;
         depth = vector<vector<int>>(n, vector<int>(m, -1));

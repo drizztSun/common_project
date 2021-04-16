@@ -48,17 +48,64 @@
  grid consists only of lowercase English letters.
 
  */
-#include <stdio.h>
-#include <stdlib.h>
-
+#include <queue>
 #include <vector>
 
-
+using std::queue;
 using std::vector;
 
 
 class DetectContainsCycle {
 
+    /*
+        1559.Detect-Cycles-in-2D-Grid
+        从任意一点开始，对同一个value的所有像素做常规的遍历。如果遍历的过程中遇到了之前访问过的格子，那么就是有环。注意遍历的过程中不能走“回头路”，即从A遍历到B，那么从B开始的遍历就不能包括A。
+    */
+    bool containsCycle_bfs(vector<vector<char>>& grid) 
+    {
+        int m = grid.size();
+        int n = grid[0].size();
+        auto visited = vector<vector<int>>(m,vector<int>(n,0));
+        
+        auto dir = vector<std::pair<int,int>>({{1,0},{-1,0},{0,1},{0,-1}});
+        
+        for (int i=0; i<m; i++)
+            for (int j=0; j<n; j++)
+            {
+                if (visited[i][j] == 1) continue;
+               
+                queue<vector<int>>q;
+                q.push({i,j,-1});
+                visited[i][j] = 1;
+                
+                while (!q.empty())
+                {
+                    int x = q.front()[0];
+                    int y = q.front()[1];
+                    int d = q.front()[2];
+                    q.pop();
+                    
+                    for (int k=0; k<4; k++)
+                    {
+                        if (d==0 && k==1) continue;
+                        if (d==1 && k==0) continue;
+                        if (d==3 && k==2) continue;
+                        if (d==2 && k==3) continue;
+                        int a = x+dir[k].first;
+                        int b = y+dir[k].second;
+                                                                        
+                        if (a<0||a>=m||b<0||b>=n) continue;                        
+                        if (grid[a][b]!=grid[x][y]) continue;
+                        
+                        if (visited[a][b]==1) return true;                                                
+                        visited[a][b]=1;
+                        q.push({a,b,k});
+                    }
+                }
+            }
+        
+        return false;
+    }    
     
 public:
     
@@ -85,7 +132,7 @@ public:
         return ans;
     }
     
-    bool doit_dfs(vector<vector<char>>& matrix) {
+    bool doit_dfs_best(vector<vector<char>>& matrix) {
         
         auto m = matrix.size(), n = matrix[0].size();
         vector<vector<bool>> seen(m, vector<bool>(n, false));
@@ -105,31 +152,29 @@ public:
     
 public:
     
-    auto Find(int i, vector<int>& parent) {
-        while (parent[i] != i) {
-            parent[i] = parent[parent[i]];
-            i = parent[i];
-        }
-        return parent[i];
-    };
-    
-    auto Union(int a, int b, vector<int>& parent) {
-        int pa = Find(a, parent);
-        int pb = Find(b, parent);
-        
-        bool check = false;
-        if (pa == pb)
-            check = true;
-            
-        parent[pa] = pb;
-        return check;
-    };
-    
-    
-    bool doit_disjoint(vector<vector<char>>&& grid) {
+    bool doit_disjoint_best(vector<vector<char>>&& grid) {
 
         auto n = grid.size(), m = grid[0].size();
         vector<int> parent(n*m + 1, 0);
+            
+        auto Find = [&](int i) {
+            while (parent[i] != i) {
+                parent[i] = parent[parent[i]];
+                i = parent[i];
+            }
+            return parent[i];
+        };
+        
+        auto Union = [&](int a, int b) {
+            int pa = Find(a);
+            int pb = Find(b);
+            
+            if (pa == pb) return true;
+                
+            parent[pa] = pb;
+            return false;
+        };
+
         for (auto i = 0; i < n*m+1; i++)
             parent[i] = i;
         
@@ -139,13 +184,14 @@ public:
                 
                 auto val = i * m + j;
                 
-                if (j != m-1 && grid[i][j+1] == grid[i][j] && Union(val, val+1, parent))
+                if (j != m-1 && grid[i][j+1] == grid[i][j] && Union(val, val+1))
                     return true;
                 
-                if (i != n-1 && grid[i+1][j] == grid[i][j] && Union(val, val+m, parent))
+                if (i != n-1 && grid[i+1][j] == grid[i][j] && Union(val, val+m))
                     return true;
             }
         }
+
         return false;
     }
     
@@ -204,9 +250,3 @@ public:
     }
     
 };
-
-
-void test_1559_detect_cycle() {
-    
-    DetectContainsCycle().doit_disjoint(vector<vector<char>>{{'a', 'b', 'b'}, {'b', 'z', 'b'}, {'b', 'b', 'a'}});
-}

@@ -176,7 +176,7 @@ class WordLaddersII {
     
 public:
     
-    vector<vector<string>> doit_bfs_bidirect(string beginWord, string endWord, vector<string>&& wordList) {
+    vector<vector<string>> doit_bfs_bidirect_dfs(string beginWord, string endWord, vector<string>&& wordList) {
         
         unordered_set<string> begin{beginWord}, end{endWord};
         unordered_map<string, unordered_set<string>> tree;

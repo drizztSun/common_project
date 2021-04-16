@@ -48,6 +48,59 @@ using std::vector;
 
 
 class ParallelCourses {
+
+    /*
+                1136.Parallel-Courses
+        常规的拓扑排序。在BFS的过程中，将层级遍历的“层数”记录下来，就是答案。
+    */
+    int minimumSemesters(int N, vector<vector<int>>& relations) 
+    {
+        vector<vector<int>>next(N+1);
+        vector<int>inDegree(N+1,0);
+        for (auto x:relations)
+        {
+            next[x[0]].push_back(x[1]);
+            inDegree[x[1]] += 1;
+        }
+        
+        queue<int>q;        
+        int count = 0;
+        for (int i=1; i<=N; i++)
+        {
+            if (inDegree[i]==0)
+            {
+                count += 1;
+                q.push(i);
+            }                
+        }
+                
+        int step = 0;
+        
+        while (!q.empty())
+        {
+            int len = q.size();
+            step += 1;
+            while (len--)
+            {
+                int cur = q.front();
+                q.pop();
+                for (auto next: next[cur])
+                {
+                    inDegree[next] -= 1;
+                    if (inDegree[next]==0)
+                    {
+                        q.push(next);
+                        count++;
+                    }                        
+                }
+            }                        
+        }
+        
+        if (count!=N)
+            return -1;
+        else
+            return step;
+    }
     
 public:
     
@@ -94,9 +147,3 @@ public:
         return N == 0 ? ans : -1;
     }
 };
-
-
-void test_1136_parallel_course() {
-    
-    ParallelCourses().doit_bfs_topsort(3, vector<vector<int>>{{1,3}, {2, 3}});
-}
