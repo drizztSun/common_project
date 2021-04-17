@@ -29,6 +29,25 @@ using std::vector;
 class MergeIntervals {
     
 public:
+
+    vector<vector<int>> doit_interval(vector<vector<int>>& intervals) {
+     
+        std::sort(begin(intervals), end(intervals), [](auto& a, auto& b) {
+           return a[0] < b[0] || (a[0] == b[0] && a[1] > b[1]); 
+        });
+        
+        vector<vector<int>> ans;
+        
+        for (auto& c: intervals) {
+            if (ans.empty() || ans.back()[1] < c[0]) {
+                ans.push_back(c);
+            } else {
+                ans.back()[1] = std::max(c[1], ans.back()[1]);
+            }
+        }
+        
+        return ans;
+    }
     
     /*
      
@@ -127,16 +146,3 @@ public:
         return results;
     }
 };
-
-
-void test_56_merge_intervals() {
-    
-    
-    auto res1 = MergeIntervals().doit(vector<vector<int>>{{1, 3}, {2, 6}, {8, 10}, {15, 18}});
-    
-    auto res2 = MergeIntervals().doit(vector<vector<int>>{{1, 4}, {4, 5}});
-    
-    auto res3 = MergeIntervals().doit(vector<vector<int>>{{1, 4}, {1, 5}});
-    
-    return;
-}

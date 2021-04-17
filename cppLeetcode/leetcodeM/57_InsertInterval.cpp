@@ -52,7 +52,7 @@ class InsertIntervals {
 
 public:
 
-    vector<vector<int>> doit_greedy_1(vector<vector<int>>& intervals, vector<int>& newInterval) {
+    vector<vector<int>> doit_greedy_interval(vector<vector<int>>& intervals, vector<int>& newInterval) {
 
         vector<vector<int>> ans;
         bool merged = false;
@@ -73,9 +73,8 @@ public:
             ans.push_back(c);
         }
 
-        if (!merged)
-            ans.push_back(newInterval);
-            
+        if (!merged) ans.push_back(newInterval);
+
         return ans;
     }
 

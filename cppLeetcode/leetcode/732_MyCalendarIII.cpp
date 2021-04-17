@@ -55,17 +55,58 @@ Space Complexity: O(N), the size of delta.
 #include <map>
 #include <unordered_map>
 #include <algorithm>
-using namespace std;
+
+using std::map;
+using std::unordered_map;
+
+/*
+	Approach #1: Boundary Count [Accepted]
+	Intuition and Algorithm
+
+	When booking a new event [start, end), count delta[start]++ and delta[end]--. When processing the values of delta in sorted order of their keys, the largest such value is the answer.
+
+	In Python, we sort the set each time instead, as there is no analog to TreeMap available.
+
+	Complexity Analysis
+
+	Time Complexity: O(N^2), where NN is the number of events booked. For each new event, we traverse delta in O(N)O(N) time. In Python, this is O(N^2 \log N) owing to the extra sort step.
+
+	Space Complexity: O(N)O(N), the size of delta.
+*/
+class MyCalendarThree {
+    
+    map<int, int> _books;
+    
+public:
+    MyCalendarThree() {
+        
+    }
+    
+    int book(int start, int end) {
+        
+        _books[start]++;
+        _books[end]--;
+        
+        int k = 0, ongoing;
+        for (auto it: _books) {
+            ongoing += it.second;
+            k = std::max(k, ongoing);
+        }
+        
+        return k;
+    }
+};
+
 
 class MyCalendarIII {
 
 	/*
 	732.My-Calendar-III
-	此题有奇思妙解.
+		此题有奇思妙解.
 
-	我们设计一个顺序的multiset<pair<int,int>>Set,每次调用我们就往里面放置{start,1}和{end,-1}.然后遍历这个集合,按照从小到大的顺序更新一个计数器,遇到1就加一,遇到-1就减一.
+		我们设计一个顺序的multiset<pair<int,int>>Set,每次调用我们就往里面放置{start,1}和{end,-1}.然后遍历这个集合,按照从小到大的顺序更新一个计数器,遇到1就加一,遇到-1就减一.
 
-	奇妙的就是,你这样可以实时得到的,就是当前k booking的状态.遍历完之后这个计数器的历史最大值就是答案.
+		奇妙的就是,你这样可以实时得到的,就是当前k booking的状态.遍历完之后这个计数器的历史最大值就是答案.
 	*/
 
 	std::map<int, int> pts_;
@@ -74,6 +115,7 @@ public:
 
 	MyCalendarIII() {}
 
+	// _sweepline
 	int book(int start, int end) {
 
 		pts_[start]++;
@@ -247,19 +289,3 @@ public:
 		return curCount;
 	}
 };
-
-void Test_732_MyCalendarThree() {
-
-	MyCalendarThree obj;
-
-	int res = -1;
-
-	res = obj.book(10, 20);
-	res = obj.book(50, 60);
-	res = obj.book(10, 40);
-	res = obj.book(5, 15);
-	res = obj.book(5, 10);
-	res = obj.book(25, 55);
-
-	return;
-}
