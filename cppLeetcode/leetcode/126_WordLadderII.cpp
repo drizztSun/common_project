@@ -229,9 +229,7 @@ public:
             pBegin->swap(nextgroup);
             
             if (pBegin->size() > pEnd->size()) {
-                auto* p = pEnd;
-                pEnd = pBegin;
-                pBegin = p;
+                std::swap(pEnd, pBegin);
                 reversed = !reversed;
             }
         }

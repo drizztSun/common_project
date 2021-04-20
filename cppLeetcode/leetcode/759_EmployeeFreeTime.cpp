@@ -132,7 +132,7 @@ public:
 
         Space Complexity: O(C).
     */
-    vector<Interval> doit_(vector<vector<Interval>> schedule) {
+    vector<Interval> doit_sweepline(vector<vector<Interval>> schedule) {
 
         int OPEN = 1, CLOSE = -1;
 
@@ -161,5 +161,32 @@ public:
 
         return ans;
     }
+
+    /*
+        Approach #2: Priority Queue [Accepted]
+        Intuition
+
+        Say we are at some time where no employee is working. That work-free period will last until the next time some employee has to work.
+
+        So let's maintain a heap of the next time an employee has to work, and it's associated job. When we process the next time from the heap, we can add the next job for that employee.
+
+        Algorithm
+
+        Keep track of the latest time anchor that we don't know of a job overlapping that time.
+
+        When we process the earliest occurring job not yet processed, it occurs at time t, by employee e_id, and it was that employee's e_jx'th job. If anchor < t, then there was a free interval Interval(anchor, t).
+
+
+        Complexity Analysis
+
+        Time Complexity: O(ClogN), where NN is the number of employees, and CC is the number of jobs across all employees. The maximum size of the heap is NN, so each push and pop operation is O(\log N)O(logN), and there are O(C)O(C) such operations.
+
+        Space Complexity: O(N) in additional space complexity.
+    */
+    vector<Interval> doit_heap(vector<vector<Interval>> schedule) {
+
+        
+
+    };
 
 };

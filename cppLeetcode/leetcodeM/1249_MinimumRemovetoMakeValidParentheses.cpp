@@ -89,7 +89,7 @@ public:
 
     }
 
-    string doit_(string s) {
+    string doit_parenthesis(string s) {
 
         int opening = 0;
         string ans;

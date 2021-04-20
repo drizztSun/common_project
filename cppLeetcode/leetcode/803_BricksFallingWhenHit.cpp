@@ -56,8 +56,7 @@
 */
 #include <vector>
 
-using namespace std;
-
+using std::vector;
 
 
 class HitBricks {
@@ -81,8 +80,8 @@ class HitBricks {
 
 		4.依次类推处理所有的erasure。
 	*/
-	vector<vector<int>>visited; // 1: land, -1 : erased, 2 : connected
-    vector<pair<int,int>>dir;
+	vector<vector<int>> visited; // 1: land, -1 : erased, 2 : connected
+    vector<std::pair<int,int>> dir;
 
     vector<int> hitBricks(vector<vector<int>>& grid, vector<vector<int>>& hits) 
     {
@@ -166,6 +165,146 @@ class HitBricks {
 
 
 public:
+
+	/*
+		Approach #1: Reverse Time and Union-Find [Accepted]
+		Intuition
+
+		The problem is about knowing information about the connected components of a graph as we cut vertices. In particular, we'll like to know the size of the "roof" (component touching the top edge) between each cut. 
+		Here, a cut refers to the erasure of a vertex.
+
+		As we may know, a useful data structure for joining connected components is a disjoint set union structure. 
+		The key idea in this problem is that we can use this structure if we work in reverse: instead of looking at the graph as a series of sequential cuts, we'll look at the graph after all the cuts, and reverse each cut.
+
+		Algorithm
+
+		We'll modify our typical disjoint-set-union structure to include a dsu.size operation, that tells us the size of this component. The way we do this is whenever we make a component point to a new parent, we'll also send it's size to that parent.
+
+		We'll also include dsu.top, which tells us the size of the "roof", or the component connected to the top edge. We use an ephemeral "source" node with label R * C where all nodes on the top edge (with row number 0) are connected to the source node.
+
+		For more information on DSU, please look at Approach #2 in the article here.
+
+		Next, we'll introduce A, the grid after all the cuts have happened, and initialize our disjoint union structure on the graph induced by A (nodes are grid squares with a brick; edges between 4-directionally adjacent nodes).
+
+		After, if we get an cut at (r, c) but the original grid[r][c] was always 0, then we couldn't have had a meaningful cut - the number of dropped bricks is 0.
+
+		Otherwise, we'll look at the size of the new roof after adding this brick at (r, c), and compare them to find the number of dropped bricks.
+
+		Since we were working in reverse time order, we should reverse our working answer to arrive at our final answer.
+
+		Complexity Analysis
+
+		Time Complexity: O(N∗Q∗α(N∗Q)), where N = R*CN=R∗C is the number of grid squares, QQ is the length of hits, and \alphaα is the Inverse-Ackermann function.
+
+		Space Complexity: O(N).
+	*/
+
+public:
+
+
+	struct DSU {
+
+		vector<int> parents;
+		vector<int> ranks;
+		vector<int> sizes;
+
+		DSU(int N) {
+			parents.resize(N, 0);
+			ranks.resize(N, 0);
+			sizes.resize(N, 1);
+
+			std::iota(begin(parents), end(parents), 0);
+		}
+
+		int find(int cur) {
+			while (cur != parents[cur]) {
+				parents[cur] = parents[parents[cur]];
+				cur = parents[cur];
+			}
+			return parents[cur];
+		};
+
+		void merge(int a, int b) {
+			int pa = find(a), pb = find(b);
+			if (pa == pb) return;
+
+			if (ranks[pa] < ranks[pb])
+				std::swap(pa, pb);
+
+			if (ranks[pa] == ranks[pb])
+				ranks[pa]++;
+
+			parents[pb] = pa;
+			sizes[pa] += sizes[pb];
+		};
+
+		int getSize(int cur) {
+			return sizes[find(cur)];
+		};
+
+		int top() {
+			return getSize(sizes.size() - 1) - 1;
+		}
+	};
+
+	vector<int> doit_disjoint(vector<vector<int>>& grid, vector<vector<int>>& hits) {
+
+		int R = grid.size(), C = grid[0].size();
+
+		vector<vector<int>> A = grid;
+		for (auto& hit : hits)
+			A[hit[0]][hit[1]] = 0;
+
+		DSU tsu(R*C + 1);
+		for (int i = 0; i < R; i++) {
+			for (int j = 0; j < C; j++) {
+
+				if (A[i][j] == 1) {
+
+					int base = i * C + j;
+
+					if (i == 0)
+						tsu.merge(base, R*C);
+
+					if (i > 0 && A[i - 1][j] == 1)
+						tsu.merge(base, (i - 1)*C + j);
+
+					if (j > 0 && A[i][j - 1] == 1)
+						tsu.merge(base, i*C + j - 1);
+				}
+			}
+		}
+
+		int t = hits.size();
+		vector<int> ans(t, 0);
+		vector<vector<int>> dir{ {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
+
+		while (--t >= 0) {
+
+			int r = hits[t][0], c = hits[t][1];
+			int preRoof = tsu.top();
+
+			if (grid[r][c] == 0) {
+				continue;
+			}
+
+			int base = r * C + c;
+			for (int k = 0; k < 4; k++) {
+				int nr = r + dir[k][0], nc = c + dir[k][1];
+				if (nr < 0 || nr >= R || nc < 0 || nc >= C || A[nr][nc] != 1) continue;
+				tsu.merge(base, nr * C + nc);
+			}
+
+			if (r == 0)
+				tsu.merge(base, R*C);
+
+			A[r][c] = 1;
+			ans[t] = std::max(0, tsu.top() - preRoof - 1);
+		}
+
+		return ans;
+	}
+
 
 	vector<int> doit(vector<vector<int>>&& grid, vector<vector<int>>&& hits) {
 
@@ -540,16 +679,4 @@ int* hitBricks(int** grid, int gridRowSize, int *gridColSizes, int** hits, int h
 	}
 
 	return out;
-}
-
-
-void Test_803_BricksFallingWhenHit() {
-
-	vector<int> res1 = HitBricks().doit(vector<vector<int>>{ {1, 0, 0, 0}, { 1, 1, 1, 0 } }, vector<vector<int>> { {1, 0} });
-
-	vector<int> res2 = HitBricks().doit(vector<vector<int>>{ {1, 0, 0, 0}, {1, 1, 0, 0}}, vector<vector<int>>{ {1, 1}, {1, 0} });
-	//[1,0,1,0,0]
-	vector<int> res3 = HitBricks().doit(vector<vector<int>>{ { 1 }, { 1 }, { 1 }, { 1 }, { 1 } }, vector<vector<int>>{ {3, 0}, { 4,0 }, {1, 0}, {0, 0}, {2, 0}});
-
-	return;
 }

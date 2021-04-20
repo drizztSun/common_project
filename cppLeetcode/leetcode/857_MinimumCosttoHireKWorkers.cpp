@@ -112,4 +112,32 @@ public:
         
         return res;
     }
+
+    double doit_heap(vector<int>& quality, vector<int>& wage, int K) {
+        
+        vector<std::pair<double, int>> workers;
+        for (int i = 0; i < quality.size(); i++) {
+            workers.push_back({static_cast<double>(wage[i])/quality[i], i});
+        }
+        
+        std::sort(begin(workers), end(workers));
+        std::priority_queue<int> pq;
+        
+        double ans = INT_MAX;
+        int total_quality = 0;
+        
+        for (auto [ratio, index]: workers) {
+        
+            total_quality += quality[index];
+            pq.push(quality[index]);
+            
+            if (pq.size() == K) {
+                ans = std::min(ans, total_quality * ratio);
+                total_quality -= pq.top();
+                pq.pop();
+            }
+        }
+        
+        return ans;
+    }
 };
