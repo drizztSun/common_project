@@ -5,9 +5,10 @@ The boundary of a binary tree is the concatenation of the root, the left boundar
 
 The left boundary is the set of nodes defined by the following:
 
-The root node's left child is in the left boundary. If the root does not have a left child, then the left boundary is empty.
-If a node in the left boundary and has a left child, then the left child is in the left boundary.
-If a node is in the left boundary, has no left child, but has a right child, then the right child is in the left boundary.
+1. The root node's left child is in the left boundary. If the root does not have a left child, then the left boundary is empty.
+2. If a node in the left boundary and has a left child, then the left child is in the left boundary.
+3. If a node is in the left boundary, has no left child, but has a right child, then the right child is in the left boundary.
+
 The leftmost leaf is not in the left boundary.
 The right boundary is similar to the left boundary, except it is the right side of the root's right subtree. Again, the leaf is not part of the right boundary, and the right boundary is empty if the root does not have a right child.
 
@@ -66,7 +67,17 @@ using std::vector;
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
+class BoundaryOfBinaryTree {
+
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode() : val(0), left(nullptr), right(nullptr) {}
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    };
+
     /*
         545.Boundary-of-Binary-Tree
         需要分别写子函数遍历左边界、底部叶子节点、右边界。

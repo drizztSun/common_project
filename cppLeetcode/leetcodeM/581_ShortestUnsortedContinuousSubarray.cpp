@@ -74,6 +74,70 @@ class UnsortedSubarray {
 
 public:
 
+    int doit_search(vector<int>& nums) {
+        
+        int leftBound = nums.size(), rightBound= 0;
+        
+        int curmax = INT_MIN;
+        for (int i = 0; i < nums.size(); i++) {
+            
+            if (nums[i] < curmax)
+                rightBound = i;
+            curmax = std::max(curmax, nums[i]);
+        }
+        
+        int curmin = INT_MAX;
+        for (int i = nums.size()-1; i >= 0; i--) {
+            if (nums[i] > curmin)
+                leftBound = i;
+            curmin = std::min(curmin, nums[i]);
+        }
+        
+        return rightBound > leftBound ? rightBound - leftBound + 1 : 0;
+    }
+
+    /*
+        Approach 2: Better Brute Force
+        Algorithm
+
+        In this approach, we make use of an idea based on selection sort. We can traverse over the given numsnums array choosing the elements nums[i]nums[i]. For every such element chosen, we try to determine its correct position in the sorted array. For this, we compare nums[i]nums[i] with every nums[j]nums[j], such that i < j < ni<j<n. Here, nn refers to the length of numsnums array.
+
+        If any nums[j]nums[j] happens to be lesser than nums[i]nums[i], it means both nums[i]nums[i] and nums[j]nums[j] aren't at their correct position for the sorted array. Thus, we need to swap the two elements to bring them at their correct positions. Here, instead of swapping, we just note the position of nums[i]nums[i](given by ii) and nums[j]nums[j](given by jj). These two elements now mark the boundary of the unsorted subarray(atleast for the time being).
+
+        Thus, out of all the nums[i]nums[i] chosen, we determine the leftmost nums[i]nums[i] which isn't at its correct position. This marks the left boundary of the smallest unsorted subarray(ll). Similarly, out of all the nums[j]nums[j]'s considered for all nums[i]nums[i]'s we determine the rightmost nums[j]nums[j] which isn't at its correct position. This marks the right boundary of the smallest unsorted subarray(rr).
+
+        Unsorted_subarray
+
+        Thus, we can determine the length of the smallest unsorted subarray as r - l + 1r−l+1.
+
+
+        Complexity Analysis
+
+        Time complexity : O(n^2)O(n 
+        2
+        ). Two nested loops are there.
+
+        Space complexity : O(1)O(1). Constant space is used.    
+    */
+    int doit_twopointer_TLE(vector<int>& nums) {
+        
+        int l = nums.size(), r = 0;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            
+            for (int j = i+1; j < nums.size(); j++) {
+                if (nums[j] < nums[i]) {
+                    l = std::min(l, i);
+                    r = std::max(r, j);
+                }
+            }
+            
+        }
+        
+        return r - l < 0 ? 0 : r - l + 1;
+    }
+
+
 
     /*
         Approach 3: Using Sorting
@@ -91,8 +155,19 @@ public:
 
     */
 
-    int doit_(vector<int>& nums) {
+    int doit_sort(vector<int>& nums) {
+        vector<int> A = nums;
+        std::sort(begin(A), end(A));
+        int start = A.size(), end = -1;
         
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] != A[i]) {
+                start = std::min(start, i);
+                end = std::max(end, i);
+            }
+        } 
+        
+        return end - start >= 0 ? (end - start + 1) : 0; 
     }
 
     /*

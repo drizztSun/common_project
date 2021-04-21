@@ -98,6 +98,6 @@ public:
             node = node->parent;
         }
 
-        return node->parent;;
+        return node->parent;
     }
 };
