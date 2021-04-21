@@ -52,6 +52,16 @@ Every node has either 0 or 2 children.
  */
 class UpsideDownBinaryTree {
 
+
+    struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+    };
+
     /*
         156.Binary-Tree-Upside-Down
         此题的意思是：对于一个根-左-右的基本树状结构，右子树保证只有一个或为空。要求变形后，以左子树为根，把原来的根和右节点作为新根节点的右、左节点。

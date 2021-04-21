@@ -130,7 +130,7 @@ class PopulatingNextRightPointersII {
 
 public:
 
-    Node* connect(Node* root) {
+    Node* connect_best(Node* root) {
         
         Node *cur = root, *leftmost = NULL, *last = NULL;
         
@@ -139,12 +139,11 @@ public:
             if (!child) return;
             
             if (!leftmost) {
-                leftmost = child;
-                last = child;
+                leftmost = child;                
             } else {
                 last->next = child;
-                last = child;
             }
+            last = child;
         };
         
         
@@ -152,7 +151,6 @@ public:
             
             leftmost = NULL;
             last = NULL;
-            
             
             while (cur) {
                 

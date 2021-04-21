@@ -13,17 +13,20 @@
  */
 
 #include <algorithm>
+#include <functional>
 
-// Definition for a binary tree node.
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
 
 class DistributeCoins {
-    
+
+    // Definition for a binary tree node.
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    };
+
+
 public:
     /*
      Approach 1: Depth First Search

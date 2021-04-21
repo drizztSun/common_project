@@ -34,6 +34,7 @@ The number of nodes in the tree is in the range [1, 104].
 */
 
 #include <vector>
+#include <algorithm>
 
 using std::vector;
 

@@ -61,6 +61,20 @@ using std::queue;
 
 class PopulatingNextRightPointers {
 
+    class Node {
+    public:
+        int val;
+        Node* left;
+        Node* right;
+        Node* next;
+
+        Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+        Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+        Node(int _val, Node* _left, Node* _right, Node* _next)
+            : val(_val), left(_left), right(_right), next(_next) {}
+    };
 
 
     Node* connect_best(Node* root) {
@@ -103,6 +117,28 @@ class PopulatingNextRightPointers {
 
 public:
 
+    /*
+        Follow up:
+        You may only use constant extra space.
+        Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.
+    */
+    Node* connect_best(Node* root) {
+        
+        std::function<void(Node*)> dfs = [&](Node* p) {
+            
+            if (!p) return;
+            
+            if (p->left) p->left->next = p->right;
+            if (p->right) p->right->next = p->next ? p->next->left : NULL;
+            
+            dfs(p->left);
+            dfs(p->right);
+        };
+        
+        dfs(root);
+        return root;
+    }
+
     Node* connect(Node* root) {
 
         if (!root) return root;
@@ -131,28 +167,6 @@ public:
 
         }
 
-        return root;
-    }
-    
-    /*
-        Follow up:
-        You may only use constant extra space.
-        Recursive approach is fine, you may assume implicit stack space does not count as extra space for this problem.
-    */
-    Node* connect(Node* root) {
-        
-        std::function<void(Node*)> dfs = [&](Node* p) {
-            
-            if (!p) return;
-            
-            if (p->left) p->left->next = p->right;
-            if (p->right) p->right->next = p->next ? p->next->left : NULL;
-            
-            dfs(p->left);
-            dfs(p->right);
-        };
-        
-        dfs(root);
         return root;
     }
 };
