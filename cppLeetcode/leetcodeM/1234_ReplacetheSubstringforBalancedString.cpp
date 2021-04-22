@@ -230,8 +230,55 @@ public:
         }
         return res;
     }
+
+    int doit_slidingwindow(string s) {
+        
+        int res = s.length();
+        char kind[4] = {'Q', 'W', 'E', 'R'};
+        int ave = s.length() / 4;
+        unordered_map<char, int> cnt;
+        for (auto c: s) {
+            cnt[c]++;
+        }
+        
+        unordered_map<char, int> diff;
+        int length = 0;
+        for (auto it: cnt) {
+            if (it.second > ave) {
+                diff.emplace(it.first, it.second - ave);
+                length += it.second - ave;
+            }
+        }
+        
+        if (diff.empty()) return 0;
+        
+        unordered_map<char, int> window;
+        int curlength = 0;
+        for (int i = 0, j = 0; i < s.length(); i++) {
+            
+            if (diff.count(s[i]) > 0) {
+                if (++window[s[i]] <= diff[s[i]]) {
+                    curlength++;
+                }
+            }
+            
+            
+            while (curlength == length) {
+                res = std::min(res, i - j + 1);
+                if (diff.count(s[j]) > 0) {
+                    if (--window[s[j]] < diff[s[j]]) {
+                        curlength--;
+                    }
+                }
+                j++;
+            }
+            
+        }
+        
+        return res;
+    }
     
-    int balancedString(string s) {
+    int doit_slidingwindow(string s) {
         
         map<int, int> cnt;
         for (auto c: s)

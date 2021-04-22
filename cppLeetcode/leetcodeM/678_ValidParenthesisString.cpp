@@ -86,7 +86,7 @@ public:
     /*
         O(n)
     */
-    bool doit_(string s) {
+    bool doit_greedy(string s) {
         
         int leftbalance = 0;
         

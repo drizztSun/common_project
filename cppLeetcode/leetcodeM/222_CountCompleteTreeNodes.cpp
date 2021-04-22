@@ -176,7 +176,7 @@ public:
     }
 
     // O(log(n) ^ 2)
-    int doit_search(TreeNode* root) {
+    int doit_binary_search(TreeNode* root) {
         
         if (!root) return 0;
         

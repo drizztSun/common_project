@@ -36,7 +36,12 @@ All the strings of wordDict are unique.
 
 #include <vector>
 #include <unordered_set>
+#include <string>
+#include <functional>
+#include <unordered_map>
 
+using std::unordered_map;
+using std::string;
 using std::vector;
 using std::unordered_set;
 
@@ -47,11 +52,17 @@ class Solution {
         139.Word-Break
         此题只要能想到用DP来做,就是成功的关键.
 
-        本题和322.Coin Change很相似.要使得dp[i]能够成功,必然是需要找到一个小于i的序号j,使得s[j:i]恰是一个单词,并且dp[j-1]也能成功.所以遍历一下j即可.于是动态转移方程就写出来了,时间复杂度是o(n^2).
+        解法1： DP
+        本题和322.Coin Change很相似，令dp[i]表示前i个字符是否能够break成功。转移方法是找到一个小于i的序号j,使得s[j:i]恰是一个单词，并且dp[j-1]也能成功。所以遍历一下j即可。
 
         初始条件需要稍微注意一下.此题里,改成1-index更加方便,这样初始条件就是dp[0]需要设置为True即可.
 
         补充：相比于在内层循环中遍历j的位置，有一种更高效的方法。就是在内存循环中遍历wordDict，查看是否有任何一个单词word能够匹配s[0:i]的后缀。这种解法在s很长而wordDict很小的情况下，优势非常明显。
+
+        解法2：DFS+Trie
+        我们将所有的单词构建一棵字典树。我们从前往后遍历字符串，如果发现字符串的某段前缀[0:i]对应着Trie中的一个单词，那么我们就可以从对前缀之后的子串[i+1:n-1]进行递归处理。直至发现恰好递归到字符串尾部。
+
+        注意DFS要配合记忆化使用，用memo[i]来标记[i:n-1]是否能够已经失败过。
     */
     bool wordBreak_dp(string s, vector<string>& wordDict) 
     {
@@ -75,6 +86,67 @@ class Solution {
         }
         
         return dp[N];
+    }
+
+
+public:
+
+    class TrieNode
+    {
+        public:
+        TrieNode* next[26];
+        bool end;
+        TrieNode()
+        {
+            end = false;
+            for (int i=0;i<26;i++)
+                next[i] = NULL;
+        }
+    };
+    TrieNode* root;
+    int memo[300];
+
+    bool wordBreak(string s, vector<string>& wordDict) 
+    {
+        root = new TrieNode();
+        for (auto word: wordDict)
+        {
+            TrieNode* node = root;
+            for (auto ch: word)
+            {
+                if (node->next[ch-'a']==NULL)
+                    node->next[ch-'a'] = new TrieNode();
+                node = node->next[ch-'a'];
+            }
+            node->end = true;
+        }
+        
+        return dfs(s,0);          
+    }
+    
+    bool dfs(string&s, int cur)
+    {
+        if (memo[cur]==1) return false;
+        
+        if (cur==s.size())
+            return true;
+        
+        TrieNode* node = root;
+        for (int i=cur; i<s.size(); i++)
+        {           
+            if (node->next[s[i]-'a']!=NULL)
+            {
+                node = node->next[s[i]-'a'];
+                if (node->end==true && dfs(s, i+1))
+                    return true;
+            } else
+            {
+                break;
+            }
+        }
+        
+        memo[cur] = 1;
+        return false;
     }
 
 public:

@@ -95,7 +95,7 @@ class MinInsertion {
 
 public:
     
-    int doit_(string s) {
+    int doit_parenthesis(string s) {
         
         int opening = 0, closing = 0;
         int total = 0;

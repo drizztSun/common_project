@@ -118,7 +118,7 @@ public:
         BST/Multimap    (n-k)*log(k)    k
         Monotonic Queue   n             k
     */
-    int doit_dp_1(vector<int>& nums, int k) {
+    int doit_dp_monotonic_queue(vector<int>& nums, int k) {
         vector<int> dp(nums.size());
         deque<int> qu{{0}};
         dp[0] = nums[0];

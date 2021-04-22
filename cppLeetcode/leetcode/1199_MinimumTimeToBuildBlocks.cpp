@@ -118,7 +118,6 @@ public:
             
             int mid = left + (right - left) / 2;
             
-            
             if (search(mid)) {
                 right = mid;
             } else {

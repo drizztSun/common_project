@@ -77,6 +77,26 @@ class MinumumSizeSubarraySum {
 
 public:
 
+    int doit_slidingwindow(int target, vector<int>& nums) {
+        
+        int N = nums.size();
+        int res = N + 1;
+        int j = 0, total = 0;
+        
+        for (int i = 0; i < N; i++) {
+            
+            total += nums[i];
+            
+            
+            while (j <= i && total >= target) {
+                res = std::min(res, i - j + 1);
+                total -= nums[j++];
+            }
+        }
+        
+        return res == N + 1 ? 0 : res;
+    }
+
     /*
         Intuition
         Shortest Subarray with Sum at Least K

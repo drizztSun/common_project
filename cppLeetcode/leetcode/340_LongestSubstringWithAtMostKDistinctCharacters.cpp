@@ -25,7 +25,7 @@ class LongestSubstringAtMostKDistinctCharacters {
     
 public:
     
-    int doit_twopointers(string s, int k) {
+    int doit_twopointers_slidingwindow(string s, int k) {
         
         int best = 0;
         int buf[256] = {0};

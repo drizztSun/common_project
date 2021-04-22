@@ -70,7 +70,7 @@ One particularly straight-forward way of doing this is to specialize the std::ha
 A comparison function for equality; this is required because the hash cannot rely on the fact
 that the hash function will always provide a unique hash value for every distinct key (i.e., it needs to be able to deal with collisions),
 so it needs a way to compare two given keys for an exact match. You can implement this either as a class that overrides operator(), 
-or as a specialization of std::equal, or – easiest of all – by overloading operator==() for your key type (as you did already).
+or as a specialization of std::equal, or ï¿½ easiest of all ï¿½ by overloading operator==() for your key type (as you did already).
 
 The difficulty with the hash function is that if your key type consists of several members, you will usually have the hash function calculate hash values for the individual members, and then somehow combine them into one hash value for the entire object. For good performance (i.e., few collisions) you should think carefully about how to combine the individual hash values to ensure you avoid getting the same output for different objects too often.
 
@@ -85,32 +85,10 @@ A fairly good starting point for a hash function is one that uses bit shifting a
 #include <unordered_map>
 #include <functional>
 
-using namespace std;
-
-
-
-
-
-//typedef pair<int, int> CORD;
-//
-//auto cord_hash(const CORD& c) {
-//	return hash<int>()(c.first) ^ hash<int>()(c.second);
-//};
-
-//struct CORD {
-//	int x, y;
-//
-//	CORD operator + (const CORD& c) {
-//		return CORD{ c.x + this->x, c.y + this->y };
-//	}
-//};
-//
-//int cord_hash(const CORD& c) {
-//	return hash<int>()(c.x) ^ hash<int>()(c.y);
-//}
-
-//typedef unordered_set<CORD, function<decltype(cord_hash)>> GROUP;
-//typedef unordered_map<CORD, int, function<decltype(cord_hash)>> GROUP_MAP;
+using std::vector;
+using std::set;
+using std::unordered_set;
+using std::unordered_map;
 
 
 struct CORD {

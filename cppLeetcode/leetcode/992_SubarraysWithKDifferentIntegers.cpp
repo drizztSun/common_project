@@ -107,7 +107,7 @@ public:
 
         Of course, you can merge 2 for loops into one, if you like.
     */
-    int subarraysWithKDistinct(vector<int>& A, int K) {
+    int doit_slidingwindow(vector<int>& A, int K) {
 
         std::function<int(int)> atMostK = [&](int K) {
             int i = 0, res = 0;
@@ -118,7 +118,8 @@ public:
                     if (!--count[A[i]]) K++;
                     i++;
                 }
-                res += j - i + 1;
+                // [4, 1, 2, 1, 2, 3], when we reach to 3, it is time to more then K, then we fix j = 3, count any window start from i which is less than K.
+                res += j - i + 1;  
             }
             return res;
         };

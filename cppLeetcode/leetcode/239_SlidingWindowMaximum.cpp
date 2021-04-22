@@ -1,7 +1,8 @@
 /*
  239. Sliding Window Maximum
  
- You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.
+ You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. 
+ You can only see the k numbers in the window. Each time the sliding window moves right by one position.
 
  Return the max sliding window.
 
@@ -124,7 +125,7 @@ class MaxSlidingWindow {
     }
     
     // monotonic queue
-    vector<int> doit_array_stack(vector<int>& nums, int k) {
+    vector<int> doit_monotonic_queue_stack(vector<int>& nums, int k) {
         
         deque<int> buf;
         vector<int> res;

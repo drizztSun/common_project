@@ -229,7 +229,7 @@ public:
     /*
         monotonic queue, increasing and decreaing for min value and max value
     */
-    int doit_(vector<int>& nums, int limit) {
+    int doit_monotonic_queue(vector<int>& nums, int limit) {
         
         int l = 0;
         int r = 0;
@@ -238,7 +238,7 @@ public:
         deque<int> tmin{INT_MAX};
         deque<int> tmax{INT_MIN};
         
-        while(r < nums.size()){
+        while(r < nums.size()) {
             
             while(!tmin.empty() && tmin.back() > nums[r]) tmin.pop_back();
             while(!tmax.empty() && tmax.back() < nums[r]) tmax.pop_back();

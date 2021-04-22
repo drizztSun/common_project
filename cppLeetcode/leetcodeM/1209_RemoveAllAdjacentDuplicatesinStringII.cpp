@@ -177,7 +177,7 @@ class RemoveAllAdjacentDuplicatesII {
     */
     string removeDuplicates(string s, int k) 
     {
-        stack<pair<char, int>>Stack;
+        stack<std::pair<char, int>>Stack;
 
         for (auto ch: s)
         {
@@ -205,7 +205,7 @@ class RemoveAllAdjacentDuplicatesII {
 
     string removeDuplicates(string s, int k) {
         
-        stack<pair<int, int>> st;
+        stack<std::pair<int, int>> st;
         
         for (auto c: s) {
             

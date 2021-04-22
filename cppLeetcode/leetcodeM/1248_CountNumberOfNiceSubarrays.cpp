@@ -32,10 +32,35 @@ Constraints:
 
 */
 #include <vector>
+#include <functional>
 
 using std::vector;
 
 class NumberOfSubarrays {
+
+
+    int doit_slidingwindow(vector<int>& nums, int K) {
+        
+        
+        std::function<int(int)> atmost = [&](int k) {
+            int total = 0, res = 0;
+
+            for (int i = 0, j = 0; i < nums.size(); i++) {
+
+                total += nums[i]&1;
+
+                while (total == k+1) {
+                    total -= nums[j++] & 1;
+                }
+
+                res += (i-j+1);
+            }
+            
+            return res;
+        };
+        
+        return atmost(K) - atmost(K-1);
+    }
 
 public:
 
@@ -51,7 +76,7 @@ public:
     */
     int doit_slidingwindow(vector<int>& A, int k) {
 
-        std::fucntion<int(int)> atMost = [&](int k) {
+        std::function<int(int)> atMost = [&](int k) {
             int res = 0, i = 0, n = A.size();
             for (int j = 0; j < n; j++) {
                 k -= A[j] % 2;
@@ -62,7 +87,7 @@ public:
             return res;
         };
 
-        return atMost(A, k) - atMost(A, k - 1);
+        return atMost(k) - atMost(k - 1);
     }
 
     /*

@@ -199,9 +199,8 @@ public:
         This process can be optimized to one pass using one stack in total.
 
         O(n) time, O(n) space
-
     */
-    int doit_stack_1(vector<int> A) {
+    int doit_monotonic_stack(vector<int> A) {
         long res = 0, n = A.size(), mod = 1e9 + 7, j, k;
         stack<int> s;
         for (int i = 0; i <= n; ++i) {
