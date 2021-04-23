@@ -156,6 +156,11 @@ public:
         return n - i;
     }
 
+    /*
+        Assume you understand all other solutions except for this Lee's masterpiece. See if this helps:
+        length is the length of the largest window we can find. The largest window we can find has this property: res=maxf+k where maxf is the maximum character count within the window. 
+        And the lee's algorithm just find this length. Based on my description, I believe you can easily understand it if you rewrite the if-condition like this:
+    */
     int doit_hashtable(string s, int k) {
     
         int maxlen = 0, length = 0;

@@ -36,6 +36,31 @@ using std::vector;
 
 class MovesToMakeZigzag {
 
+    /*
+        Explanation
+        Two options, either make A[even] smaller or make A[odd] smaller.
+        Loop on the whole array A,
+        find the min(A[i - 1],A[i + 1]),
+        calculate that the moves need to make smaller than both side.
+        If it's negative, it means it's already smaller than both side, no moved needed.
+        Add the moves need to res[i%i].
+        In the end return the smaller option.
+
+
+        Complexity
+        Time O(N) for one pass
+        Space O(2) for two options
+    */
+    int movesToMakeZigzag(vector<int>& A) {
+        int res[2] = {0, 0},  n = A.size(), left, right;
+        for (int i = 0; i < n; ++i) {
+            left = i > 0 ? A[i - 1] : 1001;
+            right = i + 1 < n ? A[i + 1] : 1001;
+            res[i % 2] += std::max(0, A[i] - std::min(left, right) + 1);
+        }
+        return std::min(res[0], res[1]);
+    }
+
 public:
 
     int doit_(vector<int>& A) {

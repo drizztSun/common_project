@@ -44,6 +44,9 @@ Constraints:
 
 */
 #include <vector>
+#include <unordered_map>
+
+using std::unordered_map;
 using std::vector;
 
 class MinSumOfLengths {
@@ -55,7 +58,7 @@ public:
 
         int i = 0, cur = 0;
         int n = arr.size();
-        vector<int> minlength(n+1);
+        vector<int> minlength{n+1};
         int ans = INT_MAX;
         
         for (int j = 0; j < arr.size(); j++) {
@@ -74,7 +77,34 @@ public:
             minlength.push_back(std::min(minlength.back(), j - i + 1));
         }
         
-        return ans > arr.size() ? -1 : ans;
-        
+        return ans > arr.size() ? -1 : ans;   
     }
+
+    int minSumOfLengths(vector<int>& arr, int target) {
+        
+        int n = arr.size();
+        unordered_map<int, int>hm;
+        hm[0] = -1;
+        int sum = 0;
+        
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            hm[sum] = i;
+        }
+        
+        sum = 0;
+        int msize = INT_MAX, res = INT_MAX;
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            
+            if (hm.find(sum-target) != hm.end())
+                msize = std::min(msize, i-hm[sum-target]);
+            
+            if (hm.find(sum+target) != hm.end() && msize != INT_MAX)
+                res = std::min(res, msize + hm[sum+target]-i);
+        }
+        
+        return res == INT_MAX ? -1 : res;
+    }
+
 };

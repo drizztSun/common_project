@@ -35,9 +35,12 @@ n == nums.length
 */
 #include <vector>
 #include <stack>
+#include <set>
 
+using std::set;
 using std::stack;
 using std::vector;
+
 
 class Pattern132 {
 
@@ -76,8 +79,6 @@ class Pattern132 {
         return false;
     }
 
-
-
 public:
 
     bool doit_stack(vector<int>& nums) {
@@ -100,9 +101,33 @@ public:
         return false;
     }
 
+    bool doit_binary_search(vector<int>& nums) {
+
+        vector<int> minv;
+        
+        for (auto c: nums)
+            minv.push_back(minv.empty() ? c : std::min(c, minv.back()));
+        
+        set<int> backside;
+        
+        for (int i = nums.size()-1; i >= 0; i--) {
+            
+            if (nums[i] == minv[i]) continue;
+            
+            auto it = backside.lower_bound(nums[i]);
+            
+            if (it != begin(backside) && *prev(it) > minv[i]) return true;
+            
+            backside.emplace(nums[i]);
+        }
+        
+        return false;
+    }
+
     /*
         Approach 1: Brute Force
-        The simplest solution is to consider every triplet (i, j, k)(i,j,k) and check if the corresponding numbers satisfy the 132 criteria. If any such triplet is found, we can return a True value. If no such triplet is found, we need to return a False value.
+        The simplest solution is to consider every triplet (i, j, k)(i,j,k) and check if the corresponding numbers satisfy the 132 criteria. If any such triplet is found, we can return a True value. 
+        If no such triplet is found, we need to return a False value.
     
         Complexity Analysis
         Time complexity : O(n^3). Three loops are used to consider every possible triplet. Here, nn refers to the size of numsnums array.
@@ -116,7 +141,7 @@ public:
         for (size_t i = 0; i < nums.size() - 2; i++) {
             for (size_t j = i + 1; j < nums.size() - 1; j++) {
                 for (size_t k = j + 1; k < nums.size(); k++) {
-                    if (nums[k] > nums[i] and nums[j] > nums[k]) {
+                    if (nums[k] > nums[i] && nums[j] > nums[k]) {
                         return true;
                     }
                 }
@@ -131,7 +156,7 @@ public:
 
         We can improve the last approach to some extent, if we make use of some observations. We can note that for a particular number nums[j]nums[j] chosen as 2nd element in the 132 pattern, if we don't consider nums[k]nums[k](the 3rd element) for the time being, our job is to find out the first element, nums[i]nums[i](i<ji<j) which is lesser than nums[j]nums[j].
 
-        Now, assume that we have somehow found a nums[i],nums[j]nums[i],nums[j] pair. Our task now reduces to finding out a nums[k]nums[k](Kk>j>i)Kk>j>i), which falls in the range (nums[i], nums[j])(nums[i],nums[j]). Now, to maximize the likelihood of a nums[k]nums[k] falling in this range, we need to increase this range as much as possible.
+        Now, assume that we have somehow found a nums[i],nums[j]nums[i],nums[j] pair. Our task now reduces to finding out a nums[k](Kk>j>i), which falls in the range (nums[i], nums[j])(nums[i],nums[j]). Now, to maximize the likelihood of a nums[k]nums[k] falling in this range, we need to increase this range as much as possible.
 
         Since, we started off by fixing a nums[j]nums[j], the only option in our hand is to choose a minimum value of nums[i]nums[i] given a particular nums[j]nums[j]. Once, this pair nums[i],nums[j]nums[i],nums[j], has been found out, we simply need to traverse beyond the index jj to find if a nums[k]nums[k] exists for this pair satisfying the 132 criteria.
 

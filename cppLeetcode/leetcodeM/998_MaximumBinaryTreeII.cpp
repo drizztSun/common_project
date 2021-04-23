@@ -40,9 +40,10 @@
 
 
 #include <vector>
-using std::vector;
-
 #include <stack>
+#include <functional>
+
+using std::vector;
 using std::stack;
 
 class InsertIntoMaxTreeII {
@@ -56,6 +57,63 @@ class InsertIntoMaxTreeII {
     };
 
 public:
+
+    /*
+        For any one who can't understand the question. I give my explanation.
+
+        1. the given tree was constructed from an list A (root = Construct(A)). So, List A = new ArrayList();
+        2. Suppose B is a copy of A with the value val appended to it. So, B = new ArrayList(A) and B.add(val);
+        3. The left child of root will be Construct([A[0], A[1], ..., A[i-1]]),
+            The right child of root will be Construct([A[i+1], A[i+2], ..., A[A.length - 1]]).
+            in this case A represent B, B[B.length-1] = val, So.
+        4. If val is the largest, i = B.length-1, the root node's value is val, i=0 to i-1 are in the left child of root.
+            This explains why when val > root.val, root should be the left child of new node with value val.
+        5. Else val is not the largest, the new node with value val is always the right child of root.
+    */
+
+    /*
+        Solution 1: Recursion
+        If root.val > val, recusion on the right.
+        Else, put right subtree on the left of new node TreeNode(val)
+
+        Time Complexity:
+        O(N) time,
+        O(N) recursion space.
+    */
+    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
+        if (root && root->val > val) {
+            root->right = insertIntoMaxTree(root->right, val);
+            return root;
+        }
+        TreeNode* node = new TreeNode(val);
+        node->left = root;
+        return node;        
+    }
+
+    /*
+        Solution 2: Iteration
+        Search on the right, find the node that cur.val > val > cur.right.val
+        Then create new node TreeNode(val),
+        put old cur.right as node.left,
+        put node as new cur.right.
+
+        Time Complexity:
+        O(N) time,
+        O(1) space
+    */
+    TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
+        TreeNode* node = new TreeNode(val), *cur = root;
+        if (root->val < val) {
+            node->left = root;
+            return node;
+        }
+        while (cur->right && cur->right->val > val) {
+            cur = cur->right;
+        }
+        node->left = cur->right;
+        cur->right = node;
+        return root;
+    }
     
     TreeNode* doit_(TreeNode* root, int val) {
 

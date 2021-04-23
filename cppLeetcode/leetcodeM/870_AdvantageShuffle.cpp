@@ -74,7 +74,7 @@ class AdvantageShuffleCount {
 
 public:
 
-    vector<int> doit_sort(vector<int>& A, vector<int>& B) {
+    vector<int> doit_sort_treemap(vector<int>& A, vector<int>& B) {
         int n=A.size();
         multiset<int> mst;
         for(int i = 0; i < n; i++)

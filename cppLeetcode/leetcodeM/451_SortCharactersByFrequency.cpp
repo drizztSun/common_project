@@ -55,6 +55,29 @@ class FrequencySort {
 
 public:
 
+
+    string doit_hashtable(string s) {
+        
+        unordered_map<char, int> cnt;
+        for (auto c: s) cnt[c]++;
+        
+        map<int, vector<char>> frequency;
+        for (auto it: cnt) {
+            frequency[it.second].push_back(it.first);
+        }
+        
+        string ans;
+        for (auto it = rbegin(frequency); it != rend(frequency); it++) {
+            
+            for (auto c: it->second) {
+                ans.append(it->first, c);    
+            }
+            
+        }
+        
+        return ans;
+    }
+
     string doit_bucket_sort(string s) {
         
         auto N = static_cast<int>(s.size());

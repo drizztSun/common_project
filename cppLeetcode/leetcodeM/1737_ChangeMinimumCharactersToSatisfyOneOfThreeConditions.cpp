@@ -100,4 +100,51 @@ public:
         }
         return ret;
     }
+
+    /*
+        Explanation
+        Count the frequcy of each character in a and b.
+        Find the most common characters most_common = max((c1 + c2).values()),
+        this help meet the condition 3 with m + n - most_common.
+
+        The we calculate the accumulate prefix sum of count.
+        This help finding the number of smaller characters in O(1) time.
+
+        Enumerate the character i a,b,c...x,y,
+        To meet condition 1,
+        which is a < b,
+        we need (m - c1[i]) + c2[i]
+
+        To meet condition 2,
+        which is a > b,
+        we need n - c2[i] + c1[i]
+
+
+        Complexity
+        Time O(m + n)
+        Space O(26)
+    */
+    int minCharacters(string a, string b) {
+        int m = a.size(), n = b.size(), res = m + n;
+        vector<int> c1(26), c2(26);
+        for (char& c: a) c1[c - 'a']++;
+        for (char& c: b) c2[c - 'a']++;
+
+        for (int i = 0; i < 26; ++i) {
+            
+            // every char changed to i, but i.
+            res = std::min(res, m + n - c1[i] - c2[i]); // condition 3
+
+            if (i > 0) {
+                c1[i] += c1[i - 1];
+                c2[i] += c2[i - 1];
+            }
+            
+            if (i < 25) {
+                res = std::min(res, m - c1[i] + c2[i]); // condition 1
+                res = std::min(res, n - c2[i] + c1[i]); // condition 2
+            }
+        }
+        return res;
+    }
 };

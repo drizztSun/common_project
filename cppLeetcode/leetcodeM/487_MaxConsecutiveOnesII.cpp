@@ -23,8 +23,18 @@ public:
     
     int doit_(vector<int>& nums) {
         
+        int last = -1, res = 0;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == 0)
+                last = i;
+            res = std::max(res, i - last);
+        }
+        
+        return res;
     }
 };
+
 /*
 487. Max Consecutive Ones II
 
@@ -44,8 +54,6 @@ Follow up:
 What if the input numbers come in one by one as an infinite stream? In other words, you can't store all numbers coming from the stream as it's too large to hold in memory. Could you solve it efficiently?
 
 */
-
-
 
 class MaxConsecutiveOnesII {
 
@@ -102,8 +110,7 @@ class MaxConsecutiveOnesII {
             if (nums[i] == 0) {
                 last = lastzero, lastzero = i;
             }
-            total = std::max(total, i - last);
-            
+            total = std::max(total, i - last);   
         }
         
         return total > 0 ? total : 1;

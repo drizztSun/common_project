@@ -217,7 +217,7 @@ public:
         string result(n, 'a');
         k -= n;
         for (int position = n - 1; position >= 0 && k > 0; position--) {
-            int add = min(k, 25);
+            int add = std::min(k, 25);
             result[position] = (char)(result[position] + add);
             k -= add;
         }
@@ -258,7 +258,7 @@ public:
     string getSmallestString(int n, int k) {
         string result(n, 0);
         for (int position = n - 1; position >= 0; position--) {
-            int add = min(k - position, 26);
+            int add = std::min(k - position, 26);
             result[position] = (char)(add + 'a' - 1);
             k -= add;
         }

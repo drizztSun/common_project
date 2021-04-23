@@ -30,7 +30,8 @@
 #include <vector>
 #include <unordered_map>
 #include <map>
-
+#include <numeric>
+#include <algorithm>
 
 using std::map;
 using std::vector;
@@ -39,6 +40,61 @@ using std::unordered_map;
 
 
 class NumberOfLongestIncreasingSubsequence {
+
+    /*
+        673.Number-of-Longest-Increasing-Subsequence
+        在传统的LIS的DP解法基础上，再设置一个表征LIS数目的数组。len[i]表示以i元素结尾的LIS的长度；num[i]表示以i元素结尾的LIS的数目。
+
+        递推关系是：
+
+        len[i] = max (len[j]+1) for 0<=j<i && nums[j]<nums[i]
+
+        num[i] = sum (num[j]) for 0<=j<i && len[j]+1=len[i]
+    */
+    int findNumberOfLIS(vector<int>& nums) 
+    {
+        int N=nums.size();
+        vector<int>len(N,1);
+        vector<int>num(N,1);
+        
+        for (int i=1; i<N; i++)
+        {
+            int maxLen=1;
+            int maxNum=1;
+            for (int j=0; j<i; j++)
+            {
+                if (nums[i]<=nums[j])
+                    continue;
+                    
+                if (len[j]+1>maxLen)
+                {
+                    maxLen=len[j]+1;
+                    maxNum=num[j];
+                }
+                else if (len[j]+1==maxLen)
+                {
+                    maxNum+=num[j];
+                }
+            }
+            len[i]=maxLen;
+            num[i]=maxNum;
+        }
+        
+        int maxLen=1;
+        int maxNum=0;
+        for (int i=0; i<N; i++)
+        {
+            if (len[i]>maxLen)
+            {
+                maxLen=len[i];
+                maxNum=num[i];
+            }
+            else if (len[i]==maxLen)
+                maxNum+=num[i];
+        }
+        
+        return maxNum;
+    }
     
 public:
     
@@ -145,13 +201,3 @@ public:
         return res;
     }
 };
-
-
-void test_673_number_longest_incresting_sequence() {
-    
-    NumberOfLongestIncreasingSubsequence().doit_dp(vector<int>{1,2,4,3,5,4,7,2});
-    
-    NumberOfLongestIncreasingSubsequence().doit_dp(vector<int>{1,2,4,3,5,4,7,2});
-    
-    NumberOfLongestIncreasingSubsequence().doit_dp(vector<int>{1, 3, 5, 4, 7});
-}

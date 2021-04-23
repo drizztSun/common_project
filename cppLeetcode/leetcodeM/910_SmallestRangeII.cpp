@@ -151,7 +151,7 @@ public:
 
         In Java, the Arrays.sort() is implemented as a variant of quicksort algorithm whose space complexity is \mathcal{O}(\log{N})O(logN).
     */
-    int doit_greedy(vector<int>& A, int k) {
+    int doit_greedy_sort(vector<int>& A, int k) {
         
         int N = A.size();
         std::sort(begin(A), end(A));

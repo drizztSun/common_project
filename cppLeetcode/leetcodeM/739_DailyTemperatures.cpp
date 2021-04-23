@@ -64,7 +64,7 @@ class DailyTemperatures {
         return results;
     }
 
-    vector<int> dailyTemperatures(vector<int>& temperatures) 
+    vector<int> dailyTemperatures_greedy(vector<int>& temperatures) 
     {
         int N = temperatures.size();
         vector<int>results(N,0);
@@ -79,14 +79,12 @@ class DailyTemperatures {
             else
                 results[i] = 0;
         }
+
         return results;
     }
 
-
-
-    
-
 public:
+
     vector<int> doit_stack(vector<int>& T) {
         
         vector<int> ans(T.size(), 0);

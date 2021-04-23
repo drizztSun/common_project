@@ -119,6 +119,7 @@ public:
     }
 
     string baseNeg2(int N) {
+        // More about N = -(N >> 1)
         string res = "";
         while (N) {
             res = std::to_string(N & 1) + res;
@@ -137,14 +138,3 @@ public:
         return baseNeg2(-(N >> 1)) + std::to_string(N & 1);
     }
 };
-
-void test_1017_convert_to_base() {
-    
-    auto res1 = BaseNeg2().doit(2);
-    
-    auto res2 = BaseNeg2().doit(3);
-    
-    auto res3 = BaseNeg2().doit(4);
-    
-    return;
-}

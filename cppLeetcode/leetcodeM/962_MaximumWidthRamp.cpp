@@ -119,7 +119,7 @@ public:
         O(N)
     """
     */
-    int doit_stack(vector<int>& A) {
+    int doit_monotonic_stack(vector<int>& A) {
         stack<int> s;
         int res = 0, n = A.size();
 
@@ -185,8 +185,8 @@ public:
         int minIndex = INT_MAX;
         int result = 0;
         for (auto& it : map) {
-            result = max(result, it.second - minIndex);
-            minIndex = min(minIndex, it.second);
+            result = std::max(result, it.second - minIndex);
+            minIndex = std::min(minIndex, it.second);
         }
         return result;
     }

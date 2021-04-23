@@ -26,7 +26,9 @@ S will consist of lowercase English letters ('a' to 'z') only.
 */
 #include <vector>
 #include <unordered_map>
+#include <string>
 
+using std::string;
 using std::unordered_map;
 using std::vector;
 

@@ -1,6 +1,4 @@
 /*
- 
- 
  654. Maximum Binary Tree
  
  
@@ -22,26 +20,27 @@
       2  0
         \
          1
- Note: The size of the given array will be in the range [1,1000].
- 
- */
+ Note: The size of the given array will be in the range [1,1000]. 
+*/
 
 #include <vector>
+#include <stack>
+#include <functional>
+
+using std::stack;
 using std::vector;
 
-#include <stack>
-using std::stack;
-
-//Definition for a binary tree node.
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
 
 class ConstructMaximumBinaryTree {
-    
+
+    //Definition for a binary tree node.
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    };
+
 public:
 
     /*
