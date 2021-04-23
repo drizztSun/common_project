@@ -119,7 +119,7 @@ public:
         O(N)
     """
     */
-    int doit_monotonic_stack(vector<int>& A) {
+    int doit_monotonic_stack_best(vector<int>& A) {
         stack<int> s;
         int res = 0, n = A.size();
 
@@ -137,7 +137,6 @@ public:
                 
         return res;
     }
-
 
     int doit_sort(vector<int>& A) {
         

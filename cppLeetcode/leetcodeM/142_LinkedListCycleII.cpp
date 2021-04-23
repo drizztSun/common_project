@@ -117,6 +117,26 @@ class DetectCycle {
         return false;
         
     }
+
+    bool hasCycle(ListNode *head) {
+        
+        if (!head) return false;
+        
+        ListNode *slow = head;
+        ListNode *fast = head;
+        
+        do {
+            
+            if (!slow) break;
+            slow = slow->next;
+            
+            if (!fast || !fast->next) return false;
+            fast = fast->next->next;
+            
+        } while (slow != fast);
+        
+        return slow == fast;        
+    }
     
     /*
         142. Linked List Cycle II

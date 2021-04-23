@@ -33,11 +33,6 @@ Constraints:
 arr1[i] and arr2[i] are 0 or 1
 arr1 and arr2 have no leading zeros
 
-
-
-
-
-
 */
 #include <vector>
 #include <algorithm>
@@ -70,7 +65,7 @@ public:
             carry = (carry >> 1);
         }
         reverse(res.begin(), res.end());
-        return res;
+        return res; 
     }
 
     vector<int> addNegabinary(vector<int>& A, vector<int>& B) {
@@ -91,11 +86,28 @@ public:
         return res;
     }
 
+    /*
+        The base algorithm is derived from wikipedia, basically, the majority of bit sum is the same. The main difference is to understand that the sum at each bit location, 
+        will be decompose to carry, and the bit at current location. So from the wikipedia chart, for example, when bit sum equals to 2, it should be decomposed to current bit = 0, carry = -1. (because 0 * 2^0 + (-1)*(-2) = 2)
 
+        image
+
+        Therefore, we know that we can mostly perform bit additions, and simply addressing the carry based on the total sum.
+    */
+    vector<int> addNegabinary(vector<int>& arr1, vector<int>& arr2) {
+        int carry = 0;
+        vector<int> res;
+        int p1 = (int)arr1.size() -  1, p2 = (int)arr2.size() -  1;
+        while( p1 >=0 || p2 >=0 || carry!= 0) {
+           if(p1 >= 0) carry += arr1[p1--];
+           if(p2 >= 0) carry += arr2[p2--];
+           res.push_back(abs(carry) & 1);
+           carry = carry > 1 ? -1 : carry < 0 ? 1 : 0;
+        }
+        
+        while(res.size() > 1 &&res.back() == 0) 
+            res.pop_back();
+        reverse(res.begin(), res.end());
+        return res;
+    }
 }
-
-
-
-
-
-

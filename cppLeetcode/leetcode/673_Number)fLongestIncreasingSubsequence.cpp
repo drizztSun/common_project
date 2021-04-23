@@ -125,7 +125,7 @@ public:
         return res;
     }
     
-    int doit_dp(vector<int>&& nums) {
+    int doit_dp_best_LIS(vector<int>&& nums) {
         
         int minv = *min_element(nums.begin(), nums.end()) - 1;
         vector<map<int, int>> dp;

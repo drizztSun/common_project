@@ -74,13 +74,13 @@ class UnsortedSubarray {
 
 public:
 
-    int doit_search(vector<int>& nums) {
+    int doit_search_best(vector<int>& nums) {
         
         int leftBound = nums.size(), rightBound= 0;
         
         int curmax = INT_MIN;
         for (int i = 0; i < nums.size(); i++) {
-            
+            // keep to the right to get last one it is less than curmax
             if (nums[i] < curmax)
                 rightBound = i;
             curmax = std::max(curmax, nums[i]);
@@ -88,6 +88,7 @@ public:
         
         int curmin = INT_MAX;
         for (int i = nums.size()-1; i >= 0; i--) {
+            // keep going to the left, to get last one greater than curmin
             if (nums[i] > curmin)
                 leftBound = i;
             curmin = std::min(curmin, nums[i]);
@@ -198,6 +199,7 @@ public:
             if (nums[i] < nums[i-1]) flag = true;
             
             if (flag)
+                // in the unsorted area, there is maybe a hidden minv
                 minv = std::min(minv, nums[i]);
         }
         
@@ -205,15 +207,18 @@ public:
         for (int i = nums.size()-2; i >= 0; i--) {
             if (nums[i] > nums[i+1]) flag = true;
             
-            if (flag) maxv = std::max(maxv, nums[i]);
+            if (flag)
+                // in the unsorted area, there is maybe a hidden maxv 
+                maxv = std::max(maxv, nums[i]);
         }
         
         int l, r;
         
+        // get the left less than minv
         for (l = 0; l < nums.size() && minv >= nums[l]; l++);
         
+        // get the right greater than maxv
         for (r = nums.size()-1; r >= 0 && maxv <= nums[r]; r--);
-            
             
         return r - l < 0 ? 0 : r - l + 1;
     }

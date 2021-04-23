@@ -38,6 +38,23 @@ class ReverseListI {
     
 public:
 
+    ListNode* doit_best(ListNode* head) {
+
+        ListNode* prev = nullptr;
+        
+        while (head) {
+            
+            ListNode* headnext = head->next;
+            
+            head->next = prev;
+            prev = head;
+            
+            head = headnext;
+        }
+        
+        return prev;
+    }
+
     ListNode* doit(ListNode* head) {
 
         ListNode* ans = nullptr;

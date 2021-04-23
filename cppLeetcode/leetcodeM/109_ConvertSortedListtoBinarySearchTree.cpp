@@ -29,7 +29,7 @@ Output: [3,1]
 
 Constraints:
 
-The number of nodes in head is in the range [0, 2 * 104].
+The number of nodes in head is in the range [0, 2 * 104].88
 -10^5 <= Node.val <= 10^5
 
 */
@@ -124,7 +124,6 @@ class SortedListToBST {
         root->right=sortedListToBST(slow->next);
         
         return root;
-        
     }
 
 
