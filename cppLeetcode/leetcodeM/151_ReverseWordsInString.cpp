@@ -48,7 +48,9 @@ Follow up: Could you solve it in-place with O(1) extra space?
 
 #include <vector>
 #include <string>
+#include <sstream>
 
+using std::stringstream;
 using std::vector;
 using std::string;
 
@@ -56,6 +58,23 @@ using std::string;
 class ReverseWords {
 
 public:
+
+    string reverseWords(string s) {
+        if (s.length() == 0) return "";
+        stringstream ss(s);
+        
+        string revs, str;
+        
+        while (ss >> str) {
+            revs = str + revs;
+            revs = " " + revs;
+        }
+        
+        if (revs.length())
+            revs.erase(revs.begin());
+        
+        return revs;
+    }
 
     string doit_(string s) {
 
@@ -75,7 +94,7 @@ public:
         for (int i = tmp.size()-2; i >= 0; i--)
             ans += " " + tmp[i];
         return ans;
-    }   
+    }
 
     string doit_str(string s) {
         

@@ -42,7 +42,8 @@ class MakeLargestSpecial {
 
 	/*
 		761.Special-Binary-String
-		首先，应该容易分析出：对于一个special string S，它整体可以拆分为一个或若干个不可再拆分的、连续的sub special string。对于每个不可再连续拆分的sub special string S'，它的首位一定是1，末位一定是0，中间一定还是一个special string，于是可能还可以继续拆分下去。
+		首先，应该容易分析出：对于一个special string S，它整体可以拆分为一个或若干个不可再拆分的、连续的sub special string。
+		对于每个不可再连续拆分的sub special string S'，它的首位一定是1，末位一定是0，中间一定还是一个special string，于是可能还可以继续拆分下去。
 
 		写成式子就是： 任何 S = （1）ABCDEF（0）,首位的1和末位的0可能存在，而中间的ABCDEF都还是不可连续拆分的speical string，
 
@@ -91,7 +92,7 @@ class MakeLargestSpecial {
 			if (S[i] == '1')
 				count++;
 			else
-				count--;
+				count--; 
 
 			if (count == 0) {
 				res.push_back("1" + largestSpecString(S.substr(j + 1, i - j - 1)) + "0");

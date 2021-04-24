@@ -4,8 +4,8 @@
 
 Given a string s, return the maximum number of ocurrences of any substring under the following rules:
 
-The number of unique characters in the substring must be less than or equal to maxLetters.
-The substring size must be between minSize and maxSize inclusive.
+1. The number of unique characters in the substring must be less than or equal to maxLetters.
+2. The substring size must be between minSize and maxSize inclusive.
  
 
 Example 1:
@@ -66,7 +66,6 @@ public:
         Complexity
         Time O(KN), where K = minSize
         Space O(KN)
-
 
         Python:
     */

@@ -130,8 +130,6 @@ public:
         Complexity
         Time O(mn)
         Space O(1)
-
-    
     */
     int countSubstrings(string s, string t) {
 
