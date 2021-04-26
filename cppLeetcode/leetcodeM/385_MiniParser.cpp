@@ -156,7 +156,7 @@ class Solution {
     }
 
 public:
-    NestedInteger deserialize(string s) {
+    NestedInteger deserialize_stack(string s) {
         
         if (s[0]!='[') return NestedInteger(stoi(s));
         

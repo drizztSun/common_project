@@ -162,7 +162,7 @@ public:
             int next = pq.top().second;
             visited[next] = 1;
             result += pq.top().first;
-            pq.pop();                       
+            pq.pop();
             
             for (auto edge: edges[next])
                 pq.push(edge);
@@ -210,7 +210,9 @@ public:
     }
 
 public:
-    int doit_mst(vector<vector<int>>& points) {
+
+    // becuase it is a full graphic
+    int doit_mst_best(vector<vector<int>>& points) {
 
         int p = points.size(), res = 0, cur = 0;
         vector<int> minCost(p, INT_MAX);

@@ -52,6 +52,7 @@
 #include <vector>
 #include <numeric>
 #include <functional>
+#include <algorithm>
 
 using std::vector;
 

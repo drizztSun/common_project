@@ -98,9 +98,65 @@ public:
         return ans;
     }
 
+    // n * log(k)
+    vector<int> getStrongest(vector<int>& arr, int k) {
+        
+        int n = arr.size();
+        
+		// A STL method in C++ for quick select.
+		// Pivot is the (n-1)/2 th element.
+        nth_element(arr.begin(), arr.begin() + (n-1)/2, arr.end());
+        
+        int median = arr[(n-1)/2];
+        
+        priority_queue<std::pair<int, int>, vector<std::pair<int, int>>, std::greater<>> pq;
+        
+        for (int i = 0; i < n; i++) {
+            pq.push({abs(arr[i]-median), arr[i]});
+            if (pq.size() > k) pq.pop();
+        }
+
+        vector<int>res;
+        while (!pq.empty()) {
+            res.push_back(pq.top().second);
+            pq.pop();
+        }
+    
+        return res;
+    }
+
+    // n*log(n) + n *log(k) 
+    vector<int> doit_heap(vector<int>& arr, int k) {
+        
+        int n = arr.size();
+        
+        auto compare = [](auto p1, auto p2) {
+            return p1.first > p2.first || p1.first == p2.first && p1.second > p2.second;
+        };
+        
+        sort(arr.begin(), arr.end());
+        int median = arr[(n-1)/2];
+        
+        // priority_queue<std::pair<int, int>, vector<std::pair<int, int>>, std::greater<>> pq; the same
+        priority_queue<std::pair<int, int>, vector<std::pair<int, int>>, decltype(compare)> pq(compare);
+        
+        for (int i = 0; i < n; i++) {
+            pq.push({abs(arr[i]-median), arr[i]});
+            if (pq.size() > k) pq.pop();
+        }
+
+        vector<int>res;
+        while (!pq.empty()) {
+            res.push_back(pq.top().second);
+            pq.pop();
+        }
+    
+        return res;
+    }
+
 
     struct compare {
-        bool operator() (pair<int, int>p1, pair<int, int>p2) {
+        bool operator() (std::pair<int, int>p1, std::pair<int, int>p2) {
             return (p1.first == p2.first) ? p1.second < p2.second : p1.first < p2.first;
         }
     };
@@ -112,11 +168,14 @@ public:
         sort(arr.begin(), arr.end());
         int median = arr[(n-1)/2];
         
-        priority_queue<pair<int, int>, vector<pair<int, int>>, compare>pq;
+        priority_queue<std::pair<int, int>, vector<std::pair<int, int>>, compare>pq;
         
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n; i++) {
             pq.push({abs(arr[i]-median), arr[i]});
-        
+            if (pq.size() > k)
+                pq.pop();
+        }
+
         vector<int>res;
         while (!pq.empty() && k--) {
             res.push_back(pq.top().second);

@@ -58,7 +58,10 @@ public:
 
         The overflow, i.e. the situation of x > 0x7FFFFFFF (bitmask of 31 1-bits), is managed as x --> ~(x ^ 0xFFFFFFFF).
 
-        At this point, we could come back to approach 1 and, surprisingly, all management of negative numbers, signs, and subtractions Java already does for us. That simplifies the solution to the computation of a sum of two positive integers. 
+        At this point, we could come back to approach 1 and, surprisingly, all management of negative numbers, signs, and subtractions Java already does for us. 
+        
+        That simplifies the solution to the computation of a sum of two positive integers. 
+        
         That's how the magic of "two's complement" works!
 
         Python

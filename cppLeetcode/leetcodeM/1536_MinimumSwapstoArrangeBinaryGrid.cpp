@@ -111,6 +111,36 @@ public:
         return count;
     }
 
+    int doit_greedy_(vector<vector<int>>& grid) {
+        
+        list<int> buff;
+        int N = grid.size();
+        
+        for (int i = 0; i < N; i++) {
+            int zeros = 0; 
+            for (int j = N-1; j >= 0 && grid[i][j] == 0; j--) zeros++;
+            buff.push_back(zeros); 
+        }
+        
+        int ans = 0;
+        for (int r = N-1; r >= 0; r--) {
+            
+            int step = 0;
+            auto it = buff.begin();
+            while (it != end(buff) && *it < r) {
+                step++;
+                it++;
+            }
+            
+            if (it == end(buff)) return -1;
+            
+            ans += step;
+            buff.erase(it);
+        }
+        
+        return ans;
+    }
+
     int doit_greedy(vector<vector<int>>& grid) {
 
         int n = grid.size(), res = 0;

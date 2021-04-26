@@ -109,7 +109,7 @@ public:
         return -1;
     }
 
-    int doit_1(int n, vector<int>& nums) {
+    int doit_best(int n, vector<int>& nums) {
 
         vector<int> maxRight(n+1); //maxRight[Left]=the farest index Left can reach
         
@@ -226,7 +226,7 @@ public:
         return ans;
     }
 
-    int doit_greedy(int n, vector<int>& ranges) {
+    int doit_greedy_best(int n, vector<int>& ranges) {
 
         vector<vector<int>> intervals;
         
@@ -259,7 +259,7 @@ public:
     }
 
     // O(n)
-    int doit_greedy(int n, vector<int>& ranges) {
+    int doit_greedy_best(int n, vector<int>& ranges) {
         
         vector<int> nums(ranges.size());
         

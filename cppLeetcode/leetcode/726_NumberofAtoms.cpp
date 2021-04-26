@@ -128,8 +128,8 @@ class CountOfAtoms {
             if (a.second>1)
                 result+=to_string(a.second);
         }
+		
         return result;
-            
     }
 
 	string doit_stack(string formula) {

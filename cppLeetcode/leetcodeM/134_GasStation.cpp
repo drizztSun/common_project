@@ -128,4 +128,41 @@ public:
 
         return -1;
     }
+
+    int doit_greedy(vector<int>& gas, vector<int>& cost) {    
+        
+        int n = gas.size();
+        vector<int> diff(n, 0);
+        
+        for (int i = 0; i < gas.size(); i++)
+            diff[i] = gas[i] - cost[i];
+        
+        
+        int i = 0;
+        
+        while (i < n) {
+            
+            if (diff[i] < 0) {
+                i++;
+                continue;
+            }
+        
+            int steps = 0, total = 0;
+            int j = i;
+            while (steps < n) {
+                
+                if (total + diff[j%n] < 0) break;
+                
+                total += diff[j%n];
+                j++;
+                steps++;
+            }
+            
+            if (steps == n) return i;
+        
+            i = j;
+        }
+        
+        return -1;
+    }
 };

@@ -47,6 +47,30 @@ class CountTriplets {
     
 
 public:
+
+
+    int doit_hashtable(vector<int>& A) {
+        
+        int ans = 0;
+        unordered_map<int, int> buff;
+        
+        for (auto a: A)
+            for (auto b: A)
+                buff[a&b]++;
+        
+        for (auto a: A) {
+            
+            int bits = (~a) & 0xffff;
+            
+            for (int subset = bits; subset > 0; subset = (subset-1) & bits) {
+                if (buff.count(subset) > 0) ans += buff[subset];
+            }
+            
+            ans += buff[0];
+        }
+        
+        return ans;
+    }
     
     
     int doit3(vector<int>&& A) {

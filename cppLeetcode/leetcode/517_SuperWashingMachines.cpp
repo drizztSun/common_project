@@ -188,4 +188,104 @@ public:
         
         return maxv;
     }
+
+    /*
+        Approach 1: Greedy.
+        Intuition
+
+        This greedy problem is very similar to Gas station problem, and could be solved in linear time as well.
+
+        First of all - could the problem be solved or not?
+
+        Yes, if the dresses could be divided into N equal parts where N is number of machines. In other words, N should be a divisor of the number of dresses D.
+
+        bla
+
+        Now it's easy to compute the number of dresses that each machine should have: D / N. The starting numbers of dresses in the machines move around this D / N average value.
+
+        bla
+
+        The standard ML trick is to normalize the data, so that the average value would be zero. For that, one could replace the actual number of dresses in the machine by the number of dresses to be removed. This number could be negative, if one actually needs to add the dresses into the machine.
+
+        bla
+
+        As for the gas station problem, one starts from the beginning and checks the standard set for such problems: the current element, the current sum, and the maximum sum seen so far :
+
+        m. Number of dresses to be removed from the current machine.
+
+        curr_sum. Number of dresses to be passed on the right.
+
+        max_sum. Maximum number of dresses one had to pass on the right at this point or before.
+
+        It's quite obvious that the result at each point is a maximum between max_sum and m, i.e. one has to compare the cumulative and the local maximums.
+
+        Here are three different examples.
+
+        [1, 0, 5]. The cumulative maximum is equal to the local one.
+        bla
+
+        [0, 3, 0]. The local maximum wins over the cumulative one.
+        bla
+
+        [0, 0, 3, 5]. The cumulative maximum wins over the local one.
+        bla
+
+        Algorithm
+
+        Here is the algorithm.
+
+        Check if the problem could be solved: len(machines) should be a divisor of sum(machines). Otherwise the answer is -1.
+
+        Compute the number of dresses each machine should finally have: dresses_per_machine = sum(machines)/len(machines).
+
+        Normalize the problem by replacing the number of dresses in each machine by the number of dresses to be removed from this machine (could be negative).
+
+        Initiate curr_sum, max_sum, and res as zero.
+
+        Iterate over all machines m in machines:
+
+        Update curr_sum and max_sum at each step: curr_sum += m, max_sum = max(max_sum, abs(curr_sum)).
+
+        Update result res = max(res, max_sum, m).
+
+        Return res.
+
+        Implementation
+
+
+        Complexity Analysis
+
+        Time complexity : \mathcal{O}(N)O(N) since it's a three iterations over the input array.
+
+        Space complexity : \mathcal{O}(1)O(1) since it's a constant space solution.
+    
+    */
+    int doit_best(vector<int>& machines) {
+
+        int n = machines.size(), dresstotal = 0;
+        
+        for (auto c: machines) dresstotal += c;
+        
+        if (dresstotal % n != 0) return -1;
+        
+        int dressPerMachine = dresstotal / n;
+        // Change the number of dresses in the machines to
+        // the number of dresses to be removed from this machine
+        // (could be negative)
+        for (int i = 0; i < n; i++) machines[i] -= dressPerMachine;
+        
+        // currSum is a number of dresses to move at this point, 
+        // maxSum is a max number of dresses to move at this point or before,
+        // m is number of dresses to move out from the current machine.
+        int curSum = 0, maxSum = 0, tmpRes = 0, res = 0;
+        for (auto m: machines) {
+            curSum += m;
+            maxSum = std::max(maxSum, abs(curSum));
+            tmpRes = std::max(maxSum, m);
+            
+            res = std::max(res, tmpRes);
+        }
+        
+        return res;
+    }
 };

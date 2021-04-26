@@ -106,7 +106,7 @@ class ParseTeranary {
 
 public:
 
-    string doit_(string expression) {
+    string doit_stack(string expression) {
 
         int i = expression.size();
         stack<char> st;

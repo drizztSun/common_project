@@ -64,8 +64,7 @@ public:
     */
     int doit_dp(vector<int>& nums) {
 
-        if (nums.empty())
-            return 0;
+        if (nums.empty()) return 0;
 
         int down = 1, up = 1;
         int N = nums.size();

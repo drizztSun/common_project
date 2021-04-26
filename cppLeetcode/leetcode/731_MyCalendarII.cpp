@@ -37,13 +37,77 @@
 
 
 #include <vector>
+#include <set>
 #include <algorithm>
-using namespace std;
+
+using std::multiset;
+using std::vector;
+
+/*
+	731.My-Calendar-II
+	不需要考虑有序Hash和迭代器。此题只要找出所有与[start,end)重合的区间，再检查这些区间是否有互相的重合。是的话，说明必然有triple booking。
+*/
+class MyCalendarTwo {
+    vector<std::pair<int,int>>events;
+public:
+    MyCalendarTwo() 
+    {
+        
+    }
+    
+    bool book(int start, int end) 
+    {
+        vector<std::pair<int,int>>temp;
+        for (int i=0; i<events.size(); i++)
+        {
+            if (!(events[i].second<=start || events[i].first>=end))
+                temp.push_back(events[i]);
+        }
+        sort(temp.begin(),temp.end());
+        
+        for (int i=1; i<temp.size(); i++)
+        {
+            if (temp[i].first<temp[i-1].second)
+                return false;
+        }
+        
+        events.push_back({start,end});        
+
+        return true;
+    }
+};
+
+
+class MyCalendarTwo {
+    multiset<std::pair<int,int>>Set;
+
+public:
+    
+	MyCalendarTwo() {}
+    
+    bool book(int start, int end) 
+    {
+        vector<std::pair<int,int>>p;
+        for (auto x: Set)
+        {
+            if (!(end<=x.first || start>=x.second))
+                p.push_back(x);
+            if (end<=x.first) break;
+        }        
+        for (int i=1; i<p.size(); i++)
+        {
+            if (p[i].first<p[i-1].second)
+                return false;
+        }
+        Set.insert({start,end});
+        return true;
+    }
+};
 
 class MyCalendarII {
 
-	vector<pair<int, int>> calendar_;
-	vector<pair<int, int>> overlap_;
+	vector<std::pair<int, int>> calendar_;
+	vector<std::pair<int, int>> overlap_;
 
 
 public:
@@ -60,33 +124,12 @@ public:
 
 		for (auto& p : calendar_) {
 			if (start < p.second && end > p.first) {
-				overlap_.push_back({max(start, p.first), min(end, p.second)});
+				overlap_.push_back({std::max(start, p.first), std::min(end, p.second)});
 			}
 		}
-
 
 		calendar_.push_back({start, end});
 
 		return true;
 	}
 };
-
-/**
-* Your MyCalendarTwo object will be instantiated and called as such:
-* MyCalendarTwo obj = new MyCalendarTwo();
-* bool param_1 = obj.book(start,end);
-*/
-
-void Test_731_MyCalendarII() {
-
-	MyCalendarII obj;
-
-	obj.book(10, 20); // returns true
-	obj.book(50, 60); // returns true
-	obj.book(10, 40); // returns true
-	obj.book(5, 15); // returns false
-	obj.book(5, 10); // returns true
-	obj.book(25, 55); // returns true
-
-	return;
-}

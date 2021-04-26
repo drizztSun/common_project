@@ -73,6 +73,24 @@ class LeftMostColumnWithOne {
 
 public:
 
+    int doit_best(BinaryMatrix &binaryMatrix) {
+        
+        auto d = binaryMatrix.dimensions();
+        int m = d[0], n = d[1];
+        int row = 0, col = n-1;
+        
+        while (row < m && col >= 0) {
+
+            if (binaryMatrix.get(row, col) == 1) {
+                col--;
+            } else {
+                row++;
+            }
+        }
+        
+        return col == n-1 ? -1 : col+1;
+    }
+
 
     /*
         Approach 3: Start at Top Right, Move Only Left and Down

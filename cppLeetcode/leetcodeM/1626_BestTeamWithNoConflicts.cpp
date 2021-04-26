@@ -38,6 +38,8 @@ scores.length == ages.length
 */
 #include <vector>
 #include <map>
+#include <functional>
+#include <algorithm>
 
 using std::map;
 using std::vector;
@@ -88,18 +90,43 @@ public:
         return ret;
     }
 
+    int doit_best(vector<int>& scores, vector<int>& ages) {
+        
+        int n = scores.size();
+        vector<int> ind(n, 0);
+        std::iota(begin(ind), end(ind), 0);
+        
+        std:sort(begin(ind), end(ind), [&](const int a, const int b) {
+            return std::make_pair(ages[a], scores[a]) < std::make_pair(ages[b], scores[b]);
+        });
+        
+        map<int, int> dp {{0, 0}};
+        
+        for (auto id: ind) {
+            
+            auto it1 = dp.upper_bound(scores[id]);
+            
+            const int may = prev(it1)->second + scores[id];
+            
+            for (auto it2 = dp.lower_bound(scores[id]); it2 != end(dp) && it2->second <= may; it2 = dp.erase(it2));
+            
+            dp[scores[id]] = may;
+        }
+        
+        return dp.rbegin()->second;
+    }
 
     /*
         O(n*log(n))
     */
-    int doit_(vector<int>& scores, vector<int>& ages) {
+    int doit_best(vector<int>& scores, vector<int>& ages) {
         const int n = scores.size();
         vector<int> ind(n);
         for (int i = 0; i < n; ++i) {
             ind[i] = i;
         }
         
-        sort(ind.begin(), ind.end(), [&](const int &x, const int &y) {
+        std::sort(ind.begin(), ind.end(), [&](const int &x, const int &y) {
             return std::make_pair(ages[x], scores[x]) < std::make_pair(ages[y], scores[y]);
         });
 

@@ -76,11 +76,9 @@ public:
 
     vector<int> doit_sort_treemap(vector<int>& A, vector<int>& B) {
         int n=A.size();
-        multiset<int> mst;
-        for(int i = 0; i < n; i++)
-        	mst.insert(A[i]);
-
+        multiset<int> mst(begin(A), end(A));
         vector<int> ans(n);
+
         for(int i = 0; i < n; i++){
         	auto it=mst.upper_bound(B[i]);
         	if(it == mst.end())
@@ -124,7 +122,6 @@ public:
         int j = 0;
         
         for (auto a : A) {
-            
             if (a > sortedB[j]) {
                 buff[sortedB[j]].push_back(a);
                 j++;

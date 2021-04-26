@@ -60,6 +60,31 @@ class RestoreMatrix {
 
 public:
 
+
+    vector<vector<int>> doit_greedy(vector<int>& rowSum, vector<int>& colSum) {
+    
+        int m = rowSum.size(), n = colSum.size();
+        vector<vector<int>> res(m, vector<int>(n, 0));
+        
+        int i = 0, j = 0;
+        
+        while (i < m && j < n) {
+            
+            while(i < m && rowSum[i] == 0) i++;
+            while(j < n && colSum[j] == 0) j++;
+            
+            if (i < m && j < n && rowSum[i] <= colSum[j]) {
+                res[i][j] = rowSum[i];
+                colSum[j] -= rowSum[i++];
+            } else if (i < m && j < n && rowSum[i] > colSum[j]) {
+                res[i][j] = colSum[j];
+                rowSum[i] -= colSum[j++];
+            }
+        }
+
+        return res;
+    }
+    
     /*
     
         1605.Find-Valid-Matrix-Given-Row-and-Column-Sums
@@ -108,12 +133,77 @@ public:
         {
             for (int j=0; j<n; j++)
             {
-                int v = min(rowSum[i], colSum[j]);
+                int v = std::min(rowSum[i], colSum[j]);
                 ret[i][j] = v;
                 rowSum[i] -= v;
-                colSum[j] -= v;                
+                colSum[j] -= v;
             }
         }
         return ret;        
+    }
+
+    /*
+        Intuition
+        The greedy pick won't break anything, so just take as much as possible.
+
+
+        Explanation
+        For each result value at A[i][j],
+        we greedily take the min(row[i], col[j]).
+
+        Then we update the row sum and col sum:
+        row[i] -= A[i][j]
+        col[j] -= A[i][j]
+
+
+        Easy Prove
+        A[i][j] will clear either row[i] or col[j],
+        that means either row[i] == 0 and col[j] == 0 in the end.
+
+        "It's guaranteed that at least one matrix that fulfills the requirements exists."
+        Also sum(row) == sum(col) always valid.
+
+        In the end, if row[i] > 0 and col[j] > 0,
+        then A[i][j] clear neither of them, based on 1) that's impossible.
+
+        So either sum(row) == 0 or sum(col) == 0.
+        Based on 2), we can have that sum(row) == sum(col) == 0.
+        That mean we find a right answer.
+
+        Done.
+
+
+        Solution 1
+        Time O(mn)
+        Space O(mn)
+    */
+    vector<vector<int>> doit_greedy(vector<int>& row, vector<int>& col) {
+        int m = row.size(), n = col.size();
+        vector<vector<int>> A(m, vector<int>(n, 0));
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0 ; j < n; ++j) {
+                A[i][j] = std::min(row[i], col[j]);
+                row[i] -= A[i][j];
+                col[j] -= A[i][j];
+            }
+        }
+        return A;
+    }
+
+    /*
+        Solution 2
+        Time O(mn) for initializing output
+        Time O(m + n) for process
+        Space O(mn)
+    */
+        vector<vector<int>> restoreMatrix(vector<int>& row, vector<int>& col) {
+        int m = row.size(), n = col.size(), i = 0, j = 0, a;
+        vector<vector<int>> A(m, vector<int>(n, 0));
+        while (i < m && j < n) {
+            a = A[i][j] = std::min(row[i], col[j]);
+            if ((row[i] -= a) == 0) ++i;
+            if ((col[j] -= a) == 0) ++j;
+        }
+        return A;
     }
 };

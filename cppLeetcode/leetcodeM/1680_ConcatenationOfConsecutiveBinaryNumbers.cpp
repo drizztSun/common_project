@@ -99,7 +99,7 @@ public:
 
         for (int i = 1; i <= n; i++) {
             if ((i & (i-1)) == 0) {
-                length += 1;
+                length++;
             }
 
             res = ((res << length) | i) % mod;
@@ -113,36 +113,34 @@ public:
     Let l = 2^t, n = b - a, then concatenatedBinary(a, b) = a*l^(n-1) + (a+1)*l^(n-2) + (a+2)*l^(n-3)... + (b- 1)*l^0 (it's easy to verify if you expand the expression from b)
     So that concatenatedBinary(a, b) = (a*(l^n-1) + (l^n-1)/(l-1) - n) / (l-1)
     */
-    int doi(int n) {
-
-        if(n == 1){
-            return 1;
-        }
+    int doit(int n) {
+        using ll = long long;
+        if(n == 1) return 1;
+        ll nL = n, ans = 0, l = 2, a = 1, b = 1;
         
-        long nL = n, ans = 0, l = 2, a = 1, b = 1;
         while(b < nL + 1){
             b = std::min(nL + 1, l);
             ans = (ans * myPow(l, b-a) + concatenateInterval(a, b, l)) % MOD;
             a = l;
             l = l << 1;
         }
+        
         return ans;
     }
-    
-private:
+
     const int MOD = 1e9+7;
-    int myPow(int x, int n){
-        if(n == 0){
-            return 1;
-        }
-        if(n == 1){
-            return x;
-        }
+    int myPow(int x, int n) {
+
+        if(n == 0) return 1;
+        if(n == 1) return x;
+
         long half = myPow(x, n/2);
         long ans = (half * half) % MOD;
+
         if(n % 2 == 1){
             ans = (ans * x) % MOD;
         }
+
         return ans;
     }
 

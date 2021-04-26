@@ -160,4 +160,26 @@ public:
         }
         return true;
     }
+
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+     
+        int maxstations = 0;
+        for (auto& c : trips)
+            maxstations = std::max(maxstations, c[2]);
+        
+        vector<int> changes(maxstations+20, 0);
+        
+        for (auto& c: trips) {
+            changes[c[1]] += c[0];
+            changes[c[2]] -= c[0];
+        }
+        
+        int curpassager = 0;
+        for (int i = 0; i < changes.size(); i++) {
+            curpassager += changes[i];
+            if (curpassager > capacity) return false;
+        }
+        
+        return true;
+    }
 };

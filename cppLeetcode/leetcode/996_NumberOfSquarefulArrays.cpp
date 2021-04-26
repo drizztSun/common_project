@@ -31,6 +31,7 @@ Note:
 #include <cmath>
 #include <unordered_map>
 #include <functional>
+#include <algorithm>
 
 using std::vector;
 using std::unordered_map;
@@ -146,6 +147,60 @@ public:
         }
 
         return ret;
+    }
+
+
+    int numSquarefulPerms(vector<int>& A) {
+        
+        int n = A.size();
+        vector<vector<int>> pairs(n);
+        vector<int> visible(n, 0);
+        std::sort(begin(A), end(A));
+        
+        for(int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i == j) continue;
+                if (sqrt(A[i]+A[j]) == int(sqrt(A[i]+A[j])))
+                    pairs[i].push_back(j);
+            }
+        }
+        
+        int ans = 0;
+        
+        std::function<void(int, int)> dfs = [&](int index, int count) {
+            
+            if (count == n) {
+                ans++;
+                return;
+            }
+            
+            int last = -1;
+            for (auto i: pairs[index]) {
+                
+                if (visible[i] == 1) continue;
+                if (last == A[i]) continue;
+                
+                last = A[i];
+                visible[i] = 1;
+                
+                dfs(i, count+1);
+                
+                visible[i] = 0;
+                
+            }
+            
+            
+        };
+        
+        for (int i = 0; i < A.size(); i++) {
+            if (i == 0 || A[i] != A[i-1]) {
+                visible[i] = 1;
+                dfs(i, 1);
+                visible[i] = 0;
+            }
+        }
+        
+        return ans;
     }
     
 public:

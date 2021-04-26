@@ -129,20 +129,3 @@ public:
         return res.length() ? res : "/";
     }
 };
-
-
-void test_71_simplify_path() {
-    
-    auto res1 = SimplifyPath().doit_stack("/home/");
-    
-    auto res2 = SimplifyPath().doit_stack("/../");
-    
-    auto res3 = SimplifyPath().doit_stack("/home//foo/");
-    
-    auto res4 = SimplifyPath().doit_stack("/a/./b/../../c/");
-    
-    auto res5 = SimplifyPath().doit_stack("/a/../../b/../c//.//");
-    
-    auto res6 = SimplifyPath().doit_stack("/a//b////c/d//././/..");
-    
-}

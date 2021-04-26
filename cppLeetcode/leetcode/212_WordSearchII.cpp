@@ -37,7 +37,9 @@ All the strings of words are unique.
 #include <unordered_map>
 #include <functional>
 #include <set>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::set;
 using std::unordered_map;
 using std::vector;
@@ -51,7 +53,10 @@ class WordSearch {
         此题是用将常规的DFS算法与Trie的数据结构相结合。设计DFS函数
 
         void DFS(int i, int j, TrieNode* node, string word, vector<vector<int>>&visited, vector<vector<char>>& board)
-        表示(i,j)为起点、node为Trie树的当前根、visited为已经经过的路径，求是否能在board里继续遍历出可以拼成完整单词的路径。拼出完整单词的依据是node->isEnd==true，无法继续的判据是node->next[board[i][j]-'a']==NULL
+        表示(i,j)为起点、node为Trie树的当前节点、visited为已经经过的路径，求是否能在board里继续遍历出可以拼成字典树里面任意的完整单词。能拼出完整单词的依据是走到某个节点时node->isEnd==true，无法继续的判据是node->next[board[i][j]-'a']==NULL
+
+        在新的数据集中，上面的方法会TLE。改进之处是每探索到一个单词之后，就将该单词从字典树里移出，避免重复搜索同一个单词。怎么修改字典树呢？我们不需要真地去删除节点，只需要给每个节点添加一个count标记。在最初建立字典树的时候，
+        每添加一个单词，我们就给沿途的节点的count加一。删除单词的时候，就给每个节点的count减一。当我们遍历字典树的时候，如果发现某个节点的count等于0时，就可以认为这个节点已经不存在了。
     */
     class TrieNode
     {
@@ -131,6 +136,174 @@ public:
         }        
     }
 
+//----------
+    class TrieNode
+    {
+        public:
+        TrieNode* next[26];
+        bool isEnd;
+        TrieNode()
+        {
+            for (int i=0; i<26; i++)
+                next[i]=NULL;
+            isEnd=false;
+        }
+    };
+    TrieNode* root;
+    unordered_set<string>Set;
+    int M, N;
+    bool visited[12][12];
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) 
+    {
+        M=board.size();
+        N=board[0].size(); 
+        root=new TrieNode();        
+        for (int i=0; i<words.size(); i++)
+        {
+            TrieNode* node=root;
+            for (auto ch: words[i])
+            {            
+                if (node->next[ch-'a']==NULL)
+                    node->next[ch-'a']=new TrieNode();
+                node=node->next[ch-'a'];
+            }
+            node->isEnd=true;
+        }            
+        
+        for (int i=0; i<M; i++)
+         for (int j=0; j<N; j++)
+         {   
+             TrieNode* node = root;          
+             string word;
+             visited[i][j]=1;
+             DFS(i,j,node,word,board);
+             visited[i][j]=0;
+         }
+        
+        vector<string>results(Set.begin(),Set.end());
+        return results;
+    }
+    
+    void DFS(int i, int j, TrieNode* node, string& word, vector<vector<char>>& board)
+    {
+        if (node->next[board[i][j]-'a']==NULL) return;        
+        node = node->next[board[i][j]-'a'];
+        word.push_back(board[i][j]);
+        
+        if (node->isEnd==true) Set.insert(word);
+        
+        vector<std::pair<int,int>>dir={{1,0},{-1,0},{0,1},{0,-1}};        
+        
+        for (int k=0; k<4; k++)
+        {
+            int x=i+dir[k].first;
+            int y=j+dir[k].second;
+            if (x<0||x>=M||y<0||y>=N) continue;
+            if (visited[x][y]==1) continue;
+            
+            visited[x][y]=1;            
+            DFS(x,y,node,word,board);
+            visited[x][y]=0;                           
+        }        
+
+        word.pop_back();
+    }
+
+//----- _best
+
+    class TrieNode
+    {
+        public:
+        TrieNode* next[26];
+        bool isEnd;
+        int count = 0;
+        TrieNode()
+        {
+            for (int i=0; i<26; i++)
+                next[i]=NULL;
+            isEnd=false;
+            count=0;
+        }
+    };
+    TrieNode* root;
+    vector<string>rets;
+    int M, N;
+    bool visited[12][12];
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) 
+    {
+        M=board.size();
+        N=board[0].size(); 
+        root=new TrieNode();        
+        for (int i=0; i<words.size(); i++)
+        {
+            TrieNode* node=root;
+            for (auto ch: words[i])
+            {            
+                if (node->next[ch-'a']==NULL)
+                    node->next[ch-'a']=new TrieNode();
+                node=node->next[ch-'a'];
+                node->count++;
+            }
+            node->isEnd=true;
+        }            
+        
+        for (int i=0; i<M; i++)
+         for (int j=0; j<N; j++)
+         {   
+             TrieNode* node = root;          
+             string word;
+             visited[i][j]=1;
+             DFS(i,j,node,word,board);
+             visited[i][j]=0;
+         }
+        
+        return rets;
+    }
+    
+    void DFS(int i, int j, TrieNode* node, string& word, vector<vector<char>>& board)
+    {
+        if (node->next[board[i][j]-'a']==NULL) return;        
+        if (node->next[board[i][j]-'a']->count==0) return;
+
+        node = node->next[board[i][j]-'a'];
+        word.push_back(board[i][j]);
+        
+        if (node->isEnd==true)
+        {
+            node->isEnd = false;
+            rets.push_back(word);
+            remove(root, word);
+        }
+        
+        vector<pair<int,int>>dir={{1,0},{-1,0},{0,1},{0,-1}};        
+        
+        for (int k=0; k<4; k++)
+        {
+            int x=i+dir[k].first;
+            int y=j+dir[k].second;
+            if (x<0||x>=M||y<0||y>=N) continue;
+            if (visited[x][y]==1) continue;
+            
+            visited[x][y]=1;            
+            DFS(x,y,node,word,board);
+            visited[x][y]=0;                           
+        }        
+
+        word.pop_back();
+    }
+
+    void remove(TrieNode* root, string word)
+    {
+        TrieNode* node = root;
+        for (auto ch: word)
+        {
+            node = node->next[ch-'a'];
+            node->count --;
+        }
+    }
+
 
 public:
     
@@ -198,12 +371,9 @@ public:
 
         return { begin(ans), end(ans) };
     }
-};
 
 
-
-
-class Solution {
+public:
 
     class TrieNode {
         public:
@@ -213,12 +383,12 @@ class Solution {
     };
 
     int dx[4] = {-1, 1, 0, 0}, dy[4] = {0, 0, -1, 1};
-public:
-    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+
+    vector<string> findWords_best(vector<vector<char>>& board, vector<string>& words) {
         //can letter at the same position be re-used?
         //[fat, fanny, bed, bear, god]
         // f
-        // /\
+        // /
         // a
         TrieNode* root = new TrieNode();
         for (auto word : words) {
@@ -230,13 +400,15 @@ public:
                 node = node->next[c];
             }
             node->word = word;
-            std::cout<<"Save the word: " << node->word<< "in the Trie"<<endl;
+            
+            //std::cout<<"Save the word: " << node->word<< "in the Trie"<<endl;
         }
+
         unordered_set<string> sol;
         for (int i = 0; i < board.size(); ++i) {
             for (int j = 0; j < board[0].size(); ++j) {
                 if (root->next.count(board[i][j])) {
-                    std::cout<<"The match is letter " << board[i][j] << endl;
+                    //std::cout<<"The match is letter " << board[i][j] << endl;
                     dfs(i, j, root, board, sol);
                 }
             }
@@ -249,13 +421,10 @@ public:
     }
     
     void dfs(int row, int col, TrieNode* node, vector<vector<char>>& board, unordered_set<string>& sol) {
-        // if (node->word != "") {
-        //     std::cout<<"The word is: " << node->word<<endl;
-        //     sol.push_back(node->word);
-        // }
+
         TrieNode* next = node->next[board[row][col]];
         if (next->word != "") {
-            std::cout<<"The word is: " << next->word<<endl;
+            // std::cout<<"The word is: " << next->word<<endl;
             sol.insert(next->word);
         }
         char tmp = board[row][col];
