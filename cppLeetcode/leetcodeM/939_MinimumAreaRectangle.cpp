@@ -111,6 +111,35 @@ class MinAreaRectI {
         return ans == INT_MAX ? 0 : ans;
     }
     
+    int doit_hashtable(vector<vector<int>>& points) {
+        
+        unordered_map<int, unordered_set<int>> xlines;
+        
+        for (auto& c: points) {
+            xlines[c[0]].insert(c[1]);
+        }
+        
+        int res = INT_MAX;
+        for (int i = 0; i < points.size(); i++) {
+            for (int j = i+1; j < points.size(); j++) {
+                
+                int x1 = points[i][0], y1 = points[i][1];
+                int x2 = points[j][0], y2 = points[j][1];
+
+                if (x1 == x2 || y1 == y2) continue;
+                
+                
+                if (xlines[x1].count(y2) == 0 || xlines[x2].count(y1) == 0) continue;
+                
+                res = std::min(res, abs(x2-x1) * abs(y1-y2));
+                
+            }
+        }
+        
+        
+        return res == INT_MAX ? 0 : res;
+    }
+
 public:
     
     /*

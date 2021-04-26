@@ -269,7 +269,7 @@ public:
         vector<int> ds(n, -1);
         vector<array<int, 3>> arr;
 
-        auto find = [](vector<int> &ds, int i) {
+        std::function<int(vector<int>&, int)> find = [&](vector<int> &ds, int i) {
             return ds[i] < 0 ? i : ds[i] = find(ds, ds[i]);
         };
 

@@ -60,6 +60,35 @@ public:
         return u[n - 1];
     }
 
+
+    int doit_heap_(int n, vector<int>& primes) {
+        
+        vector<int> ans{1};
+        // couse the vector<int> so performance is so low.
+        priority_queue<vector<int>, vector<vector<int>>, std::greater<>> pq;
+        
+        for (auto c: primes)
+            pq.push({c, c, 1});
+        
+        while (ans.size() < n) {
+            
+            auto it = pq.top(); pq.pop();
+            
+            int num = it[0];
+            
+            ans.push_back(num);
+            
+            pq.push({ans[it[2]] * it[1], it[1], it[2]+1});
+            
+            while (!pq.empty() && pq.top()[0] == num) {
+                it = pq.top(); pq.pop();
+                pq.push({ans[it[2]] * it[1], it[1], it[2]+1});
+            }
+        }
+        
+        return ans.back();
+    }
+
     int doit_heap(int n, vector<int>& primes) {
         
         vector<int> uglyNums{1};
@@ -88,6 +117,30 @@ public:
         
         return uglyNums.back();
     }
+
+    int doit_dp(int n, vector<int>& primes) {
+        
+        vector<int> cpr(primes.begin(),primes.end());
+        vector<int> ind(primes.size(),0);
+        vector<long long> dp(n+1);
+        dp[0]=1;
+
+        for(int i=1;i<n;i++){
+            long long int m=1e18;
+            for(auto p:primes){
+                m = std::min(m,(long long)p);
+            }
+            dp[i]=m;
+            for(int j=0;j<primes.size();j++){
+                if(m==primes[j]){
+                    ind[j]++;
+                    primes[j]=dp[ind[j]]*cpr[j];
+                }
+            }
+        }
+        return dp[n-1];
+    }
+
 
     /*
         313.Super-Ugly-Number

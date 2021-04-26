@@ -44,7 +44,9 @@ Constraints:
 #include <stack>
 #include <unordered_map>
 #include <functional>
+#include <queue>
 
+using std::queue;
 using std::unordered_map;
 using std::stack;
 using std::vector;
@@ -61,7 +63,7 @@ class isBipartite {
 
         当然，本题也可以用并查集来做。根据题意，对于graph[i]内的所有节点{j}，它们必定属于同一集合。因此我们Union每个graph[i]的点集，并查看过程中是否遇到任何矛盾。
     */
-    bool isBipartite(vector<vector<int>>& graph) 
+    bool doit_bfs(vector<vector<int>>& graph) 
     {
         int n = graph.size();
         vector<int>visited(n,-1);
@@ -71,7 +73,7 @@ class isBipartite {
             if (visited[i]!=-1)
                 continue;
             
-            queue<pair<int,int>>q;
+            queue<std::pair<int,int>>q;
             q.push({i,0}); // {node, group}
             visited[i] = 0;
         
@@ -101,8 +103,8 @@ class isBipartite {
         return true;        
     }
 
-    
 public:
+
     bool isBipartite_disjoint(vector<vector<int>>& graph) 
     {
         int N=graph.size();
@@ -145,8 +147,6 @@ public:
         return true;
     }
     
-
-
 public:
 
     /*

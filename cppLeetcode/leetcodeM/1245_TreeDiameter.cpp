@@ -112,6 +112,51 @@ class TreeDiameter {
 
 public:
 
+
+    int doit_dfs(vector<vector<int>>& edges) {
+        std::vector<std::vector<int>> m(edges.size() + 1);
+        
+        for (const auto& v : edges)
+        {
+            // This time we keep it undirected graph, so we use parent to control the access no-parent node, like Tree
+            m[v[0]].push_back(v[1]);
+            m[v[1]].push_back(v[0]);
+        }
+        
+        int diameter = 0;
+        
+            
+        std::function<int(int, int, int&)> helper = [&](int currentNode, int p, int& diameter) {
+            
+            auto maximumDistance = 0;
+            auto maximum1 = 0;
+            auto maximum2 = 0;
+            
+            for (auto num : m[currentNode])
+            {
+                if (num == p) continue;
+                
+                auto distance = helper(num, currentNode, diameter);
+
+                if (distance > maximum1)
+                {
+                    maximum2 = maximum1;
+                    maximum1 = distance;
+                }
+                else if (distance > maximum2)
+                {
+                    maximum2 = distance;
+                }
+            }
+
+            diameter = std::max(diameter, maximum1 + maximum2);
+            return maximum1 + 1;
+        };
+        
+        helper(0, -1, diameter);
+        return diameter;
+    }
+
     /*
         Approach 3: DFS (Depth-First Search)
         Intuition
@@ -176,6 +221,7 @@ public:
         
         for (const auto& v : edges)
         {
+            // simular the tree so using it as directed graph
             m[v[0]].push_back(v[1]);
         }
         

@@ -38,6 +38,30 @@ using std::vector;
 class SearchMatrix {
 
 public:
+
+    bool doit_search(vector<vector<int>>& matrix, int target) {
+        
+        int m = matrix.size();
+        if (m == 0) return -1;
+        
+        int n = matrix[0].size();
+        if (n == 0) return -1;
+        
+        int r = m-1, c = 0;
+        
+        while (r >= 0 && c < n) {
+            int e = matrix[r][c];
+            
+            if (e == target) return true;
+            
+            if (e > target) 
+                r--;
+            else
+                c++;
+        }
+        
+        return false;
+    }
     
     bool doit_(vector<vector<int>>& matrix, int target) {
 
@@ -53,7 +77,7 @@ public:
                 return search(r+1, c1, r2, c2) || search(r1, c+1, r2, c2);
 
             return search(r1, c2, r, c2) || search(r1, c2, r2, c);
-        };
+        }; 
 
         return search(0, 0, matrix.size(), matrix[0].size());
     }

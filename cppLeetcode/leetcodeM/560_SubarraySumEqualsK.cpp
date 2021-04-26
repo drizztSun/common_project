@@ -14,14 +14,38 @@
  */
 
 #include <vector>
-using std::vector;
-
 #include <unordered_map>
+
+using std::vector;
 using std::unordered_map;
 
 class SubarraySum {
 public:
     
+    int doit_presum(vector<int>& nums, int k) {
+        
+        int n = nums.size();
+        
+        vector<int> presums(n+1, 0);
+        
+        for(int i = 0; i < n; i++) {
+            presums[i+1] = presums[i] + nums[i];
+        }
+        
+        unordered_map<int, int> buf;
+        int ans = 0;
+        for (auto c : presums) {
+            
+            if (buf.count(c-k) > 0) {
+                ans += buf[c-k];
+            }
+            
+            buf[c]++;
+        }
+        
+        return ans;
+    }
+
     /*
      
      Approach #4 Using hashmap [Accepted]

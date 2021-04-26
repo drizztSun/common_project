@@ -77,7 +77,7 @@ public:
     */
     typedef std::pair<int,int> PII;
     
-    int doit_bfs_pq(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
+    int doit_bfs_pq_dijkstra(vector<vector<int>>& workers, vector<vector<int>>& bikes) {
 
         int m = workers.size(), n = bikes.size();
 

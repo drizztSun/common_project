@@ -19,6 +19,8 @@ Note:
 
 */
 #include <vector>
+#include <algorithm>
+#include <numeric>
 #include <functional>
 
 using std::vector;

@@ -102,7 +102,7 @@ public:
     }
 
     int doit_binary_search_best(vector<int>& nums) {
-        const int MOD = 1000000007;
+        constexpr int MOD = 1e9+7;
         int n = nums.size();
         vector<int> presum(n + 1, 0);
         for (int i = 0; i < n; i++) {
@@ -126,4 +126,42 @@ public:
             result += std::max(last - first + 1, 0);
         }
         return result % MOD;
+    }
+
+    int waysToSplit(vector<int>& nums) {
+        int n = nums.size();
+        for(int i=1;i<n;++i)nums[i]+=nums[i-1];
+        int total = nums[n-1];
+        long long good = 0;
+        for(int i=0;i<=n-3&&nums[i]<=total/3;++i)
+        {
+            int left = leftLimit(nums,2*nums[i],i+1,n-2);
+            int right = rightLimit(nums,nums[i]+(total-nums[i])/2,i+1,n-2);
+            good+= (right-left+1);
+            good%=1000000007;
+        }
+        return good;
+    }
+
+    int leftLimit(vector<int>&nums,int val,int left,int right)
+    {
+        while(left<right)
+        {
+            int mid = left+(right-left)/2;
+            if(val<=nums[mid])right = mid;
+            else left = mid+1;
+        }
+        return left;
+    }
+    
+    int rightLimit(vector<int>&nums,int val,int left,int right)
+    {
+        while(left+1<right)
+        {
+            int mid = left+(right-left)/2;
+            if(val<nums[mid])right = mid-1;
+            else left = mid;
+        }
+        return nums[right]<=val?right:left;
+    }
 };

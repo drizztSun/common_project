@@ -173,7 +173,46 @@ public:
         return k > count ? "": res;
     }
 
-    string doit_(int n, int k) {
+
+public:
+
+    string doit_greedy(int n, int k) {
+        
+        int base = (1 << (n-1));
+        
+        if (k > 3*base) return "";
+        
+        string ans;
+        
+        if (base >= k) 
+            ans += 'a';
+        else if (2 * base >= k) {
+            ans += 'b';
+            k -= base; 
+        } else {
+            ans += 'c';
+            k -= 2*base;
+        }
+        
+        string push[3] = {"bc", "ac", "ab"};
+        
+        while (ans.length() < n) {
+            
+            base >>= 1;
+            
+            int idx = ans.back() - 'a';
+            
+            if (k > base) {
+                ans.push_back(push[idx][1]);
+                k -= base;
+            } else
+                ans.push_back(push[idx][0]);
+        }
+        
+        return ans;
+    }
+
+    string doit_greedy(int n, int k) {
 
         // totoal is 
         int cnt = 3 * (1 << (n - 1));

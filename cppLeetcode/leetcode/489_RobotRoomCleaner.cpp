@@ -204,7 +204,7 @@ class CleanRoom {
 public:
 
     int dist[4][2] = {{0,1},{1,0},{0,-1},{-1,0}};
-    set<pair<int,int>> visited;
+    set<std::pair<int,int>> visited;
     void move_back(Robot& robot) {
         robot.turnRight();
         robot.turnRight();
