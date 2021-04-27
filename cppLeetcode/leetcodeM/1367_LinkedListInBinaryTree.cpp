@@ -194,7 +194,7 @@ public:
         return dfs(root);   
     }
 
-    bool isSubPath(ListNode* head, TreeNode* root) {
+    bool isSubPath_KMP(ListNode* head, TreeNode* root) {
         
         vector<int> linkvalues;
         while(head) {

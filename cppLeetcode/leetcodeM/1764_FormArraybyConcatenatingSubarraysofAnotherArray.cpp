@@ -127,7 +127,7 @@ public:
     }
 
 
-    bool doit_KMP(vector<vector<int>>& groups, vector<int>& nums)
+    bool doit_KMP_best(vector<vector<int>>& groups, vector<int>& nums)
     {
         int dp[1000];
 
