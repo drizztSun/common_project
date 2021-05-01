@@ -141,7 +141,7 @@ class OddEvenJumps {
 
         Space Complexity: O(N).
     */
-    int doit_(vector<int>& A) {
+    int doit_treemap(vector<int>& A) {
 
         int n  = A.size(), res = 1;
         vector<int> higher(n), lower(n);
@@ -154,8 +154,7 @@ class OddEvenJumps {
             auto hi = map.lower_bound(A[i]), lo = map.upper_bound(A[i]);
         
             if (hi != map.end()) higher[i] = lower[hi->second];
-            if (lo != map.begin()) lower[i] = higher[(--lo)->second];
-        
+            if (lo != map.begin()) lower[i] = higher[prev(lo)->second];
             if (higher[i]) res++;
             map[A[i]] = i;
         }

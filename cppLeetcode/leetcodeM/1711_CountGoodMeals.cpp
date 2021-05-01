@@ -36,6 +36,7 @@ Constraints:
 #include <map>
 #include <unordered_set>
 #include <unordered_map>
+#include <algorithm>
 
 using std::unordered_map;
 using std::unordered_set;
@@ -78,10 +79,12 @@ public:
 
 
     int doit_hashtable(vector<int>& deliciousness) {
+        
+        constexpr int hmod = 1e9 + 7;
         unordered_map<int, int> record;
         long long ans = 0;
         
-        for (auto & d : deliciousness)
+        for (auto d : deliciousness)
         {
             for (int i = 1; i <= (1 << 21); i *= 2)
             {
@@ -92,28 +95,21 @@ public:
             record[d]++;
         }
         
-        return ans % (int)(1e9 + 7);
+        return ans % hmod;
     }
 
 public:
 
-    
-
-    ll f(ll x)
-    {
-        return (1 + x - 1) * (x - 1) / 2;
-    }
-
     int countPairs_best(vector<int> &deli)
     {
         using ll = long long;
-        using pa = std::pair<int, ll>;
-        const ll mod = std::pow(10, 9) + 7;
+        constexpr int mod = 1e9 + 7;
 
-        std::sort(deli.begin(), deli.end(), [](int a, int b) { return a < b; });
-        vector<pa> arr;
+        std::sort(begin(deli), end(deli), [](int a, int b) { return a < b; });
+        vector<std::pair<int, ll>> arr;
         ll i = 0;
         ll len = (ll)(deli.size());
+        
         while (i < len)
         {
             ll j = i;
@@ -123,15 +119,13 @@ public:
             i = j;
         }
 
-        int max = 21;
+        int target = std::pow(2, 21);
         ll res = 0;
 
-        while (max >= 0)
-        {
-            const int target = std::pow(2, max--);
+        while (target > 0) { 
+
             i = 0;
             ll j = (ll)(arr.size() - 1);
-
             ll tmp = 0;
 
             while (i <= j)
@@ -148,7 +142,8 @@ public:
                 {
                     if (i == j)
                     {
-                        tmp += f(arr[i].second);
+                        ll x = arr[i].second;
+                        tmp += x * (x-1) / 2;
                         break;
                     }
 
@@ -159,6 +154,7 @@ public:
                 }
             }
             res += tmp;
+            target /= 2;
         }
 
         return (int)(res % mod);

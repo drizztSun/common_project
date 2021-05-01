@@ -98,19 +98,23 @@ public:
         return filter(S) == filter(T);
     }
 
-    
     bool doit_str(string S, string T) {
         
-        int i = 0, j = 0;
-        int ds = 0, dt = 0;
+        auto filter = [](string& target) {
+            
+            int i = 0;
+            for (int j = 0; j < target.length(); j++) {
+                
+                if (target[j] != '#') {
+                    target[i] = target[j];
+                    i++;
+                } else 
+                    i = std::max(i-1, 0);
+            }
+            
+            return i;
+        };
         
-        while (i < S.length() && j < T.length()) {
-            
-            
-            
-            
-        }
-        
-        return i == S.length() && j == T.length();
+        return S.substr(0, filter(S)) == T.substr(0, filter(T));
     }
 };

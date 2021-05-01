@@ -83,6 +83,28 @@ class CountTriplets {
 
 public:
 
+    int doit_best_(vector<int>& arr) {
+        
+        int total = 0, ans = 0;
+        unordered_map<int, std::pair<int, int>> buff;
+        buff.insert({0, {1, -1}});
+        
+        for (int i = 0; i < arr.size(); i++) {
+            
+            total ^= arr[i];
+            
+            if (buff.count(total)) {
+                
+                ans += (i-1) * buff[total].first - buff[total].second;
+            }
+            
+            buff[total].first += 1;
+            buff[total].second += i;
+        }
+    
+        return ans;
+    }
+
     /*
         Solution 1: Brute Force (TLE)
         Brute force all combinations, will TLE.

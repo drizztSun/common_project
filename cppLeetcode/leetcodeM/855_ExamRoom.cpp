@@ -34,8 +34,109 @@ Calls to ExamRoom.leave(p) are guaranteed to have a student currently sitting in
 
 
 */
+#include <vector>
 #include <set>
+#include <algorithm>
+
+using std::vector;
 using std::set;
+
+
+class ExamRoom {
+    
+    set<int> _buf;
+    int _n;
+    
+public:
+    ExamRoom(int N): _n(N) {}
+    
+    int seat() {
+        
+        int s = 0, mx = 0, idx = 0;
+        for(auto c: _buf) {
+            if (s == 0) {
+                if (mx < c - s) {
+                    mx = c - s;
+                    idx = 0;
+                }
+            } else {
+                if (mx < (c-s+1) / 2) {
+                    mx = (c-s+1) / 2;
+                    idx = s + mx - 1;
+                }
+            }
+            s = c+1;
+        }
+        
+        if (s > 0 && _n - s > mx) {
+            idx = _n-1;
+        }
+        _buf.insert(idx);
+        return idx;
+    }
+    
+    void leave(int p) {
+        _buf.erase(p);
+    }
+};
+
+/*
+    855.Exam-Room.cpp
+此题考虑什么样的数据结构最合适。我们需要存放什么呢？其实只要存放每个人的位置就可以了。人与人的间隔要不要单独存储呢？其实可以不必。线性的数组在这里就足够用了。虽然每次插入位置的搜索是线性的，内存的移动也会费时间，但似乎实际的效率还不错。
+
+每次进来一个人，我们线性扫描现有人的位置，查找最大的间隔。另外，头和尾的间隔需要另行考虑。确定最大间隔，就能确定插入的位置，直接用数组的insert命令即可。
+
+在人离开的时候，也是直接用lower_bound确定位置的迭代器，再删除迭代器即可。
+*/
+class ExamRoom {
+    int N;
+    vector<int>L;
+public:
+    ExamRoom(int N) 
+    {
+        this->N = N;
+    }
+    
+    int seat() 
+    {
+        if (L.size()==0)
+        {
+            L.push_back(0);
+            return 0;
+        }
+        
+        int maxGap = -1;
+        int pos;
+        
+        if (L[0]!=0)
+        {
+            pos = 0;
+            maxGap = L[0]-1;
+        }
+        for (int i=0; i<L.size()-1; i++)
+        {
+            if (L[i+1]!=L[i]+1 && (L[i+1]-L[i]-2)/2 > maxGap)
+            {
+                maxGap = (L[i+1]-L[i]-2)/2 ;
+                pos = L[i]+maxGap+1;
+            }
+        }
+        if (L.back()!=N-1 && N-1-L.back()-1>maxGap)
+        {
+            maxGap = N-1-L.back()-1;
+            pos = N-1;
+        }
+        
+        L.insert(lower_bound(L.begin(),L.end(),pos), pos);
+
+        return pos;
+    }
+    
+    void leave(int p) 
+    {
+        L.erase(lower_bound(L.begin(),L.end(),p));
+    }
+};
 
 class ExamRoom1 {
 public:

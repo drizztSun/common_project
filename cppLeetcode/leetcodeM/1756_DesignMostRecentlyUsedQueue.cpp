@@ -80,8 +80,8 @@ public:
         auto iter = skip[t];
         for (int i=0; i< k%step; i++)
             iter = next(iter);
+
         int ret = *iter;
-        
         List.push_back(ret);
         
         int j = (k%step==0)?t:t+1;

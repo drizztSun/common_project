@@ -60,53 +60,6 @@ class FindTheCity {
 
 public:
 
-    /*
-        Becasue O(N^3) is accepted in this problem, we don't need a very fast solution.
-        we can simply use Floyd algorithm to find the minium distance any two cities.
-
-        Reference Floyd–Warshall algorithm
-
-        I first saw @awice using it long time ago.
-        It's really easy and makes a lot sense.
-
-        Iterate all point middle point k,
-        iterate all pairs (i,j).
-        If it go through the middle point k,
-        dis[i][j] = dis[i][k] + dis[k][j].
-
-
-        Complexity
-        Time O(N^3)
-        Space O(N^2)
-    */
-    int doit_(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        vector<vector<int>> dis(n, vector(n, 10001));
-        int res = 0, smallest = n;
-        for (auto& e : edges)
-            dis[e[0]][e[1]] = dis[e[1]][e[0]] = e[2];
-
-        for (int i = 0; i < n; ++i)
-            dis[i][i] = 0;
-        
-		for (int k = 0; k < n; ++k)
-            for (int i = 0; i < n; ++i)
-                for (int j = 0; j < n; ++j)
-                    dis[i][j] = std::min(dis[i][j], dis[i][k] + dis[k][j]);
-        
-		for (int i = 0; i < n; i++) {
-            int count = 0;
-            for (int j = 0; j < n; ++j)
-                if (dis[i][j] <= distanceThreshold)
-                    ++count;
-            if (count <= smallest) {
-                res = i;
-                smallest = count;
-            }
-        }
-        return res;
-    }
-
-
 	/*
 		Explanation
         Becasue O(N^3) is accepted in this problem, we don't need a very fast solution.
@@ -128,7 +81,6 @@ public:
         Space O(N^2)
 	*/
     int doit_floyd_warshall(int n, vector<vector<int>>& edges, int distanceThreshold) {
-        
         
         vector<vector<int>> distance(n, vector<int>(n, 1e4));
         
@@ -167,7 +119,6 @@ public:
     }
 
     
-
 	int doit_dijkstra(int n, vector<vector<int>>& edges, int distanceThreshold) {
 
 		vector<std::pair<int, int>> adj[100005];
