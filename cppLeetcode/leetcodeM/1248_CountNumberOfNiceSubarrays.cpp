@@ -99,7 +99,7 @@ public:
         Time O(N) for one pass
         Space O(1)
     */
-    int doit_slidingwindow_1(vector<int>& A, int k) {
+    int doit_slidingwindow_best(vector<int>& A, int k) {
         int res = 0, i = 0, count = 0, n = A.size();
         
         for (int j = 0; j < n; j++) {

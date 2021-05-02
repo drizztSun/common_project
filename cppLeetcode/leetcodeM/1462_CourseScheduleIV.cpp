@@ -89,7 +89,7 @@ class CheckIfPrerequisite {
             preSet[i].insert(i);
             if (inDegree[i]==0)
                 q.push(i);
-        }            
+        }
         
         while (!q.empty())
         {
@@ -117,7 +117,7 @@ class CheckIfPrerequisite {
 
 public:
 
-    vector<bool> doit_dfs(int n, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
+    vector<bool> doit_bfs_topsort(int n, vector<vector<int>>& prerequisites, vector<vector<int>>& queries) {
 
         vector<int> degrees(n, 0);
         vector<unordered_set<int>> graph(n);

@@ -82,7 +82,7 @@ class MinBuildTime {
         if (j > n-i) return blocks[i]; // we have enough workers to start all remaining jobs simutaneously
         if (dp[i][j] != -1) return dp[i][j];
         
-        dp[i][j] = min(split + dfs(i, j*2), max(blocks[i], dfs(i+1, j-1)));
+        dp[i][j] = std::min(split + dfs(i, j*2), std::max(blocks[i], dfs(i+1, j-1)));
         
         return dp[i][j];
     }

@@ -161,13 +161,13 @@ public:
         return true;
     }
 
-    bool carPooling(vector<vector<int>>& trips, int capacity) {
+    bool carPooling_sweepline_best(vector<vector<int>>& trips, int capacity) {
      
         int maxstations = 0;
         for (auto& c : trips)
             maxstations = std::max(maxstations, c[2]);
         
-        vector<int> changes(maxstations+20, 0);
+        vector<int> changes(maxstations+1, 0);
         
         for (auto& c: trips) {
             changes[c[1]] += c[0];

@@ -41,6 +41,25 @@ class TargetSum {
 
 public:
 
+    int doit_best_dp(vector<int>& nums, int target) {
+        
+        int total = accumulate(begin(nums), end(nums), 0);
+        if (total < target || (total + target) % 2 == 1) return 0;
+        
+        int S = (total+target)/2;
+        vector<int> dp(S+1, 0);
+        dp[0] = 1;
+        
+        for (auto n : nums) {    
+            vector<int> tmp(dp);
+            for (int j = 0; j <= S - n; j++) {
+                tmp[j+n] += dp[j];
+            }
+            std::swap(tmp, dp);
+        }
+        
+        return dp[S];
+    }
 
     int doit_dp_divide_conquer_best(vector<int>& nums, int target) {
 
@@ -160,7 +179,8 @@ public:
         分析：
 
     这道题可以单纯的用暴力法解决，也就是对每个元素分别进行一次正负的累加，复杂度为2^n，因为n不超过20，故也就100w左右，但是在leetcode上同样的解法c++和java可以通过，python是无法通过的
-    这里介绍discuss里一位大神提出来的超帅的数学解法，这道题中我们加正负号无非是将nums分为两个子集p,n，p中元素全部加正号，n中元素全部加负号，使得sum(p) - sum(n) = S，而本身又有sum(p) + sum(n) = sum(nums)，故两式相加化简得sum(p) = (sum(nums)+S) / 2
+    这里介绍discuss里一位大神提出来的超帅的数学解法，这道题中我们加正负号无非是将nums分为两个子集p,n，p中元素全部加正号，n中元素全部加负号，使得sum(p) - sum(n) = S，
+    而本身又有sum(p) + sum(n) = sum(nums)，故两式相加化简得sum(p) = (sum(nums)+S) / 2
     
     那么这个式子直接给出了一个信息，也就是如果能找到p，则必有sum(nums)+S % 2 == 0这个条件，这个条件可以帮我们快速判断是否有解。
     那么此时题目就变成给定一个数组nums，求有多少组不同的p，使得sum(p) = target ((sum(nums) + S) / 2)，直接dp可解
@@ -175,7 +195,7 @@ public:
     
     */
     int doit_(vector<int>& nums, int S) {
-      S = std::abs(S);      
+      S = std::abs(S);
       const int sum = std::accumulate(nums.begin(), nums.end(), 0);
       if (sum < S || (S + sum) % 2 != 0) return 0;
       

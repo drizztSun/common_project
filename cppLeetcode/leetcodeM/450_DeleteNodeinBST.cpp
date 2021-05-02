@@ -154,11 +154,10 @@ public:
             if (cur->val > key)
                 cur = cur->left;
             else
-                cur = cur->right;            
+                cur = cur->right;
         }
         
         if (!cur) return root;
-        
         
         if (cur->right && cur->left) {
             

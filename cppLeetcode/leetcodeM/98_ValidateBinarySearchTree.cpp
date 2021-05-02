@@ -33,6 +33,7 @@ The number of nodes in the tree is in the range [1, 104].
 
 */
 
+#include <functional>
 #include <vector>
 #include <algorithm>
 
@@ -61,11 +62,10 @@ class IsValidBST {
     
     */
 
-
+public:
 
     vector<int>q;
 
-public:
     bool doit_(TreeNode* root) 
     {
         if (root==NULL) return true;
@@ -83,8 +83,6 @@ public:
         return true;
     }
 
-
-public:
     bool isValidBST(TreeNode* root) 
     {
         if (root==NULL) return true;
@@ -114,6 +112,30 @@ public:
 
 
 public:
+
+    bool isValidBST(TreeNode* root) {
+        
+        vector<int> values;
+        
+        std::function<void(TreeNode*)> dfs = [&](TreeNode* p) {
+          
+            if (!p) return;
+            
+            dfs(p->left);
+            
+            values.push_back(p->val);
+            
+            dfs(p->right);
+        };
+        
+        dfs(root);
+        
+        for (int i = 0; i < values.size()-1; i++) {
+            if (values[i] >= values[i+1]) return false;
+        }
+        
+        return true;
+    }
 
     bool isValidBST(TreeNode* root) {
         

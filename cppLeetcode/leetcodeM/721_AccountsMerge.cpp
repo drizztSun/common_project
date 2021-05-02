@@ -121,7 +121,7 @@ public:
 
 public:
 
-    vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+    vector<vector<string>> doit_disjoint(vector<vector<string>>& accounts) {
 
         unordered_map<string, string> owner;
         unordered_map<string, string> parents;

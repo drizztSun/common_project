@@ -93,7 +93,6 @@ public:
             if (nodes.count(cur)) return false;
             nodes.insert(cur);
             for (auto nx: graph[cur]) {
-
                 if (nx == parent) continue;
                 if (!dfs(nx, cur)) return false;
             }

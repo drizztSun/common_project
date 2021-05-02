@@ -49,6 +49,7 @@ All pairs (xi, yi) are distinct.
 */
 #include <vector>
 #include <array>
+#include <functional>
 #include <algorithm>
 #include <queue>
 
@@ -136,11 +137,12 @@ class MinCostConnectPoints {
     }
 
 public:
-    int visited[1000];
+    
 
     int minCostConnectPoints(vector<vector<int>>& points) 
     {
         int n = points.size();
+        int visited[1000];
         
         vector<vector<std::pair<int,int>>>edges(n);
         for (int i=0; i<n; i++)
@@ -168,19 +170,19 @@ public:
                 pq.push(edge);
         }                
         
-        return result;        
+        return result;
     }
 
 public:
 
-    int visited[1000];
-    
+
     int minCostConnectPoints(vector<vector<int>>& points) 
     {
+        int visited[1000];
         int n = points.size();
         if (n==1) return 0;
         
-        vector<int>minDist(n,INT_MAX);  // the min dist from point i to the current MST                
+        vector<int>minDist(n,INT_MAX);  // the min dist from point i to the current MST
         minDist[0] = 0;
                 
         int ret = 0;
@@ -328,7 +330,7 @@ public:
 
         As suggested by mithuntm, we can keep track of the minimal distance to each point, and update that distance as we connect more points. For each round, we need to scan all points to find the next point to connect to.
     */
-    int doit_prim_(vector<vector<int>>& ps) {
+    int doit_prim_best(vector<vector<int>>& ps) {
         int n = ps.size(), res = 0, i = 0, connected = 0;
         vector<int> min_d(n, 10000000);
 

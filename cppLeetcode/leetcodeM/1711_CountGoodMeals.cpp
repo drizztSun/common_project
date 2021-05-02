@@ -98,6 +98,61 @@ public:
         return ans % hmod;
     }
 
+    int doit_(vector<int>& A) {
+        using ll = long long;
+        constexpr int mod = 1e9 + 7;
+
+        unordered_map<int, int> buf;
+        for (auto c: A) buf[c]++;
+
+        vector<int> arr;
+        for (auto it: buf) arr.push_back(it.first);
+
+        std::sort(begin(arr), end(arr));
+
+
+        int target = std::pow(2, 21);
+        ll res = 0;
+
+        while (target > 0) { 
+
+            int i = 0;
+            int j = arr.size() - 1;
+            ll tmp = 0;
+
+            while (i <= j)
+            {
+                if (arr[i] + arr[j] < target)
+                {
+                    i++;
+                }
+                else if (arr[i] + arr[j] > target)
+                {
+                    j--;
+                }
+                else
+                {
+                    if (i == j)
+                    {
+                        ll x = buf[arr[i]];
+                        tmp += x * (x-1) / 2;
+                        break;
+                    }
+
+                    tmp += buf[arr[i]] * buf[arr[j]];
+                    if (buf[arr[i]] != 0)
+                        i++;
+                    j--;
+                }
+            }
+            res += tmp;
+            target /= 2;
+        }
+
+        return (int)(res % mod);
+    }
+
+
 public:
 
     int countPairs_best(vector<int> &deli)

@@ -78,6 +78,37 @@ class SubarraysWithKDistinct {
     
 public:
 
+    int doit_slidingwindow_threepointer_best(vector<int> A, int K) {
+        
+        unordered_map<int, int> longer, shorter;
+        int longer_len = 0, shorter_len = 0;
+        int ans = 0;
+        
+        for (int i = 0, S = 0, L = 0; i < A.size(); i++) {
+            
+            int c = A[i];
+            
+            if (longer[c]++ == 0) longer_len++;
+            if (shorter[c]++ == 0) shorter_len++;
+            
+            
+            while (longer_len > K) {
+                if (--longer[A[S++]] == 0) longer_len--;
+            }
+            
+            
+            while (shorter_len >= K) {
+                if (--shorter[A[L++]] == 0) shorter_len--;
+            }
+            
+            ans += L - S;
+            
+            
+        }
+        
+        return ans;
+    }
+
     /*
         I republished this post.
         The original one is deleded by Leetcode without any notification or information.

@@ -106,6 +106,29 @@ class LongestConsecutiveSequence {
 
 public:
 
+	int doit_hashtable(vector<int>& nums) {
+        
+        unordered_set<int> buf{begin(nums), end(nums)};
+        int ans = 0;
+        
+        for (auto c: buf) {
+            
+            if (buf.count(c-1) == 0) {
+                
+                int length = 1;
+                while (buf.count(c+1) > 0) {
+                    c++, length++;
+                }
+                
+                ans = std::max(ans, length);
+                
+            }
+        }
+        
+        return ans;
+    }
+
+
 	/*
 		Approach 3: HashSet and Intelligent Sequence Building
 		Intuition

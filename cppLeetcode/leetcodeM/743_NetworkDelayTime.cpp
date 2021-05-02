@@ -170,7 +170,7 @@ public:
     }
 
     // O(n^2)
-    int doit_dijkstra_1(vector<vector<int>>& times, int n, int k) 
+    int doit_dijkstra_n2(vector<vector<int>>& times, int n, int k) 
     {
         unordered_map<int, vector<PII>> Map;
         for (auto t: times)

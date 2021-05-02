@@ -1,5 +1,4 @@
 /*
-
 621. Task Scheduler
 
 Given a characters array tasks, representing the tasks a CPU needs to do, where each letter represents a different task.

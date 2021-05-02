@@ -30,18 +30,31 @@
  */
 
 #include <vector>
-using std::vector;
-
 #include <queue>
-using std::priority_queue;
-
 #include <algorithm>
 #include <numeric>
+#include <functional>
+
+
+using std::vector;
+using std::priority_queue;
+
 
 class KClosest {
     
 public:
 
+
+    vector<vector<int>> doit_quick_select(vector<vector<int>>& points, int k) {
+        
+        auto distance = [](auto a, auto b) {
+          return (a[0]*a[0] + a[1]*a[1]) < (b[0]*b[0] + b[1]*b[1]);  
+        };
+        
+        nth_element(begin(points), begin(points)+k-1, end(points), distance);
+        
+        return vector<vector<int>> {begin(points), begin(points)+k};
+    }
 
     vector<vector<int>> doit_partition_1(vector<vector<int>>& points, int K) {
 
@@ -99,9 +112,7 @@ public:
             return (a[0] * a[0] + a[1] * a[1]) < (b[0] * b[0] + b[1] * b[1]);
         });
         
-        vector<vector<int>>::iterator st = points.begin();
-        vector<vector<int>>::iterator en = points.begin() + K;
-        return vector<vector<int>>(st,en);
+        return vector<vector<int>>(begin(points), begin(points) + K);
     }
     /*
         O(n*log(n))
@@ -124,7 +135,7 @@ public:
         return res;
     }
     
-    vector<vector<int>> doit1(vector<vector<int>>&& points, int K) {
+    vector<vector<int>> doit_sort(vector<vector<int>>&& points, int K) {
         
         std::sort(points.begin(), points.end(), [](auto& a, auto& b) {
             return (a[0] * a[0] + a[1] * a[1]) < (b[0] * b[0] + b[1] * b[1]);
@@ -147,12 +158,3 @@ public:
         return res;
     }
 };
-
-void test_973_kclosest_points_to_origin() {
-    
-    auto res1 = KClosest().doit_partition(vector<vector<int>>{{3, 3}, {5, -1}, {-2, 4}}, 2);
-    
-    auto res2 = KClosest().doit_partition(vector<vector<int>>{{1, 3}, {-2, 2}}, 1);
-    
-    return;
-}

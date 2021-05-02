@@ -77,6 +77,26 @@ class FindPermutation {
 
 public:
 
+    vector<int> doit_greedy(string s) {
+       
+        int n = s.length();
+        vector<int> ans(n+1);
+        std::iota(begin(ans), end(ans), 1);
+        
+        for (int i = 0; i < s.length(); i++) {
+            
+            int j = i;
+            while (j < s.length() && s[j] == 'D') j++;
+            
+            if (j != i)
+                std::reverse(begin(ans)+i, begin(ans)+j+1);
+            i = j;
+        }
+        
+        
+        return ans;
+    }
+
     /*
         Approach #1 Using Stack [Accepted]
         Let's revisit the important points of the given problem statement. For a given nn, we need to use all the integers in the range (1,n)(1,n) to generate a lexicographically smallest permutation of these nn numbers which satsfies the pattern given in the string ss.
@@ -200,9 +220,9 @@ public:
         position. In this way, we can generate the required arrangement without initializing resres.
 
         **Complexity Analysis**
-        Time complexity : O(n)O(n). The resultant array of size nn is traversed atmost two times, in the worst case e.g. "DDDDDD"
+        Time complexity : O(n). The resultant array of size nn is traversed atmost two times, in the worst case e.g. "DDDDDD"
 
-        Space complexity : O(1)O(1). Constant extra space is used.
+        Space complexity : O(1). Constant extra space is used.
     */
     vector<int> doit_greedy(string s) {
         

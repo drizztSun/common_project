@@ -125,7 +125,6 @@ public:
 
         if (arr.size() <= 1) return 0;
         
-
         int n = arr.size();
         if (arr[0] == arr[n-1]) return 1;
         

@@ -101,7 +101,7 @@ public:
                     second=node;
             }
             
-            DFS(node->right);      
+            DFS(node->right);
         };
 
         DFS(root);

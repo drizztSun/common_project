@@ -233,6 +233,31 @@ public:
 
     int doit_slidingwindow(string s) {
         
+        int n = s.length(), res = n;
+        char kind[4] = {'Q', 'W', 'E', 'R'};
+        int ave = s.length() / 4;
+        unordered_map<char, int> cnt;
+        for (auto c: s) {
+            cnt[c]++;
+        }
+        
+        if (cnt['Q'] <= ave && cnt['W'] <= ave && cnt['E'] <= ave && cnt['R'] <= ave) return 0;
+        
+        for (int i = 0, j = 0; i < s.length(); i++) {
+            
+            cnt[s[i]]--;
+            
+            while (j <= i && cnt['Q'] <= ave && cnt['W'] <= ave && cnt['E'] <= ave && cnt['R'] <= ave) {
+                res = std::min(res, i - j + 1);
+                cnt[s[j++]]++;
+            }
+        }
+        
+        return res;
+    }
+
+    int doit_slidingwindow(string s) {
+        
         int res = s.length();
         char kind[4] = {'Q', 'W', 'E', 'R'};
         int ave = s.length() / 4;

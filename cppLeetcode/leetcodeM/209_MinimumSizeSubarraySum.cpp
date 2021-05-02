@@ -87,7 +87,6 @@ public:
             
             total += nums[i];
             
-            
             while (j <= i && total >= target) {
                 res = std::min(res, i - j + 1);
                 total -= nums[j++];

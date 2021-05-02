@@ -98,6 +98,23 @@ public:
         return s.substr(0, i);
     }
 
+    // O(1)
+    string doit_twopointer(string S) {
+     
+        int j = -1;
+        for (int i = 0; i < S.length(); i++) {
+            
+            if (j != -1 && S[j] == S[i]) {
+                j--;
+                continue;
+            }
+            
+            S[++j] = S[i];
+        }
+        
+        return S.substr(0, j+1);
+    }
+
     /*
         Solution 2: Stack
         Keep a res as a characters stack.

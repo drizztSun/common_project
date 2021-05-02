@@ -180,7 +180,7 @@ public:
 	/*
 	
 		Time: O(n)
-		Space: O()
+		Space: O(1)
 	*/
 	int doit(string s) {
 	
