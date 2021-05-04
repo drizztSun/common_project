@@ -211,10 +211,3 @@ class CherryPickup:
 
         res = dp[step % 2][N-1][N-1]
         return 0 if res == -1 else res
-
-
-if __name__ == "__main__":
-
-    res = CherryPickup().doit( [[0, 1, -1],
-                               [1, 0, -1],
-                               [1, 1,  1]])

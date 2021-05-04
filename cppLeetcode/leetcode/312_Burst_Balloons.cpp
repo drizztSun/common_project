@@ -81,27 +81,24 @@ public:
         return dp[1][M-2];
     }
     
-    int doit_dp_2(vector<int>&& nums) {
+    int doit_dp_bottom(vector<int>&& nums) {
         
+        nums.insert(begin(nums), 1);
         nums.push_back(1);
-        nums.insert(nums.begin(), 1);
-        auto M = nums.size();
-        vector<vector<int>> dp(M, vector<int>(M, 0));
         
-        for (auto s = 1; s < M-1; s++) {
-            
-            for (auto j = 1; j < M-s; j++) {
-                
-                for (auto k = j, e = j + s - 1; k <= e; k++) {
+        int N = nums.size();
+        vector<vector<int>> dp(N, vector<int>(N, 0));
+        
+        for (int L = 0; L <= N-2; L++) {
+            for (int i = 1; i < N-L-1; i++) {
+                for (int k = i, j = i + L; k <= j; k++) {
                     
-                    dp[j][e] = std::max(dp[j][e], nums[k] * nums[j-1] * nums[e+1] + dp[j][k-1] + dp[k+1][e]);
-                    
+                    dp[i][j] = std::max(dp[i][j], nums[k]*nums[i-1]*nums[j+1] + dp[i][k-1] + dp[k+1][j]);
                 }
             }
-            
         }
         
-        return dp[1][M-2];
+        return dp[1][N-2];
     }
     
     int doit_dp_1(vector<int>& nums) {

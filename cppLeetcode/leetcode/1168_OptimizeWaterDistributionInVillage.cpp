@@ -36,6 +36,7 @@ house1j != house2j
 
 #include <vector>
 #include <unordered_map>
+#include <algorithm>
 
 using std::unordered_map;
 using std::vector;
@@ -104,7 +105,7 @@ public:
 
 public:
 
-    int doit_disjoint(int n, vector<int>& wells, vector<vector<int>>& pipes) {
+    int doit_disjoint_mst(int n, vector<int>& wells, vector<vector<int>>& pipes) {
         
         vector<int> parents(n+1);
         std::iota(begin(parents), end(parents), 0);
@@ -138,7 +139,6 @@ public:
             
             if (find(c[0]) != find(c[1])) {
                 merge(c[0], c[1]);
-                
                 ans += c[2];
             }
         }

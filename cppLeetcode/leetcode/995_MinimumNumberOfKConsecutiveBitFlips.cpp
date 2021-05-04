@@ -60,7 +60,7 @@ class MinKBitFlips {
         for (int i=0; i<N; i++)
         {
             flipNum+=diff[i];
-            if ((A[i]+flipNum)%2==0 && i+K>N) return -1; 
+            if ((A[i]+flipNum)%2==0 && i+K>N) return -1;
             if ((A[i]+flipNum)%2==1) continue;            
             result++;
             flipNum++;

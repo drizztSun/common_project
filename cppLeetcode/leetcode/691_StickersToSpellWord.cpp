@@ -193,28 +193,29 @@ public:
                     ++start;
                 }
 
-                for (int i = 0; i < m; ++i) {  // try all stickers
-                // heuristic (this is the key speedup, we try stickers with char
-                // target[n-1-start] first, so we always can remove the right most
-                // char in cur_target)
-                if (map[i][target[n - 1 - start] - 'a'] == 0)
-                    continue;
+                for (int i = 0; i < m; ++i) {  
+                    // try all stickers
+                    // heuristic (this is the key speedup, we try stickers with char
+                    // target[n-1-start] first, so we always can remove the right most
+                    // char in cur_target)
+                    if (map[i][target[n - 1 - start] - 'a'] == 0)
+                        continue;
+                        
+                    int next_target = cur_target;
                     
-                int next_target = cur_target;
-                
-                    // try every char in stickers[i], delete it from cur_target
-                for (char c : stickers[i]) {
-                    for (int r = start; r < n; r++) {  // delete from right to left
-                        if (target[n - 1 - r] == c && ((next_target >> r) & 1)) {
-                            next_target ^= (1 << r);
-                            break;
+                        // try every char in stickers[i], delete it from cur_target
+                    for (char c : stickers[i]) {
+                        for (int r = start; r < n; r++) {  // delete from right to left
+                            if (target[n - 1 - r] == c && ((next_target >> r) & 1)) {
+                                next_target ^= (1 << r);
+                                break;
+                            }
                         }
                     }
-                }
+                    
+                    if (next_target == 0) return level;
                 
-                if (next_target == 0) return level;
-              
-                q.push(next_target);
+                    q.push(next_target);
                 }
             }
         }

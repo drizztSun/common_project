@@ -57,9 +57,6 @@ using namespace std;
 
 class SlidingPuzzle {
 
-
-	
-
 public:
 
 	void dfs(string path, unordered_map<string, int >& cache, unordered_map<int, vector<int>>& moves, int steps, int& min_moves) {
@@ -83,15 +80,12 @@ public:
 		}
 	}
 
-
-	// <DFS>
 	int doit(vector<vector<int>>& board) {
 		
 		unordered_map<int, vector<int>> moves{ { 0,{ 1, 3 } },{ 1,{ 0, 2, 4 } },{ 2,{ 1, 5 } },{ 3,{ 0, 4 } },{ 4,{ 3, 5, 1 } },{ 5,{ 4, 2 } } };
 		unordered_map<string, int> cache;
 
-		string current = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) +
-							to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
+		string current = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) + to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
 
 		int min_moves = INT_MAX;
 		
@@ -100,13 +94,9 @@ public:
 		return min_moves != INT_MAX ? min_moves : -1;
 	}
 
-
-
-
 	int doit2(vector<vector<int>>& board) {
 		unordered_map<int, vector<int>> moves{ {0, {1, 3}}, {1, {0, 2, 4}}, {2, {1, 5}}, {3, {0, 4}}, {4, {3, 5, 1}}, {5, {4, 2}} };
-		string current = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) +
-			to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
+		string current = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) + to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
 		
 		queue<pair<string, int>> q({ {current, current.find('0')} });
 		unordered_map<string, int> m({ {current, 0} });
@@ -126,19 +116,15 @@ public:
 		return q.empty() ? -1 : m[q.front().first];
 	}
 
-
-	// <BFS>
-	int doit3(vector<vector<int>>& board) {
+	int doit_bfs(vector<vector<int>>& board) {
 
 		string goal = "123450";
-		string current = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) +
-			to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
+		string current = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) + to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
 
-		vector<pair<int, int>> direct{ {0, -1}, {0, 1}, {1, 0}, {-1, 0} };
+		int dir[5] = {-1, 0, 1, 0, -1};
 		unordered_set<string> visited;
 		deque<pair<string, int>> queue;
 		queue.push_back(make_pair(current, 0));
-
 
 		while (!queue.empty()) {
 
@@ -153,37 +139,19 @@ public:
 			int x = index / 3, y = index % 3;
 			visited.insert(cur.first);
 
-			for (auto c : direct) {
-				int xx = x + c.first, yy = y + c.second;
-				if (xx >= 0 && xx < 2 && yy >= 0 && yy < 3) {
-					string next = cur.first;
-					swap(next[xx * 3 + yy], next[index]);
-					if (visited.find(next) == visited.end()) {
-						queue.push_back(make_pair(next, cur.second + 1));
-					}
-				}
+			for (int k = 0; k < 4; k++) {
+				int xx = x + dir[k], yy = y + dir[k+1];
+				if (xx < 0 || xx > 2 || yy < 0 || yy > 2) continue;
 
+				string next = cur.first;
+				std::swap(next[xx * 3 + yy], next[index]);
+				
+				if (visited.count(next) > 0)  continue; 
+
+				queue.push_back(make_pair(next, cur.second + 1));
 			}
 		}
 
 		return -1;
 	}
 };
-
-
-void Test_773_SlidingPuzzle() {
-
-	vector<vector<int>> input{ { 1, 2, 3 },{ 4, 0, 5 } };
-	auto res = SlidingPuzzle().doit(input);
-
-	vector<vector<int>> input1{ { 1, 2, 3 },{ 5, 4, 0 } };
-	auto res1 = SlidingPuzzle().doit(input1);
-
-	vector<vector<int>> input2{ { 4, 1, 2 },{ 5, 0, 3 } };
-	auto res2 = SlidingPuzzle().doit(input2);
-
-	vector<vector<int>> input3{ { 3, 2, 4 },{ 1, 5, 0 } };
-	auto res3 = SlidingPuzzle().doit(input3);
-
-	return;
-}

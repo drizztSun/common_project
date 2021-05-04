@@ -49,7 +49,6 @@ class WordFilter {
     unordered_map<string, vector<int>> prefix_;
 	unordered_map<string, vector<int>> suffix_;
 
-
 public:
 
 	WordFilter(vector<string> words) {
@@ -68,8 +67,7 @@ public:
 		auto pre = prefix_.find(prefix);
 		auto suf = suffix_.find(suffix);
 
-		if (pre == prefix_.end() || suf == suffix_.end())
-			return -1;
+		if (pre == prefix_.end() || suf == suffix_.end()) return -1;
 
 		vector<int>& vP = pre->second, vS = suf->second;
 		auto i = vP.rbegin(), j = vS.rbegin();
@@ -86,11 +84,11 @@ public:
 		}
 
 		return -1;
+    }
 };
 
 
 /*
-
     745.Prefix-and-Suffix-Search
     此题仍然考察基本的TrieNode的数据结构，但是需要稍微设计一下。
 

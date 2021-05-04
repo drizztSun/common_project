@@ -89,6 +89,44 @@ class ShortestPathLength {
 
 public:
 
+	int doit_bfs_bitmask(vector<vector<int>>& graph) {
+        
+        int n = graph.size();
+        int finalstatus = (1<<n) - 1;
+        int steps = 0;
+        vector<vector<bool>> visited(n, vector<bool>(1<<n, false));
+
+        queue<std::pair<int, int>> qu;
+        for(int i = 0; i < n; i++) {
+            qu.push({i, 1 << i});
+            visited[i][1<<i] = true;
+        }
+        
+        while (!qu.empty()) {
+            
+            int sz = qu.size();
+            
+            while (sz--) {
+                
+                auto [cur, v] = qu.front(); qu.pop();
+                
+                if (v == finalstatus) return steps;
+                
+                for (auto child: graph[cur]) {
+                    int status = v | 1 << child;
+                    if (!visited[child][status]) {
+                        visited[child][status] = true;
+                        qu.push({child, status});  
+                    }
+                }
+            }
+            steps++;
+        };
+        
+        return -1;
+    }
+
+
 	/*
 		Floyd + State Compression DP
 
@@ -165,11 +203,9 @@ public:
 
 		while (!st.empty()) {
 
-			int cover = st.front().first, now = st.front().second;
-			st.pop();
+			int cover = st.front().first, now = st.front().second; st.pop();
 
-			if (cover == (2 << N >> 1) - 1)
-				return res[cover][now];
+			if (cover == (2 << N >> 1) - 1) return res[cover][now];
 
 			for (auto i : graph[now]) {
 				int nextCover = cover, nextNode = i;
