@@ -82,8 +82,6 @@ public:
                 q.pop();
                 DFS(root->right,q,target,k);
             }
-            else
-                return;
         }
     }
 

@@ -108,7 +108,7 @@ public:
 
     int doit_best_slidingwindows(string s, int k) {
  
-        std::function<int(string, int)> search = [&](string s, int) -> int{
+        std::function<int(string, int)> search = [&](string s, int k) -> int{
 
             unordered_map<int,int>Map;
             // count char frequency

@@ -155,8 +155,7 @@ public:
 	
      void getSerializedStr(Node* root, string& serStr)
     {
-        if(!root)
-            return;
+        if(!root) return;
        
         serStr += std::to_string(root->val) + " ";
        
@@ -174,9 +173,7 @@ public:
     // Decodes your encoded data to tree.
     Node* deserialize(string data) 
     {
-        
-        if(data.empty())
-            return nullptr;
+        if(data.empty()) return nullptr;
         
         stringstream stream(data);        
        
@@ -192,8 +189,7 @@ public:
        
         stream >> val;
        
-        if(val == ",")
-            return nullptr;
+        if(val == ",") return nullptr;
        
         Node* root = new Node;
         root->val = stoi(val);

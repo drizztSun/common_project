@@ -50,7 +50,8 @@ class LargestIsland {
 public:
     
     int doit_bfs_dfs(vector<vector<int>>& grid) {
-                int m = grid.size(), n = grid[0].size();
+        
+        int m = grid.size(), n = grid[0].size();
         vector<int> areas{0, 0};
         int direct[5] = {-1, 0, 1, 0, -1};
         

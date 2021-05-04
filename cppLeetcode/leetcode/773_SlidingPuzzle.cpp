@@ -124,7 +124,7 @@ public:
 		int dir[5] = {-1, 0, 1, 0, -1};
 		unordered_set<string> visited;
 		deque<pair<string, int>> queue;
-		queue.push_back(make_pair(current, 0));
+		queue.push_back({current, 0});
 
 		while (!queue.empty()) {
 

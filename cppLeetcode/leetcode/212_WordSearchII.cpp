@@ -426,6 +426,7 @@ public:
         if (next->word != "") {
             // std::cout<<"The word is: " << next->word<<endl;
             sol.insert(next->word);
+            next->word = "";
         }
         char tmp = board[row][col];
         board[row][col] = '#';

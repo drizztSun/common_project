@@ -43,7 +43,9 @@
  */
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 
+using std::unordered_set;
 using std::unordered_map;
 using std::vector;
 

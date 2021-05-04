@@ -48,7 +48,7 @@ public:
                         }
         4.如果矩阵的行数远远大于列数，一定需要将矩阵转置以后再算，否则超时。
     */
-    int doit_heap(vector<vector<int>>& matrix, int k) 
+    int doit_hashtable(vector<vector<int>>& matrix, int k) 
     {
         int M = matrix.size();
         if (M==0) return 0;
@@ -76,7 +76,7 @@ public:
             for (int i=0; i<M; i++)
                 for (int j=0; j<N; j++)
                     matrix2[j][i]=matrix[i][j];
-            return doit_heap(matrix2,k);
+            return doit_hashtable(matrix2,k);
         }
         
         int result = INT_MIN;

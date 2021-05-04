@@ -76,19 +76,12 @@ public:
     // Data scope is so big, if travels from minv to maxv, it is gonna TLE. so each meaningful point will be count.
     vector<Interval> doit_sweepline(vector<vector<Interval>> schedule) {
         
-        int minv = INT_MAX, maxv = INT_MIN;
-        
         map<int, int> points;
 
         for (const auto& s: schedule) {
-            
-            for (const auto& c: s) {
-                int s = c.start, e = c.end;
-                minv = std::min(minv, s);
-                maxv = std::max(maxv, e);
-                
-                points[s]++;
-                points[e]--;
+            for (const auto& c: s) {        
+                points[c.start]++;
+                points[c.end]--;
             }
         }
         
@@ -184,9 +177,33 @@ public:
         Space Complexity: O(N) in additional space complexity.
     */
     vector<Interval> doit_heap(vector<vector<Interval>> schedule) {
-
         
-
+        using job = std::pair<int, int>;
+        vector<Interval> ans;
+        priority_queue<job, vector<job>> pq;
+        int ei = 0, anchor = INT_MAX;
+        
+        for (auto& employee: schedule) {
+            pq.push({ei++, 0});
+            anchor = std::min(anchor, employee[0].start);    
+        }
+        
+        while (!pq.empty()) {
+            
+            auto it = pq.top();
+            pq.pop();
+            Interval iv = schedule[it.first][it.second];
+            
+            if (anchor < iv.start)
+                ans.push_back(Interval(anchor, iv.start));
+            
+            anchor = std::max(anchor, iv.end);
+            if (++it.second < schedule[it.first].size()) {
+                pq.push(it);
+            }
+        }
+        
+        return ans;
     };
 
 };

@@ -138,7 +138,7 @@ public:
                     auto val2= val;
                     val2 += mat[i][idx2[i]+1] - mat[i][idx2[i]];
                     idx2[i]++;
-                    Set.insert({val2, idx2});                    
+                    Set.insert({val2, idx2});
                 }
             }
         }

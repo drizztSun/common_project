@@ -118,7 +118,7 @@ public:
 
         priority_queue<std::tuple<int, int, int>> qu;
         vector<vector<int>> visit(N, vector<int>(K, -1));
-        qu.push({0, -1, 0});
+        qu.push({0, -1, 0}); // days, week, city
         int res = 0;
         
         while (!qu.empty()) {

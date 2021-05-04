@@ -94,7 +94,7 @@ public:
             int ladder = 2;
         
             while (!head.empty() && !tail.empty()) {
-                if (head.size() < tail.size()) {358
+                if (head.size() < tail.size()) {
                     phead = &head;
                     ptail = &tail;
                 } else {
