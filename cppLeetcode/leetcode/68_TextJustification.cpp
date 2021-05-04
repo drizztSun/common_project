@@ -67,23 +67,14 @@
 #include <vector>
 #include <string>
 
-using namespace std;
+using std::string;
+using std::vector;
 
 class FullJustify {
 
-	bool dfs(const vector<string>& words, int idx, int maxWidth, vector<string>& res) {
-        return false;
-	}
-
-
 public:
-	vector<string> doit1(vector<string>& words, int maxWidth) {
 
-
-		return vector<string>{};
-	}
-
-	vector<string> doit(vector<string>&& words, int maxWidth) {
+	vector<string> doit_str(vector<string>&& words, int maxWidth) {
 
 		vector<string> res;
 		int amount = 0;
@@ -139,7 +130,7 @@ public:
 		return now;
 	}
 
-	vector<string> fullJustify(vector<string>& words, int maxWidth) {
+	vector<string> doit_str(vector<string>& words, int maxWidth) {
 		vector<string> ans;
 		if (words.size() == 0) return ans;
 
@@ -184,17 +175,3 @@ public:
 		return ans;
 	}
 };
-
-
-void Test_68_TextJustification() {
-
-	auto res1 = FullJustify().doit(vector<string>{"This", "is", "an", "example", "of", "text", "justification."}, 16);
-
-	auto res2 = FullJustify().doit(vector<string>{"What", "must", "be", "acknowledgment", "shall", "be"}, 16);
-
-	auto res3 = FullJustify().doit(vector<string>{"Science", "is", "what", "we", "understand", "well", "enough", "to", "explain", "to", "a", "computer.", "Art", "is", "everything", "else", "we", "do"}, 20);
-
-	auto res4 = FullJustify().doit(vector<string> {"ask", "not", "what", "your", "country", "can", "do", "for", "you", "ask", "what", "you", "can", "do", "for", "your", "country"}, 16);
-
-
-}

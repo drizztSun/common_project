@@ -25,8 +25,7 @@ Note:
 */
 
 #include <vector>
-
-using namespace std;
+using std::vector;
 
 class MaxSumOfThreeSubarrays {
 
@@ -78,14 +77,3 @@ public:
 		return res;
 	}
 };
-
-void Test_689_MaxSumOfThreeSubarray() {
-
-	// # [0, 3, 4]
-	auto res1 = MaxSumOfThreeSubarrays().doit(vector<int>{1, 2, 1, 2, 6, 7, 5, 1}, 2);
-
-	// # [1,4,7]
-	auto res2 = MaxSumOfThreeSubarrays().doit(vector<int>{7, 13, 20, 19, 19, 2, 10, 1, 1, 19}, 3);
-
-	return;
-}

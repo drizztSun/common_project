@@ -64,9 +64,7 @@ public:
 
 		for (int i = 0; i < nums.size(); i++) {
 			while (nums[i] > 0 && nums[i] <= nums.size() && nums[i] != i+1 && nums[i] != nums[nums[i]-1]) {
-				int tmp = nums[i];
-				nums[i] = nums[tmp - 1]; 
-				nums[tmp-1] = tmp;
+				std::swap(nums[i], nums[nums[i]-1]);
 			}
 		}
 

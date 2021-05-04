@@ -24,15 +24,16 @@
  
  */
 
-// Definition for singly-linked list.
-struct ListNode {
-    int val;
-    ListNode *prev;
-    ListNode *next;
-    ListNode(int x) : val(x), next(nullptr) {}
-};
-
 class ReverseKGroup {
+
+    // Definition for singly-linked list.
+    struct ListNode {
+        int val;
+        ListNode *prev;
+        ListNode *next;
+        ListNode(int x) : val(x), next(nullptr) {}
+    };
+
 public:
     ListNode* doit(ListNode* head, int k) {
        

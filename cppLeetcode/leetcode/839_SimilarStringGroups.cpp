@@ -1,5 +1,4 @@
 /*
-
 # 839. Similar String Groups
 
 # Two strings X and Y are similar if we can swap two letters (in different positions) of X, so that it equals Y.
@@ -35,58 +34,58 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <functional>
 
 
 using namespace std;
 
-bool similar(const string& A, const string& B) {
-	int res = 0;
-	for (auto i = 0; res < 3 && i < A.size(); i++) {
-		if (A[i] != B[i])
-			res++;
-	}
-	return res == 2;
-}
-
-class disjoint_set {
-	vector<int> Parent_;
-	int size_;
-
-public:
-	disjoint_set(int n) {
-		Parent_.resize(n);
-		iota(Parent_.begin(), Parent_.end(), 0);
-		size_ = n;
-	}
-
-	int Find(int x) {
-		while (Parent_[x] != x) {
-			Parent_[x] = Parent_[Parent_[x]];
-			x = Parent_[x];
-		}
-		return x;
-	}
-
-	void Union(int x, int y) {
-		x = Find(x);
-		y = Find(y);
-		if (x != y) {
-			Parent_[x] = y;
-			size_--;
-		}
-	}
-
-	int getSize() {
-		return size_;
-	}
-
-};
-
-
-
 class NumSimilarGroups {
-public:
-	int doit_disjoint(vector<string>&& A) {
+
+    bool similar(const string& A, const string& B) {
+        int res = 0;
+        for (auto i = 0; res < 3 && i < A.size(); i++) {
+            if (A[i] != B[i])
+                res++;
+        }
+        return res == 2;
+    }
+
+    class disjoint_set {
+        vector<int> Parent_;
+        int size_;
+
+    public:
+        disjoint_set(int n) {
+            Parent_.resize(n);
+            iota(Parent_.begin(), Parent_.end(), 0);
+            size_ = n;
+        }
+
+        int Find(int x) {
+            while (Parent_[x] != x) {
+                Parent_[x] = Parent_[Parent_[x]];
+                x = Parent_[x];
+            }
+            return x;
+        }
+
+        void Union(int x, int y) {
+            x = Find(x);
+            y = Find(y);
+            if (x != y) {
+                Parent_[x] = y;
+                size_--;
+            }
+        }
+
+        int getSize() {
+            return size_;
+        }
+
+    };
+
+    int doit_disjoint(vector<string>&& A) {
+
 		disjoint_set ds(A.size());
 
 		for (auto i = 0; i < A.size(); i++)
@@ -96,6 +95,8 @@ public:
 
 		return ds.getSize();
 	}
+
+public:
 
     int doit_dfs(vector<string>&& strs) {
         
@@ -139,9 +140,7 @@ public:
                 }
             }
         };
-        
 
-        
         for (auto i = 0; i < n; i++)
             for (auto j = i+1; j < n; j++) {
                 if (is_similar(strs[i], strs[j])) {
@@ -162,12 +161,3 @@ public:
         return cnt;
     }
 };
-
-
-void Test_839_SimilarStringGroups() {
-
-	NumSimilarGroups().doit_dfs(vector<string>{"tars", "rats", "arts", "star"});
-
-	NumSimilarGroups().doit_dfs(vector<string>{"koqnn", "knnqo", "noqnk", "nqkon"});
-
-}

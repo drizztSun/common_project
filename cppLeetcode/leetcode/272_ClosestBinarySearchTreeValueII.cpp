@@ -1,12 +1,9 @@
 /*
 272. Closest Binary Search Tree Value II
 
-
 Given the root of a binary search tree, a target value, and an integer k, return the k values in the BST that are closest to the target. You may return the answer in any order.
 
 You are guaranteed to have only one unique set of k values in the BST that are closest to the target.
-
- 
 
 Example 1:
 
@@ -28,23 +25,22 @@ The number of nodes in the tree is n.
  
 
 Follow up: Assume that the BST is balanced. Could you solve it in less than O(n) runtime (where n = total nodes)?
-
-
-
-
 */
+
 #include <functional>
 #include <vector>
 #include <queue>
 #include <algorithm>
 #include <map>
+#include <stack>
 
+using std::stack;
 using std::multimap;
 using std::priority_queue;
 using std::queue;
 using std::vector;
 
-class Solution {
+class ClosestKValues {
 
     /*
         272.Closest-Binary-Search-Tree-Value-II
@@ -139,12 +135,11 @@ public:
         };
 
         inorder(root);
+        
         vector<int> ans;
-        auto it = buf.begin(); 
-        do {
-            ans.push_back(it->second);
-            it = next(it);
-        } while (it != buf.end());
+        for (auto it : buf) {
+            ans.push_back(it.second);
+        }
 
         return ans;
     }
@@ -182,4 +177,145 @@ public:
         dfs(root->right, Q, target, k);
     }
 
+public:
+
+    vector<int> closestKValues(TreeNode* root, double target, int k) {
+        deque<int> res;
+        // find up to k values, that smaller than(or equal to) target
+        find_k_smallerEq(root, target, k, res);
+        deque<int> resBigger;
+        find_k_bigger(root, target, k, resBigger);
+        for (auto v : resBigger) {
+            res.push_back(v);
+        }
+        while (res.size() > k) {
+            if (abs(res.front() - target) >= abs(res.back() - target)) {
+                res.pop_front();
+            }else {
+                res.pop_back();
+            }
+        }
+        return vector<int>(res.begin(), res.end());
+    }
+
+    void find_k_smallerEq(TreeNode* root, double target, const int k, deque<int>& res) {
+        if (not root || res.size() >= k)
+            return;
+        if (root->val > target) {
+            find_k_smallerEq(root->left, target, k, res);
+            return;
+        }
+        find_k_smallerEq(root->right, target, k, res);
+        if (res.size() < k)
+            res.push_front(root->val);
+        find_k_smallerEq(root->left, target, k, res);
+    }
+    
+    void find_k_bigger(TreeNode* root, double target, const int k, deque<int>& res) {
+        if (not root || res.size() >= k) {
+            return;
+        }
+        if (root->val <= target) {
+            find_k_bigger(root->right, target, k, res);
+            return;
+        }
+        find_k_bigger(root->left, target, k, res);
+        if (res.size() < k)
+            res.push_back(root->val);
+        find_k_bigger(root->right, target, k, res);
+    }
+
+public:
+
+    // stack that moves lower and higher on the BST
+    stack <TreeNode*> hi, lo;
+    vector<int> closestKValues(TreeNode * root, double target, int k) {
+        // write your code here
+        // first find the closest TreeNode
+        TreeNode* pivot = findTarget(root, target);
+        initStacks(root, pivot);
+        vector<int> ret;
+        ret.push_back(pivot->val);
+        moveHigher();
+        moveLower();
+        
+        while (ret.size() < k){
+            if (lo.empty() && hi.empty()){
+                break;
+            }
+            if (lo.empty() || (!hi.empty() && abs(hi.top()->val - target) < abs(lo.top()->val - target))){
+                ret.push_back(hi.top()->val);
+                moveHigher();
+            }
+            else{
+                ret.push_back(lo.top()->val);
+                moveLower();
+            }
+        }
+        return ret;
+    }
+    // pushing the root to closest TreeNode path onto a stack
+    void initStacks(TreeNode* root, TreeNode* closest){
+        while (root){
+            hi.push(root);
+            lo.push(root);
+            if (root == closest){
+                return;
+            }
+            if (root->val < closest->val){
+                root = root->right;
+            }
+            else{
+                root = root->left;
+            }
+        }
+    }
+    
+    TreeNode* findTarget(TreeNode* root, double target){
+        TreeNode* closest = root;
+        while (root){
+            if (abs(closest->val - target) > abs(root->val - target)){
+                closest = root;   
+            }
+            if (root->val > target){
+                root = root->left;
+            }
+            else{
+                root = root->right;
+            }
+        }
+        return closest;
+    }
+    // move to larger elements using hi stack
+    void moveHigher(){
+        TreeNode* t = hi.top();
+        if (t->right){
+            t = t->right;
+            while (t){
+                hi.push(t);
+                t = t->left;    
+            }
+        }
+        else{
+           while (!hi.empty() && hi.top()->val <= t->val){
+               hi.pop();
+           } 
+        }
+    }
+    // move to lower elements using lo stack
+    void moveLower(){
+        TreeNode* t = lo.top();
+        if (t->left){
+            t = t->left;
+            while (t){
+                lo.push(t);
+                t = t->right;    
+            }
+        }
+        else{
+           while (!lo.empty() && lo.top()->val >= t->val){
+               lo.pop();
+           }
+        }
+    }
 };

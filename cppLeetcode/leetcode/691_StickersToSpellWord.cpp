@@ -43,11 +43,12 @@
  The time limit may be more challenging than usual. It is expected that a 50 sticker test case can be solved within 35ms on average.
 
  */
-#include<vector>
-#include<unordered_map>
-#include<string>
-#include<unordered_set>
-#include<queue>
+#include <vector>
+#include <unordered_map>
+#include <string>
+#include <unordered_set>
+#include <queue>
+#include <functional>
 
 using std::string;
 using std::vector;
@@ -56,54 +57,99 @@ using std::unordered_set;
 using std::queue;
 
 class MinStickers {
-    
-public:
-    
-    void dfs(const vector<string>& stickers, const string& target, unordered_map<char, int>& buff, int c, int p, unordered_map<char, int>& targetbuf, int& res) {
-        
-        if (p == target.length()) {
-            if (res == -1 || res > c) {
-                res = c;
-            }
-            return;
-        }
-        
-        if (buff[target[p]] >= targetbuf[target[p]]) {
-            dfs(stickers, target, buff, c, p+1, targetbuf, res);
-            return;
-        }
-        
-        if (res != -1 && c >= res)
-            return;
-            
-        for(auto& stick : stickers) {
-            if (stick.find(target[p]) != -1) {
-                for (auto c : stick) {
-                    buff[c]++;
-                }
-                
-                dfs(stickers, target, buff, c+1, p+1, targetbuf, res);
-                
-                for (auto c : stick) {
-                    buff[c]--;
-                }
+
+    /*
+        691.Stickers-to-Spell-Word
+        设置状态数组dp[i],dp的大小是 N = 2^n, 其中n是target的大小。怎么理解？将dp的索引i进行二进制拆解，i的每一个bit表示的是target对应位置的字符是否得到了满足。比如n=3时，dp数组的大小N=8，对应的状态有 000,001,010,011,100,101,110,111. 举个例子，i=3 (即011)表示target的末两位的字符得到了满足，但第一位的字符还没有得到满足。dp[i]表示在状态i下，需要的sticker的最少数目。
+
+        注意：这种状态的排列有一个非常好的性质。任何状态，只可能由位于其前面的状态转移得到，不可能从后面的状态转移得到。比如i=3(即 011)这个状态，只可能从i=0,1,2转移过来（通过使用某些合适的sticker）；再比如i=4(即100)这个状态，只可能从i=0转移过来。这种状态转移的性质，非常适合dp根据i从前往后的遍历。
+
+        所以，dp的大循环就是 for (state=0; state<(1<<n); state++). 对于该状态state，我们尝试每一个sticker[k]，计算状态i经过sticker[k]的帮助后得到的状态new_state（注意已经分析过new_state肯定是大于state的），那么dp[new_state]就可以得到更新dp[new_state]=min(dp[new_state], dp[state]+1)
+
+        所有的状态i都遍历过之后，答案的输出就是 dp[N-1]
+    */
+    int minStickers(vector<string>& stickers, string target) 
+    {
+        int n = target.size();
+        vector<int>dp(1<<n,INT_MAX);
+        dp[0] = 0;
+
+        for (int state=0; state<(1<<n); state++)
+        {
+            if (dp[state]==INT_MAX) continue;
+            for (string str:stickers)
+            {
+                int new_state = findNextStatusByUsingStr(state,target,str);
+                dp[new_state] = std::min(dp[new_state], dp[state]+1);
             }
         }
+        return dp[(1<<n)-1]==INT_MAX?-1: dp[(1<<n)-1];
     }
     
-    int doit_dfs(vector<string>&& stickers, string target) {
-    
-        unordered_map<char, int> buff, targetbuff;
-        for (auto c: target) {
-            targetbuff[c]++;
+    int findNextStatusByUsingStr(int status, string target, string s)
+    {
+        int n = target.size();
+        for (auto ch:s)
+        {
+            // loop over each character in target, if equals to ch and not filled, then set as filled
+            for (int k=0; k<n; k++)
+            {
+                if (((status>>k)&1)==0 && target[k]==ch)
+                {
+                    status = status+(1<<k);   
+                    break;
+                }
+            }
         }
+        return status;
+    }
+    
+public:
+
+    int doit_dfs_TLE(vector<string>&& stickers, string target) {
+    
+        unordered_map<char, int> buff, targetbuf;
+        for (auto c: target) targetbuf[c]++;
         
         int res = -1;
-        dfs(stickers, target, buff, 0, 0, targetbuff, res);
+
+        std::function<void(int, int)> dfs = [&](int c, int p){
+            
+            if (p == target.length()) {
+                if (res == -1 || res > c) {
+                    res = c;
+                }
+                return;
+            }
+            
+            if (buff[target[p]] >= targetbuf[target[p]]) {
+                dfs(c, p+1);
+                return;
+            }
+            
+            if (res != -1 && c >= res)
+                return;
+                
+            for(auto& stick : stickers) {
+                if (stick.find(target[p]) != -1) {
+                    for (auto chr : stick) {
+                        buff[chr]++;
+                    }
+                    
+                    dfs(c+1, p+1);
+                    
+                    for (auto chr : stick) {
+                        buff[chr]--;
+                    }
+                }
+            }
+        };
+
+        dfs(0, 0);
         return res;
     }
     
-    
+public:
     
     int doit_bfs(vector<string>& stickers, string target) {
         
@@ -126,57 +172,58 @@ public:
         
         while (!q.empty()) {
             
-          ++level;
-          for (int sz = q.size(); sz > 0; --sz) {
-              
-            int cur_target = q.front();
-            q.pop();
-            
-            // check if cur_target has been visited
-            if (vis.count(cur_target))
-                continue;
-            vis.insert(cur_target);
-            
-            // the starting point from the right that need to be eliminated
-            // because we always try to remove the right most char first (heuristic,
-            // see below)
-            int start = 0;
-            while (start < n) {
-              if ((cur_target >> start) & 1)
-                  break;
-              ++start;
-            }
+            ++level;
 
-            for (int i = 0; i < m; ++i) {  // try all stickers
-              // heuristic (this is the key speedup, we try stickers with char
-              // target[n-1-start] first, so we always can remove the right most
-              // char in cur_target)
-              if (map[i][target[n - 1 - start] - 'a'] == 0)
-                  continue;
+            for (int sz = q.size(); sz > 0; --sz) {
                 
-              int next_target = cur_target;
-              
-                // try every char in stickers[i], delete it from cur_target
-              for (char c : stickers[i]) {
-                for (int r = start; r < n; r++) {  // delete from right to left
-                  if (target[n - 1 - r] == c && ((next_target >> r) & 1)) {
-                    next_target ^= (1 << r);
-                    break;
-                  }
+                int cur_target = q.front();
+                q.pop();
+                
+                // check if cur_target has been visited
+                if (vis.count(cur_target)) continue;
+                vis.insert(cur_target);
+                
+                // the starting point from the right that need to be eliminated
+                // because we always try to remove the right most char first (heuristic,
+                // see below)
+                int start = 0;
+                while (start < n) {
+                    if ((cur_target >> start) & 1)
+                        break;
+                    ++start;
                 }
-              }
+
+                for (int i = 0; i < m; ++i) {  // try all stickers
+                // heuristic (this is the key speedup, we try stickers with char
+                // target[n-1-start] first, so we always can remove the right most
+                // char in cur_target)
+                if (map[i][target[n - 1 - start] - 'a'] == 0)
+                    continue;
+                    
+                int next_target = cur_target;
                 
-              if (next_target == 0)
-                  return level;
+                    // try every char in stickers[i], delete it from cur_target
+                for (char c : stickers[i]) {
+                    for (int r = start; r < n; r++) {  // delete from right to left
+                        if (target[n - 1 - r] == c && ((next_target >> r) & 1)) {
+                            next_target ^= (1 << r);
+                            break;
+                        }
+                    }
+                }
+                
+                if (next_target == 0) return level;
               
-               q.push(next_target);
+                q.push(next_target);
+                }
             }
-          }
         }
+
         return -1;
-      }
+    }
     
-    
+public:
+
     int minStickers(vector<string>& stickers, string target) {
         int m = stickers.size();
         vector<vector<int>> mp(m, vector<int>(26, 0)); // word count for each sticker
@@ -187,7 +234,7 @@ public:
         dp[""] = 0;
         return helper(dp, mp, target);
     }
-private:
+
     int helper(unordered_map<string, int>& dp, vector<vector<int>>& mp, string target) {
         if (dp.count(target))
             return dp[target];
@@ -220,10 +267,3 @@ private:
         return dp[target];
     }
 };
-
-void Test_691_StickersToSpellWord() {
-    
-    MinStickers().doit_dfs(vector<string>{"with", "example", "science"}, "thehat"); // 3
-    
-    MinStickers().doit_dfs(vector<string>{"notice", "possible"},  "basicbasic");
-}

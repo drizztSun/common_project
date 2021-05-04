@@ -56,7 +56,7 @@ using std::string;
 class SuggestedProducts {
 
 
-    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) 
+    vector<vector<string>> suggestedProducts_best(vector<string>& products, string searchWord) 
     {
         sort(products.begin(),products.end());
         vector<vector<string>>rets;

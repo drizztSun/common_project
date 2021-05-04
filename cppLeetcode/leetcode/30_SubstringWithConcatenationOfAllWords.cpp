@@ -73,35 +73,34 @@ public:
 			for (auto j = i; j <= strlen - wl; j += wl) {
 
 				std::string sub_str = s.substr(j, wl);
-				if (gDict.count(sub_str) == 1) {
-					tDict[sub_str]++;
-
-					if (tDict[sub_str] <= gDict[sub_str]) {
-						count++;
-					}
-					else {
-						while (tDict[sub_str] > gDict[sub_str]) {
-							auto tmp = s.substr(left, wl);
-							
-							tDict[tmp]--;
-							if (tDict[tmp] < gDict[tmp]) {
-								count--;
-							}
-							left += wl;
-						}
-					}
-
-					if (amount == count) {
-						ans.push_back(left);
-						count--;
-						tDict[s.substr(left, wl)]--;
-						left += wl;
-					}
-				}
-				else {
+				if (gDict.count(sub_str) == 0) {
 					count = 0;
 					tDict.clear();
 					left = j + wl;
+					continue;
+				}
+				
+				tDict[sub_str]++;
+
+				if (tDict[sub_str] <= gDict[sub_str]) {
+					count++;
+				} else {
+					while (tDict[sub_str] > gDict[sub_str]) {
+						auto tmp = s.substr(left, wl);
+						
+						tDict[tmp]--;
+						if (tDict[tmp] < gDict[tmp]) {
+							count--;
+						}
+						left += wl;
+					}
+				}
+
+				if (amount == count) {
+					ans.push_back(left);
+					count--;
+					tDict[s.substr(left, wl)]--;
+					left += wl;
 				}
 			}
 		}

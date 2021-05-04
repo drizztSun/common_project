@@ -187,12 +187,10 @@ class CleanRoom {
                     robot.move();
                     robot.turnLeft();
                     robot.turnLeft();
-                    
                 }
                 
                 robot.turnRight();
             }
-            
         };
         
         visited.insert(key(0, 0));

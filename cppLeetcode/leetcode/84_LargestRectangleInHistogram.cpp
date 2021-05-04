@@ -97,7 +97,7 @@ class LargestRectangleArea {
 public:
     
     // increasing monotonic stack
-    int doit_stack(vector<int>& heights) {
+    int doit_monotonic_stack(vector<int>& heights) {
         
         stack<int> pos;
         int maxv = 0;

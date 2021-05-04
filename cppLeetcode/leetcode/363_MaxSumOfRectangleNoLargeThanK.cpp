@@ -12,6 +12,7 @@
  */
 #include <vector>
 #include <set>
+#include <functional>
 
 using std::set;
 using std::vector;
@@ -95,26 +96,22 @@ public:
     
     int doit_dp(vector<vector<int>>& matrix, int k) {
         
-        if(matrix.size() == 0)
-            return 0;
+        if(matrix.size() == 0) return 0;
         
-        auto m = matrix.size();
-        auto n = matrix[0].size();
+        int m = matrix.size(), n = matrix[0].size();
         int res = INT_MIN;
         
         std::function<int(vector<int> &, int)> maxSumArray = [](vector<int> & arr, int k) {
             int sum = 0, maxS = INT_MIN;
-            for (int i = 0; i < arr.size(); i++) {  //it's a trick. Maybe O(n) to solve this problem
+            for (int i = 0; i < arr.size(); i++) {  
+                //it's a trick. Maybe O(n) to solve this problem
                 sum += arr[i];
                 maxS = std::max(sum, maxS);
-                if (sum == k )
-                    return sum;
-                if (sum < 0)
-                    sum = 0;
+                if (sum == k ) return sum;
+                if (sum < 0) sum = 0;
             }
             
-            if (maxS <= k)
-                return maxS;
+            if (maxS <= k) return maxS;
             
             maxS= INT_MIN;
             set<int>sums;
@@ -134,23 +131,21 @@ public:
         for(int i = 0; i < n; i++) {  // the number of columns is smaller
             
             vector<int> sums(m,0);
+
             for(int j = i; j < n; j++) {
                 
                 for(int row = 0; row < m; row++) {
                     sums[row] += matrix[row][j];
                 }
+
                 int ms = maxSumArray(sums, k);
                 
-                if (ms == k)
-                    return ms;
+                if (ms == k) return ms;
                 
-                if (res < ms && ms < k)
-                    res = ms;
+                if (res < ms && ms < k) res = ms;
 
             }
         }
         return res;
     }
-
-
 };

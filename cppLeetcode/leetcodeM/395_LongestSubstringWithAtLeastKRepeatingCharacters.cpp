@@ -111,23 +111,25 @@ public:
         std::function<int(string, int)> search = [&](string s, int) -> int{
 
             unordered_map<int,int>Map;
+            // count char frequency
             for (int i=0; i<s.size(); i++)
                 Map[s[i]]++;
                 
             int result = 0;
             for (int i=0; i<s.size(); i++)
             {
-                if (Map[s[i]]<k) 
-                    continue;
+                // don't start from any character less than k
+                if (Map[s[i]]<k) continue;
                 
                 int j = i;
-                while (j<s.size() && Map[s[j]] >= k)
-                    j++;
+                // don't include any character less than k
+                while (j<s.size() && Map[s[j]] >= k) j++;
                 
-                if (j-i==s.size())
-                    return s.size();
+                if (j-i==s.size()) return s.size();
                 
+                // work on the characters, those frequency more than k
                 result = std::max(result, search(s.substr(i,j-i),k));
+                
                 i = j-1;
             }
             return result;

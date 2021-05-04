@@ -57,9 +57,7 @@ public:
     int doit_binary_search(vector<vector<int>>&& mat, int k){
         
         auto M = mat.size(), N = mat[0].size();
-        int ans = 0;
-        
-        int left = 0, right = 0;
+        int ans = 0, left = 0, right = 0;
         for (int i = 0; i < M; i++) {
             left += mat[i][0];
             right += mat[i][N-1];
@@ -67,11 +65,8 @@ public:
 
         std::function<int(int, int, int, int)> search = [&](int target, int i, int sum, int k) {
         
-            if (target < sum)
-                return 0;
-            
-            if (i == mat.size())
-                return 1;
+            if (target < sum) return 0;
+            if (i == mat.size()) return 1;
             
             int ans = 0;
             
@@ -79,17 +74,15 @@ public:
                 
                 int cnt = search(target, i+1, sum + mat[i][j], k-ans);
                 
-                if (cnt == 0)
-                    break;
+                if (cnt == 0) break;
                 
                 ans += cnt;
-                if (ans > k)
-                    break;
+
+                if (ans > k) break;
             }
             
             return ans;
         };
-
         
         while (left <= right) {
             

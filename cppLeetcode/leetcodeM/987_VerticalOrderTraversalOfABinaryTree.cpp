@@ -39,26 +39,28 @@
  
  */
 
-//Definition for a binary tree node.
-struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-};
+
 
 #include <vector>
-using std::vector;
-
 #include <unordered_map>
+#include <algorithm>
+
+using std::vector;
 using std::unordered_map;
 
 class VerticalTraversal {
     
+    //Definition for a binary tree node.
+    struct TreeNode {
+        int val;
+        TreeNode *left;
+        TreeNode *right;
+        TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    };
+
 public:
     
     vector<vector<int>> doit(TreeNode* root) {
-        
         
         vector<std::tuple<int, int, TreeNode*>> pq;
         pq.push_back({0, 0, root});
@@ -104,12 +106,12 @@ public:
         
         return ans;
     }
-};
 
-class Solution_verticalTraversal {
 public:
+
     int min_left=0;
     int max_right=0;
+    
     void DFS(TreeNode* root,int x,int y,unordered_map<int,vector<std::pair<int,int>>> &umap)
     {
         if(root==NULL)
@@ -121,10 +123,8 @@ public:
         umap[y].push_back({x,root->val});
         DFS(root->left,x+1,y-1,umap);
         DFS(root->right,x+1,y+1,umap);
-        
-        
-       
     }
+
     vector<vector<int>> doit(TreeNode* root) {
         if(root==nullptr)
             return {};
@@ -146,22 +146,3 @@ public:
         return result;
     }
 };
-
-
-void test_987_vertical_order_traversal_of_binary_tree() {
-    
-    TreeNode r(3);
-    TreeNode r9(9);
-    TreeNode l2(20);
-    TreeNode r1(15);
-    TreeNode r7(7);
-    
-    r.left = &r9;
-    r.right = &l2;
-    l2.left = &r1;
-    l2.right = &r7;
-    
-    auto res1 = VerticalTraversal().doit(&r);
-    
-    return;
-}

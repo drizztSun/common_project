@@ -122,13 +122,16 @@ public:
     int get(int key) 
     {
         if (Map.find(key)==Map.end()) return -1;
+
         int f=Map[key].second;
         freq[f].erase(iter[key]);
         freq[f+1].push_back(key);
         iter[key]=--freq[f+1].end();
         Map[key].second++;
+
         if (freq[minfreq].size()==0)
             minfreq++;
+            
         return Map[key].first;
     }
     

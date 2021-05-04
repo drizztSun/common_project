@@ -88,12 +88,11 @@ public:
      */
     int doit_dp_dfs_Topdown(vector<vector<int>>&& matrix) {
 
-		if (matrix.size() == 0 || matrix[0].size() == 0) {
-			return 0;
-		}
+        if (matrix.size() == 0 || matrix[0].size() == 0) return 0;
         
-		int m = matrix.size(), n = matrix[0].size();
+        int m = matrix.size(), n = matrix[0].size();
         vector<vector<int>> dp(m, vector<int>(n, 0));
+        int dir[5] = {-1, 0, 1, 0, -1};
         
         // dfs
         std::function<int(int, int)> dfs = [&](int i, int j) {
@@ -103,14 +102,11 @@ public:
             int val = matrix[i][j];
             int ans = 1;
             
-            vector<std::pair<int, int>> next = { {1, 0} , {-1, 0}, {0, 1}, {0, -1} };
-
-            for (auto c : next) {
+            for (int k = 0; k < 4; k++) {
                 
-                int x = i + c.first, y = j + c.second;
+                int x = i + dir[k], y = j + dir[k+1];
                 
-                if (x < 0 || x >= m || y < 0 || y >= n || val <= matrix[x][y])
-                    continue;
+                if (x < 0 || x >= m || y < 0 || y >= n || val >= matrix[x][y]) continue;
                 
                 ans = std::max(ans, dfs(x, y) + 1);
             }
